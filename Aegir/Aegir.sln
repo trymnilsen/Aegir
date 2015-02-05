@@ -5,6 +5,8 @@ VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aegir", "Aegir\Aegir.csproj", "{A66048A1-71B8-4234-9EAD-3F5691A74678}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AegirGLIntegration", "AegirGLIntegration\AegirGLIntegration.csproj", "{B611B992-D589-44C4-AF72-53D3C775A621}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{A66048A1-71B8-4234-9EAD-3F5691A74678}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A66048A1-71B8-4234-9EAD-3F5691A74678}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A66048A1-71B8-4234-9EAD-3F5691A74678}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B611B992-D589-44C4-AF72-53D3C775A621}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B611B992-D589-44C4-AF72-53D3C775A621}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B611B992-D589-44C4-AF72-53D3C775A621}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B611B992-D589-44C4-AF72-53D3C775A621}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
