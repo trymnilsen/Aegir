@@ -1,7 +1,10 @@
-﻿using System;
+﻿using Aegir.Message;
+using AegirLib;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
@@ -13,5 +16,15 @@ namespace Aegir
     /// </summary>
     public partial class App : Application
     {
+        public App()
+        {
+            Simulation simulation = new Simulation();
+            AegirIOC.Register(simulation);
+        }
+
+        private void Application_Exit(object sender, ExitEventArgs e)
+        {
+            Debug.WriteLine("Goodbye");
+        }
     }
 }

@@ -57,6 +57,7 @@
       <HintPath>..\packages\OpenTK.GLControl.1.1.1589.5942\lib\NET40\OpenTK.GLControl.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Activities.Presentation" />
     <Reference Include="System.Data" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\MvvmLightLibs.5.0.2.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
@@ -78,10 +79,20 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Windows\Outputs.xaml.cs">
+    <Compile Include="Components\PropertyGrid.cs" />
+    <Compile Include="Message\SimulationCreatedMessage.cs" />
+    <Compile Include="ViewModel\Actors\ShipViewModel.cs" />
+    <Compile Include="ViewModel\MenuStripViewModel.cs" />
+    <Compile Include="ViewModel\PropertiesViewModel.cs" />
+    <Compile Include="ViewModel\StatusBarViewModel.cs" />
+    <Compile Include="ViewModel\ViewModelLocator.cs" />
+    <Compile Include="View\Sidebar.xaml.cs">
+      <DependentUpon>Sidebar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Window\Outputs.xaml.cs">
       <DependentUpon>Outputs.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\Settings.xaml.cs">
+    <Compile Include="Window\Settings.xaml.cs">
       <DependentUpon>Settings.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
@@ -96,11 +107,15 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Windows\Outputs.xaml">
+    <Page Include="View\Sidebar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Windows\Settings.xaml">
+    <Page Include="Window\Outputs.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Window\Settings.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -134,10 +149,18 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Converter\" />
     <Folder Include="Rendering\" />
-    <Folder Include="UIConverters\" />
-    <Folder Include="ViewModels\" />
-    <Folder Include="Views\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AegirGLIntegration\AegirGLIntegration.csproj">
+      <Project>{b611b992-d589-44c4-af72-53d3c775a621}</Project>
+      <Name>AegirGLIntegration</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AegirSimulation\AegirLib.csproj">
+      <Project>{b1096cf2-e224-4668-8410-93b1ee0a9991}</Project>
+      <Name>AegirLib</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

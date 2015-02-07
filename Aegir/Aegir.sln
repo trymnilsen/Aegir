@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aegir", "Aegir\Aegir.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AegirGLIntegration", "AegirGLIntegration\AegirGLIntegration.csproj", "{B611B992-D589-44C4-AF72-53D3C775A621}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AegirLib", "AegirSimulation\AegirLib.csproj", "{B1096CF2-E224-4668-8410-93B1EE0A9991}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{B611B992-D589-44C4-AF72-53D3C775A621}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B611B992-D589-44C4-AF72-53D3C775A621}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B611B992-D589-44C4-AF72-53D3C775A621}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1096CF2-E224-4668-8410-93B1EE0A9991}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1096CF2-E224-4668-8410-93B1EE0A9991}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1096CF2-E224-4668-8410-93B1EE0A9991}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1096CF2-E224-4668-8410-93B1EE0A9991}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
