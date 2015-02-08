@@ -58,6 +58,7 @@
     <Compile Include="DisplayList.cs" />
     <Compile Include="EditableBitmap.cs" />
     <Compile Include="FrameBuffer.cs" />
+    <Compile Include="Geometry\VertexBuffer.cs" />
     <Compile Include="GLDraw.cs" />
     <Compile Include="GLElement.xaml.cs">
       <DependentUpon>GLElement.xaml</DependentUpon>
@@ -66,7 +67,11 @@
     <Compile Include="GraphicsResource.cs" />
     <Compile Include="Helpers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Shader.cs" />
+    <Compile Include="Shader\FragmentShader.cs" />
+    <Compile Include="Shader\GeometryShader.cs" />
+    <Compile Include="Shader\Shader.cs" />
+    <Compile Include="Shader\ShaderProgram.cs" />
+    <Compile Include="Shader\VertexShader.cs" />
     <Compile Include="Texture.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -78,6 +83,7 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

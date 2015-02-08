@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,6 +24,22 @@ namespace Aegir
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            MessageBoxResult result = MessageBox.Show("Do you want to save your simulation?", "Save", MessageBoxButton.YesNoCancel);
+            switch (result)
+            {
+                case MessageBoxResult.No:
+                    break;
+                case MessageBoxResult.Yes:
+                    Debug.WriteLine("Saving");
+                    break;
+                case MessageBoxResult.Cancel:
+                    e.Cancel = true;
+                    break;
+            }
         }
     }
 }

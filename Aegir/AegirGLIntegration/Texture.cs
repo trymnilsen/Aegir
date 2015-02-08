@@ -5,6 +5,7 @@ using System.Text;
 using System.Drawing;
 using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL4;
+using AegirGLIntegration.Shader;
 
 namespace OpenGL
 {

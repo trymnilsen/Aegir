@@ -20,6 +20,8 @@ using Draw = System.Drawing;
 using OpenGL;
 using System.IO;
 using OpenTK.Graphics.OpenGL4;
+using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace AegirGLIntegration
 {
@@ -232,6 +234,7 @@ namespace AegirGLIntegration
 
         public GLElement()
         {
+            //Debug.WriteLine("###SizeOf Vector2 " + sizeof(int) + ":"+  Marshal.SizeOf(typeof(int)));
             InitializeComponent();
 
             // create and wrap winforms control

@@ -146,13 +146,14 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <None Include="Rendering\Shader\simple_fs.glsl" />
+    <None Include="Rendering\Shader\simple_vs.glsl" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Converter\" />
-    <Folder Include="Rendering\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AegirGLIntegration\AegirGLIntegration.csproj">

@@ -22,9 +22,5 @@ namespace Aegir
             AegirIOC.Register(simulation);
         }
 
-        private void Application_Exit(object sender, ExitEventArgs e)
-        {
-            Debug.WriteLine("Goodbye");
-        }
     }
 }
