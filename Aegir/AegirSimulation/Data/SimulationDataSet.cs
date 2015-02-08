@@ -1,4 +1,5 @@
 ﻿using AegirLib.Data.Actors;
+using AegirLib.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,12 +10,16 @@ namespace AegirLib.Data
 {
     public class SimulationDataSet
     {
-        public Ship ShipActor { get; private set; }
+        public List<Actor> RootNodes { get; private set; }
 
         public SimulationDataSet()
         {
-            ShipActor = new Ship();
-            ShipActor.Name = "No Ship Set";
+            RootNodes = new List<Actor>();
+            Ship subNodeTest = new Ship("SubShip");
+            Ship nodeTest = new Ship("ShipFoo");
+            nodeTest.Children.Add(subNodeTest);
+            RootNodes.Add(nodeTest);
+            RootNodes.Add(new Ship("Awesome Liner"));
         }
         
     }

@@ -1,6 +1,9 @@
-﻿using Aegir.ViewModel.Actors;
+﻿using Aegir.Message;
+using Aegir.ViewModel.Actors;
+using AegirLib.Data;
 using AegirLib.Data.Actors;
 using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Messaging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,16 +22,22 @@ namespace Aegir.ViewModel
             set 
             { 
                 if(this.selectedItem!=value)
-                {
+                { 
+                    selectedItem = value;
                     RaisePropertyChanged("SelectedItem");
-                    selectedItem = value; 
                 }
             }
         }
 
         public PropertiesViewModel()
         {
-            SelectedItem = new ShipViewModel();
+            SelectedItem = null;
+            Messenger.Default.Register<SelectedActorChangedMessage>(this, SetNewActorData);
+        }
+
+        private void SetNewActorData(SelectedActorChangedMessage actorChangeMessage)
+        {
+            SelectedItem = actorChangeMessage.Item;
         }
         
     }

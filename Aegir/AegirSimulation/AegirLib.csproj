@@ -7,8 +7,8 @@
     <ProjectGuid>{B1096CF2-E224-4668-8410-93B1EE0A9991}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>AegirSimulation</RootNamespace>
-    <AssemblyName>AegirSimulation</AssemblyName>
+    <RootNamespace>AegirLib</RootNamespace>
+    <AssemblyName>AegirLib</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -42,8 +42,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\Actor.cs" />
     <Compile Include="Data\Actors\Ship.cs" />
     <Compile Include="AegirIOC.cs" />
+    <Compile Include="Data\Actors\Water.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Simulation.cs" />
     <Compile Include="Data\SimulationDataSet.cs" />

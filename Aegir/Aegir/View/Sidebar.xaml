@@ -4,6 +4,9 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:wpg="clr-namespace:System.Windows.Controls"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:cmd="http://www.galasoft.ch/mvvmlight"
+             xmlns:model="clr-namespace:AegirLib.Data;assembly=AegirLib"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
@@ -12,12 +15,27 @@
             <RowDefinition Height="auto"></RowDefinition>
             <RowDefinition Height="1*"></RowDefinition>
         </Grid.RowDefinitions>
-        <TreeView>
-            <TreeViewItem Header="Hello">
-                <TreeViewItem Header="Bar"></TreeViewItem>
-            </TreeViewItem>
-            <TreeViewItem Header="Foo"></TreeViewItem>
-        </TreeView>
+        <Border DataContext="{Binding ObjectTreeVM, Source={StaticResource VMLocator}}">
+            <TreeView x:Name="ObjectTree" ItemsSource="{Binding Items}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="SelectedItemChanged">
+                        <cmd:EventToCommand Command="{Binding SelectItemChanged}" 
+                                            CommandParameter="{ Binding Path=SelectedItem, ElementName=ObjectTree}"></cmd:EventToCommand>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                <TreeView.Resources>
+                    <HierarchicalDataTemplate DataType="{x:Type model:Actor}" ItemsSource="{Binding Children}">
+                        <TextBlock Text="{Binding Name}" Tag="{Binding}">
+                            <TextBlock.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Header="Remove"/>
+                                </ContextMenu>
+                            </TextBlock.ContextMenu>
+                        </TextBlock>
+                    </HierarchicalDataTemplate>
+                </TreeView.Resources>
+            </TreeView>
+        </Border>
         <GridSplitter Grid.Row="1"
               HorizontalAlignment="Stretch"
               VerticalAlignment="Center"

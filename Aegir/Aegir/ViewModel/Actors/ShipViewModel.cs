@@ -42,6 +42,7 @@ namespace Aegir.ViewModel.Actors
         /// Does not update if the value is the same
         /// </summary>
         
+
         [Category("Transform")]
         [DisplayName("Transformation Mode")]
         [Description("Sets if the transformation should be considered absolute to the world space or relative to its possible parent")]

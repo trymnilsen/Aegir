@@ -80,9 +80,11 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Components\PropertyGrid.cs" />
+    <Compile Include="Message\SelectedActorChangedMessage.cs" />
     <Compile Include="Message\SimulationCreatedMessage.cs" />
     <Compile Include="ViewModel\Actors\ShipViewModel.cs" />
     <Compile Include="ViewModel\MenuStripViewModel.cs" />
+    <Compile Include="ViewModel\ObjectTreeViewModel.cs" />
     <Compile Include="ViewModel\PropertiesViewModel.cs" />
     <Compile Include="ViewModel\StatusBarViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />

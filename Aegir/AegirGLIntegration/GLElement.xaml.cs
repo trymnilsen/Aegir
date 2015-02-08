@@ -431,8 +431,9 @@ namespace AegirGLIntegration
         /// <summary>The main draw function</summary>
         private void Render()
         {
-            UpdateFPS();
-            onGLRenderStarted();
+            GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
+            //UpdateFPS();
+            //onGLRenderStarted();
             glControl.SwapBuffers();
         }
         /// <summary>Setup the various GL crap</summary>

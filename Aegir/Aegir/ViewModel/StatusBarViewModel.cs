@@ -26,19 +26,19 @@ namespace Aegir.ViewModel
         
         public StatusBarViewModel()
         {
-            Messenger.Default.Register<SimulationCreatedMessage>(this, SimulationSet);
-            //As it is the start, lets get the current simulation from the IOC
+            //Messenger.Default.Register<SimulationCreatedMessage>(this, SimulationSet);
+            ////As it is the start, lets get the current simulation from the IOC
 
-            Simulation sim = AegirIOC.Get<Simulation>();
-            if(sim != null)
-            {
-                //We have an initial Simulation
-                ShipName = sim.SimulationData.ShipActor.Name;
-            }
+            //Simulation sim = AegirIOC.Get<Simulation>();
+            //if(sim != null)
+            //{
+            //    //We have an initial Simulation
+            //    ShipName = sim.SimulationData.ShipActor.Name;
+            //}
         }
         private void SimulationSet(SimulationCreatedMessage newSimulation)
         {
-            ShipName = newSimulation.Item.SimulationData.ShipActor.Name;
+            //ShipName = newSimulation.Item.SimulationData.ShipActor.Name;
         }
     }
 }

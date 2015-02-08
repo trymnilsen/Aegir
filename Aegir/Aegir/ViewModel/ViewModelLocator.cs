@@ -15,6 +15,7 @@ namespace Aegir.ViewModel
         {
             AegirIOC.Register(new StatusBarViewModel());
             AegirIOC.Register(new PropertiesViewModel());
+            AegirIOC.Register(new ObjectTreeViewModel());
         }
 
         /// <summary>
@@ -36,6 +37,16 @@ namespace Aegir.ViewModel
             get
             {
                 return AegirIOC.Get<PropertiesViewModel>();
+            }
+        }
+        /// <summary>
+        /// Helper method for getting the objecttreeviewmodel 
+        /// </summary>
+        public ObjectTreeViewModel ObjectTreeVM
+        {
+            get
+            {
+                return AegirIOC.Get<ObjectTreeViewModel>();
             }
         }
 
