@@ -20,6 +20,7 @@ namespace AegirLib.Data
             nodeTest.Children.Add(subNodeTest);
             RootNodes.Add(nodeTest);
             RootNodes.Add(new Ship("Awesome Liner"));
+            RootNodes.Add(new Antenna());
         }
         
     }
