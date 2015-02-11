@@ -11,31 +11,12 @@
         Closing="Window_Closing">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="20px"></RowDefinition><!--Menu Strip-->
+            <RowDefinition Height="25px"></RowDefinition><!--Menu Strip-->
             <RowDefinition Height="1*"></RowDefinition><!--Main Area-->
             <RowDefinition Height="25px"></RowDefinition><!--StatusBar-->
         </Grid.RowDefinitions>
         <!--Menu Strip-->
-        <Menu>
-            <MenuItem Header="File">
-                <MenuItem Header="New Simulation"></MenuItem>
-                <MenuItem Header="Open Simulation"></MenuItem>
-                <MenuItem Header="Save Simulation"></MenuItem>
-                <Separator></Separator>
-                <MenuItem Header="Quit"></MenuItem>
-            </MenuItem>
-            <MenuItem Header="Create"></MenuItem>
-            <MenuItem Header="Settings"></MenuItem>
-            <MenuItem Header="Helpers">
-                <MenuItem IsCheckable="True" Header="Axes"></MenuItem>
-                <Separator></Separator>
-                <MenuItem IsCheckable="True" Header="Frames Per Second"></MenuItem>
-                <MenuItem IsCheckable="True" Header="Simulation Delta Time"></MenuItem>
-                <Separator></Separator>
-                <MenuItem IsCheckable="True" Header="PC UTC time"></MenuItem>
-                <MenuItem IsCheckable="True" Header="Simulation UTC Time"></MenuItem>
-            </MenuItem>
-        </Menu>
+        <views:Menu></views:Menu>
         <!--~MenuStrip-->
         <!--Main Area-->
         <Grid Grid.Row="1">
