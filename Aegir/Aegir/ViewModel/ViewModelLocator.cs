@@ -16,6 +16,8 @@ namespace Aegir.ViewModel
             AegirIOC.Register(new StatusBarViewModel());
             AegirIOC.Register(new PropertiesViewModel());
             AegirIOC.Register(new ObjectTreeViewModel());
+            AegirIOC.Register(new MenuStripViewModel());
+            AegirIOC.Register(new PlaybackViewModel());
         }
 
         /// <summary>
@@ -27,6 +29,28 @@ namespace Aegir.ViewModel
             get
             {
                 return AegirIOC.Get<StatusBarViewModel>();
+            }
+        }
+        /// <summary>
+        /// Gets the Menubar view's viewmodel
+        /// </summary>
+
+        public MenuStripViewModel MenuStripVM
+        {
+            get
+            {
+                return AegirIOC.Get<MenuStripViewModel>();
+            }
+        }
+        /// <summary>
+        /// Gets the Menubar view's viewmodel
+        /// </summary>
+
+        public PlaybackViewModel PlaybackVM
+        {
+            get
+            {
+                return AegirIOC.Get<PlaybackViewModel>();
             }
         }
         /// <summary>

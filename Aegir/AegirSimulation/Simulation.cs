@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 
 namespace AegirLib
 {
-    public class Simulation
+    public class SimulationCase
     {
         public SimulationDataSet SimulationData { get; private set; }
-        public Simulation()
+        public SimulationCase()
         {
             SimulationData = new SimulationDataSet();
         }

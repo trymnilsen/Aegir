@@ -38,7 +38,7 @@ namespace Aegir.ViewModel
             SelectItemChanged = new RelayCommand<Actor>(c => SelectedItem = c);
             Items = new ObservableCollection<Actor>();
             //Add all our items
-            Simulation curSimulation = AegirIOC.Get<Simulation>();
+            SimulationCase curSimulation = AegirIOC.Get<SimulationCase>();
             if(curSimulation != null)
             {
                 foreach(Actor a in curSimulation.SimulationData.RootNodes)

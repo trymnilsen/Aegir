@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AegirLib.Simulation.Transformation
+namespace AegirLib.Simulation
 {
-    public enum ETransformationType
+    public enum EPlaybackMode
     {
-        LOCAL,
-        WORLD
+        PAUSED,
+        PLAYING,
+        REWIND
     }
 }

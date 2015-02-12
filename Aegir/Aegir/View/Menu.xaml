@@ -4,8 +4,13 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
+             xmlns:convert="clr-namespace:Aegir.Converter"
+             xmlns:playbackMode="clr-namespace:AegirLib.Simulation;assembly=AegirLib"
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
+        <Grid.Resources>
+            <convert:PlaybackButtonConverter x:Key="PlayBackEnumConverter"></convert:PlaybackButtonConverter>
+        </Grid.Resources>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="2*"></ColumnDefinition>
             <ColumnDefinition Width="1*"></ColumnDefinition>
@@ -33,12 +38,18 @@
         </Menu>
         <!--~MenuStrip-->
         <!--Playback Controls-->
-        <StackPanel Grid.Column="1" Orientation="Horizontal">
-            <ToggleButton Margin="5 2">
-                <TextBlock Text="Play"></TextBlock>
+        <StackPanel Grid.Column="1" 
+                    Orientation="Horizontal" 
+                    DataContext="{Binding PlaybackVM, Source={StaticResource VMLocator}}">
+            <ToggleButton Margin="5 2" IsChecked="{Binding PlayMode, 
+                                                           Converter={StaticResource PlayBackEnumConverter},
+                                                           ConverterParameter={x:Static playbackMode:EPlaybackMode.REWIND}}">
+                <TextBlock Text="Rewind"></TextBlock>
             </ToggleButton>
-            <ToggleButton Margin="5 2">
-                <TextBlock Text="Pause"></TextBlock>
+            <ToggleButton Margin="5 2" IsChecked="{Binding PlayMode, 
+                                                   Converter={StaticResource PlayBackEnumConverter},
+                                                   ConverterParameter={x:Static playbackMode:EPlaybackMode.PLAYING}}">
+                <TextBlock Text="Play"></TextBlock>
             </ToggleButton>
             <Button Margin="5 2">
                 <TextBlock Text="Step"></TextBlock>

@@ -80,11 +80,14 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Components\PropertyGrid.cs" />
+    <Compile Include="Converter\EnumToBoolConverter.cs" />
+    <Compile Include="Converter\PlaybackButtonConverter.cs" />
     <Compile Include="Message\SelectedActorChangedMessage.cs" />
     <Compile Include="Message\SimulationCreatedMessage.cs" />
     <Compile Include="ViewModel\Actors\ShipViewModel.cs" />
     <Compile Include="ViewModel\MenuStripViewModel.cs" />
     <Compile Include="ViewModel\ObjectTreeViewModel.cs" />
+    <Compile Include="ViewModel\PlaybackViewModel.cs" />
     <Compile Include="ViewModel\PropertiesViewModel.cs" />
     <Compile Include="ViewModel\StatusBarViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
@@ -159,9 +162,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Converter\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\AegirGLIntegration\AegirGLIntegration.csproj">
       <Project>{b611b992-d589-44c4-af72-53d3c775a621}</Project>

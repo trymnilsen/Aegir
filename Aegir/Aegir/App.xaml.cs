@@ -18,7 +18,7 @@ namespace Aegir
     {
         public App()
         {
-            Simulation simulation = new Simulation();
+            SimulationCase simulation = new SimulationCase();
             AegirIOC.Register(simulation);
         }
 

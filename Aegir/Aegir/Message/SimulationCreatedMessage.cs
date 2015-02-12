@@ -10,13 +10,13 @@ namespace Aegir.Message
 {
     internal class SimulationCreatedMessage
     {
-        public Simulation Item { get; set; }
+        public SimulationCase Item { get; set; }
 
-        private SimulationCreatedMessage(Simulation item)
+        private SimulationCreatedMessage(SimulationCase item)
         {
             this.Item = item;
         }
-        public static void Send(Simulation newItem)
+        public static void Send(SimulationCase newItem)
         {
             Messenger.Default.Send<SimulationCreatedMessage>(new SimulationCreatedMessage(newItem));
         }
