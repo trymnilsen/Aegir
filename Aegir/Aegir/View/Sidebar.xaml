@@ -16,19 +16,32 @@
             <RowDefinition Height="1*"></RowDefinition>
         </Grid.RowDefinitions>
         <Border DataContext="{Binding ObjectTreeVM, Source={StaticResource VMLocator}}">
-            <TreeView x:Name="ObjectTree" ItemsSource="{Binding Items}">
+            <TreeView x:Name="ObjectTree" ItemsSource="{Binding Items}" AllowDrop="True">
+                <!--Treeview Drag event-->
+                <TreeView.ItemContainerStyle>
+                    <Style TargetType="{x:Type TreeViewItem}">
+                        <!-- We have to select the item which is right-clicked on -->
+                        <!--<EventSetter Event="TreeViewItem.PreviewMouseRightButtonDown" Handler="TreeViewItem_PreviewMouseRightButtonDown"/>-->
+                        <!--<EventSetter Event="TreeViewItem.DragOver" Handler="treeView_DragOver"/>-->
+                        <EventSetter Event="TreeViewItem.Drop" Handler="treeView_Drop"/>
+                        <EventSetter Event="TreeViewItem.MouseMove" Handler="treeView_MouseMove"/>
+                    </Style>
+                </TreeView.ItemContainerStyle>
+                <!--Selected item binding-->
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="SelectedItemChanged">
                         <cmd:EventToCommand Command="{Binding SelectItemChanged}" 
                                             CommandParameter="{ Binding Path=SelectedItem, ElementName=ObjectTree}"></cmd:EventToCommand>
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
+                <!--Template for each treeview item-->
                 <TreeView.Resources>
                     <HierarchicalDataTemplate DataType="{x:Type model:Actor}" ItemsSource="{Binding Children}">
                         <TextBlock Text="{Binding Name}" Tag="{Binding}">
                             <TextBlock.ContextMenu>
                                 <ContextMenu>
-                                    <MenuItem Header="Remove"/>
+                                    <MenuItem Header="Remove" 
+                                              Command="{Binding ObjectTreeVM.RemoveItemCommand, Source={StaticResource VMLocator}}"/>
                                 </ContextMenu>
                             </TextBlock.ContextMenu>
                         </TextBlock>

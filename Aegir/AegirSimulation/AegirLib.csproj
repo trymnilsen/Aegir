@@ -40,6 +40,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Data\Actor.cs" />
+    <Compile Include="Data\GraphHelper.cs" />
+    <Compile Include="Data\IActorContainer.cs" />
     <Compile Include="Data\Actors\Antenna.cs" />
     <Compile Include="Data\Actors\Ship.cs" />
     <Compile Include="AegirIOC.cs" />

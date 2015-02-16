@@ -24,47 +24,12 @@
                 <ColumnDefinition Width="280px"></ColumnDefinition>
                 <ColumnDefinition Width="1*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <views:Sidebar></views:Sidebar>
-            <GL:GLElement Grid.Column="1" ClearColor="CornflowerBlue"></GL:GLElement>
+            <GL:GLElement Grid.Column="1" ClearColor="CornflowerBlue"/>
+            <views:Sidebar/>
         </Grid>
         <!--~MainArea-->
         <!--StatusBar-->
-        <StatusBar Grid.Row="2" DataContext="{Binding StatusBarVM, Source={StaticResource VMLocator}}">
-            <StatusBar.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="2*"/>
-                            <ColumnDefinition Width="4*"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                    </Grid>
-                </ItemsPanelTemplate>
-            </StatusBar.ItemsPanel>
-            <StatusBarItem>
-                <TextBlock Text="Replaying Data"></TextBlock>
-            </StatusBarItem>
-            <StatusBarItem Grid.Column="1">
-                <TextBlock Text="LOG XXXX-XX-XX.log"></TextBlock>
-            </StatusBarItem>
-            <StatusBarItem Grid.Column="2">
-                <TextBlock Text="4 Outputs">
-                    <TextBlock.ToolTip>
-                        <TextBlock>Click To Open Overview</TextBlock>
-                    </TextBlock.ToolTip>
-                    <TextBlock.ContextMenu>
-                        <ContextMenu>
-                            <MenuItem Header="Show Outputs"></MenuItem>
-                            <MenuItem Header="Pause All"></MenuItem>
-                            <MenuItem Header="Un-Pause All" IsEnabled="False"></MenuItem>
-                        </ContextMenu>
-                    </TextBlock.ContextMenu>
-                </TextBlock>
-            </StatusBarItem>
-        </StatusBar> 
+        <views:StatusBar Grid.Row="2"></views:StatusBar>
         <!--~StatusBar-->
     </Grid>
 </Window>

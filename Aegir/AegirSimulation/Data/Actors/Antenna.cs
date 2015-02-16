@@ -32,7 +32,8 @@ namespace AegirLib.Data.Actors
             set { Debug.WriteLine("Something " + value); }
         }
 
-        public Antenna()
+        public Antenna(IActorContainer parent)
+            :base(parent)
         {
             this.connection = new Receiver();
             this.Name = "Antenna";

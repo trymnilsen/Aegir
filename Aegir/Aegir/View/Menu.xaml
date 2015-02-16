@@ -24,7 +24,12 @@
                 <Separator></Separator>
                 <MenuItem Header="Quit"></MenuItem>
             </MenuItem>
-            <MenuItem Header="Create"></MenuItem>
+            <MenuItem Header="Create">
+                <MenuItem Header="Antenna"></MenuItem>
+                <MenuItem Header="Point"></MenuItem>
+                <Separator></Separator>
+                <MenuItem Header="Wind"></MenuItem>
+            </MenuItem>
             <MenuItem Header="Settings"></MenuItem>
             <MenuItem Header="Helpers">
                 <MenuItem IsCheckable="True" Header="Axes"></MenuItem>

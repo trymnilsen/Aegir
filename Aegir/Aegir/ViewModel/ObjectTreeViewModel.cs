@@ -18,7 +18,22 @@ namespace Aegir.ViewModel
         private Actor selectedItem;
 
         public RelayCommand<Actor> SelectItemChanged { get; private set; }
-        public ObservableCollection<Actor> Items { get; private set;}
+        public RelayCommand<Actor> RemoveItemCommand { get; private set; }
+        public RelayCommand<Actor> MoveItemCommand { get; private set; }
+        public ObservableCollection<Actor> Items {
+            get
+            {
+                SimulationCase curSimulation = AegirIOC.Get<SimulationCase>();
+                if(curSimulation != null)
+                {
+                    return curSimulation.SimulationData.RootNodes;
+                }
+                else
+                {
+                    throw new InvalidOperationException("Simulation case in set in IOC");
+                }
+            }
+        }
 
         public Actor SelectedItem
         {
@@ -36,21 +51,23 @@ namespace Aegir.ViewModel
         public ObjectTreeViewModel()
         {
             SelectItemChanged = new RelayCommand<Actor>(c => SelectedItem = c);
-            Items = new ObservableCollection<Actor>();
+            RemoveItemCommand = new RelayCommand<Actor>(RemoveItem);
+            MoveItemCommand = new RelayCommand<Actor>(MoveTo);
             //Add all our items
-            SimulationCase curSimulation = AegirIOC.Get<SimulationCase>();
-            if(curSimulation != null)
-            {
-                foreach(Actor a in curSimulation.SimulationData.RootNodes)
-                {
-                    Items.Add(a);
-                }
-            }
         }
         public void UpdateSelectedItem(Actor newItem)
         {
             Debug.WriteLine("Setting Selected Item " + newItem);
             SelectedActorChangedMessage.Send(newItem);
+        }
+
+        private void RemoveItem(Actor item)
+        {
+            Debug.WriteLine("Removing Item" + item);
+        }
+        private void MoveTo(Actor item)
+        {
+            Debug.WriteLine("Moving Item" + item);
         }
     }
 }

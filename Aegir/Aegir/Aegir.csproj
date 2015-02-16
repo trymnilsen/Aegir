@@ -82,6 +82,8 @@
     <Compile Include="Components\PropertyGrid.cs" />
     <Compile Include="Converter\EnumToBoolConverter.cs" />
     <Compile Include="Converter\PlaybackButtonConverter.cs" />
+    <Compile Include="Input\VirtualTrackball.cs" />
+    <Compile Include="Message\OutputChangedMessage.cs" />
     <Compile Include="Message\SelectedActorChangedMessage.cs" />
     <Compile Include="Message\SimulationCreatedMessage.cs" />
     <Compile Include="ViewModel\Actors\ShipViewModel.cs" />
@@ -96,6 +98,9 @@
     </Compile>
     <Compile Include="View\Sidebar.xaml.cs">
       <DependentUpon>Sidebar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\StatusBar.xaml.cs">
+      <DependentUpon>StatusBar.xaml</DependentUpon>
     </Compile>
     <Compile Include="Window\Outputs.xaml.cs">
       <DependentUpon>Outputs.xaml</DependentUpon>
@@ -120,6 +125,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Sidebar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\StatusBar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -162,7 +171,9 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Rendering\Asset\" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AegirGLIntegration\AegirGLIntegration.csproj">
       <Project>{b611b992-d589-44c4-af72-53d3c775a621}</Project>

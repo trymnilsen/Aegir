@@ -9,7 +9,8 @@ namespace AegirLib.Data.Actors
     public class Ship : Actor
     {
         public float Width { get; set; }
-        public Ship(String name)
+        public Ship(IActorContainer parent, String name)
+            :base(parent)
         {
             this.Name = name;
             this.Type = "Ship";
