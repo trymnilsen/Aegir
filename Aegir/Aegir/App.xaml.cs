@@ -1,4 +1,5 @@
 ﻿using Aegir.Message;
+using Aegir.Rendering;
 using AegirLib;
 using System;
 using System.Collections.Generic;
@@ -18,8 +19,11 @@ namespace Aegir
     {
         public App()
         {
+            Environment.SetEnvironmentVariable("AppEnvironment", SimulationCase.APP_ENV_TOOL);
             SimulationCase simulation = new SimulationCase();
+            RenderAssetStore assetStore = new RenderAssetStore();
             AegirIOC.Register(simulation);
+            AegirIOC.Register(assetStore);
         }
 
     }

@@ -59,6 +59,7 @@
                     HelpVisible="False" 
                     ToolbarVisible="False"
                     PropertySort="CategorizedAlphabetical"
+                    SnapsToDevicePixels="True"
                     SelectedObject="{Binding SelectedItem}"/>
         </Border>
     </Grid>

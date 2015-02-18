@@ -82,10 +82,18 @@
     <Compile Include="Components\PropertyGrid.cs" />
     <Compile Include="Converter\EnumToBoolConverter.cs" />
     <Compile Include="Converter\PlaybackButtonConverter.cs" />
+    <Compile Include="Rendering\Geometry\arrow.cs" />
+    <Compile Include="Rendering\Geometry\cube.cs" />
+    <Compile Include="Rendering\Geometry\Model.cs" />
+    <Compile Include="Rendering\Geometry\OBJ\ObjMesh.cs" />
+    <Compile Include="Rendering\Geometry\OBJ\ObjMeshLoader.cs" />
+    <Compile Include="Rendering\Geometry\Plane.cs" />
+    <Compile Include="Rendering\Geometry\VertexBuffer.cs" />
     <Compile Include="Input\VirtualTrackball.cs" />
     <Compile Include="Message\OutputChangedMessage.cs" />
     <Compile Include="Message\SelectedActorChangedMessage.cs" />
     <Compile Include="Message\SimulationCreatedMessage.cs" />
+    <Compile Include="Rendering\RenderAssetStore.cs" />
     <Compile Include="ViewModel\Actors\ShipViewModel.cs" />
     <Compile Include="ViewModel\MenuStripViewModel.cs" />
     <Compile Include="ViewModel\ObjectTreeViewModel.cs" />
@@ -171,9 +179,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Rendering\Asset\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\AegirGLIntegration\AegirGLIntegration.csproj">
       <Project>{b611b992-d589-44c4-af72-53d3c775a621}</Project>

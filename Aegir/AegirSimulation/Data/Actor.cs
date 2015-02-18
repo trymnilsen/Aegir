@@ -12,6 +12,9 @@ namespace AegirLib.Data
     {
         [Browsable(false)]
         public ObservableCollection<Actor> Children { get; protected set; }
+        [Browsable(false)]
+        public int GraphicsID { get; set; }
+        [Browsable(false)]
         public IActorContainer Parent { get; set; }
 
         public string Name { get; set; }

@@ -10,6 +10,9 @@ namespace AegirLib
 {
     public class SimulationCase
     {
+        public const string APP_ENV_CLI = "CLI";
+        public const string APP_ENV_TOOL = "TOOL";
+
         public SimulationDataSet SimulationData { get; private set; }
         public SimulationCase()
         {

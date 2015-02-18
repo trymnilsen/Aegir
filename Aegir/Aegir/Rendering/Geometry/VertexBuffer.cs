@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AegirGLIntegration.Geometry
+namespace Aegir.Rendering.Geometry
 {
     public abstract class VertexBuffer
     {

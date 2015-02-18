@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace AegirLib
 {
+    /// <summary>
+    /// Our super simple IOC container
+    /// </summary>
     public class AegirIOC
     {
         /// <summary>

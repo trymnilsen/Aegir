@@ -53,14 +53,6 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DisplayList.cs" />
-    <Compile Include="EditableBitmap.cs" />
-    <Compile Include="FrameBuffer.cs" />
-    <Compile Include="Geometry\arrow.cs" />
-    <Compile Include="Geometry\cube.cs" />
-    <Compile Include="Geometry\Model.cs" />
-    <Compile Include="Geometry\Plane.cs" />
-    <Compile Include="Geometry\VertexBuffer.cs" />
     <Compile Include="GLDraw.cs" />
     <Compile Include="GLElement.xaml.cs">
       <DependentUpon>GLElement.xaml</DependentUpon>
@@ -74,7 +66,6 @@
     <Compile Include="Shader\Shader.cs" />
     <Compile Include="Shader\ShaderProgram.cs" />
     <Compile Include="Shader\VertexShader.cs" />
-    <Compile Include="Texture.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
