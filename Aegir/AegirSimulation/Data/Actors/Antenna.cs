@@ -19,6 +19,7 @@ namespace AegirLib.Data.Actors
         public double Y { get; set; }
         [Category("Transform")]
         public double Z { get; set; }
+
         [Category("Connection")]
         public int Port {
             get { return connection.Port; }
@@ -26,6 +27,8 @@ namespace AegirLib.Data.Actors
         }
 
         [Category("Connection")]
+        [ReadOnly(true)]
+        [Description("The ip this Antennna and Receiver is broadcasting on (same as pc program is run on)")]
         public string IpAddress
         {
             get { return "127.0.0.1"; }

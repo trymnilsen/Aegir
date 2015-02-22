@@ -18,6 +18,7 @@ namespace Aegir.ViewModel
             AegirIOC.Register(new ObjectTreeViewModel());
             AegirIOC.Register(new MenuStripViewModel());
             AegirIOC.Register(new PlaybackViewModel());
+            AegirIOC.Register(new RenderingViewModel());
         }
 
         /// <summary>
@@ -71,6 +72,13 @@ namespace Aegir.ViewModel
             get
             {
                 return AegirIOC.Get<ObjectTreeViewModel>();
+            }
+        }
+        public RenderingViewModel RenderingVM
+        {
+            get
+            {
+                return AegirIOC.Get<RenderingViewModel>();
             }
         }
 

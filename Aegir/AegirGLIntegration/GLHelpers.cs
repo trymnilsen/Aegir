@@ -18,7 +18,12 @@ namespace OpenGL
         /// <param name="color">The color of the background</param>
         public static void ClearColor(System.Windows.Media.Color color)
         {
-            GL.ClearColor(color.R / 255f, color.G / 255f, color.B / 255f, color.A / 255f);
+            Vector4 newColor = ColorToFloat(color);
+            GL.ClearColor(newColor.X, newColor.Y, newColor.Z, newColor.W);
+        }
+        public static Vector4 ColorToFloat(System.Windows.Media.Color color)
+        {
+            return new Vector4(color.R / 255f, color.G / 255f, color.B / 255f, color.A / 255f);
         }
         /// <summary>Set the GL forecolor</summary>
         /// <param name="color">The color value</param>

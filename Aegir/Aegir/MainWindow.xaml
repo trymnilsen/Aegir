@@ -2,12 +2,14 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:views="clr-namespace:Aegir.View"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:cmd="http://www.galasoft.ch/mvvmlight"
         xmlns:GL="clr-namespace:AegirGLIntegration;assembly=AegirGLIntegration"
         Title="Aegir - GNSS Simulator" 
-        MinHeight="350" 
-        MinWidth="525" 
-        Height="350" 
-        Width="525"
+        MinHeight="550" 
+        MinWidth="755" 
+        Height="550" 
+        Width="755"
         Closing="Window_Closing">
     <Grid>
         <Grid.RowDefinitions>
@@ -24,7 +26,21 @@
                 <ColumnDefinition Width="280px"></ColumnDefinition>
                 <ColumnDefinition Width="1*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <GL:GLElement Grid.Column="1" ClearColor="CornflowerBlue"/>
+            <GL:GLElement  Grid.Column="1" 
+                           ClearColor="CornflowerBlue"
+                           DataContext="{Binding RenderingVM, Source={StaticResource VMLocator}}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="GLRenderStarted">
+                        <cmd:EventToCommand Command="{Binding RenderStartedCommand}"></cmd:EventToCommand>
+                    </i:EventTrigger>
+                    <i:EventTrigger EventName="GLInitialized">
+                        <cmd:EventToCommand Command="{Binding RenderInitalizedCommand}"></cmd:EventToCommand>
+                    </i:EventTrigger>
+                    <i:EventTrigger EventName="SizeChanged">
+                        <cmd:EventToCommand Command="{Binding RenderResizedCommand}" PassEventArgsToCommand="True"></cmd:EventToCommand>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </GL:GLElement>
             <views:Sidebar/>
         </Grid>
         <!--~MainArea-->

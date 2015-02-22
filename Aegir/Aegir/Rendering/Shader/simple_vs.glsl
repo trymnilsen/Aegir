@@ -5,8 +5,7 @@ in  vec3 vColor;
 out vec4 color;
 uniform mat4 modelview;
  
-void
-main()
+void main()
 {
     gl_Position = modelview * vec4(vPosition, 1.0);
  

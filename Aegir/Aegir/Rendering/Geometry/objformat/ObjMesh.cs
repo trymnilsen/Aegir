@@ -1,17 +1,35 @@
 ﻿using OpenTK;
+using OpenTK.Graphics.OpenGL4;
 using System;
 using System.IO;
 using System.Runtime.InteropServices;
+using System.Windows.Media;
 
 namespace Aegir.Rendering.Geometry.OBJ
 {
     public class ObjMesh
     {
+        private ObjQuad[] quads;
+        private ObjTriangle[] triangles;
+        private ObjVertex[] vertices;
+
+        private int verticesBufferId;
+        private int trianglesBufferId;
+        private int quadsBufferId;
+
+        private Color color;
+
         public string FileName {get; private set;}
 
         public ObjMesh(FileInfo file)
         {
             this.FileName = file.FullName;
+
+            color = new Color();
+            color.R = 233;
+            color.G = 108;
+            color.B = 67;
+            color.A = 255;
         }
         public bool LoadFile()
         {
@@ -23,28 +41,22 @@ namespace Aegir.Rendering.Geometry.OBJ
             get { return vertices; }
             set { vertices = value; }
         }
-        ObjVertex[] vertices;
-
+        
         public ObjTriangle[] Triangles
         {
             get { return triangles; }
             set { triangles = value; }
         }
-        ObjTriangle[] triangles;
 
         public ObjQuad[] Quads
         {
             get { return quads; }
             set { quads = value; }
         }
-        ObjQuad[] quads;
-
-        int verticesBufferId;
-        int trianglesBufferId;
-        int quadsBufferId;
 
         public void Prepare()
         {
+            GL.GenBuffers(1, out verticesBufferId);
             //if (verticesBufferId == 0)
             //{
             //    GL.GenBuffers(1, out verticesBufferId);
@@ -67,25 +79,12 @@ namespace Aegir.Rendering.Geometry.OBJ
             //}
         }
 
-        public void Render()
+        public override string ToString()
         {
-            Prepare();
-
-            //GL.PushClientAttrib(ClientAttribMask.ClientVertexArrayBit);
-            //GL.EnableClientState(EnableCap.VertexArray);
-            //GL.BindBuffer(BufferTarget.ArrayBuffer, verticesBufferId);
-            //GL.InterleavedArrays(InterleavedArrayFormat.T2fN3fV3f, Marshal.SizeOf(typeof(ObjVertex)), IntPtr.Zero);
-
-            //GL.BindBuffer(BufferTarget.ElementArrayBuffer, trianglesBufferId);
-            //GL.DrawElements(BeginMode.Triangles, triangles.Length * 3, DrawElementsType.UnsignedInt, IntPtr.Zero);
-
-            //if (quads.Length > 0)
-            //{
-            //    GL.BindBuffer(BufferTarget.ElementArrayBuffer, quadsBufferId);
-            //    GL.DrawElements(BeginMode.Quads, quads.Length * 4, DrawElementsType.UnsignedInt, IntPtr.Zero);
-            //}
-
-            //GL.PopClientAttrib();
+            return "File: " + FileName +
+                   "\n O:" + Vertices.Length +
+                   "\n T:" + Triangles.Length +
+                   "\n Q:" + Quads.Length;
         }
 
         [StructLayout(LayoutKind.Sequential)]

@@ -1,6 +1,8 @@
 ﻿using Aegir.Rendering.Geometry.OBJ;
+using AegirLib.Data.Actors;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -18,12 +20,37 @@ namespace Aegir.Rendering
         /// </summary>
         private List<ObjMesh> models;
 
+        private Dictionary<Type, int> typeModels;
         /// <summary>
         /// Constructs a new store instance
         /// </summary>
         public RenderAssetStore()
         {
             models = new List<ObjMesh>();
+
+            //Load our models
+            typeModels = new Dictionary<Type, int>();
+        }
+        /// <summary>
+        /// Loads the given model and assigns it to the given type
+        /// </summary>
+        /// <remarks>
+        /// Replaces the model if it is already loaded
+        /// </remarks>
+        /// <param name="filepath">filepath to our model</param>
+        /// <param name="targetType">type we want to associate this model with</param>
+        public void CreateModelFromFile(string filepath, Type targetType)
+        {
+            int id = CreateModelFromFile(filepath);
+            if (typeModels.ContainsKey(targetType))
+            {
+                //update it
+                typeModels[targetType] = id;
+            }
+            else
+            {
+                typeModels.Add(targetType, id);
+            }
         }
         /// <summary>
         /// Loads a mesh from a file
@@ -52,7 +79,10 @@ namespace Aegir.Rendering
             //Add to collection
             models.Add(newModelMesh);
             //Return index
-            return models.Count - 1;
+            int newIndex = models.Count - 1;
+            Debug.WriteLine("Loaded Model: " + fileName + " with index: " + newIndex);
+            Debug.WriteLine("Model info:" + newModelMesh.ToString());
+            return newIndex;
         }
         /// <summary>
         /// Looks up a mesh from an id/index
@@ -61,12 +91,27 @@ namespace Aegir.Rendering
         /// <returns>Mesh data for this index/id</returns>
         public ObjMesh LookupModelMesh(int index)
         {
+            //Check for valid index
             if(index>models.Count-1 || index<0)
             {
                 return null;
             }
             return models[index];
         }
+        /// <summary>
+        /// Looks up a mesh based on a type
+        /// </summary>
+        /// <param name="type">The type to lookup</param>
+        /// <returns>Mesh data</returns>
+        public ObjMesh LookupModelMesh(Type type)
+        {
+            if(typeModels.ContainsKey(type))
+            {
+                return LookupModelMesh(typeModels[type]);
+            }
+            return null;
+        }
+
 
     }
 }

@@ -436,7 +436,7 @@ namespace AegirGLIntegration
         {
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
             //UpdateFPS();
-            //onGLRenderStarted();
+            onGLRenderStarted();
             glControl.SwapBuffers();
         }
         /// <summary>Setup the various GL crap</summary>

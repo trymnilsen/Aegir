@@ -73,6 +73,25 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="Xceed.Wpf.AvalonDock">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.2.3\lib\net40\Xceed.Wpf.AvalonDock.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Aero">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.2.3\lib\net40\Xceed.Wpf.AvalonDock.Themes.Aero.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Metro">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.2.3\lib\net40\Xceed.Wpf.AvalonDock.Themes.Metro.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.VS2010">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.2.3\lib\net40\Xceed.Wpf.AvalonDock.Themes.VS2010.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.DataGrid">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.2.3\lib\net40\Xceed.Wpf.DataGrid.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.Toolkit, Version=2.3.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Extended.Wpf.Toolkit.2.3\lib\net40\Xceed.Wpf.Toolkit.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -82,23 +101,28 @@
     <Compile Include="Components\PropertyGrid.cs" />
     <Compile Include="Converter\EnumToBoolConverter.cs" />
     <Compile Include="Converter\PlaybackButtonConverter.cs" />
+    <Compile Include="Message\Rendering\ChangeRenderSceneMessage.cs" />
+    <Compile Include="Rendering\Camera.cs" />
     <Compile Include="Rendering\Geometry\arrow.cs" />
     <Compile Include="Rendering\Geometry\cube.cs" />
     <Compile Include="Rendering\Geometry\Model.cs" />
-    <Compile Include="Rendering\Geometry\OBJ\ObjMesh.cs" />
-    <Compile Include="Rendering\Geometry\OBJ\ObjMeshLoader.cs" />
+    <Compile Include="Rendering\Geometry\objformat\ObjMesh.cs" />
+    <Compile Include="Rendering\Geometry\objformat\ObjMeshLoader.cs" />
     <Compile Include="Rendering\Geometry\Plane.cs" />
     <Compile Include="Rendering\Geometry\VertexBuffer.cs" />
     <Compile Include="Input\VirtualTrackball.cs" />
-    <Compile Include="Message\OutputChangedMessage.cs" />
-    <Compile Include="Message\SelectedActorChangedMessage.cs" />
-    <Compile Include="Message\SimulationCreatedMessage.cs" />
+    <Compile Include="Message\Output\OutputChangedMessage.cs" />
+    <Compile Include="Message\Selection\SelectedActorChangedMessage.cs" />
+    <Compile Include="Message\Simulation\SimulationCreatedMessage.cs" />
+    <Compile Include="Rendering\IRenderScene.cs" />
+    <Compile Include="Rendering\Scenes\SimulationScene.cs" />
     <Compile Include="Rendering\RenderAssetStore.cs" />
     <Compile Include="ViewModel\Actors\ShipViewModel.cs" />
     <Compile Include="ViewModel\MenuStripViewModel.cs" />
     <Compile Include="ViewModel\ObjectTreeViewModel.cs" />
     <Compile Include="ViewModel\PlaybackViewModel.cs" />
     <Compile Include="ViewModel\PropertiesViewModel.cs" />
+    <Compile Include="ViewModel\RenderingViewModel.cs" />
     <Compile Include="ViewModel\StatusBarViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="View\Menu.xaml.cs">

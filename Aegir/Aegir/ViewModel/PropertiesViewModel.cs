@@ -1,14 +1,6 @@
-﻿using Aegir.Message;
-using Aegir.ViewModel.Actors;
-using AegirLib.Data;
-using AegirLib.Data.Actors;
+﻿using Aegir.Message.Selection;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Messaging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Aegir.ViewModel
 {

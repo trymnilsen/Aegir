@@ -46,9 +46,15 @@
     <Compile Include="Data\Actors\Ship.cs" />
     <Compile Include="AegirIOC.cs" />
     <Compile Include="Data\Actors\Water.cs" />
+    <Compile Include="Data\ITransformable.cs" />
+    <Compile Include="Logging\DebugOutputWriter.cs" />
+    <Compile Include="Logging\ELogLevel.cs" />
+    <Compile Include="Logging\FileOutputWriter.cs" />
+    <Compile Include="Logging\LogWriter.cs" />
+    <Compile Include="Logging\Logger.cs" />
     <Compile Include="Output\Receiver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Simulation.cs" />
+    <Compile Include="SimulationCase.cs" />
     <Compile Include="Data\SimulationDataSet.cs" />
     <Compile Include="Simulation\EPlaybackMode.cs" />
     <Compile Include="Simulation\Transformation\ETransformationType.cs" />

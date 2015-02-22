@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using AegirLib;
 using GalaSoft.MvvmLight.Messaging;
 
-namespace Aegir.Message
+namespace Aegir.Message.Simulation
 {
     internal class SimulationCreatedMessage
     {

@@ -30,9 +30,17 @@
                 <Separator></Separator>
                 <MenuItem Header="Wind"></MenuItem>
             </MenuItem>
-            <MenuItem Header="Settings"></MenuItem>
+            <MenuItem Header="Settings">
+                <MenuItem Header="Logging Level">
+                    <MenuItem Header="Verbose"></MenuItem>
+                    <MenuItem Header="Debug"></MenuItem>
+                    <MenuItem Header="Info"></MenuItem>
+                    <MenuItem Header="Error"></MenuItem>
+                </MenuItem>
+            </MenuItem>
             <MenuItem Header="Helpers">
                 <MenuItem IsCheckable="True" Header="Axes"></MenuItem>
+                <MenuItem IsCheckable="True" Header="Physics Helpers"></MenuItem>
                 <Separator></Separator>
                 <MenuItem IsCheckable="True" Header="Frames Per Second"></MenuItem>
                 <MenuItem IsCheckable="True" Header="Simulation Delta Time"></MenuItem>

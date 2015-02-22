@@ -31,13 +31,12 @@ namespace Aegir.View
         {
             InitializeComponent();
         }
-        private void TreeView_MouseDown(object sender, MouseButtonEventArgs e)
+        private void treeView_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.ChangedButton == MouseButton.Left)
             {
                 lastMouseDown = e.GetPosition(ObjectTree);
             }
-
         }
         private void treeView_MouseMove(object sender, MouseEventArgs e)
         {
@@ -48,8 +47,8 @@ namespace Aegir.View
                     Point currentPosition = e.GetPosition(ObjectTree);
 
 
-                    if ((Math.Abs(currentPosition.X - lastMouseDown.X) > 10.0) ||
-                        (Math.Abs(currentPosition.Y - lastMouseDown.Y) > 10.0))
+                    if ((Math.Abs(currentPosition.X - lastMouseDown.X) > 20.0) ||
+                        (Math.Abs(currentPosition.Y - lastMouseDown.Y) > 20.0))
                     {
                         draggedItem = (TreeViewItem)sender;
                         Actor selectedItem = ObjectTree.SelectedItem as Actor;
@@ -135,8 +134,10 @@ namespace Aegir.View
         {
             //no need to make a big fuss about it if we drop on existing parent
             if (item.Parent == to) return;
+            //Ignore add to self
+            if (item == to) return;
 
-            if (item != to && !CheckIsRelated(item,to))
+            if (!CheckIsRelated(item,to))
             {
                 //Asking user wether he want to drop the dragged TreeViewItem here or not
                 if (MessageBox.Show("Would you like to drop " + item.Name + " into " + to.Name + "", "", MessageBoxButton.YesNo) == MessageBoxResult.Yes)

@@ -2,6 +2,7 @@
 using System.IO;
 using System.Collections.Generic;
 using OpenTK;
+using System.Globalization;
 
 namespace Aegir.Rendering.Geometry.OBJ
 {
@@ -18,7 +19,7 @@ namespace Aegir.Rendering.Geometry.OBJ
                     return true;
                 }
             }
-            catch { return false; }
+            catch(Exception e) { return false; }
         }
 
         static char[] splitCharacters = new char[] { ' ' };
@@ -55,22 +56,22 @@ namespace Aegir.Rendering.Geometry.OBJ
                         break;
 
                     case "v": // Vertex
-                        float x = float.Parse(parameters[1]);
-                        float y = float.Parse(parameters[2]);
-                        float z = float.Parse(parameters[3]);
+                        float x = float.Parse(parameters[1], CultureInfo.InvariantCulture.NumberFormat);
+                        float y = float.Parse(parameters[2], CultureInfo.InvariantCulture.NumberFormat);
+                        float z = float.Parse(parameters[3], CultureInfo.InvariantCulture.NumberFormat);
                         vertices.Add(new Vector3(x, y, z));
                         break;
 
                     case "vt": // TexCoord
-                        float u = float.Parse(parameters[1]);
-                        float v = float.Parse(parameters[2]);
+                        float u = float.Parse(parameters[1], CultureInfo.InvariantCulture.NumberFormat);
+                        float v = float.Parse(parameters[2], CultureInfo.InvariantCulture.NumberFormat);
                         texCoords.Add(new Vector2(u, v));
                         break;
 
                     case "vn": // Normal
-                        float nx = float.Parse(parameters[1]);
-                        float ny = float.Parse(parameters[2]);
-                        float nz = float.Parse(parameters[3]);
+                        float nx = float.Parse(parameters[1], CultureInfo.InvariantCulture.NumberFormat);
+                        float ny = float.Parse(parameters[2], CultureInfo.InvariantCulture.NumberFormat);
+                        float nz = float.Parse(parameters[3], CultureInfo.InvariantCulture.NumberFormat);
                         normals.Add(new Vector3(nx, ny, nz));
                         break;
 
@@ -125,7 +126,8 @@ namespace Aegir.Rendering.Geometry.OBJ
             else vertexIndex = vertexIndex - 1;
             vertex = vertices[vertexIndex];
 
-            if (parameters.Length > 1)
+            //Texture and vector parameter could be omitted/not included
+            if (parameters.Length > 1 && parameters[1].Length> 0)
             {
                 int texCoordIndex = int.Parse(parameters[1]);
                 if (texCoordIndex < 0) texCoordIndex = texCoords.Count + texCoordIndex;
@@ -133,7 +135,7 @@ namespace Aegir.Rendering.Geometry.OBJ
                 texCoord = texCoords[texCoordIndex];
             }
 
-            if (parameters.Length > 2)
+            if (parameters.Length > 2  && parameters[2].Length> 0)
             {
                 int normalIndex = int.Parse(parameters[2]);
                 if (normalIndex < 0) normalIndex = normals.Count + normalIndex;

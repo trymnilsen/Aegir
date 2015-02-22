@@ -1,15 +1,12 @@
-﻿using Aegir.Message;
+﻿using Aegir.Message.Selection;
 using AegirLib;
 using AegirLib.Data;
+using AegirLib.Logging;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Aegir.ViewModel
 {
@@ -57,7 +54,7 @@ namespace Aegir.ViewModel
         }
         public void UpdateSelectedItem(Actor newItem)
         {
-            Debug.WriteLine("Setting Selected Item " + newItem);
+            Logger.Log("Selected Item: " + newItem, ELogLevel.Debug);
             SelectedActorChangedMessage.Send(newItem);
         }
 
