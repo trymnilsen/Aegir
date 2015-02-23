@@ -1,6 +1,7 @@
 ﻿using Aegir.Message.Rendering;
 using Aegir.Rendering;
 using Aegir.Rendering.Scenes;
+using AegirLib;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Messaging;
@@ -35,6 +36,7 @@ namespace Aegir.ViewModel
         /// </summary>
         public RenderingViewModel()
         {
+            AegirIOC.Register(new RenderAssetStore());
             //Set up commands
             RenderStartedCommand = new RelayCommand(RenderStarted);
             RenderInitalizedCommand = new RelayCommand(RenderInit);

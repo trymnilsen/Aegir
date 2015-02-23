@@ -3,9 +3,11 @@ using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Practices.ServiceLocation;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Aegir.ViewModel
 {
@@ -13,6 +15,10 @@ namespace Aegir.ViewModel
     {
         static ViewModelLocator()
         {
+            #if DEBUG
+                if (DesignerProperties.GetIsInDesignMode(new DependencyObject())) return;
+            #endif
+
             AegirIOC.Register(new StatusBarViewModel());
             AegirIOC.Register(new PropertiesViewModel());
             AegirIOC.Register(new ObjectTreeViewModel());

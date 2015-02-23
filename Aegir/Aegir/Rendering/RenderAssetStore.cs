@@ -1,5 +1,6 @@
 ﻿using Aegir.Rendering.Geometry.OBJ;
 using AegirLib.Data.Actors;
+using AegirLib.Logging;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -80,8 +81,8 @@ namespace Aegir.Rendering
             models.Add(newModelMesh);
             //Return index
             int newIndex = models.Count - 1;
-            Debug.WriteLine("Loaded Model: " + fileName + " with index: " + newIndex);
-            Debug.WriteLine("Model info:" + newModelMesh.ToString());
+            Logger.Log("Loaded Model: " + fileName + " with index: " + newIndex, ELogLevel.Debug);
+            Logger.Log("Model info:" + newModelMesh.ToString(),ELogLevel.Debug);
             return newIndex;
         }
         /// <summary>

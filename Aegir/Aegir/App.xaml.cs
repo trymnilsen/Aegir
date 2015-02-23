@@ -3,6 +3,7 @@ using Aegir.Rendering;
 using AegirLib;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Configuration;
 using System.Data;
 using System.Diagnostics;
@@ -19,11 +20,13 @@ namespace Aegir
     {
         public App()
         {
-            Environment.SetEnvironmentVariable("AppEnvironment", SimulationCase.APP_ENV_TOOL);
+            #if DEBUG
+                if (DesignerProperties.GetIsInDesignMode(new DependencyObject())) return;
+            #endif
+            //Environment.SetEnvironmentVariable("AppEnvironment", SimulationCase.APP_ENV_TOOL);
             SimulationCase simulation = new SimulationCase();
-            RenderAssetStore assetStore = new RenderAssetStore();
+            //RenderAssetStore assetStore = new RenderAssetStore();
             AegirIOC.Register(simulation);
-            AegirIOC.Register(assetStore);
         }
 
     }

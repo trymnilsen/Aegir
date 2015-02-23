@@ -16,6 +16,7 @@ namespace Aegir.Rendering
         private float posY;
         private float posZ;
         private bool isDirty;
+        private Vector2 viewPort;
         private VirtualTrackball trackball;
 
         public Matrix4 CameraMatrix
@@ -76,7 +77,16 @@ namespace Aegir.Rendering
                 Z = value.Z;
             }
         }
-        
+        public Vector2 ViewPortSize
+        {
+            get { return viewPort; }
+            set
+            {
+                viewPort = value;
+                this.trackball.Window_W = (int)value.X;
+                this.trackball.Window_H = (int)value.Y;
+            }
+        }
         public Camera(Vector3 position)
         {
             this.X = position.X;

@@ -1,4 +1,7 @@
-﻿using OpenTK;
+﻿using AegirLib;
+using AegirLib.Data;
+using AegirLib.Data.Actors;
+using OpenTK;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,21 +12,43 @@ namespace Aegir.Rendering.Scenes
 {
     public class SimulationScene : IRenderScene
     {
-        public Camera CameraInstance { get; private set; }
+        private bool initialized;
+
+        private RenderAssetStore assetStore;
+        private Camera CameraInstance;
+
+        private List<Actor> actors;
+
+
+        public bool IsInitialized
+        {
+            get { return initialized; }
+        }
+
+        public string SceneId
+        {
+            get { return "SimulationScene"; }
+        }
 
         public SimulationScene()
         {
-
+            assetStore = AegirIOC.Get<RenderAssetStore>();
+            //Register type models
+            assetStore.CreateModelFromFile("ship.obj", typeof(Ship));
         }
         public void RenderStarted()
         {
-            
+            //Render actors
+            foreach(Actor a in actors)
+            {
+                RenderActor(a);
+            }
         }
-
+        
         public void RenderInit()
         {
             CameraInstance = new Camera(Vector3.Zero);
-
+            initialized = true;
         }
 
         public void Resume()
@@ -39,17 +64,20 @@ namespace Aegir.Rendering.Scenes
 
         public void SceneResized(int w, int h)
         {
-            throw new NotImplementedException();
+            CameraInstance.ViewPortSize = new Vector2(w, h);
         }
 
-        public bool IsInitialized
+        private void RenderActor(Actor actor)
         {
-            get { throw new NotImplementedException(); }
-        }
+            if(actor.Children.Count>0)
+            {
+                foreach(Actor a in actor.Children)
+                {
+                    RenderActor(a);
+                }
+            }
+            //Get the geometry, bind the geometry and set the transformation
 
-        public string SceneId
-        {
-            get { throw new NotImplementedException(); }
         }
     }
 }
