@@ -61,7 +61,6 @@ namespace Aegir.Rendering.Scenes
             throw new NotImplementedException();
         }
 
-
         public void SceneResized(int w, int h)
         {
             CameraInstance.ViewPortSize = new Vector2(w, h);
