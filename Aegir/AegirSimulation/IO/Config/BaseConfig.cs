@@ -7,16 +7,20 @@ using System.Threading.Tasks;
 
 namespace AegirLib.IO.Config
 {
-    public class BaseConfig : IConfigProvider<BaseConfig>
+    public class BaseConfig : IConfigProvider
     {
         public ELogLevel activeLogLevel;
 
-        public BaseConfig Store()
+        public BaseConfig()
+        {
+            activeLogLevel = ELogLevel.Info;
+        }
+        public object Store()
         {
             throw new NotImplementedException();
         }
 
-        public void Retrieve(BaseConfig retrievedData)
+        public void Retrieve(object retrievedData)
         {
             throw new NotImplementedException();
         }

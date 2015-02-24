@@ -33,8 +33,9 @@ namespace Aegir.Rendering.Scenes
         public SimulationScene()
         {
             assetStore = AegirIOC.Get<RenderAssetStore>();
+            actors = new List<Actor>();
             //Register type models
-            assetStore.CreateModelFromFile("ship.obj", typeof(Ship));
+            //assetStore.CreateModelFromFile("ship.obj", typeof(Ship));
         }
         public void RenderStarted()
         {

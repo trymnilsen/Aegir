@@ -8,20 +8,22 @@ using System.Threading.Tasks;
 
 namespace Aegir.Config
 {
-    public class AssetsConfig : IConfigProvider<AssetsConfig>
+    public class AssetConfig : IConfigProvider
     {
         public List<AssetDefinition> Assets { get; set; }
-        public AssetsConfig()
+        public AssetConfig()
         {
             Assets = new List<AssetDefinition>();
+            Assets.Add(new AssetDefinition("Ship", "Lolol.jpg"));
+            Assets.Add(new AssetDefinition("Water", "watergfx.fns"));
         }
 
-        public AssetsConfig Store()
+        public object Store()
         {
             throw new NotImplementedException();
         }
 
-        public void Retrieve(AssetsConfig retrievedData)
+        public void Retrieve(object retrievedData)
         {
             throw new NotImplementedException();
         }

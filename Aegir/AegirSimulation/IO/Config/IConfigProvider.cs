@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace AegirLib.IO.Config
 {
-    public interface IConfigProvider<T>
+    public interface IConfigProvider
     {
-        T Store();
-        void Retrieve(T retrievedData);
+        object Store();
+        void Retrieve(object retrievedData);
     }
 }
