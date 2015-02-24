@@ -1,0 +1,23 @@
+{
+	"Render":
+	{
+		"Assets": [
+			{
+				"Type": "Ship",
+				"File": "filepath"
+			}
+		]
+	},
+	"Actors":
+	{
+
+	},
+	"config":
+	{
+		"logging":"debug"
+	},
+	"inputs":
+	{
+
+	}
+}
