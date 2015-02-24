@@ -30,6 +30,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.7.0.1-beta1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -47,6 +51,9 @@
     <Compile Include="AegirIOC.cs" />
     <Compile Include="Data\Actors\Water.cs" />
     <Compile Include="Data\ITransformable.cs" />
+    <Compile Include="IO\Config\BaseConfig.cs" />
+    <Compile Include="IO\Config\ConfigFile.cs" />
+    <Compile Include="IO\Config\IConfigProvider.cs" />
     <Compile Include="Logging\DebugOutputWriter.cs" />
     <Compile Include="Logging\ELogLevel.cs" />
     <Compile Include="Logging\FileOutputWriter.cs" />
