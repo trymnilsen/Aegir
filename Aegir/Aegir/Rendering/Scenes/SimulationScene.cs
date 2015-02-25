@@ -36,6 +36,8 @@ namespace Aegir.Rendering.Scenes
             actors = new List<Actor>();
             //Register type models
             //assetStore.CreateModelFromFile("ship.obj", typeof(Ship));
+            actors = new List<Actor>();
+
         }
         public void RenderStarted()
         {
@@ -64,7 +66,7 @@ namespace Aegir.Rendering.Scenes
 
         public void SceneResized(int w, int h)
         {
-            CameraInstance.ViewPortSize = new Vector2(w, h);
+            //CameraInstance.ViewPortSize = new Vector2(w, h);
         }
 
         private void RenderActor(Actor actor)

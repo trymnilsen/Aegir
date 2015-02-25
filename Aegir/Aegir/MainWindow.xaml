@@ -26,22 +26,34 @@
                 <ColumnDefinition Width="280px"></ColumnDefinition>
                 <ColumnDefinition Width="1*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <GL:GLElement  Grid.Column="1" 
-                           ClearColor="CornflowerBlue"
-                           DataContext="{Binding RenderingVM, Source={StaticResource VMLocator}}">
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="GLRenderStarted">
-                        <cmd:EventToCommand Command="{Binding RenderStartedCommand}"></cmd:EventToCommand>
-                    </i:EventTrigger>
-                    <i:EventTrigger EventName="GLInitialized">
-                        <cmd:EventToCommand Command="{Binding RenderInitalizedCommand}"></cmd:EventToCommand>
-                    </i:EventTrigger>
-                    <i:EventTrigger EventName="SizeChanged">
-                        <cmd:EventToCommand Command="{Binding RenderResizedCommand}" PassEventArgsToCommand="True"></cmd:EventToCommand>
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
-            </GL:GLElement>
             <views:Sidebar/>
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*" MinHeight="100"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="1*" MinHeight="100"></RowDefinition>
+                </Grid.RowDefinitions>
+                <GL:GLElement ClearColor="CornflowerBlue"
+                           DataContext="{Binding RenderingVM, Source={StaticResource VMLocator}}">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="GLRenderStarted">
+                            <cmd:EventToCommand Command="{Binding RenderStartedCommand}"></cmd:EventToCommand>
+                        </i:EventTrigger>
+                        <i:EventTrigger EventName="GLInitialized">
+                            <cmd:EventToCommand Command="{Binding RenderInitalizedCommand}"></cmd:EventToCommand>
+                        </i:EventTrigger>
+                        <i:EventTrigger EventName="SizeChanged">
+                            <cmd:EventToCommand Command="{Binding RenderResizedCommand}" PassEventArgsToCommand="True"></cmd:EventToCommand>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </GL:GLElement>
+                <GridSplitter Grid.Row="1"
+                      HorizontalAlignment="Stretch"
+                      VerticalAlignment="Center"
+                      ShowsPreview="True"
+                      Height="5"></GridSplitter>
+                <Border Grid.Row="2"></Border>
+            </Grid>
         </Grid>
         <!--~MainArea-->
         <!--StatusBar-->
