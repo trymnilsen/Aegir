@@ -4,27 +4,27 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             d:DesignHeight="25" d:DesignWidth="500">
+             d:DesignHeight="25" d:DesignWidth="755">
     <StatusBar Grid.Row="2" DataContext="{Binding StatusBarVM, Source={StaticResource VMLocator}}">
         <StatusBar.ItemsPanel>
             <ItemsPanelTemplate>
                 <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="2*"/>
-                        <ColumnDefinition Width="4*"/>
-                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="100"/>
                     </Grid.ColumnDefinitions>
                 </Grid>
             </ItemsPanelTemplate>
         </StatusBar.ItemsPanel>
         <StatusBarItem>
-            <TextBlock Text="Replaying Data"></TextBlock>
+            <TextBlock Text="Replaying LOG XXXX-XX-XX.log" Margin="0 0 25 0"></TextBlock>
         </StatusBarItem>
         <StatusBarItem Grid.Column="1">
-            <TextBlock Text="LOG XXXX-XX-XX.log"></TextBlock>
+            <StackPanel Orientation="Horizontal">
+                <ProgressBar Width="100" Height="16" Margin="0 0 5 0" Value="50"/>
+                <TextBlock Text="4 Tiles Downloading"/>
+            </StackPanel>
         </StatusBarItem>
         <StatusBarItem Grid.Column="2">
             <StackPanel Orientation="Horizontal">

@@ -39,11 +39,11 @@ namespace Aegir
             #else
                 string configFilepath = "config.json";
             #endif
-            ConfigFile mainConfig = new ConfigFile(configFilepath);
-            mainConfig.RegisterConfig(new BaseConfig());
-            mainConfig.RegisterConfig(new AssetConfig());
-            mainConfig.SaveFile();
-            AegirIOC.Register(mainConfig);
+            //ConfigFile mainConfig = new ConfigFile(configFilepath);
+            //mainConfig.RegisterConfig(new BaseConfig());
+            //mainConfig.RegisterConfig(new AssetConfig());
+            //mainConfig.SaveFile();
+            //AegirIOC.Register(mainConfig);
         }
 
     }

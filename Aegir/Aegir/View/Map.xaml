@@ -1,0 +1,54 @@
+﻿<UserControl x:Class="Aegir.View.Map"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"></ColumnDefinition>
+            <ColumnDefinition Width="150"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <!--Map-->
+        <Border Background="LightGreen">
+            <Border.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Center"></MenuItem>
+                    <Separator></Separator>
+                    <MenuItem Header="Zoom In"></MenuItem>
+                    <MenuItem Header="Zoom Out"></MenuItem>
+                    <Separator></Separator>
+                    <MenuItem Header="Add Waypoint"></MenuItem>
+                </ContextMenu>
+            </Border.ContextMenu>
+        </Border><!--Placeholderr-->
+        <!--Waypoints-->
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="25"></RowDefinition>
+                <RowDefinition Height="1*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Button>
+                <TextBlock Text="Add Waypoint"></TextBlock>
+            </Button>
+            <ListBox Grid.Row="1">
+                <ListBoxItem>
+                    <TextBlock Text="Fdsfs"></TextBlock>
+                </ListBoxItem>
+                <ListBoxItem>
+                    <TextBlock Text="gfdsa21"></TextBlock>
+                </ListBoxItem>
+                <ListBoxItem>
+                    <TextBlock Text="sdfdsf3"></TextBlock>
+                </ListBoxItem>
+                <ListBoxItem>
+                    <TextBlock Text="fsdfsdb"></TextBlock>
+                </ListBoxItem>
+                <ListBoxItem>
+                    <TextBlock Text="435ssfsd"></TextBlock>
+                </ListBoxItem>
+            </ListBox>
+        </Grid>
+    </Grid>
+</UserControl>

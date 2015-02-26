@@ -26,13 +26,16 @@
                 <ColumnDefinition Width="280px"></ColumnDefinition>
                 <ColumnDefinition Width="1*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
+            <!--Sidebar-->
             <views:Sidebar/>
+            <!--Preview Area-->
             <Grid Grid.Column="1">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="1*" MinHeight="100"></RowDefinition>
                     <RowDefinition Height="auto"></RowDefinition>
                     <RowDefinition Height="1*" MinHeight="100"></RowDefinition>
                 </Grid.RowDefinitions>
+                <!--GL Element-->
                 <GL:GLElement ClearColor="CornflowerBlue"
                            DataContext="{Binding RenderingVM, Source={StaticResource VMLocator}}">
                     <i:Interaction.Triggers>
@@ -47,13 +50,16 @@
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </GL:GLElement>
+                <!--Resize grip thingy-->
                 <GridSplitter Grid.Row="1"
                       HorizontalAlignment="Stretch"
                       VerticalAlignment="Center"
                       ShowsPreview="True"
                       Height="5"></GridSplitter>
-                <Border Grid.Row="2"></Border>
+                <!--Map View-->
+                <views:Map Grid.Row="2"></views:Map>
             </Grid>
+            <!--Preview Area-->
         </Grid>
         <!--~MainArea-->
         <!--StatusBar-->

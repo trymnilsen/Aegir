@@ -102,6 +102,12 @@
     <Compile Include="Config\AssetsConfig.cs" />
     <Compile Include="Converter\EnumToBoolConverter.cs" />
     <Compile Include="Converter\PlaybackButtonConverter.cs" />
+    <Compile Include="Map\BitmapStore.cs" />
+    <Compile Include="Map\MapCanvas.cs" />
+    <Compile Include="Map\MapCanvas.MapOffset.cs" />
+    <Compile Include="Map\Tile.cs" />
+    <Compile Include="Map\TileGenerator.cs" />
+    <Compile Include="Map\TilePanel.cs" />
     <Compile Include="Message\Rendering\ChangeRenderSceneMessage.cs" />
     <Compile Include="Rendering\AssetDefinition.cs" />
     <Compile Include="Rendering\Camera.cs" />
@@ -127,6 +133,9 @@
     <Compile Include="ViewModel\RenderingViewModel.cs" />
     <Compile Include="ViewModel\StatusBarViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
+    <Compile Include="View\Map.xaml.cs">
+      <DependentUpon>Map.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Menu.xaml.cs">
       <DependentUpon>Menu.xaml</DependentUpon>
     </Compile>
@@ -154,6 +163,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="View\Map.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Menu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
