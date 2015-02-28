@@ -126,6 +126,7 @@
     <Compile Include="Rendering\Scenes\SimulationScene.cs" />
     <Compile Include="Rendering\RenderAssetStore.cs" />
     <Compile Include="ViewModel\Actors\ShipViewModel.cs" />
+    <Compile Include="ViewModel\MapViewModel.cs" />
     <Compile Include="ViewModel\MenuStripViewModel.cs" />
     <Compile Include="ViewModel\ObjectTreeViewModel.cs" />
     <Compile Include="ViewModel\PlaybackViewModel.cs" />

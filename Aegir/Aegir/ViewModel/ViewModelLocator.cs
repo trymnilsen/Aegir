@@ -25,6 +25,7 @@ namespace Aegir.ViewModel
             AegirIOC.Register(new MenuStripViewModel());
             AegirIOC.Register(new PlaybackViewModel());
             AegirIOC.Register(new RenderingViewModel());
+            AegirIOC.Register(new MapViewModel());
         }
 
         /// <summary>
@@ -78,6 +79,13 @@ namespace Aegir.ViewModel
             get
             {
                 return AegirIOC.Get<ObjectTreeViewModel>();
+            }
+        }
+        public MapViewModel MapViewModel
+        {
+            get
+            {
+                return AegirIOC.Get<MapViewModel>();
             }
         }
         public RenderingViewModel RenderingVM

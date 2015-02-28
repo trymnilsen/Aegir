@@ -28,27 +28,32 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="25"></RowDefinition>
                 <RowDefinition Height="1*"></RowDefinition>
+                <RowDefinition Height="25"></RowDefinition>
             </Grid.RowDefinitions>
             <Button>
                 <TextBlock Text="Add Waypoint"></TextBlock>
             </Button>
             <ListBox Grid.Row="1">
                 <ListBoxItem>
-                    <TextBlock Text="Fdsfs"></TextBlock>
+                    <TextBlock Text="Waypoint 1"></TextBlock>
                 </ListBoxItem>
                 <ListBoxItem>
-                    <TextBlock Text="gfdsa21"></TextBlock>
+                    <TextBlock Text="Waypoint 2"></TextBlock>
                 </ListBoxItem>
                 <ListBoxItem>
-                    <TextBlock Text="sdfdsf3"></TextBlock>
+                    <TextBlock Text="Waypoint 3"></TextBlock>
                 </ListBoxItem>
                 <ListBoxItem>
-                    <TextBlock Text="fsdfsdb"></TextBlock>
+                    <TextBlock Text="Waypoint 4"></TextBlock>
                 </ListBoxItem>
                 <ListBoxItem>
-                    <TextBlock Text="435ssfsd"></TextBlock>
+                    <TextBlock Text="Waypoint 5"></TextBlock>
                 </ListBoxItem>
             </ListBox>
+            <StackPanel Grid.Row="2" Orientation="Horizontal">
+                <CheckBox Margin="5 4 10 0"></CheckBox>
+                <TextBlock Margin="0 3" Text="Show All"></TextBlock>
+            </StackPanel>
         </Grid>
     </Grid>
 </UserControl>
