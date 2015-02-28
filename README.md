@@ -1,5 +1,5 @@
 # Aegir
-Simulates GNSS signals from boat antennas via outputted NMEA sentences visualized in OpenGL
+Simulates GNSS NMEA output from receivers visualized in OpenGL
 
-![Current-ish screenshot](http://i.imgur.com/vOtu28k.png)
+![Current-ish screenshot](http://i.imgur.com/mdgiw3p.png)
 
