@@ -1,4 +1,5 @@
-﻿using AegirLib;
+﻿using Aegir.Map;
+using AegirLib;
 using AegirLib.Data.Map;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
@@ -69,6 +70,7 @@ namespace Aegir.ViewModel
         
         public MapViewModel()
         {
+            TileGenerator.CacheFolder = @"ImageCache";
             AddWaypointCommand = new RelayCommand(AddWaypointToMap);
         }
         private void AddWaypointToMap()
