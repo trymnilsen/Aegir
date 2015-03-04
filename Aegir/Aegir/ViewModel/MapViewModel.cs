@@ -15,36 +15,7 @@ namespace Aegir.ViewModel
     public class MapViewModel:ViewModelBase
     {
         private bool showAll;
-
-        private double currentLatitude;
-        private double currentLongitude;
-
-        public double Latitude
-        {
-            get { return currentLatitude; }
-            set 
-            { 
-                if(value != currentLatitude)
-                {
-                    currentLatitude = value;
-                    RaisePropertyChanged("Latitude");
-                }
-            }
-        }
-
-        public double Longitude
-        {
-            get { return currentLongitude; }
-            set 
-            {
-                if(value != currentLongitude)
-                {
-                    currentLongitude = value; 
-                }
-            }
-        }
-        
-        
+        private int downloadCount;
 
         public ObservableCollection<Waypoint> Waypoints
         {
@@ -66,10 +37,25 @@ namespace Aegir.ViewModel
                 }
             }
         }
+
+        public int DownloadCount
+        {
+            get { return downloadCount; }
+            set 
+            {
+                if(downloadCount!=value)
+                {
+                    downloadCount = value;
+                    RaisePropertyChanged("DownloadCount");
+                }
+            }
+        }
+        
         public RelayCommand AddWaypointCommand { get; private set; }
         
         public MapViewModel()
         {
+
             TileGenerator.CacheFolder = @"ImageCache";
             AddWaypointCommand = new RelayCommand(AddWaypointToMap);
         }

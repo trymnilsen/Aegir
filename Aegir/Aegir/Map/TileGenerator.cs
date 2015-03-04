@@ -13,6 +13,9 @@ namespace Aegir.Map
         /// <summary>The maximum allowed zoom level.</summary>
         public const int MaxZoom = 18;
 
+        /// <summary>The Minimum level of zoom.</summary>
+        public const int MinZoom = 2;
+
         /// <summary>The size of a tile in pixels.</summary>
         internal const double TileSize = 256;
 
@@ -68,7 +71,7 @@ namespace Aegir.Map
         /// <returns>A value in the range of 0 - MaxZoom inclusive.</returns>
         public static int GetValidZoom(int zoom)
         {
-            return (int)Clip(zoom, 0, MaxZoom);
+            return (int)Clip(zoom, MinZoom, MaxZoom);
         }
 
         /// <summary>Returns the latitude for the specified tile number.</summary>

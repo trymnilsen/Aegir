@@ -76,6 +76,15 @@ namespace Aegir.Map
             this.Focusable = true;
             this.FocusVisualStyle = null;
             this.SnapsToDevicePixels = true;
+
+            //We need to way for this control to be loaded before we can center our map
+            this.Loaded += MapCanvas_Loaded;
+            
+        }
+
+        void MapCanvas_Loaded(object sender, RoutedEventArgs e)
+        {
+            Center(59.91872, 10.68599, 15);
         }
 
         /// <summary>Gets the visible area of the map in latitude/longitude coordinates.</summary>

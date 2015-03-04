@@ -6,7 +6,7 @@
              xmlns:maps="clr-namespace:Aegir.Map"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <Grid>
+    <Grid DataContext="{Binding MapVM, Source={StaticResource VMLocator}}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"></ColumnDefinition>
             <ColumnDefinition Width="150"></ColumnDefinition>

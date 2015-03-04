@@ -81,7 +81,7 @@ namespace Aegir.ViewModel
                 return AegirIOC.Get<ObjectTreeViewModel>();
             }
         }
-        public MapViewModel MapViewModel
+        public MapViewModel MapVM
         {
             get
             {
