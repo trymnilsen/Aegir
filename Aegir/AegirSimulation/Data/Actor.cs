@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OpenTK;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -10,26 +11,44 @@ namespace AegirLib.Data
 {
     public abstract class Actor : IActorContainer, ITransformable
     {
+        private float posX;
+        private float posY;
+        private float posZ;
+        /// <summary>
+        /// The children this actor contains
+        /// </summary>
         [Browsable(false)]
         public ObservableCollection<Actor> Children { get; protected set; }
-        [Browsable(false)]
-        public int GraphicsID { get; set; }
+        /// <summary>
+        /// Parent of this actor
+        /// </summary>
         [Browsable(false)]
         public IActorContainer Parent { get; set; }
 
         //Properties we view in the editor
         public string Name { get; set; }
         public string Type { get; set; }
+
+
         //Transformation
+
+        public Matrix4 ActorTransformation
+        {
+            get { return Matrix4.Scale(Vector3.One) * 
+                         Matrix4.CreateRotationX(0) * 
+                         Matrix4.CreateRotationY(0) * 
+                         Matrix4.CreateRotationZ(0) * 
+                         Matrix4.CreateTranslation(posX,posY,posZ); }
+        }
         public float X
         {
             get
             {
-                throw new NotImplementedException();
+                return posX;
             }
             set
             {
-                throw new NotImplementedException();
+                posX = value;
             }
         }
 
@@ -37,11 +56,11 @@ namespace AegirLib.Data
         {
             get
             {
-                throw new NotImplementedException();
+                return posY;
             }
             set
             {
-                throw new NotImplementedException();
+                posY = value;
             }
         }
 
@@ -49,11 +68,11 @@ namespace AegirLib.Data
         {
             get
             {
-                throw new NotImplementedException();
+                return posZ;
             }
             set
             {
-                throw new NotImplementedException();
+                posZ = value;
             }
         }
         /// <summary>

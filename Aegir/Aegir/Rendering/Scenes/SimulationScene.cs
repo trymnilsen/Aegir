@@ -1,9 +1,12 @@
-﻿using AegirLib;
+﻿using Aegir.Rendering.Geometry.OBJ;
+using AegirGLIntegration.Shader;
+using AegirLib;
 using AegirLib.Data;
 using AegirLib.Data.Actors;
 using OpenTK;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,6 +19,8 @@ namespace Aegir.Rendering.Scenes
 
         private RenderAssetStore assetStore;
         private Camera CameraInstance;
+
+        private ShaderProgram shader;
 
         private List<Actor> actors;
 
@@ -30,21 +35,30 @@ namespace Aegir.Rendering.Scenes
             get { return "SimulationScene"; }
         }
 
+        public ShaderProgram Shader
+        {
+            get { return shader; }
+        }
+
         public SimulationScene()
         {
             assetStore = AegirIOC.Get<RenderAssetStore>();
             actors = new List<Actor>();
             //Register type models
             //assetStore.CreateModelFromFile("ship.obj", typeof(Ship));
-            actors = new List<Actor>();
+            //Load Shader
+            FileInfo vertShader = new FileInfo("Rendering/Shader/simple_vs.glsl"); 
+            FileInfo fragShader = new FileInfo("Rendering/Shader/simple_fs.glsl");
+            shader = new ShaderProgram(vertShader, fragShader);
 
         }
         public void RenderStarted()
         {
+            Matrix4 identity = Matrix4.Identity;
             //Render actors
             foreach(Actor a in actors)
             {
-                RenderActor(a);
+                RenderActor(a,identity);
             }
         }
         
@@ -69,16 +83,22 @@ namespace Aegir.Rendering.Scenes
             //CameraInstance.ViewPortSize = new Vector2(w, h);
         }
 
-        private void RenderActor(Actor actor)
+        private void RenderActor(Actor actor, Matrix4 transformation)
         {
+            //Get the geometry, bind the geometry and set the transformation
+            Matrix4 actorTranslation = actor.ActorTransformation;
+            ObjMesh mesh = assetStore.LookupModelMesh(actor.GetType());
+
+
+            //Render Children
             if(actor.Children.Count>0)
             {
                 foreach(Actor a in actor.Children)
                 {
-                    RenderActor(a);
+                    RenderActor(a, actorTranslation);
                 }
             }
-            //Get the geometry, bind the geometry and set the transformation
+
 
         }
     }

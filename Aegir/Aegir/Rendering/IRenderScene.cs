@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AegirGLIntegration.Shader;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,7 @@ namespace Aegir.Rendering
 {
     public interface IRenderScene
     {
+        ShaderProgram Shader { get; }
         bool IsInitialized { get; }
         string SceneId { get; }
         void RenderStarted();
