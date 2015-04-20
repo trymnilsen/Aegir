@@ -47,9 +47,9 @@ namespace Aegir.Rendering.Scenes
             //Register type models
             //assetStore.CreateModelFromFile("ship.obj", typeof(Ship));
             //Load Shader
-            FileInfo vertShader = new FileInfo("Rendering/Shader/simple_vs.glsl"); 
-            FileInfo fragShader = new FileInfo("Rendering/Shader/simple_fs.glsl");
-            shader = new ShaderProgram(vertShader, fragShader);
+            //FileInfo vertShader = new FileInfo("Rendering/Shader/simple_vs.glsl"); 
+            //FileInfo fragShader = new FileInfo("Rendering/Shader/simple_fs.glsl");
+            //shader = new ShaderProgram(vertShader, fragShader);
 
         }
         public void RenderStarted()

@@ -9,13 +9,13 @@
     <Grid DataContext="{Binding MapVM, Source={StaticResource VMLocator}}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"></ColumnDefinition>
-            <ColumnDefinition Width="150"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <!--Map-->
         <maps:MapCanvas Grid.Column="0">
             <maps:MapCanvas.ContextMenu>
                 <ContextMenu>
                     <MenuItem Header="Center"></MenuItem>
+                    <MenuItem Header="Jump To Here"></MenuItem>
                     <Separator></Separator>
                     <MenuItem Header="Zoom In"></MenuItem>
                     <MenuItem Header="Zoom Out"></MenuItem>
@@ -24,38 +24,5 @@
                 </ContextMenu>
             </maps:MapCanvas.ContextMenu>
         </maps:MapCanvas>
-       <!--Placeholderr-->
-        <!--Waypoints-->
-        <Grid Grid.Column="1">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="25"></RowDefinition>
-                <RowDefinition Height="1*"></RowDefinition>
-                <RowDefinition Height="25"></RowDefinition>
-            </Grid.RowDefinitions>
-            <Button>
-                <TextBlock Text="Add Waypoint"></TextBlock>
-            </Button>
-            <ListBox Grid.Row="1">
-                <ListBoxItem>
-                    <TextBlock Text="Waypoint 1"></TextBlock>
-                </ListBoxItem>
-                <ListBoxItem>
-                    <TextBlock Text="Waypoint 2"></TextBlock>
-                </ListBoxItem>
-                <ListBoxItem>
-                    <TextBlock Text="Waypoint 3"></TextBlock>
-                </ListBoxItem>
-                <ListBoxItem>
-                    <TextBlock Text="Waypoint 4"></TextBlock>
-                </ListBoxItem>
-                <ListBoxItem>
-                    <TextBlock Text="Waypoint 5"></TextBlock>
-                </ListBoxItem>
-            </ListBox>
-            <StackPanel Grid.Row="2" Orientation="Horizontal">
-                <CheckBox Margin="5 4 10 0"></CheckBox>
-                <TextBlock Margin="0 3" Text="Show All"></TextBlock>
-            </StackPanel>
-        </Grid>
     </Grid>
 </UserControl>

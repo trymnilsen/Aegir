@@ -36,8 +36,10 @@
                     <RowDefinition Height="1*" MinHeight="100"></RowDefinition>
                 </Grid.RowDefinitions>
                 <!--GL Element-->
-                <GL:GLElement ClearColor="CornflowerBlue"
-                           DataContext="{Binding RenderingVM, Source={StaticResource VMLocator}}">
+                <GL:GLElement DataContext="{Binding RenderingVM, Source={StaticResource VMLocator}}">
+                    <GL:GLElement.ClearColor>
+                        <Color R="69" G="69" B="69"></Color>
+                    </GL:GLElement.ClearColor>
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="GLRenderStarted">
                             <cmd:EventToCommand Command="{Binding RenderStartedCommand}"></cmd:EventToCommand>
@@ -57,7 +59,14 @@
                       ShowsPreview="True"
                       Height="5"></GridSplitter>
                 <!--Map View-->
-                <views:Map Grid.Row="2"></views:Map>
+                <Grid Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                        <ColumnDefinition Width="150px"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <views:Map Grid.Column="0"></views:Map>
+                    <views:Waypoints Grid.Column="1"></views:Waypoints>
+                </Grid>
             </Grid>
             <!--Preview Area-->
         </Grid>

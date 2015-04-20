@@ -57,19 +57,19 @@ namespace AegirGLIntegration.Shader
         /// <summary> Compile and generate index </summary>
         private void CreateShader()
         {
-            int status_code;
-            string info;
+            //int status_code;
+            //string info;
 
-            // Compile vertex shader
-            GL.ShaderSource(ShaderIndex, Code);
-            GL.CompileShader(ShaderIndex);
-            GL.GetShaderInfoLog(ShaderIndex, out info);
-            GL.GetShader(ShaderIndex, ShaderParameter.CompileStatus, out status_code);
+            //// Compile vertex shader
+            //GL.ShaderSource(ShaderIndex, Code);
+            //GL.CompileShader(ShaderIndex);
+            //GL.GetShaderInfoLog(ShaderIndex, out info);
+            //GL.GetShader(ShaderIndex, ShaderParameter.CompileStatus, out status_code);
 
-            if (status_code != 1)
-            {
-                throw new ApplicationException(FileSource + Environment.NewLine + info);
-            }
+            //if (status_code != 1)
+            //{
+            //    throw new ApplicationException(FileSource + Environment.NewLine + info);
+            //}
         }
         /// <summary>
         /// Dispose of the shader
