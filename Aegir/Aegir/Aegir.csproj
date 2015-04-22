@@ -154,6 +154,7 @@
     <Compile Include="ViewModel\RenderingViewModel.cs" />
     <Compile Include="ViewModel\StatusBarViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
+    <Compile Include="ViewModel\WaypointViewModel.cs" />
     <Compile Include="View\Map.xaml.cs">
       <DependentUpon>Map.xaml</DependentUpon>
     </Compile>
@@ -169,11 +170,14 @@
     <Compile Include="View\Waypoints.xaml.cs">
       <DependentUpon>Waypoints.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Window\Outputs.xaml.cs">
+    <Compile Include="Windows\Outputs.xaml.cs">
       <DependentUpon>Outputs.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Window\Settings.xaml.cs">
+    <Compile Include="Windows\Settings.xaml.cs">
       <DependentUpon>Settings.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\VesselSetup.xaml.cs">
+      <DependentUpon>VesselSetup.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -207,11 +211,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Window\Outputs.xaml">
+    <Page Include="Windows\Outputs.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Window\Settings.xaml">
+    <Page Include="Windows\Settings.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\VesselSetup.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

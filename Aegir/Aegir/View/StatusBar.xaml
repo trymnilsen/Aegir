@@ -36,6 +36,7 @@
                         <MenuItem Header="Show Outputs"></MenuItem>
                         <MenuItem Header="Pause All"></MenuItem>
                         <MenuItem Header="Un-Pause All" IsEnabled="False"></MenuItem>
+                        <MenuItem Header="Record"></MenuItem>
                     </ContextMenu>
                 </StackPanel.ContextMenu>
                 <TextBlock Text="{Binding NumOfOutputs}" Margin="0 0 5 0"></TextBlock>

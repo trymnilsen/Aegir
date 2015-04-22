@@ -30,7 +30,17 @@
                 <Separator></Separator>
                 <MenuItem Header="Wind"></MenuItem>
             </MenuItem>
+            <MenuItem Header="View">
+                <MenuItem Header="Mode">
+                    <MenuItem Header="Visualize"></MenuItem>
+                    <MenuItem Header="Planning"></MenuItem>
+                    <MenuItem Header="Navigate"></MenuItem>
+                    <MenuItem Header="Chart"></MenuItem>
+                </MenuItem>
+                <MenuItem IsCheckable="True" Header="Overlay Seamap"></MenuItem>
+            </MenuItem>
             <MenuItem Header="Settings">
+                <MenuItem IsCheckable="True" Header="Pause Simulation On UI Action"></MenuItem>
                 <MenuItem Header="Logging Level">
                     <MenuItem Header="Verbose"></MenuItem>
                     <MenuItem Header="Debug"></MenuItem>

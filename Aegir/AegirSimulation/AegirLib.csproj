@@ -54,6 +54,7 @@
     <Compile Include="AegirIOC.cs" />
     <Compile Include="Data\Actors\Water.cs" />
     <Compile Include="Data\ITransformable.cs" />
+    <Compile Include="Data\Map\Route.cs" />
     <Compile Include="Data\Map\Waypoint.cs" />
     <Compile Include="IO\Config\BaseConfig.cs" />
     <Compile Include="IO\Config\ConfigFile.cs" />
