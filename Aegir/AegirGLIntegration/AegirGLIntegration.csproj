@@ -61,11 +61,6 @@
     <Compile Include="GraphicsResource.cs" />
     <Compile Include="Helpers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Shader\FragmentShader.cs" />
-    <Compile Include="Shader\GeometryShader.cs" />
-    <Compile Include="Shader\Shader.cs" />
-    <Compile Include="Shader\ShaderProgram.cs" />
-    <Compile Include="Shader\VertexShader.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
