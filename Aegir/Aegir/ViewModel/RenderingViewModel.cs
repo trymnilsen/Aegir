@@ -73,6 +73,7 @@ namespace Aegir.ViewModel
         /// <param name="args">Args object containg our new size data</param>
         private void ControlResized(SizeChangedEventArgs args)
         {
+            Logger.Log("Resized " + args.NewSize.ToString(),ELogLevel.Debug);
             ActiveScene.SceneResized((int)args.NewSize.Width,(int)args.NewSize.Height);
         }
         /// <summary>
