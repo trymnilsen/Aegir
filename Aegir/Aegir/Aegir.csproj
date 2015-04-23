@@ -145,6 +145,11 @@
     <Compile Include="Rendering\IRenderScene.cs" />
     <Compile Include="Rendering\Scenes\SimulationScene.cs" />
     <Compile Include="Rendering\RenderAssetStore.cs" />
+    <Compile Include="Rendering\Shader\FragmentShader.cs" />
+    <Compile Include="Rendering\Shader\GeometryShader.cs" />
+    <Compile Include="Rendering\Shader\Shader.cs" />
+    <Compile Include="Rendering\Shader\ShaderProgram.cs" />
+    <Compile Include="Rendering\Shader\VertexShader.cs" />
     <Compile Include="ViewModel\Actors\ShipViewModel.cs" />
     <Compile Include="ViewModel\MapViewModel.cs" />
     <Compile Include="ViewModel\MenuStripViewModel.cs" />
@@ -248,12 +253,13 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
-    <None Include="Rendering\Shader\simple_fs.glsl">
+    <None Include="resources\Shader\simple_fs.glsl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Rendering\Shader\simple_vs.glsl">
+    <None Include="resources\Shader\simple_vs.glsl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="resources\geometry\ship.obj_gfx" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

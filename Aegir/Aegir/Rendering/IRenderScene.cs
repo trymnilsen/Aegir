@@ -1,4 +1,4 @@
-﻿using AegirGLIntegration.Shader;
+﻿using Aegir.Rendering.Shader;
 using System;
 using System.Collections.Generic;
 using System.Linq;

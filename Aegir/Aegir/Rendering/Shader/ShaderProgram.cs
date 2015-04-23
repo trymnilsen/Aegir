@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AegirGLIntegration.Shader
+namespace Aegir.Rendering.Shader
 {
     public class ShaderProgram : IDisposable
     {
@@ -69,6 +69,14 @@ namespace AegirGLIntegration.Shader
         /// <param name="fShader">The Fragment Shader</param>
         public ShaderProgram(FileInfo vShader, FileInfo fShader)
         {
+            if(vShader.Exists)
+            {
+                throw new ArgumentException("Vertex Shader File did not exist");
+            }
+            if(fShader.Exists)
+            {
+                throw new ArgumentException("Fragment Shader File did not exist");
+            }
             VertexShader vs = new VertexShader(vShader);
             FragmentShader fs = new FragmentShader(fShader);
 

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AegirGLIntegration.Shader
+namespace Aegir.Rendering.Shader
 {
     public class VertexShader : Shader
     {
@@ -13,19 +13,12 @@ namespace AegirGLIntegration.Shader
         /// Initializes a VertexShader from a string of code
         /// </summary>
         /// <param name="code">The shader code</param>
-        public VertexShader(string code) : base(code) { }
+        public VertexShader(string code) : base(code, ShaderType.VertexShader) { }
         /// <summary>
         /// Initializes a VertexShader from a FileInfo Instance
         /// </summary>
         /// <param name="file">The File to create shader from</param>
-        public VertexShader(System.IO.FileInfo file) : base(file) { }
+        public VertexShader(System.IO.FileInfo file) : base(file, ShaderType.VertexShader) { }
 
-        /// <summary>
-        /// Get the type of this Shader
-        /// </summary>
-        protected override ShaderType ShaderType
-        {
-            get { return ShaderType.VertexShader; }
-        }
     }
 }

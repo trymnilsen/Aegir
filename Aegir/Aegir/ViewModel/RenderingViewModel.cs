@@ -2,6 +2,7 @@
 using Aegir.Rendering;
 using Aegir.Rendering.Scenes;
 using AegirLib;
+using AegirLib.Logging;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Messaging;
@@ -55,7 +56,7 @@ namespace Aegir.ViewModel
         /// </summary>
         private void RenderInit()
         {
-            Debug.WriteLine("Initializing Rendering");
+            Logger.Log("Initializing Rendering", ELogLevel.Debug);
             ActiveScene.RenderInit();
         }
         /// <summary>

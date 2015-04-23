@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AegirGLIntegration.Shader
+namespace Aegir.Rendering.Shader
 {
     /// <summary>A base class for other shader types</summary>
     public abstract class Shader : IDisposable
@@ -27,49 +27,42 @@ namespace AegirGLIntegration.Shader
         /// Is this shader successfully compiled
         /// </summary>
         public bool Compiled { get; protected set; }
-        protected abstract ShaderType ShaderType { get; }
+        /// <summary>
+        /// Type of shader
+        /// </summary>
+        protected ShaderType ShaderType { get; set; }
 
         /// <summary>
         /// Initialize the shader from a code in a string
         /// </summary>
         /// <param name="code">The string containing the shader code</param>
-        public Shader(string code)
+        /// <param name="shaderType">The ShaderType</param>
+        protected Shader(string code, ShaderType shaderType)
         {
             this.Code = code;
-            ShaderIndex = GL.CreateShader(ShaderType);
+            this.ShaderType = shaderType;
             CreateShader();
         }
         /// <summary>
         /// Initialize the shader from a fileInfo instance
         /// </summary>
         /// <param name="file">file to load as a shader</param>
-        public Shader(System.IO.FileInfo file)
+        /// <param name="shaderType">The ShaderType</param>
+        protected Shader(System.IO.FileInfo file, ShaderType shaderType)
         {
-            FileSource = file.FullName;
+            this.FileSource = file.FullName;
+            this.ShaderType = shaderType;
             using (StreamReader stream = file.OpenText())
             {
                 Code = stream.ReadToEnd() + Environment.NewLine;
             }
-            ShaderIndex = GL.CreateShader(ShaderType);
             CreateShader();
         }
 
         /// <summary> Compile and generate index </summary>
         private void CreateShader()
         {
-            //int status_code;
-            //string info;
-
-            //// Compile vertex shader
-            //GL.ShaderSource(ShaderIndex, Code);
-            //GL.CompileShader(ShaderIndex);
-            //GL.GetShaderInfoLog(ShaderIndex, out info);
-            //GL.GetShader(ShaderIndex, ShaderParameter.CompileStatus, out status_code);
-
-            //if (status_code != 1)
-            //{
-            //    throw new ApplicationException(FileSource + Environment.NewLine + info);
-            //}
+            ShaderIndex = GL.CreateShader(ShaderType);
         }
         /// <summary>
         /// Dispose of the shader
