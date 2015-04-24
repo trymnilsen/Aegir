@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using AegirLib.Logging;
 
 namespace Aegir
 {
@@ -40,6 +41,11 @@ namespace Aegir
                     e.Cancel = true;
                     break;
             }
+        }
+
+        private void GLElement_GLInitialized(object sender, EventArgs e)
+        {
+            Logger.Log("GLInit", ELogLevel.Debug);
         }
     }
 }

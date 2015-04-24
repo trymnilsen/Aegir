@@ -118,6 +118,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Behaviour\BehaviourBinding.cs" />
+    <Compile Include="Behaviour\CommandBehaviour.cs" />
+    <Compile Include="Behaviour\CommandBehaviourBinding.cs" />
+    <Compile Include="Behaviour\CommandBehaviourCollection.cs" />
+    <Compile Include="Behaviour\EventHandlerGenerator.cs" />
+    <Compile Include="Behaviour\ExecutionStrategy.cs" />
+    <Compile Include="Behaviour\SimpleCommand.cs" />
     <Compile Include="Components\PropertyGrid.cs" />
     <Compile Include="Config\AssetsConfig.cs" />
     <Compile Include="Converter\EnumToBoolConverter.cs" />

@@ -36,7 +36,7 @@
                     <RowDefinition Height="1*" MinHeight="100"></RowDefinition>
                 </Grid.RowDefinitions>
                 <!--GL Element-->
-                <GL:GLElement DataContext="{Binding RenderingVM, Source={StaticResource VMLocator}}">
+                <GL:GLElement DataContext="{Binding RenderingVM, Source={StaticResource VMLocator}}" GLInitialized="GLElement_GLInitialized">
                     <GL:GLElement.ClearColor>
                         <Color R="69" G="69" B="69"></Color>
                     </GL:GLElement.ClearColor>
@@ -45,7 +45,7 @@
                             <cmd:EventToCommand Command="{Binding RenderStartedCommand}"></cmd:EventToCommand>
                         </i:EventTrigger>
                         <i:EventTrigger EventName="GLInitialized">
-                            <cmd:EventToCommand Command="{Binding RenderInitalizedCommand}"></cmd:EventToCommand>
+                            <i:InvokeCommandAction Command="{Binding RenderInitalizedCommand}"></i:InvokeCommandAction>
                         </i:EventTrigger>
                         <i:EventTrigger EventName="SizeChanged">
                             <cmd:EventToCommand Command="{Binding RenderResizedCommand}" PassEventArgsToCommand="True"></cmd:EventToCommand>
