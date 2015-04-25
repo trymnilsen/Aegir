@@ -1,5 +1,4 @@
-﻿using Aegir.Rendering.Geometry.OBJ;
-using Aegir.Rendering.Shader;
+﻿using Aegir.Rendering.Shader;
 using AegirLib;
 using AegirLib.Data;
 using AegirLib.Data.Actors;
@@ -10,6 +9,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Aegir.Rendering.Geometry.OBJ;
 
 namespace Aegir.Rendering.Scenes
 {
@@ -18,7 +18,7 @@ namespace Aegir.Rendering.Scenes
         private bool initialized;
 
         private RenderAssetStore assetStore;
-        private Camera CameraInstance;
+        private Camera cameraInstance;
 
         private ShaderProgram shader;
 
@@ -59,11 +59,11 @@ namespace Aegir.Rendering.Scenes
         
         public void RenderInit()
         {
-            CameraInstance = new Camera(Vector3.Zero);
+            cameraInstance = new Camera(Vector3.Zero);
             initialized = true;
 
             //Register type models
-            //assetStore.CreateModelFromFile("ship.obj", typeof(Ship));
+            assetStore.LoadFileAndAssignToType("ship.obj", typeof(Ship));
             //Load Shader
             FileInfo vertShader = new FileInfo("resources/Shader/simple_vs.glsl");
             FileInfo fragShader = new FileInfo("resources/Shader/simple_fs.glsl");

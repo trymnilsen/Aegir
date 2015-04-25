@@ -1,0 +1,15 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Aegir.Rendering.Geometry.Buffer
+{
+    public interface IGeometryBufferable
+    {
+        VertexBuffer VertexData { get; }
+        VertexBuffer NormalData { get; }
+        VertexBuffer ColorData { get; }
+    }
+}

@@ -40,9 +40,9 @@ namespace Aegir.Rendering
         /// </remarks>
         /// <param name="filepath">filepath to our model</param>
         /// <param name="targetType">type we want to associate this model with</param>
-        public void CreateModelFromFile(string filepath, Type targetType)
+        public void LoadFileAndAssignToType(string filepath, Type targetType)
         {
-            int id = CreateModelFromFile(filepath);
+            int id = LoadModel(filepath);
             if (typeModels.ContainsKey(targetType))
             {
                 //update it
@@ -58,7 +58,7 @@ namespace Aegir.Rendering
         /// </summary>
         /// <param name="fileName">Filename of model/mesh to be loaded</param>
         /// <returns>index/id of newly created mesh for later lookup</returns>
-        public int CreateModelFromFile(string fileName)
+        public int LoadModel(string fileName)
         {
             FileInfo file = new FileInfo(fileName);
             //Check that it exists

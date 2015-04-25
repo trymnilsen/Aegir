@@ -82,9 +82,9 @@ namespace Aegir.Rendering.Geometry.OBJ
         public override string ToString()
         {
             return "File: " + FileName +
-                   "\n O:" + Vertices.Length +
-                   "\n T:" + Triangles.Length +
-                   "\n Q:" + Quads.Length;
+                   "\n Vertices:" + Vertices.Length +
+                   "\n Triangles:" + Triangles.Length +
+                   "\n Quads:" + Quads.Length;
         }
 
         [StructLayout(LayoutKind.Sequential)]

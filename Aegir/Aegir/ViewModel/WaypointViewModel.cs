@@ -24,7 +24,7 @@ namespace Aegir.ViewModel
             double lon = 0;
             string name = "Waypoint ";
 
-            //Waypoints.Add(new Waypoint(name, lat, lon));
+           // Waypoints.Add(new Waypoint(name, lat, lon));
         }
     }
 }

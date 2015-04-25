@@ -4,9 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Aegir.Rendering.Geometry
+namespace Aegir.Rendering.Geometry.Dummy
 {
-    class cube
+    public class Model
     {
+        public Model()
+        {
+            
+        }
     }
 }
