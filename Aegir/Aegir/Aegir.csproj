@@ -54,6 +54,9 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AttachedCommandBehavior">
+      <HintPath>..\packages\AttachedCommandBehavior.2.0.0.0\lib\net35\AttachedCommandBehavior.dll</HintPath>
+    </Reference>
     <Reference Include="GalaSoft.MvvmLight">
       <HintPath>..\packages\MvvmLightLibs.5.0.2.0\lib\net45\GalaSoft.MvvmLight.dll</HintPath>
     </Reference>
@@ -118,13 +121,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Behaviour\BehaviourBinding.cs" />
-    <Compile Include="Behaviour\CommandBehaviour.cs" />
-    <Compile Include="Behaviour\CommandBehaviourBinding.cs" />
-    <Compile Include="Behaviour\CommandBehaviourCollection.cs" />
-    <Compile Include="Behaviour\EventHandlerGenerator.cs" />
-    <Compile Include="Behaviour\ExecutionStrategy.cs" />
-    <Compile Include="Behaviour\SimpleCommand.cs" />
     <Compile Include="Components\PropertyGrid.cs" />
     <Compile Include="Config\AssetsConfig.cs" />
     <Compile Include="Converter\EnumToBoolConverter.cs" />
@@ -176,6 +172,9 @@
     <Compile Include="View\Sidebar.xaml.cs">
       <DependentUpon>Sidebar.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\SimulationRendering.xaml.cs">
+      <DependentUpon>SimulationRendering.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\StatusBar.xaml.cs">
       <DependentUpon>StatusBar.xaml</DependentUpon>
     </Compile>
@@ -212,6 +211,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Sidebar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\SimulationRendering.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -69,11 +69,11 @@ namespace Aegir.Rendering.Shader
         /// <param name="fShader">The Fragment Shader</param>
         public ShaderProgram(FileInfo vShader, FileInfo fShader)
         {
-            if(vShader.Exists)
+            if(!vShader.Exists)
             {
                 throw new ArgumentException("Vertex Shader File did not exist");
             }
-            if(fShader.Exists)
+            if(!fShader.Exists)
             {
                 throw new ArgumentException("Fragment Shader File did not exist");
             }

@@ -29,6 +29,7 @@ namespace Aegir
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
+
             MessageBoxResult result = MessageBox.Show("Do you want to save your simulation?", "Save", MessageBoxButton.YesNoCancel);
             switch (result)
             {

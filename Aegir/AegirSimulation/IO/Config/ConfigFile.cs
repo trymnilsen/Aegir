@@ -12,11 +12,11 @@ namespace AegirLib.IO.Config
 {
     public class ConfigFile
     {
-        private string filePath;
-        private Dictionary<Type, IConfigProvider> configObjects;
+        private readonly string filePath;
+        private static Dictionary<Type, IConfigProvider> configObjects;
         public ConfigFile(string filePath)
         {
-            this.configObjects = new Dictionary<Type, IConfigProvider>();
+            configObjects = new Dictionary<Type, IConfigProvider>();
             this.filePath = filePath;
         }
         public void RegisterConfig(IConfigProvider configProvider)
@@ -39,7 +39,6 @@ namespace AegirLib.IO.Config
                 fileContents = File.ReadAllText(filePath);
             }
             catch (Exception e) { Logger.Log(e.ToString(), ELogLevel.Error); }
-            
         }
         public void SaveFile()
         {
@@ -52,7 +51,7 @@ namespace AegirLib.IO.Config
         }
         public IConfigProvider GetConfig<T>()
         {
-            if(configObjects.ContainsKey(typeof(T)))
+            if(configObjects != null && configObjects.ContainsKey(typeof(T)))
             {
                 return configObjects[typeof(T)];
             }
