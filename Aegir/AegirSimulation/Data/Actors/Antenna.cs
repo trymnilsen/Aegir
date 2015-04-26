@@ -35,6 +35,10 @@ namespace AegirLib.Data.Actors
             set { Debug.WriteLine("Something " + value); }
         }
 
+        [Category("Connection")]
+        [Description("The frequency between messages from this receiver")]
+        public int Frequency { get; set; }
+
         public Antenna(IActorContainer parent)
             :base(parent)
         {

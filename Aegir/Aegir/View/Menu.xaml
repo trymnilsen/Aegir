@@ -77,14 +77,6 @@
             <Button Margin="5 2">
                 <TextBlock Text="Step"></TextBlock>
             </Button>
-            <ComboBox SelectedIndex="0" Margin="5 2">
-                <ComboBoxItem Content="1 Hz"></ComboBoxItem>
-                <ComboBoxItem Content="2 Hz"></ComboBoxItem>
-                <ComboBoxItem Content="5 Hz"></ComboBoxItem>
-                <ComboBoxItem Content="10 Hz"></ComboBoxItem>
-                <ComboBoxItem Content="20 Hz"></ComboBoxItem>
-                <ComboBoxItem Content="Custom"></ComboBoxItem>
-            </ComboBox>
         </StackPanel>
         <!--~Playback Controls-->
     </Grid>

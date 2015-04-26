@@ -61,7 +61,6 @@
                                   ShowSearchBox="False"
                                   ShowSortOptions="False"
                                   ShowTitle="False"
-                                  IsReadOnly="True"
                                   ></xctools:PropertyGrid>
         </Border>
     </Grid>
