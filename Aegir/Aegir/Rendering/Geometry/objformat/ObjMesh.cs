@@ -1,4 +1,5 @@
-﻿using OpenTK;
+﻿using Aegir.Rendering.Geometry.Buffer;
+using OpenTK;
 using OpenTK.Graphics.OpenGL4;
 using System;
 using System.IO;
@@ -7,8 +8,19 @@ using System.Windows.Media;
 
 namespace Aegir.Rendering.Geometry.OBJ
 {
-    public class ObjMesh
+    /// <summary>
+    /// The ObjMesh is the intermediate step between loading a model from file, on obj
+    /// format and getting a vertex buffer ready to send to the GPU. 
+    /// </summary>
+    public class ObjMesh : IGeometryBufferable
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        private VertexBuffer vertexes;
+        private VertexBuffer normals;
+        //TODO: implement color/texture
+
         private ObjQuad[] quads;
         private ObjTriangle[] triangles;
         private ObjVertex[] vertices;
@@ -20,6 +32,47 @@ namespace Aegir.Rendering.Geometry.OBJ
         private Color color;
 
         public string FileName {get; private set;}
+
+        public VertexBuffer VertexData
+        {
+            get 
+            { 
+                if(this.vertexes == null)
+                {
+                    this.vertexes = generateVertexBuffer();
+                }
+                return vertexes;
+            }
+        }
+
+        public VertexBuffer NormalData
+        {
+            get { return new VertexBuffer(new Vector3[1]); }
+        }
+
+        public VertexBuffer ColorData
+        {
+            get { return new VertexBuffer(new Vector3[1]); }
+        }
+
+        public ObjVertex[] Vertices
+        {
+            get { return vertices; }
+            set { vertices = value; }
+        }
+        
+
+        public ObjTriangle[] Triangles
+        {
+            get { return triangles; }
+            set { triangles = value; }
+        }
+
+        public ObjQuad[] Quads
+        {
+            get { return quads; }
+            set { quads = value; }
+        }
 
         public ObjMesh(FileInfo file)
         {
@@ -36,23 +89,6 @@ namespace Aegir.Rendering.Geometry.OBJ
             return ObjMeshLoader.Load(this, FileName);
         }
 
-        public ObjVertex[] Vertices
-        {
-            get { return vertices; }
-            set { vertices = value; }
-        }
-        
-        public ObjTriangle[] Triangles
-        {
-            get { return triangles; }
-            set { triangles = value; }
-        }
-
-        public ObjQuad[] Quads
-        {
-            get { return quads; }
-            set { quads = value; }
-        }
 
         public void Prepare()
         {
@@ -87,6 +123,15 @@ namespace Aegir.Rendering.Geometry.OBJ
                    "\n Quads:" + Quads.Length;
         }
 
+        private VertexBuffer generateVertexBuffer()
+        {
+            return new VertexBuffer(new Vector3[1]);
+        }
+        private VertexBuffer generateNormalBuffer()
+        {
+            return new VertexBuffer(new Vector3[1]);
+        }
+
         [StructLayout(LayoutKind.Sequential)]
         public struct ObjVertex
         {
@@ -110,5 +155,6 @@ namespace Aegir.Rendering.Geometry.OBJ
             public int Index2;
             public int Index3;
         }
+
     }
 }

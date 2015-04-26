@@ -59,6 +59,7 @@
     <Compile Include="IO\Config\BaseConfig.cs" />
     <Compile Include="IO\Config\ConfigFile.cs" />
     <Compile Include="IO\Config\IConfigProvider.cs" />
+    <Compile Include="IO\File\SpaceDelimitedReader.cs" />
     <Compile Include="Logging\DebugOutputWriter.cs" />
     <Compile Include="Logging\ELogLevel.cs" />
     <Compile Include="Logging\FileOutputWriter.cs" />
@@ -78,6 +79,7 @@
     <Folder Include="Calculation\" />
     <Folder Include="Input\" />
     <Folder Include="NMEA\" />
+    <Folder Include="Util\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

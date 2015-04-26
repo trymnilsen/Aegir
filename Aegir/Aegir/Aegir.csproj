@@ -147,6 +147,8 @@
     <Compile Include="Message\Selection\SelectedActorChangedMessage.cs" />
     <Compile Include="Message\Simulation\SimulationCreatedMessage.cs" />
     <Compile Include="Rendering\IRenderScene.cs" />
+    <Compile Include="Rendering\Material\GeometryMaterial.cs" />
+    <Compile Include="Rendering\Material\RenderMaterial.cs" />
     <Compile Include="Rendering\Scenes\SimulationScene.cs" />
     <Compile Include="Rendering\RenderAssetStore.cs" />
     <Compile Include="Rendering\Shader\FragmentShader.cs" />
