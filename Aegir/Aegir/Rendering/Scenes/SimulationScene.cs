@@ -63,10 +63,10 @@ namespace Aegir.Rendering.Scenes
             initialized = true;
 
             //Register type models
-            assetStore.LoadFileAndAssignToType("ship.obj", typeof(Ship));
+            assetStore.LoadFileAndAssignToType("Resources/Geometry/ship.obj", typeof(Ship));
             //Load Shader
-            FileInfo vertShader = new FileInfo("resources/Shader/simple_vs.glsl");
-            FileInfo fragShader = new FileInfo("resources/Shader/simple_fs.glsl");
+            FileInfo vertShader = new FileInfo("Resources/Shader/simple_vs.glsl");
+            FileInfo fragShader = new FileInfo("Resources/Shader/simple_fs.glsl");
             shader = new ShaderProgram(vertShader, fragShader);
         }
 
