@@ -125,6 +125,7 @@
     <Compile Include="Config\AssetsConfig.cs" />
     <Compile Include="Converter\EnumToBoolConverter.cs" />
     <Compile Include="Converter\PlaybackButtonConverter.cs" />
+    <Compile Include="IO\OBJImporter.cs" />
     <Compile Include="Map\BitmapStore.cs" />
     <Compile Include="Map\MapCanvas.cs" />
     <Compile Include="Map\MapCanvas.MapOffset.cs" />
@@ -134,6 +135,7 @@
     <Compile Include="Message\Rendering\ChangeRenderSceneMessage.cs" />
     <Compile Include="Rendering\AssetDefinition.cs" />
     <Compile Include="Rendering\Camera.cs" />
+    <Compile Include="Rendering\Geometry\ActorModel.cs" />
     <Compile Include="Rendering\Geometry\Buffer\IGeometryBufferable.cs" />
     <Compile Include="Rendering\Geometry\Dummy\arrow.cs" />
     <Compile Include="Rendering\Geometry\Dummy\cube.cs" />
