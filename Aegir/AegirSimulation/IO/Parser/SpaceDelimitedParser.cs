@@ -11,34 +11,38 @@ namespace AegirLib.IO.Parser
     /// <summary>
     /// This class loads and reads a file, and returns an array 
     /// </summary>
-    public class SpaceDelimitedParser : ILineParserReader
+    public class SpaceDelimitedParser : LineParser
     {
-        private bool isCommentAware;
         private string commentCharacter;
 
-        public SpaceDelimitedParser()
-        {
-            isCommentAware = false;  
-        }
+        /// <summary>
+        /// Create a space delimited file parser
+        /// </summary>
+        /// <param name="file">file to load/read</param>
+        public SpaceDelimitedParser(string file)
+            : base(file) {}
+
         /// <summary>
         /// Creates a new SpaceDelimitedReader, ignoring any lines starting 
         /// with the given comment character (can also be a string/sequence of chars).
         /// </summary>
-        /// <param name="CommentCharacter">The character(s) marking line as comment</param>
-        public SpaceDelimitedParser(string CommentCharacter)
+        /// <param name="file">the file to load</param>
+        /// <param name="commentCharacter">The character(s) marking line as comment</param>
+        public SpaceDelimitedParser(string file, string commentCharacter) 
+            :base(file)
         {
-            isCommentAware = true;
-            commentCharacter = commentCharacter;
+            this.commentCharacter = commentCharacter;
         }
 
         /// <summary>
-        /// We assume the file is small enough to not get any problems with string split
+        /// Implements the parse function and returns elements for given line
         /// </summary>
-        /// <param name="line"></param>
-        /// <returns></returns>
-        public string[] ParseLine(string line)
+        /// <param name="line">line to parse</param>
+        /// <returns>Parsed line elements</returns>
+        /// <remarks>We assume the file is small enough to not get any problems with string split</remarks>
+        protected override string[] ParseLine(string line)
         {
-            if (isCommentAware && line.StartsWith(commentCharacter))
+            if (commentCharacter!=null && line.StartsWith(commentCharacter))
             {
                 return null;
             }
