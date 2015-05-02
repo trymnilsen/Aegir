@@ -60,7 +60,7 @@
     <Compile Include="IO\Config\ConfigFile.cs" />
     <Compile Include="IO\Config\IConfigProvider.cs" />
     <Compile Include="IO\FileReader.cs" />
-    <Compile Include="IO\Parser\ILineParserReader.cs" />
+    <Compile Include="IO\Parser\LineParser.cs" />
     <Compile Include="IO\Parser\SpaceDelimitedParser.cs" />
     <Compile Include="Logging\DebugOutputWriter.cs" />
     <Compile Include="Logging\ELogLevel.cs" />
