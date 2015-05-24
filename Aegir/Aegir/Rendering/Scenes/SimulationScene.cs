@@ -87,19 +87,19 @@ namespace Aegir.Rendering.Scenes
 
         private void RenderActor(Actor actor, Matrix4 transformation)
         {
-            //Get the geometry, bind the geometry and set the transformation
-            Matrix4 actorTranslation = actor.ActorTransformation;
-            ObjMesh mesh = assetStore.LookupModelMesh(actor.GetType());
+            ////Get the geometry, bind the geometry and set the transformation
+            ////Matrix4 actorTranslation = actor.ActorTransformation;
+            //ObjMesh mesh = assetStore.LookupModelMesh(actor.GetType());
 
 
-            //Render Children
-            if(actor.Children.Count>0)
-            {
-                foreach(Actor a in actor.Children)
-                {
-                    RenderActor(a, actorTranslation);
-                }
-            }
+            ////Render Children
+            //if(actor.Children.Count>0)
+            //{
+            //    foreach(Actor a in actor.Children)
+            //    {
+            //        RenderActor(a, actorTranslation);
+            //    }
+            //}
 
 
         }

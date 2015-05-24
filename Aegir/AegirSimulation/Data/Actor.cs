@@ -13,9 +13,7 @@ namespace AegirLib.Data
 
     public abstract class Actor : IActorContainer, ICustomTypeDescriptor
     {
-        private float posX;
-        private float posY;
-        private float posZ;
+
         private Dictionary<string, AegirComponent> typeMapping;
         /// <summary>
         /// Components
@@ -32,12 +30,14 @@ namespace AegirLib.Data
         [Browsable(false)]
         public IActorContainer Parent { get; set; }
 
+        public string Name { get; set; }
         /// <summary>
         /// Initializes a new actor instance
         /// </summary>
         /// <param name="parent">the parent of this</param>
         public Actor(IActorContainer parent) 
         {
+            Name = "Foobar";
             Parent = parent;
             Children   = new ObservableCollection<Actor>();
             Components = new ObservableCollection<AegirComponent>();
@@ -75,6 +75,8 @@ namespace AegirLib.Data
         }
         public object GetPropertyOwner(PropertyDescriptor pd)
         {
+            //For some reason i have not quite understood yet, we only need an instance of the same type
+            //not the type or the instance we are changing.
             return this.typeMapping[pd.ComponentType.FullName];
         }
 

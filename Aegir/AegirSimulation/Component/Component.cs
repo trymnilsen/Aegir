@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AegirLib.Simulation;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -7,18 +8,23 @@ using System.Threading.Tasks;
 
 namespace AegirLib.Component
 {
-    public class Component
+    public abstract class Component
     {
-        [Category("Switches and Bitches")]
-        public bool ThisIsBool { get; set; }
-        [Category("Floating And Gloating")]
-        public float ThisIsFloat { get; set; }
-        [Category("Strings and Wings")]
-        [Description("Some Profound Description")]
-        public string StringGoesHere { get; set; }
+        /// <summary>
+        /// Share deltatime between update and render, (true will give slightly less accuracy).
+        /// </summary>
+        protected bool shareDeltatime;
         public Component()
         {
-            this.StringGoesHere = "Foobar";
+            
+        }
+        public virtual void Render(DeltaTime delta)
+        {
+
+        }
+        public virtual void Update(DeltaTime delta)
+        {
+
         }
     }
 }
