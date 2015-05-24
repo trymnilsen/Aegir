@@ -121,7 +121,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Components\PropertyGrid.cs" />
+    <Compile Include="Controls\PropertyGrid.cs" />
     <Compile Include="Config\AssetsConfig.cs" />
     <Compile Include="Converter\EnumToBoolConverter.cs" />
     <Compile Include="Converter\PlaybackButtonConverter.cs" />

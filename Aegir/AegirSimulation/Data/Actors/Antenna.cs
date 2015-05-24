@@ -43,7 +43,6 @@ namespace AegirLib.Data.Actors
             :base(parent)
         {
             this.connection = new Receiver();
-            this.Name = "Antenna";
         }
     }
 }

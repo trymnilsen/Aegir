@@ -25,9 +25,9 @@ namespace Aegir.IO
             return this;
         }
 
-        public GeometryVolume GetBuffers()
+/*        public GeometryVolume GetBuffers()
         {
             
-        }
+        }*/
     }
 }

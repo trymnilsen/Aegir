@@ -62,6 +62,10 @@
                                   ShowSortOptions="False"
                                   ShowTitle="False"
                                   ></xctools:PropertyGrid>
+            
+            <!--<wpg:WpfPropertyGrid SelectedObject="{Binding SelectedItem}"
+                                 ToolbarVisible="False"
+                                 ></wpg:WpfPropertyGrid>-->
         </Border>
     </Grid>
 </UserControl>

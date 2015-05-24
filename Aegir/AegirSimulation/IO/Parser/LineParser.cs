@@ -37,7 +37,7 @@ namespace AegirLib.IO.Parser
             {
                 using (Reader)
                 {
-                    while (!Reader.EndOfStream)
+/*                    while (!Reader.EndOfStream)
                     {
                         string line = Reader.ReadLine();
                         string[] parsedElements = ParseLine(line);
@@ -45,7 +45,7 @@ namespace AegirLib.IO.Parser
                         {
                             parsedLines.Add(parsedElements);
                         }
-                    }
+                    }*/
                 }
             }
             catch (Exception e)

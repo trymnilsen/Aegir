@@ -46,7 +46,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Component\Component.cs" />
     <Compile Include="Data\Actor.cs" />
+    <Compile Include="Data\Actors\ActorPreset.cs" />
     <Compile Include="Data\GraphHelper.cs" />
     <Compile Include="Data\IActorContainer.cs" />
     <Compile Include="Data\Actors\Antenna.cs" />

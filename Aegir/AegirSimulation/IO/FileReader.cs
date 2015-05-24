@@ -8,9 +8,9 @@ namespace AegirLib.IO
 {
     public class FileReader
     {
-        public ILineParserReader Parser { get; private set; }
+        public LineParser Parser { get; private set; }
 
-        public FileReader(ILineParserReader parser)
+        public FileReader(LineParser parser)
         {
             this.Parser = parser;
         }
@@ -22,7 +22,7 @@ namespace AegirLib.IO
         public List<string[]> ReadAllOfFile(string file)
         {
             var parsedLines = new List<string[]>();
-            if (file == null)
+/*            if (file == null)
             {
                 throw new ArgumentNullException("file");
             }
@@ -33,7 +33,7 @@ namespace AegirLib.IO
                     while (!sr.EndOfStream)
                     {
                         string line = sr.ReadLine();
-                        string[] parsedElements = parser.ParseLine(line);
+                        string[] parsedElements = this.Parser.ParseLine(line);
                         if (parsedElements != null)
                         {
                             parsedLines.Add(parsedElements);
@@ -44,7 +44,7 @@ namespace AegirLib.IO
             catch (Exception e)
             {
                 Logger.Log(e.ToString(), ELogLevel.Error);
-            }
+            }*/
             return parsedLines;
         }
     }

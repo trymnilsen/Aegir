@@ -12,7 +12,7 @@ namespace Aegir.Rendering.Geometry.OBJ
     /// The ObjMesh is the intermediate step between loading a model from file, on obj
     /// format and getting a vertex buffer ready to send to the GPU. 
     /// </summary>
-    public class ObjMesh : IGeometryBufferable
+    public class ObjMesh
     {
         /// <summary>
         /// 
