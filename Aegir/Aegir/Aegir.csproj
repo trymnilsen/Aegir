@@ -186,6 +186,9 @@
     <Compile Include="View\Waypoints.xaml.cs">
       <DependentUpon>Waypoints.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\Behaviours.xaml.cs">
+      <DependentUpon>Behaviours.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\Outputs.xaml.cs">
       <DependentUpon>Outputs.xaml</DependentUpon>
     </Compile>
@@ -228,6 +231,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Waypoints.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\Behaviours.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

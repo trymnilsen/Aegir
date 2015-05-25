@@ -157,7 +157,7 @@ namespace Aegir.View
             }
             else
             {
-                MessageBox.Show("Invalid Add For  " + item.Name +" to "+to.Name);
+                MessageBox.Show("Cannot Append " + item.Name +" to "+to.Name);
             }
 
         }

@@ -47,6 +47,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Component\Component.cs" />
+    <Compile Include="Component\Movement\KeyboardTravel.cs" />
+    <Compile Include="Component\Movement\WaypointTravel.cs" />
+    <Compile Include="Component\Output\FileOutput.cs" />
+    <Compile Include="Component\Output\TCPOutput.cs" />
+    <Compile Include="Component\Rendering\RenderMesh.cs" />
+    <Compile Include="Component\Rendering\RenderWater.cs" />
+    <Compile Include="Component\Simulation\Ship.cs" />
     <Compile Include="Data\Actor.cs" />
     <Compile Include="Data\Actors\ActorPreset.cs" />
     <Compile Include="Data\GraphHelper.cs" />
@@ -73,6 +80,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SimulationCase.cs" />
     <Compile Include="Data\SimulationDataSet.cs" />
+    <Compile Include="Simulation\DeltaTime.cs" />
     <Compile Include="Simulation\EPlaybackMode.cs" />
     <Compile Include="Simulation\Transformation\ETransformationType.cs" />
   </ItemGroup>

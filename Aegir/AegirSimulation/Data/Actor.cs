@@ -42,10 +42,10 @@ namespace AegirLib.Data
             Children   = new ObservableCollection<Actor>();
             Components = new ObservableCollection<AegirComponent>();
             typeMapping = new Dictionary<string, AegirComponent>();
-            Components.Add(new AegirComponent());
-            Components.Add(new AegirComponent());
-            //Add to mapping
-            typeMapping.Add(typeof(AegirComponent).FullName, new AegirComponent());
+            //Components.Add(new AegirComponent());
+            //Components.Add(new AegirComponent());
+            ////Add to mapping
+            //typeMapping.Add(typeof(AegirComponent).FullName, new AegirComponent());
         }
 
         public void RemoveActor(Actor actor)

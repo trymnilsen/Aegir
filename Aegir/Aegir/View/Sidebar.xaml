@@ -15,6 +15,7 @@
             <RowDefinition Height="1*" MinHeight="100"></RowDefinition>
             <RowDefinition Height="auto"></RowDefinition>
             <RowDefinition Height="1*" MinHeight="100"></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
         </Grid.RowDefinitions>
         <Border DataContext="{Binding ObjectTreeVM, Source={StaticResource VMLocator}}">
             <TreeView x:Name="ObjectTree" ItemsSource="{Binding Items}" AllowDrop="True">
@@ -66,6 +67,11 @@
             <!--<wpg:WpfPropertyGrid SelectedObject="{Binding SelectedItem}"
                                  ToolbarVisible="False"
                                  ></wpg:WpfPropertyGrid>-->
+        </Border>
+        <Border Grid.Row="3"  DataContext="{Binding PropertiesVM, Source={StaticResource VMLocator}}">
+            <Button Grid.Row="3" Command="{Binding AddBehaviourCommand}">
+                <TextBlock Text="Add Behaviour"></TextBlock>
+            </Button>
         </Border>
     </Grid>
 </UserControl>
