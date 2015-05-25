@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AegirLib.Component.Rendering
 {
-    class RenderMesh
+    public class RenderMesh
     {
     }
 }

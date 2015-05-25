@@ -54,6 +54,7 @@
     <Compile Include="Component\Rendering\RenderMesh.cs" />
     <Compile Include="Component\Rendering\RenderWater.cs" />
     <Compile Include="Component\Simulation\Ship.cs" />
+    <Compile Include="Component\Simulation\Transformation.cs" />
     <Compile Include="Data\Actor.cs" />
     <Compile Include="Data\Actors\ActorPreset.cs" />
     <Compile Include="Data\GraphHelper.cs" />

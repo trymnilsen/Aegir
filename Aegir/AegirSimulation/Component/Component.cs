@@ -14,6 +14,11 @@ namespace AegirLib.Component
         /// Share deltatime between update and render, (true will give slightly less accuracy).
         /// </summary>
         protected bool shareDeltatime;
+        /// <summary>
+        /// Allow only one of this component on an actor
+        /// </summary>
+        protected bool isUnique;
+
         public Component()
         {
             
@@ -25,6 +30,11 @@ namespace AegirLib.Component
         public virtual void Update(DeltaTime delta)
         {
 
+        }
+        public string GetOrigin() 
+        {
+            var assembly = this.GetType().Assembly;
+            return assembly.FullName;
         }
     }
 }

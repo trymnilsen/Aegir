@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace AegirLib.Data
 {
+    using AegirLib.Component.Simulation;
     using AegirComponent = AegirLib.Component.Component;
 
     public abstract class Actor : IActorContainer, ICustomTypeDescriptor
@@ -42,12 +43,17 @@ namespace AegirLib.Data
             Children   = new ObservableCollection<Actor>();
             Components = new ObservableCollection<AegirComponent>();
             typeMapping = new Dictionary<string, AegirComponent>();
-            //Components.Add(new AegirComponent());
-            //Components.Add(new AegirComponent());
-            ////Add to mapping
-            //typeMapping.Add(typeof(AegirComponent).FullName, new AegirComponent());
+            //Add Transformation
+            this.RegisterComponent(new Transformation());
         }
-
+        public void RegisterComponent(AegirComponent component)
+        {
+            Components.Add(component);
+            if(!typeMapping.ContainsKey(component.GetType().FullName))
+            {
+                typeMapping.Add(component.GetType().FullName, component);
+            }
+        }
         public void RemoveActor(Actor actor)
         {
             Children.Remove(actor);
