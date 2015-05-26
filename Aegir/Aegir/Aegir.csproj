@@ -121,6 +121,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Components\Rendering\RenderMesh.cs" />
+    <Compile Include="Components\Rendering\RenderShip.cs" />
+    <Compile Include="Components\Rendering\RenderWater.cs" />
     <Compile Include="Controls\PropertyGrid.cs" />
     <Compile Include="Config\AssetsConfig.cs" />
     <Compile Include="Converter\EnumToBoolConverter.cs" />

@@ -72,6 +72,7 @@
     <Compile Include="IO\FileReader.cs" />
     <Compile Include="IO\Parser\LineParser.cs" />
     <Compile Include="IO\Parser\SpaceDelimitedParser.cs" />
+    <Compile Include="IO\Save\SaveFile.cs" />
     <Compile Include="Logging\DebugOutputWriter.cs" />
     <Compile Include="Logging\ELogLevel.cs" />
     <Compile Include="Logging\FileOutputWriter.cs" />
@@ -83,6 +84,7 @@
     <Compile Include="Data\SimulationDataSet.cs" />
     <Compile Include="Simulation\DeltaTime.cs" />
     <Compile Include="Simulation\EPlaybackMode.cs" />
+    <Compile Include="Simulation\Simulation.cs" />
     <Compile Include="Simulation\Transformation\ETransformationType.cs" />
   </ItemGroup>
   <ItemGroup>
