@@ -51,8 +51,6 @@
     <Compile Include="Component\Movement\WaypointTravel.cs" />
     <Compile Include="Component\Output\FileOutput.cs" />
     <Compile Include="Component\Output\TCPOutput.cs" />
-    <Compile Include="Component\Rendering\RenderMesh.cs" />
-    <Compile Include="Component\Rendering\RenderWater.cs" />
     <Compile Include="Component\Simulation\Ship.cs" />
     <Compile Include="Component\Simulation\Transformation.cs" />
     <Compile Include="Data\Actor.cs" />
@@ -72,7 +70,6 @@
     <Compile Include="IO\FileReader.cs" />
     <Compile Include="IO\Parser\LineParser.cs" />
     <Compile Include="IO\Parser\SpaceDelimitedParser.cs" />
-    <Compile Include="IO\Save\SaveFile.cs" />
     <Compile Include="Logging\DebugOutputWriter.cs" />
     <Compile Include="Logging\ELogLevel.cs" />
     <Compile Include="Logging\FileOutputWriter.cs" />
@@ -84,7 +81,6 @@
     <Compile Include="Data\SimulationDataSet.cs" />
     <Compile Include="Simulation\DeltaTime.cs" />
     <Compile Include="Simulation\EPlaybackMode.cs" />
-    <Compile Include="Simulation\Simulation.cs" />
     <Compile Include="Simulation\Transformation\ETransformationType.cs" />
   </ItemGroup>
   <ItemGroup>

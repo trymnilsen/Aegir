@@ -23,6 +23,10 @@ namespace AegirLib.Component
         {
             
         }
+        public virtual void Load()
+        {
+
+        }
         public virtual void Render(DeltaTime delta)
         {
 

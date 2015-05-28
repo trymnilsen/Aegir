@@ -9,16 +9,22 @@ using System.Threading.Tasks;
 
 namespace Aegir.Components.Rendering
 {
-    class RenderShip:Component
+
+    public class RenderShip : Component
     {
-        private VertexBuffer vertexData; 
+        private VertexBuffer modelData;
         public RenderShip()
         {
 
         }
+
         public override void Update(DeltaTime delta)
         {
             base.Update(delta);
+        }
+        public override void Load()
+        {
+            base.Load();
         }
         public override void Render(DeltaTime delta)
         {
