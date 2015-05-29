@@ -27,7 +27,7 @@ namespace AegirLib.Component
         {
 
         }
-        public virtual void Render(DeltaTime delta)
+        public virtual void Render()
         {
 
         }

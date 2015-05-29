@@ -17,18 +17,13 @@ namespace Aegir.Components.Rendering
         {
 
         }
-
-        public override void Update(DeltaTime delta)
-        {
-            base.Update(delta);
-        }
         public override void Load()
         {
             base.Load();
         }
-        public override void Render(DeltaTime delta)
+        public override void Render()
         {
-            base.Render(delta);
+            base.Render();
         }
     }
 }

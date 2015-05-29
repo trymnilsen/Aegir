@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AegirLib
+namespace AegirLib.Simulation
 {
     public class SimulationCase
     {
@@ -17,6 +17,10 @@ namespace AegirLib
         public SimulationCase()
         {
             SimulationData = new SimulationDataSet();
+        }
+        public void StepSimulation()
+        {
+
         }
     }
 }

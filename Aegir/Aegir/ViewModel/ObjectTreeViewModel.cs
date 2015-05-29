@@ -1,5 +1,6 @@
 ﻿using Aegir.Message.Selection;
 using AegirLib;
+using AegirLib.Simulation;
 using AegirLib.Data;
 using AegirLib.Logging;
 using GalaSoft.MvvmLight;
