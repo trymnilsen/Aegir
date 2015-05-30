@@ -14,6 +14,7 @@ namespace AegirLib.Data
     {
         public ObservableCollection<Actor> RootNodes { get; private set; }
         public Route simulationRoute { get; set; }
+        public float frameTime { get; set; }
         public IActorContainer Parent
         {
             get
@@ -37,7 +38,10 @@ namespace AegirLib.Data
             RootNodes.Add(new Ship(this,"Awesome Liner"));
             RootNodes.Add(new Antenna(this));
         }
+        public void UpdateActors()
+        {
 
+        }
         public void RemoveActor(Actor actor)
         {
             RootNodes.Remove(actor);

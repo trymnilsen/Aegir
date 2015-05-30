@@ -83,6 +83,7 @@
     <Compile Include="Data\SimulationDataSet.cs" />
     <Compile Include="Simulation\DeltaTime.cs" />
     <Compile Include="Simulation\EPlaybackMode.cs" />
+    <Compile Include="Simulation\SimulationLoop.cs" />
     <Compile Include="Simulation\Transformation\ETransformationType.cs" />
   </ItemGroup>
   <ItemGroup>
