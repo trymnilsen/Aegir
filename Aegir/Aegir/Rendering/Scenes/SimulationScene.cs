@@ -44,16 +44,13 @@ namespace Aegir.Rendering.Scenes
         {
             assetStore = AegirIOC.Get<RenderAssetStore>();
             actors = new List<Actor>();
-
-
         }
         public void RenderStarted()
         {
-            Matrix4 identity = Matrix4.Identity;
             //Render actors
-            foreach(Actor a in actors)
+            foreach(Actor actor in actors)
             {
-                RenderActor(a,identity);
+                RenderActor(actor);
             }
         }
         
@@ -84,23 +81,19 @@ namespace Aegir.Rendering.Scenes
         {
             //CameraInstance.ViewPortSize = new Vector2(w, h);
         }
-
-        private void RenderActor(Actor actor, Matrix4 transformation)
+        /// <summary>
+        /// Recursively renders the actors
+        /// </summary>
+        /// <param name="actor">The actor to render together with it's children</param>
+        private void RenderActor(Actor actor)
         {
-            ////Get the geometry, bind the geometry and set the transformation
-            ////Matrix4 actorTranslation = actor.ActorTransformation;
-            //ObjMesh mesh = assetStore.LookupModelMesh(actor.GetType());
-
-
-            ////Render Children
-            //if(actor.Children.Count>0)
-            //{
-            //    foreach(Actor a in actor.Children)
-            //    {
-            //        RenderActor(a, actorTranslation);
-            //    }
-            //}
-
+            if (actor.Children.Count > 0)
+            {
+                foreach (Actor a in actor.Children)
+                {
+                    RenderActor(a);
+                }
+            }
 
         }
     }
