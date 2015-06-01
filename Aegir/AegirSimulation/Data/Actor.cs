@@ -54,6 +54,18 @@ namespace AegirLib.Data
                 typeMapping.Add(component.GetType().FullName, component);
             }
         }
+        public T GetComponent<T>() where T : AegirComponent
+        {
+            Type type = typeof(T);
+            for(int i = 0, l = this.Components.Count; i<l; i++)
+            {
+                if(this.Components[i].GetType() == type)
+                {
+                    return (T)this.Components[i];
+                }
+            }
+            return null;
+        }
         public void RemoveActor(Actor actor)
         {
             Children.Remove(actor);

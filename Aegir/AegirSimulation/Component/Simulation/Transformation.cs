@@ -13,21 +13,21 @@ namespace AegirLib.Component.Simulation
         private float posX;
         private float posY;
         private float posZ;
-        private Matrix4 transform;
+        private Matrix4d transform;
         private bool transformIsDirty;
 
         [Browsable(false)]
-        public Matrix4 Transform
+        public Matrix4d Transform
         {
             get
             {
                 if(transformIsDirty)
                 {
-                    transform = Matrix4.CreateScale(Vector3.One) *
-                       Matrix4.CreateRotationX(0) *
-                       Matrix4.CreateRotationY(0) *
-                       Matrix4.CreateRotationZ(0) *
-                       Matrix4.CreateTranslation(posX, posY, posZ);
+                    transform = Matrix4d.Scale(Vector3d.One) *
+                       Matrix4d.CreateRotationX(0) *
+                       Matrix4d.CreateRotationY(0) *
+                       Matrix4d.CreateRotationZ(0) *
+                       Matrix4d.CreateTranslation(posX, posY, posZ);
                 }
                 return transform;
             }

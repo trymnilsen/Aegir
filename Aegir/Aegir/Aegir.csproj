@@ -137,7 +137,6 @@
     <Compile Include="Message\Rendering\ChangeRenderSceneMessage.cs" />
     <Compile Include="Rendering\AssetDefinition.cs" />
     <Compile Include="Rendering\Camera.cs" />
-    <Compile Include="Rendering\Geometry\ActorModel.cs" />
     <Compile Include="Rendering\Geometry\Buffer\GeometryVolume.cs" />
     <Compile Include="Rendering\Geometry\Dummy\arrow.cs" />
     <Compile Include="Rendering\Geometry\Dummy\cube.cs" />
@@ -155,6 +154,7 @@
     <Compile Include="Rendering\Material\RenderMaterial.cs" />
     <Compile Include="Rendering\Scenes\SimulationScene.cs" />
     <Compile Include="Rendering\RenderAssetStore.cs" />
+    <Compile Include="Rendering\ActorRender.cs" />
     <Compile Include="Rendering\Shader\FragmentShader.cs" />
     <Compile Include="Rendering\Shader\GeometryShader.cs" />
     <Compile Include="Rendering\Shader\Shader.cs" />

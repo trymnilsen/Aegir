@@ -11,7 +11,7 @@ namespace Aegir.Rendering
 {
     public class Camera
     {
-        private Matrix4 cameraTransform;
+        private Matrix4d cameraTransform;
         private float posX;
         private float posY;
         private float posZ;
@@ -19,7 +19,7 @@ namespace Aegir.Rendering
         private Vector2 viewPort;
         private VirtualTrackball trackball;
 
-        public Matrix4 CameraMatrix
+        public Matrix4d CameraMatrix
         {
             get
             {
