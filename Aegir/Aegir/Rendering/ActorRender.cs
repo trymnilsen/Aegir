@@ -3,6 +3,7 @@ using Aegir.Rendering.Material;
 using AegirLib.Component.Simulation;
 using AegirLib.Data;
 using OpenTK;
+using OpenTK.Graphics.OpenGL4;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,11 +35,11 @@ namespace Aegir.Rendering
             //Multiply in camera transformation
             Matrix4d finalTransform = camera.CameraMatrix * transformMatrix;
 
-            //Set Shadervalues?
+            
             //Bind Shadervalues
-
+            GL.BindVertexArray(data.VaoRef);
             //Draw arrays
-
+            GL.DrawArrays(PrimitiveType.Triangles, 0, data.Vertexes.BufferIndexCount);
             //Unbind stuff
         }
 

@@ -138,6 +138,7 @@
     <Compile Include="Rendering\AssetDefinition.cs" />
     <Compile Include="Rendering\Camera.cs" />
     <Compile Include="Rendering\Geometry\Buffer\GeometryVolume.cs" />
+    <Compile Include="Rendering\Geometry\Buffer\GLAttributeName.cs" />
     <Compile Include="Rendering\Geometry\Dummy\arrow.cs" />
     <Compile Include="Rendering\Geometry\Dummy\cube.cs" />
     <Compile Include="Rendering\Geometry\Dummy\Model.cs" />

@@ -6,11 +6,13 @@ using System.Threading.Tasks;
 
 namespace Aegir.Rendering.Geometry.Buffer
 {
-    public struct GeometryVolume
+    public class GeometryVolume
     {
         public VertexBuffer Vertexes;
         public VertexBuffer Normals;
         public VertexBuffer Color;
+
+        public int VaoRef { get; private set; }
 
         public GeometryVolume(VertexBuffer vertex, 
                               VertexBuffer normal, 

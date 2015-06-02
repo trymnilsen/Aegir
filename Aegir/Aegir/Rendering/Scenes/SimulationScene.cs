@@ -47,6 +47,8 @@ namespace Aegir.Rendering.Scenes
         }
         public void RenderStarted()
         {
+            //Bind program
+            shader.Activate();
             //Render actors
             foreach(Actor actor in actors)
             {
