@@ -153,6 +153,7 @@
     <Compile Include="Rendering\IRenderScene.cs" />
     <Compile Include="Rendering\Material\GeometryMaterial.cs" />
     <Compile Include="Rendering\Material\RenderMaterial.cs" />
+    <Compile Include="Rendering\RenderResolver.cs" />
     <Compile Include="Rendering\Scenes\SimulationScene.cs" />
     <Compile Include="Rendering\RenderAssetStore.cs" />
     <Compile Include="Rendering\ActorRender.cs" />
