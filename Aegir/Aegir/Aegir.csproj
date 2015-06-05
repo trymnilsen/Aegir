@@ -135,6 +135,7 @@
     <Compile Include="Map\TileGenerator.cs" />
     <Compile Include="Map\TilePanel.cs" />
     <Compile Include="Message\Rendering\ChangeRenderSceneMessage.cs" />
+    <Compile Include="Message\Simulation\AddWaypointMessage.cs" />
     <Compile Include="Rendering\AssetDefinition.cs" />
     <Compile Include="Rendering\Camera.cs" />
     <Compile Include="Rendering\Geometry\Buffer\GeometryVolume.cs" />
@@ -153,7 +154,6 @@
     <Compile Include="Rendering\IRenderScene.cs" />
     <Compile Include="Rendering\Material\GeometryMaterial.cs" />
     <Compile Include="Rendering\Material\RenderMaterial.cs" />
-    <Compile Include="Rendering\RenderResolver.cs" />
     <Compile Include="Rendering\Scenes\SimulationScene.cs" />
     <Compile Include="Rendering\RenderAssetStore.cs" />
     <Compile Include="Rendering\ActorRender.cs" />

@@ -31,6 +31,8 @@ namespace AegirLib.Data
         [Browsable(false)]
         public IActorContainer Parent { get; set; }
 
+        [DisplayName("Is Visible")]
+        public bool isVisible { get; set; }
         public string Name { get; set; }
         /// <summary>
         /// Initializes a new actor instance

@@ -13,7 +13,10 @@ namespace Aegir.Rendering.Geometry.Buffer
         public VertexBuffer Color;
 
         public int VaoRef { get; private set; }
+        public GeometryVolume()
+        {
 
+        }
         public GeometryVolume(VertexBuffer vertex, 
                               VertexBuffer normal, 
                               VertexBuffer color)

@@ -10,6 +10,8 @@ namespace AegirLib.Component
 {
     public abstract class Component
     {
+        private readonly bool browsable;
+        private readonly bool removable;
         /// <summary>
         /// Share deltatime between update and render, (true will give slightly less accuracy).
         /// </summary>
@@ -19,9 +21,12 @@ namespace AegirLib.Component
         /// </summary>
         protected bool isUnique;
 
-        public Component()
+        public bool Browsable { get { return this.browsable; } }
+        public bool Removable { get { return this.removable; } }
+        public Component(bool browsable, bool removable)
         {
-            
+            this.browsable = browsable;
+            this.removable = removable;
         }
         public virtual void Load()
         {

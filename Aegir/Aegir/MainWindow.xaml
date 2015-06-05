@@ -44,14 +44,7 @@
                       ShowsPreview="True"
                       Height="5"></GridSplitter>
                 <!--Map View-->
-                <Grid Grid.Row="2">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="1*"></ColumnDefinition>
-                        <ColumnDefinition Width="150px"></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
-                    <views:Map Grid.Column="0"></views:Map>
-                    <views:Waypoints Grid.Column="1"></views:Waypoints>
-                </Grid>
+                <views:Map  Grid.Row="2"></views:Map>
             </Grid>
             <!--Preview Area-->
         </Grid>

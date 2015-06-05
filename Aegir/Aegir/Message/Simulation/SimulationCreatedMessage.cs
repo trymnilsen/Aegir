@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AegirLib;
 using GalaSoft.MvvmLight.Messaging;
+using AegirLib.Simulation;
 
 namespace Aegir.Message.Simulation
 {

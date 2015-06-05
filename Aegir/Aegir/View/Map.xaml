@@ -20,7 +20,7 @@
                     <MenuItem Header="Zoom In"></MenuItem>
                     <MenuItem Header="Zoom Out"></MenuItem>
                     <Separator></Separator>
-                    <MenuItem Header="Add Waypoint"></MenuItem>
+                    <MenuItem Header="Add Waypoint" Command="{Binding AddWaypoint}"></MenuItem>
                 </ContextMenu>
             </maps:MapCanvas.ContextMenu>
         </maps:MapCanvas>

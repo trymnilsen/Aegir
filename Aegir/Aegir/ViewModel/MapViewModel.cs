@@ -1,14 +1,8 @@
 ﻿using Aegir.Map;
-using AegirLib;
-using AegirLib.Data.Map;
+using Aegir.Message.Simulation;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using GalaSoft.MvvmLight.Messaging;
 
 namespace Aegir.ViewModel
 {
@@ -16,6 +10,8 @@ namespace Aegir.ViewModel
     {
         private bool showAll;
         private int downloadCount;
+
+        public RelayCommand AddWaypointCommand { get; set; }
 
         public bool ShowAllWaypoints
         {
@@ -48,9 +44,12 @@ namespace Aegir.ViewModel
         {
 
             TileGenerator.CacheFolder = @"ImageCache";
-
+            this.AddWaypointCommand = new RelayCommand(AddWaypoint);
         }
-
+        private void AddWaypoint()
+        {
+            Messenger.Default.Send<AddWaypointMessage>(new AddWaypointMessage());
+        }
 
     }
 }

@@ -48,7 +48,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Component\Component.cs" />
+    <Compile Include="Component\Movement\FollowWaypoint.cs" />
     <Compile Include="Component\Movement\KeyboardTravel.cs" />
+    <Compile Include="Component\Movement\Waypoint.cs" />
     <Compile Include="Component\Movement\WaypointTravel.cs" />
     <Compile Include="Component\Output\FileOutput.cs" />
     <Compile Include="Component\Output\TCPOutput.cs" />
