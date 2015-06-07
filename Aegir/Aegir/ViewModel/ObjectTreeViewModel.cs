@@ -8,6 +8,9 @@ using GalaSoft.MvvmLight.CommandWpf;
 using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using GalaSoft.MvvmLight.Messaging;
+using Aegir.Message.Simulation;
+using AegirLib.Component.Movement;
 
 namespace Aegir.ViewModel
 {
@@ -52,13 +55,26 @@ namespace Aegir.ViewModel
             RemoveItemCommand = new RelayCommand<Actor>(RemoveItem);
             MoveItemCommand = new RelayCommand<Actor>(MoveTo);
             //Add all our items
+            Messenger.Default.Register<AddWaypointMessage>(this, AddWaypoint);
         }
         public void UpdateSelectedItem(Actor newItem)
         {
             Logger.Log("Selected Item: " + newItem, ELogLevel.Debug);
             SelectedActorChangedMessage.Send(newItem);
         }
-
+        private void AddActor(Actor actorToAdd)
+        {
+            SimulationCase simCase = AegirIOC.Get<SimulationCase>();
+            simCase.SimulationData.AddChildActor(actorToAdd);
+        }
+        private void AddWaypoint(AddWaypointMessage message)
+        {
+            Actor waypointActor = new Actor(null);
+            Waypoint wp         = new Waypoint();
+            wp.Latitude = message.Latitude;
+            wp.Longitude = message.Longitude;
+            waypointActor.RegisterComponent(wp);
+        }
         private void RemoveItem(Actor item)
         {
             Debug.WriteLine("Removing Item" + item);

@@ -13,6 +13,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using AegirLib.Simulation;
+using AegirLib.Logging;
 
 namespace Aegir
 {
@@ -45,6 +46,20 @@ namespace Aegir
             //mainConfig.RegisterConfig(new AssetConfig());
             //mainConfig.SaveFile();
             //AegirIOC.Register(mainConfig);
+        }
+
+        private void Application_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
+        {
+            MessageBox.Show("Unhandled Error Occured: "+e.Exception.Message);
+            if(Logger.IsOpen)
+            {
+                Logger.Log(e.Exception.Message, ELogLevel.Error);
+                Logger.Log(e.Exception.StackTrace, ELogLevel.Error);
+            }
+            else
+            {
+                MessageBox.Show("Additionaly this error occured before bootstrapping of logging");
+            }
         }
 
     }

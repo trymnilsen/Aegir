@@ -12,6 +12,11 @@ namespace AegirLib.Logging
     {
         private static List<LogWriter> writers = new List<LogWriter>() { new DebugOutputWriter(ELogLevel.Debug)};
         private static StringBuilder sb = new StringBuilder();
+        /// <summary>
+        /// Has the Logger been initialized?
+        /// For now yes, implement propper later
+        /// </summary>
+        public static bool IsOpen { get { return true; } }
 
         public static void Log(Object o, ELogLevel level,
                         [CallerMemberName] string memberName = "",

@@ -9,10 +9,11 @@ using System.Threading.Tasks;
 
 namespace AegirLib.Data
 {
+    using AegirLib.Component.Movement;
     using AegirLib.Component.Simulation;
     using AegirComponent = AegirLib.Component.Component;
 
-    public abstract class Actor : IActorContainer, ICustomTypeDescriptor
+    public class Actor : IActorContainer, ICustomTypeDescriptor
     {
 
         private Dictionary<string, AegirComponent> typeMapping;

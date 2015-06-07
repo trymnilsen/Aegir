@@ -14,5 +14,6 @@ namespace AegirLib.Component.Output
         //Sentences
         public bool outputGGA { get; set; }
         public bool outputGLL { get; set; }
+
     }
 }

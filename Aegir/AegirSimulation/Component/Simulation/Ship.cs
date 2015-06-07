@@ -10,5 +10,6 @@ namespace AegirLib.Component.Simulation
     {
         public float Width { get; set; }
         public float Height { get; set; }
+        public Ship() : base(false, false) { }
     }
 }

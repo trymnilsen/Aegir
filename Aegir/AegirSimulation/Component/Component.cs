@@ -12,6 +12,11 @@ namespace AegirLib.Component
     {
         private readonly bool browsable;
         private readonly bool removable;
+
+        /// <summary>
+        /// Backing field for visibility
+        /// </summary>
+        private bool isVisible;
         /// <summary>
         /// Share deltatime between update and render, (true will give slightly less accuracy).
         /// </summary>
@@ -21,12 +26,28 @@ namespace AegirLib.Component
         /// </summary>
         protected bool isUnique;
 
+        
         public bool Browsable { get { return this.browsable; } }
         public bool Removable { get { return this.removable; } }
+
+        public bool IsVisible
+        {
+            get { return isVisible; }
+            set
+            {
+                isVisible = value;
+            }
+        }
+        public Component()
+        {
+            this.browsable = true;
+            this.removable = true;
+        }
         public Component(bool browsable, bool removable)
         {
             this.browsable = browsable;
             this.removable = removable;
+            this.isVisible = true;
         }
         public virtual void Load()
         {

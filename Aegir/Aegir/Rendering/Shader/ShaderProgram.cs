@@ -1,4 +1,5 @@
-﻿using OpenTK.Graphics.OpenGL4;
+﻿using AegirLib.IO;
+using OpenTK.Graphics.OpenGL4;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Aegir.Rendering.Shader
 {
-    public class ShaderProgram : IDisposable
+    public abstract class ShaderProgram : IDisposable
     {
 
         private int programIndex;
@@ -27,7 +28,7 @@ namespace Aegir.Rendering.Shader
         public VertexShader Vertex
         {
             get { return vertexShader; }
-            set
+            protected set
             {
                 vertexShader = value;
                 GL.AttachShader(programIndex, vertexShader.ShaderIndex);
@@ -39,15 +40,18 @@ namespace Aegir.Rendering.Shader
         public FragmentShader Fragment
         {
             get { return fragmentShader; }
-            set
+            protected set
             {
                 fragmentShader = value;
                 GL.AttachShader(programIndex, fragmentShader.ShaderIndex);
                 GL.LinkProgram(programIndex);
             }
         }
-
-        public ShaderProgram(VertexShader vShader, FragmentShader fShader)
+        protected ShaderProgram()
+        {
+            ProgramIndex = GL.CreateProgram();
+        }
+        public void CreateProgram(VertexShader vShader, FragmentShader fShader)
         {
             if(!fShader.Compiled)
             {
@@ -57,33 +61,11 @@ namespace Aegir.Rendering.Shader
             {
                 throw new ArgumentException("Fragment Shader not Compiled");
             }
-            ProgramIndex = GL.CreateProgram();
             Fragment = fShader;
             Vertex = vShader;
 
         }
-        /// <summary>
-        /// Initialize a Shader Program from two shader files
-        /// </summary>
-        /// <param name="vShader">The Vertex Shader</param>
-        /// <param name="fShader">The Fragment Shader</param>
-        public ShaderProgram(FileInfo vShader, FileInfo fShader)
-        {
-            if(!vShader.Exists)
-            {
-                throw new ArgumentException("Vertex Shader File did not exist");
-            }
-            if(!fShader.Exists)
-            {
-                throw new ArgumentException("Fragment Shader File did not exist");
-            }
-            VertexShader vs = new VertexShader(vShader);
-            FragmentShader fs = new FragmentShader(fShader);
 
-            ProgramIndex = GL.CreateProgram();
-            Fragment = fs;
-            Vertex = vs;
-        }
         /// <summary>
         /// Use this shader program
         /// </summary>
@@ -105,5 +87,6 @@ namespace Aegir.Rendering.Shader
         {
             GL.DeleteProgram(ProgramIndex);
         }
+
     }
 }

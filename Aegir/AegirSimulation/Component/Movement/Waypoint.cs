@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace AegirLib.Component.Movement
 {
-    class Waypoint
+    public class Waypoint : Component
     {
+        public double Latitude { get; set; }
+        public double Longitude { get; set; }
     }
 }

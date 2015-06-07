@@ -141,7 +141,7 @@
     <Compile Include="Rendering\Geometry\Buffer\GeometryVolume.cs" />
     <Compile Include="Rendering\Geometry\Buffer\GLAttributeName.cs" />
     <Compile Include="Rendering\Geometry\Dummy\arrow.cs" />
-    <Compile Include="Rendering\Geometry\Dummy\cube.cs" />
+    <Compile Include="Rendering\Geometry\Dummy\Cube.cs" />
     <Compile Include="Rendering\Geometry\Dummy\Model.cs" />
     <Compile Include="Rendering\Geometry\ObjFormat\ObjMesh.cs" />
     <Compile Include="Rendering\Geometry\ObjFormat\ObjMeshLoader.cs" />
@@ -154,6 +154,7 @@
     <Compile Include="Rendering\IRenderScene.cs" />
     <Compile Include="Rendering\Material\GeometryMaterial.cs" />
     <Compile Include="Rendering\Material\RenderMaterial.cs" />
+    <Compile Include="Rendering\Programs\DefaultShaderProgram.cs" />
     <Compile Include="Rendering\Scenes\SimulationScene.cs" />
     <Compile Include="Rendering\RenderAssetStore.cs" />
     <Compile Include="Rendering\ActorRender.cs" />

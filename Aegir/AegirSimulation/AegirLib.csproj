@@ -70,6 +70,7 @@
     <Compile Include="IO\Config\BaseConfig.cs" />
     <Compile Include="IO\Config\ConfigFile.cs" />
     <Compile Include="IO\Config\IConfigProvider.cs" />
+    <Compile Include="IO\FileIOUtil.cs" />
     <Compile Include="IO\FileReader.cs" />
     <Compile Include="IO\Parser\LineParser.cs" />
     <Compile Include="IO\Parser\SpaceDelimitedParser.cs" />

@@ -48,7 +48,7 @@ namespace Aegir.Rendering.Shader
         /// </summary>
         /// <param name="file">file to load as a shader</param>
         /// <param name="shaderType">The ShaderType</param>
-        protected Shader(System.IO.FileInfo file, ShaderType shaderType)
+        protected Shader(FileInfo file, ShaderType shaderType)
         {
             this.FileSource = file.FullName;
             this.ShaderType = shaderType;
@@ -63,6 +63,7 @@ namespace Aegir.Rendering.Shader
         private void CreateShader()
         {
             ShaderIndex = GL.CreateShader(ShaderType);
+            //TODO: Compile shader
         }
         /// <summary>
         /// Dispose of the shader

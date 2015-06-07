@@ -42,13 +42,13 @@ namespace Aegir.ViewModel
         
         public MapViewModel()
         {
-
+            
             TileGenerator.CacheFolder = @"ImageCache";
             this.AddWaypointCommand = new RelayCommand(AddWaypoint);
         }
         private void AddWaypoint()
         {
-            Messenger.Default.Send<AddWaypointMessage>(new AddWaypointMessage());
+            AddWaypointMessage.Send(5d, 5d);
         }
 
     }

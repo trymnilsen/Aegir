@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OpenTK;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,20 +11,23 @@ namespace Aegir.Rendering.Geometry.Buffer
     {
         public VertexBuffer Vertexes;
         public VertexBuffer Normals;
-        public VertexBuffer Color;
-
+        public VertexBuffer Indices;
+        public Vector3 Color;
         public int VaoRef { get; private set; }
         public GeometryVolume()
         {
 
         }
-        public GeometryVolume(VertexBuffer vertex, 
-                              VertexBuffer normal, 
-                              VertexBuffer color)
+        public GeometryVolume(VertexBuffer vertex,
+                              VertexBuffer normal,
+                              VertexBuffer indices,
+                              Vector3 rgbColor)
         {
             this.Vertexes = vertex;
             this.Normals = normal;
-            this.Color = color;
+            this.Indices = indices;
+            this.Color = rgbColor;
         }
+
     }
 }

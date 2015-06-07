@@ -17,6 +17,10 @@ namespace Aegir.Rendering.Geometry.Buffer
         public int BufferRef { get { return this.bufferName; }}
         public int BufferIndexCount { get; private set; }
 
+        /// <summary>
+        /// Create a Buffer from a 3d vector array
+        /// </summary>
+        /// <param name="data"></param>
         public VertexBuffer(Vector3[] data)
         {
             int bufferSize = Vector3.SizeInBytes * data.Length;
@@ -26,6 +30,32 @@ namespace Aegir.Rendering.Geometry.Buffer
             BindBuffer();
             GL.BufferData<Vector3>(BufferTarget.ArrayBuffer, (IntPtr) bufferSize, data, BufferUsageHint.StaticDraw);
 
+        }
+        /// <summary>
+        /// Create a buffer from an array of doubles
+        /// </summary>
+        /// <param name="data"></param>
+        public VertexBuffer(double[] data)
+        {
+            int bufferSize = sizeof(double) * data.Length;
+            this.BufferIndexCount = data.Length;
+            //Create buffer
+            GL.GenBuffers(1, out bufferName);
+            BindBuffer();
+            GL.BufferData<double>(BufferTarget.ArrayBuffer, (IntPtr)bufferSize, data, BufferUsageHint.StaticDraw);
+        }
+        /// <summary>
+        /// Create a buffer for an array of ints
+        /// </summary>
+        /// <param name="data"></param>
+        public VertexBuffer(int[] data)
+        {
+            int bufferSize = sizeof(int) * data.Length;
+            this.BufferIndexCount = data.Length;
+            //Create buffer
+            GL.GenBuffers(1, out bufferName);
+            BindBuffer();
+            GL.BufferData<int>(BufferTarget.ArrayBuffer, (IntPtr)bufferSize, data, BufferUsageHint.StaticDraw);
         }
         public void Dispose()
         {

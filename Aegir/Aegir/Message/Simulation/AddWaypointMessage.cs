@@ -9,9 +9,16 @@ namespace Aegir.Message.Simulation
 {
     internal class AddWaypointMessage
     {
-        public static void Send()
+        public double Latitude {get; private set;}
+        public double Longitude {get; private set;}
+        private AddWaypointMessage(double lat, double lon)
         {
-            Messenger.Default.Send<AddWaypointMessage>(new AddWaypointMessage());
+            this.Latitude = lat;
+            this.Longitude = lon;
+        }
+        public static void Send(double lat, double lon)
+        {
+            Messenger.Default.Send<AddWaypointMessage>(new AddWaypointMessage(lat, lon));
         }
     }
 }
