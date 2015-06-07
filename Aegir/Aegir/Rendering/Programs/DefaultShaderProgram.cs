@@ -1,5 +1,6 @@
 ﻿using Aegir.Rendering.Shader;
 using AegirLib.IO;
+using OpenTK;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -11,6 +12,16 @@ namespace Aegir.Rendering.Programs
 {
     public class DefaultShaderProgram : ShaderProgram
     {
+        /// <summary>
+        /// View Projection matrix used in shader
+        /// </summary>
+        [ShaderProperty("view_projection_matrix")]
+        public Matrix4d ViewProjectionMatrix { get; set; }
+        /// <summary>
+        /// Normal matrix in our shader
+        /// </summary>
+        [ShaderProperty("normal_matrix")]
+        public Matrix4d NormalMatrix { get; set; }
         public DefaultShaderProgram()
         {
             FileInfo vertShader = FileIOUtil.GetFileInfoAndCheckExistance("Resources/Shader/simple_vs.glsl");
