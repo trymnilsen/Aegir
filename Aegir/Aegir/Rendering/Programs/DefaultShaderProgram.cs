@@ -17,6 +17,9 @@ namespace Aegir.Rendering.Programs
             FileInfo fragShader = FileIOUtil.GetFileInfoAndCheckExistance("Resources/Shader/simple_fs.glsl");
             VertexShader vs = new VertexShader(vertShader);
             FragmentShader fs = new FragmentShader(fragShader);
+
+            this.Vertex = vs;
+            this.Fragment = fs;
         }
     }
 }

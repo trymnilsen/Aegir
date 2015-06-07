@@ -161,7 +161,10 @@
     <Compile Include="Rendering\Shader\FragmentShader.cs" />
     <Compile Include="Rendering\Shader\GeometryShader.cs" />
     <Compile Include="Rendering\Shader\Shader.cs" />
+    <Compile Include="Rendering\Shader\ShaderCompilationException.cs" />
     <Compile Include="Rendering\Shader\ShaderProgram.cs" />
+    <Compile Include="Rendering\Shader\ShaderProperty.cs" />
+    <Compile Include="Rendering\Shader\ShaderPropertyAttribute.cs" />
     <Compile Include="Rendering\Shader\VertexShader.cs" />
     <Compile Include="ViewModel\Actors\ShipViewModel.cs" />
     <Compile Include="ViewModel\MapViewModel.cs" />

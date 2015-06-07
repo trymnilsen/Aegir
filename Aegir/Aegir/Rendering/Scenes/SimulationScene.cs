@@ -66,7 +66,7 @@ namespace Aegir.Rendering.Scenes
             //Load Shader
             FileInfo vertShader = new FileInfo("Resources/Shader/simple_vs.glsl");
             FileInfo fragShader = new FileInfo("Resources/Shader/simple_fs.glsl");
-            shader = new ShaderProgram(vertShader, fragShader);
+            //shader = new ShaderProgram(vertShader, fragShader);
         }
 
         public void Resume()

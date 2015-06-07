@@ -10,11 +10,6 @@ namespace Aegir.Rendering.Shader
     public class VertexShader : Shader
     {
         /// <summary>
-        /// Initializes a VertexShader from a string of code
-        /// </summary>
-        /// <param name="code">The shader code</param>
-        public VertexShader(string code) : base(code, ShaderType.VertexShader) { }
-        /// <summary>
         /// Initializes a VertexShader from a FileInfo Instance
         /// </summary>
         /// <param name="file">The File to create shader from</param>

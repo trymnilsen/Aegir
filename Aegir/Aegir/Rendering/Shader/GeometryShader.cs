@@ -12,11 +12,6 @@ namespace Aegir.Rendering.Shader
         /// <summary>
         /// Initializes a GeometryShader from a FileInfo Instance
         /// </summary>
-        /// <param name="code">The File to create shader from</param>
-        public GeometryShader(string code) : base(code, ShaderType.GeometryShader) { }
-        /// <summary>
-        /// Initializes a GeometryShader from a FileInfo Instance
-        /// </summary>
         /// <param name="file">The File to create shader from</param>
         public GeometryShader(System.IO.FileInfo file) : base(file, ShaderType.GeometryShader) { }
 

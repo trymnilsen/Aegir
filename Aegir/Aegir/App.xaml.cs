@@ -50,9 +50,10 @@ namespace Aegir
 
         private void Application_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
         {
-            MessageBox.Show("Unhandled Error Occured: "+e.Exception.Message);
+            MessageBox.Show("Unhandled Error Occured: " + e.Exception.GetType().FullName + Environment.NewLine + e.Exception.Message);
             if(Logger.IsOpen)
             {
+                Logger.Log(e.Exception.GetType().FullName, ELogLevel.Error);
                 Logger.Log(e.Exception.Message, ELogLevel.Error);
                 Logger.Log(e.Exception.StackTrace, ELogLevel.Error);
             }

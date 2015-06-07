@@ -33,17 +33,6 @@ namespace Aegir.Rendering.Shader
         protected ShaderType ShaderType { get; set; }
 
         /// <summary>
-        /// Initialize the shader from a code in a string
-        /// </summary>
-        /// <param name="code">The string containing the shader code</param>
-        /// <param name="shaderType">The ShaderType</param>
-        protected Shader(string code, ShaderType shaderType)
-        {
-            this.Code = code;
-            this.ShaderType = shaderType;
-            CreateShader();
-        }
-        /// <summary>
         /// Initialize the shader from a fileInfo instance
         /// </summary>
         /// <param name="file">file to load as a shader</param>
@@ -64,6 +53,24 @@ namespace Aegir.Rendering.Shader
         {
             ShaderIndex = GL.CreateShader(ShaderType);
             //TODO: Compile shader
+            int status_code;
+            string info;
+
+            // Compile vertex shader
+            GL.ShaderSource(ShaderIndex, Code);
+            GL.CompileShader(ShaderIndex);
+            GL.GetShaderInfoLog(ShaderIndex, out info);
+            GL.GetShader(ShaderIndex, ShaderParameter.CompileStatus, out status_code);
+
+            if (status_code != 1)
+            {
+                throw new ShaderCompilationException(status_code, info, FileSource);
+            }
+            else
+            {
+                this.Compiled = true;
+            }
+
         }
         /// <summary>
         /// Dispose of the shader

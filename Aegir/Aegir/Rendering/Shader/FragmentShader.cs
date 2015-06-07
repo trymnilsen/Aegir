@@ -10,11 +10,6 @@ namespace Aegir.Rendering.Shader
     public class FragmentShader : Shader
     {
         /// <summary>
-        /// Initializes a FragmentShader from a string of code
-        /// </summary>
-        /// <param name="code">The shader code</param>
-        public FragmentShader(string code) : base(code, ShaderType.FragmentShader) { }
-        /// <summary>
         /// Initializes a FragmentShader from a FileInfo Instance
         /// </summary>
         /// <param name="file">The File to create shader from</param>
