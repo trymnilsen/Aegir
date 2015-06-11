@@ -1,4 +1,5 @@
-﻿using Aegir.Rendering.Shader;
+﻿using Aegir.Rendering.Geometry.Buffer;
+using Aegir.Rendering.Shader;
 using AegirLib.IO;
 using OpenTK;
 using System;
@@ -12,11 +13,15 @@ namespace Aegir.Rendering.Programs
 {
     public class DefaultShaderProgram : ShaderProgram
     {
+        private int positionAttribRef;
+        private int normalAttribRef;
+        [ShaderProperty("projection_matrix")]
+        public Matrix4d ViewProjectionMatrix { get; set; }
         /// <summary>
         /// View Projection matrix used in shader
         /// </summary>
-        [ShaderProperty("view_projection_matrix")]
-        public Matrix4d ViewProjectionMatrix { get; set; }
+        [ShaderProperty("modelview_matrix")]
+        public Matrix4d ModelViewMatrix { get; set; }
         /// <summary>
         /// Normal matrix in our shader
         /// </summary>
@@ -28,9 +33,19 @@ namespace Aegir.Rendering.Programs
             FileInfo fragShader = FileIOUtil.GetFileInfoAndCheckExistance("Resources/Shader/simple_fs.glsl");
             VertexShader vs = new VertexShader(vertShader);
             FragmentShader fs = new FragmentShader(fragShader);
-
+            //Adding a shader compiles it
             this.Vertex = vs;
             this.Fragment = fs;
+
+            //Get adresses
+        }
+        public void SetVertexData(VertexBuffer data)
+        {
+
+        }
+        public void SetNormalData(VertexBuffer data)
+        {
+
         }
     }
 }

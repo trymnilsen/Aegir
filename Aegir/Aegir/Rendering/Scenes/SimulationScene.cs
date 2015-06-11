@@ -96,7 +96,6 @@ namespace Aegir.Rendering.Scenes
                     RenderActor(a);
                 }
             }
-
         }
     }
 }

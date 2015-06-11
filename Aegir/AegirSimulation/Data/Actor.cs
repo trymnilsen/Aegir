@@ -13,7 +13,7 @@ namespace AegirLib.Data
     using AegirLib.Component.Simulation;
     using AegirComponent = AegirLib.Component.Component;
 
-    public class Actor : IActorContainer, ICustomTypeDescriptor
+    public class Actor : IActorContainer
     {
 
         private Dictionary<string, AegirComponent> typeMapping;

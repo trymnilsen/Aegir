@@ -58,15 +58,17 @@
               ShowsPreview="True"
               Height="5"></GridSplitter>
         <Border Grid.Row="2" DataContext="{Binding PropertiesVM, Source={StaticResource VMLocator}}">
-            <xctools:PropertyGrid SelectedObject="{Binding SelectedItem}"
+            <!--<xctools:PropertyGrid SelectedObject="{Binding SelectedItem}"
                                   ShowSearchBox="False"
                                   ShowSortOptions="False"
                                   ShowTitle="False"
-                                  ></xctools:PropertyGrid>
+                                  ShowSummary="False"
+                                  ShowAdvancedOptions="False"
+                                  ></xctools:PropertyGrid>-->
             
-            <!--<wpg:WpfPropertyGrid SelectedObject="{Binding SelectedItem}"
+            <wpg:WpfPropertyGrid SelectedObject="{Binding SelectedItem}"
                                  ToolbarVisible="False"
-                                 ></wpg:WpfPropertyGrid>-->
+                                 ></wpg:WpfPropertyGrid>
         </Border>
         <Border Grid.Row="3"  DataContext="{Binding PropertiesVM, Source={StaticResource VMLocator}}">
             <Button Grid.Row="3" Command="{Binding AddBehaviourCommand}">
