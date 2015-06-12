@@ -1,4 +1,5 @@
-﻿using AegirLib;
+﻿using Aegir.ViewModel.Properties;
+using AegirLib;
 using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Practices.ServiceLocation;
 using System;

@@ -3,10 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:wpg="clr-namespace:System.Windows.Controls"
              xmlns:xctools="http://schemas.xceed.com/wpf/xaml/toolkit"
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              xmlns:cmd="http://www.galasoft.ch/mvvmlight"
+             xmlns:views="clr-namespace:Aegir.View"
              xmlns:model="clr-namespace:AegirLib.Data;assembly=AegirLib"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
@@ -57,18 +57,8 @@
               VerticalAlignment="Center"
               ShowsPreview="True"
               Height="5"></GridSplitter>
-        <Border Grid.Row="2" DataContext="{Binding PropertiesVM, Source={StaticResource VMLocator}}">
-            <!--<xctools:PropertyGrid SelectedObject="{Binding SelectedItem}"
-                                  ShowSearchBox="False"
-                                  ShowSortOptions="False"
-                                  ShowTitle="False"
-                                  ShowSummary="False"
-                                  ShowAdvancedOptions="False"
-                                  ></xctools:PropertyGrid>-->
-            
-            <wpg:WpfPropertyGrid SelectedObject="{Binding SelectedItem}"
-                                 ToolbarVisible="False"
-                                 ></wpg:WpfPropertyGrid>
+        <Border Grid.Row="2" >
+            <views:ComponentEditor></views:ComponentEditor>
         </Border>
         <Border Grid.Row="3"  DataContext="{Binding PropertiesVM, Source={StaticResource VMLocator}}">
             <Button Grid.Row="3" Command="{Binding AddBehaviourCommand}">

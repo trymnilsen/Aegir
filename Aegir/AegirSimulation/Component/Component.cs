@@ -14,10 +14,6 @@ namespace AegirLib.Component
         private readonly bool removable;
 
         /// <summary>
-        /// Backing field for visibility
-        /// </summary>
-        private bool isVisible;
-        /// <summary>
         /// Share deltatime between update and render, (true will give slightly less accuracy).
         /// </summary>
         protected bool shareDeltatime;
@@ -29,25 +25,27 @@ namespace AegirLib.Component
         
         public bool Browsable { get { return this.browsable; } }
         public bool Removable { get { return this.removable; } }
+        public string Name { get; private set; }
 
-        public bool IsVisible
-        {
-            get { return isVisible; }
-            set
-            {
-                isVisible = value;
-            }
-        }
-        public Component()
-        {
+        /// <summary>
+        /// Creates new Component
+        /// </summary>
+        public Component() {
             this.browsable = true;
             this.removable = true;
+            this.Name = this.GetType().Name;
         }
-        public Component(bool browsable, bool removable)
+        /// <summary>
+        /// Create a new Component
+        /// </summary>
+        /// <param name="browsable">Is the component Browsable</param>
+        /// <param name="removable">Is the component Removable</param>
+        /// <param name="name">Name of the component</param>
+        public Component(bool browsable, bool removable, string name)
         {
             this.browsable = browsable;
             this.removable = removable;
-            this.isVisible = true;
+            this.Name = name;
         }
         public virtual void Load()
         {

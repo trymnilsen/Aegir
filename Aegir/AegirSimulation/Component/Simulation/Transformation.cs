@@ -32,7 +32,7 @@ namespace AegirLib.Component.Simulation
                 return transform;
             }
         }
-        [Category("Transformation")]
+        [Category("Position")]
         public float X
         {
             get
@@ -45,7 +45,7 @@ namespace AegirLib.Component.Simulation
                 posX = value;
             }
         }
-        [Category("Transformation")]
+        [Category("Position")]
         public float Y
         {
             get
@@ -58,7 +58,7 @@ namespace AegirLib.Component.Simulation
                 posY = value;
             }
         }
-        [Category("Transformation")]
+        [Category("Position")]
         public float Z
         {
             get
