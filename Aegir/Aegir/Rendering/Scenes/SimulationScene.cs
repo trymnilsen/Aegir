@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Aegir.Rendering.Geometry.OBJ;
+using Aegir.Rendering.Programs;
 
 namespace Aegir.Rendering.Scenes
 {
@@ -66,7 +67,7 @@ namespace Aegir.Rendering.Scenes
             //Load Shader
             FileInfo vertShader = new FileInfo("Resources/Shader/simple_vs.glsl");
             FileInfo fragShader = new FileInfo("Resources/Shader/simple_fs.glsl");
-            //shader = new ShaderProgram(vertShader, fragShader);
+            shader = new DefaultShaderProgram();
         }
 
         public void Resume()
@@ -81,7 +82,7 @@ namespace Aegir.Rendering.Scenes
 
         public void SceneResized(int w, int h)
         {
-            //CameraInstance.ViewPortSize = new Vector2(w, h);
+            cameraInstance.ViewPortSize = new Vector2(w, h);
         }
         /// <summary>
         /// Recursively renders the actors
