@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Aegir.Messages.Project;
+using GalaSoft.MvvmLight.Messaging;
+using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +26,24 @@ namespace Aegir
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+
+        private void FileOpenClick(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+
+            openFileDialog.InitialDirectory = "c:\\";
+            openFileDialog.Filter = "Project Files (*.proj)|*.proj|All files (*.*)|*.*";
+            openFileDialog.FilterIndex = 2;
+            openFileDialog.RestoreDirectory = true;
+
+            bool? foo = openFileDialog.ShowDialog();
+
+            if (foo.HasValue && foo.Value)
+            {
+                LoadProjectFile.Send(openFileDialog.FileName);
+            }
         }
     }
 }
