@@ -14,6 +14,7 @@ namespace Aegir
         public ApplicationContext Context { get; private set; }
         public Shell()
         {
+            Context = new ApplicationContext();
             Messenger.Default.Register<LoadProjectFile>(this, OpenProject);
         }
         public void OpenProject(LoadProjectFile message)

@@ -13,6 +13,10 @@ namespace Aegir
     /// </summary>
     public partial class App : Application
     {
-
+        Shell appShell;
+        public App()
+        {
+            appShell = new Shell();
+        }
     }
 }

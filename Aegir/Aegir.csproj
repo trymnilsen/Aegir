@@ -9,13 +9,14 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Aegir</RootNamespace>
     <AssemblyName>Aegir</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -128,6 +129,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Messages\Project\LoadProjectFile.cs" />
+    <Compile Include="Module\Properties\PropertiesEdit.xaml.cs">
+      <DependentUpon>PropertiesEdit.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Shell.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -142,6 +146,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Module\Navigation\NavigationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Module\Properties\PropertiesEdit.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -174,6 +182,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="Content\cruiseship.obj">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -198,7 +209,6 @@
     <Folder Include="File\" />
     <Folder Include="Module\Log\" />
     <Folder Include="Module\Outputs\" />
-    <Folder Include="Module\Properties\" />
     <Folder Include="Module\Scenegraph\" />
     <Folder Include="Module\Statistics\" />
     <Folder Include="Module\Toolbox\" />

@@ -10,5 +10,11 @@ namespace AegirCore
     public class ApplicationContext
     {
         public ProjectContext Project { get; set; }
+
+        public ApplicationContext()
+        {
+            Project = new ProjectContext();
+            
+        }
     }
 }

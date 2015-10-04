@@ -127,7 +127,7 @@
             </StackPanel>
         </Grid>
         
-        <avalonDock:DockingManager Grid.Row="1" x:Name="dockManager" AllowMixedOrientation="True" Loaded="dockManager_Loaded" >
+        <avalonDock:DockingManager Grid.Row="1" x:Name="dockManager" AllowMixedOrientation="True">
             <avalonDock:DockingManager.Theme>
                 <avalonDock:Vs2013BlueTheme/>
             </avalonDock:DockingManager.Theme>
@@ -146,7 +146,7 @@
                         <avalonDock:LayoutAnchorablePaneGroup Orientation="Vertical" DockMinWidth="200">
                             <avalonDock:LayoutAnchorablePane Name="Navigation" DockMinHeight="300">
                                 <avalonDock:LayoutAnchorable Title="Navigation">
-                                        <navView:NavigationView Loaded="NavigationView_Loaded"></navView:NavigationView>
+                                        <navView:NavigationView></navView:NavigationView>
                                 </avalonDock:LayoutAnchorable>
                                 
                             </avalonDock:LayoutAnchorablePane>

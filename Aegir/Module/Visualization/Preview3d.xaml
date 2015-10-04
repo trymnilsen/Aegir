@@ -14,7 +14,7 @@
         <ht:HelixViewport3D ShowCoordinateSystem="True" Camera="{ht:PerspectiveCamera 20,10,10}" ZoomExtentsWhenLoaded="True" x:Name="view1">
 
             <ht:SunLight/>
-
+            <!--<ht:FileModelVisual3D x:Name="shipModel" Source="Content/cruiseship.obj"></ht:FileModelVisual3D>-->
             <ht:SphereVisual3D x:Name="sphere1" Center="-4,0,0" Fill="Orange"/>
             <ht:TranslateManipulator Material="{ht:Material Gold}" Position="-4,0,0" Offset="0,0,1" Length="1" Value="{Binding Radius, ElementName=sphere1}" Direction="0,0,1"/>
 
