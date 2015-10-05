@@ -129,6 +129,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Messages\Project\LoadProjectFile.cs" />
+    <Compile Include="Messages\Project\ProjectActivated.cs" />
     <Compile Include="Module\Properties\PropertiesEdit.xaml.cs">
       <DependentUpon>PropertiesEdit.xaml</DependentUpon>
     </Compile>

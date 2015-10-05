@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace AegirCore.Scene
 {
-    class Node
+    public class Node
     {
+        public string Name {get; set;}
+        public bool Nestable { get; set; }
+        public bool Removable { get; set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using AegirCore.Scene;
+﻿using AegirCore.Project.Event;
+using AegirCore.Scene;
 using AegirCore.Vessel;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,22 @@ namespace AegirCore.Project
 {
     public class ProjectContext
     {
-        public ProjectData ActiveProject { get; private set; }
+        private ProjectData activeProject;
+        public ProjectData ActiveProject
+        {
+            get 
+            {
+                return activeProject;
+            }
+            private set
+            {
+                if(value != activeProject)
+                {
+                    activeProject = value;
+                    TriggerActiveProject(value);
+                }
+            }
+        }
         public ProjectContext()
         {
             
@@ -32,6 +48,7 @@ namespace AegirCore.Project
         public ProjectData CreateNewProject()
         {
             SceneGraph scene = new SceneGraph();
+
             VesselConfiguration vessel = new VesselConfiguration();
 
             return new ProjectData(scene, vessel, "New Simulation");
@@ -53,9 +70,19 @@ namespace AegirCore.Project
                 evt(e);
             }
         }
+        private void TriggerActiveProject(ProjectData project)
+        {
+            ProjectActivateEventHandler evt = ProjectActivated;
+            if(evt!=null)
+            {
+                evt(new ProjectActivateEventArgs(project));
+            }
+        }
 
         public delegate void ProjectLoadEventHandler(ProjectLoadEventArgs e);
+        public delegate void ProjectActivateEventHandler(ProjectActivateEventArgs e);
 
+        public event ProjectActivateEventHandler ProjectActivated;
         public event ProjectLoadEventHandler ProjectLoaded;
         public event ProjectLoadEventHandler ProjectLoadFailure;
 

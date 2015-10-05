@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace AegirCore.Scene
 {
-    public class SceneGraph
+    public class TransformableNode : Node
     {
-        public List<Node> RootNodes { get; set; }
     }
 }

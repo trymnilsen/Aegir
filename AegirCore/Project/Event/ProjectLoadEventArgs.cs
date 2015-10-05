@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AegirCore.Project
+namespace AegirCore.Project.Event
 {
     public enum ProjectLoadStatus
     {

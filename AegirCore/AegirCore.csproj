@@ -46,14 +46,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationContext.cs" />
+    <Compile Include="Entity\GNSSReceiver.cs" />
+    <Compile Include="Entity\Vessel.cs" />
+    <Compile Include="Project\Event\ProjectActivateEventArgs.cs" />
     <Compile Include="Project\ProjectContext.cs" />
     <Compile Include="Project\ProjectData.cs" />
     <Compile Include="Project\ProjectFile.cs" />
-    <Compile Include="Project\ProjectLoadEventArgs.cs" />
+    <Compile Include="Project\Event\ProjectLoadEventArgs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Scene\Node.cs" />
     <Compile Include="Scene\SceneContext.cs" />
     <Compile Include="Scene\Scenegraph.cs" />
+    <Compile Include="Scene\TransformableNode.cs" />
     <Compile Include="Vessel\VesselConfiguration.cs" />
     <Compile Include="Vessel\VesselContext.cs" />
   </ItemGroup>

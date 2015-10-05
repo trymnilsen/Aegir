@@ -6,6 +6,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Aegir"
         
+        xmlns:propEdit="clr-namespace:Aegir.Module.Properties"
         xmlns:navView="clr-namespace:Aegir.Module.Navigation"
         xmlns:previewView="clr-namespace:Aegir.Module.Visualization"
         
@@ -17,6 +18,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="20px"/>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
@@ -24,10 +26,17 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <Menu>
-                <MenuItem Header="File">
-                    <MenuItem Header="Open" Click="FileOpenClick"/>
+                <Menu.Background>
+                    <SolidColorBrush>
+                        <SolidColorBrush.Color>
+                            <Color R="41" G="57" B="85" A="255"></Color>
+                        </SolidColorBrush.Color>
+                    </SolidColorBrush>
+                </Menu.Background>
+                <MenuItem Header="File" Foreground="White">
+                    <MenuItem Header="Open" Foreground="Black" Click="FileOpenClick"/>
                 </MenuItem>
-                <MenuItem Header="Edit">
+                <MenuItem Header="Edit" Foreground="White">
                     <MenuItem Header="Undo" Foreground="Black"/>
                     <MenuItem Header="Redo" Foreground="Black"/>
                     <MenuItem Header="Delete" Foreground="Black"/>
@@ -38,15 +47,15 @@
                     <MenuItem Header="Transform.." Foreground="Black"/>
                     <MenuItem Header="Editor Preferences.." Foreground="Black"/>
                 </MenuItem>
-                <MenuItem Header="Tools">
+                <MenuItem Header="Tools" Foreground="White">
                     <MenuItem Header="Tool1"/>
                 </MenuItem>
-                <MenuItem Header="Entity">
+                <MenuItem Header="Entity" Foreground="White">
                     <MenuItem Header="Freeze Entity"/>
                     <MenuItem Header="Hide Entity"/>
                     <MenuItem Header="Remove Entity"/>
                 </MenuItem>
-                <MenuItem Header="Select">
+                <MenuItem Header="Select" Foreground="White">
                     <MenuItem Header="Select All"/>
                     <MenuItem Header="Select None"/>
                     <MenuItem Header="Select Inverse"/>
@@ -56,13 +65,13 @@
                     <MenuItem Header="Set Selection Set.."/>
                     <MenuItem Header="Get Selection Set.."/>
                 </MenuItem>
-                <MenuItem Header="Window"></MenuItem>
-                <MenuItem Header="Output"></MenuItem>
-                <MenuItem Header="Simulation">
+                <MenuItem Header="Window" Foreground="White"></MenuItem>
+                <MenuItem Header="Output" Foreground="White"></MenuItem>
+                <MenuItem Header="Simulation" Foreground="White">
                     <MenuItem Header="Reset Simulation Forces"></MenuItem>
                 </MenuItem>
-                <MenuItem Header="Vessels"></MenuItem>
-                <MenuItem Header="View">
+                <MenuItem Header="Vessels" Foreground="White"></MenuItem>
+                <MenuItem Header="View" Foreground="White">
                     <MenuItem Header="Camera">
                         <MenuItem IsCheckable="True" Header="Orthographic" IsChecked="{Binding Orthographic, ElementName=view1}"/>
                         <MenuItem Header="NearPlaneDistance">
@@ -119,7 +128,7 @@
                 <StackPanel.Background>
                     <SolidColorBrush>
                         <SolidColorBrush.Color>
-                            <Color R="240" G="240" B="240" A="255"></Color>
+                            <Color R="41" G="57" B="85" A="255"></Color>
                         </SolidColorBrush.Color>
                     </SolidColorBrush>
                 </StackPanel.Background>
@@ -187,7 +196,7 @@
                     </avalonDock:LayoutAnchorablePane>
                     <avalonDock:LayoutAnchorablePane>
                         <avalonDock:LayoutAnchorable Title="Properties">
-                            <Label Content="Properties"></Label>
+                                <propEdit:PropertiesEdit></propEdit:PropertiesEdit>
                         </avalonDock:LayoutAnchorable>
                         <avalonDock:LayoutAnchorable Title="Toolbox">
                             <Label Content="Toolbox"></Label>
@@ -197,5 +206,7 @@
                 </avalonDock:LayoutPanel>
             </avalonDock:LayoutRoot>
         </avalonDock:DockingManager>
+        <Border Grid.Row="2" Background="Orange">
+        </Border>
     </Grid>
 </Window>

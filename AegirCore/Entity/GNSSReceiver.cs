@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AegirCore.Scene
+namespace AegirCore.Entity
 {
-    public class SceneGraph
+    class GNSSReceiver
     {
-        public List<Node> RootNodes { get; set; }
     }
 }
