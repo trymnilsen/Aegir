@@ -128,12 +128,56 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Converter\EnumToBoolConverter.cs" />
+    <Compile Include="Converter\PlaybackButtonConverter.cs" />
+    <Compile Include="Messages\ObjectTree\SelectedNodeChanged.cs" />
     <Compile Include="Messages\Project\LoadProjectFile.cs" />
     <Compile Include="Messages\Project\ProjectActivated.cs" />
-    <Compile Include="Module\Properties\PropertiesEdit.xaml.cs">
-      <DependentUpon>PropertiesEdit.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Shell.cs" />
+    <Compile Include="ViewModel\MapViewModel.cs" />
+    <Compile Include="ViewModel\MenuStripViewModel.cs" />
+    <Compile Include="ViewModel\ObjectTreeViewModel.cs" />
+    <Compile Include="ViewModel\PlaybackViewModel.cs" />
+    <Compile Include="ViewModel\Properties\ComponentRemovedEventArgs.cs" />
+    <Compile Include="ViewModel\Properties\PropertiesComponentViewModel.cs" />
+    <Compile Include="ViewModel\Properties\PropertiesViewModel.cs" />
+    <Compile Include="ViewModel\RenderingViewModel.cs" />
+    <Compile Include="ViewModel\StatusBarViewModel.cs" />
+    <Compile Include="ViewModel\ViewModelLocator.cs" />
+    <Compile Include="ViewModel\WaypointViewModel.cs" />
+    <Compile Include="View\ComponentEditor.xaml.cs">
+      <DependentUpon>ComponentEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Map.xaml.cs">
+      <DependentUpon>Map.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Menu.xaml.cs">
+      <DependentUpon>Menu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\RenderView.xaml.cs">
+      <DependentUpon>RenderView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Sidebar.xaml.cs">
+      <DependentUpon>Sidebar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\StatusBar.xaml.cs">
+      <DependentUpon>StatusBar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Waypoints.xaml.cs">
+      <DependentUpon>Waypoints.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\Behaviours.xaml.cs">
+      <DependentUpon>Behaviours.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\Outputs.xaml.cs">
+      <DependentUpon>Outputs.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\Settings.xaml.cs">
+      <DependentUpon>Settings.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\VesselSetup.xaml.cs">
+      <DependentUpon>VesselSetup.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -146,26 +190,52 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Module\Navigation\NavigationView.xaml">
+    <Page Include="View\ComponentEditor.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Map.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Menu.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\RenderView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Module\Properties\PropertiesEdit.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="View\Sidebar.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
-    <Page Include="Module\Visualization\Preview3d.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="View\StatusBar.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Waypoints.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\Behaviours.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\Outputs.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\Settings.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\VesselSetup.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Module\Navigation\NavigationView.xaml.cs">
-      <DependentUpon>NavigationView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Module\Visualization\Preview3d.xaml.cs">
-      <DependentUpon>Preview3d.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -186,12 +256,15 @@
     <None Include="Content\cruiseship.obj">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Converter\.gitkeep" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <None Include="ViewModel\.gitkeep" />
+    <None Include="View\.gitkeep" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -201,19 +274,9 @@
       <Project>{46062537-69cf-4e4b-bea5-0337499d2af9}</Project>
       <Name>AegirCore</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Xceed.Wpf.AvalonDock.Themes.VS2013\Xceed.Wpf.AvalonDock.Themes.VS2013.csproj">
-      <Project>{89286eb4-b4a1-418c-839a-067b00f442d8}</Project>
-      <Name>Xceed.Wpf.AvalonDock.Themes.VS2013</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="File\" />
-    <Folder Include="Module\Log\" />
-    <Folder Include="Module\Outputs\" />
-    <Folder Include="Module\Scenegraph\" />
-    <Folder Include="Module\Statistics\" />
-    <Folder Include="Module\Toolbox\" />
-    <Folder Include="Module\Vessels\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

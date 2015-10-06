@@ -5,208 +5,63 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Aegir"
-        
-        xmlns:propEdit="clr-namespace:Aegir.Module.Properties"
-        xmlns:navView="clr-namespace:Aegir.Module.Navigation"
-        xmlns:previewView="clr-namespace:Aegir.Module.Visualization"
-        
+        xmlns:views="clr-namespace:Aegir.View"
         xmlns:fa="http://schemas.fontawesome.io/icons/"
         mc:Ignorable="d"     
         Title="Aegir" Height="760" Width="1050">
 
-    <Grid x:Name="layoutRoot" UseLayoutRounding="True">
+    <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="20px"/>
+            <RowDefinition Height="25px"></RowDefinition>
+            <!--Menu Strip-->
+            <RowDefinition Height="1*"></RowDefinition>
+            <!--Main Area-->
+            <RowDefinition Height="25px"></RowDefinition>
+            <!--StatusBar-->
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0">
+        <!--Menu Strip-->
+        <views:Menu></views:Menu>
+        <!--~MenuStrip-->
+        <!--Main Area-->
+        <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
+                <ColumnDefinition Width="280px"></ColumnDefinition>
+                <ColumnDefinition Width="1*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Menu>
-                <Menu.Background>
-                    <SolidColorBrush>
-                        <SolidColorBrush.Color>
-                            <Color R="41" G="57" B="85" A="255"></Color>
-                        </SolidColorBrush.Color>
-                    </SolidColorBrush>
-                </Menu.Background>
-                <MenuItem Header="File" Foreground="White">
-                    <MenuItem Header="Open" Foreground="Black" Click="FileOpenClick"/>
-                </MenuItem>
-                <MenuItem Header="Edit" Foreground="White">
-                    <MenuItem Header="Undo" Foreground="Black"/>
-                    <MenuItem Header="Redo" Foreground="Black"/>
-                    <MenuItem Header="Delete" Foreground="Black"/>
-                    <MenuItem Header="Clone" Foreground="Black"/>
-                    <MenuItem Header="Move" Foreground="Black"/>
-                    <MenuItem Header="Rotate" Foreground="Black"/>
-                    <MenuItem Header="Scale" Foreground="Black"/>
-                    <MenuItem Header="Transform.." Foreground="Black"/>
-                    <MenuItem Header="Editor Preferences.." Foreground="Black"/>
-                </MenuItem>
-                <MenuItem Header="Tools" Foreground="White">
-                    <MenuItem Header="Tool1"/>
-                </MenuItem>
-                <MenuItem Header="Entity" Foreground="White">
-                    <MenuItem Header="Freeze Entity"/>
-                    <MenuItem Header="Hide Entity"/>
-                    <MenuItem Header="Remove Entity"/>
-                </MenuItem>
-                <MenuItem Header="Select" Foreground="White">
-                    <MenuItem Header="Select All"/>
-                    <MenuItem Header="Select None"/>
-                    <MenuItem Header="Select Inverse"/>
-                    <MenuItem Header="Select Frozen"/>
-                    <MenuItem Header="Select Hidden"/>
-                    <MenuItem Header="Select All Instances"/>
-                    <MenuItem Header="Set Selection Set.."/>
-                    <MenuItem Header="Get Selection Set.."/>
-                </MenuItem>
-                <MenuItem Header="Window" Foreground="White"></MenuItem>
-                <MenuItem Header="Output" Foreground="White"></MenuItem>
-                <MenuItem Header="Simulation" Foreground="White">
-                    <MenuItem Header="Reset Simulation Forces"></MenuItem>
-                </MenuItem>
-                <MenuItem Header="Vessels" Foreground="White"></MenuItem>
-                <MenuItem Header="View" Foreground="White">
-                    <MenuItem Header="Camera">
-                        <MenuItem IsCheckable="True" Header="Orthographic" IsChecked="{Binding Orthographic, ElementName=view1}"/>
-                        <MenuItem Header="NearPlaneDistance">
-                            <TextBox Text="{Binding Camera.NearPlaneDistance, ElementName=view1}"></TextBox>
-                        </MenuItem>
-                        <MenuItem Header="FarPlaneDistance">
-                            <TextBox Text="{Binding Camera.FarPlaneDistance, ElementName=view1}"></TextBox>
-                        </MenuItem>
-                        <MenuItem IsCheckable="True" Header="RotateAroundMouseDownPoint" IsChecked="{Binding RotateAroundMouseDownPoint, ElementName=view1}"/>
-                        <MenuItem IsCheckable="True" Header="ZoomAroundMouseDownPoint" IsChecked="{Binding ZoomAroundMouseDownPoint, ElementName=view1}"/>
-                        <MenuItem IsCheckable="True" Header="InfiniteSpin" IsChecked="{Binding InfiniteSpin, ElementName=view1}"/>
-                        <MenuItem IsCheckable="True" Header="IsInertiaEnabled" IsChecked="{Binding IsInertiaEnabled, ElementName=view1}"/>
-                        <MenuItem IsCheckable="True" Header="IsPanEnabled" IsChecked="{Binding IsPanEnabled, ElementName=view1}"/>
-                        <MenuItem IsCheckable="True" Header="IsMoveEnabled" IsChecked="{Binding IsMoveEnabled, ElementName=view1}"/>
-                        <MenuItem IsCheckable="True" Header="IsRotationEnabled" IsChecked="{Binding IsRotationEnabled, ElementName=view1}"/>
-                        <MenuItem IsCheckable="True" Header="IsZoomEnabled" IsChecked="{Binding IsZoomEnabled, ElementName=view1}"/>
-                        <MenuItem IsCheckable="True" Header="IsChangeFovEnabled" IsChecked="{Binding IsChangeFieldOfViewEnabled, ElementName=view1}"/>
-                        <MenuItem Header="RotationSensitivity">
-                            <StackPanel Orientation="Horizontal">
-                                <Slider Value="{Binding RotationSensitivity, ElementName=view1}" Minimum="0.1" Maximum="5" Width="200"/>
-                                <TextBlock Text="{Binding RotationSensitivity, StringFormat='{}{0:0.0}', ElementName=view1}"/>
-                            </StackPanel>
-                        </MenuItem>
-                        <MenuItem Header="ZoomSensitivity">
-                            <StackPanel Orientation="Horizontal">
-                                <Slider Value="{Binding ZoomSensitivity, ElementName=view1}" Minimum="0.1" Maximum="5" Width="200"/>
-                                <TextBlock Text="{Binding ZoomSensitivity, StringFormat='{}{0:0.0}', ElementName=view1}"/>
-                            </StackPanel>
-                        </MenuItem>
-                        <MenuItem Header="CameraInertiaFactor">
-                            <StackPanel Orientation="Horizontal">
-                                <Slider Value="{Binding CameraInertiaFactor, ElementName=view1}" Minimum="0.7" Maximum="1" Width="200"/>
-                                <TextBlock Text="{Binding CameraInertiaFactor, StringFormat='{}{0:0.000}', ElementName=view1}"/>
-                            </StackPanel>
-                        </MenuItem>
-                    </MenuItem>
-                    <MenuItem IsCheckable="True" Header="ShowCoordinateSystem" IsChecked="{Binding ShowCoordinateSystem, ElementName=view1}"/>
-                    <MenuItem IsCheckable="True" Header="ShowViewCube" IsChecked="{Binding ShowViewCube, ElementName=view1}"/>
-                    <MenuItem IsCheckable="True" Header="ShowCameraInfo" IsChecked="{Binding ShowCameraInfo, ElementName=view1}"/>
-                    <MenuItem IsCheckable="True" Header="ShowTriangleCountInfo" IsChecked="{Binding ShowTriangleCountInfo, ElementName=view1}"/>
-                    <MenuItem IsCheckable="True" Header="ShowFieldOfView" IsChecked="{Binding ShowFieldOfView, ElementName=view1}"/>
-                    <MenuItem IsCheckable="True" Header="ShowFrameRate" IsChecked="{Binding ShowFrameRate, ElementName=view1}"/>
-                    <MenuItem IsCheckable="True" Header="ShowCameraTarget" IsChecked="{Binding ShowCameraTarget, ElementName=view1}"/>
-                    <MenuItem Header="Title">
-                        <TextBox Text="{Binding Title, ElementName=view1}" Width="200"/>
-                    </MenuItem>
-                    <MenuItem Header="SubTitle">
-                        <TextBox Text="{Binding SubTitle, ElementName=view1}" Width="200"/>
-                    </MenuItem>
-                    
-                </MenuItem>
-            </Menu>
-            <StackPanel Grid.Column="1">
-                <StackPanel.Background>
-                    <SolidColorBrush>
-                        <SolidColorBrush.Color>
-                            <Color R="41" G="57" B="85" A="255"></Color>
-                        </SolidColorBrush.Color>
-                    </SolidColorBrush>
-                </StackPanel.Background>
-                <fa:ImageAwesome Icon="Play" Width="14"></fa:ImageAwesome>
-            </StackPanel>
+            <!--Sidebar-->
+            <views:Sidebar/>
+            <!--Preview Area-->
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*" MinHeight="100"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="1*" MinHeight="100"></RowDefinition>
+                </Grid.RowDefinitions>
+                <!--GL Element-->
+                <!--<views:SimulationRendering Grid.Row="0"></views:SimulationRendering>-->
+                <views:RenderView>
+                    <views:RenderView.Background>
+                        <SolidColorBrush>
+                            <SolidColorBrush.Color>
+                                <Color R="40" G="40" B="40" A="255"></Color>
+                            </SolidColorBrush.Color>
+                        </SolidColorBrush>
+                    </views:RenderView.Background>
+                </views:RenderView>
+                <!--Resize grip thingy-->
+                <GridSplitter Grid.Row="1"
+                      HorizontalAlignment="Stretch"
+                      VerticalAlignment="Center"
+                      ShowsPreview="True"
+                      Height="5"></GridSplitter>
+                <!--Map View-->
+                <views:Map  Grid.Row="2"></views:Map>
+            </Grid>
+            <!--Preview Area-->
         </Grid>
-        
-        <avalonDock:DockingManager Grid.Row="1" x:Name="dockManager" AllowMixedOrientation="True">
-            <avalonDock:DockingManager.Theme>
-                <avalonDock:Vs2013BlueTheme/>
-            </avalonDock:DockingManager.Theme>
-            <avalonDock:DockingManager.DocumentHeaderTemplate>
-                <DataTemplate>
-                    <StackPanel Orientation="Horizontal">
-                        <Image Source="{Binding IconSource}" Margin="0,0,4,0"/>
-                        <TextBlock Text="{Binding Title}" TextTrimming="CharacterEllipsis"/>
-                    </StackPanel>
-                </DataTemplate>
-            </avalonDock:DockingManager.DocumentHeaderTemplate>
-            <avalonDock:LayoutRoot>
-                <avalonDock:LayoutPanel Orientation="Horizontal">
-                <avalonDock:LayoutPanel Orientation="Vertical">
-                    <avalonDock:LayoutPanel Orientation="Horizontal">
-                        <avalonDock:LayoutAnchorablePaneGroup Orientation="Vertical" DockMinWidth="200">
-                            <avalonDock:LayoutAnchorablePane Name="Navigation" DockMinHeight="300">
-                                <avalonDock:LayoutAnchorable Title="Navigation">
-                                        <navView:NavigationView></navView:NavigationView>
-                                </avalonDock:LayoutAnchorable>
-                                
-                            </avalonDock:LayoutAnchorablePane>
-                            <avalonDock:LayoutAnchorablePane Name="Statistics">
-                                <avalonDock:LayoutAnchorable Title="Stats">
-                                    <Label>Stats</Label>
-                                </avalonDock:LayoutAnchorable>
-                            </avalonDock:LayoutAnchorablePane>
-                        </avalonDock:LayoutAnchorablePaneGroup>
-                        <avalonDock:LayoutDocumentPane>
-                                <avalonDock:LayoutDocument Title="Visualization">
-                                    <previewView:Preview3d></previewView:Preview3d>
-                                </avalonDock:LayoutDocument>
-                            <avalonDock:LayoutDocument Title="Map"></avalonDock:LayoutDocument>
-                        </avalonDock:LayoutDocumentPane>
-                    </avalonDock:LayoutPanel>
-                    <avalonDock:LayoutAnchorablePaneGroup DockMinHeight="200">
-                        <avalonDock:LayoutAnchorablePane>
-                            <avalonDock:LayoutAnchorable Title="Log">
-                                <TextBox ScrollViewer.VerticalScrollBarVisibility="Visible">-- Log</TextBox>
-                            </avalonDock:LayoutAnchorable>
-                        </avalonDock:LayoutAnchorablePane>
-                        <avalonDock:LayoutAnchorablePane>
-                            <avalonDock:LayoutAnchorable Title="Outputs">
-                                <Label Content="Outputs"></Label>
-                            </avalonDock:LayoutAnchorable>
-                        </avalonDock:LayoutAnchorablePane>
-                    </avalonDock:LayoutAnchorablePaneGroup>
-                </avalonDock:LayoutPanel>
-                <avalonDock:LayoutAnchorablePaneGroup Orientation="Vertical" DockMinWidth="200">
-                    <avalonDock:LayoutAnchorablePane>
-                        <avalonDock:LayoutAnchorable Title="Scenegraph">
-                            <Label Content="Scenegraph"></Label>
-                        </avalonDock:LayoutAnchorable>
-                        <avalonDock:LayoutAnchorable Title="Vessels">
-                            <Label>Vessels</Label>
-                        </avalonDock:LayoutAnchorable>
-                    </avalonDock:LayoutAnchorablePane>
-                    <avalonDock:LayoutAnchorablePane>
-                        <avalonDock:LayoutAnchorable Title="Properties">
-                                <propEdit:PropertiesEdit></propEdit:PropertiesEdit>
-                        </avalonDock:LayoutAnchorable>
-                        <avalonDock:LayoutAnchorable Title="Toolbox">
-                            <Label Content="Toolbox"></Label>
-                        </avalonDock:LayoutAnchorable>
-                    </avalonDock:LayoutAnchorablePane>
-                </avalonDock:LayoutAnchorablePaneGroup>
-                </avalonDock:LayoutPanel>
-            </avalonDock:LayoutRoot>
-        </avalonDock:DockingManager>
-        <Border Grid.Row="2" Background="Orange">
-        </Border>
+        <!--~MainArea-->
+        <!--StatusBar-->
+        <views:StatusBar Grid.Row="2"></views:StatusBar>
+        <!--~StatusBar-->
     </Grid>
 </Window>

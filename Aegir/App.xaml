@@ -2,8 +2,11 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:Aegir"
+                xmlns:vm="clr-namespace:Aegir.ViewModel"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-
+        <ResourceDictionary>
+            <vm:ViewModelLocator x:Key="VMLocator"/>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

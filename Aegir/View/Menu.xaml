@@ -1,0 +1,171 @@
+﻿<UserControl x:Class="Aegir.View.Menu"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             xmlns:convert="clr-namespace:Aegir.Converter"
+             xmlns:playbackMode="clr-namespace:AegirCore.Playback;assembly=AegirCore"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+
+    </UserControl.Resources>
+    <Grid>
+        <Grid.Background>
+            <SolidColorBrush>
+                <SolidColorBrush.Color>
+                    <Color R="240" G="240" B="240" A="255"></Color>
+                </SolidColorBrush.Color>
+            </SolidColorBrush>
+        </Grid.Background>
+        <Grid.Resources>
+            <convert:PlaybackButtonConverter x:Key="PlayBackEnumConverter"></convert:PlaybackButtonConverter>
+        </Grid.Resources>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"></ColumnDefinition>
+            <ColumnDefinition Width="1*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <!--MenuStrip-->
+        <Menu>
+            <MenuItem Header="File">
+                <MenuItem Header="New Simulation"></MenuItem>
+                <MenuItem Header="Open Simulation"></MenuItem>
+                <MenuItem Header="Save Simulation"></MenuItem>
+                <Separator></Separator>
+                <MenuItem Header="Quit"></MenuItem>
+            </MenuItem>
+            <MenuItem Header="Edit">
+                <MenuItem Header="Undo"/>
+                <MenuItem Header="Redo"/>
+                <MenuItem Header="Delete"/>
+                <MenuItem Header="Clone"/>
+                <MenuItem Header="Move"/>
+                <MenuItem Header="Rotate"/>
+                <MenuItem Header="Scale"/>
+                <MenuItem Header="Transform.."/>
+                <MenuItem Header="Editor Preferences.."/>
+            </MenuItem>
+            <MenuItem Header="Create">
+                <MenuItem Header="Antenna"></MenuItem>
+                <MenuItem Header="Point"></MenuItem>
+                <Separator></Separator>
+                <MenuItem Header="Wind"></MenuItem>
+            </MenuItem>
+            <MenuItem Header="View">
+                <MenuItem Header="Map Provider">
+                    <MenuItem Header="Google Maps"></MenuItem>
+                    <MenuItem Header="Google Satellite map"></MenuItem>
+                    <MenuItem Header="Open Street Maps"></MenuItem>
+                    <MenuItem Header="OpenSeaMap/OpenStreetmap Hybrid"></MenuItem>
+                    
+                </MenuItem>
+                <MenuItem Header="Camera">
+                    <MenuItem IsCheckable="True" Header="Orthographic" IsChecked="{Binding Orthographic, ElementName=view1}"/>
+                    <MenuItem Header="NearPlaneDistance">
+                        <TextBox Text="{Binding Camera.NearPlaneDistance, ElementName=view1}"></TextBox>
+                    </MenuItem>
+                    <MenuItem Header="FarPlaneDistance">
+                        <TextBox Text="{Binding Camera.FarPlaneDistance, ElementName=view1}"></TextBox>
+                    </MenuItem>
+                    <MenuItem IsCheckable="True" Header="RotateAroundMouseDownPoint" IsChecked="{Binding RotateAroundMouseDownPoint, ElementName=view1}"/>
+                    <MenuItem IsCheckable="True" Header="ZoomAroundMouseDownPoint" IsChecked="{Binding ZoomAroundMouseDownPoint, ElementName=view1}"/>
+                    <MenuItem IsCheckable="True" Header="InfiniteSpin" IsChecked="{Binding InfiniteSpin, ElementName=view1}"/>
+                    <MenuItem IsCheckable="True" Header="IsInertiaEnabled" IsChecked="{Binding IsInertiaEnabled, ElementName=view1}"/>
+                    <MenuItem IsCheckable="True" Header="IsPanEnabled" IsChecked="{Binding IsPanEnabled, ElementName=view1}"/>
+                    <MenuItem IsCheckable="True" Header="IsMoveEnabled" IsChecked="{Binding IsMoveEnabled, ElementName=view1}"/>
+                    <MenuItem IsCheckable="True" Header="IsRotationEnabled" IsChecked="{Binding IsRotationEnabled, ElementName=view1}"/>
+                    <MenuItem IsCheckable="True" Header="IsZoomEnabled" IsChecked="{Binding IsZoomEnabled, ElementName=view1}"/>
+                    <MenuItem IsCheckable="True" Header="IsChangeFovEnabled" IsChecked="{Binding IsChangeFieldOfViewEnabled, ElementName=view1}"/>
+                    <MenuItem Header="RotationSensitivity">
+                        <StackPanel Orientation="Horizontal">
+                            <Slider Value="{Binding RotationSensitivity, ElementName=view1}" Minimum="0.1" Maximum="5" Width="200"/>
+                            <TextBlock Text="{Binding RotationSensitivity, StringFormat='{}{0:0.0}', ElementName=view1}"/>
+                        </StackPanel>
+                    </MenuItem>
+                    <MenuItem Header="ZoomSensitivity">
+                        <StackPanel Orientation="Horizontal">
+                            <Slider Value="{Binding ZoomSensitivity, ElementName=view1}" Minimum="0.1" Maximum="5" Width="200"/>
+                            <TextBlock Text="{Binding ZoomSensitivity, StringFormat='{}{0:0.0}', ElementName=view1, FallbackValue='--'}" />
+                        </StackPanel>
+                    </MenuItem>
+                    <MenuItem Header="CameraInertiaFactor">
+                        <StackPanel Orientation="Horizontal">
+                            <Slider Value="{Binding CameraInertiaFactor, ElementName=view1}" Minimum="0.7" Maximum="1" Width="200"/>
+                            <TextBlock Text="{Binding CameraInertiaFactor, StringFormat='{}{0:0.000}', ElementName=view1}"/>
+                        </StackPanel>
+                    </MenuItem>
+                </MenuItem>
+                <MenuItem IsCheckable="True" Header="ShowCoordinateSystem" IsChecked="{Binding ShowCoordinateSystem, ElementName=view1}"/>
+                <MenuItem IsCheckable="True" Header="ShowViewCube" IsChecked="{Binding ShowViewCube, ElementName=view1}"/>
+                <MenuItem IsCheckable="True" Header="ShowCameraInfo" IsChecked="{Binding ShowCameraInfo, ElementName=view1}"/>
+                <MenuItem IsCheckable="True" Header="ShowTriangleCountInfo" IsChecked="{Binding ShowTriangleCountInfo, ElementName=view1}"/>
+                <MenuItem IsCheckable="True" Header="ShowFieldOfView" IsChecked="{Binding ShowFieldOfView, ElementName=view1}"/>
+                <MenuItem IsCheckable="True" Header="ShowFrameRate" IsChecked="{Binding ShowFrameRate, ElementName=view1}"/>
+                <MenuItem IsCheckable="True" Header="ShowCameraTarget" IsChecked="{Binding ShowCameraTarget, ElementName=view1}"/>
+                <MenuItem Header="Title">
+                    <TextBox Text="{Binding Title, ElementName=view1}" Width="200"/>
+                </MenuItem>
+                <MenuItem Header="SubTitle">
+                    <TextBox Text="{Binding SubTitle, ElementName=view1}" Width="200"/>
+                </MenuItem>
+                <!--<MenuItem Header="Mode">
+                    <MenuItem Header="Visualize"></MenuItem>
+                    <MenuItem Header="Planning"></MenuItem>
+                    <MenuItem Header="Navigate"></MenuItem>
+                    <MenuItem Header="Chart"></MenuItem>
+                </MenuItem>
+                <MenuItem IsCheckable="True" Header="Overlay Seamap"></MenuItem>-->
+            </MenuItem>
+            <MenuItem Header="Window">
+                <MenuItem IsCheckable="True" Header="Outputs"></MenuItem>
+                <MenuItem IsCheckable="True" Header="Forces"></MenuItem>
+                <MenuItem IsCheckable="True" Header="Navigation"></MenuItem>
+                <MenuItem IsCheckable="True" Header="Stats"></MenuItem>
+                <MenuItem IsCheckable="True" Header="Vessels"></MenuItem>
+                <MenuItem IsCheckable="True" Header="Orientation"></MenuItem>
+            </MenuItem>
+            <MenuItem Header="Settings">
+                <MenuItem IsCheckable="True" Header="Pause Simulation On UI Action"></MenuItem>
+                <MenuItem Header="Logging Level">
+                    <MenuItem Header="Verbose"></MenuItem>
+                    <MenuItem Header="Debug"></MenuItem>
+                    <MenuItem Header="Info"></MenuItem>
+                    <MenuItem Header="Error"></MenuItem>
+                </MenuItem>
+            </MenuItem>
+            <MenuItem Header="Simulation">
+                <MenuItem Header="Reset Simulation Forces"></MenuItem>
+            </MenuItem>
+            <MenuItem Header="Helpers">
+                <MenuItem IsCheckable="True" Header="Axes"></MenuItem>
+                <MenuItem IsCheckable="True" Header="Physics Helpers"></MenuItem>
+                <Separator></Separator>
+                <MenuItem IsCheckable="True" Header="Frames Per Second"></MenuItem>
+                <MenuItem IsCheckable="True" Header="Simulation Delta Time"></MenuItem>
+                <Separator></Separator>
+                <MenuItem IsCheckable="True" Header="PC UTC time"></MenuItem>
+                <MenuItem IsCheckable="True" Header="Simulation UTC Time"></MenuItem>
+            </MenuItem>
+        </Menu>
+        <!--~MenuStrip-->
+        <!--Playback Controls-->
+        <StackPanel Grid.Column="1" 
+                    Orientation="Horizontal" 
+                    DataContext="{Binding PlaybackVM, Source={StaticResource VMLocator}}">
+            <ToggleButton Margin="5 2" IsChecked="{Binding PlayMode, 
+                                                           Converter={StaticResource PlayBackEnumConverter},
+                                                           ConverterParameter={x:Static playbackMode:PlaybackMode.REWIND}}">
+                <TextBlock Text="Rewind"></TextBlock>
+            </ToggleButton>
+            <ToggleButton Margin="5 2" IsChecked="{Binding PlayMode, 
+                                                   Converter={StaticResource PlayBackEnumConverter},
+                                                   ConverterParameter={x:Static playbackMode:PlaybackMode.PLAYING}}">
+                <TextBlock Text="Play"></TextBlock>
+            </ToggleButton>
+            <Button Margin="5 2">
+                <TextBlock Text="Step"></TextBlock>
+            </Button>
+        </StackPanel>
+        <!--~Playback Controls-->
+    </Grid>
+</UserControl>

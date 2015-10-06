@@ -46,8 +46,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationContext.cs" />
+    <Compile Include="Component\Component.cs" />
     <Compile Include="Entity\GNSSReceiver.cs" />
     <Compile Include="Entity\Vessel.cs" />
+    <Compile Include="Playback\PlaybackMode.cs" />
     <Compile Include="Project\Event\ProjectActivateEventArgs.cs" />
     <Compile Include="Project\ProjectContext.cs" />
     <Compile Include="Project\ProjectData.cs" />
