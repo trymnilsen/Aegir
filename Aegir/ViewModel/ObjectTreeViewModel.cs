@@ -6,30 +6,32 @@ using System.Diagnostics;
 using GalaSoft.MvvmLight.Messaging;
 using AegirCore.Scene;
 using Aegir.Messages.ObjectTree;
+using Aegir.Messages.Project;
 
 namespace Aegir.ViewModel
 {
     public class ObjectTreeViewModel : ViewModelBase
     {
         private Node selectedItem;
-
+        private ObservableCollection<Node> items;
         public RelayCommand<Node> SelectItemChanged { get; private set; }
         public RelayCommand<Node> RemoveItemCommand { get; private set; }
         public RelayCommand<Node> MoveItemCommand { get; private set; }
-        //public ObservableCollection<Node> Items {
-        //    get
-        //    {
-        //        SimulationCase curSimulation = AegirIOC.Get<SimulationCase>();
-        //        if(curSimulation != null)
-        //        {
-        //            return curSimulation.SimulationData.RootNodes;
-        //        }
-        //        else
-        //        {
-        //            throw new InvalidOperationException("Simulation case in set in IOC");
-        //        }
-        //    }
-        //}
+        public ObservableCollection<Node> Items
+        {
+            get
+            {
+                return items;
+            }
+            set
+            {
+                if(value!=items)
+                {
+                    items = value;
+                    RaisePropertyChanged("Items");
+                }
+            }
+        }
 
         public Node SelectedItem
         {
@@ -50,13 +52,16 @@ namespace Aegir.ViewModel
             RemoveItemCommand = new RelayCommand<Node>(RemoveItem);
             MoveItemCommand = new RelayCommand<Node>(MoveTo);
             //Add all our items
-
+            Messenger.Default.Register<ProjectActivated>(this, ProjectChanged);
         }
         public void UpdateSelectedItem(Node newItem)
         {
             SelectedNodeChanged.Send(newItem);
         }
-
+        private void ProjectChanged(ProjectActivated projectMessage)
+        {
+            this.Items = projectMessage.Project.Scene.RootNodes;
+        }
 
         private void RemoveItem(Node item)
         {

@@ -1,4 +1,5 @@
-﻿using AegirCore.Project.Event;
+﻿using AegirCore.Entity;
+using AegirCore.Project.Event;
 using AegirCore.Scene;
 using AegirCore.Vessel;
 using System;
@@ -44,13 +45,17 @@ namespace AegirCore.Project
                 TriggerProjectLoadFailure(args);
             }
         }
+        public void OpenProject(ProjectData project)
+        {
+            ActiveProject = project;
+        }
 
         public ProjectData CreateNewProject()
         {
             SceneGraph scene = new SceneGraph();
-
+            scene.RootNodes.Add(new Water());
+            //scene.RootNodes.Add(new Water());
             VesselConfiguration vessel = new VesselConfiguration();
-
             return new ProjectData(scene, vessel, "New Simulation");
         }
 

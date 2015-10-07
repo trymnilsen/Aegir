@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AegirCore.Entity
 {
-    class Vessel
+    public class Vessel
     {
     }
 }

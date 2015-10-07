@@ -7,8 +7,7 @@ using System.Threading.Tasks;
 
 namespace AegirCore.Entity
 {
-    public class GNSSReceiver : Node
+    public class Water : Node
     {
-
     }
 }

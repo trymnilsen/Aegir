@@ -38,7 +38,7 @@
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
                 <!--Template for each treeview item-->
-                <TreeView.Resources>
+                <!--<TreeView.Resources>
                     <HierarchicalDataTemplate DataType="{x:Type model:Node}" ItemsSource="{Binding Children}">
                         <TextBlock Text="{Binding Name}" Tag="{Binding}">
                             <TextBlock.ContextMenu>
@@ -49,7 +49,7 @@
                             </TextBlock.ContextMenu>
                         </TextBlock>
                     </HierarchicalDataTemplate>
-                </TreeView.Resources>
+                </TreeView.Resources>-->
             </TreeView>
         </Border>
         <GridSplitter Grid.Row="1"

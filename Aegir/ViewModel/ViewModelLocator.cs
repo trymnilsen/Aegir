@@ -16,17 +16,17 @@ namespace Aegir.ViewModel
 
         static ViewModelLocator()
         {
-            #if DEBUG
-                if (DesignerProperties.GetIsInDesignMode(new DependencyObject())) return;
-            #endif
+            //#if DEBUG
+            //    if (DesignerProperties.GetIsInDesignMode(new DependencyObject())) return;
+            //#endif
 
-            SimpleIoc.Default.Register<StatusBarViewModel>();
-            SimpleIoc.Default.Register<PropertiesViewModel>();
-            SimpleIoc.Default.Register<ObjectTreeViewModel>();
-            SimpleIoc.Default.Register<MenuStripViewModel>();
-            SimpleIoc.Default.Register<PlaybackViewModel>();
-            SimpleIoc.Default.Register<RenderingViewModel>();
-            SimpleIoc.Default.Register<MapViewModel>();
+            SimpleIoc.Default.Register<StatusBarViewModel>(true);
+            SimpleIoc.Default.Register<PropertiesViewModel>(true);
+            SimpleIoc.Default.Register<ObjectTreeViewModel>(true);
+            SimpleIoc.Default.Register<MenuStripViewModel>(true);
+            SimpleIoc.Default.Register<PlaybackViewModel>(true);
+            SimpleIoc.Default.Register<RenderingViewModel>(true);
+            SimpleIoc.Default.Register<MapViewModel>(true);
 
         }
 

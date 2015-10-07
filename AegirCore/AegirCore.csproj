@@ -49,6 +49,7 @@
     <Compile Include="Component\Component.cs" />
     <Compile Include="Entity\GNSSReceiver.cs" />
     <Compile Include="Entity\Vessel.cs" />
+    <Compile Include="Entity\Water.cs" />
     <Compile Include="Playback\PlaybackMode.cs" />
     <Compile Include="Project\Event\ProjectActivateEventArgs.cs" />
     <Compile Include="Project\ProjectContext.cs" />
