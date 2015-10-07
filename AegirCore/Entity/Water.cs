@@ -9,5 +9,9 @@ namespace AegirCore.Entity
 {
     public class Water : Node
     {
+        public Water()
+        {
+            this.Name = "Water";
+        }
     }
 }

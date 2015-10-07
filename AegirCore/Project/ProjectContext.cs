@@ -54,9 +54,13 @@ namespace AegirCore.Project
         {
             SceneGraph scene = new SceneGraph();
             scene.RootNodes.Add(new Water());
+            var vessel = new Entity.Vessel();
+            vessel.Children.Add(new GNSSReceiver());
+            vessel.Children.Add(new GNSSReceiver());
+            scene.RootNodes.Add(vessel);
             //scene.RootNodes.Add(new Water());
-            VesselConfiguration vessel = new VesselConfiguration();
-            return new ProjectData(scene, vessel, "New Simulation");
+            VesselConfiguration vesselConf = new VesselConfiguration();
+            return new ProjectData(scene, vesselConf, "New Simulation");
         }
 
         private void TriggerProjectLoadSuccess(ProjectLoadEventArgs e)

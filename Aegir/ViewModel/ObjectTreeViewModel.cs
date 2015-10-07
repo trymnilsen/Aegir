@@ -42,6 +42,7 @@ namespace Aegir.ViewModel
                 {
                     selectedItem = value;
                     UpdateSelectedItem(value);
+                    RaisePropertyChanged("SelectedItem");
                 }
             }
         }
