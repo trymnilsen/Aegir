@@ -138,8 +138,10 @@
     <Compile Include="ViewModel\MenuStripViewModel.cs" />
     <Compile Include="ViewModel\ObjectTreeViewModel.cs" />
     <Compile Include="ViewModel\PlaybackViewModel.cs" />
-    <Compile Include="ViewModel\Properties\ComponentRemovedEventArgs.cs" />
-    <Compile Include="ViewModel\Properties\PropertiesComponentViewModel.cs" />
+    <Compile Include="ViewModel\Properties\ComponentViewModel.cs" />
+    <Compile Include="ViewModel\Properties\ComponentViewModelCollectionPropertyDescriptor.cs" />
+    <Compile Include="ViewModel\Properties\NodeViewModel.cs" />
+    <Compile Include="ViewModel\Properties\ComponentViewModelCollection.cs" />
     <Compile Include="ViewModel\Properties\PropertiesViewModel.cs" />
     <Compile Include="ViewModel\RenderingViewModel.cs" />
     <Compile Include="ViewModel\StatusBarViewModel.cs" />
