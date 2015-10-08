@@ -21,11 +21,12 @@ namespace Aegir
             Messenger.Default.Register<LoadProjectFile>(this, OpenProject);
 
             Context.Project.ProjectActivated += OnProjectActivated;
-
+        }
+        public void ShellLoaded()
+        {
             ProjectData newProject = Context.Project.CreateNewProject();
             Context.Project.OpenProject(newProject);
         }
-
         private void OpenProject(LoadProjectFile message)
         {
             Context.Project.OpenProject(message.FilePath);

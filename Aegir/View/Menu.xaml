@@ -52,6 +52,22 @@
                 <MenuItem Header="Wind"></MenuItem>
             </MenuItem>
             <MenuItem Header="View">
+                <MenuItem Header="Scene">
+                    <MenuItem Header="Info">
+                        <MenuItem IsCheckable="True" Header="ShowCoordinateSystem" IsChecked="{Binding ShowCoordinateSystem, ElementName=view1}"/>
+                        <MenuItem IsCheckable="True" Header="ShowViewCube" IsChecked="{Binding ShowViewCube, ElementName=view1}"/>
+                        <MenuItem IsCheckable="True" Header="ShowCameraInfo" IsChecked="{Binding ShowCameraInfo, ElementName=view1}"/>
+                        <MenuItem IsCheckable="True" Header="ShowTriangleCountInfo" IsChecked="{Binding ShowTriangleCountInfo, ElementName=view1}"/>
+                        <MenuItem IsCheckable="True" Header="ShowFieldOfView" IsChecked="{Binding ShowFieldOfView, ElementName=view1}"/>
+                        <MenuItem IsCheckable="True" Header="ShowFrameRate" IsChecked="{Binding ShowFrameRate, ElementName=view1}"/>
+                        <MenuItem IsCheckable="True" Header="ShowCameraTarget" IsChecked="{Binding ShowCameraTarget, ElementName=view1}"/>
+                    </MenuItem>
+                    <MenuItem>
+                        <MenuItem Header="Helpers">
+
+                        </MenuItem>
+                    </MenuItem>
+                </MenuItem>
                 <MenuItem Header="Map Provider">
                     <MenuItem Header="Google Maps"></MenuItem>
                     <MenuItem Header="Google Satellite map"></MenuItem>
@@ -95,19 +111,7 @@
                         </StackPanel>
                     </MenuItem>
                 </MenuItem>
-                <MenuItem IsCheckable="True" Header="ShowCoordinateSystem" IsChecked="{Binding ShowCoordinateSystem, ElementName=view1}"/>
-                <MenuItem IsCheckable="True" Header="ShowViewCube" IsChecked="{Binding ShowViewCube, ElementName=view1}"/>
-                <MenuItem IsCheckable="True" Header="ShowCameraInfo" IsChecked="{Binding ShowCameraInfo, ElementName=view1}"/>
-                <MenuItem IsCheckable="True" Header="ShowTriangleCountInfo" IsChecked="{Binding ShowTriangleCountInfo, ElementName=view1}"/>
-                <MenuItem IsCheckable="True" Header="ShowFieldOfView" IsChecked="{Binding ShowFieldOfView, ElementName=view1}"/>
-                <MenuItem IsCheckable="True" Header="ShowFrameRate" IsChecked="{Binding ShowFrameRate, ElementName=view1}"/>
-                <MenuItem IsCheckable="True" Header="ShowCameraTarget" IsChecked="{Binding ShowCameraTarget, ElementName=view1}"/>
-                <MenuItem Header="Title">
-                    <TextBox Text="{Binding Title, ElementName=view1}" Width="200"/>
-                </MenuItem>
-                <MenuItem Header="SubTitle">
-                    <TextBox Text="{Binding SubTitle, ElementName=view1}" Width="200"/>
-                </MenuItem>
+                
                 <!--<MenuItem Header="Mode">
                     <MenuItem Header="Visualize"></MenuItem>
                     <MenuItem Header="Planning"></MenuItem>
@@ -136,16 +140,7 @@
             <MenuItem Header="Simulation">
                 <MenuItem Header="Reset Simulation Forces"></MenuItem>
             </MenuItem>
-            <MenuItem Header="Helpers">
-                <MenuItem IsCheckable="True" Header="Axes"></MenuItem>
-                <MenuItem IsCheckable="True" Header="Physics Helpers"></MenuItem>
-                <Separator></Separator>
-                <MenuItem IsCheckable="True" Header="Frames Per Second"></MenuItem>
-                <MenuItem IsCheckable="True" Header="Simulation Delta Time"></MenuItem>
-                <Separator></Separator>
-                <MenuItem IsCheckable="True" Header="PC UTC time"></MenuItem>
-                <MenuItem IsCheckable="True" Header="Simulation UTC Time"></MenuItem>
-            </MenuItem>
+
         </Menu>
         <!--~MenuStrip-->
         <!--Playback Controls-->
