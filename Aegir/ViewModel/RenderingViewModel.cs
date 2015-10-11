@@ -1,4 +1,7 @@
-﻿using GalaSoft.MvvmLight;
+﻿using Aegir.Messages.Project;
+using AegirCore.Project;
+using AegirCore.Scene;
+using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Messaging;
 using System;
@@ -19,6 +22,7 @@ namespace Aegir.ViewModel
         public RelayCommand RenderInitalizedCommand { get; private set; }
         public RelayCommand<SizeChangedEventArgs> RenderResizedCommand { get; private set; }
 
+        public SceneGraph Scene { get; set; }
         /// <summary>
         /// Initializes this rendering VM
         /// </summary>
@@ -29,6 +33,12 @@ namespace Aegir.ViewModel
             RenderInitalizedCommand = new RelayCommand(RenderInit);
             RenderResizedCommand = new RelayCommand<SizeChangedEventArgs>(ControlResized);
 
+            Messenger.Default.Register<ProjectActivated>(this, ProjectActivated);
+
+        }
+        private void ProjectActivated(ProjectActivated projectMessage)
+        {
+            this.Scene = projectMessage.Project.Scene;
         }
         /// <summary>
         /// Initializes the currently active render scene

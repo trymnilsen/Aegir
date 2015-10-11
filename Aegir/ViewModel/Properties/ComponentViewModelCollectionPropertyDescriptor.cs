@@ -12,7 +12,7 @@ namespace Aegir.ViewModel.Properties
         private ComponentViewModelCollection componentViewModels;
         private int index;
         public ComponentViewModelCollectionPropertyDescriptor(ComponentViewModelCollection componentViewModels, int index)
-            :base("Foo", null)
+            :base(componentViewModels[index].Name, null)
         {
             this.componentViewModels = componentViewModels;
             this.index = index;

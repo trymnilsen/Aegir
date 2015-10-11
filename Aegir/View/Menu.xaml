@@ -54,13 +54,13 @@
             <MenuItem Header="View">
                 <MenuItem Header="Scene">
                     <MenuItem Header="Info">
-                        <MenuItem IsCheckable="True" Header="ShowCoordinateSystem" IsChecked="{Binding ShowCoordinateSystem, ElementName=view1}"/>
-                        <MenuItem IsCheckable="True" Header="ShowViewCube" IsChecked="{Binding ShowViewCube, ElementName=view1}"/>
-                        <MenuItem IsCheckable="True" Header="ShowCameraInfo" IsChecked="{Binding ShowCameraInfo, ElementName=view1}"/>
-                        <MenuItem IsCheckable="True" Header="ShowTriangleCountInfo" IsChecked="{Binding ShowTriangleCountInfo, ElementName=view1}"/>
-                        <MenuItem IsCheckable="True" Header="ShowFieldOfView" IsChecked="{Binding ShowFieldOfView, ElementName=view1}"/>
-                        <MenuItem IsCheckable="True" Header="ShowFrameRate" IsChecked="{Binding ShowFrameRate, ElementName=view1}"/>
-                        <MenuItem IsCheckable="True" Header="ShowCameraTarget" IsChecked="{Binding ShowCameraTarget, ElementName=view1}"/>
+                        <MenuItem IsCheckable="True" Header="ShowCoordinateSystem"/>
+                        <MenuItem IsCheckable="True" Header="ShowViewCube"/>
+                        <MenuItem IsCheckable="True" Header="ShowCameraInfo" />
+                        <MenuItem IsCheckable="True" Header="ShowTriangleCountInfo" />
+                        <MenuItem IsCheckable="True" Header="ShowFieldOfView" />
+                        <MenuItem IsCheckable="True" Header="ShowFrameRate" />
+                        <MenuItem IsCheckable="True" Header="ShowCameraTarget"/>
                     </MenuItem>
                     <MenuItem>
                         <MenuItem Header="Helpers">
@@ -76,38 +76,38 @@
                     
                 </MenuItem>
                 <MenuItem Header="Camera">
-                    <MenuItem IsCheckable="True" Header="Orthographic" IsChecked="{Binding Orthographic, ElementName=view1}"/>
+                    <MenuItem IsCheckable="True" Header="Orthographic"/>
                     <MenuItem Header="NearPlaneDistance">
-                        <TextBox Text="{Binding Camera.NearPlaneDistance, ElementName=view1}"></TextBox>
+                        <TextBox Text="1"></TextBox>
                     </MenuItem>
                     <MenuItem Header="FarPlaneDistance">
-                        <TextBox Text="{Binding Camera.FarPlaneDistance, ElementName=view1}"></TextBox>
+                        <TextBox Text="5"></TextBox>
                     </MenuItem>
-                    <MenuItem IsCheckable="True" Header="RotateAroundMouseDownPoint" IsChecked="{Binding RotateAroundMouseDownPoint, ElementName=view1}"/>
-                    <MenuItem IsCheckable="True" Header="ZoomAroundMouseDownPoint" IsChecked="{Binding ZoomAroundMouseDownPoint, ElementName=view1}"/>
-                    <MenuItem IsCheckable="True" Header="InfiniteSpin" IsChecked="{Binding InfiniteSpin, ElementName=view1}"/>
-                    <MenuItem IsCheckable="True" Header="IsInertiaEnabled" IsChecked="{Binding IsInertiaEnabled, ElementName=view1}"/>
-                    <MenuItem IsCheckable="True" Header="IsPanEnabled" IsChecked="{Binding IsPanEnabled, ElementName=view1}"/>
-                    <MenuItem IsCheckable="True" Header="IsMoveEnabled" IsChecked="{Binding IsMoveEnabled, ElementName=view1}"/>
-                    <MenuItem IsCheckable="True" Header="IsRotationEnabled" IsChecked="{Binding IsRotationEnabled, ElementName=view1}"/>
-                    <MenuItem IsCheckable="True" Header="IsZoomEnabled" IsChecked="{Binding IsZoomEnabled, ElementName=view1}"/>
-                    <MenuItem IsCheckable="True" Header="IsChangeFovEnabled" IsChecked="{Binding IsChangeFieldOfViewEnabled, ElementName=view1}"/>
+                    <MenuItem IsCheckable="True" Header="RotateAroundMouseDownPoint" />
+                    <MenuItem IsCheckable="True" Header="ZoomAroundMouseDownPoint" />
+                    <MenuItem IsCheckable="True" Header="InfiniteSpin" />
+                    <MenuItem IsCheckable="True" Header="IsInertiaEnabled" />
+                    <MenuItem IsCheckable="True" Header="IsPanEnabled" />
+                    <MenuItem IsCheckable="True" Header="IsMoveEnabled" />
+                    <MenuItem IsCheckable="True" Header="IsRotationEnabled" />
+                    <MenuItem IsCheckable="True" Header="IsZoomEnabled" />
+                    <MenuItem IsCheckable="True" Header="IsChangeFovEnabled" />
                     <MenuItem Header="RotationSensitivity">
                         <StackPanel Orientation="Horizontal">
-                            <Slider Value="{Binding RotationSensitivity, ElementName=view1}" Minimum="0.1" Maximum="5" Width="200"/>
-                            <TextBlock Text="{Binding RotationSensitivity, StringFormat='{}{0:0.0}', ElementName=view1}"/>
+                            <Slider Value="3.1" Minimum="0.1" Maximum="5" Width="200"/>
+                            <TextBlock Text="3.1"/>
                         </StackPanel>
                     </MenuItem>
                     <MenuItem Header="ZoomSensitivity">
                         <StackPanel Orientation="Horizontal">
-                            <Slider Value="{Binding ZoomSensitivity, ElementName=view1}" Minimum="0.1" Maximum="5" Width="200"/>
-                            <TextBlock Text="{Binding ZoomSensitivity, StringFormat='{}{0:0.0}', ElementName=view1, FallbackValue='--'}" />
+                            <Slider Value="2.7" Minimum="0.1" Maximum="5" Width="200"/>
+                            <TextBlock Text="2.7" />
                         </StackPanel>
                     </MenuItem>
                     <MenuItem Header="CameraInertiaFactor">
                         <StackPanel Orientation="Horizontal">
-                            <Slider Value="{Binding CameraInertiaFactor, ElementName=view1}" Minimum="0.7" Maximum="1" Width="200"/>
-                            <TextBlock Text="{Binding CameraInertiaFactor, StringFormat='{}{0:0.000}', ElementName=view1}"/>
+                            <Slider Value="0.871" Name="CameraInertiaFactorSlider" Minimum="0.7" Maximum="1" Width="200" TickFrequency="100"/>
+                            <TextBlock Text="{Binding Value, StringFormat='{}{0:0.000}', ElementName=CameraInertiaFactorSlider}"/>
                         </StackPanel>
                     </MenuItem>
                 </MenuItem>

@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace Aegir.ViewModel.Properties
 {
+
     public class ComponentViewModelCollection : CollectionBase, ICustomTypeDescriptor
     {
         /// <summary>

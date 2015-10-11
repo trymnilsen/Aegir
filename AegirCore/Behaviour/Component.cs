@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AegirCore.Scene
+namespace AegirCore.Behaviour
 {
-    public class TransformableNode : Node
+    public class BehaviourComponent
     {
+        public string Name { get; set; }
     }
 }

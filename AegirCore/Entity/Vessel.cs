@@ -1,14 +1,17 @@
 ﻿using AegirCore.Scene;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel;
 
 namespace AegirCore.Entity
 {
-    public class Vessel : Node
+    public class Vessel : SceneNode
     {
+        [Category("Motion")]
+        public double Heading { get; set; }
+        [Category("Motion")]
+        public double Speed { get; set; }
+        [Category("Motion")]
+        [DisplayName("Rate Of Turn")]
+        public double RateOfTurn { get; set; }
         public Vessel()
         {
             this.Name = "Vessel";

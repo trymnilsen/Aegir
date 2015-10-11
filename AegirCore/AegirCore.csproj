@@ -46,7 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationContext.cs" />
-    <Compile Include="Component\Component.cs" />
+    <Compile Include="Behaviour\Component.cs" />
     <Compile Include="Entity\GNSSReceiver.cs" />
     <Compile Include="Entity\Vessel.cs" />
     <Compile Include="Entity\Water.cs" />
@@ -59,13 +59,20 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Scene\Node.cs" />
     <Compile Include="Scene\SceneContext.cs" />
-    <Compile Include="Scene\Scenegraph.cs" />
-    <Compile Include="Scene\TransformableNode.cs" />
+    <Compile Include="Scene\SceneGraph.cs" />
+    <Compile Include="Scene\SceneNode.cs" />
+    <Compile Include="Scene\Transformation.cs" />
     <Compile Include="Vessel\VesselConfiguration.cs" />
     <Compile Include="Vessel\VesselContext.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AegirMath\AegirMath.csproj">
+      <Project>{5fb60e8e-f2d4-480f-8ecf-f86b061d27a6}</Project>
+      <Name>AegirMath</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

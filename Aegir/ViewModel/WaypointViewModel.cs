@@ -15,16 +15,16 @@ namespace Aegir.ViewModel
 
         public WaypointViewModel()
         {
-            AddWaypointCommand = new RelayCommand(AddWaypointToMap);
+            //AddWaypointCommand = new RelayCommand(AddWaypointToMap);
         }
 
-        private void AddWaypointToMap()
-        {
-            double lat = 0;
-            double lon = 0;
-            string name = "Waypoint ";
+        //private void AddWaypointToMap()
+        //{
+        //    double lat = 0;
+        //    double lon = 0;
+        //    string name = "Waypoint ";
 
-           // Waypoints.Add(new Waypoint(name, lat, lon));
-        }
+        //   // Waypoints.Add(new Waypoint(name, lat, lon));
+        //}
     }
 }

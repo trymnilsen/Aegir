@@ -14,10 +14,12 @@
         <StatusBar DockPanel.Dock="Bottom">
             <TextBlock Text="{Binding Value, ElementName=planeManipulator, StringFormat='{}{0:0.000}'}"/>
         </StatusBar>
-        <ht:HelixViewport3D Camera="{ht:PerspectiveCamera 20,10,10}" ZoomExtentsWhenLoaded="True">
-            <ht:SunLight/>
+        <ht:HelixViewport3D x:Name="PreviewViewport" Camera="{ht:PerspectiveCamera 20,10,10}" ZoomExtentsWhenLoaded="True">
 
-            <ht:SphereVisual3D x:Name="sphere1" Center="-4,0,0" Fill="Orange"/>
+                    <!--<ht:SunLight/>-->
+            <ht:DefaultLights></ht:DefaultLights>
+            <ht:SphereVisual3D x:Name="sphere1" Center="-4,0,0" Fill="Orange" Transform="{Binding foobar}"> 
+            </ht:SphereVisual3D>
             <ht:TranslateManipulator Material="{ht:Material Gold}" Position="-4,0,0" Offset="0,0,1" Length="1" Value="{Binding Radius, ElementName=sphere1}" Direction="0,0,1"/>
 
             <ht:BoxVisual3D x:Name="box1" Center="-8,0,0" Fill="Orange"/>

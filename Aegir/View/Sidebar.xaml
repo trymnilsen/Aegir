@@ -15,7 +15,6 @@
             <RowDefinition Height="1*" MinHeight="100"></RowDefinition>
             <RowDefinition Height="auto"></RowDefinition>
             <RowDefinition Height="1*" MinHeight="100"></RowDefinition>
-            <RowDefinition Height="30"></RowDefinition>
         </Grid.RowDefinitions>
         <Border DataContext="{Binding ObjectTreeVM, Source={StaticResource VMLocator}}">
             <TreeView x:Name="ObjectTree" ItemsSource="{Binding Items}" AllowDrop="True">
@@ -26,16 +25,16 @@
                     </ContextMenu>
                 </TreeView.ContextMenu>
                 <!--Treeview Drag event-->
-                <TreeView.ItemContainerStyle>
+                <!--<TreeView.ItemContainerStyle>
                     <Style TargetType="{x:Type TreeViewItem}">
-                        <!-- We have to select the item which is right-clicked on -->
+                        --><!-- We have to select the item which is right-clicked on -->
                         <!--<EventSetter Event="TreeViewItem.PreviewMouseRightButtonDown" Handler="TreeViewItem_PreviewMouseRightButtonDown"/>-->
-                        <!--<EventSetter Event="TreeViewItem.DragOver" Handler="treeView_DragOver"/>-->
+                        <!--<EventSetter Event="TreeViewItem.DragOver" Handler="treeView_DragOver"/>--><!--
                         <EventSetter Event="TreeViewItem.MouseDown" Handler="treeView_MouseDown"/>
                         <EventSetter Event="TreeViewItem.Drop" Handler="treeView_Drop"/>
                         <EventSetter Event="TreeViewItem.MouseMove" Handler="treeView_MouseMove"/>
                     </Style>
-                </TreeView.ItemContainerStyle>
+                </TreeView.ItemContainerStyle>-->
                 <!--Selected item binding-->
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="SelectedItemChanged">
@@ -46,14 +45,10 @@
                 <!--Template for each treeview item-->
                 <TreeView.Resources>
                     <HierarchicalDataTemplate DataType="{x:Type model:Node}" ItemsSource="{Binding Children}">
-                        <TextBlock Text="{Binding Name}" Tag="{Binding}">
-                            <TextBlock.ContextMenu>
-                                <ContextMenu>
-                                    <MenuItem Header="Remove" 
-                                              Command="{Binding ObjectTreeVM.RemoveItemCommand, Source={StaticResource VMLocator}}"/>
-                                </ContextMenu>
-                            </TextBlock.ContextMenu>
-                        </TextBlock>
+                        <StackPanel Orientation="Horizontal">
+                            <CheckBox></CheckBox>
+                            <TextBlock Text="{Binding Name}"></TextBlock>
+                        </StackPanel>
                     </HierarchicalDataTemplate>
                 </TreeView.Resources>
             </TreeView>
@@ -66,10 +61,6 @@
         <Border Grid.Row="2" >
             <views:ComponentEditor></views:ComponentEditor>
         </Border>
-        <Border Grid.Row="3"  DataContext="{Binding PropertiesVM, Source={StaticResource VMLocator}}">
-            <Button Grid.Row="3" Command="{Binding AddBehaviourCommand}">
-                <TextBlock Text="Add Behaviour"></TextBlock>
-            </Button>
-        </Border>
+
     </Grid>
 </UserControl>
