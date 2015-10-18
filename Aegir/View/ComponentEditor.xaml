@@ -9,7 +9,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid DataContext="{Binding ObjectTreeVM, Source={StaticResource VMLocator}}">
-        <xctk:PropertyGrid SelectedObject="{Binding SelectedItem}" ShowSearchBox="False" ShowTitle="False"></xctk:PropertyGrid>
-        <!--<ctrl:WpfPropertyGrid SelectedObject="{Binding SelectedItem}" Show></ctrl:WpfPropertyGrid>-->
+        <!--<xctk:PropertyGrid SelectedObject="{Binding SelectedItem}" ShowSearchBox="False" ShowTitle="False"></xctk:PropertyGrid>-->
+        <ctrl:WpfPropertyGrid SelectedObject="{Binding SelectedItem}" ToolbarVisible="False"></ctrl:WpfPropertyGrid>
     </Grid>
 </UserControl>

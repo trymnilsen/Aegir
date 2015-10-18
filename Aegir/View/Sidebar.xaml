@@ -46,7 +46,7 @@
                 <TreeView.Resources>
                     <HierarchicalDataTemplate DataType="{x:Type model:Node}" ItemsSource="{Binding Children}">
                         <StackPanel Orientation="Horizontal">
-                            <CheckBox></CheckBox>
+                            <CheckBox IsChecked="{Binding IsEnabled}" Margin="0 0 5 0"></CheckBox>
                             <TextBlock Text="{Binding Name}"></TextBlock>
                         </StackPanel>
                     </HierarchicalDataTemplate>

@@ -15,6 +15,7 @@ namespace AegirCore.Entity
         public Vessel()
         {
             this.Name = "Vessel";
+            ModelPath = "Content/ship.obj";
         }
     }
 }

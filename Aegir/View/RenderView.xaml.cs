@@ -1,4 +1,5 @@
-﻿using Aegir.Util;
+﻿using Aegir.Rendering;
+using Aegir.Util;
 using AegirCore.Scene;
 using HelixToolkit.Wpf;
 using System;
@@ -19,8 +20,7 @@ namespace Aegir.View
     public partial class RenderView : UserControl
     {
         public Dictionary<string, Model3D> assetCache;
-
-
+        public List<NodeMeshListener> meshTransforms;
 
         public Color ModelNotLoadedColor
         {
@@ -59,6 +59,7 @@ namespace Aegir.View
         {
             InitializeComponent();
             assetCache = new Dictionary<string, Model3D>();
+            meshTransforms = new List<NodeMeshListener>();
         }
 
         public static void OnSceneGraphChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -105,6 +106,7 @@ namespace Aegir.View
         /// </summary>
         private void RebuildVisualTree()
         {
+            meshTransforms.Clear();
             foreach(Node node in Scene.RootNodes)
             {
                 RenderNode(node);
@@ -138,8 +140,8 @@ namespace Aegir.View
                     mesh.Color = ModelNotLoadedColor;
                     device3D = mesh;
                 }
-                
-                
+
+                meshTransforms.Add(new NodeMeshListener(device3D, renderedNode.Transform));
                 PreviewViewport.Children.Add(device3D);
             }
             foreach(Node childNode in node.Children)
@@ -147,10 +149,7 @@ namespace Aegir.View
                 RenderNode(childNode);
             }
         }
-        private void BindModel(ModelVisual3D model, SceneNode node)
-        {
-            //.BindProperty(nameof(node.WorldX),node,model,model.Transform)
-        }
+
         private Model3D LoadModel(string model)
         {
 

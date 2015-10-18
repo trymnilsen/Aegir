@@ -12,6 +12,8 @@ namespace AegirCore.Scene
     public class Node
     {
         public string Name {get; set;}
+        [DisplayName("Is Enabled")]
+        public bool IsEnabled { get; set; } = true;
         [Browsable(false)]
         public bool Nestable { get; set; }
         [Browsable(false)]
@@ -24,7 +26,6 @@ namespace AegirCore.Scene
         {
             Children = new ObservableCollection<Node>();
             Components = new ObservableCollection<BehaviourComponent>();
-
             //Add some components
             Components.Add(new BehaviourComponent() { Name = "Foo" });
             Components.Add(new BehaviourComponent() { Name = "Bar" });

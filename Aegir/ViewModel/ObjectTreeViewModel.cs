@@ -28,7 +28,7 @@ namespace Aegir.ViewModel
                 if(value!=items)
                 {
                     items = value;
-                    RaisePropertyChanged("Items");
+                    RaisePropertyChanged();
                 }
             }
         }
@@ -42,7 +42,7 @@ namespace Aegir.ViewModel
                 {
                     selectedItem = value;
                     UpdateSelectedItem(value);
-                    RaisePropertyChanged("SelectedItem");
+                    RaisePropertyChanged();
                 }
             }
         }

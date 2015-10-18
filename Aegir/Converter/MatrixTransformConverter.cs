@@ -15,12 +15,22 @@ namespace Aegir.Converter
 
         public object Convert(object transformation, Type targetType, object parameter, CultureInfo culture)
         {
-            return new MatrixTransform3D();
+            Transformation transform = transformation as Transformation;
+            if(transform != null)
+            {
+                MatrixTransform3D matrixTransform = new MatrixTransform3D();
+                Matrix3D matrix = new Matrix3D();
+                matrix.Rotate(transform.Rotation);
+                matrix.Translate(transform.Position);
+                matrixTransform.Matrix = matrix;
+                return matrixTransform;
+            }
+            return null;
         }
 
         public object ConvertBack(object matrix, Type targetType, object parameter, CultureInfo culture)
         {
-            return new Transformation();
+            throw new NotImplementedException();
         }
     }
 }

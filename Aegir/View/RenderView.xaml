@@ -11,13 +11,11 @@
         <ht:LinearConverter x:Key="Multiplier" M="0.5"/>
     </UserControl.Resources>
     <DockPanel>
-        <StatusBar DockPanel.Dock="Bottom">
-            <TextBlock Text="{Binding Value, ElementName=planeManipulator, StringFormat='{}{0:0.000}'}"/>
-        </StatusBar>
-        <ht:HelixViewport3D x:Name="PreviewViewport" Camera="{ht:PerspectiveCamera 20,10,10}" ZoomExtentsWhenLoaded="True">
-
-                    <!--<ht:SunLight/>-->
+        <ht:HelixViewport3D x:Name="PreviewViewport" Camera="{ht:PerspectiveCamera 20,10,10}" ZoomExtentsWhenLoaded="True" >
             <ht:DefaultLights></ht:DefaultLights>
+            <ht:RectangleVisual3D x:Name="plane2" Origin="0,0,0" Normal="0,0,1" LengthDirection="0,1,0" Fill="CornflowerBlue" Width="600" Length="600"/>
+            <!--<ht:SunLight/>-->
+            <!--<ht:DefaultLights></ht:DefaultLights>
             <ht:SphereVisual3D x:Name="sphere1" Center="-4,0,0" Fill="Orange" Transform="{Binding foobar}"> 
             </ht:SphereVisual3D>
             <ht:TranslateManipulator Material="{ht:Material Gold}" Position="-4,0,0" Offset="0,0,1" Length="1" Value="{Binding Radius, ElementName=sphere1}" Direction="0,0,1"/>
@@ -41,7 +39,7 @@
             <ht:CubeVisual3D x:Name="cube3" Transform="{ht:Translate 4,4,1}" Fill="#cd7f32"/>
             <ht:CombinedManipulator CanRotateX="False" CanRotateY="False" CanRotateZ="False" TargetTransform="{Binding Transform, ElementName=cube3}"/>
 
-            <ht:RectangleVisual3D Fill="#800000FF" DivLength="40" DivWidth="40"/>
+            <ht:RectangleVisual3D Fill="#800000FF" DivLength="40" DivWidth="40"/>-->
         </ht:HelixViewport3D>
     </DockPanel>
 </UserControl>

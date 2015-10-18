@@ -9,72 +9,55 @@ namespace AegirCore.Scene
 {
     public class SceneNode : Node
     {
-        #region WorldTransform
-        [Category("Transformation (World)")]
-        [DisplayName("World X")]
-        public double WorldX { get; set; }
-        [Category("Transformation (World)")]
-        [DisplayName("World Y")]
-        public double WorldY { get; set; }
-        [Category("Transformation (World)")]
-        [DisplayName("World Z")]
-        public double WorldZ { get; set; }
+        public Transformation Transform { get; set; }
 
-        [Category("Transformation (World)")]
-        [DisplayName("Scale X")]
-        public double WorldScaleX { get; set; }
-        [Category("Transformation (World)")]
-        [DisplayName("Scale Y")]
-        public double WorldScaleY { get; set; }
-        [Category("Transformation (World)")]
-        [DisplayName("Scale Z")]
+        [DisplayName("X")]
+        [Category("World Transformation")]
+        public double WorldTranslateX
+        {
+            get { return Transform.Position.X; }
+            set
+            {
+                double delta = value - Transform.Position.X;
+                Transform.TranslateX(delta);
+            }
+        }
+        [DisplayName("Y")]
+        [Category("World Transformation")]
+        public double WorldTranslateY
+        {
+            get { return Transform.Position.Y; }
+            set
+            {
+                double delta = value - Transform.Position.Y;
+                Transform.TranslateY(delta);
+            }
+        }
+        [DisplayName("Z")]
+        [Category("World Transformation")]
+        public double WorldTranslateZ
+        {
+            get { return Transform.Position.Z; }
+            set
+            {
+                double delta = value - Transform.Position.Z;
+                Transform.TranslateZ(delta);
+            }
+        }
 
-        public double WorldScaleZ { get; set; }
-
-        [Category("Transformation (World)")]
-        [DisplayName("World Roll")]
-        public double WorldRotationRoll { get; set; }
-        [Category("Transformation (World)")]
-        [DisplayName("World Pitch")]
-        public double WorldRotationPitch { get; set; }
-        [Category("Transformation (World)")]
-        [DisplayName("World Yaw")]
-        public double WorldRotationYaw { get; set; }
-        #endregion
-
-        #region LocalTransform
-        [Category("Transformation (Local)")]
-        [DisplayName("Local X")]
-        public double LocalX { get; set; }
-        [Category("Transformation (Local)")]
-        [DisplayName("Local Y")]
-        public double LocalY { get; set; }
-        [Category("Transformation (Local)")]
-        [DisplayName("Local Z")]
-        public double LocalZ { get; set; }
-
-        [Category("Transformation (Local)")]
-        [DisplayName("Local Roll")]
-        public double LocalRotationRoll { get; set; }
-        [Category("Transformation (Local)")]
-        [DisplayName("Local Pitch")]
-        public double LocalRotationPitch { get; set; }
-        [Category("Transformation (Local)")]
-        [DisplayName("Local Yaw")]
-        public double LocalRotationYaw { get; set; }
-        #endregion
-        //Rendering
-        #region Rendering
         [Browsable(false)]
         public string ModelPath { get; set; }
-        #endregion
+        public SceneNode()
+        {
+            Transform = new Transformation();
+        }
         /// <summary>
         /// Recalculates the absolute position of the node when a parent has been moved 
         /// </summary>
         /// <param name="parent"></param>
-        public void InvalidateAbsolutePosition(Node parent)
+        public void InvalidateAbsolutePosition(SceneNode parent)
         {
-
+            
         }
     }
 }

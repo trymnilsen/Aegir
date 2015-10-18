@@ -51,6 +51,21 @@
                 <Separator></Separator>
                 <MenuItem Header="Wind"></MenuItem>
             </MenuItem>
+            <MenuItem Header="Gestures">
+                <MenuItem Header="Keyboard">
+                    <MenuItem Header="Arrow Keys">
+                        <MenuItem Header="Control Ship"></MenuItem>
+                        <MenuItem Header="Control Camera"></MenuItem>
+                    </MenuItem>
+                </MenuItem>
+                <MenuItem Header="Mouse">
+                    <MenuItem Header="Right Button">
+                        <MenuItem Header="Rotate Camera"></MenuItem>
+                        <MenuItem Header="Context Menu"></MenuItem>
+                        <MenuItem Header="Move Camera"></MenuItem>
+                    </MenuItem>
+                </MenuItem>
+            </MenuItem>
             <MenuItem Header="View">
                 <MenuItem Header="Scene">
                     <MenuItem Header="Info">
