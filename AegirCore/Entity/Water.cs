@@ -9,9 +9,13 @@ namespace AegirCore.Entity
 {
     public class Water : Node
     {
+        public WaterSegment[,] WaterSegments { get; set; }
         public Water()
         {
             this.Name = "Water";
+            this.Removable = false;
+            this.Nestable = false;
+
         }
     }
 }

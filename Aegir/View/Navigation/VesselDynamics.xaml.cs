@@ -10,16 +10,17 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Aegir.Windows
+namespace Aegir.View.Navigation
 {
     /// <summary>
-    /// Interaction logic for Outputs.xaml
+    /// Interaction logic for VesselDynamics.xaml
     /// </summary>
-    public partial class Outputs : Window
+    public partial class VesselDynamics : UserControl
     {
-        public Outputs()
+        public VesselDynamics()
         {
             InitializeComponent();
         }

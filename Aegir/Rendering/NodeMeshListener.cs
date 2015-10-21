@@ -23,7 +23,11 @@ namespace Aegir.Rendering
         private void Transform_TransformationChanged()
         {
             //Set the transformation of the visual
-            Visual.Transform = GetVisualTransformation(Transform);
+            Transform3D transformation = GetVisualTransformation(Transform);
+            Visual.Dispatcher.InvokeAsync(() =>
+            {
+                Visual.Transform = transformation;
+            });
         }
         public Transform3D GetVisualTransformation(Transformation transform)
         {
