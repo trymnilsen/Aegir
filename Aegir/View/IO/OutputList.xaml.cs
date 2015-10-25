@@ -10,16 +10,17 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Aegir.Windows
+namespace Aegir.View.IO
 {
     /// <summary>
-    /// Interaction logic for Behaviours.xaml
+    /// Interaction logic for OutputList.xaml
     /// </summary>
-    public partial class Behaviours : Window
+    public partial class OutputList : UserControl
     {
-        public Behaviours()
+        public OutputList()
         {
             InitializeComponent();
         }

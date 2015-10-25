@@ -153,11 +153,20 @@
     <Compile Include="View\ComponentEditor.xaml.cs">
       <DependentUpon>ComponentEditor.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\IO\InputList.xaml.cs">
+      <DependentUpon>InputList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\IO\OutputList.xaml.cs">
+      <DependentUpon>OutputList.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Map.xaml.cs">
       <DependentUpon>Map.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Menu.xaml.cs">
       <DependentUpon>Menu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Navigation\VesselDynamics.xaml.cs">
+      <DependentUpon>VesselDynamics.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\RenderView.xaml.cs">
       <DependentUpon>RenderView.xaml</DependentUpon>
@@ -171,11 +180,11 @@
     <Compile Include="View\Waypoints.xaml.cs">
       <DependentUpon>Waypoints.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\Behaviours.xaml.cs">
-      <DependentUpon>Behaviours.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Windows\Outputs.xaml.cs">
+    <Compile Include="Windows\IO\Outputs.xaml.cs">
       <DependentUpon>Outputs.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\Navigation.xaml.cs">
+      <DependentUpon>Navigation.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\Settings.xaml.cs">
       <DependentUpon>Settings.xaml</DependentUpon>
@@ -199,6 +208,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="View\IO\InputList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\IO\OutputList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Map.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -206,6 +223,10 @@
     <Page Include="View\Menu.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Navigation\VesselDynamics.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\RenderView.xaml">
       <SubType>Designer</SubType>
@@ -223,13 +244,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Windows\Behaviours.xaml">
-      <Generator>MSBuild:Compile</Generator>
+    <Page Include="Windows\IO\Outputs.xaml">
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Windows\Outputs.xaml">
-      <Generator>MSBuild:Compile</Generator>
+    <Page Include="Windows\Navigation.xaml">
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\Settings.xaml">
       <Generator>MSBuild:Compile</Generator>

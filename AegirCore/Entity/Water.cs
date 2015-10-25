@@ -11,12 +11,16 @@ namespace AegirCore.Entity
 {
     public class Water : Node
     {
-        [Category("Simulation")]
-        [DisplayName("Water Simulation")]
+
         public WaterSimulationMode SimulationMode { get; set; }
+
+        public WaterSegment[,] WaterSegments { get; set; }
         public Water()
         {
             this.Name = "Water";
+            this.Removable = false;
+            this.Nestable = false;
+
         }
     }
 }
