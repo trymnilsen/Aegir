@@ -13,7 +13,7 @@ namespace AegirCore.Scene
     {
         public string Name {get; set;}
         [DisplayName("Is Enabled")]
-        public bool IsEnabled { get; set; } = true;
+        public bool IsEnabled { get; set; } 
         [Browsable(false)]
         public bool Nestable { get; set; }
         [Browsable(false)]

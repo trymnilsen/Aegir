@@ -65,7 +65,10 @@ namespace AegirCore.Simulation.Water
         /// <summary>
         /// Just the fourier size plus 1.
         /// </summary>
-        int Nplus1;
+        public int Nplus1
+        {
+            get { return N + 1; }
+        }
 
         /// <summary>
         /// The wind direction.
@@ -113,7 +116,6 @@ namespace AegirCore.Simulation.Water
 
         void Start()
         {
-            Nplus1 = N + 1;
 
             m_fourier = new FourierCPU(N);
 

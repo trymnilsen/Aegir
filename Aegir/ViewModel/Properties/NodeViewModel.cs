@@ -1,5 +1,4 @@
-﻿using AegirCore.Behaviour;
-using AegirCore.Scene;
+﻿using AegirCore.Scene;
 using GalaSoft.MvvmLight;
 using System;
 using System.Collections.Generic;
