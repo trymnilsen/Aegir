@@ -1,4 +1,5 @@
 ﻿using AegirCore.Scene;
+using AegirCore.Simulation;
 using System.ComponentModel;
 
 namespace AegirCore.Entity
@@ -12,6 +13,9 @@ namespace AegirCore.Entity
         [Category("Motion")]
         [DisplayName("Rate Of Turn")]
         public double RateOfTurn { get; set; }
+        [Category("Simulation")]
+        [DisplayName("Simulation Mode")]
+        public VesselSimulationMode SimulationMode { get; set; }
         public Vessel()
         {
             this.Name = "Vessel";

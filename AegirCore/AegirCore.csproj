@@ -63,11 +63,21 @@
     <Compile Include="Scene\SceneGraph.cs" />
     <Compile Include="Scene\SceneNode.cs" />
     <Compile Include="Scene\Transformation.cs" />
+    <Compile Include="Simulation\FourierCPU.cs" />
+    <Compile Include="Simulation\VesselSimulationMode.cs" />
+    <Compile Include="Simulation\Water\Ocean.cs" />
+    <Compile Include="Simulation\Water\WaterSimulationMode.cs" />
     <Compile Include="Vessel\VesselConfiguration.cs" />
     <Compile Include="Vessel\VesselContext.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AegirMath\AegirMath.csproj">
+      <Project>{5fb60e8e-f2d4-480f-8ecf-f86b061d27a6}</Project>
+      <Name>AegirMath</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
