@@ -12,6 +12,17 @@
             <ColumnDefinition Width="1*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <gmap:GMapControl Name="mapControl" Loaded="mapControl_Loaded">
+            <gmap:GMapControl.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Center"></MenuItem>
+                    <MenuItem Header="Jump To Here"></MenuItem>
+                    <Separator></Separator>
+                    <MenuItem Header="Zoom In"></MenuItem>
+                    <MenuItem Header="Zoom Out"></MenuItem>
+                    <Separator></Separator>
+                    <MenuItem Header="Add Waypoint"></MenuItem>
+                </ContextMenu>
+            </gmap:GMapControl.ContextMenu>
         </gmap:GMapControl>
         <!--Map-->
         <!--<maps:MapCanvas Grid.Column="0">

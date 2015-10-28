@@ -14,7 +14,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="1*" MinHeight="100"></RowDefinition>
             <RowDefinition Height="auto"></RowDefinition>
-            <RowDefinition Height="1*" MinHeight="100"></RowDefinition>
+            <RowDefinition Height="2*" MinHeight="100"></RowDefinition>
         </Grid.RowDefinitions>
         <Border DataContext="{Binding ObjectTreeVM, Source={StaticResource VMLocator}}">
             <TreeView x:Name="ObjectTree" ItemsSource="{Binding Items}" AllowDrop="True">

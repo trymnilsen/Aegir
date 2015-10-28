@@ -23,8 +23,7 @@
         </StatusBarItem>
         <StatusBarItem Grid.Column="1">
             <StackPanel Orientation="Horizontal">
-                <ProgressBar Width="100" Height="16" Margin="0 0 5 0" Value="50"/>
-                <TextBlock Text="4 Tiles Downloading"/>
+                
             </StackPanel>
         </StatusBarItem>
         <StatusBarItem Grid.Column="2">

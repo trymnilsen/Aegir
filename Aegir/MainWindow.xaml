@@ -6,6 +6,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Aegir"
         xmlns:views="clr-namespace:Aegir.View"
+        xmlns:navView="clr-namespace:Aegir.View.Navigation"
         xmlns:fa="http://schemas.fontawesome.io/icons/"
         mc:Ignorable="d"     
         Title="Aegir" Height="760" Width="1050">
@@ -55,7 +56,15 @@
                       ShowsPreview="True"
                       Height="5"></GridSplitter>
                 <!--Map View-->
-                <views:Map  Grid.Row="2"></views:Map>
+                <TabControl Grid.Row="2" Padding="0">
+                    <TabItem Header="Map">
+                        <views:Map  Grid.Row="2"></views:Map>
+                    </TabItem>
+                    <TabItem Header="Vessel Dynamics">
+                        <navView:VesselDynamics></navView:VesselDynamics>
+                    </TabItem>
+
+                </TabControl>
             </Grid>
             <!--Preview Area-->
         </Grid>
