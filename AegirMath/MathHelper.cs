@@ -76,7 +76,15 @@ namespace OpenTK
         #region Public Members
 
         #region NextPowerOfTwo
-
+        /// <summary>
+        /// Checks if the given value is larger than 
+        /// </summary>
+        /// <param name="x"></param>
+        /// <returns></returns>
+        public static bool IsPowerOfTwo(int x)
+        { 
+            return (x>0) && ((x & (x - 1)) == 0);
+        }
         /// <summary>
         /// Returns the next power of two that is larger than the specified number.
         /// </summary>
