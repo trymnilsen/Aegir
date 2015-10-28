@@ -18,12 +18,6 @@
 //        const float GRAVITY = 9.81f;
 
 //        /// <summary>
-//        /// The material used to render the mesh. The actual rendering is very basic. 
-//        /// This project is more about how to generate the spectrum.
-//        /// </summary>
-//        Material m_mat;
-
-//        /// <summary>
 //        /// The number of meshes on the x and z axis.
 //        /// </summary>
 //        int m_numGridsX = 2;
@@ -50,11 +44,6 @@
 //        /// The wind speed and the direction.
 //        /// </summary>
 //        Vector2 m_windSpeed = new Vector2(32.0f, 32.0f);
-
-//        /// <summary>
-//        /// The game object holding each mesh.
-//        /// </summary>
-//        GameObject[] m_oceanGrid;
 
 //        /// <summary>
 //        /// The actual mesh. There is only one mesh generated.
