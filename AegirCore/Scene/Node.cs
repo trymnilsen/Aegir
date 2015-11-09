@@ -37,5 +37,10 @@ namespace AegirCore.Scene
         {
 
         }
+        public T GetComponent<T>()
+            where T : BehaviourComponent
+        {
+            return Components.FirstOrDefault(x => x.GetType().Equals(typeof(T))) as T;
+        }
     }
 }

@@ -47,7 +47,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationContext.cs" />
-    <Compile Include="Behaviour\Component.cs" />
+    <Compile Include="Behaviour\BehaviourComponent.cs" />
+    <Compile Include="Behaviour\Vessel\VesselNavigationBehaviour.cs" />
+    <Compile Include="Behaviour\World\TransformBehaviour.cs" />
     <Compile Include="Entity\GNSSReceiver.cs" />
     <Compile Include="Entity\Vessel.cs" />
     <Compile Include="Entity\Water.cs" />
@@ -65,7 +67,6 @@
     <Compile Include="Scene\SceneContext.cs" />
     <Compile Include="Scene\SceneGraph.cs" />
     <Compile Include="Scene\SceneNode.cs" />
-    <Compile Include="Scene\Transformation.cs" />
     <Compile Include="Simulation\FourierCPU.cs" />
     <Compile Include="Simulation\SimulationEngine.cs" />
     <Compile Include="Simulation\SimulationTime.cs" />

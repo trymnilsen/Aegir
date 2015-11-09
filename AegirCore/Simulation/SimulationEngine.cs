@@ -143,6 +143,7 @@ namespace AegirCore.Simulation
             //Calculate timing
             lastDeltaTime = (int)(deltaTimeStopwatch.ElapsedMilliseconds - preUpdateTime);
             simTime.DeltaTime = lastDeltaTime;
+            Debug.WriteLine("DeltaTime:" + lastDeltaTime);
         }
         /// <summary>
         /// Recursively update all the Nodes and their children

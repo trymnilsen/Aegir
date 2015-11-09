@@ -1,5 +1,6 @@
 ﻿using Aegir.Rendering;
 using Aegir.Util;
+using AegirCore.Behaviour.World;
 using AegirCore.Scene;
 using HelixToolkit.Wpf;
 using System;
@@ -141,7 +142,7 @@ namespace Aegir.View
                     device3D = mesh;
                 }
 
-                meshTransforms.Add(new NodeMeshListener(device3D, renderedNode.Transform));
+                meshTransforms.Add(new NodeMeshListener(device3D, renderedNode.GetComponent<TransformBehaviour>()));
                 PreviewViewport.Children.Add(device3D);
             }
             foreach(Node childNode in node.Children)

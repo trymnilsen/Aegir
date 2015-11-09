@@ -1,4 +1,5 @@
-﻿using AegirCore.Scene;
+﻿using AegirCore.Behaviour.World;
+using AegirCore.Scene;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -13,9 +14,9 @@ namespace Aegir.Rendering
     public class NodeMeshListener : IDisposable
     {
         public ModelVisual3D Visual { get; set; }
-        public Transformation Transform { get; set; }
+        public TransformBehaviour Transform { get; set; }
 
-        public NodeMeshListener(ModelVisual3D visual, Transformation transform)
+        public NodeMeshListener(ModelVisual3D visual, TransformBehaviour transform)
         {
             Transform = transform;
             Visual = visual;
@@ -24,15 +25,9 @@ namespace Aegir.Rendering
 
         private void Transform_TransformationChanged()
         {
-            Debug.WriteLine("TransformTriggerListen");
-            //Set the transformation of the visual
-            
-            Debug.WriteLine("Invoking on UI");
-            Transform3D transformation = GetVisualTransformation(Transform);
-            Debug.WriteLine("Visual Dispatcher Thread: " + Visual.Dispatcher.Thread.ManagedThreadId);
-            Debug.WriteLine("App Dispatcher Thread: " + Application.Current.Dispatcher.Thread.ManagedThreadId);
             Application.Current.Dispatcher.InvokeAsync(()=>
             {
+                Transform3D transformation = GetVisualTransformation(Transform);
                 Visual.Transform = transformation;
             });
         }
@@ -40,12 +35,13 @@ namespace Aegir.Rendering
         //{
         //    Visual.Transform = transformation;
         //}
-        public Transform3D GetVisualTransformation(Transformation transform)
+        public Transform3D GetVisualTransformation(TransformBehaviour transform)
         {
             MatrixTransform3D matrixTransform = new MatrixTransform3D();
             Matrix3D matrix = new Matrix3D();
-            matrix.Rotate(transform.Rotation);
-            matrix.Translate(transform.Position);
+            Quaternion q = new Quaternion(transform.Rotation.X, transform.Rotation.Y, transform.Rotation.Z, transform.Rotation.W);
+            matrix.Rotate(q);
+            matrix.Translate(new Vector3D(transform.Position.X, transform.Position.Y, transform.Position.Z));
             matrixTransform.Matrix = matrix;
             matrixTransform.Freeze();
             return matrixTransform;

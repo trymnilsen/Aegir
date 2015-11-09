@@ -192,7 +192,6 @@ namespace OpenTK
 
             return result;
         }
-
         #endregion
 
         #region public double Length
