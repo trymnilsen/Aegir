@@ -1,4 +1,5 @@
 ﻿using AegirCore.Behaviour;
+using AegirCore.Simulation;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -31,6 +32,10 @@ namespace AegirCore.Scene
             Components.Add(new BehaviourComponent() { Name = "Bar" });
             Components.Add(new BehaviourComponent() { Name = "Baz" });
             Components.Add(new BehaviourComponent() { Name = "Faz" });
+        }
+        public virtual void Update(SimulationTime time)
+        {
+
         }
     }
 }

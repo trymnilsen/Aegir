@@ -52,6 +52,8 @@
     <Compile Include="Entity\Vessel.cs" />
     <Compile Include="Entity\Water.cs" />
     <Compile Include="Entity\WaterSegment.cs" />
+    <Compile Include="Output\OutputData.cs" />
+    <Compile Include="Output\OutputManager.cs" />
     <Compile Include="Playback\PlaybackMode.cs" />
     <Compile Include="Project\Event\ProjectActivateEventArgs.cs" />
     <Compile Include="Project\ProjectContext.cs" />
@@ -65,6 +67,8 @@
     <Compile Include="Scene\SceneNode.cs" />
     <Compile Include="Scene\Transformation.cs" />
     <Compile Include="Simulation\FourierCPU.cs" />
+    <Compile Include="Simulation\SimulationEngine.cs" />
+    <Compile Include="Simulation\SimulationTime.cs" />
     <Compile Include="Simulation\VesselSimulationMode.cs" />
     <Compile Include="Simulation\Water\Ocean.cs" />
     <Compile Include="Simulation\Water\WaterSimulationMode.cs" />

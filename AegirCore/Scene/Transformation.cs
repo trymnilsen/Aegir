@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,6 +18,7 @@ namespace AegirCore.Scene
             set
             {
                 position = value;
+                Debug.WriteLine("Triggering Transform Change");
                 TriggerTransformChanged();
             }
         }
@@ -44,6 +46,10 @@ namespace AegirCore.Scene
         public void TranslateZ(double amount)
         {
             Position = Position + new Vector3D(0, 0, amount);
+        }
+        public void RotateHeading(double newHeading)
+        {
+            Rotation = new Quaternion(new Vector3D(0, 0, 1), newHeading);
         }
 
         public void TriggerTransformChanged()

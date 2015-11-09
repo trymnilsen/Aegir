@@ -7,9 +7,13 @@
         xmlns:local="clr-namespace:Aegir"
         xmlns:views="clr-namespace:Aegir.View"
         xmlns:navView="clr-namespace:Aegir.View.Navigation"
+        xmlns:outputView="clr-namespace:Aegir.View.Output"
         xmlns:fa="http://schemas.fontawesome.io/icons/"
         mc:Ignorable="d"     
-        Title="Aegir" Height="760" Width="1050">
+        Title="Aegir" 
+        Height="760" Width="1050"
+        MinHeight="450"
+        MinWidth="700">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -56,15 +60,33 @@
                       ShowsPreview="True"
                       Height="5"></GridSplitter>
                 <!--Map View-->
-                <TabControl Grid.Row="2" Padding="0">
-                    <TabItem Header="Map">
-                        <views:Map  Grid.Row="2"></views:Map>
-                    </TabItem>
-                    <TabItem Header="Vessel Dynamics">
-                        <navView:VesselDynamics></navView:VesselDynamics>
-                    </TabItem>
+                <Grid Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                        <ColumnDefinition Width="5px"></ColumnDefinition>
+                        <ColumnDefinition Width="200px"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <TabControl Padding="0" BorderThickness="0 1 0 0">
+                        <TabItem Header="Map">
+                            <views:Map  Grid.Row="2"></views:Map>
+                        </TabItem>
+                        <TabItem Header="Vessel Dynamics">
+                            <navView:VesselDynamics></navView:VesselDynamics>
+                        </TabItem>
+                        <TabItem Header="Output">
+                            <outputView:Outputs></outputView:Outputs>
+                        </TabItem>
+                        <TabItem Header="Log"></TabItem>
+                        <TabItem Header="Resources"></TabItem>
+                    </TabControl>
+                    <GridSplitter Grid.Column="1"
 
-                </TabControl>
+                      HorizontalAlignment="Stretch"
+                      ShowsPreview="True"/>
+                    <StackPanel Grid.Column="2">
+                        <TextBlock Text="Stats"></TextBlock>
+                    </StackPanel>
+                </Grid>
             </Grid>
             <!--Preview Area-->
         </Grid>

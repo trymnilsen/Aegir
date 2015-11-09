@@ -56,8 +56,8 @@
     <ApplicationIcon>aegiricon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="FontAwesome.WPF, Version=4.3.0.35981, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\FontAwesome.WPF.4.4.0.5\lib\FontAwesome.WPF.dll</HintPath>
+    <Reference Include="FontAwesome.WPF, Version=4.4.0.35868, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\FontAwesome.WPF.4.4.0.6\lib\FontAwesome.WPF.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="GalaSoft.MvvmLight, Version=5.2.0.37222, Culture=neutral, PublicKeyToken=e7570ab207bcb616, processorArchitecture=MSIL">
@@ -160,6 +160,7 @@
     <Compile Include="ViewModel\MapViewModel.cs" />
     <Compile Include="ViewModel\MenuStripViewModel.cs" />
     <Compile Include="ViewModel\ObjectTreeViewModel.cs" />
+    <Compile Include="ViewModel\OutputViewModel.cs" />
     <Compile Include="ViewModel\PlaybackViewModel.cs" />
     <Compile Include="ViewModel\Properties\NodeViewModel.cs" />
     <Compile Include="ViewModel\Properties\PropertiesViewModel.cs" />
@@ -183,8 +184,14 @@
     <Compile Include="View\Menu.xaml.cs">
       <DependentUpon>Menu.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Navigation\SimpleNavigation.xaml.cs">
+      <DependentUpon>SimpleNavigation.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Navigation\VesselDynamics.xaml.cs">
       <DependentUpon>VesselDynamics.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Output\Outputs.xaml.cs">
+      <DependentUpon>Outputs.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\RenderView.xaml.cs">
       <DependentUpon>RenderView.xaml</DependentUpon>
@@ -203,6 +210,9 @@
     </Compile>
     <Compile Include="Windows\Settings.xaml.cs">
       <DependentUpon>Settings.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\SimpleNavigation.xaml.cs">
+      <DependentUpon>SimpleNavigation.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\VesselSetup.xaml.cs">
       <DependentUpon>VesselSetup.xaml</DependentUpon>
@@ -239,7 +249,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="View\Navigation\SimpleNavigation.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Navigation\VesselDynamics.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Output\Outputs.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -266,6 +284,10 @@
     <Page Include="Windows\Settings.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\SimpleNavigation.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\VesselSetup.xaml">
       <Generator>MSBuild:Compile</Generator>

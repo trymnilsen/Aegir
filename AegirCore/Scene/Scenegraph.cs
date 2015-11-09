@@ -15,6 +15,7 @@ namespace AegirCore.Scene
         {
             RootNodes = new ObservableCollection<Node>();
         }
+
         public delegate void GraphChangedHandler();
         public event GraphChangedHandler GraphChanged; 
     }

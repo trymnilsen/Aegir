@@ -1,0 +1,44 @@
+﻿<UserControl x:Class="Aegir.View.Output.Outputs"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Aegir.View.Output"
+             xmlns:mock="clr-namespace:AegirCore.Output;assembly=AegirCore"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="500">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="200px"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="20px"></RowDefinition>
+        </Grid.RowDefinitions>
+        <DataGrid BorderThickness="0 0 1 0" CanUserAddRows="True" CanUserDeleteRows="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Width="1*" Header="Name" Binding="{Binding Name}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Port" Binding="{Binding Port}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Listeners" IsReadOnly="True" Binding="{Binding Listeners}"></DataGridTextColumn>
+                <DataGridCheckBoxColumn Header="Active"></DataGridCheckBoxColumn>
+            </DataGrid.Columns>
+            <mock:OutputData Name="Aft" Port="24" Listeners="2"></mock:OutputData>
+            <mock:OutputData Name="Fore" Port="25" Listeners="2"></mock:OutputData>
+            <mock:OutputData Name="Roll" Port="26" Listeners="2"></mock:OutputData>
+        </DataGrid>
+        <!--Controll Buttons-->
+        <StackPanel Grid.Row="1" Orientation="Horizontal">
+            <StackPanel.Background>
+                <SolidColorBrush>
+                    <SolidColorBrush.Color>
+                        <Color R="240" G="240" B="240" A="255"></Color>
+                    </SolidColorBrush.Color>
+                </SolidColorBrush>
+            </StackPanel.Background>
+            <Button Padding="5 0" Content="Add Output"></Button>
+            <Button Padding="5 0" Content="Remove Output" IsEnabled="False"></Button>
+            <Button Padding="5 0" Content="Show Output" IsEnabled="False"></Button>
+        </StackPanel>
+    </Grid>
+</UserControl>

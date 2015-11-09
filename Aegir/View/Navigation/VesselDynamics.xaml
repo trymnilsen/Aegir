@@ -6,7 +6,73 @@
              xmlns:local="clr-namespace:Aegir.View.Navigation"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <StackPanel>
+    <UserControl.Resources>
+        <DrawingBrush x:Key="CheckerBoardBackground" Viewport="0,0,20,20" ViewportUnits="Absolute" Stretch="None" TileMode="Tile">
+            <DrawingBrush.Drawing>
+                <DrawingGroup>
+                    <GeometryDrawing Brush="LightGray">
+                        <GeometryDrawing.Geometry>
+                            <GeometryGroup>
+                                <RectangleGeometry Rect="0,0,10,10"/>
+                                <RectangleGeometry Rect="10,10,10,10"/>
+                            </GeometryGroup>
+                        </GeometryDrawing.Geometry>
+                    </GeometryDrawing>
+                    <GeometryDrawing Brush="Gray">
+                        <GeometryDrawing.Geometry>
+                            <GeometryGroup>
+                                <RectangleGeometry Rect="10,0,10,10"/>
+                                <RectangleGeometry Rect="0,10,10,10"/>
+                            </GeometryGroup>
+                        </GeometryDrawing.Geometry>
+                    </GeometryDrawing>
+                </DrawingGroup>
+            </DrawingBrush.Drawing>
+        </DrawingBrush>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"></ColumnDefinition>
+            <ColumnDefinition Width="5px"></ColumnDefinition>
+            <ColumnDefinition Width="1*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <!--Grid Splitters-->
+        <GridSplitter Grid.Column="1"
 
-    </StackPanel>
+                      HorizontalAlignment="Stretch"
+                      ShowsPreview="True"/>
+        <!--~Grid Splitters-->
+        <Canvas Background="{StaticResource CheckerBoardBackground}">
+
+            <Menu>
+                <MenuItem Header="Top">
+                    <MenuItem Header="Center on Vessel"></MenuItem>
+                </MenuItem>
+            </Menu>
+        </Canvas>
+        <Grid Grid.Column="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*" MinHeight="100px"></RowDefinition>
+                <RowDefinition Height="5px"></RowDefinition>
+                <RowDefinition Height="2*" MinHeight="100px"></RowDefinition>
+            </Grid.RowDefinitions>
+            <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch"/>
+            <Canvas Background="{StaticResource CheckerBoardBackground}">
+                <Menu>
+                    <MenuItem Header="Front">
+                        <MenuItem Header="Center on Vessel"></MenuItem>
+                    </MenuItem>
+                </Menu>
+
+            </Canvas>
+            <Canvas Background="{StaticResource CheckerBoardBackground}" Grid.Row="2">
+                <Menu>
+                    <MenuItem Header="Left">
+                        <MenuItem Header="Center on Vessel"></MenuItem>
+                    </MenuItem>
+                </Menu>
+
+            </Canvas>
+        </Grid>
+    </Grid>
 </UserControl>

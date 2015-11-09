@@ -1,9 +1,11 @@
 ﻿using AegirCore.Scene;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Media.Media3D;
 
 namespace Aegir.Rendering
@@ -22,13 +24,22 @@ namespace Aegir.Rendering
 
         private void Transform_TransformationChanged()
         {
+            Debug.WriteLine("TransformTriggerListen");
             //Set the transformation of the visual
+            
+            Debug.WriteLine("Invoking on UI");
             Transform3D transformation = GetVisualTransformation(Transform);
-            Visual.Dispatcher.InvokeAsync(() =>
+            Debug.WriteLine("Visual Dispatcher Thread: " + Visual.Dispatcher.Thread.ManagedThreadId);
+            Debug.WriteLine("App Dispatcher Thread: " + Application.Current.Dispatcher.Thread.ManagedThreadId);
+            Application.Current.Dispatcher.InvokeAsync(()=>
             {
                 Visual.Transform = transformation;
             });
         }
+        //private void Foobar()
+        //{
+        //    Visual.Transform = transformation;
+        //}
         public Transform3D GetVisualTransformation(Transformation transform)
         {
             MatrixTransform3D matrixTransform = new MatrixTransform3D();
@@ -36,6 +47,7 @@ namespace Aegir.Rendering
             matrix.Rotate(transform.Rotation);
             matrix.Translate(transform.Position);
             matrixTransform.Matrix = matrix;
+            matrixTransform.Freeze();
             return matrixTransform;
         }
 
