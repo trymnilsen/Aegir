@@ -154,12 +154,14 @@
     <Compile Include="Messages\ObjectTree\SelectedNodeChanged.cs" />
     <Compile Include="Messages\Project\LoadProjectFile.cs" />
     <Compile Include="Messages\Project\ProjectActivated.cs" />
+    <Compile Include="Messages\Simulation\InvalidateEntities.cs" />
     <Compile Include="Rendering\NodeMeshListener.cs" />
     <Compile Include="Shell.cs" />
     <Compile Include="Util\BindingHelper.cs" />
     <Compile Include="ViewModel\MapViewModel.cs" />
     <Compile Include="ViewModel\MenuStripViewModel.cs" />
     <Compile Include="ViewModel\NodeProxy\NodeViewModelProxy.cs" />
+    <Compile Include="ViewModel\NodeProxy\ScenegraphViewModelProxy.cs" />
     <Compile Include="ViewModel\NodeProxy\VesselViewModelProxy.cs" />
     <Compile Include="ViewModel\ObjectTreeViewModel.cs" />
     <Compile Include="ViewModel\OutputViewModel.cs" />

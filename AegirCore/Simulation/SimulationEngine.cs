@@ -27,7 +27,7 @@ namespace AegirCore.Simulation
         /// The deltatime in ms for the last simulation step.
         /// If no simulations has been run yet this is assiged to the value of targetdelta
         /// </summary>
-        private int lastDeltaTime;
+        private double lastDeltaTime;
         private bool isStarted;
         /// <summary>
         /// Contains information about time scale and delta time for simulation
@@ -41,10 +41,7 @@ namespace AegirCore.Simulation
         /// The scenegraph we are simulating on
         /// </summary>
         private SceneGraph scene;
-        /// <summary>
-        /// Timer for measuring actuall time used for simulations and caluclating delta time
-        /// </summary>
-        private Stopwatch deltaTimeStopwatch;
+
         /// <summary>
         /// The timescale used in the engine, enables slowing down time or speeding it up
         /// </summary>
@@ -77,7 +74,6 @@ namespace AegirCore.Simulation
             this.lastDeltaTime = targetDeltaTime;
 
             this.simTime = new SimulationTime();
-            this.deltaTimeStopwatch = new Stopwatch();
             this.simulateStepTimer = new Timer(new TimerCallback(DoSimulation), null, Timeout.Infinite, targetDeltaTime);
         }
         /// <summary>
@@ -114,7 +110,7 @@ namespace AegirCore.Simulation
         public void Start()
         {
             isStarted = true;
-            deltaTimeStopwatch.Start();
+            this.simTime.AppStart();
             simulateStepTimer.Change(0, 1000 / updatesPerSecond);
         }
         /// <summary>
@@ -138,12 +134,13 @@ namespace AegirCore.Simulation
         private void DoSimulation(object state)
         {
             IEnumerable<Node> rootNodes = scene.RootNodes;
-            long preUpdateTime = deltaTimeStopwatch.ElapsedMilliseconds;
+            simTime.FrameStart();
             UpdateScenegraphChildren(rootNodes);
+            simTime.FrameEnd();
             //Calculate timing
-            lastDeltaTime = (int)(deltaTimeStopwatch.ElapsedMilliseconds - preUpdateTime);
-            simTime.DeltaTime = lastDeltaTime;
             Debug.WriteLine("DeltaTime:" + lastDeltaTime);
+            //Notify about a finished simulation step
+            TriggerStepFinished();
         }
         /// <summary>
         /// Recursively update all the Nodes and their children
@@ -167,5 +164,15 @@ namespace AegirCore.Simulation
         {
             simulateStepTimer.Dispose();
         }
+        public void TriggerStepFinished()
+        {
+            SimulationStepFinishedHandler stepFinishedEvent = StepFinished;
+            if (stepFinishedEvent != null)
+            {
+                stepFinishedEvent();
+            }
+        }
+        public delegate void SimulationStepFinishedHandler();
+        public event SimulationStepFinishedHandler StepFinished;
     }
 }

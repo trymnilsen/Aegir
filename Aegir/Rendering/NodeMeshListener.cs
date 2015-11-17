@@ -1,4 +1,5 @@
-﻿using AegirCore.Behaviour.World;
+﻿using Aegir.ViewModel.NodeProxy;
+using AegirCore.Behaviour.World;
 using AegirCore.Scene;
 using System;
 using System.Collections.Generic;
@@ -13,21 +14,22 @@ namespace Aegir.Rendering
 {
     public class NodeMeshListener : IDisposable
     {
-        public ModelVisual3D Visual { get; set; }
-        public TransformBehaviour Transform { get; set; }
 
-        public NodeMeshListener(ModelVisual3D visual, TransformBehaviour transform)
+        public ModelVisual3D Visual { get; set; }
+        public NodeViewModelProxy Source { get; set; }
+
+        public NodeMeshListener(ModelVisual3D visual, NodeViewModelProxy source)
         {
-            Transform = transform;
+            Source = source;
             Visual = visual;
-            transform.TransformationChanged += Transform_TransformationChanged;
+            //transform.TransformationChanged += Transform_TransformationChanged;
         }
 
         private void Transform_TransformationChanged()
         {
             Application.Current.Dispatcher.InvokeAsync(()=>
             {
-                Transform3D transformation = GetVisualTransformation(Transform);
+                Transform3D transformation = GetVisualTransformation(Source);
                 Visual.Transform = transformation;
             });
         }
@@ -35,13 +37,13 @@ namespace Aegir.Rendering
         //{
         //    Visual.Transform = transformation;
         //}
-        public Transform3D GetVisualTransformation(TransformBehaviour transform)
+        public Transform3D GetVisualTransformation(NodeViewModelProxy transform)
         {
             MatrixTransform3D matrixTransform = new MatrixTransform3D();
             Matrix3D matrix = new Matrix3D();
-            Quaternion q = new Quaternion(transform.Rotation.X, transform.Rotation.Y, transform.Rotation.Z, transform.Rotation.W);
-            matrix.Rotate(q);
-            matrix.Translate(new Vector3D(transform.Position.X, transform.Position.Y, transform.Position.Z));
+           // Quaternion q = new Quaternion(transform., transform.Rotation.Y, transform.Rotation.Z, transform.Rotation.W);
+            //matrix.Rotate(q);
+            matrix.Translate(new Vector3D(transform.WorldTranslateX, transform.WorldTranslateY, transform.WorldTranslateZ));
             matrixTransform.Matrix = matrix;
             matrixTransform.Freeze();
             return matrixTransform;
@@ -49,7 +51,7 @@ namespace Aegir.Rendering
 
         public void Dispose()
         {
-            Transform.TransformationChanged -= Transform_TransformationChanged;
+            //Transform.TransformationChanged -= Transform_TransformationChanged;
         }
     }
 }

@@ -35,7 +35,15 @@ namespace AegirCore.Scene
         }
         public virtual void Update(SimulationTime time)
         {
-
+            foreach(BehaviourComponent c in Components)
+            {
+                c.Update(time);
+            }
+        }
+        public void AddComponent(BehaviourComponent component)
+        {
+            component.SetParentNode(this);
+            Components.Add(component);
         }
         public T GetComponent<T>()
             where T : BehaviourComponent

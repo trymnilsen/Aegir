@@ -1,5 +1,6 @@
 ﻿using AegirCore.Behaviour.Vessel;
 using AegirCore.Entity;
+using AegirCore.Simulation;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -45,6 +46,17 @@ namespace Aegir.ViewModel.NodeProxy
                 RaisePropertyChanged();
             }
         }
+        [Category("Simulation")]
+        [DisplayName("Simulation Mode")]
+        public VesselSimulationMode SimMode
+        {
+            get { return navBehaviour.SimulationMode; }
+            set
+            {
+                navBehaviour.SimulationMode = value;
+                RaisePropertyChanged();
+            }
+        } 
         public VesselViewModelProxy(Vessel vessel)
             :base(vessel)
         {

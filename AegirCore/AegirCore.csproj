@@ -52,7 +52,7 @@
     <Compile Include="Behaviour\World\TransformBehaviour.cs" />
     <Compile Include="Entity\GNSSReceiver.cs" />
     <Compile Include="Entity\Vessel.cs" />
-    <Compile Include="Entity\Water.cs" />
+    <Compile Include="Output\Water.cs" />
     <Compile Include="Entity\WaterSegment.cs" />
     <Compile Include="Output\OutputData.cs" />
     <Compile Include="Output\OutputManager.cs" />

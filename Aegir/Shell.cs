@@ -1,4 +1,5 @@
 ﻿using Aegir.Messages.Project;
+using Aegir.Messages.Simulation;
 using AegirCore;
 using AegirCore.Project;
 using AegirCore.Project.Event;
@@ -21,7 +22,14 @@ namespace Aegir
             Messenger.Default.Register<LoadProjectFile>(this, OpenProject);
 
             Context.Project.ProjectActivated += OnProjectActivated;
+            Context.Engine.StepFinished += Engine_StepFinished;
         }
+
+        private void Engine_StepFinished()
+        {
+            InvalidateEntities.Send();
+        }
+
         public void ShellLoaded()
         {
             ProjectData newProject = Context.Project.CreateNewProject();

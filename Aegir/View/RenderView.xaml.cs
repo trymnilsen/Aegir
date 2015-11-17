@@ -1,5 +1,6 @@
 ﻿using Aegir.Rendering;
 using Aegir.Util;
+using Aegir.ViewModel.NodeProxy;
 using AegirCore.Behaviour.World;
 using AegirCore.Scene;
 using HelixToolkit.Wpf;
@@ -32,9 +33,9 @@ namespace Aegir.View
         
 
 
-        public SceneGraph Scene
+        public ScenegraphViewModelProxy Scene
         {
-            get { return (SceneGraph)GetValue(SceneProperty); }
+            get { return (ScenegraphViewModelProxy)GetValue(SceneProperty); }
             set
             {
                 SetValue(SceneProperty, value);
@@ -49,7 +50,7 @@ namespace Aegir.View
 
         public static readonly DependencyProperty SceneProperty =
             DependencyProperty.Register("Scene", 
-                                        typeof(SceneGraph), 
+                                        typeof(ScenegraphViewModelProxy), 
                                         typeof(RenderView), 
                                         new PropertyMetadata(
                                             new PropertyChangedCallback(OnSceneGraphChanged)
@@ -67,26 +68,26 @@ namespace Aegir.View
         {
             Debug.WriteLine("DP Callback, Scene Changed");
             RenderView view = d as RenderView;
-            SceneGraph newScene = e.NewValue as SceneGraph;
-            SceneGraph oldScene = e.OldValue as SceneGraph;
+            ScenegraphViewModelProxy newScene = e.NewValue as ScenegraphViewModelProxy;
+            ScenegraphViewModelProxy oldScene = e.OldValue as ScenegraphViewModelProxy;
             if(newScene != null)
             {
                 view.OnSceneGraphInstanceChanged(newScene,oldScene);
             }
         }
-        public void OnSceneGraphInstanceChanged(SceneGraph newScene, SceneGraph oldScene)
+        public void OnSceneGraphInstanceChanged(ScenegraphViewModelProxy newScene, ScenegraphViewModelProxy oldScene)
         {
             Debug.WriteLine("Scene Instance changed");
             //unlisten old
             if(oldScene!=null)
             {
-                oldScene.GraphChanged -= OnSceneGraphChanged;
+                oldScene.ScenegraphChanged -= OnSceneGraphChanged;
             }
             if(newScene==null)
             {
                 throw new ArgumentNullException("newScene", "Argument newScene cannot be set to a null reference");
             }
-            newScene.GraphChanged += OnSceneGraphChanged;
+            newScene.ScenegraphChanged += OnSceneGraphChanged;
             RebuildVisualTree();
         }
         /// <summary>
@@ -108,7 +109,7 @@ namespace Aegir.View
         private void RebuildVisualTree()
         {
             meshTransforms.Clear();
-            foreach(Node node in Scene.RootNodes)
+            foreach(Node node in Scene.)
             {
                 RenderNode(node);
             }
@@ -142,7 +143,7 @@ namespace Aegir.View
                     device3D = mesh;
                 }
 
-                meshTransforms.Add(new NodeMeshListener(device3D, renderedNode.GetComponent<TransformBehaviour>()));
+                meshTransforms.Add(new NodeMeshListener(device3D, null));
                 PreviewViewport.Children.Add(device3D);
             }
             foreach(Node childNode in node.Children)

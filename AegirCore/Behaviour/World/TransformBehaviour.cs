@@ -21,7 +21,6 @@ namespace AegirCore.Behaviour.World
             set
             {
                 position = value;
-                TriggerTransformChanged();
             }
         }
         
@@ -31,7 +30,6 @@ namespace AegirCore.Behaviour.World
             set
             {
                 rotation = value;
-                TriggerTransformChanged();
             }
         }
 
@@ -74,15 +72,15 @@ namespace AegirCore.Behaviour.World
             Rotation = new Quaterniond(new Vector3d(0, 0, 1), newHeading);
         }
 
-        public void TriggerTransformChanged()
-        {
-            TransformationChangedHandler transformEvent = TransformationChanged;
-            if (transformEvent != null && Notify)
-            {
-                transformEvent();
-            }
-        }
-        public delegate void TransformationChangedHandler();
-        public event TransformationChangedHandler TransformationChanged;
+        //public void TriggerTransformChanged()
+        //{
+        //    TransformationChangedHandler transformEvent = TransformationChanged;
+        //    if (transformEvent != null && Notify)
+        //    {
+        //        transformEvent();
+        //    }
+        //}
+        //public delegate void TransformationChangedHandler();
+        //public event TransformationChangedHandler TransformationChanged;
     }
 }

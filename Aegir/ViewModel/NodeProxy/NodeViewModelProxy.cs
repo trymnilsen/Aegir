@@ -14,6 +14,13 @@ namespace Aegir.ViewModel.NodeProxy
     {
         protected Node nodeData;
         private TransformBehaviour transform;
+        private List<NodeViewModelProxy> children;
+
+        public List<NodeViewModelProxy> Children
+        {
+            get { return children; }
+            set { children = value; }
+        }
 
         [DisplayName("X")]
         [Category("World Transformation")]
@@ -62,12 +69,6 @@ namespace Aegir.ViewModel.NodeProxy
             this.nodeData = nodeData;
             //All nodes should have a transform behaviour
             transform = nodeData.GetComponent<TransformBehaviour>();
-            transform.TransformationChanged += Transform_TransformationChanged;
-        }
-
-        private void Transform_TransformationChanged()
-        {
-            Invalidate();
         }
 
         /// <summary>
@@ -79,5 +80,15 @@ namespace Aegir.ViewModel.NodeProxy
             RaisePropertyChanged(nameof(WorldTranslateY));
             RaisePropertyChanged(nameof(WorldTranslateZ));
         }
+        //public void TriggerTransformChanged()
+        //{
+        //    TransformationChangedHandler transformEvent = TransformationChanged;
+        //    if (transformEvent != null && Notify)
+        //    {
+        //        transformEvent();
+        //    }
+        //}
+        //public delegate void TransformationChangedHandler();
+        //public event TransformationChangedHandler TransformationChanged;
     }
 }

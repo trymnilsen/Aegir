@@ -10,24 +10,24 @@ namespace AegirCore
 {
     public class ApplicationContext
     {
-        private SimulationEngine engine;
+        public SimulationEngine Engine { get; set; }
         public ProjectContext Project { get; set; }
         
         public ApplicationContext()
         {
             Project = new ProjectContext();
-            engine = new SimulationEngine(30);
+            Engine = new SimulationEngine(30);
             //Attach project events
             Project.ProjectActivated += Project_ProjectActivated;
         }
 
         private void Project_ProjectActivated(Project.Event.ProjectActivateEventArgs e)
         {
-            if(!engine.IsStarted)
+            if(!Engine.IsStarted)
             {
-                engine.Start();
+                Engine.Start();
             }
-            engine.ChangeScenegraph(e.Project.Scene);
+            Engine.ChangeScenegraph(e.Project.Scene);
         }
     }
 }
