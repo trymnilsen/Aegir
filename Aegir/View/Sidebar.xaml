@@ -7,7 +7,7 @@
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              xmlns:cmd="http://www.galasoft.ch/mvvmlight"
              xmlns:views="clr-namespace:Aegir.View"
-             xmlns:model="clr-namespace:AegirCore.Scene;assembly=AegirCore"
+             xmlns:model="clr-namespace:Aegir.ViewModel.NodeProxy"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
@@ -16,7 +16,7 @@
             <RowDefinition Height="auto"></RowDefinition>
             <RowDefinition Height="2*" MinHeight="100"></RowDefinition>
         </Grid.RowDefinitions>
-        <Border DataContext="{Binding ObjectTreeVM, Source={StaticResource VMLocator}}">
+        <Border DataContext="{Binding ScenegraphVM, Source={StaticResource VMLocator}}">
             <TreeView x:Name="ObjectTree" ItemsSource="{Binding Items}" AllowDrop="True">
                 <TreeView.ContextMenu>
                     <ContextMenu>
@@ -44,7 +44,7 @@
                 </i:Interaction.Triggers>
                 <!--Template for each treeview item-->
                 <TreeView.Resources>
-                    <HierarchicalDataTemplate DataType="{x:Type model:Node}" ItemsSource="{Binding Children}">
+                    <HierarchicalDataTemplate DataType="{x:Type model:NodeViewModelProxy}" ItemsSource="{Binding Children}">
                         <StackPanel Orientation="Horizontal">
                             <CheckBox IsChecked="{Binding IsEnabled}" Margin="0 0 5 0"></CheckBox>
                             <TextBlock Text="{Binding Name}"></TextBlock>

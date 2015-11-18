@@ -130,9 +130,12 @@ namespace Aegir.ViewModel.NodeProxy
             {
                 NodeViewModelProxy nodeProxy = new NodeViewModelProxy(n);
                 Items.Add(nodeProxy);
-
-                RebuildScenegraphNodes(n.Children);
+                //PopulateNodeChildren(n.Children);
             }
+        }
+        private void PopulateNodeChildren(IEnumerable<Node> nodes)
+        {
+
         }
         /// <summary>
         /// Triggers our invalidate event, letting listeners update their props based on new viewmodel changes
