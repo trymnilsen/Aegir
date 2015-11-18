@@ -1,4 +1,5 @@
-﻿using AegirCore.Scene;
+﻿using Aegir.ViewModel.NodeProxy;
+using AegirCore.Scene;
 using GalaSoft.MvvmLight.Messaging;
 using System;
 using System.Collections.Generic;
@@ -10,13 +11,13 @@ namespace Aegir.Messages.ObjectTree
 {
     public class SelectedNodeChanged
     {
-        public Node SelectedNode { get; set; }
+        public NodeViewModelProxy SelectedNode { get; set; }
 
-        private SelectedNodeChanged(Node selectedNode)
+        private SelectedNodeChanged(NodeViewModelProxy selectedNode)
         {
             this.SelectedNode = selectedNode;
         }
-        public static void Send(Node selectedNode)
+        public static void Send(NodeViewModelProxy selectedNode)
         {
             Messenger.Default.Send<SelectedNodeChanged>(new SelectedNodeChanged(selectedNode));
         }

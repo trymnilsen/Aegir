@@ -42,7 +42,10 @@ namespace AegirCore.Behaviour.Vessel
         }
         public override void Update(SimulationTime time)
         {
-
+            if(simMode == VesselSimulationMode.Simulate)
+            {
+                UpdateSimulation(time);
+            }
             base.Update(time);
         }
         public void UpdateSimulation(SimulationTime time)

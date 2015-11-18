@@ -138,7 +138,7 @@ namespace AegirCore.Simulation
             UpdateScenegraphChildren(rootNodes);
             simTime.FrameEnd();
             //Calculate timing
-            Debug.WriteLine("DeltaTime:" + lastDeltaTime);
+            Debug.WriteLine("DeltaTime:" + simTime.DeltaTime);
             //Notify about a finished simulation step
             TriggerStepFinished();
         }

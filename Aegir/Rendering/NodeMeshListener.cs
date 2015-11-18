@@ -12,7 +12,7 @@ using System.Windows.Media.Media3D;
 
 namespace Aegir.Rendering
 {
-    public class NodeMeshListener : IDisposable
+    public class NodeMeshListener
     {
 
         public ModelVisual3D Visual { get; set; }
@@ -22,36 +22,26 @@ namespace Aegir.Rendering
         {
             Source = source;
             Visual = visual;
-            //transform.TransformationChanged += Transform_TransformationChanged;
         }
 
-        private void Transform_TransformationChanged()
-        {
-            Application.Current.Dispatcher.InvokeAsync(()=>
-            {
-                Transform3D transformation = GetVisualTransformation(Source);
-                Visual.Transform = transformation;
-            });
-        }
-        //private void Foobar()
-        //{
-        //    Visual.Transform = transformation;
-        //}
         public Transform3D GetVisualTransformation(NodeViewModelProxy transform)
         {
             MatrixTransform3D matrixTransform = new MatrixTransform3D();
             Matrix3D matrix = new Matrix3D();
-           // Quaternion q = new Quaternion(transform., transform.Rotation.Y, transform.Rotation.Z, transform.Rotation.W);
-            //matrix.Rotate(q);
+            Quaternion q = new Quaternion(transform.Rotation.X, transform.Rotation.Y, transform.Rotation.Z, transform.Rotation.W);
+            matrix.Rotate(q);
             matrix.Translate(new Vector3D(transform.WorldTranslateX, transform.WorldTranslateY, transform.WorldTranslateZ));
             matrixTransform.Matrix = matrix;
             matrixTransform.Freeze();
             return matrixTransform;
         }
-
-        public void Dispose()
+        public void Invalidate()
         {
-            //Transform.TransformationChanged -= Transform_TransformationChanged;
+            Transform3D transformation = GetVisualTransformation(Source);
+            Application.Current.Dispatcher.InvokeAsync(()=>
+            {
+                Visual.Transform = transformation;
+            });
         }
     }
 }

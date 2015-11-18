@@ -1,6 +1,7 @@
 ﻿using Aegir.Rendering;
 using Aegir.Util;
 using Aegir.ViewModel.NodeProxy;
+using AegirCore.Behaviour.Rendering;
 using AegirCore.Behaviour.World;
 using AegirCore.Scene;
 using HelixToolkit.Wpf;
@@ -82,21 +83,30 @@ namespace Aegir.View
             if(oldScene!=null)
             {
                 oldScene.ScenegraphChanged -= OnSceneGraphChanged;
+                oldScene.InvalidateChildren -= OnInvalidateChildren;
             }
             if(newScene==null)
             {
                 throw new ArgumentNullException("newScene", "Argument newScene cannot be set to a null reference");
             }
             newScene.ScenegraphChanged += OnSceneGraphChanged;
+            newScene.InvalidateChildren += OnInvalidateChildren;
             RebuildVisualTree();
         }
+
+        private void OnInvalidateChildren()
+        {
+            foreach (NodeMeshListener mesh in meshTransforms)
+            {
+                mesh.Invalidate();
+            }
+        }
+
         /// <summary>
         /// Triggers a rebuild when the sceengraph has been changed
         /// </summary>
         /// <remarks>
         /// only triggers if the 
-
-        /// 
         /// </remarks>
         private void OnSceneGraphChanged()
         {
@@ -109,7 +119,7 @@ namespace Aegir.View
         private void RebuildVisualTree()
         {
             meshTransforms.Clear();
-            foreach(Node node in Scene.)
+            foreach(NodeViewModelProxy node in Scene.Items)
             {
                 RenderNode(node);
             }
@@ -119,20 +129,21 @@ namespace Aegir.View
         /// Recursivly renders all nodes
         /// </summary>
         /// <param name="node"></param>
-        private void RenderNode(Node node)
+        private void RenderNode(NodeViewModelProxy node)
         {
-            SceneNode renderedNode = node as SceneNode;
-            if (renderedNode != null)
+
+            if (node.HasVisual)
             {
                 ModelVisual3D device3D = new ModelVisual3D();
-                if (File.Exists(renderedNode.ModelPath))
+                string visualFilePath = node.VisualFilePath;
+                if (File.Exists(visualFilePath))
                 {
                     Model3D mesh;
-                    if(!assetCache.ContainsKey(renderedNode.ModelPath))
+                    if(!assetCache.ContainsKey(visualFilePath))
                     {
-                        assetCache[renderedNode.ModelPath] = LoadModel(renderedNode.ModelPath);
+                        assetCache[visualFilePath] = LoadModel(visualFilePath);
                     }
-                    mesh = assetCache[renderedNode.ModelPath];
+                    mesh = assetCache[visualFilePath];
                     device3D.Content = mesh;
                 }
                 else
@@ -143,10 +154,10 @@ namespace Aegir.View
                     device3D = mesh;
                 }
 
-                meshTransforms.Add(new NodeMeshListener(device3D, null));
+                meshTransforms.Add(new NodeMeshListener(device3D, node));
                 PreviewViewport.Children.Add(device3D);
             }
-            foreach(Node childNode in node.Children)
+            foreach(NodeViewModelProxy childNode in node.Children)
             {
                 RenderNode(childNode);
             }
@@ -170,7 +181,7 @@ namespace Aegir.View
             catch (Exception e)
             {
                 // Handle exception in case can not file 3D model
-                MessageBox.Show("Exception Error : " + e.StackTrace);
+                MessageBox.Show("Exception Error : " + e.Message + Environment.NewLine + e.StackTrace);
             }
             return device;
         }

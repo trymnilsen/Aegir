@@ -7,33 +7,25 @@ using GalaSoft.MvvmLight.Messaging;
 using AegirCore.Scene;
 using Aegir.Messages.ObjectTree;
 using Aegir.Messages.Project;
+using Aegir.ViewModel.NodeProxy;
 
 namespace Aegir.ViewModel
 {
     public class ObjectTreeViewModel : ViewModelBase
     {
-        private Node selectedItem;
-        private ObservableCollection<Node> items;
-        public RelayCommand<Node> SelectItemChanged { get; private set; }
-        public RelayCommand<Node> RemoveItemCommand { get; private set; }
-        public RelayCommand<Node> MoveItemCommand { get; private set; }
-        public ObservableCollection<Node> Items
+        private NodeViewModelProxy selectedItem;
+        public RelayCommand<NodeViewModelProxy> SelectItemChanged { get; private set; }
+        public RelayCommand<NodeViewModelProxy> RemoveItemCommand { get; private set; }
+        public RelayCommand<NodeViewModelProxy> MoveItemCommand { get; private set; }
+        public ObservableCollection<NodeViewModelProxy> Items
         {
             get
             {
                 return items;
             }
-            set
-            {
-                if(value!=items)
-                {
-                    items = value;
-                    RaisePropertyChanged();
-                }
-            }
         }
 
-        public Node SelectedItem
+        public NodeViewModelProxy SelectedItem
         {
             get { return selectedItem; }
             set 
@@ -49,26 +41,27 @@ namespace Aegir.ViewModel
         
         public ObjectTreeViewModel()
         {
-            SelectItemChanged = new RelayCommand<Node>(c => SelectedItem = c);
-            RemoveItemCommand = new RelayCommand<Node>(RemoveItem);
-            MoveItemCommand = new RelayCommand<Node>(MoveTo);
+            SelectItemChanged = new RelayCommand<NodeViewModelProxy>(c => SelectedItem = c);
+            RemoveItemCommand = new RelayCommand<NodeViewModelProxy>(RemoveItem);
+            MoveItemCommand = new RelayCommand<NodeViewModelProxy>(MoveTo);
             //Add all our items
             Messenger.Default.Register<ProjectActivated>(this, ProjectChanged);
         }
-        public void UpdateSelectedItem(Node newItem)
+        public void UpdateSelectedItem(NodeViewModelProxy newItem)
         {
             SelectedNodeChanged.Send(newItem);
         }
         private void ProjectChanged(ProjectActivated projectMessage)
         {
-            this.Items = projectMessage.Project.Scene.RootNodes;
+            this.Items = projectMessage.Project;
+
         }
 
-        private void RemoveItem(Node item)
+        private void RemoveItem(NodeViewModelProxy item)
         {
             Debug.WriteLine("Removing Item" + item);
         }
-        private void MoveTo(Node item)
+        private void MoveTo(NodeViewModelProxy item)
         {
             Debug.WriteLine("Moving Item" + item);
         }

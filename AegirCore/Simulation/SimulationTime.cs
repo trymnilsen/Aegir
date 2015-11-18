@@ -47,7 +47,7 @@ namespace AegirCore.Simulation
         }
 
         /// <summary>
-        /// Time used for last update
+        /// Time used for last update, in miliseconds
         /// </summary>
         public double DeltaTime
         {

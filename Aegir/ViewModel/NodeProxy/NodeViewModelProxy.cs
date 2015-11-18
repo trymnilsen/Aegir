@@ -1,6 +1,8 @@
-﻿using AegirCore.Behaviour.World;
+﻿using AegirCore.Behaviour.Rendering;
+using AegirCore.Behaviour.World;
 using AegirCore.Scene;
 using GalaSoft.MvvmLight;
+using OpenTK;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,6 +15,7 @@ namespace Aegir.ViewModel.NodeProxy
     public class NodeViewModelProxy : ViewModelBase
     {
         protected Node nodeData;
+        private string visualFilePath;
         private TransformBehaviour transform;
         private List<NodeViewModelProxy> children;
 
@@ -55,6 +58,32 @@ namespace Aegir.ViewModel.NodeProxy
                 RaisePropertyChanged();
             }
         }
+        [DisplayName("Is Enabled")]
+        [Category("Simulation")]
+        public bool IsEnabled
+        {
+            get { return nodeData.IsEnabled; }
+            set
+            {
+                nodeData.IsEnabled = value;
+            }
+        }
+        [Browsable(false)]
+        public Quaterniond Rotation
+        {
+            get { return transform.Rotation; }
+        }
+        [Browsable(false)]
+        public bool HasVisual
+        {
+            get { return (visualFilePath == null || visualFilePath.Length == 0); }
+        }
+        [Browsable(false)]
+        public string VisualFilePath
+        {
+            get { return visualFilePath; }
+            set { visualFilePath = value; }
+        }
 
         //public double WorldRotationYaw
         //{
@@ -69,6 +98,8 @@ namespace Aegir.ViewModel.NodeProxy
             this.nodeData = nodeData;
             //All nodes should have a transform behaviour
             transform = nodeData.GetComponent<TransformBehaviour>();
+            RenderMeshBehaviour meshData = nodeData.GetComponent<RenderMeshBehaviour>();
+            VisualFilePath = meshData.FilePath;
         }
 
         /// <summary>
@@ -79,6 +110,10 @@ namespace Aegir.ViewModel.NodeProxy
             RaisePropertyChanged(nameof(WorldTranslateX));
             RaisePropertyChanged(nameof(WorldTranslateY));
             RaisePropertyChanged(nameof(WorldTranslateZ));
+        }
+        public override string ToString()
+        {
+            return "NodeViewModelProxy For: " +nodeData.Name;
         }
         //public void TriggerTransformChanged()
         //{
