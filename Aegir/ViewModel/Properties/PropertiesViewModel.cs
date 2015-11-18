@@ -1,4 +1,5 @@
 ﻿using Aegir.Messages.ObjectTree;
+using Aegir.ViewModel.NodeProxy;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Messaging;
 using System;
@@ -12,9 +13,9 @@ namespace Aegir.ViewModel.Properties
 
     public class PropertiesViewModel : ViewModelBase
     {
-        private NodeViewModel selectedNode;
+        private NodeViewModelProxy selectedNode;
 
-        public NodeViewModel SelectedNode
+        public NodeViewModelProxy SelectedNode
         {
             get { return selectedNode; }
             set
@@ -22,7 +23,7 @@ namespace Aegir.ViewModel.Properties
                 if(value!=selectedNode)
                 {
                     selectedNode = value;
-                    RaisePropertyChanged("SelectedNode");
+                    RaisePropertyChanged();
                 }
             }
         }
@@ -33,8 +34,7 @@ namespace Aegir.ViewModel.Properties
         }
         private void OnSelectedNodeChange(SelectedNodeChanged message)
         {
-            NodeViewModel selectedItemViewModel = new NodeViewModel(message.SelectedNode);
-            SelectedNode = selectedItemViewModel;
+            SelectedNode = message.SelectedNode;
         }
     }
 }

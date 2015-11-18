@@ -57,8 +57,14 @@ namespace Aegir.ViewModel.NodeProxy
         /// </summary>
         public ScenegraphViewModelProxy()
         {
+            SelectItemChanged = new RelayCommand<NodeViewModelProxy>(c => SelectedItem = c);
+            RemoveItemCommand = new RelayCommand<NodeViewModelProxy>(RemoveItem);
+            MoveItemCommand = new RelayCommand<NodeViewModelProxy>(MoveTo);
+
+            MessengerInstance.Register<ProjectActivated>(this, ProjectChanged);
             MessengerInstance.Register<InvalidateEntities>(this, OnInvalidateEntitiesMessage);
             MessengerInstance.Register<ProjectActivated>(this, OnProjectActivated);
+
         }
         /// <summary>
         /// Updates the currently active selected item in the graph

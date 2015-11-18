@@ -1,4 +1,5 @@
-﻿using Aegir.ViewModel.Properties;
+﻿using Aegir.ViewModel.NodeProxy;
+using Aegir.ViewModel.Properties;
 using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Practices.ServiceLocation;
 using System;
@@ -22,11 +23,10 @@ namespace Aegir.ViewModel
 
             SimpleIoc.Default.Register<StatusBarViewModel>(true);
             SimpleIoc.Default.Register<PropertiesViewModel>(true);
-            SimpleIoc.Default.Register<ObjectTreeViewModel>(true);
             SimpleIoc.Default.Register<MenuStripViewModel>(true);
             SimpleIoc.Default.Register<PlaybackViewModel>(true);
-            SimpleIoc.Default.Register<RenderingViewModel>(true);
             SimpleIoc.Default.Register<MapViewModel>(true);
+            SimpleIoc.Default.Register<ScenegraphViewModelProxy>(true);
 
         }
 
@@ -76,11 +76,11 @@ namespace Aegir.ViewModel
         /// <summary>
         /// Helper method for getting the objecttreeviewmodel 
         /// </summary>
-        public ObjectTreeViewModel ObjectTreeVM
+        public ScenegraphViewModelProxy ScenegraphVM
         {
             get
             {
-                return SimpleIoc.Default.GetInstance<ObjectTreeViewModel>();
+                return SimpleIoc.Default.GetInstance<ScenegraphViewModelProxy>();
             }
         }
         public MapViewModel MapVM
@@ -88,13 +88,6 @@ namespace Aegir.ViewModel
             get
             {
                 return SimpleIoc.Default.GetInstance<MapViewModel>();
-            }
-        }
-        public RenderingViewModel RenderingVM
-        {
-            get
-            {
-                return SimpleIoc.Default.GetInstance<RenderingViewModel>();
             }
         }
 
