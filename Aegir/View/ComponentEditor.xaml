@@ -7,7 +7,7 @@
              xmlns:ctrl="clr-namespace:System.Windows.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <Grid DataContext="{Binding ObjectTreeVM, Source={StaticResource VMLocator}}">
+    <Grid DataContext="{Binding ScenegraphVM, Source={StaticResource VMLocator}}">
         <!--<xctk:PropertyGrid SelectedObject="{Binding SelectedItem}" ShowSearchBox="False" ShowTitle="False"></xctk:PropertyGrid>-->
         <ctrl:WpfPropertyGrid SelectedObject="{Binding SelectedItem}" ToolbarVisible="False"></ctrl:WpfPropertyGrid>
     </Grid>

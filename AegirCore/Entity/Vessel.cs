@@ -9,11 +9,10 @@ namespace AegirCore.Entity
 {
     public class Vessel : SceneNode
     {
-
         public Vessel()
         {
             this.Name = "Vessel";
-            ModelPath = "Content/ship.obj";
+            //ModelPath = "Content/ship.obj";
         }
     }
 }

@@ -44,7 +44,7 @@
                 </Grid.RowDefinitions>
                 <!--GL Element-->
                 <!--<views:SimulationRendering Grid.Row="0"></views:SimulationRendering>-->
-                <views:RenderView Scene="{Binding RenderingVM.Scene, Source={StaticResource VMLocator}}">
+                <views:RenderView Scene="{Binding ScenegraphVM, Source={StaticResource VMLocator}}">
                     <views:RenderView.Background>
                         <SolidColorBrush>
                             <SolidColorBrush.Color>

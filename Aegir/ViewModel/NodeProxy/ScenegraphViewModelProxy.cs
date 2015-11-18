@@ -65,6 +65,7 @@ namespace Aegir.ViewModel.NodeProxy
             MessengerInstance.Register<InvalidateEntities>(this, OnInvalidateEntitiesMessage);
             MessengerInstance.Register<ProjectActivated>(this, OnProjectActivated);
 
+            Items = new ObservableCollection<NodeViewModelProxy>();
         }
         /// <summary>
         /// Updates the currently active selected item in the graph
@@ -130,12 +131,17 @@ namespace Aegir.ViewModel.NodeProxy
             {
                 NodeViewModelProxy nodeProxy = new NodeViewModelProxy(n);
                 Items.Add(nodeProxy);
-                //PopulateNodeChildren(n.Children);
+                PopulateNodeChildren(nodeProxy, n);
             }
         }
-        private void PopulateNodeChildren(IEnumerable<Node> nodes)
+        private void PopulateNodeChildren(NodeViewModelProxy proxy, Node node)
         {
-
+            foreach(Node n in node.Children)
+            {
+                NodeViewModelProxy childrenProxy = new NodeViewModelProxy(n);
+                proxy.Children.Add(childrenProxy);
+                PopulateNodeChildren(childrenProxy, n);
+            }
         }
         /// <summary>
         /// Triggers our invalidate event, letting listeners update their props based on new viewmodel changes
