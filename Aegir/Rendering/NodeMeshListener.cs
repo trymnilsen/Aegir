@@ -38,7 +38,7 @@ namespace Aegir.Rendering
         public void Invalidate()
         {
             Transform3D transformation = GetVisualTransformation(Source);
-            Application.Current.Dispatcher.InvokeAsync(()=>
+            Visual.Dispatcher.InvokeAsync(()=>
             {
                 Visual.Transform = transformation;
             });

@@ -1,4 +1,5 @@
 ﻿using AegirCore.Behaviour;
+using AegirCore.Behaviour.World;
 using AegirCore.Simulation;
 using System;
 using System.Collections.Generic;
@@ -28,10 +29,7 @@ namespace AegirCore.Scene
             Children = new ObservableCollection<Node>();
             Components = new ObservableCollection<BehaviourComponent>();
             //Add some components
-            Components.Add(new BehaviourComponent() { Name = "Foo" });
-            Components.Add(new BehaviourComponent() { Name = "Bar" });
-            Components.Add(new BehaviourComponent() { Name = "Baz" });
-            Components.Add(new BehaviourComponent() { Name = "Faz" });
+            Components.Add(new TransformBehaviour());
         }
         public virtual void Update(SimulationTime time)
         {

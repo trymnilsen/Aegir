@@ -18,7 +18,7 @@ namespace Aegir.ViewModel.NodeProxy
         private string visualFilePath;
         private TransformBehaviour transform;
         private List<NodeViewModelProxy> children;
-
+        [Browsable(false)]
         public List<NodeViewModelProxy> Children
         {
             get { return children; }
@@ -66,6 +66,17 @@ namespace Aegir.ViewModel.NodeProxy
             set
             {
                 nodeData.IsEnabled = value;
+                RaisePropertyChanged();
+            }
+        }
+        [Category("General")]
+        public string Name
+        {
+            get { return nodeData.Name; }
+            set
+            {
+                nodeData.Name = value;
+                RaisePropertyChanged();
             }
         }
         [Browsable(false)]
@@ -96,6 +107,7 @@ namespace Aegir.ViewModel.NodeProxy
         public NodeViewModelProxy(Node nodeData)
         {
             this.nodeData = nodeData;
+            this.children = new List<NodeViewModelProxy>();
             //All nodes should have a transform behaviour
             transform = nodeData.GetComponent<TransformBehaviour>();
             RenderMeshBehaviour meshData = nodeData.GetComponent<RenderMeshBehaviour>();

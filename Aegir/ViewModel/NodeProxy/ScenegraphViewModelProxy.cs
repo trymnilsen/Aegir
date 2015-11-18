@@ -116,8 +116,6 @@ namespace Aegir.ViewModel.NodeProxy
         /// </summary>
         private void SceneSource_GraphChanged()
         {
-            //At the moment we rebuild the graph if it's changed
-            Items.Clear();
             RebuildScenegraphNodes(sceneSource.RootNodes);
             TriggerScenegraphChanged();
         }
@@ -127,6 +125,8 @@ namespace Aegir.ViewModel.NodeProxy
         /// <param name="nodes"></param>
         private void RebuildScenegraphNodes(IEnumerable<Node> nodes)
         {
+            //At the moment we rebuild the graph if it's changed
+            Items.Clear();
             foreach(Node n in nodes)
             {
                 NodeViewModelProxy nodeProxy = new NodeViewModelProxy(n);
