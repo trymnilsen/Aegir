@@ -69,7 +69,7 @@ namespace AegirCore.Behaviour.World
         }
         public void RotateHeading(double newHeading)
         {
-            Rotation = new Quaterniond(new Vector3d(0, 0, 1), newHeading);
+            Rotation = Quaterniond.FromAxisAngle(new Vector3d(0, 0, 1), newHeading);
         }
 
         //public void TriggerTransformChanged()

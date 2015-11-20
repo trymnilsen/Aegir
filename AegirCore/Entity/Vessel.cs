@@ -1,4 +1,6 @@
-﻿using AegirCore.Scene;
+﻿using AegirCore.Behaviour.Rendering;
+using AegirCore.Behaviour.Vessel;
+using AegirCore.Scene;
 using AegirCore.Simulation;
 using System;
 using System.ComponentModel;
@@ -12,7 +14,12 @@ namespace AegirCore.Entity
         public Vessel()
         {
             this.Name = "Vessel";
-            //ModelPath = "Content/ship.obj";
+            RenderMeshBehaviour RenderMesh = new RenderMeshBehaviour("Content/ship.obj");
+            this.AddComponent(RenderMesh);
+
+            VesselNavigationBehaviour navBehavour = new VesselNavigationBehaviour();
+            this.AddComponent(navBehavour);
+
         }
     }
 }

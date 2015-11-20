@@ -60,7 +60,7 @@ namespace Aegir.ViewModel.NodeProxy
         public VesselViewModelProxy(Vessel vessel)
             :base(vessel)
         {
-
+            navBehaviour = vessel.GetComponent<VesselNavigationBehaviour>();
         }
         public override void Invalidate()
         {

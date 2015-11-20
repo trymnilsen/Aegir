@@ -12,5 +12,9 @@ namespace AegirCore.Behaviour.Rendering
     public class RenderMeshBehaviour:BehaviourComponent
     {
         public string FilePath { get; private set; }
+        public RenderMeshBehaviour(string filepath)
+        {
+            this.FilePath = filepath;
+        }
     }
 }

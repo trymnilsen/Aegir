@@ -31,6 +31,7 @@ namespace Aegir.Rendering
             Quaternion q = new Quaternion(transform.Rotation.X, transform.Rotation.Y, transform.Rotation.Z, transform.Rotation.W);
             matrix.Rotate(q);
             matrix.Translate(new Vector3D(transform.WorldTranslateX, transform.WorldTranslateY, transform.WorldTranslateZ));
+            
             matrixTransform.Matrix = matrix;
             matrixTransform.Freeze();
             return matrixTransform;

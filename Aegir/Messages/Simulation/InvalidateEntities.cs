@@ -9,6 +9,7 @@ namespace Aegir.Messages.Simulation
 {
     public class InvalidateEntities
     {
+
         private InvalidateEntities()
         {
         }

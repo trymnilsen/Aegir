@@ -87,7 +87,7 @@ namespace Aegir.ViewModel.NodeProxy
         [Browsable(false)]
         public bool HasVisual
         {
-            get { return (visualFilePath == null || visualFilePath.Length == 0); }
+            get { return (visualFilePath != null && visualFilePath.Length != 0); }
         }
         [Browsable(false)]
         public string VisualFilePath
@@ -125,6 +125,11 @@ namespace Aegir.ViewModel.NodeProxy
             RaisePropertyChanged(nameof(WorldTranslateX));
             RaisePropertyChanged(nameof(WorldTranslateY));
             RaisePropertyChanged(nameof(WorldTranslateZ));
+
+            foreach(NodeViewModelProxy child in Children)
+            {
+                child.Invalidate();
+            }
         }
         public override string ToString()
         {

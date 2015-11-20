@@ -73,9 +73,10 @@
                         <TabItem Header="Vessel Dynamics">
                             <navView:VesselDynamics></navView:VesselDynamics>
                         </TabItem>
-                        <TabItem Header="Output">
+                        <TabItem Header="Outputs">
                             <outputView:Outputs></outputView:Outputs>
                         </TabItem>
+                        <TabItem Header="Inputs"></TabItem>
                         <TabItem Header="Log"></TabItem>
                         <TabItem Header="Resources"></TabItem>
                     </TabControl>

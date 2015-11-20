@@ -1,6 +1,7 @@
 ﻿using Aegir.Messages.ObjectTree;
 using Aegir.Messages.Project;
 using Aegir.Messages.Simulation;
+using AegirCore.Entity;
 using AegirCore.Scene;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
@@ -16,6 +17,8 @@ namespace Aegir.ViewModel.NodeProxy
 {
     public class ScenegraphViewModelProxy : ViewModelBase
     {
+        private const double NotifyPropertyUpdateRate = 1000d;
+        private DateTime lastNotifyProxyProperty;
         /// <summary>
         /// The scenegraph source we are wrapping
         /// </summary>
@@ -66,6 +69,7 @@ namespace Aegir.ViewModel.NodeProxy
             MessengerInstance.Register<ProjectActivated>(this, OnProjectActivated);
 
             Items = new ObservableCollection<NodeViewModelProxy>();
+            lastNotifyProxyProperty = DateTime.Now;
         }
         /// <summary>
         /// Updates the currently active selected item in the graph
@@ -94,6 +98,16 @@ namespace Aegir.ViewModel.NodeProxy
         /// <param name="message"></param>
         public void OnInvalidateEntitiesMessage(InvalidateEntities message)
         {
+            DateTime now = DateTime.Now;
+            double timeDifference = (now - lastNotifyProxyProperty).TotalMilliseconds;
+            lastNotifyProxyProperty = now;
+            if(timeDifference> NotifyPropertyUpdateRate)
+            {
+                foreach(NodeViewModelProxy nodeProxy in Items)
+                {
+                    nodeProxy.Invalidate();
+                }
+            }
             TriggerInvalidateChildren();
         }
         /// <summary>
@@ -129,7 +143,7 @@ namespace Aegir.ViewModel.NodeProxy
             Items.Clear();
             foreach(Node n in nodes)
             {
-                NodeViewModelProxy nodeProxy = new NodeViewModelProxy(n);
+                NodeViewModelProxy nodeProxy = CreateProxy(n);
                 Items.Add(nodeProxy);
                 PopulateNodeChildren(nodeProxy, n);
             }
@@ -138,10 +152,23 @@ namespace Aegir.ViewModel.NodeProxy
         {
             foreach(Node n in node.Children)
             {
-                NodeViewModelProxy childrenProxy = new NodeViewModelProxy(n);
+                NodeViewModelProxy childrenProxy = CreateProxy(n);
                 proxy.Children.Add(childrenProxy);
                 PopulateNodeChildren(childrenProxy, n);
             }
+        }
+        /// <summary>
+        /// Creates the correct proxy base on our node
+        /// </summary>
+        /// <param name="n"></param>
+        /// <returns></returns>
+        public NodeViewModelProxy CreateProxy(Node n)
+        {
+            if(n.GetType() == typeof(Vessel))
+            {
+                return new VesselViewModelProxy(n as Vessel);
+            }
+            return new NodeViewModelProxy(n);
         }
         /// <summary>
         /// Triggers our invalidate event, letting listeners update their props based on new viewmodel changes
