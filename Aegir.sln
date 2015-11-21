@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AegirCore", "AegirCore\Aegi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AegirMath", "AegirMath\AegirMath.csproj", "{5FB60E8E-F2D4-480F-8ECF-F86B061D27A6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AegirNetwork", "AegirNetwork\AegirNetwork.csproj", "{317D2C75-D643-47A2-AD18-071DABBE0E5D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{5FB60E8E-F2D4-480F-8ECF-F86B061D27A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5FB60E8E-F2D4-480F-8ECF-F86B061D27A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5FB60E8E-F2D4-480F-8ECF-F86B061D27A6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{317D2C75-D643-47A2-AD18-071DABBE0E5D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{317D2C75-D643-47A2-AD18-071DABBE0E5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{317D2C75-D643-47A2-AD18-071DABBE0E5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{317D2C75-D643-47A2-AD18-071DABBE0E5D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

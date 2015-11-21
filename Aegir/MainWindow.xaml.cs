@@ -45,5 +45,14 @@ namespace Aegir
                 LoadProjectFile.Send(openFileDialog.FileName);
             }
         }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            MessageBoxResult closeConfirmDialog = MessageBox.Show("Are you sure you want to quit?", "Confirm Close", MessageBoxButton.YesNo);
+            if (closeConfirmDialog == MessageBoxResult.No)
+            {
+                e.Cancel = true;
+            }
+        }
     }
 }

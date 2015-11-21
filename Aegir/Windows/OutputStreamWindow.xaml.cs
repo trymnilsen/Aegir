@@ -12,14 +12,14 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace Aegir.Windows.IO
+namespace Aegir.Windows
 {
     /// <summary>
-    /// Interaction logic for Outputs.xaml
+    /// Interaction logic for OutputStreamWindow.xaml
     /// </summary>
-    public partial class Outputs : Window
+    public partial class OutputStreamWindow : Window
     {
-        public Outputs()
+        public OutputStreamWindow()
         {
             InitializeComponent();
         }

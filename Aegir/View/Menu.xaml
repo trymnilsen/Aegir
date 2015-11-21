@@ -119,12 +119,6 @@
                             <TextBlock Text="2.7" />
                         </StackPanel>
                     </MenuItem>
-                    <MenuItem Header="CameraInertiaFactor">
-                        <StackPanel Orientation="Horizontal">
-                            <Slider Value="0.871" Name="CameraInertiaFactorSlider" Minimum="0.7" Maximum="1" Width="200" TickFrequency="100"/>
-                            <TextBlock Text="{Binding Value, StringFormat='{}{0:0.000}', ElementName=CameraInertiaFactorSlider}"/>
-                        </StackPanel>
-                    </MenuItem>
                 </MenuItem>
                 
                 <!--<MenuItem Header="Mode">

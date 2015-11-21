@@ -1,0 +1,22 @@
+﻿<Window x:Class="Aegir.Windows.OutputStreamWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Aegir.Windows"
+        mc:Ignorable="d"
+        Title="Outputted Data"
+        ShowInTaskbar="True"
+        Height="300" Width="500">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="20px"/>
+        </Grid.RowDefinitions>
+        <TextBox ScrollViewer.CanContentScroll="True" AcceptsReturn="True" TextWrapping="Wrap" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible">
+            $GPGGA,123519,4807.038,N,01131.000,E,1,08,0.9,545.4,M,46.9,M,,*47
+            $GPVTG,054.7,T,034.4,M,005.5,N,010.2,K*48
+        </TextBox>
+        <Button Grid.Row="1">Clear</Button>
+    </Grid>
+</Window>

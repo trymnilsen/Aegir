@@ -24,5 +24,6 @@ namespace Aegir
         {
             appShell.ShellLoaded();
         }
+
     }
 }

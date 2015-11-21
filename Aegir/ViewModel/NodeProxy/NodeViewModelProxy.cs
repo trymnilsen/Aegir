@@ -1,7 +1,11 @@
-﻿using AegirCore.Behaviour.Rendering;
+﻿using Aegir.View.PropertyEditor.CustomEditor;
+using Aegir.Windows;
+using AegirCore.Behaviour.Rendering;
 using AegirCore.Behaviour.World;
 using AegirCore.Scene;
+using AegirNetwork;
 using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
 using OpenTK;
 using System;
 using System.Collections.Generic;
@@ -9,11 +13,21 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Aegir.ViewModel.NodeProxy
 {
     public class NodeViewModelProxy : ViewModelBase
     {
+        private int port;
+        private int listener;
+        private bool isOutputting;
+        private int latency;
+        private List<string> datagrams;
+        private RelayCommand showCommand;
+        private NetworkProtocolType networkType;
+        private OutputStreamWindow outputWindow;
+
         protected Node nodeData;
         private string visualFilePath;
         private TransformBehaviour transform;
@@ -79,6 +93,59 @@ namespace Aegir.ViewModel.NodeProxy
                 RaisePropertyChanged();
             }
         }
+        [Category("Network")]
+        public int Port
+        {
+            get { return port; }
+            set { port = value; }
+        }
+
+        [Category("Network")]
+        public int Latency
+        {
+            get { return latency; }
+            set { latency = value; }
+        }
+        [ReadOnly(true)]
+        [DisplayName("Listeners")]
+        [Category("Network")]
+        public int Listeners
+        {
+            get { return listener; }
+            set { listener = value; }
+        }
+
+        [DisplayName("Send Output")]
+        [Category("Network")]
+        public bool IsOutputting
+        {
+            get { return isOutputting; }
+            set { isOutputting = value; }
+        }
+        [DisplayName("Nmea Datagrams")]
+        [Category("Network")]
+        public List<string> NmeaDataGrams
+        {
+            get { return datagrams; }
+            set { datagrams = value; }
+        }
+
+        [Category("Network")]
+        [DisplayName("Show Output")]
+        [Editor(typeof(RelayCommandEditor),typeof(RelayCommandEditor))]
+        public RelayCommand ShowOutputCommand
+        {
+            get { return showCommand; }
+            private set { showCommand = value; }
+        }
+        [Category("Network")]
+        [DisplayName("Network Protocol Type")]
+        public NetworkProtocolType NetworkType
+        {
+            get { return networkType; }
+            set { networkType = value; }
+        }
+
         [Browsable(false)]
         public Quaterniond Rotation
         {
@@ -114,6 +181,33 @@ namespace Aegir.ViewModel.NodeProxy
             if(meshData!=null)
             {
                 VisualFilePath = meshData.FilePath;
+            }
+
+            ShowOutputCommand = new RelayCommand(ShowOutput);
+        }
+
+        private void ShowOutput()
+        {
+            if(outputWindow!= null)
+            {
+                if (outputWindow.WindowState == WindowState.Minimized)
+                {
+                    outputWindow.WindowState = WindowState.Normal;
+                }
+
+                outputWindow.Activate();
+                outputWindow.Topmost = true;  // important
+                outputWindow.Topmost = false; // important
+                outputWindow.Focus();         // important
+            }
+            else
+            {
+                outputWindow = new OutputStreamWindow();
+                outputWindow.Closed += (sender, e) =>
+                {
+                    outputWindow = null;
+                };
+                outputWindow.Show();
             }
         }
 

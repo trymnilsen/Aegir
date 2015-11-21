@@ -15,7 +15,7 @@ using System.Windows.Data;
 using System.Windows.Media;
 using System.Windows.Media.Media3D;
 
-namespace Aegir.View
+namespace Aegir.View.Rendering
 {
     /// <summary>
     /// Interaction logic for RenderView.xaml
@@ -119,17 +119,25 @@ namespace Aegir.View
         private void RebuildVisualTree()
         {
             meshTransforms.Clear();
+            UpdateViewportContent(TopViewport);
+            UpdateViewportContent(PerspectiveViewport);
+            UpdateViewportContent(FrontViewport);
+            UpdateViewportContent(RightViewport);
+            Debug.WriteLine("Successfully Built Visual Tree");
+        }
+        private void UpdateViewportContent(HelixViewport3D viewport)
+        {
             foreach(NodeViewModelProxy node in Scene.Items)
             {
-                RenderNode(node);
+                RenderNode(node,viewport);
             }
-            Debug.WriteLine("Successfully Built Visual Tree");
+
         }
         /// <summary>
         /// Recursivly renders all nodes
         /// </summary>
         /// <param name="node"></param>
-        private void RenderNode(NodeViewModelProxy node)
+        private void RenderNode(NodeViewModelProxy node, HelixViewport3D viewport)
         {
 
             if (node.HasVisual)
@@ -155,11 +163,11 @@ namespace Aegir.View
                 }
 
                 meshTransforms.Add(new NodeMeshListener(device3D, node));
-                PreviewViewport.Children.Add(device3D);
+                viewport.Children.Add(device3D);
             }
             foreach(NodeViewModelProxy childNode in node.Children)
             {
-                RenderNode(childNode);
+                RenderNode(childNode,viewport);
             }
         }
 

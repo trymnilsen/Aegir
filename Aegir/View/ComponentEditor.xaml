@@ -8,7 +8,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid DataContext="{Binding ScenegraphVM, Source={StaticResource VMLocator}}">
-        <!--<xctk:PropertyGrid SelectedObject="{Binding SelectedItem}" ShowSearchBox="False" ShowTitle="False"></xctk:PropertyGrid>-->
-        <ctrl:WpfPropertyGrid SelectedObject="{Binding SelectedItem}" ToolbarVisible="False"></ctrl:WpfPropertyGrid>
+        <xctk:PropertyGrid SelectedObject="{Binding SelectedItem}" ShowSortOptions="False" ShowDescriptionByTooltip="True"  ShowPreview="False" ShowSummary="False" ShowSearchBox="False" ShowTitle="False"></xctk:PropertyGrid>
+        <!--<ctrl:WpfPropertyGrid SelectedObject="{Binding SelectedItem}" ToolbarVisible="False"></ctrl:WpfPropertyGrid>-->
     </Grid>
 </UserControl>

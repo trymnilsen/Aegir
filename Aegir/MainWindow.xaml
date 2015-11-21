@@ -6,6 +6,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Aegir"
         xmlns:views="clr-namespace:Aegir.View"
+        xmlns:renderView="clr-namespace:Aegir.View.Rendering"
         xmlns:navView="clr-namespace:Aegir.View.Navigation"
         xmlns:outputView="clr-namespace:Aegir.View.Output"
         xmlns:fa="http://schemas.fontawesome.io/icons/"
@@ -13,17 +14,18 @@
         Title="Aegir" 
         Height="760" Width="1050"
         MinHeight="450"
-        MinWidth="700">
+        MinWidth="700"
+        Closing="Window_Closing">
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="20px"></RowDefinition>
+            <RowDefinition Height="20px" MinHeight="20px"></RowDefinition>
             <!--Menu Strip-->
-            <RowDefinition Height="1*"></RowDefinition>
+            <RowDefinition Height="1*" MinHeight="200px"></RowDefinition>
             <!--Console-->
-            <RowDefinition Height="100px"></RowDefinition>
+            <RowDefinition Height="100px" MinHeight="30px"></RowDefinition>
             <!--Main Area-->
-            <RowDefinition Height="25px"></RowDefinition>
+            <RowDefinition Height="25px" MinHeight="25px"></RowDefinition>
             <!--StatusBar-->
         </Grid.RowDefinitions>
         <!--Menu Strip-->
@@ -41,15 +43,15 @@
             <Grid Grid.Column="1">
                 <!--GL Element-->
                 <!--<views:SimulationRendering Grid.Row="0"></views:SimulationRendering>-->
-                <views:RenderView Scene="{Binding ScenegraphVM, Source={StaticResource VMLocator}}">
-                    <views:RenderView.Background>
+                <renderView:RenderView Scene="{Binding ScenegraphVM, Source={StaticResource VMLocator}}">
+                    <!--<views.:RenderView.Background>
                         <SolidColorBrush>
                             <SolidColorBrush.Color>
                                 <Color R="40" G="40" B="40" A="255"></Color>
                             </SolidColorBrush.Color>
                         </SolidColorBrush>
-                    </views:RenderView.Background>
-                </views:RenderView>
+                    </views.:RenderView.Background>-->
+                </renderView:RenderView>
 
             </Grid>
             <!--Preview Area-->

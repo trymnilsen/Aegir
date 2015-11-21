@@ -194,7 +194,9 @@
     <Compile Include="View\Output\Outputs.xaml.cs">
       <DependentUpon>Outputs.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\RenderView.xaml.cs">
+    <Compile Include="View\PropertyEditor\CustomEditor\RelayCommandEditor.cs" />
+    <Compile Include="View\Rendering\GridLines.cs" />
+    <Compile Include="View\Rendering\RenderView.xaml.cs">
       <DependentUpon>RenderView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Sidebar.xaml.cs">
@@ -206,8 +208,8 @@
     <Compile Include="View\Waypoints.xaml.cs">
       <DependentUpon>Waypoints.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\IO\Outputs.xaml.cs">
-      <DependentUpon>Outputs.xaml</DependentUpon>
+    <Compile Include="Windows\OutputStreamWindow.xaml.cs">
+      <DependentUpon>OutputStreamWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\Settings.xaml.cs">
       <DependentUpon>Settings.xaml</DependentUpon>
@@ -262,7 +264,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\RenderView.xaml">
+    <Page Include="View\Rendering\RenderView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -278,7 +280,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Windows\IO\Outputs.xaml">
+    <Page Include="Windows\OutputStreamWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -342,6 +344,10 @@
     <ProjectReference Include="..\AegirMath\AegirMath.csproj">
       <Project>{5fb60e8e-f2d4-480f-8ecf-f86b061d27a6}</Project>
       <Name>AegirMath</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AegirNetwork\AegirNetwork.csproj">
+      <Project>{317d2c75-d643-47a2-ad18-071dabbe0e5d}</Project>
+      <Name>AegirNetwork</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
