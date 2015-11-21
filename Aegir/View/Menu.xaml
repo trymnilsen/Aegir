@@ -21,10 +21,10 @@
         <Grid.Resources>
             <convert:PlaybackButtonConverter x:Key="PlayBackEnumConverter"></convert:PlaybackButtonConverter>
         </Grid.Resources>
-        <Grid.ColumnDefinitions>
+        <!--<Grid.ColumnDefinitions>
             <ColumnDefinition Width="2*"></ColumnDefinition>
             <ColumnDefinition Width="1*"></ColumnDefinition>
-        </Grid.ColumnDefinitions>
+        </Grid.ColumnDefinitions>-->
         <!--MenuStrip-->
         <Menu>
             <MenuItem Header="File">
@@ -159,7 +159,7 @@
         </Menu>
         <!--~MenuStrip-->
         <!--Playback Controls-->
-        <StackPanel Grid.Column="1" 
+        <!--<StackPanel Grid.Column="1" 
                     Orientation="Horizontal" 
                     DataContext="{Binding PlaybackVM, Source={StaticResource VMLocator}}">
             <ToggleButton Margin="5 2" IsChecked="{Binding PlayMode, 
@@ -175,7 +175,7 @@
             <Button Margin="5 2">
                 <TextBlock Text="Step"></TextBlock>
             </Button>
-        </StackPanel>
+        </StackPanel>-->
         <!--~Playback Controls-->
     </Grid>
 </UserControl>

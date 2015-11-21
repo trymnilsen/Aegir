@@ -17,7 +17,7 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="25px"></RowDefinition>
+            <RowDefinition Height="20px"></RowDefinition>
             <!--Menu Strip-->
             <RowDefinition Height="1*"></RowDefinition>
             <!--Main Area-->
@@ -37,11 +37,6 @@
             <views:Sidebar/>
             <!--Preview Area-->
             <Grid Grid.Column="1">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="1*" MinHeight="100"></RowDefinition>
-                    <RowDefinition Height="auto"></RowDefinition>
-                    <RowDefinition Height="1*" MinHeight="100"></RowDefinition>
-                </Grid.RowDefinitions>
                 <!--GL Element-->
                 <!--<views:SimulationRendering Grid.Row="0"></views:SimulationRendering>-->
                 <views:RenderView Scene="{Binding ScenegraphVM, Source={StaticResource VMLocator}}">
@@ -53,41 +48,7 @@
                         </SolidColorBrush>
                     </views:RenderView.Background>
                 </views:RenderView>
-                <!--Resize grip thingy-->
-                <GridSplitter Grid.Row="1"
-                      HorizontalAlignment="Stretch"
-                      VerticalAlignment="Center"
-                      ShowsPreview="True"
-                      Height="5"></GridSplitter>
-                <!--Map View-->
-                <Grid Grid.Row="2">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="1*"></ColumnDefinition>
-                        <ColumnDefinition Width="5px"></ColumnDefinition>
-                        <ColumnDefinition Width="200px"></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
-                    <TabControl Padding="0" BorderThickness="0 1 0 0">
-                        <TabItem Header="Map">
-                            <views:Map  Grid.Row="2"></views:Map>
-                        </TabItem>
-                        <TabItem Header="Vessel Dynamics">
-                            <navView:VesselDynamics></navView:VesselDynamics>
-                        </TabItem>
-                        <TabItem Header="Outputs">
-                            <outputView:Outputs></outputView:Outputs>
-                        </TabItem>
-                        <TabItem Header="Inputs"></TabItem>
-                        <TabItem Header="Log"></TabItem>
-                        <TabItem Header="Resources"></TabItem>
-                    </TabControl>
-                    <GridSplitter Grid.Column="1"
 
-                      HorizontalAlignment="Stretch"
-                      ShowsPreview="True"/>
-                    <StackPanel Grid.Column="2">
-                        <TextBlock Text="Stats"></TextBlock>
-                    </StackPanel>
-                </Grid>
             </Grid>
             <!--Preview Area-->
         </Grid>
