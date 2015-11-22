@@ -7,6 +7,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Xceed.Wpf.Toolkit.PropertyGrid.Editors;
 
 namespace Aegir.ViewModel.NodeProxy
 {
@@ -26,6 +27,7 @@ namespace Aegir.ViewModel.NodeProxy
         }
 
         [Category("Motion")]
+        [Editor(typeof(PropertyGridEditorDecimalUpDown),typeof(PropertyGridEditorDecimalUpDown))]
         public double Speed
         {
             get { return navBehaviour.Speed; }

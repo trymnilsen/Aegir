@@ -29,7 +29,10 @@
         <Menu>
             <MenuItem Header="File">
                 <MenuItem Header="New Simulation"></MenuItem>
+                <Separator></Separator>
                 <MenuItem Header="Open Simulation"></MenuItem>
+                <MenuItem Header="Open Replay"></MenuItem>
+                <Separator></Separator>
                 <MenuItem Header="Save Simulation"></MenuItem>
                 <Separator></Separator>
                 <MenuItem Header="Quit"></MenuItem>
@@ -37,35 +40,28 @@
             <MenuItem Header="Edit">
                 <MenuItem Header="Undo"/>
                 <MenuItem Header="Redo"/>
+                <Separator></Separator>
                 <MenuItem Header="Delete"/>
                 <MenuItem Header="Clone"/>
-                <MenuItem Header="Move"/>
+                <Separator></Separator>
+                <MenuItem Header="Translate"/>
                 <MenuItem Header="Rotate"/>
-                <MenuItem Header="Scale"/>
                 <MenuItem Header="Transform.."/>
-                <MenuItem Header="Editor Preferences.."/>
+                <Separator></Separator>
+                <MenuItem Header="Preferences.."/>
             </MenuItem>
             <MenuItem Header="Create">
-                <MenuItem Header="Antenna"></MenuItem>
-                <MenuItem Header="Point"></MenuItem>
+                <MenuItem Header="Sensor">
+                    <MenuItem Header="GNSS Receiver"></MenuItem>
+                    <MenuItem Header="Motion"></MenuItem>
+                </MenuItem>
+                <MenuItem Header="Fixed Point"></MenuItem>
+                <MenuItem Header="Vessel"></MenuItem>
                 <Separator></Separator>
-                <MenuItem Header="Wind"></MenuItem>
+                <MenuItem Header="Line"></MenuItem>
+                <MenuItem Header="Polygon"></MenuItem>
             </MenuItem>
-            <MenuItem Header="Gestures">
-                <MenuItem Header="Keyboard">
-                    <MenuItem Header="Arrow Keys">
-                        <MenuItem Header="Control Ship"></MenuItem>
-                        <MenuItem Header="Control Camera"></MenuItem>
-                    </MenuItem>
-                </MenuItem>
-                <MenuItem Header="Mouse">
-                    <MenuItem Header="Right Button">
-                        <MenuItem Header="Rotate Camera"></MenuItem>
-                        <MenuItem Header="Context Menu"></MenuItem>
-                        <MenuItem Header="Move Camera"></MenuItem>
-                    </MenuItem>
-                </MenuItem>
-            </MenuItem>
+
             <MenuItem Header="View">
                 <MenuItem Header="Scene">
                     <MenuItem Header="Info">
@@ -84,13 +80,12 @@
                     </MenuItem>
                 </MenuItem>
                 <MenuItem Header="Map Provider">
-                    <MenuItem Header="Google Maps"></MenuItem>
-                    <MenuItem Header="Google Satellite map"></MenuItem>
-                    <MenuItem Header="Open Street Maps"></MenuItem>
-                    <MenuItem Header="OpenSeaMap/OpenStreetmap Hybrid"></MenuItem>
-                    
+                    <MenuItem Header="Google Maps" IsEnabled="False"></MenuItem>
+                    <MenuItem Header="Google Satellite map" IsEnabled="False"></MenuItem>
+                    <MenuItem Header="Open Street Maps" IsEnabled="False"></MenuItem>
+                    <MenuItem Header="OpenSeaMap/OpenStreetmap Hybrid" IsEnabled="False"></MenuItem>
                 </MenuItem>
-                <MenuItem Header="Camera">
+                <MenuItem Header="Camera" >
                     <MenuItem IsCheckable="True" Header="Orthographic"/>
                     <MenuItem Header="NearPlaneDistance">
                         <TextBox Text="1"></TextBox>
@@ -120,7 +115,7 @@
                         </StackPanel>
                     </MenuItem>
                 </MenuItem>
-                
+
                 <!--<MenuItem Header="Mode">
                     <MenuItem Header="Visualize"></MenuItem>
                     <MenuItem Header="Planning"></MenuItem>
@@ -129,25 +124,12 @@
                 </MenuItem>
                 <MenuItem IsCheckable="True" Header="Overlay Seamap"></MenuItem>-->
             </MenuItem>
-            <MenuItem Header="Window">
-                <MenuItem IsCheckable="True" Header="Outputs"></MenuItem>
-                <MenuItem IsCheckable="True" Header="Forces"></MenuItem>
-                <MenuItem IsCheckable="True" Header="Navigation"></MenuItem>
-                <MenuItem IsCheckable="True" Header="Stats"></MenuItem>
-                <MenuItem IsCheckable="True" Header="Vessels"></MenuItem>
-                <MenuItem IsCheckable="True" Header="Orientation"></MenuItem>
-            </MenuItem>
             <MenuItem Header="Settings">
-                <MenuItem IsCheckable="True" Header="Pause Simulation On UI Action"></MenuItem>
                 <MenuItem Header="Logging Level">
-                    <MenuItem Header="Verbose"></MenuItem>
                     <MenuItem Header="Debug"></MenuItem>
                     <MenuItem Header="Info"></MenuItem>
                     <MenuItem Header="Error"></MenuItem>
                 </MenuItem>
-            </MenuItem>
-            <MenuItem Header="Simulation">
-                <MenuItem Header="Reset Simulation Forces"></MenuItem>
             </MenuItem>
 
         </Menu>
