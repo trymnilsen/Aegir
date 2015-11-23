@@ -54,10 +54,11 @@ namespace AegirCore.Behaviour.Vessel
             {
                 transform = GetComponent<TransformBehaviour>();
             }
-            //Rate of turn is in degrees minutes, let's convert it
-            double stepRot = RateOfTurn / (60 * 30);
+            //Rate of turn is in degrees minutes, let's convert it to radians per update
+            double rotRads = rateOfTurn * (Math.PI / 180);
+            double stepRot = rotRads / (60 * time.TrueUpdatePerSecond);
             double newHeading = Heading + stepRot;
-            Vector3d newMovement = new Vector3d(Math.Cos((Math.PI / 180) * (newHeading - 90)) * Speed, -Math.Sin((Math.PI / 180) * (newHeading - 90)) * Speed, 0);
+            Vector3d newMovement = new Vector3d(Math.Cos(newHeading + Math.PI / 2) * Speed, Math.Sin(newHeading + Math.PI / 2) * Speed, 0);
             Vector3d transformPos = transform.Position;
             Vector3d newPosition = transformPos + newMovement;
             Debug.WriteLine("Speed: " + Speed + " New Pos:" + newPosition.X + " / " + newPosition.Y);

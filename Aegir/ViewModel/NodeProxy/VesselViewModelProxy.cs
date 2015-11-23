@@ -18,10 +18,13 @@ namespace Aegir.ViewModel.NodeProxy
         [Category("Motion")]
         public double Heading
         {
-            get { return navBehaviour.Heading; }
+            get
+            {
+                return navBehaviour.Heading * (180 / Math.PI);
+            }
             set
             {
-                navBehaviour.Heading = value;
+                navBehaviour.Heading = value * (Math.PI / 180);
                 RaisePropertyChanged();
             }
         }
