@@ -17,7 +17,7 @@ namespace Aegir.ViewModel.NodeProxy
 {
     public class ScenegraphViewModelProxy : ViewModelBase
     {
-        private const double NotifyPropertyUpdateRate = 1000d;
+        private const double NotifyPropertyUpdateRate = 333d;
         private DateTime lastNotifyProxyProperty;
         /// <summary>
         /// The scenegraph source we are wrapping
@@ -100,9 +100,9 @@ namespace Aegir.ViewModel.NodeProxy
         {
             DateTime now = DateTime.Now;
             double timeDifference = (now - lastNotifyProxyProperty).TotalMilliseconds;
-            lastNotifyProxyProperty = now;
-            if(timeDifference> NotifyPropertyUpdateRate)
+            if(timeDifference > NotifyPropertyUpdateRate)
             {
+                lastNotifyProxyProperty = now;
                 foreach(NodeViewModelProxy nodeProxy in Items)
                 {
                     nodeProxy.Invalidate();
