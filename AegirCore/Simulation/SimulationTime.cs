@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Diagnostics;
 
 namespace AegirCore.Simulation
 {
@@ -27,6 +22,7 @@ namespace AegirCore.Simulation
         }
 
         private double calculatedUpdatePerSecond;
+
         /// <summary>
         /// Returns the updates per second based on the current delta time
         /// </summary>
@@ -37,6 +33,7 @@ namespace AegirCore.Simulation
         }
 
         private int trueUpdatesPerSecond;
+
         /// <summary>
         /// Returns the true updates per second, based on counted frames for the last second
         /// </summary>
@@ -54,6 +51,7 @@ namespace AegirCore.Simulation
             get { return deltaTime; }
             set { deltaTime = value; }
         }
+
         /// <summary>
         /// Scaling factor for time
         /// </summary>
@@ -62,6 +60,7 @@ namespace AegirCore.Simulation
             get { return timescale; }
             set { timescale = value; }
         }
+
         /// <summary>
         /// Combined factor of timescale and deltatime1|
         /// </summary>
@@ -69,25 +68,29 @@ namespace AegirCore.Simulation
         {
             get { return timescale * deltaTime; }
         }
+
         /// <summary>
         /// Elapsed miliseconds since program was initialized
         /// </summary>
         public double AppTimeMS
         {
             get { return (timer.ElapsedTicks / (double)Stopwatch.Frequency) * 1000d; }
-        } 
+        }
+
         public SimulationTime()
         {
             timer = new Stopwatch();
         }
+
         public void AppStart()
         {
             timer.Start();
         }
+
         public void FrameStart()
         {
             lastFrameStartTime = AppTimeMS;
-            if(lastFrameStartTime-1000 > lastUpdatesPerSecondTime)
+            if (lastFrameStartTime - 1000 > lastUpdatesPerSecondTime)
             {
                 trueUpdatesPerSecond = frameCount;
                 lastUpdatesPerSecondTime = lastFrameStartTime;
@@ -95,6 +98,7 @@ namespace AegirCore.Simulation
             }
             frameCount++;
         }
+
         public void FrameEnd()
         {
             lastFrameEndTime = AppTimeMS;

@@ -1,10 +1,6 @@
 ﻿using OpenTK;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace AegirCore.Simulation.Water
 {
@@ -15,36 +11,36 @@ namespace AegirCore.Simulation.Water
     /// </summary>
     public class Ocean
     {
-
-        const float GRAVITY = 9.81f;
+        private const float GRAVITY = 9.81f;
 
         /// <summary>
         /// The number of meshes on the x and z axis.
         /// </summary>
-        int m_numGridsX = 2;
-        int m_numGridsZ = 2;
+        private int m_numGridsX = 2;
+
+        private int m_numGridsZ = 2;
 
         /// <summary>
         /// The fourier size. Must be a pow2 number.
         /// </summary>
-        int N = 64;
+        private int N = 64;
 
         /// <summary>
         /// The world space length of each mesh.
         /// </summary>
-        float m_length = 64;
+        private float m_length = 64;
 
         /// <summary>
         /// The phillips spectrum parameter. Affects heights of waves.
         /// Setting this to hight can cause the waves to curl back
         /// on themselves.
         /// </summary>
-        float m_waveAmp = 0.0002f;
+        private float m_waveAmp = 0.0002f;
 
         /// <summary>
         /// The wind speed and the direction.
         /// </summary>
-        Vector2 m_windSpeed = new Vector2(32.0f, 32.0f);
+        private Vector2 m_windSpeed = new Vector2(32.0f, 32.0f);
 
         /// <summary>
         /// The actual mesh. There is only one mesh generated.
@@ -63,36 +59,38 @@ namespace AegirCore.Simulation.Water
         /// <summary>
         /// The wind direction.
         /// </summary>
-        Vector2 m_windDirection;
+        private Vector2 m_windDirection;
 
         /// <summary>
         /// Use to perform the fourier transform.
         /// </summary>
-        FourierCPU m_fourier;
+        private FourierCPU m_fourier;
 
         /// <summary>
         /// Buffers for fourier transform.
         /// </summary>
-        Vector2[,] m_heightBuffer;
-        Vector4[,] m_slopeBuffer, m_displacementBuffer;
+        private Vector2[,] m_heightBuffer;
+
+        private Vector4[,] m_slopeBuffer, m_displacementBuffer;
 
         /// <summary>
         /// Holds the spectrum which will be then be transformed into
         /// the wave heights/slopes.
         /// </summary>
-        Vector2[] m_spectrum, m_spectrum_conj;
+        private Vector2[] m_spectrum, m_spectrum_conj;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
-        Vector3[] m_position;
-        Vector3[] m_vertices;
-        Vector3[] m_normals;
+        private Vector3[] m_position;
+
+        private Vector3[] m_vertices;
+        private Vector3[] m_normals;
 
         /// <summary>
         /// Just holds so data for the spectrum that can be precomputed.
         /// </summary>
-        float[] m_dispersionTable;
+        private float[] m_dispersionTable;
 
         /// <summary>
         /// The fresnel look up table.
@@ -102,11 +100,10 @@ namespace AegirCore.Simulation.Water
         /// <summary>
         /// Has the thread generating the data finished.
         /// </summary>
-        volatile bool done = true;
+        private volatile bool done = true;
 
-        void Start()
+        private void Start()
         {
-
             m_fourier = new FourierCPU(N);
 
             m_windDirection = new Vector2(m_windSpeed.X, m_windSpeed.Y);
@@ -184,14 +181,14 @@ namespace AegirCore.Simulation.Water
 
         /// <summary>
         /// Create a fresnel lookup table. This is the formula
-        /// to calculate a materials fresnel value based on 
+        /// to calculate a materials fresnel value based on
         /// its refractive index. Since its a little math heavy
-        /// a look up table is used rather than caculate it in 
+        /// a look up table is used rather than caculate it in
         /// the shader. In practise this method does not look any better
         /// than cheaper approximations but is included out of interest.
-        /// 
+        ///
         /// TODO //Find Helix/wpf material implementation
-        /// 
+        ///
         /// </summary>
         //void CreateFresnelLookUp()
         //{
@@ -233,9 +230,8 @@ namespace AegirCore.Simulation.Water
         /// <summary>
         /// Evaulate the waves for time period each update.
         /// </summary>
-        void Update()
+        private void Update()
         {
-
             //If still running return.
             if (!done) return;
 
@@ -254,9 +250,9 @@ namespace AegirCore.Simulation.Water
         }
 
         /// <summary>
-        /// Gets the spectrum vaule for grid position n,m. 
+        /// Gets the spectrum vaule for grid position n,m.
         /// </summary>
-        Vector2 GetSpectrum(int n_prime, int m_prime)
+        private Vector2 GetSpectrum(int n_prime, int m_prime)
         {
             Vector2 r = GaussianRandomVariable();
             return r * (float)Math.Sqrt(PhillipsSpectrum(n_prime, m_prime) / 2.0f);
@@ -265,7 +261,7 @@ namespace AegirCore.Simulation.Water
         /// <summary>
         /// Random variable with a gaussian distribution.
         /// </summary>
-        Vector2 GaussianRandomVariable()
+        private Vector2 GaussianRandomVariable()
         {
             float x1, x2, w;
             do
@@ -283,7 +279,7 @@ namespace AegirCore.Simulation.Water
         /// <summary>
         /// Gets the spectrum vaule for grid position n,m.
         /// </summary>
-        float PhillipsSpectrum(int n_prime, int m_prime)
+        private float PhillipsSpectrum(int n_prime, int m_prime)
         {
             Vector2 k = new Vector2((float)Math.PI * (2 * n_prime - N) / m_length, (float)Math.PI * (2 * m_prime - N) / m_length);
             float k_length = k.Length;
@@ -307,7 +303,7 @@ namespace AegirCore.Simulation.Water
             return m_waveAmp * (float)Math.Exp(-1.0f / (k_length2 * L2)) / k_length4 * k_dot_w2 * (float)Math.Exp(-k_length2 * l2);
         }
 
-        float Dispersion(int n_prime, int m_prime)
+        private float Dispersion(int n_prime, int m_prime)
         {
             float w_0 = 2.0f * (float)Math.PI / 200.0f;
             float kx = (float)Math.PI * (2 * n_prime - N) / m_length;
@@ -318,7 +314,7 @@ namespace AegirCore.Simulation.Water
         /// <summary>
         /// Inits the spectrum for time period t.
         /// </summary>
-        Vector2 InitSpectrum(float t, int n_prime, int m_prime)
+        private Vector2 InitSpectrum(float t, int n_prime, int m_prime)
         {
             int index = m_prime * Nplus1 + n_prime;
 
@@ -339,24 +335,20 @@ namespace AegirCore.Simulation.Water
         /// <summary>
         /// Runs a threaded task
         /// </summary>
-        void RunThreaded(object o)
+        private void RunThreaded(object o)
         {
-
             Nullable<float> time = o as Nullable<float>;
 
             EvaluateWavesFFT(time.Value);
 
             done = true;
-
         }
 
         /// <summary>
         /// Evaluates the waves for time period t. Must be thread safe.
         /// </summary>
-        void EvaluateWavesFFT(float t)
+        private void EvaluateWavesFFT(float t)
         {
-
-
             float kx, kz, len, lambda = -1.0f;
             int index, index1;
 
@@ -464,14 +456,10 @@ namespace AegirCore.Simulation.Water
                     }
                 }
             }
-
-
-
         }
 
         //Mesh MakeMesh(int size)
         //{
-
         //    Vector3[] vertices = new Vector3[size * size];
         //    Vector2[] texcoords = new Vector2[size * size];
         //    Vector3[] normals = new Vector3[size * size];

@@ -31,13 +31,30 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.CodeAnalysis, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeAnalysis.Common.1.0.0\lib\net45\Microsoft.CodeAnalysis.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CodeAnalysis.CSharp, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeAnalysis.CSharp.1.0.0\lib\net45\Microsoft.CodeAnalysis.CSharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="System" />
+    <Reference Include="System.Collections.Immutable, Version=1.1.36.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Collections.Immutable.1.1.36\lib\portable-net45+win8+wp8+wpa81\System.Collections.Immutable.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Reflection.Metadata, Version=1.0.21.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Reflection.Metadata.1.0.21\lib\portable-net45+win8\System.Reflection.Metadata.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -51,6 +68,8 @@
     <Compile Include="Behaviour\Rendering\RenderMeshBehaviour.cs" />
     <Compile Include="Behaviour\Vessel\VesselNavigationBehaviour.cs" />
     <Compile Include="Behaviour\World\TransformBehaviour.cs" />
+    <Compile Include="Datagram\DatagramService.cs" />
+    <Compile Include="Datagram\IDatagramService.cs" />
     <Compile Include="Entity\GNSSReceiver.cs" />
     <Compile Include="Entity\Vessel.cs" />
     <Compile Include="Output\Water.cs" />
@@ -68,12 +87,24 @@
     <Compile Include="Scene\SceneContext.cs" />
     <Compile Include="Scene\SceneGraph.cs" />
     <Compile Include="Scene\SceneNode.cs" />
-    <Compile Include="Simulation\FourierCPU.cs" />
+    <Compile Include="Scripting\IScriptCompiler.cs" />
+    <Compile Include="Scripting\ScriptCompiler.cs" />
+    <Compile Include="Scripting\ScriptFile.cs" />
+    <Compile Include="Simulation\Helper\FourierCPU.cs" />
+    <Compile Include="Simulation\Helper\MersenneTwister.cs" />
+    <Compile Include="Simulation\Mesh\Force.cs" />
+    <Compile Include="Simulation\Mesh\SimulationMesh.cs" />
+    <Compile Include="Simulation\Mesh\Triangle.cs" />
+    <Compile Include="Simulation\Mesh\TriangleIntersection.cs" />
+    <Compile Include="Simulation\Mesh\TriangleWetted.cs" />
     <Compile Include="Simulation\SimulationEngine.cs" />
     <Compile Include="Simulation\SimulationTime.cs" />
     <Compile Include="Simulation\VesselSimulationMode.cs" />
     <Compile Include="Simulation\Water\Ocean.cs" />
+    <Compile Include="Simulation\Water\WaterCell.cs" />
+    <Compile Include="Simulation\Water\WaterOptions.cs" />
     <Compile Include="Simulation\Water\WaterSimulationMode.cs" />
+    <Compile Include="Simulation\Water\Wave.cs" />
     <Compile Include="Vessel\VesselConfiguration.cs" />
     <Compile Include="Vessel\VesselContext.cs" />
   </ItemGroup>
@@ -87,6 +118,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />
+  <ItemGroup>
+    <Analyzer Include="..\packages\Microsoft.CodeAnalysis.Analyzers.1.0.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.Analyzers.dll" />
+    <Analyzer Include="..\packages\Microsoft.CodeAnalysis.Analyzers.1.0.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.CSharp.Analyzers.dll" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

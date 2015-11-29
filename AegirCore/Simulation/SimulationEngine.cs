@@ -1,12 +1,7 @@
-﻿using AegirCore.Project;
-using AegirCore.Scene;
+﻿using AegirCore.Scene;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace AegirCore.Simulation
 {
@@ -19,24 +14,30 @@ namespace AegirCore.Simulation
         /// Target time for each simulation step, anything below this is ok
         /// </summary>
         private readonly int targetDeltaTime;
+
         /// <summary>
-        /// Updates we idealy want per second 
+        /// Updates we idealy want per second
         /// </summary>
         private readonly int updatesPerSecond;
+
         /// <summary>
         /// The deltatime in ms for the last simulation step.
         /// If no simulations has been run yet this is assiged to the value of targetdelta
         /// </summary>
         private double lastDeltaTime;
+
         private bool isStarted;
+
         /// <summary>
         /// Contains information about time scale and delta time for simulation
         /// </summary>
         private SimulationTime simTime;
+
         /// <summary>
         /// Thread timer for running the simulation method based on our wanted updates per second
         /// </summary>
         private Timer simulateStepTimer;
+
         /// <summary>
         /// The scenegraph we are simulating on
         /// </summary>
@@ -76,6 +77,7 @@ namespace AegirCore.Simulation
             this.simTime = new SimulationTime();
             this.simulateStepTimer = new Timer(new TimerCallback(DoSimulation), null, Timeout.Infinite, targetDeltaTime);
         }
+
         /// <summary>
         /// Change the current scenegraph used by the simulation
         /// </summary>
@@ -84,6 +86,7 @@ namespace AegirCore.Simulation
         {
             this.scene = scene;
         }
+
         /// <summary>
         /// Change the timescale used by the simulation.
         /// Will pause/resume if timescale goes from/to zero.
@@ -94,16 +97,17 @@ namespace AegirCore.Simulation
             double previousTime = simTime.Timescale;
             simTime.Timescale = newTimeScale;
             //If new time is zero would should pause
-            if(newTimeScale==0)
+            if (newTimeScale == 0)
             {
                 Pause();
             }
             //If timescale was 0 resume
-            else if(simTime.Timescale == 0)
+            else if (simTime.Timescale == 0)
             {
                 Resume();
             }
         }
+
         /// <summary>
         /// Start simulation
         /// </summary>
@@ -113,20 +117,21 @@ namespace AegirCore.Simulation
             this.simTime.AppStart();
             simulateStepTimer.Change(0, 1000 / updatesPerSecond);
         }
+
         /// <summary>
         /// Pauses the simulation
         /// </summary>
         public void Pause()
         {
-
         }
+
         /// <summary>
         /// Resumes the simulation
         /// </summary>
         public void Resume()
         {
-
         }
+
         /// <summary>
         /// Runs one step of simulation. This is called by the Thread Timer
         /// </summary>
@@ -142,15 +147,16 @@ namespace AegirCore.Simulation
             //Notify about a finished simulation step
             TriggerStepFinished();
         }
+
         /// <summary>
         /// Recursively update all the Nodes and their children
         /// </summary>
         /// <param name="nodes"></param>
         private void UpdateScenegraphChildren(IEnumerable<Node> nodes)
         {
-            foreach(Node n in nodes)
+            foreach (Node n in nodes)
             {
-                if(n.IsEnabled)
+                if (n.IsEnabled)
                 {
                     //Update Child
                     n.Update(simTime);
@@ -164,6 +170,7 @@ namespace AegirCore.Simulation
         {
             simulateStepTimer.Dispose();
         }
+
         public void TriggerStepFinished()
         {
             SimulationStepFinishedHandler stepFinishedEvent = StepFinished;
@@ -172,7 +179,9 @@ namespace AegirCore.Simulation
                 stepFinishedEvent();
             }
         }
+
         public delegate void SimulationStepFinishedHandler();
+
         public event SimulationStepFinishedHandler StepFinished;
     }
 }

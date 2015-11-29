@@ -1,20 +1,15 @@
 ﻿using OpenTK;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace AegirCore.Simulation
+namespace AegirCore.Simulation.Helper
 {
     public class FourierCPU
     {
-
-        int m_size;
-        float m_fsize;
-        int m_passes;
-        float[] m_butterflyLookupTable = null;
+        private int m_size;
+        private float m_fsize;
+        private int m_passes;
+        private float[] m_butterflyLookupTable = null;
 
         public FourierCPU(int size)
         {
@@ -30,7 +25,7 @@ namespace AegirCore.Simulation
             ComputeButterflyLookupTable();
         }
 
-        int BitReverse(int i)
+        private int BitReverse(int i)
         {
             int j = i;
             int Sum = 0;
@@ -46,7 +41,7 @@ namespace AegirCore.Simulation
             return Sum;
         }
 
-        void ComputeButterflyLookupTable()
+        private void ComputeButterflyLookupTable()
         {
             m_butterflyLookupTable = new float[m_size * m_passes * 4];
 
@@ -89,14 +84,13 @@ namespace AegirCore.Simulation
                         m_butterflyLookupTable[offset2 + 1] = j2;
                         m_butterflyLookupTable[offset2 + 2] = -wr;
                         m_butterflyLookupTable[offset2 + 3] = -wi;
-
                     }
                 }
             }
         }
 
         //Performs two FFTs on two complex numbers packed in a vector4
-        Vector4 FFT(Vector2 w, Vector4 input1, Vector4 input2)
+        private Vector4 FFT(Vector2 w, Vector4 input1, Vector4 input2)
         {
             input1.X += w.X * input2.X - w.Y * input2.Y;
             input1.Y += w.Y * input2.X + w.X * input2.Y;
@@ -107,7 +101,7 @@ namespace AegirCore.Simulation
         }
 
         //Performs one FFT on a complex number
-        Vector2 FFT(Vector2 w, Vector2 input1, Vector2 input2)
+        private Vector2 FFT(Vector2 w, Vector2 input1, Vector2 input2)
         {
             input1.X += w.X * input2.X - w.Y * input2.Y;
             input1.Y += w.Y * input2.X + w.X * input2.Y;
@@ -117,7 +111,6 @@ namespace AegirCore.Simulation
 
         public int PeformFFT(int startIdx, Vector2[,] data0, Vector4[,] data1, Vector4[,] data2)
         {
-
             int x; int y; int i;
             int idx = 0; int idx1; int bftIdx;
             int X; int Y;
@@ -173,7 +166,5 @@ namespace AegirCore.Simulation
 
             return idx;
         }
-
-
     }
 }
