@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AegirCore.Datagram
 {
-    class IDatagramService
+    public interface IDatagramService
     {
     }
 }

@@ -3,10 +3,10 @@ using Aegir.Windows;
 using AegirCore.Behaviour.Rendering;
 using AegirCore.Behaviour.World;
 using AegirCore.Scene;
+using AegirMath;
 using AegirNetwork;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
-using OpenTK;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -147,7 +147,7 @@ namespace Aegir.ViewModel.NodeProxy
         }
 
         [Browsable(false)]
-        public Quaterniond Rotation
+        public Quaternion Rotation
         {
             get { return transform.Rotation; }
         }

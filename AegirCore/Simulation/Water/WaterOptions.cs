@@ -1,4 +1,4 @@
-﻿using OpenTK;
+﻿using AegirMath;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,21 +26,17 @@ namespace AegirCore.Simulation.Water
         //these are used in combination with the velocities to scroll
         //the normal maps over the water plane. Resulting in the appearence
         //of moving ripples across the water plane
-        public Vector2d WaveMapOffset0;
-        public Vector2d WaveMapOffset1;
+        public Vector2 WaveMapOffset0;
+        public Vector2 WaveMapOffset1;
 
         //the direction to offset the texcoords of the wave maps
-        public Vector2d WaveMapVelocity0;
-        public Vector2d WaveMapVelocity1;
-
-        //asset names for the normal/wave maps
-        public string WaveMapAsset0;
-        public string WaveMapAsset1;
+        public Vector2 WaveMapVelocity0;
+        public Vector2 WaveMapVelocity1;
 
         //water color and sun light properties
-        public Vector4d WaterColor;
-        public Vector4d SunColor;
-        public Vector3d SunDirection;
+        public Vector4 WaterColor;
+        public Vector4 SunColor;
+        public Vector3 SunDirection;
         public float SunFactor; //the intensity of the sun specular term.
         public float SunPower;  //how shiny we want the sun specular term on the water to be.
     }

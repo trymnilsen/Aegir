@@ -1,4 +1,4 @@
-﻿using OpenTK;
+﻿using AegirMath;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,25 +9,25 @@ namespace AegirCore.Simulation.Mesh
 {
     public class TriangleIntersection
     {
-        public static Vector3d source = new Vector3d();
-        public static Vector3d target = new Vector3d();
+        public static Vector3 source = new Vector3();
+        public static Vector3 target = new Vector3();
 
         #region variables
         static int coplanar;
-        static Vector3d p1 = new Vector3d();
-        static Vector3d q1 = new Vector3d();
-        static Vector3d r1 = new Vector3d();
-        static Vector3d p2 = new Vector3d();
-        static Vector3d q2 = new Vector3d();
-        static Vector3d r2 = new Vector3d();
+        static Vector3 p1 = new Vector3();
+        static Vector3 q1 = new Vector3();
+        static Vector3 r1 = new Vector3();
+        static Vector3 p2 = new Vector3();
+        static Vector3 q2 = new Vector3();
+        static Vector3 r2 = new Vector3();
 
         static double dp1, dq1, dr1, dp2, dq2, dr2;
-        static Vector3d v1 = new Vector3d();
-        static Vector3d v2 = new Vector3d();
-        static Vector3d v = new Vector3d();
-        static Vector3d N1 = new Vector3d();
-        static Vector3d N2 = new Vector3d();
-        static Vector3d N = new Vector3d();
+        static Vector3 v1 = new Vector3();
+        static Vector3 v2 = new Vector3();
+        static Vector3 v = new Vector3();
+        static Vector3 N1 = new Vector3();
+        static Vector3 N2 = new Vector3();
+        static Vector3 N = new Vector3();
         #endregion
 
         // Three-dimensional Triangle-Triangle Intersection
@@ -35,7 +35,7 @@ namespace AegirCore.Simulation.Mesh
         // The following version computes the segment of intersection of the two triangles if it exists. 
         //   - coplanar returns whether the triangles are coplanar
         //   - source and target are the endpoints of the line segment of intersection 
-        public static int Intersection_3d(Vector3d P1, Vector3d Q1, Vector3d R1, Vector3d P2, Vector3d Q2, Vector3d R2)
+        public static int Intersection_3d(Vector3 P1, Vector3 Q1, Vector3 R1, Vector3 P2, Vector3 Q2, Vector3 R2)
         {
             /*
                 The following version computes the segment of intersection of the two triangles if it exists. 
@@ -163,7 +163,7 @@ namespace AegirCore.Simulation.Mesh
             //return 0; //Unreachable
         }
 
-        static int TRI_INTER_3D(Vector3d p1, Vector3d q1, Vector3d r1, Vector3d p2, Vector3d q2, Vector3d r2, double dp2, double dq2, double dr2)
+        static int TRI_INTER_3D(Vector3 p1, Vector3 q1, Vector3 r1, Vector3 p2, Vector3 q2, Vector3 r2, double dp2, double dq2, double dr2)
         {
             if (dp2 > 0f)
             {
@@ -201,12 +201,12 @@ namespace AegirCore.Simulation.Mesh
                 }
             }
         }
-        static int CONSTRUCT_INTERSECTION(Vector3d p1, Vector3d q1, Vector3d r1, Vector3d p2, Vector3d q2, Vector3d r2)
+        static int CONSTRUCT_INTERSECTION(Vector3 p1, Vector3 q1, Vector3 r1, Vector3 p2, Vector3 q2, Vector3 r2)
         {
             // This function is called when the triangles surely intersect.
             // It constructs the segment of intersection of the two triangles if they are not coplanar.
 
-            double alpha;
+            float alpha;
 
             //SUB(v1, q1, p1);
             v1.X = q1.X - p1.X;
@@ -442,15 +442,15 @@ namespace AegirCore.Simulation.Mesh
                 }
             }
         }
-        static int COPLANAR_TRI_3D(Vector3d p1, Vector3d q1, Vector3d r1, Vector3d p2, Vector3d q2, Vector3d r2, Vector3d normal_1, Vector3d normal_2)
+        static int COPLANAR_TRI_3D(Vector3 p1, Vector3 q1, Vector3 r1, Vector3 p2, Vector3 q2, Vector3 r2, Vector3 normal_1, Vector3 normal_2)
         {
 
-            Vector3d P1 = new Vector3d();
-            Vector3d Q1 = new Vector3d();
-            Vector3d R1 = new Vector3d();
-            Vector3d P2 = new Vector3d();
-            Vector3d Q2 = new Vector3d();
-            Vector3d R2 = new Vector3d();
+            Vector3 P1 = new Vector3();
+            Vector3 Q1 = new Vector3();
+            Vector3 R1 = new Vector3();
+            Vector3 P2 = new Vector3();
+            Vector3 Q2 = new Vector3();
+            Vector3 R2 = new Vector3();
             //float P2.Z,Q2.Z,R2.Z;
 
             double n_x, n_y, n_z;
@@ -502,7 +502,7 @@ namespace AegirCore.Simulation.Mesh
 
         // Two dimensional Triangle-Triangle Overlap Test
         // ==============================================
-        static int TRI_OVERLAP_2D(Vector3d p1, Vector3d q1, Vector3d r1, Vector3d p2, Vector3d q2, Vector3d r2)
+        static int TRI_OVERLAP_2D(Vector3 p1, Vector3 q1, Vector3 r1, Vector3 p2, Vector3 q2, Vector3 r2)
         {
             if (ORIENT_2D(p1, q1, r1) < 0f)
                 if (ORIENT_2D(p2, q2, r2) < 0f) return CCW_TRI_INTERSECTION_2D(p1, r1, q1, p2, r2, q2);
@@ -511,11 +511,11 @@ namespace AegirCore.Simulation.Mesh
                 if (ORIENT_2D(p2, q2, r2) < 0f) return CCW_TRI_INTERSECTION_2D(p1, q1, r1, p2, r2, q2);
             else return CCW_TRI_INTERSECTION_2D(p1, q1, r1, p2, q2, r2);
         }
-        static double ORIENT_2D(Vector3d a, Vector3d b, Vector3d c)
+        static double ORIENT_2D(Vector3 a, Vector3 b, Vector3 c)
         {
             return ((a.X - c.X) * (b.Y - c.Y) - (a.Y - c.Y) * (b.X - c.X));
         }
-        static int CCW_TRI_INTERSECTION_2D(Vector3d p1, Vector3d q1, Vector3d r1, Vector3d p2, Vector3d q2, Vector3d r2)
+        static int CCW_TRI_INTERSECTION_2D(Vector3 p1, Vector3 q1, Vector3 r1, Vector3 p2, Vector3 q2, Vector3 r2)
         {
             if (ORIENT_2D(p2, q2, p1) >= 0f)
             {
@@ -540,7 +540,7 @@ namespace AegirCore.Simulation.Mesh
                 else return INTERSECTION_TEST_VERTEX(p1, q1, r1, r2, p2, q2);
             }
         }
-        static int INTERSECTION_TEST_EDGE(Vector3d P1, Vector3d Q1, Vector3d R1, Vector3d P2, Vector3d Q2, Vector3d R2)
+        static int INTERSECTION_TEST_EDGE(Vector3 P1, Vector3 Q1, Vector3 R1, Vector3 P2, Vector3 Q2, Vector3 R2)
         {
             if (ORIENT_2D(R2, P2, Q1) >= 0f)
             {
@@ -577,7 +577,7 @@ namespace AegirCore.Simulation.Mesh
                 else return 0;
             }
         }
-        static int INTERSECTION_TEST_VERTEX(Vector3d P1, Vector3d Q1, Vector3d R1, Vector3d P2, Vector3d Q2, Vector3d R2)
+        static int INTERSECTION_TEST_VERTEX(Vector3 P1, Vector3 Q1, Vector3 R1, Vector3 P2, Vector3 Q2, Vector3 R2)
         {
             if (ORIENT_2D(R2, P2, Q1) >= 0f)
             {

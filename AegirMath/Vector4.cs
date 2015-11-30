@@ -1,1639 +1,1235 @@
-#region --- License ---
-/*
-Copyright (c) 2006 - 2008 The Open Toolkit library.
+﻿using System;
+using System.Diagnostics;
 
-Permission is hereby granted, free of charge, to any person obtaining a copy of
-this software and associated documentation files (the "Software"), to deal in
-the Software without restriction, including without limitation the rights to
-use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
-of the Software, and to permit persons to whom the Software is furnished to do
-so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
- */
-#endregion
-
-using System;
-using System.Runtime.InteropServices;
-using System.Xml.Serialization;
-namespace OpenTK
-{
-    /// <summary>Represents a 4D vector using four single-precision floating-point numbers.</summary>
-    /// <remarks>
-    /// The Vector4 structure is suitable for interoperation with unmanaged code requiring four consecutive floats.
-    /// </remarks>
-    [Serializable]
-    [StructLayout(LayoutKind.Sequential)]
+namespace AegirMath
+{    /// <summary>
+     /// Describes a 4D-vector.
+     /// </summary>
+    [DebuggerDisplay("{DebugDisplayString,nq}")]
     public struct Vector4 : IEquatable<Vector4>
     {
-        #region Fields
+        private static readonly Vector4 zero = new Vector4();
+        private static readonly Vector4 one = new Vector4(1f, 1f, 1f, 1f);
+        private static readonly Vector4 unitX = new Vector4(1f, 0f, 0f, 0f);
+        private static readonly Vector4 unitY = new Vector4(0f, 1f, 0f, 0f);
+        private static readonly Vector4 unitZ = new Vector4(0f, 0f, 1f, 0f);
+        private static readonly Vector4 unitW = new Vector4(0f, 0f, 0f, 1f);
 
         /// <summary>
-        /// The X component of the Vector4.
+        /// The x coordinate of this <see cref="Vector4"/>.
         /// </summary>
         public float X;
 
         /// <summary>
-        /// The Y component of the Vector4.
+        /// The y coordinate of this <see cref="Vector4"/>.
         /// </summary>
         public float Y;
 
         /// <summary>
-        /// The Z component of the Vector4.
+        /// The z coordinate of this <see cref="Vector4"/>.
         /// </summary>
         public float Z;
 
         /// <summary>
-        /// The W component of the Vector4.
+        /// The w coordinate of this <see cref="Vector4"/>.
         /// </summary>
         public float W;
 
         /// <summary>
-        /// Defines a unit-length Vector4 that points towards the X-axis.
+        /// Returns a <see cref="Vector4"/> with components 0, 0, 0, 0.
         /// </summary>
-        public static readonly Vector4 UnitX = new Vector4(1, 0, 0, 0);
-
-        /// <summary>
-        /// Defines a unit-length Vector4 that points towards the Y-axis.
-        /// </summary>
-        public static readonly Vector4 UnitY = new Vector4(0, 1, 0, 0);
-
-        /// <summary>
-        /// Defines a unit-length Vector4 that points towards the Z-axis.
-        /// </summary>
-        public static readonly Vector4 UnitZ = new Vector4(0, 0, 1, 0);
-
-        /// <summary>
-        /// Defines a unit-length Vector4 that points towards the W-axis.
-        /// </summary>
-        public static readonly Vector4 UnitW = new Vector4(0, 0, 0, 1);
-
-        /// <summary>
-        /// Defines a zero-length Vector4.
-        /// </summary>
-        public static readonly Vector4 Zero = new Vector4(0, 0, 0, 0);
-
-        /// <summary>
-        /// Defines an instance with all components set to 1.
-        /// </summary>
-        public static readonly Vector4 One = new Vector4(1, 1, 1, 1);
-
-        /// <summary>
-        /// Defines the size of the Vector4 struct in bytes.
-        /// </summary>
-        public static readonly int SizeInBytes = Marshal.SizeOf(new Vector4());
-
-        #endregion
-
-        #region Constructors
-
-        /// <summary>
-        /// Constructs a new instance.
-        /// </summary>
-        /// <param name="value">The value that will initialize this instance.</param>
-        public Vector4(float value)
+        public static Vector4 Zero
         {
-            X = value;
-            Y = value;
-            Z = value;
-            W = value;
+            get { return zero; }
         }
 
         /// <summary>
-        /// Constructs a new Vector4.
+        /// Returns a <see cref="Vector4"/> with components 1, 1, 1, 1.
         /// </summary>
-        /// <param name="x">The x component of the Vector4.</param>
-        /// <param name="y">The y component of the Vector4.</param>
-        /// <param name="z">The z component of the Vector4.</param>
-        /// <param name="w">The w component of the Vector4.</param>
+        public static Vector4 One
+        {
+            get { return one; }
+        }
+
+        /// <summary>
+        /// Returns a <see cref="Vector4"/> with components 1, 0, 0, 0.
+        /// </summary>
+        public static Vector4 UnitX
+        {
+            get { return unitX; }
+        }
+
+        /// <summary>
+        /// Returns a <see cref="Vector4"/> with components 0, 1, 0, 0.
+        /// </summary>
+        public static Vector4 UnitY
+        {
+            get { return unitY; }
+        }
+
+        /// <summary>
+        /// Returns a <see cref="Vector4"/> with components 0, 0, 1, 0.
+        /// </summary>
+        public static Vector4 UnitZ
+        {
+            get { return unitZ; }
+        }
+
+        /// <summary>
+        /// Returns a <see cref="Vector4"/> with components 0, 0, 0, 1.
+        /// </summary>
+        public static Vector4 UnitW
+        {
+            get { return unitW; }
+        }
+
+        internal string DebugDisplayString
+        {
+            get
+            {
+                return string.Concat(
+                    this.X.ToString(), "  ",
+                    this.Y.ToString(), "  ",
+                    this.Z.ToString(), "  ",
+                    this.W.ToString()
+                );
+            }
+        }
+
+        /// <summary>
+        /// Constructs a 3d vector with X, Y, Z and W from four values.
+        /// </summary>
+        /// <param name="x">The x coordinate in 4d-space.</param>
+        /// <param name="y">The y coordinate in 4d-space.</param>
+        /// <param name="z">The z coordinate in 4d-space.</param>
+        /// <param name="w">The w coordinate in 4d-space.</param>
         public Vector4(float x, float y, float z, float w)
         {
-            X = x;
-            Y = y;
-            Z = z;
-            W = w;
+            this.X = x;
+            this.Y = y;
+            this.Z = z;
+            this.W = w;
         }
 
         /// <summary>
-        /// Constructs a new Vector4 from the given Vector2.
+        /// Constructs a 3d vector with X and Z from <see cref="Vector2"/> and Z and W from the scalars.
         /// </summary>
-        /// <param name="v">The Vector2 to copy components from.</param>
-        public Vector4(Vector2 v)
+        /// <param name="value">The x and y coordinates in 4d-space.</param>
+        /// <param name="z">The z coordinate in 4d-space.</param>
+        /// <param name="w">The w coordinate in 4d-space.</param>
+        public Vector4(Vector2 value, float z, float w)
         {
-            X = v.X;
-            Y = v.Y;
-            Z = 0.0f;
-            W = 0.0f;
+            this.X = value.X;
+            this.Y = value.Y;
+            this.Z = z;
+            this.W = w;
         }
 
         /// <summary>
-        /// Constructs a new Vector4 from the given Vector3.
-        /// The w component is initialized to 0.
+        /// Constructs a 3d vector with X, Y, Z from <see cref="Vector3"/> and W from a scalar.
         /// </summary>
-        /// <param name="v">The Vector3 to copy components from.</param>
-        /// <remarks><seealso cref="Vector4(Vector3, float)"/></remarks>
-        public Vector4(Vector3 v)
+        /// <param name="value">The x, y and z coordinates in 4d-space.</param>
+        /// <param name="w">The w coordinate in 4d-space.</param>
+        public Vector4(Vector3 value, float w)
         {
-            X = v.X;
-            Y = v.Y;
-            Z = v.Z;
-            W = 0.0f;
+            this.X = value.X;
+            this.Y = value.Y;
+            this.Z = value.Z;
+            this.W = w;
         }
 
         /// <summary>
-        /// Constructs a new Vector4 from the specified Vector3 and w component.
+        /// Constructs a 4d vector with X, Y, Z and W set to the same value.
         /// </summary>
-        /// <param name="v">The Vector3 to copy components from.</param>
-        /// <param name="w">The w component of the new Vector4.</param>
-        public Vector4(Vector3 v, float w)
+        /// <param name="value">The x, y, z and w coordinates in 4d-space.</param>
+        public Vector4(float value)
         {
-            X = v.X;
-            Y = v.Y;
-            Z = v.Z;
-            W = w;
+            this.X = value;
+            this.Y = value;
+            this.Z = value;
+            this.W = value;
         }
 
         /// <summary>
-        /// Constructs a new Vector4 from the given Vector4.
+        /// Performs vector addition on <paramref name="value1"/> and <paramref name="value2"/>.
         /// </summary>
-        /// <param name="v">The Vector4 to copy components from.</param>
-        public Vector4(Vector4 v)
+        /// <param name="value1">The first vector to add.</param>
+        /// <param name="value2">The second vector to add.</param>
+        /// <returns>The result of the vector addition.</returns>
+        public static Vector4 Add(Vector4 value1, Vector4 value2)
         {
-            X = v.X;
-            Y = v.Y;
-            Z = v.Z;
-            W = v.W;
+            value1.X += value2.X;
+            value1.Y += value2.Y;
+            value1.Z += value2.Z;
+            value1.W += value2.W;
+            return value1;
         }
 
-        #endregion
-
-        #region Public Members
-
         /// <summary>
-        /// Gets or sets the value at the index of the Vector.
+        /// Performs vector addition on <paramref name="value1"/> and
+        /// <paramref name="value2"/>, storing the result of the
+        /// addition in <paramref name="result"/>.
         /// </summary>
-        public float this[int index] {
-            get{
-                if(index == 0) return X;
-                else if(index == 1) return Y;
-                else if(index == 2) return Z;
-                else if(index == 3) return W;
-                throw new IndexOutOfRangeException("You tried to access this vector at index: " + index);
-            } set{
-                if(index == 0) X = value;
-                else if(index == 1) Y = value;
-                else if(index == 2) Z = value;
-                else if(index == 3) W = value;
-                else throw new IndexOutOfRangeException("You tried to set this vector at index: " + index);
-            }
-        }
-
-        #region Instance
-
-        #region public void Add()
-
-        /// <summary>Add the Vector passed as parameter to this instance.</summary>
-        /// <param name="right">Right operand. This parameter is only read from.</param>
-        
-        [Obsolete("Use static Add() method instead.")]
-        public void Add(Vector4 right)
+        /// <param name="value1">The first vector to add.</param>
+        /// <param name="value2">The second vector to add.</param>
+        /// <param name="result">The result of the vector addition.</param>
+        public static void Add(ref Vector4 value1, ref Vector4 value2, out Vector4 result)
         {
-            this.X += right.X;
-            this.Y += right.Y;
-            this.Z += right.Z;
-            this.W += right.W;
+            result.X = value1.X + value2.X;
+            result.Y = value1.Y + value2.Y;
+            result.Z = value1.Z + value2.Z;
+            result.W = value1.W + value2.W;
         }
-
-        /// <summary>Add the Vector passed as parameter to this instance.</summary>
-        /// <param name="right">Right operand. This parameter is only read from.</param>
-        
-        [Obsolete("Use static Add() method instead.")]
-        public void Add(ref Vector4 right)
-        {
-            this.X += right.X;
-            this.Y += right.Y;
-            this.Z += right.Z;
-            this.W += right.W;
-        }
-
-        #endregion public void Add()
-
-        #region public void Sub()
-
-        /// <summary>Subtract the Vector passed as parameter from this instance.</summary>
-        /// <param name="right">Right operand. This parameter is only read from.</param>
-        
-        [Obsolete("Use static Subtract() method instead.")]
-        public void Sub(Vector4 right)
-        {
-            this.X -= right.X;
-            this.Y -= right.Y;
-            this.Z -= right.Z;
-            this.W -= right.W;
-        }
-
-        /// <summary>Subtract the Vector passed as parameter from this instance.</summary>
-        /// <param name="right">Right operand. This parameter is only read from.</param>
-        
-        [Obsolete("Use static Subtract() method instead.")]
-        public void Sub(ref Vector4 right)
-        {
-            this.X -= right.X;
-            this.Y -= right.Y;
-            this.Z -= right.Z;
-            this.W -= right.W;
-        }
-
-        #endregion public void Sub()
-
-        #region public void Mult()
-
-        /// <summary>Multiply this instance by a scalar.</summary>
-        /// <param name="f">Scalar operand.</param>
-        [Obsolete("Use static Multiply() method instead.")]
-        public void Mult(float f)
-        {
-            this.X *= f;
-            this.Y *= f;
-            this.Z *= f;
-            this.W *= f;
-        }
-
-        #endregion public void Mult()
-
-        #region public void Div()
-
-        /// <summary>Divide this instance by a scalar.</summary>
-        /// <param name="f">Scalar operand.</param>
-        [Obsolete("Use static Divide() method instead.")]
-        public void Div(float f)
-        {
-            float mult = 1.0f / f;
-            this.X *= mult;
-            this.Y *= mult;
-            this.Z *= mult;
-            this.W *= mult;
-        }
-
-        #endregion public void Div()
-
-        #region public float Length
 
         /// <summary>
-        /// Gets the length (magnitude) of the vector.
+        /// Creates a new <see cref="Vector4"/> that contains the cartesian coordinates of a vector specified in barycentric coordinates and relative to 4d-triangle.
         /// </summary>
-        /// <see cref="LengthFast"/>
-        /// <seealso cref="LengthSquared"/>
-        public float Length
+        /// <param name="value1">The first vector of 4d-triangle.</param>
+        /// <param name="value2">The second vector of 4d-triangle.</param>
+        /// <param name="value3">The third vector of 4d-triangle.</param>
+        /// <param name="amount1">Barycentric scalar <c>b2</c> which represents a weighting factor towards second vector of 4d-triangle.</param>
+        /// <param name="amount2">Barycentric scalar <c>b3</c> which represents a weighting factor towards third vector of 4d-triangle.</param>
+        /// <returns>The cartesian translation of barycentric coordinates.</returns>
+        public static Vector4 Barycentric(Vector4 value1, Vector4 value2, Vector4 value3, float amount1, float amount2)
         {
-            get
-            {
-                return (float)System.Math.Sqrt(X * X + Y * Y + Z * Z + W * W);
-            }
+            return new Vector4(
+                MathHelper.Barycentric(value1.X, value2.X, value3.X, amount1, amount2),
+                MathHelper.Barycentric(value1.Y, value2.Y, value3.Y, amount1, amount2),
+                MathHelper.Barycentric(value1.Z, value2.Z, value3.Z, amount1, amount2),
+                MathHelper.Barycentric(value1.W, value2.W, value3.W, amount1, amount2));
         }
 
-        #endregion
-
-        #region public float LengthFast
-
         /// <summary>
-        /// Gets an approximation of the vector length (magnitude).
+        /// Creates a new <see cref="Vector4"/> that contains the cartesian coordinates of a vector specified in barycentric coordinates and relative to 4d-triangle.
         /// </summary>
-        /// <remarks>
-        /// This property uses an approximation of the square root function to calculate vector magnitude, with
-        /// an upper error bound of 0.001.
-        /// </remarks>
-        /// <see cref="Length"/>
-        /// <seealso cref="LengthSquared"/>
-        public float LengthFast
+        /// <param name="value1">The first vector of 4d-triangle.</param>
+        /// <param name="value2">The second vector of 4d-triangle.</param>
+        /// <param name="value3">The third vector of 4d-triangle.</param>
+        /// <param name="amount1">Barycentric scalar <c>b2</c> which represents a weighting factor towards second vector of 4d-triangle.</param>
+        /// <param name="amount2">Barycentric scalar <c>b3</c> which represents a weighting factor towards third vector of 4d-triangle.</param>
+        /// <param name="result">The cartesian translation of barycentric coordinates as an output parameter.</param>
+        public static void Barycentric(ref Vector4 value1, ref Vector4 value2, ref Vector4 value3, float amount1, float amount2, out Vector4 result)
         {
-            get
-            {
-                return 1.0f / MathHelper.InverseSqrtFast(X * X + Y * Y + Z * Z + W * W);
-            }
+            result.X = MathHelper.Barycentric(value1.X, value2.X, value3.X, amount1, amount2);
+            result.Y = MathHelper.Barycentric(value1.Y, value2.Y, value3.Y, amount1, amount2);
+            result.Z = MathHelper.Barycentric(value1.Z, value2.Z, value3.Z, amount1, amount2);
+            result.W = MathHelper.Barycentric(value1.W, value2.W, value3.W, amount1, amount2);
         }
 
-        #endregion
-
-        #region public float LengthSquared
-
         /// <summary>
-        /// Gets the square of the vector length (magnitude).
+        /// Creates a new <see cref="Vector4"/> that contains CatmullRom interpolation of the specified vectors.
         /// </summary>
-        /// <remarks>
-        /// This property avoids the costly square root operation required by the Length property. This makes it more suitable
-        /// for comparisons.
-        /// </remarks>
-        /// <see cref="Length"/>
-        /// <seealso cref="LengthFast"/>
-        public float LengthSquared
+        /// <param name="value1">The first vector in interpolation.</param>
+        /// <param name="value2">The second vector in interpolation.</param>
+        /// <param name="value3">The third vector in interpolation.</param>
+        /// <param name="value4">The fourth vector in interpolation.</param>
+        /// <param name="amount">Weighting factor.</param>
+        /// <returns>The result of CatmullRom interpolation.</returns>
+        public static Vector4 CatmullRom(Vector4 value1, Vector4 value2, Vector4 value3, Vector4 value4, float amount)
         {
-            get
-            {
-                return X * X + Y * Y + Z * Z + W * W;
-            }
+            return new Vector4(
+                MathHelper.CatmullRom(value1.X, value2.X, value3.X, value4.X, amount),
+                MathHelper.CatmullRom(value1.Y, value2.Y, value3.Y, value4.Y, amount),
+                MathHelper.CatmullRom(value1.Z, value2.Z, value3.Z, value4.Z, amount),
+                MathHelper.CatmullRom(value1.W, value2.W, value3.W, value4.W, amount));
         }
 
-        #endregion
-
         /// <summary>
-        /// Returns a copy of the Vector4 scaled to unit length.
+        /// Creates a new <see cref="Vector4"/> that contains CatmullRom interpolation of the specified vectors.
         /// </summary>
-        public Vector4 Normalized()
+        /// <param name="value1">The first vector in interpolation.</param>
+        /// <param name="value2">The second vector in interpolation.</param>
+        /// <param name="value3">The third vector in interpolation.</param>
+        /// <param name="value4">The fourth vector in interpolation.</param>
+        /// <param name="amount">Weighting factor.</param>
+        /// <param name="result">The result of CatmullRom interpolation as an output parameter.</param>
+        public static void CatmullRom(ref Vector4 value1, ref Vector4 value2, ref Vector4 value3, ref Vector4 value4, float amount, out Vector4 result)
         {
-            Vector4 v = this;
-            v.Normalize();
-            return v;
+            result.X = MathHelper.CatmullRom(value1.X, value2.X, value3.X, value4.X, amount);
+            result.Y = MathHelper.CatmullRom(value1.Y, value2.Y, value3.Y, value4.Y, amount);
+            result.Z = MathHelper.CatmullRom(value1.Z, value2.Z, value3.Z, value4.Z, amount);
+            result.W = MathHelper.CatmullRom(value1.W, value2.W, value3.W, value4.W, amount);
         }
 
-        #region public void Normalize()
+        /// <summary>
+        /// Clamps the specified value within a range.
+        /// </summary>
+        /// <param name="value1">The value to clamp.</param>
+        /// <param name="min">The min value.</param>
+        /// <param name="max">The max value.</param>
+        /// <returns>The clamped value.</returns>
+        public static Vector4 Clamp(Vector4 value1, Vector4 min, Vector4 max)
+        {
+            return new Vector4(
+                MathHelper.Clamp(value1.X, min.X, max.X),
+                MathHelper.Clamp(value1.Y, min.Y, max.Y),
+                MathHelper.Clamp(value1.Z, min.Z, max.Z),
+                MathHelper.Clamp(value1.W, min.W, max.W));
+        }
 
         /// <summary>
-        /// Scales the Vector4 to unit length.
+        /// Clamps the specified value within a range.
+        /// </summary>
+        /// <param name="value1">The value to clamp.</param>
+        /// <param name="min">The min value.</param>
+        /// <param name="max">The max value.</param>
+        /// <param name="result">The clamped value as an output parameter.</param>
+        public static void Clamp(ref Vector4 value1, ref Vector4 min, ref Vector4 max, out Vector4 result)
+        {
+            result.X = MathHelper.Clamp(value1.X, min.X, max.X);
+            result.Y = MathHelper.Clamp(value1.Y, min.Y, max.Y);
+            result.Z = MathHelper.Clamp(value1.Z, min.Z, max.Z);
+            result.W = MathHelper.Clamp(value1.W, min.W, max.W);
+        }
+
+        /// <summary>
+        /// Returns the distance between two vectors.
+        /// </summary>
+        /// <param name="value1">The first vector.</param>
+        /// <param name="value2">The second vector.</param>
+        /// <returns>The distance between two vectors.</returns>
+        public static float Distance(Vector4 value1, Vector4 value2)
+        {
+            return (float)Math.Sqrt(DistanceSquared(value1, value2));
+        }
+
+        /// <summary>
+        /// Returns the distance between two vectors.
+        /// </summary>
+        /// <param name="value1">The first vector.</param>
+        /// <param name="value2">The second vector.</param>
+        /// <param name="result">The distance between two vectors as an output parameter.</param>
+        public static void Distance(ref Vector4 value1, ref Vector4 value2, out float result)
+        {
+            result = (float)Math.Sqrt(DistanceSquared(value1, value2));
+        }
+
+        /// <summary>
+        /// Returns the squared distance between two vectors.
+        /// </summary>
+        /// <param name="value1">The first vector.</param>
+        /// <param name="value2">The second vector.</param>
+        /// <returns>The squared distance between two vectors.</returns>
+        public static float DistanceSquared(Vector4 value1, Vector4 value2)
+        {
+            return (value1.W - value2.W) * (value1.W - value2.W) +
+                   (value1.X - value2.X) * (value1.X - value2.X) +
+                   (value1.Y - value2.Y) * (value1.Y - value2.Y) +
+                   (value1.Z - value2.Z) * (value1.Z - value2.Z);
+        }
+
+        /// <summary>
+        /// Returns the squared distance between two vectors.
+        /// </summary>
+        /// <param name="value1">The first vector.</param>
+        /// <param name="value2">The second vector.</param>
+        /// <param name="result">The squared distance between two vectors as an output parameter.</param>
+        public static void DistanceSquared(ref Vector4 value1, ref Vector4 value2, out float result)
+        {
+            result = (value1.W - value2.W) * (value1.W - value2.W) +
+                     (value1.X - value2.X) * (value1.X - value2.X) +
+                     (value1.Y - value2.Y) * (value1.Y - value2.Y) +
+                     (value1.Z - value2.Z) * (value1.Z - value2.Z);
+        }
+
+        /// <summary>
+        /// Divides the components of a <see cref="Vector4"/> by the components of another <see cref="Vector4"/>.
+        /// </summary>
+        /// <param name="value1">Source <see cref="Vector4"/>.</param>
+        /// <param name="value2">Divisor <see cref="Vector4"/>.</param>
+        /// <returns>The result of dividing the vectors.</returns>
+        public static Vector4 Divide(Vector4 value1, Vector4 value2)
+        {
+            value1.W /= value2.W;
+            value1.X /= value2.X;
+            value1.Y /= value2.Y;
+            value1.Z /= value2.Z;
+            return value1;
+        }
+
+        /// <summary>
+        /// Divides the components of a <see cref="Vector4"/> by a scalar.
+        /// </summary>
+        /// <param name="value1">Source <see cref="Vector4"/>.</param>
+        /// <param name="divider">Divisor scalar.</param>
+        /// <returns>The result of dividing a vector by a scalar.</returns>
+        public static Vector4 Divide(Vector4 value1, float divider)
+        {
+            float factor = 1f / divider;
+            value1.W *= factor;
+            value1.X *= factor;
+            value1.Y *= factor;
+            value1.Z *= factor;
+            return value1;
+        }
+
+        /// <summary>
+        /// Divides the components of a <see cref="Vector4"/> by a scalar.
+        /// </summary>
+        /// <param name="value1">Source <see cref="Vector4"/>.</param>
+        /// <param name="divider">Divisor scalar.</param>
+        /// <param name="result">The result of dividing a vector by a scalar as an output parameter.</param>
+        public static void Divide(ref Vector4 value1, float divider, out Vector4 result)
+        {
+            float factor = 1f / divider;
+            result.W = value1.W * factor;
+            result.X = value1.X * factor;
+            result.Y = value1.Y * factor;
+            result.Z = value1.Z * factor;
+        }
+
+        /// <summary>
+        /// Divides the components of a <see cref="Vector4"/> by the components of another <see cref="Vector4"/>.
+        /// </summary>
+        /// <param name="value1">Source <see cref="Vector4"/>.</param>
+        /// <param name="value2">Divisor <see cref="Vector4"/>.</param>
+        /// <param name="result">The result of dividing the vectors as an output parameter.</param>
+        public static void Divide(ref Vector4 value1, ref Vector4 value2, out Vector4 result)
+        {
+            result.W = value1.W / value2.W;
+            result.X = value1.X / value2.X;
+            result.Y = value1.Y / value2.Y;
+            result.Z = value1.Z / value2.Z;
+        }
+
+        /// <summary>
+        /// Returns a dot product of two vectors.
+        /// </summary>
+        /// <param name="value1">The first vector.</param>
+        /// <param name="value2">The second vector.</param>
+        /// <returns>The dot product of two vectors.</returns>
+        public static float Dot(Vector4 value1, Vector4 value2)
+        {
+            return value1.X * value2.X + value1.Y * value2.Y + value1.Z * value2.Z + value1.W * value2.W;
+        }
+
+        /// <summary>
+        /// Returns a dot product of two vectors.
+        /// </summary>
+        /// <param name="value1">The first vector.</param>
+        /// <param name="value2">The second vector.</param>
+        /// <param name="result">The dot product of two vectors as an output parameter.</param>
+        public static void Dot(ref Vector4 value1, ref Vector4 value2, out float result)
+        {
+            result = value1.X * value2.X + value1.Y * value2.Y + value1.Z * value2.Z + value1.W * value2.W;
+        }
+
+        /// <summary>
+        /// Compares whether current instance is equal to specified <see cref="Object"/>.
+        /// </summary>
+        /// <param name="obj">The <see cref="Object"/> to compare.</param>
+        /// <returns><c>true</c> if the instances are equal; <c>false</c> otherwise.</returns>
+        public override bool Equals(object obj)
+        {
+            return (obj is Vector4) ? this == (Vector4)obj : false;
+        }
+
+        /// <summary>
+        /// Compares whether current instance is equal to specified <see cref="Vector4"/>.
+        /// </summary>
+        /// <param name="other">The <see cref="Vector4"/> to compare.</param>
+        /// <returns><c>true</c> if the instances are equal; <c>false</c> otherwise.</returns>
+        public bool Equals(Vector4 other)
+        {
+            return this.W == other.W
+                && this.X == other.X
+                && this.Y == other.Y
+                && this.Z == other.Z;
+        }
+
+        /// <summary>
+        /// Gets the hash code of this <see cref="Vector4"/>.
+        /// </summary>
+        /// <returns>Hash code of this <see cref="Vector4"/>.</returns>
+        public override int GetHashCode()
+        {
+            return (int)(this.W + this.X + this.Y + this.Y);
+        }
+
+        /// <summary>
+        /// Creates a new <see cref="Vector4"/> that contains hermite spline interpolation.
+        /// </summary>
+        /// <param name="value1">The first position vector.</param>
+        /// <param name="tangent1">The first tangent vector.</param>
+        /// <param name="value2">The second position vector.</param>
+        /// <param name="tangent2">The second tangent vector.</param>
+        /// <param name="amount">Weighting factor.</param>
+        /// <returns>The hermite spline interpolation vector.</returns>
+        public static Vector4 Hermite(Vector4 value1, Vector4 tangent1, Vector4 value2, Vector4 tangent2, float amount)
+        {
+            return new Vector4(MathHelper.Hermite(value1.X, tangent1.X, value2.X, tangent2.X, amount),
+                               MathHelper.Hermite(value1.Y, tangent1.Y, value2.Y, tangent2.Y, amount),
+                               MathHelper.Hermite(value1.Z, tangent1.Z, value2.Z, tangent2.Z, amount),
+                               MathHelper.Hermite(value1.W, tangent1.W, value2.W, tangent2.W, amount));
+        }
+
+        /// <summary>
+        /// Creates a new <see cref="Vector4"/> that contains hermite spline interpolation.
+        /// </summary>
+        /// <param name="value1">The first position vector.</param>
+        /// <param name="tangent1">The first tangent vector.</param>
+        /// <param name="value2">The second position vector.</param>
+        /// <param name="tangent2">The second tangent vector.</param>
+        /// <param name="amount">Weighting factor.</param>
+        /// <param name="result">The hermite spline interpolation vector as an output parameter.</param>
+        public static void Hermite(ref Vector4 value1, ref Vector4 tangent1, ref Vector4 value2, ref Vector4 tangent2, float amount, out Vector4 result)
+        {
+            result.W = MathHelper.Hermite(value1.W, tangent1.W, value2.W, tangent2.W, amount);
+            result.X = MathHelper.Hermite(value1.X, tangent1.X, value2.X, tangent2.X, amount);
+            result.Y = MathHelper.Hermite(value1.Y, tangent1.Y, value2.Y, tangent2.Y, amount);
+            result.Z = MathHelper.Hermite(value1.Z, tangent1.Z, value2.Z, tangent2.Z, amount);
+        }
+
+        /// <summary>
+        /// Returns the length of this <see cref="Vector4"/>.
+        /// </summary>
+        /// <returns>The length of this <see cref="Vector4"/>.</returns>
+        public float Length()
+        {
+            float result = DistanceSquared(this, zero);
+            return (float)Math.Sqrt(result);
+        }
+
+        /// <summary>
+        /// Returns the squared length of this <see cref="Vector4"/>.
+        /// </summary>
+        /// <returns>The squared length of this <see cref="Vector4"/>.</returns>
+        public float LengthSquared()
+        {
+            return DistanceSquared(this, zero);
+        }
+
+        /// <summary>
+        /// Creates a new <see cref="Vector4"/> that contains linear interpolation of the specified vectors.
+        /// </summary>
+        /// <param name="value1">The first vector.</param>
+        /// <param name="value2">The second vector.</param>
+        /// <param name="amount">Weighting value(between 0.0 and 1.0).</param>
+        /// <returns>The result of linear interpolation of the specified vectors.</returns>
+        public static Vector4 Lerp(Vector4 value1, Vector4 value2, float amount)
+        {
+            return new Vector4(
+                MathHelper.Lerp(value1.X, value2.X, amount),
+                MathHelper.Lerp(value1.Y, value2.Y, amount),
+                MathHelper.Lerp(value1.Z, value2.Z, amount),
+                MathHelper.Lerp(value1.W, value2.W, amount));
+        }
+
+        /// <summary>
+        /// Creates a new <see cref="Vector4"/> that contains linear interpolation of the specified vectors.
+        /// </summary>
+        /// <param name="value1">The first vector.</param>
+        /// <param name="value2">The second vector.</param>
+        /// <param name="amount">Weighting value(between 0.0 and 1.0).</param>
+        /// <param name="result">The result of linear interpolation of the specified vectors as an output parameter.</param>
+        public static void Lerp(ref Vector4 value1, ref Vector4 value2, float amount, out Vector4 result)
+        {
+            result.X = MathHelper.Lerp(value1.X, value2.X, amount);
+            result.Y = MathHelper.Lerp(value1.Y, value2.Y, amount);
+            result.Z = MathHelper.Lerp(value1.Z, value2.Z, amount);
+            result.W = MathHelper.Lerp(value1.W, value2.W, amount);
+        }
+
+        /// <summary>
+        /// Creates a new <see cref="Vector4"/> that contains a maximal values from the two vectors.
+        /// </summary>
+        /// <param name="value1">The first vector.</param>
+        /// <param name="value2">The second vector.</param>
+        /// <returns>The <see cref="Vector4"/> with maximal values from the two vectors.</returns>
+        public static Vector4 Max(Vector4 value1, Vector4 value2)
+        {
+            return new Vector4(
+               MathHelper.Max(value1.X, value2.X),
+               MathHelper.Max(value1.Y, value2.Y),
+               MathHelper.Max(value1.Z, value2.Z),
+               MathHelper.Max(value1.W, value2.W));
+        }
+
+        /// <summary>
+        /// Creates a new <see cref="Vector4"/> that contains a maximal values from the two vectors.
+        /// </summary>
+        /// <param name="value1">The first vector.</param>
+        /// <param name="value2">The second vector.</param>
+        /// <param name="result">The <see cref="Vector4"/> with maximal values from the two vectors as an output parameter.</param>
+        public static void Max(ref Vector4 value1, ref Vector4 value2, out Vector4 result)
+        {
+            result.X = MathHelper.Max(value1.X, value2.X);
+            result.Y = MathHelper.Max(value1.Y, value2.Y);
+            result.Z = MathHelper.Max(value1.Z, value2.Z);
+            result.W = MathHelper.Max(value1.W, value2.W);
+        }
+
+        /// <summary>
+        /// Creates a new <see cref="Vector4"/> that contains a minimal values from the two vectors.
+        /// </summary>
+        /// <param name="value1">The first vector.</param>
+        /// <param name="value2">The second vector.</param>
+        /// <returns>The <see cref="Vector4"/> with minimal values from the two vectors.</returns>
+        public static Vector4 Min(Vector4 value1, Vector4 value2)
+        {
+            return new Vector4(
+               MathHelper.Min(value1.X, value2.X),
+               MathHelper.Min(value1.Y, value2.Y),
+               MathHelper.Min(value1.Z, value2.Z),
+               MathHelper.Min(value1.W, value2.W));
+        }
+
+        /// <summary>
+        /// Creates a new <see cref="Vector4"/> that contains a minimal values from the two vectors.
+        /// </summary>
+        /// <param name="value1">The first vector.</param>
+        /// <param name="value2">The second vector.</param>
+        /// <param name="result">The <see cref="Vector4"/> with minimal values from the two vectors as an output parameter.</param>
+        public static void Min(ref Vector4 value1, ref Vector4 value2, out Vector4 result)
+        {
+            result.X = MathHelper.Min(value1.X, value2.X);
+            result.Y = MathHelper.Min(value1.Y, value2.Y);
+            result.Z = MathHelper.Min(value1.Z, value2.Z);
+            result.W = MathHelper.Min(value1.W, value2.W);
+        }
+
+        /// <summary>
+        /// Creates a new <see cref="Vector4"/> that contains a multiplication of two vectors.
+        /// </summary>
+        /// <param name="value1">Source <see cref="Vector4"/>.</param>
+        /// <param name="value2">Source <see cref="Vector4"/>.</param>
+        /// <returns>The result of the vector multiplication.</returns>
+        public static Vector4 Multiply(Vector4 value1, Vector4 value2)
+        {
+            value1.W *= value2.W;
+            value1.X *= value2.X;
+            value1.Y *= value2.Y;
+            value1.Z *= value2.Z;
+            return value1;
+        }
+
+        /// <summary>
+        /// Creates a new <see cref="Vector4"/> that contains a multiplication of <see cref="Vector4"/> and a scalar.
+        /// </summary>
+        /// <param name="value1">Source <see cref="Vector4"/>.</param>
+        /// <param name="scaleFactor">Scalar value.</param>
+        /// <returns>The result of the vector multiplication with a scalar.</returns>
+        public static Vector4 Multiply(Vector4 value1, float scaleFactor)
+        {
+            value1.W *= scaleFactor;
+            value1.X *= scaleFactor;
+            value1.Y *= scaleFactor;
+            value1.Z *= scaleFactor;
+            return value1;
+        }
+
+        /// <summary>
+        /// Creates a new <see cref="Vector4"/> that contains a multiplication of <see cref="Vector4"/> and a scalar.
+        /// </summary>
+        /// <param name="value1">Source <see cref="Vector4"/>.</param>
+        /// <param name="scaleFactor">Scalar value.</param>
+        /// <param name="result">The result of the multiplication with a scalar as an output parameter.</param>
+        public static void Multiply(ref Vector4 value1, float scaleFactor, out Vector4 result)
+        {
+            result.W = value1.W * scaleFactor;
+            result.X = value1.X * scaleFactor;
+            result.Y = value1.Y * scaleFactor;
+            result.Z = value1.Z * scaleFactor;
+        }
+
+        /// <summary>
+        /// Creates a new <see cref="Vector4"/> that contains a multiplication of two vectors.
+        /// </summary>
+        /// <param name="value1">Source <see cref="Vector4"/>.</param>
+        /// <param name="value2">Source <see cref="Vector4"/>.</param>
+        /// <param name="result">The result of the vector multiplication as an output parameter.</param>
+        public static void Multiply(ref Vector4 value1, ref Vector4 value2, out Vector4 result)
+        {
+            result.W = value1.W * value2.W;
+            result.X = value1.X * value2.X;
+            result.Y = value1.Y * value2.Y;
+            result.Z = value1.Z * value2.Z;
+        }
+
+        /// <summary>
+        /// Creates a new <see cref="Vector4"/> that contains the specified vector inversion.
+        /// </summary>
+        /// <param name="value">Source <see cref="Vector4"/>.</param>
+        /// <returns>The result of the vector inversion.</returns>
+        public static Vector4 Negate(Vector4 value)
+        {
+            value = new Vector4(-value.X, -value.Y, -value.Z, -value.W);
+            return value;
+        }
+
+        /// <summary>
+        /// Creates a new <see cref="Vector4"/> that contains the specified vector inversion.
+        /// </summary>
+        /// <param name="value">Source <see cref="Vector4"/>.</param>
+        /// <param name="result">The result of the vector inversion as an output parameter.</param>
+        public static void Negate(ref Vector4 value, out Vector4 result)
+        {
+            result.X = -value.X;
+            result.Y = -value.Y;
+            result.Z = -value.Z;
+            result.W = -value.W;
+        }
+
+        /// <summary>
+        /// Turns this <see cref="Vector4"/> to a unit vector with the same direction.
         /// </summary>
         public void Normalize()
         {
-            float scale = 1.0f / this.Length;
-            X *= scale;
-            Y *= scale;
-            Z *= scale;
-            W *= scale;
-        }
-
-        #endregion
-
-        #region public void NormalizeFast()
-
-        /// <summary>
-        /// Scales the Vector4 to approximately unit length.
-        /// </summary>
-        public void NormalizeFast()
-        {
-            float scale = MathHelper.InverseSqrtFast(X * X + Y * Y + Z * Z + W * W);
-            X *= scale;
-            Y *= scale;
-            Z *= scale;
-            W *= scale;
-        }
-
-        #endregion
-
-        #region public void Scale()
-
-        /// <summary>
-        /// Scales the current Vector4 by the given amounts.
-        /// </summary>
-        /// <param name="sx">The scale of the X component.</param>
-        /// <param name="sy">The scale of the Y component.</param>
-        /// <param name="sz">The scale of the Z component.</param>
-        /// <param name="sw">The scale of the Z component.</param>
-        [Obsolete("Use static Multiply() method instead.")]
-        public void Scale(float sx, float sy, float sz, float sw)
-        {
-            this.X = X * sx;
-            this.Y = Y * sy;
-            this.Z = Z * sz;
-            this.W = W * sw;
-        }
-
-        /// <summary>Scales this instance by the given parameter.</summary>
-        /// <param name="scale">The scaling of the individual components.</param>
-        
-        [Obsolete("Use static Multiply() method instead.")]
-        public void Scale(Vector4 scale)
-        {
-            this.X *= scale.X;
-            this.Y *= scale.Y;
-            this.Z *= scale.Z;
-            this.W *= scale.W;
-        }
-
-        /// <summary>Scales this instance by the given parameter.</summary>
-        /// <param name="scale">The scaling of the individual components.</param>
-        
-        [Obsolete("Use static Multiply() method instead.")]
-        public void Scale(ref Vector4 scale)
-        {
-            this.X *= scale.X;
-            this.Y *= scale.Y;
-            this.Z *= scale.Z;
-            this.W *= scale.W;
-        }
-
-        #endregion public void Scale()
-
-        #endregion
-
-        #region Static
-
-        #region Obsolete
-
-        #region Sub
-
-        /// <summary>
-        /// Subtract one Vector from another
-        /// </summary>
-        /// <param name="a">First operand</param>
-        /// <param name="b">Second operand</param>
-        /// <returns>Result of subtraction</returns>
-        public static Vector4 Sub(Vector4 a, Vector4 b)
-        {
-            a.X -= b.X;
-            a.Y -= b.Y;
-            a.Z -= b.Z;
-            a.W -= b.W;
-            return a;
+            Normalize(ref this, out this);
         }
 
         /// <summary>
-        /// Subtract one Vector from another
+        /// Creates a new <see cref="Vector4"/> that contains a normalized values from another vector.
         /// </summary>
-        /// <param name="a">First operand</param>
-        /// <param name="b">Second operand</param>
-        /// <param name="result">Result of subtraction</param>
-        public static void Sub(ref Vector4 a, ref Vector4 b, out Vector4 result)
+        /// <param name="value">Source <see cref="Vector4"/>.</param>
+        /// <returns>Unit vector.</returns>
+        public static Vector4 Normalize(Vector4 value)
         {
-            result.X = a.X - b.X;
-            result.Y = a.Y - b.Y;
-            result.Z = a.Z - b.Z;
-            result.W = a.W - b.W;
-        }
+            float factor = DistanceSquared(value, zero);
+            factor = 1f / (float)Math.Sqrt(factor);
 
-        #endregion
-
-        #region Mult
-
-        /// <summary>
-        /// Multiply a vector and a scalar
-        /// </summary>
-        /// <param name="a">Vector operand</param>
-        /// <param name="f">Scalar operand</param>
-        /// <returns>Result of the multiplication</returns>
-        public static Vector4 Mult(Vector4 a, float f)
-        {
-            a.X *= f;
-            a.Y *= f;
-            a.Z *= f;
-            a.W *= f;
-            return a;
+            return new Vector4(value.X * factor, value.Y * factor, value.Z * factor, value.W * factor);
         }
 
         /// <summary>
-        /// Multiply a vector and a scalar
+        /// Creates a new <see cref="Vector4"/> that contains a normalized values from another vector.
         /// </summary>
-        /// <param name="a">Vector operand</param>
-        /// <param name="f">Scalar operand</param>
-        /// <param name="result">Result of the multiplication</param>
-        public static void Mult(ref Vector4 a, float f, out Vector4 result)
+        /// <param name="value">Source <see cref="Vector4"/>.</param>
+        /// <param name="result">Unit vector as an output parameter.</param>
+        public static void Normalize(ref Vector4 value, out Vector4 result)
         {
-            result.X = a.X * f;
-            result.Y = a.Y * f;
-            result.Z = a.Z * f;
-            result.W = a.W * f;
-        }
+            float factor = DistanceSquared(value, zero);
+            factor = 1f / (float)Math.Sqrt(factor);
 
-        #endregion
-
-        #region Div
-
-        /// <summary>
-        /// Divide a vector by a scalar
-        /// </summary>
-        /// <param name="a">Vector operand</param>
-        /// <param name="f">Scalar operand</param>
-        /// <returns>Result of the division</returns>
-        public static Vector4 Div(Vector4 a, float f)
-        {
-            float mult = 1.0f / f;
-            a.X *= mult;
-            a.Y *= mult;
-            a.Z *= mult;
-            a.W *= mult;
-            return a;
+            result.W = value.W * factor;
+            result.X = value.X * factor;
+            result.Y = value.Y * factor;
+            result.Z = value.Z * factor;
         }
 
         /// <summary>
-        /// Divide a vector by a scalar
+        /// Creates a new <see cref="Vector4"/> that contains cubic interpolation of the specified vectors.
         /// </summary>
-        /// <param name="a">Vector operand</param>
-        /// <param name="f">Scalar operand</param>
-        /// <param name="result">Result of the division</param>
-        public static void Div(ref Vector4 a, float f, out Vector4 result)
+        /// <param name="value1">Source <see cref="Vector4"/>.</param>
+        /// <param name="value2">Source <see cref="Vector4"/>.</param>
+        /// <param name="amount">Weighting value.</param>
+        /// <returns>Cubic interpolation of the specified vectors.</returns>
+        public static Vector4 SmoothStep(Vector4 value1, Vector4 value2, float amount)
         {
-            float mult = 1.0f / f;
-            result.X = a.X * mult;
-            result.Y = a.Y * mult;
-            result.Z = a.Z * mult;
-            result.W = a.W * mult;
-        }
-
-        #endregion
-
-        #endregion
-
-        #region Add
-
-        /// <summary>
-        /// Adds two vectors.
-        /// </summary>
-        /// <param name="a">Left operand.</param>
-        /// <param name="b">Right operand.</param>
-        /// <returns>Result of operation.</returns>
-        public static Vector4 Add(Vector4 a, Vector4 b)
-        {
-            Add(ref a, ref b, out a);
-            return a;
+            return new Vector4(
+                MathHelper.SmoothStep(value1.X, value2.X, amount),
+                MathHelper.SmoothStep(value1.Y, value2.Y, amount),
+                MathHelper.SmoothStep(value1.Z, value2.Z, amount),
+                MathHelper.SmoothStep(value1.W, value2.W, amount));
         }
 
         /// <summary>
-        /// Adds two vectors.
+        /// Creates a new <see cref="Vector4"/> that contains cubic interpolation of the specified vectors.
         /// </summary>
-        /// <param name="a">Left operand.</param>
-        /// <param name="b">Right operand.</param>
-        /// <param name="result">Result of operation.</param>
-        public static void Add(ref Vector4 a, ref Vector4 b, out Vector4 result)
+        /// <param name="value1">Source <see cref="Vector4"/>.</param>
+        /// <param name="value2">Source <see cref="Vector4"/>.</param>
+        /// <param name="amount">Weighting value.</param>
+        /// <param name="result">Cubic interpolation of the specified vectors as an output parameter.</param>
+        public static void SmoothStep(ref Vector4 value1, ref Vector4 value2, float amount, out Vector4 result)
         {
-            result = new Vector4(a.X + b.X, a.Y + b.Y, a.Z + b.Z, a.W + b.W);
-        }
-
-        #endregion
-
-        #region Subtract
-
-        /// <summary>
-        /// Subtract one Vector from another
-        /// </summary>
-        /// <param name="a">First operand</param>
-        /// <param name="b">Second operand</param>
-        /// <returns>Result of subtraction</returns>
-        public static Vector4 Subtract(Vector4 a, Vector4 b)
-        {
-            Subtract(ref a, ref b, out a);
-            return a;
+            result.X = MathHelper.SmoothStep(value1.X, value2.X, amount);
+            result.Y = MathHelper.SmoothStep(value1.Y, value2.Y, amount);
+            result.Z = MathHelper.SmoothStep(value1.Z, value2.Z, amount);
+            result.W = MathHelper.SmoothStep(value1.W, value2.W, amount);
         }
 
         /// <summary>
-        /// Subtract one Vector from another
+        /// Creates a new <see cref="Vector4"/> that contains subtraction of on <see cref="Vector4"/> from a another.
         /// </summary>
-        /// <param name="a">First operand</param>
-        /// <param name="b">Second operand</param>
-        /// <param name="result">Result of subtraction</param>
-        public static void Subtract(ref Vector4 a, ref Vector4 b, out Vector4 result)
+        /// <param name="value1">Source <see cref="Vector4"/>.</param>
+        /// <param name="value2">Source <see cref="Vector4"/>.</param>
+        /// <returns>The result of the vector subtraction.</returns>
+        public static Vector4 Subtract(Vector4 value1, Vector4 value2)
         {
-            result = new Vector4(a.X - b.X, a.Y - b.Y, a.Z - b.Z, a.W - b.W);
-        }
-
-        #endregion
-
-        #region Multiply
-
-        /// <summary>
-        /// Multiplies a vector by a scalar.
-        /// </summary>
-        /// <param name="vector">Left operand.</param>
-        /// <param name="scale">Right operand.</param>
-        /// <returns>Result of the operation.</returns>
-        public static Vector4 Multiply(Vector4 vector, float scale)
-        {
-            Multiply(ref vector, scale, out vector);
-            return vector;
+            value1.W -= value2.W;
+            value1.X -= value2.X;
+            value1.Y -= value2.Y;
+            value1.Z -= value2.Z;
+            return value1;
         }
 
         /// <summary>
-        /// Multiplies a vector by a scalar.
+        /// Creates a new <see cref="Vector4"/> that contains subtraction of on <see cref="Vector4"/> from a another.
         /// </summary>
-        /// <param name="vector">Left operand.</param>
-        /// <param name="scale">Right operand.</param>
-        /// <param name="result">Result of the operation.</param>
-        public static void Multiply(ref Vector4 vector, float scale, out Vector4 result)
+        /// <param name="value1">Source <see cref="Vector4"/>.</param>
+        /// <param name="value2">Source <see cref="Vector4"/>.</param>
+        /// <param name="result">The result of the vector subtraction as an output parameter.</param>
+        public static void Subtract(ref Vector4 value1, ref Vector4 value2, out Vector4 result)
         {
-            result = new Vector4(vector.X * scale, vector.Y * scale, vector.Z * scale, vector.W * scale);
+            result.W = value1.W - value2.W;
+            result.X = value1.X - value2.X;
+            result.Y = value1.Y - value2.Y;
+            result.Z = value1.Z - value2.Z;
         }
 
         /// <summary>
-        /// Multiplies a vector by the components a vector (scale).
+        /// Creates a new <see cref="Vector4"/> that contains a transformation of 2d-vector by the specified <see cref="Matrix"/>.
         /// </summary>
-        /// <param name="vector">Left operand.</param>
-        /// <param name="scale">Right operand.</param>
-        /// <returns>Result of the operation.</returns>
-        public static Vector4 Multiply(Vector4 vector, Vector4 scale)
-        {
-            Multiply(ref vector, ref scale, out vector);
-            return vector;
-        }
-
-        /// <summary>
-        /// Multiplies a vector by the components of a vector (scale).
-        /// </summary>
-        /// <param name="vector">Left operand.</param>
-        /// <param name="scale">Right operand.</param>
-        /// <param name="result">Result of the operation.</param>
-        public static void Multiply(ref Vector4 vector, ref Vector4 scale, out Vector4 result)
-        {
-            result = new Vector4(vector.X * scale.X, vector.Y * scale.Y, vector.Z * scale.Z, vector.W * scale.W);
-        }
-
-        #endregion
-
-        #region Divide
-
-        /// <summary>
-        /// Divides a vector by a scalar.
-        /// </summary>
-        /// <param name="vector">Left operand.</param>
-        /// <param name="scale">Right operand.</param>
-        /// <returns>Result of the operation.</returns>
-        public static Vector4 Divide(Vector4 vector, float scale)
-        {
-            Divide(ref vector, scale, out vector);
-            return vector;
-        }
-
-        /// <summary>
-        /// Divides a vector by a scalar.
-        /// </summary>
-        /// <param name="vector">Left operand.</param>
-        /// <param name="scale">Right operand.</param>
-        /// <param name="result">Result of the operation.</param>
-        public static void Divide(ref Vector4 vector, float scale, out Vector4 result)
-        {
-            Multiply(ref vector, 1 / scale, out result);
-        }
-
-        /// <summary>
-        /// Divides a vector by the components of a vector (scale).
-        /// </summary>
-        /// <param name="vector">Left operand.</param>
-        /// <param name="scale">Right operand.</param>
-        /// <returns>Result of the operation.</returns>
-        public static Vector4 Divide(Vector4 vector, Vector4 scale)
-        {
-            Divide(ref vector, ref scale, out vector);
-            return vector;
-        }
-
-        /// <summary>
-        /// Divide a vector by the components of a vector (scale).
-        /// </summary>
-        /// <param name="vector">Left operand.</param>
-        /// <param name="scale">Right operand.</param>
-        /// <param name="result">Result of the operation.</param>
-        public static void Divide(ref Vector4 vector, ref Vector4 scale, out Vector4 result)
-        {
-            result = new Vector4(vector.X / scale.X, vector.Y / scale.Y, vector.Z / scale.Z, vector.W / scale.W);
-        }
-
-        #endregion
-
-        #region Min
-
-        /// <summary>
-        /// Calculate the component-wise minimum of two vectors
-        /// </summary>
-        /// <param name="a">First operand</param>
-        /// <param name="b">Second operand</param>
-        /// <returns>The component-wise minimum</returns>
-        public static Vector4 Min(Vector4 a, Vector4 b)
-        {
-            a.X = a.X < b.X ? a.X : b.X;
-            a.Y = a.Y < b.Y ? a.Y : b.Y;
-            a.Z = a.Z < b.Z ? a.Z : b.Z;
-            a.W = a.W < b.W ? a.W : b.W;
-            return a;
-        }
-
-        /// <summary>
-        /// Calculate the component-wise minimum of two vectors
-        /// </summary>
-        /// <param name="a">First operand</param>
-        /// <param name="b">Second operand</param>
-        /// <param name="result">The component-wise minimum</param>
-        public static void Min(ref Vector4 a, ref Vector4 b, out Vector4 result)
-        {
-            result.X = a.X < b.X ? a.X : b.X;
-            result.Y = a.Y < b.Y ? a.Y : b.Y;
-            result.Z = a.Z < b.Z ? a.Z : b.Z;
-            result.W = a.W < b.W ? a.W : b.W;
-        }
-
-        #endregion
-
-        #region Max
-
-        /// <summary>
-        /// Calculate the component-wise maximum of two vectors
-        /// </summary>
-        /// <param name="a">First operand</param>
-        /// <param name="b">Second operand</param>
-        /// <returns>The component-wise maximum</returns>
-        public static Vector4 Max(Vector4 a, Vector4 b)
-        {
-            a.X = a.X > b.X ? a.X : b.X;
-            a.Y = a.Y > b.Y ? a.Y : b.Y;
-            a.Z = a.Z > b.Z ? a.Z : b.Z;
-            a.W = a.W > b.W ? a.W : b.W;
-            return a;
-        }
-
-        /// <summary>
-        /// Calculate the component-wise maximum of two vectors
-        /// </summary>
-        /// <param name="a">First operand</param>
-        /// <param name="b">Second operand</param>
-        /// <param name="result">The component-wise maximum</param>
-        public static void Max(ref Vector4 a, ref Vector4 b, out Vector4 result)
-        {
-            result.X = a.X > b.X ? a.X : b.X;
-            result.Y = a.Y > b.Y ? a.Y : b.Y;
-            result.Z = a.Z > b.Z ? a.Z : b.Z;
-            result.W = a.W > b.W ? a.W : b.W;
-        }
-
-        #endregion
-
-        #region Clamp
-
-        /// <summary>
-        /// Clamp a vector to the given minimum and maximum vectors
-        /// </summary>
-        /// <param name="vec">Input vector</param>
-        /// <param name="min">Minimum vector</param>
-        /// <param name="max">Maximum vector</param>
-        /// <returns>The clamped vector</returns>
-        public static Vector4 Clamp(Vector4 vec, Vector4 min, Vector4 max)
-        {
-            vec.X = vec.X < min.X ? min.X : vec.X > max.X ? max.X : vec.X;
-            vec.Y = vec.Y < min.Y ? min.Y : vec.Y > max.Y ? max.Y : vec.Y;
-            vec.Z = vec.X < min.Z ? min.Z : vec.Z > max.Z ? max.Z : vec.Z;
-            vec.W = vec.Y < min.W ? min.W : vec.W > max.W ? max.W : vec.W;
-            return vec;
-        }
-
-        /// <summary>
-        /// Clamp a vector to the given minimum and maximum vectors
-        /// </summary>
-        /// <param name="vec">Input vector</param>
-        /// <param name="min">Minimum vector</param>
-        /// <param name="max">Maximum vector</param>
-        /// <param name="result">The clamped vector</param>
-        public static void Clamp(ref Vector4 vec, ref Vector4 min, ref Vector4 max, out Vector4 result)
-        {
-            result.X = vec.X < min.X ? min.X : vec.X > max.X ? max.X : vec.X;
-            result.Y = vec.Y < min.Y ? min.Y : vec.Y > max.Y ? max.Y : vec.Y;
-            result.Z = vec.X < min.Z ? min.Z : vec.Z > max.Z ? max.Z : vec.Z;
-            result.W = vec.Y < min.W ? min.W : vec.W > max.W ? max.W : vec.W;
-        }
-
-        #endregion
-
-        #region Normalize
-
-        /// <summary>
-        /// Scale a vector to unit length
-        /// </summary>
-        /// <param name="vec">The input vector</param>
-        /// <returns>The normalized vector</returns>
-        public static Vector4 Normalize(Vector4 vec)
-        {
-            float scale = 1.0f / vec.Length;
-            vec.X *= scale;
-            vec.Y *= scale;
-            vec.Z *= scale;
-            vec.W *= scale;
-            return vec;
-        }
-
-        /// <summary>
-        /// Scale a vector to unit length
-        /// </summary>
-        /// <param name="vec">The input vector</param>
-        /// <param name="result">The normalized vector</param>
-        public static void Normalize(ref Vector4 vec, out Vector4 result)
-        {
-            float scale = 1.0f / vec.Length;
-            result.X = vec.X * scale;
-            result.Y = vec.Y * scale;
-            result.Z = vec.Z * scale;
-            result.W = vec.W * scale;
-        }
-
-        #endregion
-
-        #region NormalizeFast
-
-        /// <summary>
-        /// Scale a vector to approximately unit length
-        /// </summary>
-        /// <param name="vec">The input vector</param>
-        /// <returns>The normalized vector</returns>
-        public static Vector4 NormalizeFast(Vector4 vec)
-        {
-            float scale = MathHelper.InverseSqrtFast(vec.X * vec.X + vec.Y * vec.Y + vec.Z * vec.Z + vec.W * vec.W);
-            vec.X *= scale;
-            vec.Y *= scale;
-            vec.Z *= scale;
-            vec.W *= scale;
-            return vec;
-        }
-
-        /// <summary>
-        /// Scale a vector to approximately unit length
-        /// </summary>
-        /// <param name="vec">The input vector</param>
-        /// <param name="result">The normalized vector</param>
-        public static void NormalizeFast(ref Vector4 vec, out Vector4 result)
-        {
-            float scale = MathHelper.InverseSqrtFast(vec.X * vec.X + vec.Y * vec.Y + vec.Z * vec.Z + vec.W * vec.W);
-            result.X = vec.X * scale;
-            result.Y = vec.Y * scale;
-            result.Z = vec.Z * scale;
-            result.W = vec.W * scale;
-        }
-
-        #endregion
-
-        #region Dot
-
-        /// <summary>
-        /// Calculate the dot product of two vectors
-        /// </summary>
-        /// <param name="left">First operand</param>
-        /// <param name="right">Second operand</param>
-        /// <returns>The dot product of the two inputs</returns>
-        public static float Dot(Vector4 left, Vector4 right)
-        {
-            return left.X * right.X + left.Y * right.Y + left.Z * right.Z + left.W * right.W;
-        }
-
-        /// <summary>
-        /// Calculate the dot product of two vectors
-        /// </summary>
-        /// <param name="left">First operand</param>
-        /// <param name="right">Second operand</param>
-        /// <param name="result">The dot product of the two inputs</param>
-        public static void Dot(ref Vector4 left, ref Vector4 right, out float result)
-        {
-            result = left.X * right.X + left.Y * right.Y + left.Z * right.Z + left.W * right.W;
-        }
-
-        #endregion
-
-        #region Lerp
-
-        /// <summary>
-        /// Returns a new Vector that is the linear blend of the 2 given Vectors
-        /// </summary>
-        /// <param name="a">First input vector</param>
-        /// <param name="b">Second input vector</param>
-        /// <param name="blend">The blend factor. a when blend=0, b when blend=1.</param>
-        /// <returns>a when blend=0, b when blend=1, and a linear combination otherwise</returns>
-        public static Vector4 Lerp(Vector4 a, Vector4 b, float blend)
-        {
-            a.X = blend * (b.X - a.X) + a.X;
-            a.Y = blend * (b.Y - a.Y) + a.Y;
-            a.Z = blend * (b.Z - a.Z) + a.Z;
-            a.W = blend * (b.W - a.W) + a.W;
-            return a;
-        }
-
-        /// <summary>
-        /// Returns a new Vector that is the linear blend of the 2 given Vectors
-        /// </summary>
-        /// <param name="a">First input vector</param>
-        /// <param name="b">Second input vector</param>
-        /// <param name="blend">The blend factor. a when blend=0, b when blend=1.</param>
-        /// <param name="result">a when blend=0, b when blend=1, and a linear combination otherwise</param>
-        public static void Lerp(ref Vector4 a, ref Vector4 b, float blend, out Vector4 result)
-        {
-            result.X = blend * (b.X - a.X) + a.X;
-            result.Y = blend * (b.Y - a.Y) + a.Y;
-            result.Z = blend * (b.Z - a.Z) + a.Z;
-            result.W = blend * (b.W - a.W) + a.W;
-        }
-
-        #endregion
-
-        #region Barycentric
-
-        /// <summary>
-        /// Interpolate 3 Vectors using Barycentric coordinates
-        /// </summary>
-        /// <param name="a">First input Vector</param>
-        /// <param name="b">Second input Vector</param>
-        /// <param name="c">Third input Vector</param>
-        /// <param name="u">First Barycentric Coordinate</param>
-        /// <param name="v">Second Barycentric Coordinate</param>
-        /// <returns>a when u=v=0, b when u=1,v=0, c when u=0,v=1, and a linear combination of a,b,c otherwise</returns>
-        public static Vector4 BaryCentric(Vector4 a, Vector4 b, Vector4 c, float u, float v)
-        {
-            return a + u * (b - a) + v * (c - a);
-        }
-
-        /// <summary>Interpolate 3 Vectors using Barycentric coordinates</summary>
-        /// <param name="a">First input Vector.</param>
-        /// <param name="b">Second input Vector.</param>
-        /// <param name="c">Third input Vector.</param>
-        /// <param name="u">First Barycentric Coordinate.</param>
-        /// <param name="v">Second Barycentric Coordinate.</param>
-        /// <param name="result">Output Vector. a when u=v=0, b when u=1,v=0, c when u=0,v=1, and a linear combination of a,b,c otherwise</param>
-        public static void BaryCentric(ref Vector4 a, ref Vector4 b, ref Vector4 c, float u, float v, out Vector4 result)
-        {
-            result = a; // copy
-
-            Vector4 temp = b; // copy
-            Subtract(ref temp, ref a, out temp);
-            Multiply(ref temp, u, out temp);
-            Add(ref result, ref temp, out result);
-
-            temp = c; // copy
-            Subtract(ref temp, ref a, out temp);
-            Multiply(ref temp, v, out temp);
-            Add(ref result, ref temp, out result);
-        }
-
-        #endregion
-
-        #region Transform
-
-        /// <summary>Transform a Vector by the given Matrix</summary>
-        /// <param name="vec">The vector to transform</param>
-        /// <param name="mat">The desired transformation</param>
-        /// <returns>The transformed vector</returns>
-        public static Vector4 Transform(Vector4 vec, Matrix4 mat)
+        /// <param name="value">Source <see cref="Vector2"/>.</param>
+        /// <param name="matrix">The transformation <see cref="Matrix"/>.</param>
+        /// <returns>Transformed <see cref="Vector4"/>.</returns>
+        public static Vector4 Transform(Vector2 value, Matrix matrix)
         {
             Vector4 result;
-            Transform(ref vec, ref mat, out result);
-            return result;
-        }
-
-        /// <summary>Transform a Vector by the given Matrix</summary>
-        /// <param name="vec">The vector to transform</param>
-        /// <param name="mat">The desired transformation</param>
-        /// <param name="result">The transformed vector</param>
-        public static void Transform(ref Vector4 vec, ref Matrix4 mat, out Vector4 result)
-        {
-            result = new Vector4(
-                vec.X * mat.Row0.X + vec.Y * mat.Row1.X + vec.Z * mat.Row2.X + vec.W * mat.Row3.X,
-                vec.X * mat.Row0.Y + vec.Y * mat.Row1.Y + vec.Z * mat.Row2.Y + vec.W * mat.Row3.Y,
-                vec.X * mat.Row0.Z + vec.Y * mat.Row1.Z + vec.Z * mat.Row2.Z + vec.W * mat.Row3.Z,
-                vec.X * mat.Row0.W + vec.Y * mat.Row1.W + vec.Z * mat.Row2.W + vec.W * mat.Row3.W);
-        }
-
-        /// <summary>
-        /// Transforms a vector by a quaternion rotation.
-        /// </summary>
-        /// <param name="vec">The vector to transform.</param>
-        /// <param name="quat">The quaternion to rotate the vector by.</param>
-        /// <returns>The result of the operation.</returns>
-        public static Vector4 Transform(Vector4 vec, Quaternion quat)
-        {
-            Vector4 result;
-            Transform(ref vec, ref quat, out result);
+            Transform(ref value, ref matrix, out result);
             return result;
         }
 
         /// <summary>
-        /// Transforms a vector by a quaternion rotation.
+        /// Creates a new <see cref="Vector4"/> that contains a transformation of 2d-vector by the specified <see cref="Quaternion"/>.
         /// </summary>
-        /// <param name="vec">The vector to transform.</param>
-        /// <param name="quat">The quaternion to rotate the vector by.</param>
-        /// <param name="result">The result of the operation.</param>
-        public static void Transform(ref Vector4 vec, ref Quaternion quat, out Vector4 result)
+        /// <param name="value">Source <see cref="Vector2"/>.</param>
+        /// <param name="rotation">The <see cref="Quaternion"/> which contains rotation transformation.</param>
+        /// <returns>Transformed <see cref="Vector4"/>.</returns>
+        public static Vector4 Transform(Vector2 value, Quaternion rotation)
         {
-            Quaternion v = new Quaternion(vec.X, vec.Y, vec.Z, vec.W), i, t;
-            Quaternion.Invert(ref quat, out i);
-            Quaternion.Multiply(ref quat, ref v, out t);
-            Quaternion.Multiply(ref t, ref i, out v);
-
-            result = new Vector4(v.X, v.Y, v.Z, v.W);
-        }
-
-        #endregion
-
-        #endregion
-
-        #region Swizzle
-
-        #region 2-component
-
-        /// <summary>
-        /// Gets or sets an OpenTK.Vector2 with the X and Y components of this instance.
-        /// </summary>
-        [XmlIgnore]
-        public Vector2 Xy { get { return new Vector2(X, Y); } set { X = value.X; Y = value.Y; } }
-
-        /// <summary>
-        /// Gets or sets an OpenTK.Vector2 with the X and Z components of this instance.
-        /// </summary>
-        [XmlIgnore]
-        public Vector2 Xz { get { return new Vector2(X, Z); } set { X = value.X; Z = value.Y; } }
-
-        /// <summary>
-        /// Gets or sets an OpenTK.Vector2 with the X and W components of this instance.
-        /// </summary>
-        [XmlIgnore]
-        public Vector2 Xw { get { return new Vector2(X, W); } set { X = value.X; W = value.Y; } }
-
-        /// <summary>
-        /// Gets or sets an OpenTK.Vector2 with the Y and X components of this instance.
-        /// </summary>
-        [XmlIgnore]
-        public Vector2 Yx { get { return new Vector2(Y, X); } set { Y = value.X; X = value.Y; } }
-
-        /// <summary>
-        /// Gets or sets an OpenTK.Vector2 with the Y and Z components of this instance.
-        /// </summary>
-        [XmlIgnore]
-        public Vector2 Yz { get { return new Vector2(Y, Z); } set { Y = value.X; Z = value.Y; } }
-
-        /// <summary>
-        /// Gets or sets an OpenTK.Vector2 with the Y and W components of this instance.
-        /// </summary>
-        [XmlIgnore]
-        public Vector2 Yw { get { return new Vector2(Y, W); } set { Y = value.X; W = value.Y; } }
-
-        /// <summary>
-        /// Gets or sets an OpenTK.Vector2 with the Z and X components of this instance.
-        /// </summary>
-        [XmlIgnore]
-        public Vector2 Zx { get { return new Vector2(Z, X); } set { Z = value.X; X = value.Y; } }
-
-        /// <summary>
-        /// Gets or sets an OpenTK.Vector2 with the Z and Y components of this instance.
-        /// </summary>
-        [XmlIgnore]
-        public Vector2 Zy { get { return new Vector2(Z, Y); } set { Z = value.X; Y = value.Y; } }
-
-        /// <summary>
-        /// Gets an OpenTK.Vector2 with the Z and W components of this instance.
-        /// </summary>
-        [XmlIgnore]
-        public Vector2 Zw { get { return new Vector2(Z, W); } set { Z = value.X; W = value.Y; } }
-
-        /// <summary>
-        /// Gets or sets an OpenTK.Vector2 with the W and X components of this instance.
-        /// </summary>
-        [XmlIgnore]
-        public Vector2 Wx { get { return new Vector2(W, X); } set { W = value.X; X = value.Y; } }
-
-        /// <summary>
-        /// Gets or sets an OpenTK.Vector2 with the W and Y components of this instance.
-        /// </summary>
-        [XmlIgnore]
-        public Vector2 Wy { get { return new Vector2(W, Y); } set { W = value.X; Y = value.Y; } }
-
-        /// <summary>
-        /// Gets or sets an OpenTK.Vector2 with the W and Z components of this instance.
-        /// </summary>
-        [XmlIgnore]
-        public Vector2 Wz { get { return new Vector2(W, Z); } set { W = value.X; Z = value.Y; } }
-
-        #endregion
-
-        #region 3-component
-
-        /// <summary>
-        /// Gets or sets an OpenTK.Vector3 with the X, Y, and Z components of this instance.
-        /// </summary>
-        [XmlIgnore]
-        public Vector3 Xyz { get { return new Vector3(X, Y, Z); } set { X = value.X; Y = value.Y; Z = value.Z; } }
-
-        /// <summary>
-        /// Gets or sets an OpenTK.Vector3 with the X, Y, and Z components of this instance.
-        /// </summary>
-        [XmlIgnore]
-        public Vector3 Xyw { get { return new Vector3(X, Y, W); } set { X = value.X; Y = value.Y; W = value.Z; } }
-
-        /// <summary>
-        /// Gets or sets an OpenTK.Vector3 with the X, Z, and Y components of this instance.
-        /// </summary>
-        [XmlIgnore]
-        public Vector3 Xzy { get { return new Vector3(X, Z, Y); } set { X = value.X; Z = value.Y; Y = value.Z; } }
-
-        /// <summary>
-        /// Gets or sets an OpenTK.Vector3 with the X, Z, and W components of this instance.
-        /// </summary>
-        [XmlIgnore]
-        public Vector3 Xzw { get { return new Vector3(X, Z, W); } set { X = value.X; Z = value.Y; W = value.Z; } }
-
-        /// <summary>
-        /// Gets or sets an OpenTK.Vector3 with the X, W, and Y components of this instance.
-        /// </summary>
-        [XmlIgnore]
-        public Vector3 Xwy { get { return new Vector3(X, W, Y); } set { X = value.X; W = value.Y; Y = value.Z; } }
-
-        /// <summary>
-        /// Gets or sets an OpenTK.Vector3 with the X, W, and Z components of this instance.
-        /// </summary>
-        [XmlIgnore]
-        public Vector3 Xwz { get { return new Vector3(X, W, Z); } set { X = value.X; W = value.Y; Z = value.Z; } }
-
-        /// <summary>
-        /// Gets or sets an OpenTK.Vector3 with the Y, X, and Z components of this instance.
-        /// </summary>
-        [XmlIgnore]
-        public Vector3 Yxz { get { return new Vector3(Y, X, Z); } set { Y = value.X; X = value.Y; Z = value.Z; } }
-
-        /// <summary>
-        /// Gets or sets an OpenTK.Vector3 with the Y, X, and W components of this instance.
-        /// </summary>
-        [XmlIgnore]
-        public Vector3 Yxw { get { return new Vector3(Y, X, W); } set { Y = value.X; X = value.Y; W = value.Z; } }
-
-        /// <summary>
-        /// Gets or sets an OpenTK.Vector3 with the Y, Z, and X components of this instance.
-        /// </summary>
-        [XmlIgnore]
-        public Vector3 Yzx { get { return new Vector3(Y, Z, X); } set { Y = value.X; Z = value.Y; X = value.Z; } }
-
-        /// <summary>
-        /// Gets or sets an OpenTK.Vector3 with the Y, Z, and W components of this instance.
-        /// </summary>
-        [XmlIgnore]
-        public Vector3 Yzw { get { return new Vector3(Y, Z, W); } set { Y = value.X; Z = value.Y; W = value.Z; } }
-
-        /// <summary>
-        /// Gets or sets an OpenTK.Vector3 with the Y, W, and X components of this instance.
-        /// </summary>
-        [XmlIgnore]
-        public Vector3 Ywx { get { return new Vector3(Y, W, X); } set { Y = value.X; W = value.Y; X = value.Z; } }
-
-        /// <summary>
-        /// Gets an OpenTK.Vector3 with the Y, W, and Z components of this instance.
-        /// </summary>
-        [XmlIgnore]
-        public Vector3 Ywz { get { return new Vector3(Y, W, Z); } set { Y = value.X; W = value.Y; Z = value.Z; } }
-
-        /// <summary>
-        /// Gets or sets an OpenTK.Vector3 with the Z, X, and Y components of this instance.
-        /// </summary>
-        [XmlIgnore]
-        public Vector3 Zxy { get { return new Vector3(Z, X, Y); } set { Z = value.X; X = value.Y; Y = value.Z; } }
-
-        /// <summary>
-        /// Gets or sets an OpenTK.Vector3 with the Z, X, and W components of this instance.
-        /// </summary>
-        [XmlIgnore]
-        public Vector3 Zxw { get { return new Vector3(Z, X, W); } set { Z = value.X; X = value.Y; W = value.Z; } }
-
-        /// <summary>
-        /// Gets or sets an OpenTK.Vector3 with the Z, Y, and X components of this instance.
-        /// </summary>
-        [XmlIgnore]
-        public Vector3 Zyx { get { return new Vector3(Z, Y, X); } set { Z = value.X; Y = value.Y; X = value.Z; } }
-
-        /// <summary>
-        /// Gets or sets an OpenTK.Vector3 with the Z, Y, and W components of this instance.
-        /// </summary>
-        [XmlIgnore]
-        public Vector3 Zyw { get { return new Vector3(Z, Y, W); } set { Z = value.X; Y = value.Y; W = value.Z; } }
-
-        /// <summary>
-        /// Gets or sets an OpenTK.Vector3 with the Z, W, and X components of this instance.
-        /// </summary>
-        [XmlIgnore]
-        public Vector3 Zwx { get { return new Vector3(Z, W, X); } set { Z = value.X; W = value.Y; X = value.Z; } }
-
-        /// <summary>
-        /// Gets or sets an OpenTK.Vector3 with the Z, W, and Y components of this instance.
-        /// </summary>
-        [XmlIgnore]
-        public Vector3 Zwy { get { return new Vector3(Z, W, Y); } set { Z = value.X; W = value.Y; Y = value.Z; } }
-
-        /// <summary>
-        /// Gets or sets an OpenTK.Vector3 with the W, X, and Y components of this instance.
-        /// </summary>
-        [XmlIgnore]
-        public Vector3 Wxy { get { return new Vector3(W, X, Y); } set { W = value.X; X = value.Y; Y = value.Z; } }
-
-        /// <summary>
-        /// Gets or sets an OpenTK.Vector3 with the W, X, and Z components of this instance.
-        /// </summary>
-        [XmlIgnore]
-        public Vector3 Wxz { get { return new Vector3(W, X, Z); } set { W = value.X; X = value.Y; Z = value.Z; } }
-
-        /// <summary>
-        /// Gets or sets an OpenTK.Vector3 with the W, Y, and X components of this instance.
-        /// </summary>
-        [XmlIgnore]
-        public Vector3 Wyx { get { return new Vector3(W, Y, X); } set { W = value.X; Y = value.Y; X = value.Z; } }
-
-        /// <summary>
-        /// Gets or sets an OpenTK.Vector3 with the W, Y, and Z components of this instance.
-        /// </summary>
-        [XmlIgnore]
-        public Vector3 Wyz { get { return new Vector3(W, Y, Z); } set { W = value.X; Y = value.Y; Z = value.Z; } }
-
-        /// <summary>
-        /// Gets or sets an OpenTK.Vector3 with the W, Z, and X components of this instance.
-        /// </summary>
-        [XmlIgnore]
-        public Vector3 Wzx { get { return new Vector3(W, Z, X); } set { W = value.X; Z = value.Y; X = value.Z; } }
-
-        /// <summary>
-        /// Gets or sets an OpenTK.Vector3 with the W, Z, and Y components of this instance.
-        /// </summary>
-        [XmlIgnore]
-        public Vector3 Wzy { get { return new Vector3(W, Z, Y); } set { W = value.X; Z = value.Y; Y = value.Z; } }
-
-        #endregion
-
-        #region 4-component
-
-        /// <summary>
-        /// Gets or sets an OpenTK.Vector4 with the X, Y, W, and Z components of this instance.
-        /// </summary>
-        [XmlIgnore]
-        public Vector4 Xywz { get { return new Vector4(X, Y, W, Z); } set { X = value.X; Y = value.Y; W = value.Z; Z = value.W; } }
-
-        /// <summary>
-        /// Gets or sets an OpenTK.Vector4 with the X, Z, Y, and W components of this instance.
-        /// </summary>
-        [XmlIgnore]
-        public Vector4 Xzyw { get { return new Vector4(X, Z, Y, W); } set { X = value.X; Z = value.Y; Y = value.Z; W = value.W; } }
-
-        /// <summary>
-        /// Gets or sets an OpenTK.Vector4 with the X, Z, W, and Y components of this instance.
-        /// </summary>
-        [XmlIgnore]
-        public Vector4 Xzwy { get { return new Vector4(X, Z, W, Y); } set { X = value.X; Z = value.Y; W = value.Z; Y = value.W; } }
-
-        /// <summary>
-        /// Gets or sets an OpenTK.Vector4 with the X, W, Y, and Z components of this instance.
-        /// </summary>
-        [XmlIgnore]
-        public Vector4 Xwyz { get { return new Vector4(X, W, Y, Z); } set { X = value.X; W = value.Y; Y = value.Z; Z = value.W; } }
-
-        /// <summary>
-        /// Gets or sets an OpenTK.Vector4 with the X, W, Z, and Y components of this instance.
-        /// </summary>
-        [XmlIgnore]
-        public Vector4 Xwzy { get { return new Vector4(X, W, Z, Y); } set { X = value.X; W = value.Y; Z = value.Z; Y = value.W; } }
-
-        /// <summary>
-        /// Gets or sets an OpenTK.Vector4 with the Y, X, Z, and W components of this instance.
-        /// </summary>
-        [XmlIgnore]
-        public Vector4 Yxzw { get { return new Vector4(Y, X, Z, W); } set { Y = value.X; X = value.Y; Z = value.Z; W = value.W; } }
-
-        /// <summary>
-        /// Gets or sets an OpenTK.Vector4 with the Y, X, W, and Z components of this instance.
-        /// </summary>
-        [XmlIgnore]
-        public Vector4 Yxwz { get { return new Vector4(Y, X, W, Z); } set { Y = value.X; X = value.Y; W = value.Z; Z = value.W; } }
-
-        /// <summary>
-        /// Gets an OpenTK.Vector4 with the Y, Y, Z, and W components of this instance.
-        /// </summary>
-        [XmlIgnore]
-        public Vector4 Yyzw { get { return new Vector4(Y, Y, Z, W); } set { X = value.X; Y = value.Y; Z = value.Z; W = value.W; } }
-
-        /// <summary>
-        /// Gets an OpenTK.Vector4 with the Y, Y, W, and Z components of this instance.
-        /// </summary>
-        [XmlIgnore]
-        public Vector4 Yywz { get { return new Vector4(Y, Y, W, Z); } set { X = value.X; Y = value.Y; W = value.Z; Z = value.W; } }
-
-        /// <summary>
-        /// Gets or sets an OpenTK.Vector4 with the Y, Z, X, and W components of this instance.
-        /// </summary>
-        [XmlIgnore]
-        public Vector4 Yzxw { get { return new Vector4(Y, Z, X, W); } set { Y = value.X; Z = value.Y; X = value.Z; W = value.W; } }
-
-        /// <summary>
-        /// Gets or sets an OpenTK.Vector4 with the Y, Z, W, and X components of this instance.
-        /// </summary>
-        [XmlIgnore]
-        public Vector4 Yzwx { get { return new Vector4(Y, Z, W, X); } set { Y = value.X; Z = value.Y; W = value.Z; X = value.W; } }
-
-        /// <summary>
-        /// Gets or sets an OpenTK.Vector4 with the Y, W, X, and Z components of this instance.
-        /// </summary>
-        [XmlIgnore]
-        public Vector4 Ywxz { get { return new Vector4(Y, W, X, Z); } set { Y = value.X; W = value.Y; X = value.Z; Z = value.W; } }
-
-        /// <summary>
-        /// Gets or sets an OpenTK.Vector4 with the Y, W, Z, and X components of this instance.
-        /// </summary>
-        [XmlIgnore]
-        public Vector4 Ywzx { get { return new Vector4(Y, W, Z, X); } set { Y = value.X; W = value.Y; Z = value.Z; X = value.W; } }
-
-        /// <summary>
-        /// Gets or sets an OpenTK.Vector4 with the Z, X, Y, and Z components of this instance.
-        /// </summary>
-        [XmlIgnore]
-        public Vector4 Zxyw { get { return new Vector4(Z, X, Y, W); } set { Z = value.X; X = value.Y; Y = value.Z; W = value.W; } }
-
-        /// <summary>
-        /// Gets or sets an OpenTK.Vector4 with the Z, X, W, and Y components of this instance.
-        /// </summary>
-        [XmlIgnore]
-        public Vector4 Zxwy { get { return new Vector4(Z, X, W, Y); } set { Z = value.X; X = value.Y; W = value.Z; Y = value.W; } }
-
-        /// <summary>
-        /// Gets or sets an OpenTK.Vector4 with the Z, Y, X, and W components of this instance.
-        /// </summary>
-        [XmlIgnore]
-        public Vector4 Zyxw { get { return new Vector4(Z, Y, X, W); } set { Z = value.X; Y = value.Y; X = value.Z; W = value.W; } }
-
-        /// <summary>
-        /// Gets or sets an OpenTK.Vector4 with the Z, Y, W, and X components of this instance.
-        /// </summary>
-        [XmlIgnore]
-        public Vector4 Zywx { get { return new Vector4(Z, Y, W, X); } set { Z = value.X; Y = value.Y; W = value.Z; X = value.W; } }
-
-        /// <summary>
-        /// Gets or sets an OpenTK.Vector4 with the Z, W, X, and Y components of this instance.
-        /// </summary>
-        [XmlIgnore]
-        public Vector4 Zwxy { get { return new Vector4(Z, W, X, Y); } set { Z = value.X; W = value.Y; X = value.Z; Y = value.W; } }
-
-        /// <summary>
-        /// Gets or sets an OpenTK.Vector4 with the Z, W, Y, and X components of this instance.
-        /// </summary>
-        [XmlIgnore]
-        public Vector4 Zwyx { get { return new Vector4(Z, W, Y, X); } set { Z = value.X; W = value.Y; Y = value.Z; X = value.W; } }
-
-        /// <summary>
-        /// Gets an OpenTK.Vector4 with the Z, W, Z, and Y components of this instance.
-        /// </summary>
-        [XmlIgnore]
-        public Vector4 Zwzy { get { return new Vector4(Z, W, Z, Y); } set { X = value.X; W = value.Y; Z = value.Z; Y = value.W; } }
-
-        /// <summary>
-        /// Gets or sets an OpenTK.Vector4 with the W, X, Y, and Z components of this instance.
-        /// </summary>
-        [XmlIgnore]
-        public Vector4 Wxyz { get { return new Vector4(W, X, Y, Z); } set { W = value.X; X = value.Y; Y = value.Z; Z = value.W; } }
-
-        /// <summary>
-        /// Gets or sets an OpenTK.Vector4 with the W, X, Z, and Y components of this instance.
-        /// </summary>
-        [XmlIgnore]
-        public Vector4 Wxzy { get { return new Vector4(W, X, Z, Y); } set { W = value.X; X = value.Y; Z = value.Z; Y = value.W; } }
-
-        /// <summary>
-        /// Gets or sets an OpenTK.Vector4 with the W, Y, X, and Z components of this instance.
-        /// </summary>
-        [XmlIgnore]
-        public Vector4 Wyxz { get { return new Vector4(W, Y, X, Z); } set { W = value.X; Y = value.Y; X = value.Z; Z = value.W; } }
-
-        /// <summary>
-        /// Gets or sets an OpenTK.Vector4 with the W, Y, Z, and X components of this instance.
-        /// </summary>
-        [XmlIgnore]
-        public Vector4 Wyzx { get { return new Vector4(W, Y, Z, X); } set { W = value.X; Y = value.Y; Z = value.Z; X = value.W; } }
-
-        /// <summary>
-        /// Gets or sets an OpenTK.Vector4 with the W, Z, X, and Y components of this instance.
-        /// </summary>
-        [XmlIgnore]
-        public Vector4 Wzxy { get { return new Vector4(W, Z, X, Y); } set { W = value.X; Z = value.Y; X = value.Z; Y = value.W; } }
-
-        /// <summary>
-        /// Gets or sets an OpenTK.Vector4 with the W, Z, Y, and X components of this instance.
-        /// </summary>
-        [XmlIgnore]
-        public Vector4 Wzyx { get { return new Vector4(W, Z, Y, X); } set { W = value.X; Z = value.Y; Y = value.Z; X = value.W; } }
-
-        /// <summary>
-        /// Gets an OpenTK.Vector4 with the W, Z, Y, and W components of this instance.
-        /// </summary>
-        [XmlIgnore]
-        public Vector4 Wzyw { get { return new Vector4(W, Z, Y, W); } set { X = value.X; Z = value.Y; Y = value.Z; W = value.W; } }
-
-        #endregion
-
-        #endregion
-
-        #region Operators
-
-        /// <summary>
-        /// Adds two instances.
-        /// </summary>
-        /// <param name="left">The first instance.</param>
-        /// <param name="right">The second instance.</param>
-        /// <returns>The result of the calculation.</returns>
-        public static Vector4 operator +(Vector4 left, Vector4 right)
-        {
-            left.X += right.X;
-            left.Y += right.Y;
-            left.Z += right.Z;
-            left.W += right.W;
-            return left;
+            Vector4 result;
+            Transform(ref value, ref rotation, out result);
+            return result;
         }
 
         /// <summary>
-        /// Subtracts two instances.
+        /// Creates a new <see cref="Vector4"/> that contains a transformation of 3d-vector by the specified <see cref="Matrix"/>.
         /// </summary>
-        /// <param name="left">The first instance.</param>
-        /// <param name="right">The second instance.</param>
-        /// <returns>The result of the calculation.</returns>
-        public static Vector4 operator -(Vector4 left, Vector4 right)
+        /// <param name="value">Source <see cref="Vector3"/>.</param>
+        /// <param name="matrix">The transformation <see cref="Matrix"/>.</param>
+        /// <returns>Transformed <see cref="Vector4"/>.</returns>
+        public static Vector4 Transform(Vector3 value, Matrix matrix)
         {
-            left.X -= right.X;
-            left.Y -= right.Y;
-            left.Z -= right.Z;
-            left.W -= right.W;
-            return left;
+            Vector4 result;
+            Transform(ref value, ref matrix, out result);
+            return result;
         }
 
         /// <summary>
-        /// Negates an instance.
+        /// Creates a new <see cref="Vector4"/> that contains a transformation of 3d-vector by the specified <see cref="Quaternion"/>.
         /// </summary>
-        /// <param name="vec">The instance.</param>
-        /// <returns>The result of the calculation.</returns>
-        public static Vector4 operator -(Vector4 vec)
+        /// <param name="value">Source <see cref="Vector3"/>.</param>
+        /// <param name="rotation">The <see cref="Quaternion"/> which contains rotation transformation.</param>
+        /// <returns>Transformed <see cref="Vector4"/>.</returns>
+        public static Vector4 Transform(Vector3 value, Quaternion rotation)
         {
-            vec.X = -vec.X;
-            vec.Y = -vec.Y;
-            vec.Z = -vec.Z;
-            vec.W = -vec.W;
-            return vec;
+            Vector4 result;
+            Transform(ref value, ref rotation, out result);
+            return result;
         }
 
         /// <summary>
-        /// Multiplies an instance by a scalar.
+        /// Creates a new <see cref="Vector4"/> that contains a transformation of 4d-vector by the specified <see cref="Matrix"/>.
         /// </summary>
-        /// <param name="vec">The instance.</param>
-        /// <param name="scale">The scalar.</param>
-        /// <returns>The result of the calculation.</returns>
-        public static Vector4 operator *(Vector4 vec, float scale)
+        /// <param name="value">Source <see cref="Vector4"/>.</param>
+        /// <param name="matrix">The transformation <see cref="Matrix"/>.</param>
+        /// <returns>Transformed <see cref="Vector4"/>.</returns>
+        public static Vector4 Transform(Vector4 value, Matrix matrix)
         {
-            vec.X *= scale;
-            vec.Y *= scale;
-            vec.Z *= scale;
-            vec.W *= scale;
-            return vec;
+            Transform(ref value, ref matrix, out value);
+            return value;
         }
 
         /// <summary>
-        /// Multiplies an instance by a scalar.
+        /// Creates a new <see cref="Vector4"/> that contains a transformation of 4d-vector by the specified <see cref="Quaternion"/>.
         /// </summary>
-        /// <param name="scale">The scalar.</param>
-        /// <param name="vec">The instance.</param>
-        /// <returns>The result of the calculation.</returns>
-        public static Vector4 operator *(float scale, Vector4 vec)
+        /// <param name="value">Source <see cref="Vector4"/>.</param>
+        /// <param name="rotation">The <see cref="Quaternion"/> which contains rotation transformation.</param>
+        /// <returns>Transformed <see cref="Vector4"/>.</returns>
+        public static Vector4 Transform(Vector4 value, Quaternion rotation)
         {
-            vec.X *= scale;
-            vec.Y *= scale;
-            vec.Z *= scale;
-            vec.W *= scale;
-            return vec;
-        }
-		
-        /// <summary>
-        /// Component-wise multiplication between the specified instance by a scale vector.
-        /// </summary>
-        /// <param name="scale">Left operand.</param>
-        /// <param name="vec">Right operand.</param>
-        /// <returns>Result of multiplication.</returns>
-        public static Vector4 operator *(Vector4 vec, Vector4 scale)
-        {
-            vec.X *= scale.X;
-            vec.Y *= scale.Y;
-            vec.Z *= scale.Z;
-            vec.W *= scale.W;
-            return vec;
-        }
-		
-        /// <summary>
-        /// Divides an instance by a scalar.
-        /// </summary>
-        /// <param name="vec">The instance.</param>
-        /// <param name="scale">The scalar.</param>
-        /// <returns>The result of the calculation.</returns>
-        public static Vector4 operator /(Vector4 vec, float scale)
-        {
-            float mult = 1.0f / scale;
-            vec.X *= mult;
-            vec.Y *= mult;
-            vec.Z *= mult;
-            vec.W *= mult;
-            return vec;
+            Vector4 result;
+            Transform(ref value, ref rotation, out result);
+            return result;
         }
 
         /// <summary>
-        /// Compares two instances for equality.
+        /// Creates a new <see cref="Vector4"/> that contains a transformation of 2d-vector by the specified <see cref="Matrix"/>.
         /// </summary>
-        /// <param name="left">The first instance.</param>
-        /// <param name="right">The second instance.</param>
-        /// <returns>True, if left equals right; false otherwise.</returns>
-        public static bool operator ==(Vector4 left, Vector4 right)
+        /// <param name="value">Source <see cref="Vector2"/>.</param>
+        /// <param name="matrix">The transformation <see cref="Matrix"/>.</param>
+        /// <param name="result">Transformed <see cref="Vector4"/> as an output parameter.</param>
+        public static void Transform(ref Vector2 value, ref Matrix matrix, out Vector4 result)
         {
-            return left.Equals(right);
+            result.X = (value.X * matrix.M11) + (value.Y * matrix.M21) + matrix.M41;
+            result.Y = (value.X * matrix.M12) + (value.Y * matrix.M22) + matrix.M42;
+            result.Z = (value.X * matrix.M13) + (value.Y * matrix.M23) + matrix.M43;
+            result.W = (value.X * matrix.M14) + (value.Y * matrix.M24) + matrix.M44;
         }
 
         /// <summary>
-        /// Compares two instances for inequality.
+        /// Creates a new <see cref="Vector4"/> that contains a transformation of 2d-vector by the specified <see cref="Quaternion"/>.
         /// </summary>
-        /// <param name="left">The first instance.</param>
-        /// <param name="right">The second instance.</param>
-        /// <returns>True, if left does not equa lright; false otherwise.</returns>
-        public static bool operator !=(Vector4 left, Vector4 right)
+        /// <param name="value">Source <see cref="Vector2"/>.</param>
+        /// <param name="rotation">The <see cref="Quaternion"/> which contains rotation transformation.</param>
+        /// <param name="result">Transformed <see cref="Vector4"/> as an output parameter.</param>
+        public static void Transform(ref Vector2 value, ref Quaternion rotation, out Vector4 result)
         {
-            return !left.Equals(right);
+            double xx = rotation.X + rotation.X;
+            double yy = rotation.Y + rotation.Y;
+            double zz = rotation.Z + rotation.Z;
+            double wxx = rotation.W * xx;
+            double wyy = rotation.W * yy;
+            double wzz = rotation.W * zz;
+            double xxx = rotation.X * xx;
+            double xyy = rotation.X * yy;
+            double xzz = rotation.X * zz;
+            double yyy = rotation.Y * yy;
+            double yzz = rotation.Y * zz;
+            double zzz = rotation.Z * zz;
+            result.X = (float)((double)value.X * (1.0 - yyy - zzz) + (double)value.Y * (xyy - wzz));
+            result.Y = (float)((double)value.X * (xyy + wzz) + (double)value.Y * (1.0 - xxx - zzz));
+            result.Z = (float)((double)value.X * (xzz - wyy) + (double)value.Y * (yzz + wxx));
+            result.W = 1f;
         }
 
         /// <summary>
-        /// Returns a pointer to the first element of the specified instance.
+        /// Creates a new <see cref="Vector4"/> that contains a transformation of 3d-vector by the specified <see cref="Matrix"/>.
         /// </summary>
-        /// <param name="v">The instance.</param>
-        /// <returns>A pointer to the first element of v.</returns>
-        
-        unsafe public static explicit operator float*(Vector4 v)
+        /// <param name="value">Source <see cref="Vector3"/>.</param>
+        /// <param name="matrix">The transformation <see cref="Matrix"/>.</param>
+        /// <param name="result">Transformed <see cref="Vector4"/> as an output parameter.</param>
+        public static void Transform(ref Vector3 value, ref Matrix matrix, out Vector4 result)
         {
-            return &v.X;
+            result.X = (value.X * matrix.M11) + (value.Y * matrix.M21) + (value.Z * matrix.M31) + matrix.M41;
+            result.Y = (value.X * matrix.M12) + (value.Y * matrix.M22) + (value.Z * matrix.M32) + matrix.M42;
+            result.Z = (value.X * matrix.M13) + (value.Y * matrix.M23) + (value.Z * matrix.M33) + matrix.M43;
+            result.W = (value.X * matrix.M14) + (value.Y * matrix.M24) + (value.Z * matrix.M34) + matrix.M44;
         }
 
         /// <summary>
-        /// Returns a pointer to the first element of the specified instance.
+        /// Creates a new <see cref="Vector4"/> that contains a transformation of 3d-vector by the specified <see cref="Quaternion"/>.
         /// </summary>
-        /// <param name="v">The instance.</param>
-        /// <returns>A pointer to the first element of v.</returns>
-        public static explicit operator IntPtr(Vector4 v)
+        /// <param name="value">Source <see cref="Vector3"/>.</param>
+        /// <param name="rotation">The <see cref="Quaternion"/> which contains rotation transformation.</param>
+        /// <param name="result">Transformed <see cref="Vector4"/> as an output parameter.</param>
+        public static void Transform(ref Vector3 value, ref Quaternion rotation, out Vector4 result)
         {
-            unsafe
+            double xx = rotation.X + rotation.X;
+            double yy = rotation.Y + rotation.Y;
+            double zz = rotation.Z + rotation.Z;
+            double wxx = rotation.W * xx;
+            double wyy = rotation.W * yy;
+            double wzz = rotation.W * zz;
+            double xxx = rotation.X * xx;
+            double xyy = rotation.X * yy;
+            double xzz = rotation.X * zz;
+            double yyy = rotation.Y * yy;
+            double yzz = rotation.Y * zz;
+            double zzz = rotation.Z * zz;
+            result.X = (float)((double)value.X * (1.0 - yyy - zzz) + (double)value.Y * (xyy - wzz) + (double)value.Z * (xzz + wyy));
+            result.Y = (float)((double)value.X * (xyy + wzz) + (double)value.Y * (1.0 - xxx - zzz) + (double)value.Z * (yzz - wxx));
+            result.Z = (float)((double)value.X * (xzz - wyy) + (double)value.Y * (yzz + wxx) + (double)value.Z * (1.0 - xxx - yyy));
+            result.W = 1f;
+        }
+
+        /// <summary>
+        /// Creates a new <see cref="Vector4"/> that contains a transformation of 4d-vector by the specified <see cref="Matrix"/>.
+        /// </summary>
+        /// <param name="value">Source <see cref="Vector4"/>.</param>
+        /// <param name="matrix">The transformation <see cref="Matrix"/>.</param>
+        /// <param name="result">Transformed <see cref="Vector4"/> as an output parameter.</param>
+        public static void Transform(ref Vector4 value, ref Matrix matrix, out Vector4 result)
+        {
+            var x = (value.X * matrix.M11) + (value.Y * matrix.M21) + (value.Z * matrix.M31) + (value.W * matrix.M41);
+            var y = (value.X * matrix.M12) + (value.Y * matrix.M22) + (value.Z * matrix.M32) + (value.W * matrix.M42);
+            var z = (value.X * matrix.M13) + (value.Y * matrix.M23) + (value.Z * matrix.M33) + (value.W * matrix.M43);
+            var w = (value.X * matrix.M14) + (value.Y * matrix.M24) + (value.Z * matrix.M34) + (value.W * matrix.M44);
+            result.X = x;
+            result.Y = y;
+            result.Z = z;
+            result.W = w;
+        }
+
+        /// <summary>
+        /// Creates a new <see cref="Vector4"/> that contains a transformation of 4d-vector by the specified <see cref="Quaternion"/>.
+        /// </summary>
+        /// <param name="value">Source <see cref="Vector4"/>.</param>
+        /// <param name="rotation">The <see cref="Quaternion"/> which contains rotation transformation.</param>
+        /// <param name="result">Transformed <see cref="Vector4"/> as an output parameter.</param>
+        public static void Transform(ref Vector4 value, ref Quaternion rotation, out Vector4 result)
+        {
+            double xx = rotation.X + rotation.X;
+            double yy = rotation.Y + rotation.Y;
+            double zz = rotation.Z + rotation.Z;
+            double wxx = rotation.W * xx;
+            double wyy = rotation.W * yy;
+            double wzz = rotation.W * zz;
+            double xxx = rotation.X * xx;
+            double xyy = rotation.X * yy;
+            double xzz = rotation.X * zz;
+            double yyy = rotation.Y * yy;
+            double yzz = rotation.Y * zz;
+            double zzz = rotation.Z * zz;
+            result.X = (float)((double)value.X * (1.0 - yyy - zzz) + (double)value.Y * (xyy - wzz) + (double)value.Z * (xzz + wyy));
+            result.Y = (float)((double)value.X * (xyy + wzz) + (double)value.Y * (1.0 - xxx - zzz) + (double)value.Z * (yzz - wxx));
+            result.Z = (float)((double)value.X * (xzz - wyy) + (double)value.Y * (yzz + wxx) + (double)value.Z * (1.0 - xxx - yyy));
+            result.W = value.W;
+        }
+
+        /// <summary>
+        /// Apply transformation on vectors within array of <see cref="Vector4"/> by the specified <see cref="Matrix"/> and places the results in an another array.
+        /// </summary>
+        /// <param name="sourceArray">Source array.</param>
+        /// <param name="sourceIndex">The starting index of transformation in the source array.</param>
+        /// <param name="matrix">The transformation <see cref="Matrix"/>.</param>
+        /// <param name="destinationArray">Destination array.</param>
+        /// <param name="destinationIndex">The starting index in the destination array, where the first <see cref="Vector4"/> should be written.</param>
+        /// <param name="length">The number of vectors to be transformed.</param>
+        public static void Transform
+        (
+            Vector4[] sourceArray,
+            int sourceIndex,
+            ref Matrix matrix,
+            Vector4[] destinationArray,
+            int destinationIndex,
+            int length
+        )
+        {
+            if (sourceArray == null)
+                throw new ArgumentNullException("sourceArray");
+            if (destinationArray == null)
+                throw new ArgumentNullException("destinationArray");
+            if (sourceArray.Length < sourceIndex + length)
+                throw new ArgumentException("Source array length is lesser than sourceIndex + length");
+            if (destinationArray.Length < destinationIndex + length)
+                throw new ArgumentException("Destination array length is lesser than destinationIndex + length");
+
+            for (var i = 0; i < length; i++)
             {
-                return (IntPtr)(&v.X);
+                var value = sourceArray[sourceIndex + i];
+                destinationArray[destinationIndex + i] = Transform(value, matrix);
             }
         }
 
-        #endregion
-
-        #region Overrides
-
-        #region public override string ToString()
-
-        private static string listSeparator = System.Globalization.CultureInfo.CurrentCulture.TextInfo.ListSeparator;
         /// <summary>
-        /// Returns a System.String that represents the current Vector4.
+        /// Apply transformation on vectors within array of <see cref="Vector4"/> by the specified <see cref="Quaternion"/> and places the results in an another array.
         /// </summary>
-        /// <returns></returns>
+        /// <param name="sourceArray">Source array.</param>
+        /// <param name="sourceIndex">The starting index of transformation in the source array.</param>
+        /// <param name="rotation">The <see cref="Quaternion"/> which contains rotation transformation.</param>
+        /// <param name="destinationArray">Destination array.</param>
+        /// <param name="destinationIndex">The starting index in the destination array, where the first <see cref="Vector4"/> should be written.</param>
+        /// <param name="length">The number of vectors to be transformed.</param>
+        public static void Transform(
+            Vector4[] sourceArray,
+            int sourceIndex,
+            ref Quaternion rotation,
+            Vector4[] destinationArray,
+            int destinationIndex,
+            int length
+            )
+        {
+            if (sourceArray == null)
+                throw new ArgumentNullException("sourceArray");
+            if (destinationArray == null)
+                throw new ArgumentNullException("destinationArray");
+            if (sourceArray.Length < sourceIndex + length)
+                throw new ArgumentException("Source array length is lesser than sourceIndex + length");
+            if (destinationArray.Length < destinationIndex + length)
+                throw new ArgumentException("Destination array length is lesser than destinationIndex + length");
+
+            for (var i = 0; i < length; i++)
+            {
+                var value = sourceArray[sourceIndex + i];
+                destinationArray[destinationIndex + i] = Transform(value, rotation);
+            }
+        }
+
+        /// <summary>
+        /// Apply transformation on all vectors within array of <see cref="Vector4"/> by the specified <see cref="Matrix"/> and places the results in an another array.
+        /// </summary>
+        /// <param name="sourceArray">Source array.</param>
+        /// <param name="matrix">The transformation <see cref="Matrix"/>.</param>
+        /// <param name="destinationArray">Destination array.</param>
+        public static void Transform(Vector4[] sourceArray, ref Matrix matrix, Vector4[] destinationArray)
+        {
+            if (sourceArray == null)
+                throw new ArgumentNullException("sourceArray");
+            if (destinationArray == null)
+                throw new ArgumentNullException("destinationArray");
+            if (destinationArray.Length < sourceArray.Length)
+                throw new ArgumentException("Destination array length is lesser than source array length");
+
+            for (var i = 0; i < sourceArray.Length; i++)
+            {
+                var value = sourceArray[i];
+                destinationArray[i] = Transform(value, matrix);
+            }
+        }
+
+        /// <summary>
+        /// Apply transformation on all vectors within array of <see cref="Vector4"/> by the specified <see cref="Quaternion"/> and places the results in an another array.
+        /// </summary>
+        /// <param name="sourceArray">Source array.</param>
+        /// <param name="rotation">The <see cref="Quaternion"/> which contains rotation transformation.</param>
+        /// <param name="destinationArray">Destination array.</param>
+        public static void Transform(Vector4[] sourceArray, ref Quaternion rotation, Vector4[] destinationArray)
+        {
+            if (sourceArray == null)
+                throw new ArgumentNullException("sourceArray");
+            if (destinationArray == null)
+                throw new ArgumentNullException("destinationArray");
+            if (destinationArray.Length < sourceArray.Length)
+                throw new ArgumentException("Destination array length is lesser than source array length");
+
+            for (var i = 0; i < sourceArray.Length; i++)
+            {
+                var value = sourceArray[i];
+                destinationArray[i] = Transform(value, rotation);
+            }
+        }
+
+        /// <summary>
+        /// Returns a <see cref="String"/> representation of this <see cref="Vector4"/> in the format:
+        /// {X:[<see cref="X"/>] Y:[<see cref="Y"/>] Z:[<see cref="Z"/>] W:[<see cref="W"/>]}
+        /// </summary>
+        /// <returns>A <see cref="String"/> representation of this <see cref="Vector4"/>.</returns>
         public override string ToString()
         {
-            return String.Format("({0}{4} {1}{4} {2}{4} {3})", X, Y, Z, W, listSeparator);
+            return "{X:" + X + " Y:" + Y + " Z:" + Z + " W:" + W + "}";
         }
-
-        #endregion
-
-        #region public override int GetHashCode()
 
         /// <summary>
-        /// Returns the hashcode for this instance.
+        /// Inverts values in the specified <see cref="Vector4"/>.
         /// </summary>
-        /// <returns>A System.Int32 containing the unique hashcode for this instance.</returns>
-        public override int GetHashCode()
+        /// <param name="value">Source <see cref="Vector4"/> on the right of the sub sign.</param>
+        /// <returns>Result of the inversion.</returns>
+        public static Vector4 operator -(Vector4 value)
         {
-            return X.GetHashCode() ^ Y.GetHashCode() ^ Z.GetHashCode() ^ W.GetHashCode();
+            return new Vector4(-value.X, -value.Y, -value.Z, -value.W);
         }
-
-        #endregion
-
-        #region public override bool Equals(object obj)
 
         /// <summary>
-        /// Indicates whether this instance and a specified object are equal.
+        /// Compares whether two <see cref="Vector4"/> instances are equal.
         /// </summary>
-        /// <param name="obj">The object to compare to.</param>
-        /// <returns>True if the instances are equal; false otherwise.</returns>
-        public override bool Equals(object obj)
+        /// <param name="value1"><see cref="Vector4"/> instance on the left of the equal sign.</param>
+        /// <param name="value2"><see cref="Vector4"/> instance on the right of the equal sign.</param>
+        /// <returns><c>true</c> if the instances are equal; <c>false</c> otherwise.</returns>
+        public static bool operator ==(Vector4 value1, Vector4 value2)
         {
-            if (!(obj is Vector4))
-                return false;
-
-            return this.Equals((Vector4)obj);
+            return value1.W == value2.W
+                && value1.X == value2.X
+                && value1.Y == value2.Y
+                && value1.Z == value2.Z;
         }
 
-        #endregion
-
-        #endregion
-
-        #endregion
-
-        #region IEquatable<Vector4> Members
-
-        /// <summary>Indicates whether the current vector is equal to another vector.</summary>
-        /// <param name="other">A vector to compare with this vector.</param>
-        /// <returns>true if the current vector is equal to the vector parameter; otherwise, false.</returns>
-        public bool Equals(Vector4 other)
+        /// <summary>
+        /// Compares whether two <see cref="Vector4"/> instances are not equal.
+        /// </summary>
+        /// <param name="value1"><see cref="Vector4"/> instance on the left of the not equal sign.</param>
+        /// <param name="value2"><see cref="Vector4"/> instance on the right of the not equal sign.</param>
+        /// <returns><c>true</c> if the instances are not equal; <c>false</c> otherwise.</returns>
+        public static bool operator !=(Vector4 value1, Vector4 value2)
         {
-            return
-                X == other.X &&
-                Y == other.Y &&
-                Z == other.Z &&
-                W == other.W;
+            return !(value1 == value2);
         }
 
-        #endregion
+        /// <summary>
+        /// Adds two vectors.
+        /// </summary>
+        /// <param name="value1">Source <see cref="Vector4"/> on the left of the add sign.</param>
+        /// <param name="value2">Source <see cref="Vector4"/> on the right of the add sign.</param>
+        /// <returns>Sum of the vectors.</returns>
+        public static Vector4 operator +(Vector4 value1, Vector4 value2)
+        {
+            value1.W += value2.W;
+            value1.X += value2.X;
+            value1.Y += value2.Y;
+            value1.Z += value2.Z;
+            return value1;
+        }
+
+        /// <summary>
+        /// Subtracts a <see cref="Vector4"/> from a <see cref="Vector4"/>.
+        /// </summary>
+        /// <param name="value1">Source <see cref="Vector4"/> on the left of the sub sign.</param>
+        /// <param name="value2">Source <see cref="Vector4"/> on the right of the sub sign.</param>
+        /// <returns>Result of the vector subtraction.</returns>
+        public static Vector4 operator -(Vector4 value1, Vector4 value2)
+        {
+            value1.W -= value2.W;
+            value1.X -= value2.X;
+            value1.Y -= value2.Y;
+            value1.Z -= value2.Z;
+            return value1;
+        }
+
+        /// <summary>
+        /// Multiplies the components of two vectors by each other.
+        /// </summary>
+        /// <param name="value1">Source <see cref="Vector4"/> on the left of the mul sign.</param>
+        /// <param name="value2">Source <see cref="Vector4"/> on the right of the mul sign.</param>
+        /// <returns>Result of the vector multiplication.</returns>
+        public static Vector4 operator *(Vector4 value1, Vector4 value2)
+        {
+            value1.W *= value2.W;
+            value1.X *= value2.X;
+            value1.Y *= value2.Y;
+            value1.Z *= value2.Z;
+            return value1;
+        }
+
+        /// <summary>
+        /// Multiplies the components of vector by a scalar.
+        /// </summary>
+        /// <param name="value">Source <see cref="Vector4"/> on the left of the mul sign.</param>
+        /// <param name="scaleFactor">Scalar value on the right of the mul sign.</param>
+        /// <returns>Result of the vector multiplication with a scalar.</returns>
+        public static Vector4 operator *(Vector4 value, float scaleFactor)
+        {
+            value.W *= scaleFactor;
+            value.X *= scaleFactor;
+            value.Y *= scaleFactor;
+            value.Z *= scaleFactor;
+            return value;
+        }
+
+        /// <summary>
+        /// Multiplies the components of vector by a scalar.
+        /// </summary>
+        /// <param name="scaleFactor">Scalar value on the left of the mul sign.</param>
+        /// <param name="value">Source <see cref="Vector4"/> on the right of the mul sign.</param>
+        /// <returns>Result of the vector multiplication with a scalar.</returns>
+        public static Vector4 operator *(float scaleFactor, Vector4 value)
+        {
+            value.W *= scaleFactor;
+            value.X *= scaleFactor;
+            value.Y *= scaleFactor;
+            value.Z *= scaleFactor;
+            return value;
+        }
+
+        /// <summary>
+        /// Divides the components of a <see cref="Vector4"/> by the components of another <see cref="Vector4"/>.
+        /// </summary>
+        /// <param name="value1">Source <see cref="Vector4"/> on the left of the div sign.</param>
+        /// <param name="value2">Divisor <see cref="Vector4"/> on the right of the div sign.</param>
+        /// <returns>The result of dividing the vectors.</returns>
+        public static Vector4 operator /(Vector4 value1, Vector4 value2)
+        {
+            value1.W /= value2.W;
+            value1.X /= value2.X;
+            value1.Y /= value2.Y;
+            value1.Z /= value2.Z;
+            return value1;
+        }
+
+        /// <summary>
+        /// Divides the components of a <see cref="Vector4"/> by a scalar.
+        /// </summary>
+        /// <param name="value1">Source <see cref="Vector4"/> on the left of the div sign.</param>
+        /// <param name="divider">Divisor scalar on the right of the div sign.</param>
+        /// <returns>The result of dividing a vector by a scalar.</returns>
+        public static Vector4 operator /(Vector4 value1, float divider)
+        {
+            float factor = 1f / divider;
+            value1.W *= factor;
+            value1.X *= factor;
+            value1.Y *= factor;
+            value1.Z *= factor;
+            return value1;
+        }
     }
 }

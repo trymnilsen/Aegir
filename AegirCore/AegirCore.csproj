@@ -113,11 +113,10 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AegirMath\AegirMath.csproj">
-      <Project>{5fb60e8e-f2d4-480f-8ecf-f86b061d27a6}</Project>
+      <Project>{d69e72f0-2c6b-4c14-a6f8-9fe3f9059395}</Project>
       <Name>AegirMath</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Analyzer Include="..\packages\Microsoft.CodeAnalysis.Analyzers.1.0.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.Analyzers.dll" />
     <Analyzer Include="..\packages\Microsoft.CodeAnalysis.Analyzers.1.0.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.CSharp.Analyzers.dll" />

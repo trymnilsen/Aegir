@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("AegirMath")]
+[assembly: AssemblyTitle("AegirMathTest")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("AegirMath")]
+[assembly: AssemblyProduct("AegirMathTest")]
 [assembly: AssemblyCopyright("Copyright ©  2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("d69e72f0-2c6b-4c14-a6f8-9fe3f9059395")]
+[assembly: Guid("0425e499-2ea6-4a12-9f77-be6a512aa910")]
 
 // Version information for an assembly consists of the following four values:
 //

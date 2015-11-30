@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{5FB60E8E-F2D4-480F-8ECF-F86B061D27A6}</ProjectGuid>
+    <ProjectGuid>{D69E72F0-2C6B-4C14-A6F8-9FE3F9059395}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>AegirMath</RootNamespace>
@@ -21,7 +21,6 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -42,46 +41,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BezierCurve.cs" />
-    <Compile Include="BezierCurveCubic.cs" />
-    <Compile Include="BezierCurveQuadric.cs" />
-    <Compile Include="Box2.cs" />
-    <Compile Include="Functions.cs" />
-    <Compile Include="Half.cs" />
+    <Compile Include="BoundingBox.cs" />
+    <Compile Include="BoundingFrustrum.cs" />
+    <Compile Include="BoundingSphere.cs" />
+    <Compile Include="ContainmentType.cs" />
     <Compile Include="MathHelper.cs" />
-    <Compile Include="Matrix2.cs" />
-    <Compile Include="Matrix2d.cs" />
-    <Compile Include="Matrix2x3.cs" />
-    <Compile Include="Matrix2x3d.cs" />
-    <Compile Include="Matrix2x4.cs" />
-    <Compile Include="Matrix2x4d.cs" />
-    <Compile Include="Matrix3.cs" />
-    <Compile Include="Matrix3d.cs" />
-    <Compile Include="Matrix3x2.cs" />
-    <Compile Include="Matrix3x2d.cs" />
-    <Compile Include="Matrix3x4.cs" />
-    <Compile Include="Matrix3x4d.cs" />
-    <Compile Include="Matrix4.cs" />
-    <Compile Include="Matrix4d.cs" />
-    <Compile Include="Matrix4x2.cs" />
-    <Compile Include="Matrix4x2d.cs" />
-    <Compile Include="Matrix4x3.cs" />
-    <Compile Include="Matrix4x3d.cs" />
+    <Compile Include="Matrix.cs" />
+    <Compile Include="Plane.cs" />
+    <Compile Include="PlaneHelper.cs" />
+    <Compile Include="PlaneIntersectionType.cs" />
     <Compile Include="Point.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Quaternion.cs" />
-    <Compile Include="Quaterniond.cs" />
+    <Compile Include="Ray.cs" />
     <Compile Include="Rectangle.cs" />
-    <Compile Include="Size.cs" />
     <Compile Include="Vector2.cs" />
-    <Compile Include="Vector2d.cs" />
-    <Compile Include="Vector2h.cs" />
     <Compile Include="Vector3.cs" />
-    <Compile Include="Vector3d.cs" />
-    <Compile Include="Vector3h.cs" />
     <Compile Include="Vector4.cs" />
-    <Compile Include="Vector4d.cs" />
-    <Compile Include="Vector4h.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

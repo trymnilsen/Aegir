@@ -1,235 +1,188 @@
-#region License
- //
- // The Open Toolkit Library License
- //
- // Copyright (c) 2006 - 2009 the Open Toolkit library.
- //
- // Permission is hereby granted, free of charge, to any person obtaining a copy
- // of this software and associated documentation files (the "Software"), to deal
- // in the Software without restriction, including without limitation the rights to 
- // use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
- // the Software, and to permit persons to whom the Software is furnished to do
- // so, subject to the following conditions:
- //
- // The above copyright notice and this permission notice shall be included in all
- // copies or substantial portions of the Software.
- //
- // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
- // EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
- // OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
- // NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
- // HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
- // WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
- // FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
- // OTHER DEALINGS IN THE SOFTWARE.
- //
- #endregion
- 
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
-namespace OpenTK
+namespace AegirMath
 {
-#if MINIMAL
     /// <summary>
-    /// Defines a point on a two-dimensional plane.
+    /// Describes a 2D-point.
     /// </summary>
+    [DebuggerDisplay("{DebugDisplayString,nq}")]
     public struct Point : IEquatable<Point>
     {
-        #region Fields
 
-        int x, y;
+        private static readonly Point zeroPoint = new Point();
 
-        #endregion
-
-        #region Constructors
 
         /// <summary>
-        /// Constructs a new Point instance.
+        /// The x coordinate of this <see cref="Point"/>.
         /// </summary>
-        /// <param name="x">The X coordinate of this instance.</param>
-        /// <param name="y">The Y coordinate of this instance.</param>
+        public int X;
+
+        /// <summary>
+        /// The y coordinate of this <see cref="Point"/>.
+        /// </summary>
+        public int Y;
+
+        /// <summary>
+        /// Returns a <see cref="Point"/> with coordinates 0, 0.
+        /// </summary>
+        public static Point Zero
+        {
+            get { return zeroPoint; }
+        }
+
+
+        internal string DebugDisplayString
+        {
+            get
+            {
+                return string.Concat(
+                    this.X.ToString(), "  ",
+                    this.Y.ToString()
+                );
+            }
+        }
+
+
+        /// <summary>
+        /// Constructs a point with X and Y from two values.
+        /// </summary>
+        /// <param name="x">The x coordinate in 2d-space.</param>
+        /// <param name="y">The y coordinate in 2d-space.</param>
         public Point(int x, int y)
-            : this()
         {
-            X = x;
-            Y = y;
-        }
-
-        #endregion
-
-        #region Public Members
-
-        /// <summary>
-        /// Gets a <see cref="System.Boolean"/> that indicates whether this instance is empty or zero.
-        /// </summary>
-        public bool IsEmpty { get { return X == 0 && Y == 0; } }
-
-        /// <summary>
-        /// Gets or sets the X coordinate of this instance.
-        /// </summary>
-        public int X { get { return x; } set { x = value; } }
-
-        /// <summary>
-        /// Gets or sets the Y coordinate of this instance.
-        /// </summary>
-        public int Y { get { return y; } set { y = value; } }
-
-        /// <summary>
-        /// Returns the Point (0, 0).
-        /// </summary>
-        public static readonly Point Zero = new Point();
-
-        /// <summary>
-        /// Returns the Point (0, 0).
-        /// </summary>
-        public static readonly Point Empty = new Point();
-
-        /// <summary>
-        /// Translates the specified Point by the specified Size.
-        /// </summary>
-        /// <param name="point">
-        /// The <see cref="Point"/> instance to translate.
-        /// </param>
-        /// <param name="size">
-        /// The <see cref="Size"/> instance to translate point with.
-        /// </param>
-        /// <returns>
-        /// A new <see cref="Point"/> instance translated by size.
-        /// </returns>
-        public static Point operator +(Point point, Size size)
-        {
-            return new Point(point.X + size.Width, point.Y + size.Height);
+            this.X = x;
+            this.Y = y;
         }
 
         /// <summary>
-        /// Translates the specified Point by the negative of the specified Size.
+        /// Constructs a point with X and Y set to the same value.
         /// </summary>
-        /// <param name="point">
-        /// The <see cref="Point"/> instance to translate.
-        /// </param>
-        /// <param name="size">
-        /// The <see cref="Size"/> instance to translate point with.
-        /// </param>
-        /// <returns>
-        /// A new <see cref="Point"/> instance translated by size.
-        /// </returns>
-        public static Point operator -(Point point, Size size)
+        /// <param name="value">The x and y coordinates in 2d-space.</param>
+        public Point(int value)
         {
-            return new Point(point.X - size.Width, point.Y - size.Height);
-          }
+            this.X = value;
+            this.Y = value;
+        }
+
 
         /// <summary>
-        /// Compares two instances for equality.
+        /// Adds two points.
         /// </summary>
-        /// <param name="left">The first instance.</param>
-        /// <param name="right">The second instance.</param>
-        /// <returns>True, if left is equal to right; false otherwise.</returns>
-        public static bool operator ==(Point left, Point right)
+        /// <param name="value1">Source <see cref="Point"/> on the left of the add sign.</param>
+        /// <param name="value2">Source <see cref="Point"/> on the right of the add sign.</param>
+        /// <returns>Sum of the points.</returns>
+        public static Point operator +(Point value1, Point value2)
         {
-            return left.Equals(right);
+            return new Point(value1.X + value2.X, value1.Y + value2.Y);
         }
 
         /// <summary>
-        /// Compares two instances for inequality.
+        /// Subtracts a <see cref="Point"/> from a <see cref="Point"/>.
         /// </summary>
-        /// <param name="left">The first instance.</param>
-        /// <param name="right">The second instance.</param>
-        /// <returns>True, if left is not equal to right; false otherwise.</returns>
-        public static bool operator !=(Point left, Point right)
+        /// <param name="value1">Source <see cref="Point"/> on the left of the sub sign.</param>
+        /// <param name="value2">Source <see cref="Point"/> on the right of the sub sign.</param>
+        /// <returns>Result of the subtraction.</returns>
+        public static Point operator -(Point value1, Point value2)
         {
-            return !left.Equals(right);
+            return new Point(value1.X - value2.X, value1.Y - value2.Y);
         }
 
         /// <summary>
-        /// Converts an OpenTK.Point instance to a System.Drawing.Point.
+        /// Multiplies the components of two points by each other.
         /// </summary>
-        /// <param name="point">
-        /// The <see cref="Point"/> instance to convert.
-        /// </param>
-        /// <returns>
-        /// A <see cref="System.Drawing.Point"/> instance equivalent to point.
-        /// </returns>
-        public static implicit operator System.Drawing.Point(Point point)
+        /// <param name="value1">Source <see cref="Point"/> on the left of the mul sign.</param>
+        /// <param name="value2">Source <see cref="Point"/> on the right of the mul sign.</param>
+        /// <returns>Result of the multiplication.</returns>
+        public static Point operator *(Point value1, Point value2)
         {
-            return new System.Drawing.Point(point.X, point.Y);
+            return new Point(value1.X * value2.X, value1.Y * value2.Y);
         }
 
         /// <summary>
-        /// Converts a System.Drawing.Point instance to an OpenTK.Point.
+        /// Divides the components of a <see cref="Point"/> by the components of another <see cref="Point"/>.
         /// </summary>
-        /// <param name="point">
-        /// The <see cref="System.Drawing.Point"/> instance to convert.
-        /// </param>
-        /// <returns>
-        /// A <see cref="Point"/> instance equivalent to point.
-        /// </returns>
-        public static implicit operator Point(System.Drawing.Point point)
+        /// <param name="source">Source <see cref="Point"/> on the left of the div sign.</param>
+        /// <param name="divisor">Divisor <see cref="Point"/> on the right of the div sign.</param>
+        /// <returns>The result of dividing the points.</returns>
+        public static Point operator /(Point source, Point divisor)
         {
-            return new Point(point.X, point.Y);
+            return new Point(source.X / divisor.X, source.Y / divisor.Y);
         }
 
         /// <summary>
-        /// Converts an OpenTK.Point instance to a System.Drawing.PointF.
+        /// Compares whether two <see cref="Point"/> instances are equal.
         /// </summary>
-        /// <param name="point">
-        /// The <see cref="Point"/> instance to convert.
-        /// </param>
-        /// <returns>
-        /// A <see cref="System.Drawing.PointF"/> instance equivalent to point.
-        /// </returns>
-        public static implicit operator System.Drawing.PointF(Point point)
+        /// <param name="a"><see cref="Point"/> instance on the left of the equal sign.</param>
+        /// <param name="b"><see cref="Point"/> instance on the right of the equal sign.</param>
+        /// <returns><c>true</c> if the instances are equal; <c>false</c> otherwise.</returns>
+        public static bool operator ==(Point a, Point b)
         {
-            return new System.Drawing.PointF(point.X, point.Y);
+            return a.Equals(b);
         }
 
         /// <summary>
-        /// Indicates whether this instance is equal to the specified object.
+        /// Compares whether two <see cref="Point"/> instances are not equal.
         /// </summary>
-        /// <param name="obj">The object instance to compare to.</param>
-        /// <returns>True, if both instances are equal; false otherwise.</returns>
+        /// <param name="a"><see cref="Point"/> instance on the left of the not equal sign.</param>
+        /// <param name="b"><see cref="Point"/> instance on the right of the not equal sign.</param>
+        /// <returns><c>true</c> if the instances are not equal; <c>false</c> otherwise.</returns>	
+        public static bool operator !=(Point a, Point b)
+        {
+            return !a.Equals(b);
+        }
+
+        /// <summary>
+        /// Compares whether current instance is equal to specified <see cref="Object"/>.
+        /// </summary>
+        /// <param name="obj">The <see cref="Object"/> to compare.</param>
+        /// <returns><c>true</c> if the instances are equal; <c>false</c> otherwise.</returns>
         public override bool Equals(object obj)
         {
-            if (obj is Point)
-                return Equals((Point)obj);
-
-            return false;
+            return (obj is Point) && Equals((Point)obj);
         }
 
         /// <summary>
-        /// Returns the hash code for this instance.
+        /// Compares whether current instance is equal to specified <see cref="Point"/>.
         /// </summary>
-        /// <returns>A <see cref="System.Int32"/> that represents the hash code for this instance./></returns>
-        public override int GetHashCode()
-        {
-            return X.GetHashCode() ^ Y.GetHashCode();
-        }
-
-        /// <summary>
-        /// Returns a <see cref="System.String"/> that describes this instance.
-        /// </summary>
-        /// <returns>A <see cref="System.String"/> that describes this instance.</returns>
-        public override string ToString()
-        {
-            return String.Format("{{{0}, {1}}}", X, Y);
-        }
-
-        #endregion
-
-        #region IEquatable<Point> Members
-
-        /// <summary>
-        /// Indicates whether this instance is equal to the specified Point.
-        /// </summary>
-        /// <param name="other">The instance to compare to.</param>
-        /// <returns>True, if both instances are equal; false otherwise.</returns>
+        /// <param name="other">The <see cref="Point"/> to compare.</param>
+        /// <returns><c>true</c> if the instances are equal; <c>false</c> otherwise.</returns>
         public bool Equals(Point other)
         {
-            return X == other.X && Y == other.Y;
+            return ((X == other.X) && (Y == other.Y));
         }
 
-        #endregion
+        /// <summary>
+        /// Gets the hash code of this <see cref="Point"/>.
+        /// </summary>
+        /// <returns>Hash code of this <see cref="Point"/>.</returns>
+        public override int GetHashCode()
+        {
+            return X ^ Y;
+        }
+
+        /// <summary>
+        /// Returns a <see cref="String"/> representation of this <see cref="Point"/> in the format:
+        /// {X:[<see cref="X"/>] Y:[<see cref="Y"/>]}
+        /// </summary>
+        /// <returns><see cref="String"/> representation of this <see cref="Point"/>.</returns>
+        public override string ToString()
+        {
+            return "{X:" + X + " Y:" + Y + "}";
+        }
+
+        /// <summary>
+        /// Gets a <see cref="Vector2"/> representation for this object.
+        /// </summary>
+        /// <returns>A <see cref="Vector2"/> representation for this object.</returns>
+        public Vector2 ToVector2()
+        {
+            return new Vector2(X, Y);
+        }
+
     }
-#endif
 }

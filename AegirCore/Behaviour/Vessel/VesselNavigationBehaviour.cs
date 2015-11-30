@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AegirCore.Simulation;
-using OpenTK;
 using AegirCore.Behaviour.World;
 using System.Diagnostics;
+using AegirMath;
 
 namespace AegirCore.Behaviour.Vessel
 {
@@ -58,9 +58,9 @@ namespace AegirCore.Behaviour.Vessel
             double rotRads = rateOfTurn * (Math.PI / 180);
             double stepRot = rotRads / (60 * time.TrueUpdatePerSecond);
             double newHeading = Heading + stepRot;
-            Vector3d newMovement = new Vector3d(Math.Cos(newHeading + Math.PI / 2) * Speed, Math.Sin(newHeading + Math.PI / 2) * Speed, 0);
-            Vector3d transformPos = transform.Position;
-            Vector3d newPosition = transformPos + newMovement;
+            Vector3 newMovement = new Vector3((float)Math.Cos(newHeading + Math.PI / 2) * (float)Speed, (float)Math.Sin(newHeading + Math.PI / 2) * (float)Speed, 0);
+            Vector3 transformPos = transform.Position;
+            Vector3 newPosition = transformPos + newMovement;
             Debug.WriteLine("Speed: " + Speed + " New Pos:" + newPosition.X + " / " + newPosition.Y);
             transform.Position = transform.Position + newMovement;
             transform.RotateHeading(newHeading);

@@ -1,4 +1,4 @@
-﻿using OpenTK;
+﻿using AegirMath;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +15,7 @@ namespace AegirCore.Simulation.Water
         public float Speed;
         public float Phase; // speed * 2*PI / wavelength
         public float Angle;
-        public Vector2d Dir;
+        public Vector2 Dir;
         public override string ToString()
         {
             return "L: " + Len.ToString("0.00") +

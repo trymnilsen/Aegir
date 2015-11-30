@@ -1,323 +1,489 @@
-#region License
- //
- // The Open Toolkit Library License
- //
- // Copyright (c) 2006 - 2009 the Open Toolkit library.
- //
- // Permission is hereby granted, free of charge, to any person obtaining a copy
- // of this software and associated documentation files (the "Software"), to deal
- // in the Software without restriction, including without limitation the rights to 
- // use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
- // the Software, and to permit persons to whom the Software is furnished to do
- // so, subject to the following conditions:
- //
- // The above copyright notice and this permission notice shall be included in all
- // copies or substantial portions of the Software.
- //
- // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
- // EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
- // OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
- // NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
- // HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
- // WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
- // FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
- // OTHER DEALINGS IN THE SOFTWARE.
- //
- #endregion
- 
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
-namespace OpenTK
+namespace AegirMath
 {
-#if MINIMAL
     /// <summary>
-    /// Represents a rectangular region on a two-dimensional plane.
+    /// Describes a 2D-rectangle. 
     /// </summary>
+    [DebuggerDisplay("{DebugDisplayString,nq}")]
     public struct Rectangle : IEquatable<Rectangle>
     {
-        #region Fields
+        private static Rectangle emptyRectangle = new Rectangle();
 
-        Point location;
-        Size size;
-
-        #endregion
-
-        #region Constructors
 
         /// <summary>
-        /// Constructs a new Rectangle instance.
+        /// The x coordinate of the top-left corner of this <see cref="Rectangle"/>.
         /// </summary>
-        /// <param name="location">The top-left corner of the Rectangle.</param>
-        /// <param name="size">The width and height of the Rectangle.</param>
-        public Rectangle(Point location, Size size)
-            : this()
+        public int X;
+
+        /// <summary>
+        /// The y coordinate of the top-left corner of this <see cref="Rectangle"/>.
+        /// </summary>
+        public int Y;
+
+        /// <summary>
+        /// The width of this <see cref="Rectangle"/>.
+        /// </summary>
+        public int Width;
+
+        /// <summary>
+        /// The height of this <see cref="Rectangle"/>.
+        /// </summary>
+        public int Height;
+
+
+        /// <summary>
+        /// Returns a <see cref="Rectangle"/> with X=0, Y=0, Width=0, Height=0.
+        /// </summary>
+        public static Rectangle Empty
         {
-            Location = location;
-            Size = size;
+            get { return emptyRectangle; }
         }
-        
-        /// <summary>
-        /// Constructs a new Rectangle instance.
-        /// </summary>
-        /// <param name="x">The x coordinate of the Rectangle.</param>
-        /// <param name="y">The y coordinate of the Rectangle.</param>
-        /// <param name="width">The width coordinate of the Rectangle.</param>
-        /// <param name="height">The height coordinate of the Rectangle.</param>
-        public Rectangle(int x, int y, int width, int height)
-            : this(new Point(x, y), new Size(width, height))
-        { }
-
-        #endregion
-
-        #region Public Members
 
         /// <summary>
-        /// Gets or sets the x coordinate of the Rectangle.
+        /// Returns the x coordinate of the left edge of this <see cref="Rectangle"/>.
         /// </summary>
-        public int X
+        public int Left
         {
-            get { return Location.X; }
-            set { Location = new Point (value, Y); }
+            get { return this.X; }
         }
 
         /// <summary>
-        /// Gets or sets the y coordinate of the Rectangle.
+        /// Returns the x coordinate of the right edge of this <see cref="Rectangle"/>.
         /// </summary>
-        public int Y
+        public int Right
         {
-            get { return Location.Y; }
-            set { Location = new Point (X, value); }
+            get { return (this.X + this.Width); }
         }
 
         /// <summary>
-        /// Gets or sets the width of the Rectangle.
+        /// Returns the y coordinate of the top edge of this <see cref="Rectangle"/>.
         /// </summary>
-        public int Width
-        { 
-            get { return Size.Width; }
-            set { Size = new Size (value, Height); }
-        }
-
-        /// <summary>
-        /// Gets or sets the height of the Rectangle.
-        /// </summary>
-        public int Height
+        public int Top
         {
-            get { return Size.Height; }
-            set { Size = new Size(Width, value); }
+            get { return this.Y; }
         }
 
         /// <summary>
-        /// Gets or sets a <see cref="Point"/> representing the x and y coordinates
-        /// of the Rectangle.
+        /// Returns the y coordinate of the bottom edge of this <see cref="Rectangle"/>.
+        /// </summary>
+        public int Bottom
+        {
+            get { return (this.Y + this.Height); }
+        }
+
+        /// <summary>
+        /// Whether or not this <see cref="Rectangle"/> has a <see cref="Width"/> and
+        /// <see cref="Height"/> of 0, and a <see cref="Location"/> of (0, 0).
+        /// </summary>
+        public bool IsEmpty
+        {
+            get
+            {
+                return ((((this.Width == 0) && (this.Height == 0)) && (this.X == 0)) && (this.Y == 0));
+            }
+        }
+
+        /// <summary>
+        /// The top-left coordinates of this <see cref="Rectangle"/>.
         /// </summary>
         public Point Location
         {
-            get { return location; }
-            set { location = value; }
+            get
+            {
+                return new Point(this.X, this.Y);
+            }
+            set
+            {
+                X = value.X;
+                Y = value.Y;
+            }
         }
 
         /// <summary>
-        /// Gets or sets a <see cref="Size"/> representing the width and height
-        /// of the Rectangle.
+        /// The width-height coordinates of this <see cref="Rectangle"/>.
         /// </summary>
-        public Size Size
+        public Point Size
         {
-            get { return size; }
-            set { size = value; }
+            get
+            {
+                return new Point(this.Width, this.Height);
+            }
+            set
+            {
+                Width = value.X;
+                Height = value.Y;
+            }
         }
 
         /// <summary>
-        /// Gets the y coordinate of the top edge of this Rectangle.
+        /// A <see cref="Point"/> located in the center of this <see cref="Rectangle"/>.
         /// </summary>
-        public int Top { get { return Y; } }
-
-        /// <summary>
-        /// Gets the x coordinate of the right edge of this Rectangle.
-        /// </summary>
-        public int Right { get { return X + Width; } }
-
-        /// <summary>
-        /// Gets the y coordinate of the bottom edge of this Rectangle.
-        /// </summary>
-        public int Bottom { get { return Y + Height; } }
-
-        /// <summary>
-        /// Gets the x coordinate of the left edge of this Rectangle.
-        /// </summary>
-        public int Left { get { return X; } }
-
-        /// <summary>
-        /// Gets a <see cref="System.Boolean"/> that indicates whether this
-        /// Rectangle is equal to the empty Rectangle.
-        /// </summary>
-        public bool IsEmpty 
+        /// <remarks>
+        /// If <see cref="Width"/> or <see cref="Height"/> is an odd number,
+        /// the center point will be rounded down.
+        /// </remarks>
+        public Point Center
         {
-            get { return Location.IsEmpty && Size.IsEmpty; }
+            get
+            {
+                return new Point(this.X + (this.Width / 2), this.Y + (this.Height / 2));
+            }
         }
 
-        /// <summary>
-        /// Defines the empty Rectangle.
-        /// </summary>
-        public static readonly Rectangle Zero = new Rectangle();
 
-        /// <summary>
-        /// Defines the empty Rectangle.
-        /// </summary>
-        public static readonly Rectangle Empty = new Rectangle();
-
-        /// <summary>
-        /// Constructs a new instance with the specified edges.
-        /// </summary>
-        /// <param name="left">The left edge of the Rectangle.</param>
-        /// <param name="top">The top edge of the Rectangle.</param>
-        /// <param name="right">The right edge of the Rectangle.</param>
-        /// <param name="bottom">The bottom edge of the Rectangle.</param>
-        /// <returns>A new Rectangle instance with the specified edges.</returns>
-        public static Rectangle FromLTRB(int left, int top, int right, int bottom)
+        internal string DebugDisplayString
         {
-            return new Rectangle(new Point(left, top), new Size(right - left, bottom - top));
+            get
+            {
+                return string.Concat(
+                    this.X, "  ",
+                    this.Y, "  ",
+                    this.Width, "  ",
+                    this.Height
+                    );
+            }
         }
 
+
         /// <summary>
-        /// Tests whether this instance contains the specified Point.
+        /// Creates a new instance of <see cref="Rectangle"/> struct, with the specified
+        /// position, width, and height.
         /// </summary>
-        /// <param name="point">The <see cref="Point"/> to test.</param>
-        /// <returns>True if this instance contains point; false otherwise.</returns>
-        /// <remarks>The left and top edges are inclusive. The right and bottom edges
-        /// are exclusive.</remarks>
-        public bool Contains(Point point)
+        /// <param name="x">The x coordinate of the top-left corner of the created <see cref="Rectangle"/>.</param>
+        /// <param name="y">The y coordinate of the top-left corner of the created <see cref="Rectangle"/>.</param>
+        /// <param name="width">The width of the created <see cref="Rectangle"/>.</param>
+        /// <param name="height">The height of the created <see cref="Rectangle"/>.</param>
+        public Rectangle(int x, int y, int width, int height)
         {
-            return point.X >= Left && point.X < Right && 
-                point.Y >= Top && point.Y < Bottom;
+            this.X = x;
+            this.Y = y;
+            this.Width = width;
+            this.Height = height;
         }
 
         /// <summary>
-        /// Tests whether this instance contains the specified Rectangle.
+        /// Creates a new instance of <see cref="Rectangle"/> struct, with the specified
+        /// location and size.
         /// </summary>
-        /// <param name="rect">The <see cref="Rectangle"/> to test.</param>
-        /// <returns>True if this instance contains rect; false otherwise.</returns>
-        /// <remarks>The left and top edges are inclusive. The right and bottom edges
-        /// are exclusive.</remarks>
-        public bool Contains(Rectangle rect)
+        /// <param name="location">The x and y coordinates of the top-left corner of the created <see cref="Rectangle"/>.</param>
+        /// <param name="size">The width and height of the created <see cref="Rectangle"/>.</param>
+        public Rectangle(Point location, Point size)
         {
-            return Contains(rect.Location) && Contains(rect.Location + rect.Size);
+            this.X = location.X;
+            this.Y = location.Y;
+            this.Width = size.X;
+            this.Height = size.Y;
         }
 
+
         /// <summary>
-        /// Compares two instances for equality.
+        /// Compares whether two <see cref="Rectangle"/> instances are equal.
         /// </summary>
-        /// <param name="left">The first instance.</param>
-        /// <param name="right">The second instance.</param>
-        /// <returns>True, if left is equal to right; false otherwise.</returns>
-        public static bool operator ==(Rectangle left, Rectangle right)
+        /// <param name="a"><see cref="Rectangle"/> instance on the left of the equal sign.</param>
+        /// <param name="b"><see cref="Rectangle"/> instance on the right of the equal sign.</param>
+        /// <returns><c>true</c> if the instances are equal; <c>false</c> otherwise.</returns>
+        public static bool operator ==(Rectangle a, Rectangle b)
         {
-            return left.Equals(right);
+            return ((a.X == b.X) && (a.Y == b.Y) && (a.Width == b.Width) && (a.Height == b.Height));
         }
 
         /// <summary>
-        /// Compares two instances for inequality.
+        /// Compares whether two <see cref="Rectangle"/> instances are not equal.
         /// </summary>
-        /// <param name="left">The first instance.</param>
-        /// <param name="right">The second instance.</param>
-        /// <returns>True, if left is not equal to right; false otherwise.</returns>
-        public static bool operator !=(Rectangle left, Rectangle right)
+        /// <param name="a"><see cref="Rectangle"/> instance on the left of the not equal sign.</param>
+        /// <param name="b"><see cref="Rectangle"/> instance on the right of the not equal sign.</param>
+        /// <returns><c>true</c> if the instances are not equal; <c>false</c> otherwise.</returns>
+        public static bool operator !=(Rectangle a, Rectangle b)
         {
-            return !left.Equals(right);
+            return !(a == b);
         }
 
+
         /// <summary>
-        /// Converts an OpenTK.Rectangle instance to a System.Drawing.Rectangle.
+        /// Gets whether or not the provided coordinates lie within the bounds of this <see cref="Rectangle"/>.
         /// </summary>
-        /// <param name="rect">
-        /// The <see cref="Rectangle"/> instance to convert.
-        /// </param>
-        /// <returns>
-        /// A <see cref="System.Drawing.Rectangle"/> instance equivalent to rect.
-        /// </returns>
-        public static implicit operator System.Drawing.Rectangle(Rectangle rect)
+        /// <param name="x">The x coordinate of the point to check for containment.</param>
+        /// <param name="y">The y coordinate of the point to check for containment.</param>
+        /// <returns><c>true</c> if the provided coordinates lie inside this <see cref="Rectangle"/>; <c>false</c> otherwise.</returns>
+        public bool Contains(int x, int y)
         {
-            return new System.Drawing.Rectangle(rect.Location, rect.Size);
+            return ((((this.X <= x) && (x < (this.X + this.Width))) && (this.Y <= y)) && (y < (this.Y + this.Height)));
         }
 
         /// <summary>
-        /// Converts a System.Drawing.Rectangle instance to an OpenTK.Rectangle.
+        /// Gets whether or not the provided coordinates lie within the bounds of this <see cref="Rectangle"/>.
         /// </summary>
-        /// <param name="rect">
-        /// The <see cref="System.Drawing.Rectangle"/> instance to convert.
-        /// </param>
-        /// <returns>
-        /// A <see cref="Rectangle"/> instance equivalent to point.
-        /// </returns>
-        public static implicit operator Rectangle(System.Drawing.Rectangle rect)
+        /// <param name="x">The x coordinate of the point to check for containment.</param>
+        /// <param name="y">The y coordinate of the point to check for containment.</param>
+        /// <returns><c>true</c> if the provided coordinates lie inside this <see cref="Rectangle"/>; <c>false</c> otherwise.</returns>
+        public bool Contains(float x, float y)
         {
-            return new Rectangle(rect.Location, rect.Size);
+            return ((((this.X <= x) && (x < (this.X + this.Width))) && (this.Y <= y)) && (y < (this.Y + this.Height)));
         }
 
         /// <summary>
-        /// Converts an OpenTK.Rectangle instance to a System.Drawing.RectangleF.
+        /// Gets whether or not the provided <see cref="Point"/> lies within the bounds of this <see cref="Rectangle"/>.
         /// </summary>
-        /// <param name="rect">
-        /// The <see cref="Rectangle"/> instance to convert.
-        /// </param>
-        /// <returns>
-        /// A <see cref="System.Drawing.RectangleF"/> instance equivalent to rect.
-        /// </returns>
-        public static implicit operator System.Drawing.RectangleF(Rectangle rect)
+        /// <param name="value">The coordinates to check for inclusion in this <see cref="Rectangle"/>.</param>
+        /// <returns><c>true</c> if the provided <see cref="Point"/> lies inside this <see cref="Rectangle"/>; <c>false</c> otherwise.</returns>
+        public bool Contains(Point value)
         {
-            return new System.Drawing.RectangleF(rect.Location, rect.Size);
+            return ((((this.X <= value.X) && (value.X < (this.X + this.Width))) && (this.Y <= value.Y)) && (value.Y < (this.Y + this.Height)));
         }
 
         /// <summary>
-        /// Indicates whether this instance is equal to the specified object.
+        /// Gets whether or not the provided <see cref="Point"/> lies within the bounds of this <see cref="Rectangle"/>.
         /// </summary>
-        /// <param name="obj">The object instance to compare to.</param>
-        /// <returns>True, if both instances are equal; false otherwise.</returns>
+        /// <param name="value">The coordinates to check for inclusion in this <see cref="Rectangle"/>.</param>
+        /// <param name="result"><c>true</c> if the provided <see cref="Point"/> lies inside this <see cref="Rectangle"/>; <c>false</c> otherwise. As an output parameter.</param>
+        public void Contains(ref Point value, out bool result)
+        {
+            result = ((((this.X <= value.X) && (value.X < (this.X + this.Width))) && (this.Y <= value.Y)) && (value.Y < (this.Y + this.Height)));
+        }
+
+        /// <summary>
+        /// Gets whether or not the provided <see cref="Vector2"/> lies within the bounds of this <see cref="Rectangle"/>.
+        /// </summary>
+        /// <param name="value">The coordinates to check for inclusion in this <see cref="Rectangle"/>.</param>
+        /// <returns><c>true</c> if the provided <see cref="Vector2"/> lies inside this <see cref="Rectangle"/>; <c>false</c> otherwise.</returns>
+        public bool Contains(Vector2 value)
+        {
+            return ((((this.X <= value.X) && (value.X < (this.X + this.Width))) && (this.Y <= value.Y)) && (value.Y < (this.Y + this.Height)));
+        }
+
+        /// <summary>
+        /// Gets whether or not the provided <see cref="Vector2"/> lies within the bounds of this <see cref="Rectangle"/>.
+        /// </summary>
+        /// <param name="value">The coordinates to check for inclusion in this <see cref="Rectangle"/>.</param>
+        /// <param name="result"><c>true</c> if the provided <see cref="Vector2"/> lies inside this <see cref="Rectangle"/>; <c>false</c> otherwise. As an output parameter.</param>
+        public void Contains(ref Vector2 value, out bool result)
+        {
+            result = ((((this.X <= value.X) && (value.X < (this.X + this.Width))) && (this.Y <= value.Y)) && (value.Y < (this.Y + this.Height)));
+        }
+
+        /// <summary>
+        /// Gets whether or not the provided <see cref="Rectangle"/> lies within the bounds of this <see cref="Rectangle"/>.
+        /// </summary>
+        /// <param name="value">The <see cref="Rectangle"/> to check for inclusion in this <see cref="Rectangle"/>.</param>
+        /// <returns><c>true</c> if the provided <see cref="Rectangle"/>'s bounds lie entirely inside this <see cref="Rectangle"/>; <c>false</c> otherwise.</returns>
+        public bool Contains(Rectangle value)
+        {
+            return ((((this.X <= value.X) && ((value.X + value.Width) <= (this.X + this.Width))) && (this.Y <= value.Y)) && ((value.Y + value.Height) <= (this.Y + this.Height)));
+        }
+
+        /// <summary>
+        /// Gets whether or not the provided <see cref="Rectangle"/> lies within the bounds of this <see cref="Rectangle"/>.
+        /// </summary>
+        /// <param name="value">The <see cref="Rectangle"/> to check for inclusion in this <see cref="Rectangle"/>.</param>
+        /// <param name="result"><c>true</c> if the provided <see cref="Rectangle"/>'s bounds lie entirely inside this <see cref="Rectangle"/>; <c>false</c> otherwise. As an output parameter.</param>
+        public void Contains(ref Rectangle value, out bool result)
+        {
+            result = ((((this.X <= value.X) && ((value.X + value.Width) <= (this.X + this.Width))) && (this.Y <= value.Y)) && ((value.Y + value.Height) <= (this.Y + this.Height)));
+        }
+
+        /// <summary>
+        /// Compares whether current instance is equal to specified <see cref="Object"/>.
+        /// </summary>
+        /// <param name="obj">The <see cref="Object"/> to compare.</param>
+        /// <returns><c>true</c> if the instances are equal; <c>false</c> otherwise.</returns>
         public override bool Equals(object obj)
         {
-            if (obj is Rectangle)
-                return Equals((Rectangle)obj);
-
-            return false;
+            return (obj is Rectangle) && this == ((Rectangle)obj);
         }
 
         /// <summary>
-        /// Returns the hash code for this instance.
+        /// Compares whether current instance is equal to specified <see cref="Rectangle"/>.
         /// </summary>
-        /// <returns>A <see cref="System.Int32"/> that represents the hash code for this instance./></returns>
-        public override int GetHashCode()
-        {
-            return Location.GetHashCode() & Size.GetHashCode();
-        }
-
-        /// <summary>
-        /// Returns a <see cref="System.String"/> that describes this instance.
-        /// </summary>
-        /// <returns>A <see cref="System.String"/> that describes this instance.</returns>
-        public override string ToString()
-        {
-            return String.Format("{{{0}-{1}}}", Location, Location + Size);
-        }
-
-
-        #endregion
-
-        #region IEquatable<Rectangle> Members
-
-        /// <summary>
-        /// Indicates whether this instance is equal to the specified Rectangle.
-        /// </summary>
-        /// <param name="other">The instance to compare to.</param>
-        /// <returns>True, if both instances are equal; false otherwise.</returns>
+        /// <param name="other">The <see cref="Rectangle"/> to compare.</param>
+        /// <returns><c>true</c> if the instances are equal; <c>false</c> otherwise.</returns>
         public bool Equals(Rectangle other)
         {
-            return Location.Equals(other.Location) &&
-                Size.Equals(other.Size);
+            return this == other;
         }
 
-        #endregion
+        /// <summary>
+        /// Gets the hash code of this <see cref="Rectangle"/>.
+        /// </summary>
+        /// <returns>Hash code of this <see cref="Rectangle"/>.</returns>
+        public override int GetHashCode()
+        {
+            return (X ^ Y ^ Width ^ Height);
+        }
+
+        /// <summary>
+        /// Adjusts the edges of this <see cref="Rectangle"/> by specified horizontal and vertical amounts. 
+        /// </summary>
+        /// <param name="horizontalAmount">Value to adjust the left and right edges.</param>
+        /// <param name="verticalAmount">Value to adjust the top and bottom edges.</param>
+        public void Inflate(int horizontalAmount, int verticalAmount)
+        {
+            X -= horizontalAmount;
+            Y -= verticalAmount;
+            Width += horizontalAmount * 2;
+            Height += verticalAmount * 2;
+        }
+
+        /// <summary>
+        /// Adjusts the edges of this <see cref="Rectangle"/> by specified horizontal and vertical amounts. 
+        /// </summary>
+        /// <param name="horizontalAmount">Value to adjust the left and right edges.</param>
+        /// <param name="verticalAmount">Value to adjust the top and bottom edges.</param>
+        public void Inflate(float horizontalAmount, float verticalAmount)
+        {
+            X -= (int)horizontalAmount;
+            Y -= (int)verticalAmount;
+            Width += (int)horizontalAmount * 2;
+            Height += (int)verticalAmount * 2;
+        }
+
+        /// <summary>
+        /// Gets whether or not the other <see cref="Rectangle"/> intersects with this rectangle.
+        /// </summary>
+        /// <param name="value">The other rectangle for testing.</param>
+        /// <returns><c>true</c> if other <see cref="Rectangle"/> intersects with this rectangle; <c>false</c> otherwise.</returns>
+        public bool Intersects(Rectangle value)
+        {
+            return value.Left < Right &&
+                   Left < value.Right &&
+                   value.Top < Bottom &&
+                   Top < value.Bottom;
+        }
+
+
+        /// <summary>
+        /// Gets whether or not the other <see cref="Rectangle"/> intersects with this rectangle.
+        /// </summary>
+        /// <param name="value">The other rectangle for testing.</param>
+        /// <param name="result"><c>true</c> if other <see cref="Rectangle"/> intersects with this rectangle; <c>false</c> otherwise. As an output parameter.</param>
+        public void Intersects(ref Rectangle value, out bool result)
+        {
+            result = value.Left < Right &&
+                     Left < value.Right &&
+                     value.Top < Bottom &&
+                     Top < value.Bottom;
+        }
+
+        /// <summary>
+        /// Creates a new <see cref="Rectangle"/> that contains overlapping region of two other rectangles.
+        /// </summary>
+        /// <param name="value1">The first <see cref="Rectangle"/>.</param>
+        /// <param name="value2">The second <see cref="Rectangle"/>.</param>
+        /// <returns>Overlapping region of the two rectangles.</returns>
+        public static Rectangle Intersect(Rectangle value1, Rectangle value2)
+        {
+            Rectangle rectangle;
+            Intersect(ref value1, ref value2, out rectangle);
+            return rectangle;
+        }
+
+        /// <summary>
+        /// Creates a new <see cref="Rectangle"/> that contains overlapping region of two other rectangles.
+        /// </summary>
+        /// <param name="value1">The first <see cref="Rectangle"/>.</param>
+        /// <param name="value2">The second <see cref="Rectangle"/>.</param>
+        /// <param name="result">Overlapping region of the two rectangles as an output parameter.</param>
+        public static void Intersect(ref Rectangle value1, ref Rectangle value2, out Rectangle result)
+        {
+            if (value1.Intersects(value2))
+            {
+                int right_side = Math.Min(value1.X + value1.Width, value2.X + value2.Width);
+                int left_side = Math.Max(value1.X, value2.X);
+                int top_side = Math.Max(value1.Y, value2.Y);
+                int bottom_side = Math.Min(value1.Y + value1.Height, value2.Y + value2.Height);
+                result = new Rectangle(left_side, top_side, right_side - left_side, bottom_side - top_side);
+            }
+            else
+            {
+                result = new Rectangle(0, 0, 0, 0);
+            }
+        }
+
+        /// <summary>
+        /// Changes the <see cref="Location"/> of this <see cref="Rectangle"/>.
+        /// </summary>
+        /// <param name="offsetX">The x coordinate to add to this <see cref="Rectangle"/>.</param>
+        /// <param name="offsetY">The y coordinate to add to this <see cref="Rectangle"/>.</param>
+        public void Offset(int offsetX, int offsetY)
+        {
+            X += offsetX;
+            Y += offsetY;
+        }
+
+        /// <summary>
+        /// Changes the <see cref="Location"/> of this <see cref="Rectangle"/>.
+        /// </summary>
+        /// <param name="offsetX">The x coordinate to add to this <see cref="Rectangle"/>.</param>
+        /// <param name="offsetY">The y coordinate to add to this <see cref="Rectangle"/>.</param>
+        public void Offset(float offsetX, float offsetY)
+        {
+            X += (int)offsetX;
+            Y += (int)offsetY;
+        }
+
+        /// <summary>
+        /// Changes the <see cref="Location"/> of this <see cref="Rectangle"/>.
+        /// </summary>
+        /// <param name="amount">The x and y components to add to this <see cref="Rectangle"/>.</param>
+        public void Offset(Point amount)
+        {
+            X += amount.X;
+            Y += amount.Y;
+        }
+
+        /// <summary>
+        /// Changes the <see cref="Location"/> of this <see cref="Rectangle"/>.
+        /// </summary>
+        /// <param name="amount">The x and y components to add to this <see cref="Rectangle"/>.</param>
+        public void Offset(Vector2 amount)
+        {
+            X += (int)amount.X;
+            Y += (int)amount.Y;
+        }
+
+        /// <summary>
+        /// Returns a <see cref="String"/> representation of this <see cref="Rectangle"/> in the format:
+        /// {X:[<see cref="X"/>] Y:[<see cref="Y"/>] Width:[<see cref="Width"/>] Height:[<see cref="Height"/>]}
+        /// </summary>
+        /// <returns><see cref="String"/> representation of this <see cref="Rectangle"/>.</returns>
+        public override string ToString()
+        {
+            return "{X:" + X + " Y:" + Y + " Width:" + Width + " Height:" + Height + "}";
+        }
+
+        /// <summary>
+        /// Creates a new <see cref="Rectangle"/> that completely contains two other rectangles.
+        /// </summary>
+        /// <param name="value1">The first <see cref="Rectangle"/>.</param>
+        /// <param name="value2">The second <see cref="Rectangle"/>.</param>
+        /// <returns>The union of the two rectangles.</returns>
+        public static Rectangle Union(Rectangle value1, Rectangle value2)
+        {
+            int x = Math.Min(value1.X, value2.X);
+            int y = Math.Min(value1.Y, value2.Y);
+            return new Rectangle(x, y,
+                                 Math.Max(value1.Right, value2.Right) - x,
+                                     Math.Max(value1.Bottom, value2.Bottom) - y);
+        }
+
+        /// <summary>
+        /// Creates a new <see cref="Rectangle"/> that completely contains two other rectangles.
+        /// </summary>
+        /// <param name="value1">The first <see cref="Rectangle"/>.</param>
+        /// <param name="value2">The second <see cref="Rectangle"/>.</param>
+        /// <param name="result">The union of the two rectangles as an output parameter.</param>
+        public static void Union(ref Rectangle value1, ref Rectangle value2, out Rectangle result)
+        {
+            result.X = Math.Min(value1.X, value2.X);
+            result.Y = Math.Min(value1.Y, value2.Y);
+            result.Width = Math.Max(value1.Right, value2.Right) - result.X;
+            result.Height = Math.Max(value1.Bottom, value2.Bottom) - result.Y;
+        }
+
     }
-#endif
 }

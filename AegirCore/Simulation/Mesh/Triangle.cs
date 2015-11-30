@@ -1,4 +1,4 @@
-﻿using OpenTK;
+﻿using AegirMath;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +15,7 @@ namespace AegirCore.Simulation.Mesh
         public int I2;
         public Color color;
         public float fArea;
-        public Vector3d vCG;
-        public Vector3d vNormal;
+        public Vector3 vCG;
+        public Vector3 vNormal;
     }
 }
