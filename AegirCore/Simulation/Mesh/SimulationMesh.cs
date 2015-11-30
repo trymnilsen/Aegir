@@ -13,43 +13,7 @@ namespace AegirCore.Simulation.Mesh
     using Microsoft.Xna.Framework.Graphics;
     namespace SimShip
     {
-        public struct Light
-        {
-            public Vector3 Direction;
-            public Vector4 DiffuseColor;
-            public Vector4 AmbientColor;
-        }
-        public struct Triangle
-        {
-            public int I0;      // Indices
-            public int I1;
-            public int I2;
-            public Color color;
-            public float fArea;
-            public Vector3 vCG;
-            public Vector3 vNormal;
-        }
-        public struct TriangleWetted
-        {
-            public int I0;              // Indices
-            public int I1;
-            public int I2;
-            public Color color;         // Couleur visible en mode Debug
-            public bool bNoChange;      // Vari s'il s'agit d'un triangle d'origine du mesh, sinon il s'agit d'un nouveau triangle créé par intersection avec l'eau
-            public float Depth;         // Profondeur
-            public float fArea;         // Surface du triangle
-            public Vector3 vNormal;     // Perpendiculaire et dans le sens CCW
 
-            public Vector3 vPressure;   // Vecteur force de pression
-            public float fPressure;     // Norme de la force de pression
-            public Vector3 pCPressure;  // Point d'application de la force de pression
-        }
-        public struct Force
-        {
-            public Vector3 Vector;
-            public Vector3 Position;
-            public float Magnitude;
-        }
         public class SimulationMesh : DrawableGameComponent
         {
             #region Fields
