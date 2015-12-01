@@ -11,10 +11,6 @@ namespace AegirCore.Simulation.Water
 {
     public class WaterCell
     {
-        // Vertex and index buffers for the water plane
-        private VertexBuffer mVertexBuffer;
-        private IndexBuffer mIndexBuffer;
-        private VertexDeclaration mDecl;
 
         // User specified options to configure the water object
         private WaterOptions mOptions;
@@ -38,13 +34,14 @@ namespace AegirCore.Simulation.Water
         Wave[] wave;
         int NBWAVES;
         MersenneTwister mRand = new MersenneTwister();
-        double tWave;
-        public double mMin, mMax;
+        float tWave;
+        public float mMin, mMax;
         const float SINCOEFF1 = -1f / 6f;
         const float SINCOEFF2 = 1f / 120f;
         const float SINCOEFF3 = -1f / 5040f;
         float UpdateSea2_Ld, UpdateSea2_Lf;
         private Matrix mWorld;
+        private int gTypeOfSea;
 
 
         /// <summary>
@@ -67,7 +64,6 @@ namespace AegirCore.Simulation.Water
             set { mWorld = value; }
         }
 
-        #endregion
 
         public WaterCell()
         {
@@ -105,206 +101,206 @@ namespace AegirCore.Simulation.Water
             //mIndexBuffer = new IndexBuffer(Game.GraphicsDevice, typeof(int), indices.Length, BufferUsage.WriteOnly);
             //mIndexBuffer.SetData(indices);
 
-            mDecl = new VertexDeclaration(Game.GraphicsDevice, VertexPositionNormalTexture.VertexElements);
+            ////mDecl = new VertexDeclaration(Game.GraphicsDevice, VertexPositionNormalTexture.VertexElements);
 
             // Initialize Waves
             Initialize6Waves();
             //InitializeRandomWaves1(3);
             UpdateSea2_Ld = mOptions.SizeX;
         }
-        protected override void LoadContent()
-        {
-            base.LoadContent();
+        //protected override void LoadContent()
+        //{
+        //    base.LoadContent();
 
-            //load the wave maps
-            mWaveMap0 = Game.Content.Load<Texture2D>(mOptions.WaveMapAsset0);
-            mWaveMap1 = Game.Content.Load<Texture2D>(mOptions.WaveMapAsset1);
+        //    //load the wave maps
+        //    mWaveMap0 = Game.Content.Load<Texture2D>(mOptions.WaveMapAsset0);
+        //    mWaveMap1 = Game.Content.Load<Texture2D>(mOptions.WaveMapAsset1);
 
-            //get the attributes of the back buffer
-            PresentationParameters pp = Game.GraphicsDevice.PresentationParameters;
-            SurfaceFormat format = pp.BackBufferFormat;
-            MultiSampleType msType = pp.MultiSampleType;
-            int msQuality = pp.MultiSampleQuality;
+        //    //get the attributes of the back buffer
+        //    PresentationParameters pp = Game.GraphicsDevice.PresentationParameters;
+        //    SurfaceFormat format = pp.BackBufferFormat;
+        //    MultiSampleType msType = pp.MultiSampleType;
+        //    int msQuality = pp.MultiSampleQuality;
 
-            //create the reflection and refraction render targets
-            //using the backbuffer attributes
-            mRefractionMap = new RenderTarget2D(Game.GraphicsDevice, mOptions.RenderTargetSize, mOptions.RenderTargetSize,
-                                                1, format, msType, msQuality);
-            mReflectionMap = new RenderTarget2D(Game.GraphicsDevice, mOptions.RenderTargetSize, mOptions.RenderTargetSize,
-                                                1, format, msType, msQuality);
+        //    //create the reflection and refraction render targets
+        //    //using the backbuffer attributes
+        //    mRefractionMap = new RenderTarget2D(Game.GraphicsDevice, mOptions.RenderTargetSize, mOptions.RenderTargetSize,
+        //                                        1, format, msType, msQuality);
+        //    mReflectionMap = new RenderTarget2D(Game.GraphicsDevice, mOptions.RenderTargetSize, mOptions.RenderTargetSize,
+        //                                        1, format, msType, msQuality);
 
-            mEffect = Game.Content.Load<Effect>(mEffectAsset);
+        //    mEffect = Game.Content.Load<Effect>(mEffectAsset);
 
-            //set the parameters that shouldn't change.
-            //Some of these might need to change every once in awhile,
-            //move them to updateEffectParams function if you need that functionality.
-            if (mEffect != null)
-            {
-                mEffect.Parameters["WaveMap0"].SetValue(mWaveMap0);
-                mEffect.Parameters["WaveMap1"].SetValue(mWaveMap1);
+        //    //set the parameters that shouldn't change.
+        //    //Some of these might need to change every once in awhile,
+        //    //move them to updateEffectParams function if you need that functionality.
+        //    if (mEffect != null)
+        //    {
+        //        mEffect.Parameters["WaveMap0"].SetValue(mWaveMap0);
+        //        mEffect.Parameters["WaveMap1"].SetValue(mWaveMap1);
 
-                mEffect.Parameters["TexScale"].SetValue(mOptions.WaveMapScale);
+        //        mEffect.Parameters["TexScale"].SetValue(mOptions.WaveMapScale);
 
-                mEffect.Parameters["WaterColor"].SetValue(mOptions.WaterColor);
-                mEffect.Parameters["SunColor"].SetValue(mOptions.SunColor);
-                mEffect.Parameters["SunDirection"].SetValue(Vector3.Normalize(mOptions.SunDirection));
-                mEffect.Parameters["SunFactor"].SetValue(mOptions.SunFactor);
-                mEffect.Parameters["SunPower"].SetValue(mOptions.SunPower);
+        //        mEffect.Parameters["WaterColor"].SetValue(mOptions.WaterColor);
+        //        mEffect.Parameters["SunColor"].SetValue(mOptions.SunColor);
+        //        mEffect.Parameters["SunDirection"].SetValue(Vector3.Normalize(mOptions.SunDirection));
+        //        mEffect.Parameters["SunFactor"].SetValue(mOptions.SunFactor);
+        //        mEffect.Parameters["SunPower"].SetValue(mOptions.SunPower);
 
-                mEffect.Parameters["World"].SetValue(mWorld);
-            }
-        }
-        public override void Update(GameTime gameTime)
-        {
-            float timeDelta = (float)gameTime.ElapsedGameTime.TotalSeconds;
+        //        mEffect.Parameters["World"].SetValue(mWorld);
+        //    }
+        //}
+        //public override void Update(GameTime gameTime)
+        //{
+        //    float timeDelta = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-            // Update the wave map offsets so that they will scroll across the water
-            mOptions.WaveMapOffset0 += mOptions.WaveMapVelocity0 * timeDelta;
-            mOptions.WaveMapOffset1 += mOptions.WaveMapVelocity1 * timeDelta;
+        //    // Update the wave map offsets so that they will scroll across the water
+        //    mOptions.WaveMapOffset0 += mOptions.WaveMapVelocity0 * timeDelta;
+        //    mOptions.WaveMapOffset1 += mOptions.WaveMapVelocity1 * timeDelta;
 
-            if (mOptions.WaveMapOffset0.X >= 1.0f || mOptions.WaveMapOffset0.X <= -1.0f)
-                mOptions.WaveMapOffset0.X = 0.0f;
-            if (mOptions.WaveMapOffset1.X >= 1.0f || mOptions.WaveMapOffset1.X <= -1.0f)
-                mOptions.WaveMapOffset1.X = 0.0f;
-            if (mOptions.WaveMapOffset0.Y >= 1.0f || mOptions.WaveMapOffset0.Y <= -1.0f)
-                mOptions.WaveMapOffset0.Y = 0.0f;
-            if (mOptions.WaveMapOffset1.Y >= 1.0f || mOptions.WaveMapOffset1.Y <= -1.0f)
-                mOptions.WaveMapOffset1.Y = 0.0f;
-        }
-        public override void Draw(GameTime gameTime)
-        {
-            // Don't cull back facing triangles since we want the water to be visible
-            // from beneath the water plane too
-            Game.GraphicsDevice.RenderState.CullMode = CullMode.None;
+        //    if (mOptions.WaveMapOffset0.X >= 1.0f || mOptions.WaveMapOffset0.X <= -1.0f)
+        //        mOptions.WaveMapOffset0.X = 0.0f;
+        //    if (mOptions.WaveMapOffset1.X >= 1.0f || mOptions.WaveMapOffset1.X <= -1.0f)
+        //        mOptions.WaveMapOffset1.X = 0.0f;
+        //    if (mOptions.WaveMapOffset0.Y >= 1.0f || mOptions.WaveMapOffset0.Y <= -1.0f)
+        //        mOptions.WaveMapOffset0.Y = 0.0f;
+        //    if (mOptions.WaveMapOffset1.Y >= 1.0f || mOptions.WaveMapOffset1.Y <= -1.0f)
+        //        mOptions.WaveMapOffset1.Y = 0.0f;
+        //}
+        //public override void Draw(GameTime gameTime)
+        //{
+        //    // Don't cull back facing triangles since we want the water to be visible
+        //    // from beneath the water plane too
+        //    Game.GraphicsDevice.RenderState.CullMode = CullMode.None;
 
-            if (Global.gWaterShowWireFrame) Game.GraphicsDevice.RenderState.FillMode = FillMode.WireFrame;
-            UpdateEffectParams();
-            mEffect.Parameters["Time"].SetValue(tWave);
+        //    if (Global.gWaterShowWireFrame) Game.GraphicsDevice.RenderState.FillMode = FillMode.WireFrame;
+        //    UpdateEffectParams();
+        //    mEffect.Parameters["Time"].SetValue(tWave);
 
-            Game.GraphicsDevice.Indices = mIndexBuffer;
-            Game.GraphicsDevice.Vertices[0].SetSource(mVertexBuffer, 0, VertexPositionNormalTexture.SizeInBytes);
-            Game.GraphicsDevice.VertexDeclaration = mDecl;
+        //    Game.GraphicsDevice.Indices = mIndexBuffer;
+        //    Game.GraphicsDevice.Vertices[0].SetSource(mVertexBuffer, 0, VertexPositionNormalTexture.SizeInBytes);
+        //    Game.GraphicsDevice.VertexDeclaration = mDecl;
 
-            mEffect.Begin(SaveStateMode.None);
-            foreach (EffectPass pass in mEffect.CurrentTechnique.Passes)
-            {
-                pass.Begin();
-                Game.GraphicsDevice.DrawIndexedPrimitives(PrimitiveType.TriangleList, 0, 0, mNbVertices, 0, mNbTris);
-                pass.End();
-            }
-            mEffect.End();
+        //    mEffect.Begin(SaveStateMode.None);
+        //    foreach (EffectPass pass in mEffect.CurrentTechnique.Passes)
+        //    {
+        //        pass.Begin();
+        //        Game.GraphicsDevice.DrawIndexedPrimitives(PrimitiveType.TriangleList, 0, 0, mNbVertices, 0, mNbTris);
+        //        pass.End();
+        //    }
+        //    mEffect.End();
 
-            Game.GraphicsDevice.RenderState.CullMode = CullMode.CullCounterClockwiseFace;
-            if (Global.gWaterShowWireFrame) Game.GraphicsDevice.RenderState.FillMode = FillMode.Solid;
-        }
-        public void SetCamera(Matrix4d viewProj, Vector3d pos)
-        {
-            // Set the ViewProjection matrix and position of the Camera.
-            mViewProj = viewProj;
-            mViewPos = pos;
-        }
-        public void UpdateWaterMaps(GameTime gameTime)
-        {
-            // Updates the reflection and refraction maps. Called on update.
-            /*------------------------------------------------------------------------------------------
-             * Render to the Reflection Map
-             */
-            //clip objects below the water line, and render the scene upside down
-            GraphicsDevice.RenderState.CullMode = CullMode.CullClockwiseFace;
+        //    Game.GraphicsDevice.RenderState.CullMode = CullMode.CullCounterClockwiseFace;
+        //    if (Global.gWaterShowWireFrame) Game.GraphicsDevice.RenderState.FillMode = FillMode.Solid;
+        //}
+        //public void SetCamera(Matrix4d viewProj, Vector3d pos)
+        //{
+        //    // Set the ViewProjection matrix and position of the Camera.
+        //    mViewProj = viewProj;
+        //    mViewPos = pos;
+        //}
+        //public void UpdateWaterMaps(GameTime gameTime)
+        //{
+        //    // Updates the reflection and refraction maps. Called on update.
+        //    /*------------------------------------------------------------------------------------------
+        //     * Render to the Reflection Map
+        //     */
+        //    //clip objects below the water line, and render the scene upside down
+        //    GraphicsDevice.RenderState.CullMode = CullMode.CullClockwiseFace;
 
-            GraphicsDevice.SetRenderTarget(0, mReflectionMap);
-            GraphicsDevice.Clear(ClearOptions.Target | ClearOptions.DepthBuffer, mOptions.WaterColor, 1.0f, 0);
+        //    GraphicsDevice.SetRenderTarget(0, mReflectionMap);
+        //    GraphicsDevice.Clear(ClearOptions.Target | ClearOptions.DepthBuffer, mOptions.WaterColor, 1.0f, 0);
 
-            //reflection plane in local space
-            //the w value can be used to raise or lower the plane to hide gaps between objects and their
-            //reflection on the water.
-            Vector4 waterPlaneL = new Vector4(0.0f, -1.0f, 0.0f, 0.0f);
+        //    //reflection plane in local space
+        //    //the w value can be used to raise or lower the plane to hide gaps between objects and their
+        //    //reflection on the water.
+        //    Vector4 waterPlaneL = new Vector4(0.0f, -1.0f, 0.0f, 0.0f);
 
-            Matrix wInvTrans = Matrix.Invert(mWorld);
-            wInvTrans = Matrix.Transpose(wInvTrans);
+        //    Matrix wInvTrans = Matrix.Invert(mWorld);
+        //    wInvTrans = Matrix.Transpose(wInvTrans);
 
-            //reflection plane in world space
-            Vector4d waterPlaneW = Vector4.Transform(waterPlaneL, wInvTrans);
+        //    //reflection plane in world space
+        //    Vector4d waterPlaneW = Vector4.Transform(waterPlaneL, wInvTrans);
 
-            Matrix wvpInvTrans = Matrix.Invert(mWorld * mViewProj);
-            wvpInvTrans = Matrix.Transpose(wvpInvTrans);
+        //    Matrix wvpInvTrans = Matrix.Invert(mWorld * mViewProj);
+        //    wvpInvTrans = Matrix.Transpose(wvpInvTrans);
 
-            //reflection plane in homogeneous space
-            Vector4 waterPlaneH = Vector4.Transform(waterPlaneL, wvpInvTrans);
+        //    //reflection plane in homogeneous space
+        //    Vector4 waterPlaneH = Vector4.Transform(waterPlaneL, wvpInvTrans);
 
-            GraphicsDevice.ClipPlanes[0].IsEnabled = true;
-            GraphicsDevice.ClipPlanes[0].Plane = new Plane(waterPlaneH);
+        //    GraphicsDevice.ClipPlanes[0].IsEnabled = true;
+        //    GraphicsDevice.ClipPlanes[0].Plane = new Plane(waterPlaneH);
 
-            Matrix4d reflectionMatrix = Matrix4d.CreateReflection(new Plane(waterPlaneW));
+        //    Matrix4d reflectionMatrix = Matrix4d.CreateReflection(new Plane(waterPlaneW));
 
-            if (mDrawFunc != null)
-                mDrawFunc(reflectionMatrix);
+        //    if (mDrawFunc != null)
+        //        mDrawFunc(reflectionMatrix);
 
-            GraphicsDevice.RenderState.CullMode = CullMode.CullCounterClockwiseFace;
-            GraphicsDevice.ClipPlanes[0].IsEnabled = false;
+        //    GraphicsDevice.RenderState.CullMode = CullMode.CullCounterClockwiseFace;
+        //    GraphicsDevice.ClipPlanes[0].IsEnabled = false;
 
-            GraphicsDevice.SetRenderTarget(0, null);
+        //    GraphicsDevice.SetRenderTarget(0, null);
 
-            /*------------------------------------------------------------------------------------------
-             * Render to the Refraction Map
-             */
+        //    /*------------------------------------------------------------------------------------------
+        //     * Render to the Refraction Map
+        //     */
 
-            //if the application is going to send us the refraction map
-            //exit early. The refraction map must be given to the water component
-            //before it renders. 
-            //***This option can be handy if you're already drawing your scene to a render target***
-            if (mGrabRefractionFromFB)
-            {
-                return;
-            }
+        //    //if the application is going to send us the refraction map
+        //    //exit early. The refraction map must be given to the water component
+        //    //before it renders. 
+        //    //***This option can be handy if you're already drawing your scene to a render target***
+        //    if (mGrabRefractionFromFB)
+        //    {
+        //        return;
+        //    }
 
-            //update the refraction map, clip objects above the water line
-            //so we don't get artifacts
-            GraphicsDevice.SetRenderTarget(0, mRefractionMap);
-            GraphicsDevice.Clear(ClearOptions.Target | ClearOptions.DepthBuffer, mOptions.WaterColor, 1.0f, 1);
+        //    //update the refraction map, clip objects above the water line
+        //    //so we don't get artifacts
+        //    GraphicsDevice.SetRenderTarget(0, mRefractionMap);
+        //    GraphicsDevice.Clear(ClearOptions.Target | ClearOptions.DepthBuffer, mOptions.WaterColor, 1.0f, 1);
 
-            //only clip if the camera is above the water plane
-            if (mViewPos.Y > World.Translation.Y)
-            {
-                //refrection plane in local space
-                //here w=1.1f is a fudge factor so that we don't get gaps between objects and their refraction
-                //on the water. It effective raises or lowers the height of the clip plane. w=0.0 will be the clip plane
-                //at the water level. 1.1f raises the clip plane above the water level.
-                waterPlaneL = new Vector4(0.0f, -1.0f, 0.0f, 1.5f);
+        //    //only clip if the camera is above the water plane
+        //    if (mViewPos.Y > World.Translation.Y)
+        //    {
+        //        //refrection plane in local space
+        //        //here w=1.1f is a fudge factor so that we don't get gaps between objects and their refraction
+        //        //on the water. It effective raises or lowers the height of the clip plane. w=0.0 will be the clip plane
+        //        //at the water level. 1.1f raises the clip plane above the water level.
+        //        waterPlaneL = new Vector4(0.0f, -1.0f, 0.0f, 1.5f);
 
-                //refrection plane in world space
-                waterPlaneW = Vector4.Transform(waterPlaneL, wInvTrans);
+        //        //refrection plane in world space
+        //        waterPlaneW = Vector4.Transform(waterPlaneL, wInvTrans);
 
-                //refrection plane in homogeneous space
-                waterPlaneH = Vector4.Transform(waterPlaneL, wvpInvTrans);
+        //        //refrection plane in homogeneous space
+        //        waterPlaneH = Vector4.Transform(waterPlaneL, wvpInvTrans);
 
-                GraphicsDevice.ClipPlanes[0].IsEnabled = true;
-                GraphicsDevice.ClipPlanes[0].Plane = new Plane(waterPlaneH);
-            }
+        //        GraphicsDevice.ClipPlanes[0].IsEnabled = true;
+        //        GraphicsDevice.ClipPlanes[0].Plane = new Plane(waterPlaneH);
+        //    }
 
-            if (mDrawFunc != null)
-                mDrawFunc(Matrix.Identity);
+        //    if (mDrawFunc != null)
+        //        mDrawFunc(Matrix.Identity);
 
-            GraphicsDevice.ClipPlanes[0].IsEnabled = false;
-            GraphicsDevice.SetRenderTarget(0, null);
-        }
-        void UpdateEffectParams()
-        {
-            // Updates effect parameters related to the water shader
+        //    GraphicsDevice.ClipPlanes[0].IsEnabled = false;
+        //    GraphicsDevice.SetRenderTarget(0, null);
+        //}
+        //void UpdateEffectParams()
+        //{
+        //    // Updates effect parameters related to the water shader
 
-            // Update the reflection and refraction textures
-            mEffect.Parameters["ReflectMap"].SetValue(mReflectionMap.GetTexture());
-            mEffect.Parameters["RefractMap"].SetValue(mRefractionMap.GetTexture());
+        //    // Update the reflection and refraction textures
+        //    mEffect.Parameters["ReflectMap"].SetValue(mReflectionMap.GetTexture());
+        //    mEffect.Parameters["RefractMap"].SetValue(mRefractionMap.GetTexture());
 
-            // Normal map offsets
-            mEffect.Parameters["WaveMapOffset0"].SetValue(mOptions.WaveMapOffset0);
-            mEffect.Parameters["WaveMapOffset1"].SetValue(mOptions.WaveMapOffset1);
+        //    // Normal map offsets
+        //    mEffect.Parameters["WaveMapOffset0"].SetValue(mOptions.WaveMapOffset0);
+        //    mEffect.Parameters["WaveMapOffset1"].SetValue(mOptions.WaveMapOffset1);
 
-            mEffect.Parameters["WorldViewProj"].SetValue(mWorld * mViewProj);
+        //    mEffect.Parameters["WorldViewProj"].SetValue(mWorld * mViewProj);
 
-            // Pass the position of the camera to the shader
-            mEffect.Parameters["EyePos"].SetValue(mViewPos);
-        }
+        //    // Pass the position of the camera to the shader
+        //    mEffect.Parameters["EyePos"].SetValue(mViewPos);
+        //}
         void GenTriGrid(int numVertRows, int numVertCols, float dx, float dz, Vector3 center, out Vector3[] verts, out int[] indices)
         {
             // Generates a grid of vertices to use for the water plane.
@@ -336,7 +332,7 @@ namespace AegirCore.Simulation.Water
             // parameter 'center'.
 
             //verts.resize(numVertices);
-            verts = new Vector3d[numVertices];
+            verts = new Vector3[numVertices];
 
             // Offsets to translate grid from quadrant 4 to center of coordinate system.
             float xOffset = -width * 0.5f;
@@ -349,13 +345,13 @@ namespace AegirCore.Simulation.Water
                 {
                     // Negate the depth coordinate to put in quadrant four.  
                     // Then offset to center about coordinate system.
-                    verts[k] = new Vector3d(0, 0, 0);
+                    verts[k] = new Vector3(0, 0, 0);
                     verts[k].X = j * dx + xOffset;
                     verts[k].Z = -i * dz + zOffset;
                     verts[k].Y = 0.0f;
 
-                    Matrix4d translation = Matrix4d.CreateTranslation(center);
-                    verts[k] = Vector3d.Transform(verts[k], translation);
+                    Matrix translation = Matrix.CreateTranslation(center);
+                    verts[k] = Vector3.Transform(verts[k], translation);
 
                     ++k; // Next vertex
                 }
@@ -407,8 +403,7 @@ namespace AegirCore.Simulation.Water
             }
         }
 
-        #region Update Sea
-        public void UpdateSea1(GameTime gameTime)
+        public void UpdateSea1(SimulationTime simTime)
         {
             int demi_width = mOptions.SizeX / 2;
             int demi_height = mOptions.SizeZ / 2;
@@ -418,18 +413,16 @@ namespace AegirCore.Simulation.Water
             {
                 for (int j = 0; j < mOptions.SizeZ; j++)
                 {
-                    mVertex[k].Position.X = i - demi_width;
-                    mVertex[k].Position.Z = j - demi_height;
-                    mVertex[k].Position.Y = 0;
-                    mVertex[k].Normal = new Vector3d(0, 1, 0);
+                    mVertex[k].X = i - demi_width;
+                    mVertex[k].Z = j - demi_height;
+                    mVertex[k].Y = 0;
                     k++;
                 }
             }
-            mVertexBuffer.SetData(mVertex);
             ComputeMinMax();
             //bSoliton = false;
         }
-        public void UpdateSea2(GameTime gameTime)
+        public void UpdateSea2(SimulationTime simTime)
         {
             //if (bSoliton) return;
 
@@ -440,7 +433,7 @@ namespace AegirCore.Simulation.Water
             int demi_sizeX = mOptions.SizeX / 2;
             int demi_sizeZ = mOptions.SizeZ / 2;
 
-            float dtWave = (float)gameTime.ElapsedGameTime.TotalSeconds;
+            float dtWave = (float)simTime.DeltaTime*1000;
 
             UpdateSea2_Ld -= CWave * dtWave;
             UpdateSea2_Lf = UpdateSea2_Ld - LWave;
@@ -466,36 +459,35 @@ namespace AegirCore.Simulation.Water
 
                 for (int z = 0; z != mOptions.SizeZ; z++)
                 {
-                    mVertex[k].Position.X = x - demi_sizeX;
-                    mVertex[k].Position.Z = z - demi_sizeZ;
-                    mVertex[k].Position.Y = h;
-                    mVertex[k].Normal = n;
+                    mVertex[k].X = x - demi_sizeX;
+                    mVertex[k].Z = z - demi_sizeZ;
+                    mVertex[k].Y = h;
                     k++;
                 }
             }
 
             if (UpdateSea2_Ld < 0)
             {
-                Global.gTypeOfSea = 1;
+                gTypeOfSea = 1;
                 UpdateSea2_Ld = mOptions.SizeX;
             }
 
-            mVertexBuffer.SetData(mVertex);
+            //mVertexBuffer.SetData(mVertex);
             ComputeMinMax();
         }
-        public void UpdateSea3(GameTime gameTime)
+        public void UpdateSea3(SimulationTime SimTime)
         {
             float HWave = 1f;
             float LWave = 25f;  // 15
             float CWave = 4f;   // 4
             float LambdaWave = 13.5f;    // 3.5
-            Vector3d[] v = new Vector3d[mOptions.SizeX];
+            Vector3[] v = new Vector3[mOptions.SizeX];
 
             float r = HWave / 2;
             float k = 2f * (float)Math.PI / LWave;
             float w = CWave * k;
 
-            float dtWave = (float)gameTime.ElapsedGameTime.TotalSeconds;
+            float dtWave = (float)SimTime.DeltaTime * 1000;
             tWave += 1f * dtWave;
 
             for (int i = 0; i < mOptions.SizeX; i++)
@@ -508,18 +500,18 @@ namespace AegirCore.Simulation.Water
                 v[i].Z = i - mOptions.SizeX / 2;
 
             }
-            Vector3d[] n = new Vector3d[mOptions.SizeX];
+            Vector3[] n = new Vector3[mOptions.SizeX];
 
             for (int i = 1; i < mOptions.SizeX - 1; i++)
             {
-                Vector3d v1 = v[i + 1];
-                Vector3d v2 = v[i - 1];
+                Vector3 v1 = v[i + 1];
+                Vector3 v2 = v[i - 1];
                 v2.Z = i + 1 - mOptions.SizeX / 2;
 
                 v1 = v[i] - v1;
                 v2 = v[i] - v2;
-                n[i] = Vector3d.Cross(v1, v2);
-                n[i] = Vector3d.Normalize(n[i]);
+                n[i] = Vector3.Cross(v1, v2);
+                n[i] = Vector3.Normalize(n[i]);
             }
 
             int index = 0;
@@ -527,38 +519,37 @@ namespace AegirCore.Simulation.Water
             {
                 for (int j = 0; j < mOptions.SizeZ; ++j)
                 {
-                    mVertex[index].Position.X = v[i].X * mOptions.CellSpacing;
-                    mVertex[index].Position.Y = v[i].Y * mOptions.CellSpacing;
-                    mVertex[index].Position.Z = v[j].Z * mOptions.CellSpacing;
-                    mVertex[index].Normal = n[i];
+                    mVertex[index].X = v[i].X * mOptions.CellSpacing;
+                    mVertex[index].Y = v[i].Y * mOptions.CellSpacing;
+                    mVertex[index].Z = v[j].Z * mOptions.CellSpacing;
                     index++;
                 }
             }
-            mVertexBuffer.SetData(mVertex);
+            //mVertexBuffer.SetData(mVertex);
             ComputeMinMax();
         }
-        public void UpdateSea4(GameTime gameTime)
+        public void UpdateSea4(SimulationTime simTime)
         {
-            double dtWave = (float)gameTime.ElapsedGameTime.TotalSeconds;
+            float dtWave = (float)simTime.DeltaTime * 1000;
             tWave += 1f * dtWave;
 
             int demi_width = mOptions.SizeX / 2;
             int demi_height = mOptions.SizeZ / 2;
 
-            double ddx, ddy;
+            float ddx, ddy;
             float attenuationNormal = 0.25f;
 
-            double t1, t2;
-            double d2, d3, d4, d5, d6, d7;
+            float t1, t2;
+            float d2, d3, d4, d5, d6, d7;
 
             int k = 0;
             for (int i = 0; i < mOptions.SizeX; i++)
             {
                 for (int j = 0; j < mOptions.SizeZ; j++)
                 {
-                    mVertex[k].Position.X = i - demi_width;
-                    mVertex[k].Position.Z = j - demi_height;
-                    mVertex[k].Position.Y = 0;
+                    mVertex[k].X = i - demi_width;
+                    mVertex[k].Z = j - demi_height;
+                    mVertex[k].Y = 0;
 
                     ddx = 0f;
                     ddy = 0f;
@@ -577,11 +568,11 @@ namespace AegirCore.Simulation.Water
                         d5 = d3 * d2;
                         d6 = d3 * d3;
                         d7 = d4 * d3;
-                        double sin = t1 + d3 * SINCOEFF1 + d5 * SINCOEFF2 + d7 * SINCOEFF3;
+                        float sin = t1 + d3 * SINCOEFF1 + d5 * SINCOEFF2 + d7 * SINCOEFF3;
 
                         // Houle de Gerstner
                         // wave.amp * sin(dot(wave.dir, position) * wave.freq + time * wave.phase)
-                        mVertex[k].Position.Y += wave[w].Amp * sin;
+                        mVertex[k].Y += wave[w].Amp * sin;
 
                         // Dérivée de la houle de Gerstner
                         // wave.freq * wave.amp * cos(dot(wave.dir, position) * wave.freq + time * wave.phase)
@@ -591,13 +582,12 @@ namespace AegirCore.Simulation.Water
                         //Vector3 B = new Vector3(1, ddx, 0);
                         //Vector3 T = new Vector3(0, ddy, 1);
                         //vertices[k].Normal = Vector3.Cross(B, -T);
-                        mVertex[k].Normal = new Vector3d(-ddx, 1, -ddy);
                     }
-                    mVertex[k].Position *= mOptions.CellSpacing;
+                    mVertex[k] *= mOptions.CellSpacing;
                     k++;
                 }
             }
-            mVertexBuffer.SetData(mVertex);
+            //mVertexBuffer.SetData(mVertex);
             ComputeMinMax();
         }
         public void ComputeMinMax()
@@ -610,16 +600,14 @@ namespace AegirCore.Simulation.Water
             {
                 for (int j = 0; j < mOptions.SizeZ; j++)
                 {
-                    h = mVertex[k].Position.Y;
+                    h = mVertex[k].Y;
                     if (h < mMin) mMin = h;
                     if (h > mMax) mMax = h;
                     k++;
                 }
             }
         }
-        #endregion
 
-        #region Initialize Waves
         void Initialize6Waves()
         {
             // frequence = 2 * PI / wavelength
@@ -746,9 +734,7 @@ namespace AegirCore.Simulation.Water
                 wave[w].Phase = wave[w].Speed * wave[w].Freq;
             }
         }
-        #endregion
 
-        #region Water Height
         public float GetWaterHeight(Vector3 p)
         {
             // Recherche du quad où se situe le point p
@@ -783,7 +769,7 @@ namespace AegirCore.Simulation.Water
             {
                 for (int j = 0; j != mOptions.SizeZ; j++)
                 {
-                    if (mVertex[k].Position.X > p.X && mVertex[k].Position.Z > p.Z)
+                    if (mVertex[k].X > p.X && mVertex[k].Z > p.Z)
                     {
                         triangle = 2 * ((i - 1) * (halfWidth * 2) + (j - 1));
                         return triangle;
@@ -802,9 +788,9 @@ namespace AegirCore.Simulation.Water
 
             h = 0;
 
-            A = new Vector2(mVertex[t.I0].Position.X, mVertex[t.I0].Position.Z);
-            B = new Vector2(mVertex[t.I1].Position.X, mVertex[t.I1].Position.Z);
-            C = new Vector2(mVertex[t.I2].Position.X, mVertex[t.I2].Position.Z);
+            A = new Vector2(mVertex[t.I0].X, mVertex[t.I0].Z);
+            B = new Vector2(mVertex[t.I1].X, mVertex[t.I1].Z);
+            C = new Vector2(mVertex[t.I2].X, mVertex[t.I2].Z);
             P = new Vector2(p.X, p.Z);
 
             v0 = C - A;
@@ -828,7 +814,7 @@ namespace AegirCore.Simulation.Water
             if ((u >= 0) & (v >= 0) & (u + v <= 1))
             {
                 IsInTriangle = true;
-                h = mVertex[t.I0].Position.Y + u * (mVertex[t.I2].Position.Y - mVertex[t.I0].Position.Y) + v * (mVertex[t.I1].Position.Y - mVertex[t.I0].Position.Y);
+                h = mVertex[t.I0].Y + u * (mVertex[t.I2].Y - mVertex[t.I0].Y) + v * (mVertex[t.I1].Y - mVertex[t.I0].Y);
             }
             return IsInTriangle;
         }
@@ -871,6 +857,5 @@ namespace AegirCore.Simulation.Water
             }
             return IsInTriangle;
         }
-        #endregion
     }
 }

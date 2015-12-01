@@ -1239,9 +1239,9 @@ namespace AegirCore.Simulation.Mesh
                     m2 = mVertexWorld[mTri[m].I2];
 
                     // Triangle de l'eau
-                    w0 = waterMesh.mVertex[waterMesh.mTri[w].I0].Position;
-                    w1 = waterMesh.mVertex[waterMesh.mTri[w].I1].Position;
-                    w2 = waterMesh.mVertex[waterMesh.mTri[w].I2].Position;
+                    w0 = waterMesh.mVertex[waterMesh.mTri[w].I0];
+                    w1 = waterMesh.mVertex[waterMesh.mTri[w].I1];
+                    w2 = waterMesh.mVertex[waterMesh.mTri[w].I2];
 
                     // Si les 2 triangles ont une intersection
                     if (TriangleIntersection.Intersection_3d(m0, m1, m2, w0, w1, w2) == 1)
