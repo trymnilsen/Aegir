@@ -342,9 +342,9 @@
       <Project>{46062537-69cf-4e4b-bea5-0337499d2af9}</Project>
       <Name>AegirCore</Name>
     </ProjectReference>
-    <ProjectReference Include="..\AegirMath\AegirMath.csproj">
+    <ProjectReference Include="..\AegirMath\AegirType.csproj">
       <Project>{d69e72f0-2c6b-4c14-a6f8-9fe3f9059395}</Project>
-      <Name>AegirMath</Name>
+      <Name>AegirType</Name>
     </ProjectReference>
     <ProjectReference Include="..\AegirNetwork\AegirNetwork.csproj">
       <Project>{317d2c75-d643-47a2-ad18-071dabbe0e5d}</Project>

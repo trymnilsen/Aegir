@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 
-namespace AegirMath
+namespace AegirType
 {
     /// <summary>
     /// Describes a sphere in 3D-space for bounding operations.

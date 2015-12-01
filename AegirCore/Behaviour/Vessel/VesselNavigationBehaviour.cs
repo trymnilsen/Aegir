@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using AegirCore.Simulation;
 using AegirCore.Behaviour.World;
 using System.Diagnostics;
-using AegirMath;
+using AegirType;
 
 namespace AegirCore.Behaviour.Vessel
 {

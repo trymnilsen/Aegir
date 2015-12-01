@@ -97,6 +97,7 @@
     <Compile Include="Simulation\Mesh\Triangle.cs" />
     <Compile Include="Simulation\Mesh\TriangleIntersection.cs" />
     <Compile Include="Simulation\Mesh\TriangleWetted.cs" />
+    <Compile Include="Simulation\Mesh\VertexPositionColor.cs" />
     <Compile Include="Simulation\SimulationEngine.cs" />
     <Compile Include="Simulation\SimulationTime.cs" />
     <Compile Include="Simulation\VesselSimulationMode.cs" />
@@ -112,9 +113,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AegirMath\AegirMath.csproj">
+    <ProjectReference Include="..\AegirMath\AegirType.csproj">
       <Project>{d69e72f0-2c6b-4c14-a6f8-9fe3f9059395}</Project>
-      <Name>AegirMath</Name>
+      <Name>AegirType</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

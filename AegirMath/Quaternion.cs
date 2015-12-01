@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AegirMath
+namespace AegirType
 {
     /// <summary>
     /// An efficient mathematical representation for three dimensional rotations.

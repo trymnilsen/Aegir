@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AegirMath
+namespace AegirType
 {
     /// <summary>
     /// Defines the intersection between a <see cref="Plane"/> and a bounding volume.

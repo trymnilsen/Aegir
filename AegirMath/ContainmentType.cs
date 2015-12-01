@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AegirMath
+namespace AegirType
 {
     /// <summary>
     /// Defines how the bounding volumes intersects or contain one another.

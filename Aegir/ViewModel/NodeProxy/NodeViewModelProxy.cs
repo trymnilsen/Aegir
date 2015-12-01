@@ -3,7 +3,7 @@ using Aegir.Windows;
 using AegirCore.Behaviour.Rendering;
 using AegirCore.Behaviour.World;
 using AegirCore.Scene;
-using AegirMath;
+using AegirType;
 using AegirNetwork;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;

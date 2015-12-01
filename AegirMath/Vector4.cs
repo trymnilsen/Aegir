@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 
-namespace AegirMath
+namespace AegirType
 {    /// <summary>
      /// Describes a 4D-vector.
      /// </summary>

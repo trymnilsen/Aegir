@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AegirMath
+namespace AegirType
 {
     public struct Vector2 : IEquatable<Vector2>
     {

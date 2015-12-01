@@ -1,5 +1,5 @@
 ﻿using AegirCore.Scene;
-using AegirMath;
+using AegirType;
 using System;
 using System.Collections.Generic;
 using System.Linq;

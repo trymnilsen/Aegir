@@ -44,9 +44,11 @@
     <Compile Include="BoundingBox.cs" />
     <Compile Include="BoundingFrustrum.cs" />
     <Compile Include="BoundingSphere.cs" />
+    <Compile Include="Color.cs" />
     <Compile Include="ContainmentType.cs" />
     <Compile Include="MathHelper.cs" />
     <Compile Include="Matrix.cs" />
+    <Compile Include="Model.cs" />
     <Compile Include="Plane.cs" />
     <Compile Include="PlaneHelper.cs" />
     <Compile Include="PlaneIntersectionType.cs" />

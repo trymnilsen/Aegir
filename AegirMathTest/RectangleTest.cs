@@ -1,4 +1,4 @@
-﻿using AegirMath;
+﻿using AegirType;
 using NUnit.Framework;
 
 namespace AegirMathTests
