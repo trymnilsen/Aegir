@@ -72,6 +72,8 @@
     <Compile Include="Datagram\IDatagramService.cs" />
     <Compile Include="Entity\GNSSReceiver.cs" />
     <Compile Include="Entity\Vessel.cs" />
+    <Compile Include="Mesh\Loader\ModelLoader.cs" />
+    <Compile Include="Mesh\Loader\ObjLoader.cs" />
     <Compile Include="Output\Water.cs" />
     <Compile Include="Entity\WaterSegment.cs" />
     <Compile Include="Output\OutputData.cs" />
@@ -90,14 +92,14 @@
     <Compile Include="Scripting\IScriptCompiler.cs" />
     <Compile Include="Scripting\ScriptCompiler.cs" />
     <Compile Include="Scripting\ScriptFile.cs" />
-    <Compile Include="Simulation\Helper\FourierCPU.cs" />
-    <Compile Include="Simulation\Helper\MersenneTwister.cs" />
-    <Compile Include="Simulation\Mesh\Force.cs" />
-    <Compile Include="Simulation\Mesh\SimulationMesh.cs" />
-    <Compile Include="Simulation\Mesh\Triangle.cs" />
-    <Compile Include="Simulation\Mesh\TriangleIntersection.cs" />
-    <Compile Include="Simulation\Mesh\TriangleWetted.cs" />
-    <Compile Include="Simulation\Mesh\VertexPositionColor.cs" />
+    <Compile Include="Helper\FourierCPU.cs" />
+    <Compile Include="Helper\MersenneTwister.cs" />
+    <Compile Include="Mesh\Force.cs" />
+    <Compile Include="Mesh\SimulationMesh.cs" />
+    <Compile Include="Mesh\Triangle.cs" />
+    <Compile Include="Mesh\TriangleIntersection.cs" />
+    <Compile Include="Mesh\TriangleWetted.cs" />
+    <Compile Include="Mesh\VertexPositionColor.cs" />
     <Compile Include="Simulation\SimulationEngine.cs" />
     <Compile Include="Simulation\SimulationTime.cs" />
     <Compile Include="Simulation\VesselSimulationMode.cs" />
@@ -122,6 +124,7 @@
     <Analyzer Include="..\packages\Microsoft.CodeAnalysis.Analyzers.1.0.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.Analyzers.dll" />
     <Analyzer Include="..\packages\Microsoft.CodeAnalysis.Analyzers.1.0.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.CSharp.Analyzers.dll" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

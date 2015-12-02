@@ -28,7 +28,7 @@ namespace AegirCore.Simulation.Mesh
         private float Izx = 0;
         private float Izy = 0;
 
-        // Calcul de surfaces immergées
+        // Calculation of submerged surfaces
         private List<int> mL_WaterTriToTest;
 
         private List<int> mL_MeshTriToTest;
@@ -38,7 +38,7 @@ namespace AegirCore.Simulation.Mesh
         private List<Triangle> mL_MeshNewTri;
         private List<Vector3> mL_MeshNewVertex;
         private List<float> mL_MeshNewHeight;
-        private Dictionary<int, List<Vector3>> mD_TriPts;   // int = N° du triangle, List = liste des points d'intersection
+        private Dictionary<int, List<Vector3>> mD_TriPts;   // Int = triangle index, list = list of points of intersection
         public bool IsComputed = false;
         private const float ZERO = float.Epsilon;
 
