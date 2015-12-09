@@ -28,7 +28,7 @@ namespace AegirCore.Simulation.Water
         // Ajouts
         public Vector3[] mVertex;
         private int mNbVertices;
-        public List<Triangle> mTri;
+        public List<SimulationTriangle> mTri;
         private int mNbTris;
 
         Wave[] wave;
@@ -383,8 +383,8 @@ namespace AegirCore.Simulation.Water
             }
 
             // Build List of triangles
-            Triangle Face = new Triangle();
-            mTri = new List<Triangle>();
+            SimulationTriangle Face = new SimulationTriangle();
+            mTri = new List<SimulationTriangle>();
             k = 0;
             for (int i = 0; i < numCellRows; ++i)
             {
@@ -779,7 +779,7 @@ namespace AegirCore.Simulation.Water
             }
             return triangle;
         }
-        bool GetHeightInTriangle(Triangle t, Vector3 p, out float h)
+        bool GetHeightInTriangle(SimulationTriangle t, Vector3 p, out float h)
         {
             Vector2 A, B, C, P;
             Vector2 v0, v1, v2;

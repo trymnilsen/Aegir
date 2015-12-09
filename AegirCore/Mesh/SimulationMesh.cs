@@ -1,4 +1,5 @@
-﻿using AegirCore.Simulation.Water;
+﻿using AegirCore.Mesh.Loader;
+using AegirCore.Simulation.Water;
 using AegirType;
 using System;
 using System.Collections.Generic;
@@ -13,8 +14,8 @@ namespace AegirCore.Simulation.Mesh
         private List<Vector3> mL_VertexWorld;
         private Vector3[] mVertexWorld;
 
-        private List<Triangle> mL_Triangle;
-        private Triangle[] mTri;
+        private List<SimulationTriangle> mL_Triangle;
+        private SimulationTriangle[] mTri;
 
         private Vector3 mMin, mMax;
         private Vector3 mCentroid;
@@ -35,7 +36,7 @@ namespace AegirCore.Simulation.Mesh
         private List<int> mL_MeshTriSubmerged;
         private List<int> mL_MeshTriEmerged;
         private List<int> mL_VerticesTested;    // 0 = en dessous de l'eau, 1 = au dessus de l'eau
-        private List<Triangle> mL_MeshNewTri;
+        private List<SimulationTriangle> mL_MeshNewTri;
         private List<Vector3> mL_MeshNewVertex;
         private List<float> mL_MeshNewHeight;
         private Dictionary<int, List<Vector3>> mD_TriPts;   // Int = triangle index, list = list of points of intersection
@@ -59,9 +60,6 @@ namespace AegirCore.Simulation.Mesh
         private const float mGRAVITY = 9.81f;
         private const float mWATERDENSITY = 1027f;  // SI = kg / m3
 
-        protected BoundingBox mBoundBox;
-        protected BoundingSphere mBoundSphere;
-
         private WaterCell waterMesh;
 
         protected Model mModel;
@@ -69,7 +67,14 @@ namespace AegirCore.Simulation.Mesh
         public Model Model
         {
             get { return mModel; }
-            set { mModel = value; }
+            set
+            {
+                if (mModel!=value)
+                {
+                    mModel = value;
+                    LoadContent();
+                }
+            }
         }
 
         protected string mModelName;
@@ -148,10 +153,7 @@ namespace AegirCore.Simulation.Mesh
         {
             get
             {
-                Vector3 min = Vector3.Transform(mBoundBox.Min, mWorld);
-                Vector3 max = Vector3.Transform(mBoundBox.Max, mWorld);
-
-                return (min + max) * .5f;
+                return Vector3.Forward;
             }
         }
 
@@ -296,8 +298,9 @@ namespace AegirCore.Simulation.Mesh
             set { mType = value; }
         }
 
-        public SimulationMesh()
+        public SimulationMesh(WaterCell water)
         {
+            waterMesh = water;
             mPosition = Vector3.Zero;
             mScale = 1.0f;
             mRotationX = 0.0f;
@@ -321,16 +324,6 @@ namespace AegirCore.Simulation.Mesh
             //        i++;
             //    }
             //}
-
-            //if (mModelName != null)
-            //{
-            //    mModel = Game.Content.Load<Model>(mModelName);
-            //    if (mModelDisplayName != null) mModelDisplay = Game.Content.Load<Model>(mModelDisplayName);
-
-            //    if (mModel.Tag != null) mBoundBox = (BoundingBox)mModel.Tag;
-            //    else mBoundBox = new BoundingBox();
-            //TODO: Do calcs based on passed data
-            ComputeBoundingSphere();
             //}
 
             if (mToCompute)
@@ -913,51 +906,42 @@ namespace AegirCore.Simulation.Mesh
         private void ExtractAllData()
         {
             mL_Vertex = new List<Vector3>();
-            mL_Triangle = new List<Triangle>();
+            mL_Triangle = new List<SimulationTriangle>();
 
-            //foreach (ModelMesh mm in mModel.Meshes)
-            //{
-            //    foreach (ModelMeshPart mmp in mm.MeshParts)
-            //    {
-            //        // Get number of vertices already used
-            //        int vertexOffset = mL_Vertex.Count;
+            Vector3[] vectors = new Vector3[Model.Vertexes.Length];
+            for (int i = 0, l = Model.Faces.Length; i < l; i++)
+            {
+                vectors[i] = new Vector3((float)Model.Vertexes[i].X, 
+                                         (float)Model.Vertexes[i].Y, 
+                                         (float)Model.Vertexes[i].Z);
+            }
+            mVertex = vectors;
 
-            //        // List of vertices in this part
-            //        Vector3[] partVertices = new Vector3[mmp.NumVertices];
+            for(int i=0, l=Model.Faces.Length; i< l; i++)
+            {
+                Face face = Model.Faces[i];
 
-            //        // Get data from model mesh
-            //        mm.VertexBuffer.GetData<Vector3>(mmp.StreamOffset + mmp.BaseVertex * mmp.VertexStride, partVertices, 0, mmp.NumVertices, mmp.VertexStride);
+                // Get raw triangle index data
 
-            //        // Add vertex data
-            //        mL_Vertex.AddRange(partVertices);
-            //        mVertex = mL_Vertex.ToArray();
-            //        mVertexWorld = new Vector3[mVertex.Length];
+                // Get triangle data for this part
+                SimulationTriangle SimTriangle = new SimulationTriangle();
+                Random rand = new Random();
 
-            //        // Get raw triangle index data
-            //        short[] rawTriData = new short[mmp.PrimitiveCount * 3];
-            //        mm.IndexBuffer.GetData<short>(mmp.StartIndex * 2, rawTriData, 0, mmp.PrimitiveCount * 3);
+                SimTriangle.I0 = face.VertexIndexList[0];
+                SimTriangle.I1 = face.VertexIndexList[1];
+                SimTriangle.I2 = face.VertexIndexList[2];
+                SimTriangle.color = new Color((float)rand.NextDouble(), (float)rand.NextDouble(), (float)rand.NextDouble());
+                Vector3 u = mVertex[SimTriangle.I1] - mVertex[SimTriangle.I0];
+                Vector3 v = mVertex[SimTriangle.I2] - mVertex[SimTriangle.I0];
+                Vector3 a = Vector3.Cross(v, u);
+                SimTriangle.fArea = (float)(0.5 * Math.Sqrt(a.X * a.X + a.Y * a.Y + a.Z * a.Z));
+                SimTriangle.vNormal = Vector3.Normalize(a);
+                SimTriangle.vCG = (mVertex[SimTriangle.I0] + mVertex[SimTriangle.I1] + mVertex[SimTriangle.I2]) / 3;
 
-            //        // Get triangle data for this part
-            //        mTri = new Triangle[mmp.PrimitiveCount];
-            //        Random rand = new Random();
-            //        for (int i = 0; i != mTri.Length; i++)
-            //        {
-            //            mTri[i].I0 = rawTriData[i * 3 + 0] + vertexOffset;
-            //            mTri[i].I1 = rawTriData[i * 3 + 1] + vertexOffset;
-            //            mTri[i].I2 = rawTriData[i * 3 + 2] + vertexOffset;
-            //            mTri[i].color = new Color((float)rand.NextDouble(), (float)rand.NextDouble(), (float)rand.NextDouble());
-            //            Vector3 u = mVertex[mTri[i].I1] - mVertex[mTri[i].I0];
-            //            Vector3 v = mVertex[mTri[i].I2] - mVertex[mTri[i].I0];
-            //            Vector3 a = Vector3.Cross(v, u);
-            //            mTri[i].fArea = (float)(0.5 * Math.Sqrt(a.X * a.X + a.Y * a.Y + a.Z * a.Z));
-            //            mTri[i].vNormal = Vector3.Normalize(a);
-            //            mTri[i].vCG = (mVertex[mTri[i].I0] + mVertex[mTri[i].I1] + mVertex[mTri[i].I2]) / 3;
-            //        }
-
-            //        // Add triangle data
-            //        mL_Triangle.AddRange(mTri);
-            //    }
-            //}
+                // Add triangle data
+                mL_Triangle.AddRange(mTri);
+            }
+            
             NbVertices = mVertex.Length;
             NbTriangles = mTri.Length;
         }
@@ -1125,17 +1109,17 @@ namespace AegirCore.Simulation.Mesh
             for (int i = 0; i < mVertex.Length; i++) mVertexWorld[i] = Vector3.Transform(mVertex[i], mWorld);
         }
 
-        private void ComputeBoundingSphere()
-        {
-            mBoundSphere = new BoundingSphere();
+        //private void ComputeBoundingSphere()
+        //{
+        //    mBoundSphere = new BoundingSphere();
 
-            // Accumulate all the bounding spheres to find the total
-            //foreach (ModelMesh mesh in mModel.Meshes)
-            //{
-            //    BoundingSphere meshBoundingSphere = mesh.BoundingSphere;
-            //    BoundingSphere.CreateMerged(ref mBoundSphere, ref meshBoundingSphere, out mBoundSphere);
-            //}
-        }
+        //    // Accumulate all the bounding spheres to find the total
+        //    //foreach (ModelMesh mesh in mModel.Meshes)
+        //    //{
+        //    //    BoundingSphere meshBoundingSphere = mesh.BoundingSphere;
+        //    //    BoundingSphere.CreateMerged(ref mBoundSphere, ref meshBoundingSphere, out mBoundSphere);
+        //    //}
+        //}
 
         private void ComputeAABB()
         {
@@ -1293,7 +1277,7 @@ namespace AegirCore.Simulation.Mesh
 
         private void CreateMeshNewTri()
         {
-            mL_MeshNewTri = new List<Triangle>();
+            mL_MeshNewTri = new List<SimulationTriangle>();
             mL_MeshNewVertex = new List<Vector3>();
             List<Vector3> ListTemp = new List<Vector3>();
 
@@ -1304,7 +1288,7 @@ namespace AegirCore.Simulation.Mesh
                 int t = kv.Key;
                 List<Vector3> ListPtsIntersec = kv.Value;
 
-                Triangle T;
+                SimulationTriangle T;
                 Color colorOfTri = mTri[t].color;
                 // Vecteur normal de la face d'origine
 
@@ -1350,7 +1334,7 @@ namespace AegirCore.Simulation.Mesh
                     // Création des nouveaux triangles
                     for (int p = 0; p != ListPtsIntersec.Count - 1; p++)
                     {
-                        T = new Triangle();
+                        T = new SimulationTriangle();
                         T.I0 = Ind;
                         mL_MeshNewVertex.Add(ListPtsIntersec[p]); mL_MeshNewHeight.Add(0f);
                         T.I1 = mL_MeshNewVertex.Count - 1;
@@ -1430,7 +1414,7 @@ namespace AegirCore.Simulation.Mesh
                         //  | / |
                         //  +---+
                         // Premier triangle
-                        T = new Triangle();
+                        T = new SimulationTriangle();
                         T.I0 = Ind0;
                         mL_MeshNewVertex.Add(ListPtsIntersec[0]); mL_MeshNewHeight.Add(0f);
                         T.I1 = mL_MeshNewVertex.Count - 1;
@@ -1440,7 +1424,7 @@ namespace AegirCore.Simulation.Mesh
                         T.vNormal = mTri[t].vNormal;
                         mL_MeshNewTri.Add(T);
                         // Second triangle
-                        T = new Triangle();
+                        T = new SimulationTriangle();
                         T.I0 = Ind0;
                         T.I1 = mL_MeshNewVertex.Count - 1;
                         T.I2 = Ind1;
@@ -1465,7 +1449,7 @@ namespace AegirCore.Simulation.Mesh
                         }
                         // Création des triangles
                         // Premier triangle
-                        T = new Triangle();
+                        T = new SimulationTriangle();
                         T.I0 = Ind0;
                         mL_MeshNewVertex.Add(ListPtsIntersec[0]); mL_MeshNewHeight.Add(0f);
                         T.I1 = mL_MeshNewVertex.Count - 1;
@@ -1475,7 +1459,7 @@ namespace AegirCore.Simulation.Mesh
                         T.vNormal = mTri[t].vNormal;
                         mL_MeshNewTri.Add(T);
                         // Deuxième triangle
-                        T = new Triangle();
+                        T = new SimulationTriangle();
                         T.I0 = Ind0;
                         T.I1 = mL_MeshNewVertex.Count - 1;
                         mL_MeshNewVertex.Add(ListTemp[0]); mL_MeshNewHeight.Add(ListTemp[0].Y - waterMesh.GetWaterHeight(ListTemp[0]));
@@ -1490,7 +1474,7 @@ namespace AegirCore.Simulation.Mesh
                             for (int p = 1; p != ListTemp.Count - 2; p++)
                             {
                                 // Premier triangle
-                                T = new Triangle();
+                                T = new SimulationTriangle();
                                 T.I0 = mL_MeshNewVertex.Count - 1;
                                 T.I1 = mL_MeshNewVertex.Count - 2;
                                 mL_MeshNewVertex.Add(ListPtsIntersec[1 + p]); mL_MeshNewHeight.Add(0f);
@@ -1499,7 +1483,7 @@ namespace AegirCore.Simulation.Mesh
                                 T.vNormal = mTri[t].vNormal;
                                 mL_MeshNewTri.Add(T);
                                 // Deuxième triangle
-                                T = new Triangle();
+                                T = new SimulationTriangle();
                                 T.I0 = mL_MeshNewVertex.Count - 2;
                                 T.I1 = mL_MeshNewVertex.Count - 1;
                                 mL_MeshNewVertex.Add(ListTemp[p]); mL_MeshNewHeight.Add(ListTemp[p].Y - waterMesh.GetWaterHeight(ListTemp[p]));
@@ -1510,7 +1494,7 @@ namespace AegirCore.Simulation.Mesh
                             }
                         }
                         // Avant dernier triangle
-                        T = new Triangle();
+                        T = new SimulationTriangle();
                         T.I0 = mL_MeshNewVertex.Count - 1;
                         T.I1 = mL_MeshNewVertex.Count - 2;
                         mL_MeshNewVertex.Add(ListPtsIntersec[ListPtsIntersec.Count - 1]); mL_MeshNewHeight.Add(0f);
@@ -1519,7 +1503,7 @@ namespace AegirCore.Simulation.Mesh
                         T.vNormal = mTri[t].vNormal;
                         mL_MeshNewTri.Add(T);
                         // Dernier triangle
-                        T = new Triangle();
+                        T = new SimulationTriangle();
                         T.I0 = mL_MeshNewVertex.Count - 2;
                         T.I1 = mL_MeshNewVertex.Count - 1;
                         T.I2 = Ind1;
@@ -1558,7 +1542,7 @@ namespace AegirCore.Simulation.Mesh
 
             // i.e. les nouveaux créés par intersection avec la surface de l'eau et ceux qui sont complètement immergés
 
-            foreach (Triangle T in mL_MeshNewTri)
+            foreach (SimulationTriangle T in mL_MeshNewTri)
             {
                 TriangleWetted TW = new TriangleWetted();
                 TW.I0 = T.I0;
