@@ -1,4 +1,5 @@
-﻿using AegirCore.Behaviour.Vessel;
+﻿using AegirCore.Behaviour.Simulation;
+using AegirCore.Behaviour.Vessel;
 using AegirCore.Entity;
 using AegirCore.Simulation;
 using System;
@@ -14,7 +15,7 @@ namespace Aegir.ViewModel.NodeProxy
     public class VesselViewModelProxy : NodeViewModelProxy
     {
         private VesselNavigationBehaviour navBehaviour;
-
+        private FloatingMesh floatMeshBehaviour;
         [Category("Motion")]
         public double Heading
         {
@@ -61,7 +62,25 @@ namespace Aegir.ViewModel.NodeProxy
                 navBehaviour.SimulationMode = value;
                 RaisePropertyChanged();
             }
-        } 
+        }
+        [Category("Simulation")]
+        public float Mass
+       { 
+            get { return floatMeshBehaviour.Mass; }
+            set { floatMeshBehaviour.Mass = value; }
+        }
+
+        [Category("Simulation")]
+        [DisplayName("Hull Model")]
+        public string VesselHull
+        {
+            get { return floatMeshBehaviour.HullModelPath; }
+            set
+            {
+                floatMeshBehaviour.HullModelPath = value;
+                RaisePropertyChanged();
+            }
+        }
         public VesselViewModelProxy(Vessel vessel)
             :base(vessel)
         {
