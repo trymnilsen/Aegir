@@ -3,6 +3,8 @@
     public enum WaterSimulationMode
     {
         FFT,
+        Gerstner,
+        OnDemand,
         Fixed
     }
 }
