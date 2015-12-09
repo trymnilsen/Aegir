@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace AegirCore.Simulation.Mesh
 {
-    public struct Triangle
+    public struct SimulationTriangle
     {
         public int I0;      // Indices
         public int I1;
