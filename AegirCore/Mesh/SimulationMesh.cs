@@ -909,7 +909,7 @@ namespace AegirCore.Simulation.Mesh
             mL_Triangle = new List<SimulationTriangle>();
 
             Vector3[] vectors = new Vector3[Model.Vertexes.Length];
-            for (int i = 0, l = Model.Faces.Length; i < l; i++)
+            for (int i = 0, l = Model.Vertexes.Length; i < l; i++)
             {
                 vectors[i] = new Vector3((float)Model.Vertexes[i].X, 
                                          (float)Model.Vertexes[i].Y, 
@@ -939,11 +939,12 @@ namespace AegirCore.Simulation.Mesh
                 SimTriangle.vCG = (mVertex[SimTriangle.I0] + mVertex[SimTriangle.I1] + mVertex[SimTriangle.I2]) / 3;
 
                 // Add triangle data
-                mL_Triangle.AddRange(mTri);
+                mL_Triangle.Add(SimTriangle);
             }
-            
+
+            mTri = mL_Triangle.ToArray();
             NbVertices = mVertex.Length;
-            NbTriangles = mTri.Length;
+            NbTriangles = mL_Triangle.Count;
         }
 
         private void WriteMeshInfo()

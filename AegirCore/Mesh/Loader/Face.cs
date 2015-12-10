@@ -24,7 +24,7 @@ namespace AegirCore.Mesh.Loader
                 int vindex;
                 success = int.TryParse(parts[0], out vindex);
                 if (!success) throw new ArgumentException("Could not parse parameter as int");
-                VertexIndexList[i] = vindex;
+                VertexIndexList[i] = vindex -1;
 
             }
         }

@@ -85,6 +85,7 @@ namespace Aegir.ViewModel.NodeProxy
             :base(vessel)
         {
             navBehaviour = vessel.GetComponent<VesselNavigationBehaviour>();
+            floatMeshBehaviour = vessel.GetComponent<FloatingMesh>();
         }
         public override void Invalidate()
         {

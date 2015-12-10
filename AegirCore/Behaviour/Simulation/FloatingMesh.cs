@@ -45,6 +45,7 @@ namespace AegirCore.Behaviour.Simulation
                 if(value!=hullModelPath)
                 {
                     hullModelPath = value;
+                    ReloadHullModel(value);
                 }
             }
         }

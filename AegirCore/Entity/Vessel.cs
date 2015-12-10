@@ -1,4 +1,5 @@
 ﻿using AegirCore.Behaviour.Rendering;
+using AegirCore.Behaviour.Simulation;
 using AegirCore.Behaviour.Vessel;
 using AegirCore.Scene;
 using AegirCore.Simulation;
@@ -20,6 +21,10 @@ namespace AegirCore.Entity
             VesselNavigationBehaviour navBehavour = new VesselNavigationBehaviour();
             this.AddComponent(navBehavour);
 
+            WaterSimulation water = new WaterSimulation();
+            FloatingMesh mesh = new FloatingMesh(water.waterMesh);
+
+            this.AddComponent(mesh);
         }
     }
 }
