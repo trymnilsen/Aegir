@@ -7,7 +7,7 @@
              Startup="Application_Startup">
     <Application.Resources>
         <ResourceDictionary>
-            <vm:ViewModelLocator x:Key="VMLocator"/>
+            <vm:ViewModelLocator x:Key="VMLocator" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>

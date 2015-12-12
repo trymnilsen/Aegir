@@ -1,10 +1,5 @@
 ﻿using AegirCore.Project;
 using GalaSoft.MvvmLight.Messaging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Aegir.Messages.Project
 {
@@ -16,6 +11,7 @@ namespace Aegir.Messages.Project
         {
             this.Project = project;
         }
+
         public static void Send(ProjectData project)
         {
             Messenger.Default.Send<ProjectActivated>(new ProjectActivated(project));

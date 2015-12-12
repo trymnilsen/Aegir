@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AegirType
+﻿namespace AegirType
 {
     /// <summary>
     /// Defines how the bounding volumes intersects or contain one another.
@@ -15,10 +9,12 @@ namespace AegirType
         /// Indicates that there is no overlap between two bounding volumes.
         /// </summary>
         Disjoint,
+
         /// <summary>
         /// Indicates that one bounding volume completely contains another volume.
         /// </summary>
         Contains,
+
         /// <summary>
         /// Indicates that bounding volumes partially overlap one another.
         /// </summary>

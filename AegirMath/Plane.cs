@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AegirType
 {
@@ -12,11 +8,9 @@ namespace AegirType
 
         public Vector3 Normal;
 
-
         public Plane(Vector4 value)
             : this(new Vector3(value.X, value.Y, value.Z), value.W)
         {
-
         }
 
         public Plane(Vector3 normal, float d)
@@ -38,7 +32,6 @@ namespace AegirType
         public Plane(float a, float b, float c, float d)
             : this(new Vector3(a, b, c), d)
         {
-
         }
 
         public float Dot(Vector4 value)

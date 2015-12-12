@@ -2,49 +2,47 @@
 using AegirCore.Project.Event;
 using AegirCore.Scene;
 using AegirCore.Vessel;
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AegirCore.Project
 {
     public class ProjectContext
     {
         private ProjectData activeProject;
+
         public ProjectData ActiveProject
         {
-            get 
+            get
             {
                 return activeProject;
             }
             private set
             {
-                if(value != activeProject)
+                if (value != activeProject)
                 {
                     activeProject = value;
                     TriggerActiveProject(value);
                 }
             }
         }
+
         public ProjectContext()
         {
-            
         }
+
         /// <summary>
         /// Opens a new project from a file and sets it as the active one
         /// </summary>
         /// <param name="filePath">The path to the .proj file</param>
         public void OpenProject(string filePath)
         {
-            if(File.Exists(filePath))
+            if (File.Exists(filePath))
             {
                 ProjectLoadEventArgs args = new ProjectLoadEventArgs(filePath);
                 TriggerProjectLoadFailure(args);
             }
         }
+
         public void OpenProject(ProjectData project)
         {
             ActiveProject = project;
@@ -66,11 +64,12 @@ namespace AegirCore.Project
         private void TriggerProjectLoadSuccess(ProjectLoadEventArgs e)
         {
             ProjectLoadEventHandler evt = ProjectLoaded;
-            if(evt!=null)
+            if (evt != null)
             {
                 evt(e);
             }
         }
+
         private void TriggerProjectLoadFailure(ProjectLoadEventArgs e)
         {
             ProjectLoadEventHandler evt = ProjectLoadFailure;
@@ -79,21 +78,24 @@ namespace AegirCore.Project
                 evt(e);
             }
         }
+
         private void TriggerActiveProject(ProjectData project)
         {
             ProjectActivateEventHandler evt = ProjectActivated;
-            if(evt!=null)
+            if (evt != null)
             {
                 evt(new ProjectActivateEventArgs(project));
             }
         }
 
         public delegate void ProjectLoadEventHandler(ProjectLoadEventArgs e);
+
         public delegate void ProjectActivateEventHandler(ProjectActivateEventArgs e);
 
         public event ProjectActivateEventHandler ProjectActivated;
-        public event ProjectLoadEventHandler ProjectLoaded;
-        public event ProjectLoadEventHandler ProjectLoadFailure;
 
+        public event ProjectLoadEventHandler ProjectLoaded;
+
+        public event ProjectLoadEventHandler ProjectLoadFailure;
     }
 }

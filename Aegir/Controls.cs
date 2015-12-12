@@ -19,6 +19,7 @@ namespace System.Windows.Controls
     public class WpfPropertyGrid : Grid
     {
         #region Private fields
+
         private WorkflowDesigner Designer;
         private MethodInfo RefreshMethod;
         private MethodInfo OnSelectionChangedMethod;
@@ -28,21 +29,25 @@ namespace System.Windows.Controls
         private Border HelpText;
         private GridSplitter Splitter;
         private double HelpTextHeight = 60;
-        #endregion
+
+        #endregion Private fields
 
         #region Public properties
+
         /// <summary>Get or sets the selected object. Can be null.</summary>
         public object SelectedObject
         {
             get { return GetValue(SelectedObjectProperty); }
             set { SetValue(SelectedObjectProperty, value); }
         }
+
         /// <summary>Get or sets the selected object collection. Returns empty array by default.</summary>
         public object[] SelectedObjects
         {
             get { return GetValue(SelectedObjectsProperty) as object[]; }
             set { SetValue(SelectedObjectsProperty, value); }
         }
+
         /// <summary>XAML information with PropertyGrid's font and color information</summary>
         /// <seealso>Documentation for WorkflowDesigner.PropertyInspectorFontAndColorData</seealso>
         public string FontAndColorData
@@ -52,26 +57,31 @@ namespace System.Windows.Controls
                 Designer.PropertyInspectorFontAndColorData = value;
             }
         }
+
         /// <summary>Shows the description area on the top of the control</summary>
         public bool HelpVisible
         {
             get { return (bool)GetValue(HelpVisibleProperty); }
             set { SetValue(HelpVisibleProperty, value); }
         }
+
         /// <summary>Shows the tolbar on the top of the control</summary>
         public bool ToolbarVisible
         {
             get { return (bool)GetValue(ToolbarVisibleProperty); }
             set { SetValue(ToolbarVisibleProperty, value); }
         }
+
         public PropertySort PropertySort
         {
             get { return (PropertySort)GetValue(PropertySortProperty); }
             set { SetValue(PropertySortProperty, value); }
         }
-        #endregion
+
+        #endregion Public properties
 
         #region Dependency properties registration
+
         public static readonly DependencyProperty SelectedObjectProperty =
             DependencyProperty.Register("SelectedObject", typeof(object), typeof(WpfPropertyGrid),
             new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, SelectedObjectPropertyChanged));
@@ -83,15 +93,19 @@ namespace System.Windows.Controls
         public static readonly DependencyProperty HelpVisibleProperty =
             DependencyProperty.Register("HelpVisible", typeof(bool), typeof(WpfPropertyGrid),
             new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, HelpVisiblePropertyChanged));
+
         public static readonly DependencyProperty ToolbarVisibleProperty =
             DependencyProperty.Register("ToolbarVisible", typeof(bool), typeof(WpfPropertyGrid),
             new FrameworkPropertyMetadata(true, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, ToolbarVisiblePropertyChanged));
+
         public static readonly DependencyProperty PropertySortProperty =
             DependencyProperty.Register("PropertySort", typeof(PropertySort), typeof(WpfPropertyGrid),
             new FrameworkPropertyMetadata(PropertySort.CategorizedAlphabetical, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, PropertySortPropertyChanged));
-        #endregion
+
+        #endregion Dependency properties registration
 
         #region Dependency properties events
+
         private static object CoerceSelectedObject(DependencyObject d, object value)
         {
             WpfPropertyGrid pg = d as WpfPropertyGrid;
@@ -100,6 +114,7 @@ namespace System.Windows.Controls
 
             return collection.Length == 0 ? null : value;
         }
+
         private static object CoerceSelectedObjects(DependencyObject d, object value)
         {
             WpfPropertyGrid pg = d as WpfPropertyGrid;
@@ -132,6 +147,7 @@ namespace System.Windows.Controls
 
             pg.ChangeHelpText(string.Empty, string.Empty);
         }
+
         private static void SelectedObjectsPropertyChanged(DependencyObject source, DependencyPropertyChangedEventArgs e)
         {
             WpfPropertyGrid pg = source as WpfPropertyGrid;
@@ -176,6 +192,7 @@ namespace System.Windows.Controls
 
             pg.ChangeHelpText(string.Empty, string.Empty);
         }
+
         private static void HelpVisiblePropertyChanged(DependencyObject source, DependencyPropertyChangedEventArgs e)
         {
             WpfPropertyGrid pg = source as WpfPropertyGrid;
@@ -195,11 +212,13 @@ namespace System.Windows.Controls
                 }
             }
         }
+
         private static void ToolbarVisiblePropertyChanged(DependencyObject source, DependencyPropertyChangedEventArgs e)
         {
             WpfPropertyGrid pg = source as WpfPropertyGrid;
             pg.PropertyToolBar.Visibility = e.NewValue.Equals(true) ? Visibility.Visible : Visibility.Collapsed;
         }
+
         private static void PropertySortPropertyChanged(DependencyObject source, DependencyPropertyChangedEventArgs e)
         {
             WpfPropertyGrid pg = source as WpfPropertyGrid;
@@ -208,7 +227,8 @@ namespace System.Windows.Controls
             bool isAlpha = (sort == PropertySort.Alphabetical || sort == PropertySort.NoSort);
             pg.IsInAlphaViewMethod.Invoke(pg.Designer.PropertyInspectorView, new object[] { isAlpha });
         }
-        #endregion
+
+        #endregion Dependency properties events
 
         /// <summary>Default constructor, creates the UIElements including a PropertyInspector</summary>
         public WpfPropertyGrid()
@@ -301,6 +321,7 @@ namespace System.Windows.Controls
             this.SelectionTypeLabel.Text = string.Empty;
             this.SelectionTypeLabel.Visibility = Windows.Visibility.Collapsed;
         }
+
         /// <summary>Updates the PropertyGrid's properties</summary>
         public void RefreshPropertyList()
         {
@@ -352,6 +373,7 @@ namespace System.Windows.Controls
             }
             //}
         }
+
         /// <summary>Changes the text help area contents</summary>
         /// <param name="title">Title in bold</param>
         /// <param name="descrip">Description with ellipsis</param>

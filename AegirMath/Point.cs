@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AegirType
 {
@@ -13,9 +9,7 @@ namespace AegirType
     [DebuggerDisplay("{DebugDisplayString,nq}")]
     public struct Point : IEquatable<Point>
     {
-
         private static readonly Point zeroPoint = new Point();
-
 
         /// <summary>
         /// The x coordinate of this <see cref="Point"/>.
@@ -35,7 +29,6 @@ namespace AegirType
             get { return zeroPoint; }
         }
 
-
         internal string DebugDisplayString
         {
             get
@@ -46,7 +39,6 @@ namespace AegirType
                 );
             }
         }
-
 
         /// <summary>
         /// Constructs a point with X and Y from two values.
@@ -68,7 +60,6 @@ namespace AegirType
             this.X = value;
             this.Y = value;
         }
-
 
         /// <summary>
         /// Adds two points.
@@ -130,7 +121,7 @@ namespace AegirType
         /// </summary>
         /// <param name="a"><see cref="Point"/> instance on the left of the not equal sign.</param>
         /// <param name="b"><see cref="Point"/> instance on the right of the not equal sign.</param>
-        /// <returns><c>true</c> if the instances are not equal; <c>false</c> otherwise.</returns>	
+        /// <returns><c>true</c> if the instances are not equal; <c>false</c> otherwise.</returns>
         public static bool operator !=(Point a, Point b)
         {
             return !a.Equals(b);
@@ -183,6 +174,5 @@ namespace AegirType
         {
             return new Vector2(X, Y);
         }
-
     }
 }

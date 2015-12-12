@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace AegirType
 {
@@ -13,7 +10,6 @@ namespace AegirType
     [DebuggerDisplay("{DebugDisplayString,nq}")]
     public struct Vector3 : IEquatable<Vector3>
     {
-
         private static readonly Vector3 zero = new Vector3(0f, 0f, 0f);
         private static readonly Vector3 one = new Vector3(1f, 1f, 1f);
         private static readonly Vector3 unitX = new Vector3(1f, 0f, 0f);
@@ -40,7 +36,6 @@ namespace AegirType
         /// The z coordinate of this <see cref="Vector3"/>.
         /// </summary>
         public float Z;
-
 
         /// <summary>
         /// Returns a <see cref="Vector3"/> with components 0, 0, 0.
@@ -129,7 +124,6 @@ namespace AegirType
         {
             get { return backward; }
         }
-
 
         internal string DebugDisplayString
         {
@@ -856,7 +850,6 @@ namespace AegirType
             return sb.ToString();
         }
 
-
         /// <summary>
         /// Creates a new <see cref="Vector3"/> that contains a transformation of 3d-vector by the specified <see cref="Matrix"/>.
         /// </summary>
@@ -1047,7 +1040,6 @@ namespace AegirType
             }
         }
 
-
         /// <summary>
         /// Creates a new <see cref="Vector3"/> that contains a transformation of the specified normal by the specified <see cref="Matrix"/>.
         /// </summary>
@@ -1140,7 +1132,6 @@ namespace AegirType
             }
         }
 
-
         /// <summary>
         /// Compares whether two <see cref="Vector3"/> instances are equal.
         /// </summary>
@@ -1159,7 +1150,7 @@ namespace AegirType
         /// </summary>
         /// <param name="value1"><see cref="Vector3"/> instance on the left of the not equal sign.</param>
         /// <param name="value2"><see cref="Vector3"/> instance on the right of the not equal sign.</param>
-        /// <returns><c>true</c> if the instances are not equal; <c>false</c> otherwise.</returns>	
+        /// <returns><c>true</c> if the instances are not equal; <c>false</c> otherwise.</returns>
         public static bool operator !=(Vector3 value1, Vector3 value2)
         {
             return !(value1 == value2);
@@ -1274,6 +1265,5 @@ namespace AegirType
             value1.Z *= factor;
             return value1;
         }
-
     }
 }

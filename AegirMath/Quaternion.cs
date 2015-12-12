@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AegirType
 {
@@ -14,7 +10,6 @@ namespace AegirType
     public struct Quaternion : IEquatable<Quaternion>
     {
         private static readonly Quaternion _identity = new Quaternion(0, 0, 0, 1);
-
 
         /// <summary>
         /// The x coordinate of this <see cref="Quaternion"/>.
@@ -35,7 +30,6 @@ namespace AegirType
         /// The rotation component of this <see cref="Quaternion"/>.
         /// </summary>
         public float W;
-
 
         /// <summary>
         /// Constructs a quaternion with X, Y, Z and W from four values.
@@ -77,7 +71,6 @@ namespace AegirType
             this.W = value.W;
         }
 
-
         /// <summary>
         /// Returns a quaternion representing no rotation.
         /// </summary>
@@ -85,7 +78,6 @@ namespace AegirType
         {
             get { return _identity; }
         }
-
 
         internal string DebugDisplayString
         {
@@ -104,8 +96,6 @@ namespace AegirType
                 );
             }
         }
-
-
 
         /// <summary>
         /// Creates a new <see cref="Quaternion"/> that contains the sum of two quaternions.
@@ -136,7 +126,6 @@ namespace AegirType
             result.Z = quaternion1.Z + quaternion2.Z;
             result.W = quaternion1.W + quaternion2.W;
         }
-
 
         /// <summary>
         /// Creates a new <see cref="Quaternion"/> that contains concatenation between two quaternion.
@@ -190,7 +179,6 @@ namespace AegirType
             result.W = (w2 * w1) - (((x2 * x1) + (y2 * y1)) + (z2 * z1));
         }
 
-
         /// <summary>
         /// Transforms this quaternion into its conjugated version.
         /// </summary>
@@ -224,7 +212,6 @@ namespace AegirType
             result.W = value.W;
         }
 
-
         /// <summary>
         /// Creates a new <see cref="Quaternion"/> from the specified axis and angle.
         /// </summary>
@@ -255,7 +242,6 @@ namespace AegirType
             result.Z = axis.Z * sin;
             result.W = cos;
         }
-
 
         /// <summary>
         /// Creates a new <see cref="Quaternion"/> from the specified <see cref="Matrix"/>.
@@ -370,7 +356,6 @@ namespace AegirType
             }
         }
 
-
         /// <summary>
         /// Creates a new <see cref="Quaternion"/> from the specified yaw, pitch and roll angles.
         /// </summary>
@@ -422,7 +407,6 @@ namespace AegirType
             result.Z = (cosYaw * cosPitch * sinRoll) - (sinYaw * sinPitch * cosRoll);
             result.W = (cosYaw * cosPitch * cosRoll) + (sinYaw * sinPitch * sinRoll);
         }
-
 
         /// <summary>
         /// Divides a <see cref="Quaternion"/> by the other <see cref="Quaternion"/>.
@@ -482,7 +466,6 @@ namespace AegirType
             result.W = (w * num) - num10;
         }
 
-
         /// <summary>
         /// Returns a dot product of two quaternions.
         /// </summary>
@@ -504,7 +487,6 @@ namespace AegirType
         {
             result = (((quaternion1.X * quaternion2.X) + (quaternion1.Y * quaternion2.Y)) + (quaternion1.Z * quaternion2.Z)) + (quaternion1.W * quaternion2.W);
         }
-
 
         /// <summary>
         /// Compares whether current instance is equal to specified <see cref="Object"/>.
@@ -531,7 +513,6 @@ namespace AegirType
                    W == other.W;
         }
 
-
         /// <summary>
         /// Gets the hash code of this <see cref="Quaternion"/>.
         /// </summary>
@@ -540,7 +521,6 @@ namespace AegirType
         {
             return X.GetHashCode() + Y.GetHashCode() + Z.GetHashCode() + W.GetHashCode();
         }
-
 
         /// <summary>
         /// Returns the inverse quaternion which represents the opposite rotation.
@@ -591,7 +571,6 @@ namespace AegirType
         {
             return (X * X) + (Y * Y) + (Z * Z) + (W * W);
         }
-
 
         /// <summary>
         /// Performs a linear blend between two quaternions.
@@ -661,7 +640,6 @@ namespace AegirType
             result.Y *= num3;
             result.Z *= num3;
             result.W *= num3;
-
         }
 
         /// <summary>
@@ -740,7 +718,6 @@ namespace AegirType
             result.W = (num3 * quaternion1.W) + (num2 * quaternion2.W);
         }
 
-
         /// <summary>
         /// Creates a new <see cref="Quaternion"/> that contains subtraction of one <see cref="Quaternion"/> from another.
         /// </summary>
@@ -770,7 +747,6 @@ namespace AegirType
             result.Z = quaternion1.Z - quaternion2.Z;
             result.W = quaternion1.W - quaternion2.W;
         }
-
 
         /// <summary>
         /// Creates a new <see cref="Quaternion"/> that contains a multiplication of two quaternions.
@@ -856,7 +832,6 @@ namespace AegirType
             result.W = (w * num) - num9;
         }
 
-
         /// <summary>
         /// Flips the sign of the all the quaternion components.
         /// </summary>
@@ -941,7 +916,6 @@ namespace AegirType
             return new Vector4(X, Y, Z, W);
         }
 
-
         /// <summary>
         /// Adds two quaternions.
         /// </summary>
@@ -1004,7 +978,7 @@ namespace AegirType
         /// </summary>
         /// <param name="quaternion1"><see cref="Quaternion"/> instance on the left of the not equal sign.</param>
         /// <param name="quaternion2"><see cref="Quaternion"/> instance on the right of the not equal sign.</param>
-        /// <returns><c>true</c> if the instances are not equal; <c>false</c> otherwise.</returns>	
+        /// <returns><c>true</c> if the instances are not equal; <c>false</c> otherwise.</returns>
         public static bool operator !=(Quaternion quaternion1, Quaternion quaternion2)
         {
             if (((quaternion1.X == quaternion2.X) && (quaternion1.Y == quaternion2.Y)) && (quaternion1.Z == quaternion2.Z))
@@ -1072,7 +1046,6 @@ namespace AegirType
             quaternion.Z = quaternion1.Z - quaternion2.Z;
             quaternion.W = quaternion1.W - quaternion2.W;
             return quaternion;
-
         }
 
         /// <summary>
@@ -1089,6 +1062,5 @@ namespace AegirType
             quaternion2.W = -quaternion.W;
             return quaternion2;
         }
-
     }
 }

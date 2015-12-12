@@ -69,7 +69,7 @@ namespace AegirCore.Simulation.Mesh
             get { return mModel; }
             set
             {
-                if (mModel!=value)
+                if (mModel != value)
                 {
                     mModel = value;
                     LoadContent();
@@ -911,13 +911,13 @@ namespace AegirCore.Simulation.Mesh
             Vector3[] vectors = new Vector3[Model.Vertexes.Length];
             for (int i = 0, l = Model.Vertexes.Length; i < l; i++)
             {
-                vectors[i] = new Vector3((float)Model.Vertexes[i].X, 
-                                         (float)Model.Vertexes[i].Y, 
+                vectors[i] = new Vector3((float)Model.Vertexes[i].X,
+                                         (float)Model.Vertexes[i].Y,
                                          (float)Model.Vertexes[i].Z);
             }
             mVertex = vectors;
 
-            for(int i=0, l=Model.Faces.Length; i< l; i++)
+            for (int i = 0, l = Model.Faces.Length; i < l; i++)
             {
                 Face face = Model.Faces[i];
 
@@ -1347,7 +1347,6 @@ namespace AegirCore.Simulation.Mesh
                     }
                 }
 
-
                 // ============================
                 else
                 {
@@ -1514,7 +1513,7 @@ namespace AegirCore.Simulation.Mesh
                     }
                 }
 
-                #endregion 2 points en dessous de l'eau
+                #endregion 1 seul point en dessous de l'eau
             }
         }
 

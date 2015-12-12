@@ -1,14 +1,13 @@
 ﻿<UserControl x:Class="Aegir.View.Menu"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             mc:Ignorable="d" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d"
              xmlns:convert="clr-namespace:Aegir.Converter"
              xmlns:playbackMode="clr-namespace:AegirCore.Playback;assembly=AegirCore"
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
-
     </UserControl.Resources>
     <Grid>
         <Grid.Background>
@@ -38,17 +37,17 @@
                 <MenuItem Header="Quit"></MenuItem>
             </MenuItem>
             <MenuItem Header="Edit">
-                <MenuItem Header="Undo"/>
-                <MenuItem Header="Redo"/>
+                <MenuItem Header="Undo" />
+                <MenuItem Header="Redo" />
                 <Separator></Separator>
-                <MenuItem Header="Delete"/>
-                <MenuItem Header="Clone"/>
+                <MenuItem Header="Delete" />
+                <MenuItem Header="Clone" />
                 <Separator></Separator>
-                <MenuItem Header="Translate"/>
-                <MenuItem Header="Rotate"/>
-                <MenuItem Header="Transform.."/>
+                <MenuItem Header="Translate" />
+                <MenuItem Header="Rotate" />
+                <MenuItem Header="Transform.." />
                 <Separator></Separator>
-                <MenuItem Header="Preferences.."/>
+                <MenuItem Header="Preferences.." />
             </MenuItem>
             <MenuItem Header="Create">
                 <MenuItem Header="Sensor">
@@ -65,17 +64,16 @@
             <MenuItem Header="View">
                 <MenuItem Header="Scene">
                     <MenuItem Header="Info">
-                        <MenuItem IsCheckable="True" Header="ShowCoordinateSystem"/>
-                        <MenuItem IsCheckable="True" Header="ShowViewCube"/>
+                        <MenuItem IsCheckable="True" Header="ShowCoordinateSystem" />
+                        <MenuItem IsCheckable="True" Header="ShowViewCube" />
                         <MenuItem IsCheckable="True" Header="ShowCameraInfo" />
                         <MenuItem IsCheckable="True" Header="ShowTriangleCountInfo" />
                         <MenuItem IsCheckable="True" Header="ShowFieldOfView" />
                         <MenuItem IsCheckable="True" Header="ShowFrameRate" />
-                        <MenuItem IsCheckable="True" Header="ShowCameraTarget"/>
+                        <MenuItem IsCheckable="True" Header="ShowCameraTarget" />
                     </MenuItem>
                     <MenuItem>
                         <MenuItem Header="Helpers">
-
                         </MenuItem>
                     </MenuItem>
                 </MenuItem>
@@ -85,8 +83,8 @@
                     <MenuItem Header="Open Street Maps" IsEnabled="False"></MenuItem>
                     <MenuItem Header="OpenSeaMap/OpenStreetmap Hybrid" IsEnabled="False"></MenuItem>
                 </MenuItem>
-                <MenuItem Header="Camera" >
-                    <MenuItem IsCheckable="True" Header="Orthographic"/>
+                <MenuItem Header="Camera">
+                    <MenuItem IsCheckable="True" Header="Orthographic" />
                     <MenuItem Header="NearPlaneDistance">
                         <TextBox Text="1"></TextBox>
                     </MenuItem>
@@ -104,13 +102,13 @@
                     <MenuItem IsCheckable="True" Header="IsChangeFovEnabled" />
                     <MenuItem Header="RotationSensitivity">
                         <StackPanel Orientation="Horizontal">
-                            <Slider Value="3.1" Minimum="0.1" Maximum="5" Width="200"/>
-                            <TextBlock Text="3.1"/>
+                            <Slider Value="3.1" Minimum="0.1" Maximum="5" Width="200" />
+                            <TextBlock Text="3.1" />
                         </StackPanel>
                     </MenuItem>
                     <MenuItem Header="ZoomSensitivity">
                         <StackPanel Orientation="Horizontal">
-                            <Slider Value="2.7" Minimum="0.1" Maximum="5" Width="200"/>
+                            <Slider Value="2.7" Minimum="0.1" Maximum="5" Width="200" />
                             <TextBlock Text="2.7" />
                         </StackPanel>
                     </MenuItem>
@@ -131,19 +129,18 @@
                     <MenuItem Header="Error"></MenuItem>
                 </MenuItem>
             </MenuItem>
-
         </Menu>
         <!--~MenuStrip-->
         <!--Playback Controls-->
-        <!--<StackPanel Grid.Column="1" 
-                    Orientation="Horizontal" 
+        <!--<StackPanel Grid.Column="1"
+                    Orientation="Horizontal"
                     DataContext="{Binding PlaybackVM, Source={StaticResource VMLocator}}">
-            <ToggleButton Margin="5 2" IsChecked="{Binding PlayMode, 
+            <ToggleButton Margin="5 2" IsChecked="{Binding PlayMode,
                                                            Converter={StaticResource PlayBackEnumConverter},
                                                            ConverterParameter={x:Static playbackMode:PlaybackMode.REWIND}}">
                 <TextBlock Text="Rewind"></TextBlock>
             </ToggleButton>
-            <ToggleButton Margin="5 2" IsChecked="{Binding PlayMode, 
+            <ToggleButton Margin="5 2" IsChecked="{Binding PlayMode,
                                                    Converter={StaticResource PlayBackEnumConverter},
                                                    ConverterParameter={x:Static playbackMode:PlaybackMode.PLAYING}}">
                 <TextBlock Text="Play"></TextBlock>

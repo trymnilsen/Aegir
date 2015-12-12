@@ -1,5 +1,4 @@
 ﻿using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Messaging;
 
 namespace Aegir.ViewModel
 {
@@ -22,17 +21,16 @@ namespace Aegir.ViewModel
         public int NumOfOutputs
         {
             get { return numOfOutputs; }
-            set 
-            { 
-                if(value!=numOfOutputs)
+            set
+            {
+                if (value != numOfOutputs)
                 {
                     numOfOutputs = value;
                     RaisePropertyChanged("NumOfOutputs");
                 }
             }
         }
-        
-        
+
         public StatusBarViewModel()
         {
             //Messenger.Default.Register<OutputChangedMessage>(this, OutputChanged);
@@ -46,6 +44,7 @@ namespace Aegir.ViewModel
             //    ShipName = sim.SimulationData.ShipActor.Name;
             //}
         }
+
         //private void SimulationSet(SimulationCreatedMessage newSimulation)
         //{
         //    //ShipName = newSimulation.Item.SimulationData.ShipActor.Name;

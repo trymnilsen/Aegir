@@ -1,9 +1,4 @@
 ﻿using AegirType;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AegirCore.Simulation.Water
 {
@@ -12,6 +7,7 @@ namespace AegirCore.Simulation.Water
         //the number of vertices in the x and z plane (must be of the form 2^n + 1)
         //and the amount of spacing between vertices
         public int SizeX = 257;
+
         public int SizeZ = 257;
         public float CellSpacing = 1f;
 
@@ -27,14 +23,17 @@ namespace AegirCore.Simulation.Water
         //the normal maps over the water plane. Resulting in the appearence
         //of moving ripples across the water plane
         public Vector2 WaveMapOffset0;
+
         public Vector2 WaveMapOffset1;
 
         //the direction to offset the texcoords of the wave maps
         public Vector2 WaveMapVelocity0;
+
         public Vector2 WaveMapVelocity1;
 
         //water color and sun light properties
         public Vector4 WaterColor;
+
         public Vector4 SunColor;
         public Vector3 SunDirection;
         public float SunFactor; //the intensity of the sun specular term.

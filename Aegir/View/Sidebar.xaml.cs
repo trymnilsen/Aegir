@@ -1,20 +1,10 @@
-﻿using Aegir.ViewModel;
-using AegirCore.Scene;
+﻿using AegirCore.Scene;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Aegir.View
 {
@@ -23,14 +13,15 @@ namespace Aegir.View
     /// </summary>
     public partial class Sidebar : UserControl
     {
-        Point lastMouseDown;
-        TreeViewItem draggedItem, targetTreeItem;
-        Node targetActor;
+        private Point lastMouseDown;
+        private TreeViewItem draggedItem, targetTreeItem;
+        private Node targetActor;
 
         public Sidebar()
         {
             InitializeComponent();
         }
+
         private void treeView_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.ChangedButton == MouseButton.Left)
@@ -38,6 +29,7 @@ namespace Aegir.View
                 lastMouseDown = e.GetPosition(ObjectTree);
             }
         }
+
         private void treeView_MouseMove(object sender, MouseEventArgs e)
         {
             try
@@ -45,7 +37,6 @@ namespace Aegir.View
                 if (e.LeftButton == MouseButtonState.Pressed)
                 {
                     Point currentPosition = e.GetPosition(ObjectTree);
-
 
                     if ((Math.Abs(currentPosition.X - lastMouseDown.X) > 20.0) ||
                         (Math.Abs(currentPosition.Y - lastMouseDown.Y) > 20.0))
@@ -58,9 +49,9 @@ namespace Aegir.View
                             DragDropEffects finalDropEffect = DragDrop.DoDragDrop(ObjectTree, sender,
                                 DragDropEffects.Move);
                             //Checking target is not null and item is dragging(moving)
-                            if ((finalDropEffect == DragDropEffects.Move) 
+                            if ((finalDropEffect == DragDropEffects.Move)
                                 && (targetTreeItem != null)
-                                && (targetActor !=null))
+                                && (targetActor != null))
                             {
                                 // A Move drop was accepted
                                 CopyItem(selectedItem, targetActor);
@@ -76,13 +67,12 @@ namespace Aegir.View
                 Debug.WriteLine("Error");
             }
         }
+
         //private void treeView_DragOver(object sender, DragEventArgs e)
         //{
         //    try
         //    {
-
         //        Point currentPosition = e.GetPosition(ObjectTree);
-
 
         //        if ((Math.Abs(currentPosition.X - lastMouseDown.X) > 10.0) ||
         //            (Math.Abs(currentPosition.Y - lastMouseDown.Y) > 10.0))
@@ -125,9 +115,6 @@ namespace Aegir.View
             {
                 Debug.WriteLine("Error");
             }
-
-
-
         }
 
         private void CopyItem(Node item, Node to)
@@ -159,10 +146,10 @@ namespace Aegir.View
             //{
             MessageBox.Show("Cannot Append " + item.Name + " to " + to.Name);
             //}
-
         }
+
         /// <summary>
-        /// We want to check that the target node is not a child of us 
+        /// We want to check that the target node is not a child of us
         /// (Effectively making that child parent of its E.G grandparent).
         /// </summary>
         /// <param name="toMove"></param>

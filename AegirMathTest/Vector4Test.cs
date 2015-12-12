@@ -1,17 +1,10 @@
-﻿using AegirType;
-using AegirMathTests.Util;
+﻿using AegirMathTests.Util;
+using AegirType;
 using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AegirMathTests
 {
-    class Vector4Test
+    internal class Vector4Test
     {
         [Test]
         public void Constructors()

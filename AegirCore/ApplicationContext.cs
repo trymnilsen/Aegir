@@ -1,10 +1,5 @@
 ﻿using AegirCore.Project;
 using AegirCore.Simulation;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AegirCore
 {
@@ -12,7 +7,7 @@ namespace AegirCore
     {
         public SimulationEngine Engine { get; set; }
         public ProjectContext Project { get; set; }
-        
+
         public ApplicationContext()
         {
             Project = new ProjectContext();
@@ -23,7 +18,7 @@ namespace AegirCore
 
         private void Project_ProjectActivated(Project.Event.ProjectActivateEventArgs e)
         {
-            if(!Engine.IsStarted)
+            if (!Engine.IsStarted)
             {
                 Engine.Start();
             }

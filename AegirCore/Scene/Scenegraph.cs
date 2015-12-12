@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
 
 namespace AegirCore.Scene
 {
@@ -17,6 +12,7 @@ namespace AegirCore.Scene
         }
 
         public delegate void GraphChangedHandler();
-        public event GraphChangedHandler GraphChanged; 
+
+        public event GraphChangedHandler GraphChanged;
     }
 }

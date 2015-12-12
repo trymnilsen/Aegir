@@ -1,18 +1,11 @@
-﻿using AegirCore.Scene;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Data;
-using System.Windows.Media.Media3D;
 
 namespace Aegir.Converter
 {
     public class MatrixTransformConverter : IValueConverter
     {
-
         public object Convert(object transformation, Type targetType, object parameter, CultureInfo culture)
         {
             //Transformation transform = transformation as Transformation;

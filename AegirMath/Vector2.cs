@@ -1,14 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AegirType
 {
     public struct Vector2 : IEquatable<Vector2>
     {
-
         private static readonly Vector2 zeroVector = new Vector2(0f, 0f);
         private static readonly Vector2 unitVector = new Vector2(1f, 1f);
         private static readonly Vector2 unitXVector = new Vector2(1f, 0f);
@@ -67,7 +62,6 @@ namespace AegirType
             }
         }
 
-
         /// <summary>
         /// Constructs a 2d vector with X and Y from two values.
         /// </summary>
@@ -88,7 +82,6 @@ namespace AegirType
             this.X = value;
             this.Y = value;
         }
-
 
         /// <summary>
         /// Inverts values in the specified <see cref="Vector2"/>.
@@ -210,12 +203,11 @@ namespace AegirType
         /// </summary>
         /// <param name="value1"><see cref="Vector2"/> instance on the left of the not equal sign.</param>
         /// <param name="value2"><see cref="Vector2"/> instance on the right of the not equal sign.</param>
-        /// <returns><c>true</c> if the instances are not equal; <c>false</c> otherwise.</returns>	
+        /// <returns><c>true</c> if the instances are not equal; <c>false</c> otherwise.</returns>
         public static bool operator !=(Vector2 value1, Vector2 value2)
         {
             return value1.X != value2.X || value1.Y != value2.Y;
         }
-
 
         /// <summary>
         /// Performs vector addition on <paramref name="value1"/> and <paramref name="value2"/>.

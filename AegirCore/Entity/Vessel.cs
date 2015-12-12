@@ -2,11 +2,6 @@
 using AegirCore.Behaviour.Simulation;
 using AegirCore.Behaviour.Vessel;
 using AegirCore.Scene;
-using AegirCore.Simulation;
-using System;
-using System.ComponentModel;
-using System.Diagnostics;
-using System.Windows.Media.Media3D;
 
 namespace AegirCore.Entity
 {

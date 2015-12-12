@@ -1,12 +1,7 @@
 ﻿using AegirCore.Mesh.Loader;
 using AegirCore.Simulation.Mesh;
 using AegirCore.Simulation.Water;
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AegirCore.Behaviour.Simulation
 {
@@ -23,7 +18,7 @@ namespace AegirCore.Behaviour.Simulation
             get { return mass; }
             set
             {
-                if(mass!=value)
+                if (mass != value)
                 {
                     mass = value;
                     mesh.Mass = value;
@@ -42,7 +37,7 @@ namespace AegirCore.Behaviour.Simulation
             get { return hullModelPath; }
             set
             {
-                if(value!=hullModelPath)
+                if (value != hullModelPath)
                 {
                     hullModelPath = value;
                     ReloadHullModel(value);
@@ -61,12 +56,12 @@ namespace AegirCore.Behaviour.Simulation
         public void ReloadHullModel(string newPath)
         {
             bool hullValid = false;
-            if(File.Exists(newPath))
+            if (File.Exists(newPath))
             {
                 ObjModel hullModel = new ObjModel();
                 hullModel.LoadObj(newPath);
                 hullValid = hullModel.IsValid;
-                if(hullValid)
+                if (hullValid)
                 {
                     mesh.ToCompute = true;
                     mesh.Model = hullModel;
@@ -75,7 +70,5 @@ namespace AegirCore.Behaviour.Simulation
 
             IsHullModelValid = hullValid;
         }
-
-
     }
 }

@@ -10,8 +10,8 @@
         xmlns:navView="clr-namespace:Aegir.View.Navigation"
         xmlns:outputView="clr-namespace:Aegir.View.Output"
         xmlns:fa="http://schemas.fontawesome.io/icons/"
-        mc:Ignorable="d"     
-        Title="Aegir" 
+        mc:Ignorable="d"
+        Title="Aegir"
         Height="760" Width="1050"
         MinHeight="450"
         MinWidth="700"
@@ -38,7 +38,7 @@
                 <ColumnDefinition Width="1*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <!--Sidebar-->
-            <views:Sidebar/>
+            <views:Sidebar />
             <!--Preview Area-->
             <Grid Grid.Column="1">
                 <!--GL Element-->
@@ -52,17 +52,16 @@
                         </SolidColorBrush>
                     </views.:RenderView.Background>-->
                 </renderView:RenderView>
-
             </Grid>
             <!--Preview Area-->
         </Grid>
         <!--~MainArea-->
         <!--Console-->
-        <GridSplitter Grid.Row="2" Height="8" HorizontalAlignment="Stretch" VerticalAlignment="Top"/>
+        <GridSplitter Grid.Row="2" Height="8" HorizontalAlignment="Stretch" VerticalAlignment="Top" />
         <DockPanel Grid.Row="2" Margin="0 8 0 0" HorizontalAlignment="Stretch" Background="White" TextOptions.TextFormattingMode="Display">
             <DockPanel DockPanel.Dock="Bottom">
-                <TextBlock Text="Command:" FontWeight="Bold" DockPanel.Dock="Left" Margin="3" VerticalAlignment="Center"/>
-                <TextBox BorderThickness="0" Margin="3"/>
+                <TextBlock Text="Command:" FontWeight="Bold" DockPanel.Dock="Left" Margin="3" VerticalAlignment="Center" />
+                <TextBox BorderThickness="0" Margin="3" />
             </DockPanel>
             <TextBox AcceptsReturn="True" IsReadOnly="True" VerticalScrollBarVisibility="Auto" Text="Application loaded.&#x0a; AegirSimulation, version 1.00, May 12 2010, 18:13:45&#x0a; ========== Compiling Datagrams: 3 succeeded, 0 failed, 0 skipped ==========" BorderThickness="0 0 0 1"  BorderBrush="Black" />
         </DockPanel>

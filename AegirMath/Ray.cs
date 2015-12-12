@@ -1,14 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AegirType
 {
     public struct Ray : IEquatable<Ray>
     {
-
         public Vector3 Direction;
         public Vector3 Position;
 
@@ -23,12 +18,10 @@ namespace AegirType
             return (obj is Ray) ? this.Equals((Ray)obj) : false;
         }
 
-
         public bool Equals(Ray other)
         {
             return this.Position.Equals(other.Position) && this.Direction.Equals(other.Direction);
         }
-
 
         public override int GetHashCode()
         {
@@ -119,7 +112,6 @@ namespace AegirType
             return tMin;
         }
 
-
         public void Intersects(ref BoundingBox box, out float? result)
         {
             result = Intersects(box);
@@ -132,8 +124,8 @@ namespace AegirType
 			{
 				throw new ArgumentNullException("frustum");
 			}
-			
-			return frustum.Intersects(this);			
+
+			return frustum.Intersects(this);
         }
         */
 
@@ -210,12 +202,10 @@ namespace AegirType
             result = (dist < 0) ? null : distanceAlongRay - (float?)Math.Sqrt(dist);
         }
 
-
         public static bool operator !=(Ray a, Ray b)
         {
             return !a.Equals(b);
         }
-
 
         public static bool operator ==(Ray a, Ray b)
         {
@@ -237,6 +227,5 @@ namespace AegirType
         {
             return "{{Position:" + Position.ToString() + " Direction:" + Direction.ToString() + "}}";
         }
-
     }
 }

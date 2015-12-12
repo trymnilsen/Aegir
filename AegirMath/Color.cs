@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace AegirType
 {
@@ -159,6 +156,7 @@ namespace AegirType
             Yellow = new Color(0xff00ffff);
             YellowGreen = new Color(0xff32cd9a);
         }
+
         // ARGB
         private uint _packedValue;
 
@@ -167,7 +165,7 @@ namespace AegirType
             _packedValue = packedValue;
             // ARGB
             //_packedValue = (packedValue << 8) | ((packedValue & 0xff000000) >> 24);
-            // ABGR			
+            // ABGR
             //_packedValue = (packedValue & 0xff00ff00) | ((packedValue & 0x000000ff) << 16) | ((packedValue & 0x00ff0000) >> 16);
         }
 
@@ -384,7 +382,7 @@ namespace AegirType
         /// </summary>
         /// <param name="a"><see cref="Color"/> instance on the left of the not equal sign.</param>
         /// <param name="b"><see cref="Color"/> instance on the right of the not equal sign.</param>
-        /// <returns><c>true</c> if the instances are not equal; <c>false</c> otherwise.</returns>	
+        /// <returns><c>true</c> if the instances are not equal; <c>false</c> otherwise.</returns>
         public static bool operator !=(Color a, Color b)
         {
             return !(a == b);
@@ -858,6 +856,7 @@ namespace AegirType
             get;
             private set;
         }
+
         /// <summary>
         /// Gold color (R:255,G:215,B:0,A:255).
         /// </summary>
@@ -1379,6 +1378,7 @@ namespace AegirType
             get;
             private set;
         }
+
         /// <summary>
         /// PaleVioletRed color (R:219,G:112,B:147,A:255).
         /// </summary>
@@ -1757,7 +1757,6 @@ namespace AegirType
             set { _packedValue = value; }
         }
 
-
         internal string DebugDisplayString
         {
             get
@@ -1770,7 +1769,6 @@ namespace AegirType
                 );
             }
         }
-
 
         /// <summary>
         /// Returns a <see cref="String"/> representation of this <see cref="Color"/> in the format:
@@ -1815,7 +1813,6 @@ namespace AegirType
             return new Color((byte)(r * a / 255), (byte)(g * a / 255), (byte)(b * a / 255), a);
         }
 
-
         /// <summary>
         /// Compares whether current instance is equal to specified <see cref="Color"/>.
         /// </summary>
@@ -1825,6 +1822,5 @@ namespace AegirType
         {
             return this.PackedValue == other.PackedValue;
         }
-
     }
 }

@@ -1,10 +1,9 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
-using GalaSoft.MvvmLight.Messaging;
 
 namespace Aegir.ViewModel
 {
-    public class MapViewModel:ViewModelBase
+    public class MapViewModel : ViewModelBase
     {
         private bool showAll;
 
@@ -13,9 +12,9 @@ namespace Aegir.ViewModel
         public bool ShowAllWaypoints
         {
             get { return showAll; }
-            set 
-            { 
-                if(value != showAll)
+            set
+            {
+                if (value != showAll)
                 {
                     showAll = value;
                     RaisePropertyChanged("ShowAllWaypoints");
@@ -23,15 +22,14 @@ namespace Aegir.ViewModel
             }
         }
 
-        
         public MapViewModel()
         {
             this.AddWaypointCommand = new RelayCommand(AddWaypoint);
         }
+
         private void AddWaypoint()
         {
             //AddWaypointMessage.Send(5d, 5d);
         }
-
     }
 }

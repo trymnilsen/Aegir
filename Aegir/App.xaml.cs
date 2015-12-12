@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 
 namespace Aegir
 {
@@ -13,7 +7,8 @@ namespace Aegir
     /// </summary>
     public partial class App : Application
     {
-        Shell appShell;
+        private Shell appShell;
+
         public App()
         {
             var foo = new ViewModel.ViewModelLocator();
@@ -24,6 +19,5 @@ namespace Aegir
         {
             appShell.ShellLoaded();
         }
-
     }
 }

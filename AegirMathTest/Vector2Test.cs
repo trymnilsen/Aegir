@@ -1,16 +1,10 @@
-﻿using AegirType;
-using AegirMathTests.Util;
+﻿using AegirMathTests.Util;
+using AegirType;
 using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AegirMathTests
 {
-    class Vector2Test
+    internal class Vector2Test
     {
         [Test]
         public void CatmullRom()
@@ -70,7 +64,7 @@ namespace AegirMathTests
 
             Vector2 refVec;
 
-            // Overloads comparsion 
+            // Overloads comparsion
             var vector3 = Vector2.Multiply(vector, vector2);
             Vector2.Multiply(ref vector, ref vector2, out refVec);
             Assert.AreEqual(vector3, refVec);
@@ -380,6 +374,6 @@ namespace AegirMathTests
             Assert.AreEqual(new Point(1, 1), new Vector2(1.0f - float.Epsilon, 1.0f - float.Epsilon).ToPoint());
             Assert.AreEqual(new Point(1, 1), new Vector2(1.0f, 1.0f).ToPoint());
             Assert.AreEqual(new Point(19, 27), new Vector2(19.033f, 27.1f).ToPoint());
-        }   
+        }
     }
 }

@@ -1,15 +1,10 @@
 ﻿using AegirCore.Playback;
 using GalaSoft.MvvmLight;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Aegir.ViewModel
 {
-    public class PlaybackViewModel:ViewModelBase
+    public class PlaybackViewModel : ViewModelBase
     {
         private PlaybackMode playMode;
 
@@ -26,6 +21,7 @@ namespace Aegir.ViewModel
                 }
             }
         }
+
         public PlaybackViewModel()
         {
             this.PlayMode = PlaybackMode.REWIND;

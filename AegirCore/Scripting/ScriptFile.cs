@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AegirCore.Scripting
+﻿namespace AegirCore.Scripting
 {
-    class ScriptFile
+    internal class ScriptFile
     {
     }
 }

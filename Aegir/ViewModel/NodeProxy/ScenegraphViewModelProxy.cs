@@ -9,9 +9,6 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Aegir.ViewModel.NodeProxy
 {
@@ -19,24 +16,29 @@ namespace Aegir.ViewModel.NodeProxy
     {
         private const double NotifyPropertyUpdateRate = 333d;
         private DateTime lastNotifyProxyProperty;
+
         /// <summary>
         /// The scenegraph source we are wrapping
         /// </summary>
         private SceneGraph sceneSource;
 
         private NodeViewModelProxy selectedItem;
+
         /// <summary>
         /// Command to be executed when selected item has changed
         /// </summary>
         public RelayCommand<NodeViewModelProxy> SelectItemChanged { get; private set; }
+
         /// <summary>
         /// Command to be executed when an item is wanted to be removed from the graph
         /// </summary>
         public RelayCommand<NodeViewModelProxy> RemoveItemCommand { get; private set; }
+
         /// <summary>
         /// Command to be executed when an item is wanted to be moved
         /// </summary>
         public RelayCommand<NodeViewModelProxy> MoveItemCommand { get; private set; }
+
         /// <summary>
         /// A Graph of node viewmodel proxies composed from our scene source
         /// </summary>
@@ -55,6 +57,7 @@ namespace Aegir.ViewModel.NodeProxy
                 }
             }
         }
+
         /// <summary>
         /// Creates a new Scenegraph View Model
         /// </summary>
@@ -71,6 +74,7 @@ namespace Aegir.ViewModel.NodeProxy
             Items = new ObservableCollection<NodeViewModelProxy>();
             lastNotifyProxyProperty = DateTime.Now;
         }
+
         /// <summary>
         /// Updates the currently active selected item in the graph
         /// </summary>
@@ -79,6 +83,7 @@ namespace Aegir.ViewModel.NodeProxy
         {
             SelectedNodeChanged.Send(newItem);
         }
+
         private void ProjectChanged(ProjectActivated projectMessage)
         {
             RebuildScenegraphNodes(projectMessage.Project.Scene.RootNodes);
@@ -88,10 +93,12 @@ namespace Aegir.ViewModel.NodeProxy
         {
             Debug.WriteLine("Removing Item" + item);
         }
+
         private void MoveTo(NodeViewModelProxy item)
         {
             Debug.WriteLine("Moving Item" + item);
         }
+
         /// <summary>
         /// Message handler for invalidate entities message
         /// </summary>
@@ -100,23 +107,24 @@ namespace Aegir.ViewModel.NodeProxy
         {
             DateTime now = DateTime.Now;
             double timeDifference = (now - lastNotifyProxyProperty).TotalMilliseconds;
-            if(timeDifference > NotifyPropertyUpdateRate)
+            if (timeDifference > NotifyPropertyUpdateRate)
             {
                 lastNotifyProxyProperty = now;
-                foreach(NodeViewModelProxy nodeProxy in Items)
+                foreach (NodeViewModelProxy nodeProxy in Items)
                 {
                     nodeProxy.Invalidate();
                 }
             }
             TriggerInvalidateChildren();
         }
+
         /// <summary>
         /// message Handler for project loaded/activated message
         /// </summary>
         /// <param name="message"></param>
         public void OnProjectActivated(ProjectActivated message)
         {
-            if(sceneSource!=null)
+            if (sceneSource != null)
             {
                 sceneSource.GraphChanged -= SceneSource_GraphChanged;
             }
@@ -125,6 +133,7 @@ namespace Aegir.ViewModel.NodeProxy
             //Build Scenegraph
             RebuildScenegraphNodes(sceneSource.RootNodes);
         }
+
         /// <summary>
         /// Event Handler for the scenegraph changed event on our scene source
         /// </summary>
@@ -133,6 +142,7 @@ namespace Aegir.ViewModel.NodeProxy
             RebuildScenegraphNodes(sceneSource.RootNodes);
             TriggerScenegraphChanged();
         }
+
         /// <summary>
         /// Rebuilds our graph of proxy objects to resemble the one in our scene source
         /// </summary>
@@ -141,22 +151,24 @@ namespace Aegir.ViewModel.NodeProxy
         {
             //At the moment we rebuild the graph if it's changed
             Items.Clear();
-            foreach(Node n in nodes)
+            foreach (Node n in nodes)
             {
                 NodeViewModelProxy nodeProxy = CreateProxy(n);
                 Items.Add(nodeProxy);
                 PopulateNodeChildren(nodeProxy, n);
             }
         }
+
         private void PopulateNodeChildren(NodeViewModelProxy proxy, Node node)
         {
-            foreach(Node n in node.Children)
+            foreach (Node n in node.Children)
             {
                 NodeViewModelProxy childrenProxy = CreateProxy(n);
                 proxy.Children.Add(childrenProxy);
                 PopulateNodeChildren(childrenProxy, n);
             }
         }
+
         /// <summary>
         /// Creates the correct proxy base on our node
         /// </summary>
@@ -164,12 +176,13 @@ namespace Aegir.ViewModel.NodeProxy
         /// <returns></returns>
         public NodeViewModelProxy CreateProxy(Node n)
         {
-            if(n.GetType() == typeof(Vessel))
+            if (n.GetType() == typeof(Vessel))
             {
                 return new VesselViewModelProxy(n as Vessel);
             }
             return new NodeViewModelProxy(n);
         }
+
         /// <summary>
         /// Triggers our invalidate event, letting listeners update their props based on new viewmodel changes
         /// </summary>
@@ -181,6 +194,7 @@ namespace Aegir.ViewModel.NodeProxy
                 InvalidateEvent();
             }
         }
+
         /// <summary>
         /// Triggers a scenegraph changed event when we have rebuilt the proxy graph
         /// </summary>
@@ -194,9 +208,11 @@ namespace Aegir.ViewModel.NodeProxy
         }
 
         public delegate void InvalidateChildrenHandler();
+
         public event InvalidateChildrenHandler InvalidateChildren;
 
         public delegate void ScenegraphChangedHandler();
+
         public event ScenegraphChangedHandler ScenegraphChanged;
     }
 }

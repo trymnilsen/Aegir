@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AegirType
 {
@@ -154,14 +150,13 @@ namespace AegirType
             return (float)result;
         }
 
-
         /// <summary>
         /// Linearly interpolates between two values.
         /// </summary>
         /// <param name="value1">Source value.</param>
         /// <param name="value2">Destination value.</param>
         /// <param name="amount">Value between 0 and 1 indicating the weight of value2.</param>
-        /// <returns>Interpolated value.</returns> 
+        /// <returns>Interpolated value.</returns>
         /// <remarks>This method performs the linear interpolation based on the following formula.
         /// <c>value1 + (value2 - value1) * amount</c>
         /// Passing amount a value of 0 will cause value1 to be returned, a value of 1 will cause value2 to be returned.
@@ -171,7 +166,6 @@ namespace AegirType
         {
             return value1 + (value2 - value1) * amount;
         }
-
 
         /// <summary>
         /// Linearly interpolates between two values.

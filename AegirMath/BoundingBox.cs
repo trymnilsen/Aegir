@@ -1,16 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AegirType
 {
     [DebuggerDisplay("{DebugDisplayString,nq}")]
     public struct BoundingBox : IEquatable<BoundingBox>
     {
-
         public Vector3 Min;
 
         public Vector3 Max;
@@ -34,7 +30,6 @@ namespace AegirType
                 || box.Min.Z > Max.Z)
                 return ContainmentType.Disjoint;
 
-
             if (box.Min.X >= Min.X
                 && box.Max.X <= Max.X
                 && box.Min.Y >= Min.Y
@@ -53,7 +48,7 @@ namespace AegirType
 
         public ContainmentType Contains(BoundingFrustum frustum)
         {
-            //TODO: bad done here need a fix. 
+            //TODO: bad done here need a fix.
             //Because question is not frustum contain box but reverse and this is not the same
             int i;
             ContainmentType contained;
@@ -73,7 +68,6 @@ namespace AegirType
             if (i != 0)             // if i is not equal to zero, we can fastpath and say that this box intersects
                 return ContainmentType.Intersects;
 
-
             // If we get here, it means the first (and only) point we checked was actually contained in the frustum.
             // So we assume that all other points will also be contained. If one of the points is disjoint, we can
             // exit immediately saying that the result is Intersects
@@ -83,7 +77,6 @@ namespace AegirType
                 this.Contains(ref corners[i], out contained);
                 if (contained != ContainmentType.Contains)
                     return ContainmentType.Intersects;
-
             }
 
             // If we get here, then we know all the points were actually contained, therefore result is Contains
@@ -509,6 +502,5 @@ namespace AegirType
         {
             return "{{Min:" + this.Min.ToString() + " Max:" + this.Max.ToString() + "}}";
         }
-
     }
 }

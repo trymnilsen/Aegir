@@ -10,16 +10,15 @@
 // http://www.centerspace.net                                              //
 /////////////////////////////////////////////////////////////////////////////
 
-
-/* 
+/*
    A C-program for MT19937, with initialization improved 2002/1/26.
    Coded by Takuji Nishimura and Makoto Matsumoto.
 
-   Before using, initialize the state by using init_genrand(seed)  
+   Before using, initialize the state by using init_genrand(seed)
    or init_by_array(init_key, key_length).
 
    Copyright (C) 1997 - 2002, Makoto Matsumoto and Takuji Nishimura,
-   All rights reserved.                          
+   All rights reserved.
 
    Redistribution and use in source and binary forms, with or without
    modification, are permitted provided that the following conditions
@@ -32,8 +31,8 @@
         notice, this list of conditions and the following disclaimer in the
         documentation and/or other materials provided with the distribution.
 
-     3. The names of its contributors may not be used to endorse or promote 
-        products derived from this software without specific prior written 
+     3. The names of its contributors may not be used to endorse or promote
+        products derived from this software without specific prior written
         permission.
 
    THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
@@ -48,17 +47,12 @@
    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-
    Any feedback is very welcome.
    http://www.math.keio.ac.jp/matumoto/emt.html
    email: matumoto@math.keio.ac.jp
 */
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AegirCore.Simulation.Helper
 {
@@ -66,7 +60,7 @@ namespace AegirCore.Simulation.Helper
     /// Class MersenneTwister generates random numbers from a uniform distribution using
     /// the Mersenne Twister algorithm.
     /// </summary>
-    /// <remarks>Caution: MT is for MonteCarlo, and is NOT SECURE for CRYPTOGRAPHY 
+    /// <remarks>Caution: MT is for MonteCarlo, and is NOT SECURE for CRYPTOGRAPHY
     /// as it is.</remarks>
     public class MersenneTwister
     {
@@ -74,13 +68,14 @@ namespace AegirCore.Simulation.Helper
 
         // Period parameters.
         private const int N = 624;
+
         private const int M = 397;
         private const uint MATRIX_A = 0x9908b0dfU;   // constant vector a
         private const uint UPPER_MASK = 0x80000000U; // most significant w-r bits
         private const uint LOWER_MASK = 0x7fffffffU; // least significant r bits
         private const int MAX_RAND_INT = 0x7fffffff;
 
-        #endregion Constants
+        #endregion Constants -------------------------------------------------------
 
         #region Instance Variables ----------------------------------------------
 
@@ -93,7 +88,7 @@ namespace AegirCore.Simulation.Helper
         // mti==N+1 means mt[N] is not initialized
         private int mti = N + 1;
 
-        #endregion Instance Variables
+        #endregion Instance Variables ----------------------------------------------
 
         #region Constructors ----------------------------------------------------
 
@@ -107,7 +102,7 @@ namespace AegirCore.Simulation.Helper
         }
 
         /// <summary>
-        /// Creates a random number generator initialized with the given seed. 
+        /// Creates a random number generator initialized with the given seed.
         /// </summary>
         /// <param name="seed">The seed.</param>
         public MersenneTwister(int seed)
@@ -128,7 +123,7 @@ namespace AegirCore.Simulation.Helper
             init_by_array(initArray, (uint)initArray.Length);
         }
 
-        #endregion Constructors
+        #endregion Constructors ----------------------------------------------------
 
         #region Properties ------------------------------------------------------
 
@@ -145,13 +140,13 @@ namespace AegirCore.Simulation.Helper
             }
         }
 
-        #endregion Properties
+        #endregion Properties ------------------------------------------------------
 
         #region Member Functions ------------------------------------------------
 
         /// <summary>
         /// Returns a random integer greater than or equal to zero and
-        /// less than or equal to <c>MaxRandomInt</c>. 
+        /// less than or equal to <c>MaxRandomInt</c>.
         /// </summary>
         /// <returns>The next random integer.</returns>
         public int Next()
@@ -191,7 +186,7 @@ namespace AegirCore.Simulation.Helper
         /// <summary>
         /// Returns a random number between 0.0 and 1.0.
         /// </summary>
-        /// <returns>A single-precision floating point number greater than or equal to 0.0, 
+        /// <returns>A single-precision floating point number greater than or equal to 0.0,
         /// and less than 1.0.</returns>
         public float NextFloat()
         {
@@ -204,7 +199,7 @@ namespace AegirCore.Simulation.Helper
         /// given boolean parameter.
         /// </summary>
         /// <param name="includeOne">
-        /// If <c>true</c>, the random number returned will be 
+        /// If <c>true</c>, the random number returned will be
         /// less than or equal to one; otherwise, the random number returned will
         /// be strictly less than one.
         /// </param>
@@ -236,7 +231,7 @@ namespace AegirCore.Simulation.Helper
         /// <summary>
         /// Returns a random number between 0.0 and 1.0.
         /// </summary>
-        /// <returns>A double-precision floating point number greater than or equal to 0.0, 
+        /// <returns>A double-precision floating point number greater than or equal to 0.0,
         /// and less than 1.0.</returns>
         public double NextDouble()
         {
@@ -249,7 +244,7 @@ namespace AegirCore.Simulation.Helper
         /// given boolean parameter.
         /// </summary>
         /// <param name="includeOne">
-        /// If <c>true</c>, the random number returned will be 
+        /// If <c>true</c>, the random number returned will be
         /// less than or equal to one; otherwise, the random number returned will
         /// be strictly less than one.
         /// </param>
@@ -296,7 +291,6 @@ namespace AegirCore.Simulation.Helper
             init_genrand((uint)DateTime.Now.Millisecond);
         }
 
-
         /// <summary>
         /// Reinitializes the random number generator with the given seed.
         /// </summary>
@@ -319,7 +313,6 @@ namespace AegirCore.Simulation.Helper
             init_by_array(initArray, (uint)initArray.Length);
         }
 
-
         #region Methods ported from C -------------------------------------------
 
         // initializes mt[N] with a seed
@@ -330,17 +323,17 @@ namespace AegirCore.Simulation.Helper
             {
                 mt[mti] =
                   (uint)(1812433253U * (mt[mti - 1] ^ (mt[mti - 1] >> 30)) + mti);
-                // See Knuth TAOCP Vol2. 3rd Ed. P.106 for multiplier. 
-                // In the previous versions, MSBs of the seed affect   
-                // only MSBs of the array mt[].                        
-                // 2002/01/09 modified by Makoto Matsumoto             
+                // See Knuth TAOCP Vol2. 3rd Ed. P.106 for multiplier.
+                // In the previous versions, MSBs of the seed affect
+                // only MSBs of the array mt[].
+                // 2002/01/09 modified by Makoto Matsumoto
                 mt[mti] &= 0xffffffffU;
                 // for >32 bit machines
             }
         }
 
         // initialize by an array with array-length
-        // init_key is the array for initializing keys 
+        // init_key is the array for initializing keys
         // key_length is its length
         private void init_by_array(uint[] init_key, uint key_length)
         {
@@ -368,7 +361,7 @@ namespace AegirCore.Simulation.Helper
         }
 
         // generates a random number on [0,0xffffffff]-interval
-        uint genrand_int32()
+        private uint genrand_int32()
         {
             uint y;
             if (mti >= N)
@@ -412,36 +405,37 @@ namespace AegirCore.Simulation.Helper
         }
 
         // generates a random number on [0,1]-real-interval
-        double genrand_real1()
+        private double genrand_real1()
         {
             return genrand_int32() * (1.0 / 4294967295.0);
             // divided by 2^32-1
         }
 
         // generates a random number on [0,1)-real-interval
-        double genrand_real2()
+        private double genrand_real2()
         {
             return genrand_int32() * (1.0 / 4294967296.0);
             // divided by 2^32
         }
 
         // generates a random number on (0,1)-real-interval
-        double genrand_real3()
+        private double genrand_real3()
         {
             return (((double)genrand_int32()) + 0.5) * (1.0 / 4294967296.0);
             // divided by 2^32
         }
 
         // generates a random number on [0,1) with 53-bit resolution
-        double genrand_res53()
+        private double genrand_res53()
         {
             uint a = genrand_int32() >> 5, b = genrand_int32() >> 6;
             return (a * 67108864.0 + b) * (1.0 / 9007199254740992.0);
         }
+
         // These real versions are due to Isaku Wada, 2002/01/09 added
 
-        #endregion Methods ported from C
+        #endregion Methods ported from C -------------------------------------------
 
-        #endregion Member Functions
+        #endregion Member Functions ------------------------------------------------
     }
 }

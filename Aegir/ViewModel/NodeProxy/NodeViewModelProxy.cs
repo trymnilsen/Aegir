@@ -3,16 +3,12 @@ using Aegir.Windows;
 using AegirCore.Behaviour.Rendering;
 using AegirCore.Behaviour.World;
 using AegirCore.Scene;
-using AegirType;
 using AegirNetwork;
+using AegirType;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace Aegir.ViewModel.NodeProxy
@@ -32,6 +28,7 @@ namespace Aegir.ViewModel.NodeProxy
         private string visualFilePath;
         private TransformBehaviour transform;
         private List<NodeViewModelProxy> children;
+
         [Browsable(false)]
         public List<NodeViewModelProxy> Children
         {
@@ -50,6 +47,7 @@ namespace Aegir.ViewModel.NodeProxy
                 RaisePropertyChanged();
             }
         }
+
         [DisplayName("Y")]
         [Category("World Transformation")]
         public double WorldTranslateY
@@ -61,6 +59,7 @@ namespace Aegir.ViewModel.NodeProxy
                 RaisePropertyChanged();
             }
         }
+
         [DisplayName("Z")]
         [Category("World Transformation")]
         public double WorldTranslateZ
@@ -72,6 +71,7 @@ namespace Aegir.ViewModel.NodeProxy
                 RaisePropertyChanged();
             }
         }
+
         [DisplayName("Is Enabled")]
         [Category("Simulation")]
         public bool IsEnabled
@@ -83,6 +83,7 @@ namespace Aegir.ViewModel.NodeProxy
                 RaisePropertyChanged();
             }
         }
+
         [Category("General")]
         public string Name
         {
@@ -93,6 +94,7 @@ namespace Aegir.ViewModel.NodeProxy
                 RaisePropertyChanged();
             }
         }
+
         [Category("Network")]
         public int Port
         {
@@ -106,6 +108,7 @@ namespace Aegir.ViewModel.NodeProxy
             get { return latency; }
             set { latency = value; }
         }
+
         [ReadOnly(true)]
         [DisplayName("Listeners")]
         [Category("Network")]
@@ -122,6 +125,7 @@ namespace Aegir.ViewModel.NodeProxy
             get { return isOutputting; }
             set { isOutputting = value; }
         }
+
         [DisplayName("Nmea Datagrams")]
         [Category("Network")]
         public List<string> NmeaDataGrams
@@ -132,12 +136,13 @@ namespace Aegir.ViewModel.NodeProxy
 
         [Category("Network")]
         [DisplayName("Show Output")]
-        [Editor(typeof(RelayCommandEditor),typeof(RelayCommandEditor))]
+        [Editor(typeof(RelayCommandEditor), typeof(RelayCommandEditor))]
         public RelayCommand ShowOutputCommand
         {
             get { return showCommand; }
             private set { showCommand = value; }
         }
+
         [Category("Network")]
         [DisplayName("Network Protocol Type")]
         public NetworkProtocolType NetworkType
@@ -151,11 +156,13 @@ namespace Aegir.ViewModel.NodeProxy
         {
             get { return transform.Rotation; }
         }
+
         [Browsable(false)]
         public bool HasVisual
         {
             get { return (visualFilePath != null && visualFilePath.Length != 0); }
         }
+
         [Browsable(false)]
         public string VisualFilePath
         {
@@ -178,7 +185,7 @@ namespace Aegir.ViewModel.NodeProxy
             //All nodes should have a transform behaviour
             transform = nodeData.GetComponent<TransformBehaviour>();
             RenderMeshBehaviour meshData = nodeData.GetComponent<RenderMeshBehaviour>();
-            if(meshData!=null)
+            if (meshData != null)
             {
                 VisualFilePath = meshData.FilePath;
             }
@@ -188,7 +195,7 @@ namespace Aegir.ViewModel.NodeProxy
 
         private void ShowOutput()
         {
-            if(outputWindow!= null)
+            if (outputWindow != null)
             {
                 if (outputWindow.WindowState == WindowState.Minimized)
                 {
@@ -220,15 +227,17 @@ namespace Aegir.ViewModel.NodeProxy
             RaisePropertyChanged(nameof(WorldTranslateY));
             RaisePropertyChanged(nameof(WorldTranslateZ));
 
-            foreach(NodeViewModelProxy child in Children)
+            foreach (NodeViewModelProxy child in Children)
             {
                 child.Invalidate();
             }
         }
+
         public override string ToString()
         {
-            return "NodeViewModelProxy For: " +nodeData.Name;
+            return "NodeViewModelProxy For: " + nodeData.Name;
         }
+
         //public void TriggerTransformChanged()
         //{
         //    TransformationChangedHandler transformEvent = TransformationChanged;

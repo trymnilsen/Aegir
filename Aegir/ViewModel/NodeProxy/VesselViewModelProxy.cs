@@ -1,13 +1,11 @@
-﻿using AegirCore.Behaviour.Simulation;
+﻿using Aegir.Rendering;
+using AegirCore.Behaviour.Simulation;
 using AegirCore.Behaviour.Vessel;
 using AegirCore.Entity;
 using AegirCore.Simulation;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows.Media;
 using Xceed.Wpf.Toolkit.PropertyGrid.Editors;
 
 namespace Aegir.ViewModel.NodeProxy
@@ -16,6 +14,7 @@ namespace Aegir.ViewModel.NodeProxy
     {
         private VesselNavigationBehaviour navBehaviour;
         private FloatingMesh floatMeshBehaviour;
+
         [Category("Motion")]
         public double Heading
         {
@@ -31,7 +30,7 @@ namespace Aegir.ViewModel.NodeProxy
         }
 
         [Category("Motion")]
-        [Editor(typeof(PropertyGridEditorDecimalUpDown),typeof(PropertyGridEditorDecimalUpDown))]
+        [Editor(typeof(PropertyGridEditorDecimalUpDown), typeof(PropertyGridEditorDecimalUpDown))]
         public double Speed
         {
             get { return navBehaviour.Speed; }
@@ -41,6 +40,7 @@ namespace Aegir.ViewModel.NodeProxy
                 RaisePropertyChanged();
             }
         }
+
         [Category("Motion")]
         [DisplayName("Rate Of Turn")]
         public double RateOfTurn
@@ -52,6 +52,7 @@ namespace Aegir.ViewModel.NodeProxy
                 RaisePropertyChanged();
             }
         }
+
         [Category("Simulation")]
         [DisplayName("Simulation Mode")]
         public VesselSimulationMode SimMode
@@ -63,9 +64,10 @@ namespace Aegir.ViewModel.NodeProxy
                 RaisePropertyChanged();
             }
         }
+
         [Category("Simulation")]
         public float Mass
-       { 
+        {
             get { return floatMeshBehaviour.Mass; }
             set { floatMeshBehaviour.Mass = value; }
         }
@@ -81,12 +83,54 @@ namespace Aegir.ViewModel.NodeProxy
                 RaisePropertyChanged();
             }
         }
+
+        private RenderingMode hullRendingMode;
+
+        [Category("Rendering")]
+        [DisplayName("Hull Rendering")]
+        public RenderingMode HullRenderMode
+        {
+            get { return hullRendingMode; }
+            set { hullRendingMode = value; }
+        }
+
+        private Color hullColor;
+
+        [Category("Rendering")]
+        [DisplayName("Hull Color")]
+        public Color HullColor
+        {
+            get { return hullColor; }
+            set { hullColor = value; }
+        }
+
+        private RenderingMode shipRenderingMode;
+
+        [Category("Rendering")]
+        [DisplayName("Ship Rendering")]
+        public RenderingMode shipRenderMode
+        {
+            get { return shipRenderingMode; }
+            set { shipRenderingMode = value; }
+        }
+
+        private bool renderForces;
+
+        [Category("Rendering")]
+        [DisplayName("Render Forces")]
+        public bool RenderForces
+        {
+            get { return renderForces; }
+            set { renderForces = value; }
+        }
+
         public VesselViewModelProxy(Vessel vessel)
-            :base(vessel)
+            : base(vessel)
         {
             navBehaviour = vessel.GetComponent<VesselNavigationBehaviour>();
             floatMeshBehaviour = vessel.GetComponent<FloatingMesh>();
         }
+
         public override void Invalidate()
         {
             RaisePropertyChanged(nameof(RateOfTurn));

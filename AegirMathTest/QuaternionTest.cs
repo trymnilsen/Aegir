@@ -1,15 +1,10 @@
-﻿using AegirType;
-using AegirMathTests.Util;
+﻿using AegirMathTests.Util;
+using AegirType;
 using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AegirMathTests
 {
-    class QuaternionTest
+    internal class QuaternionTest
     {
         private void Compare(Quaternion expected, Quaternion source)
         {
@@ -32,7 +27,6 @@ namespace AegirMathTests
             Compare(expected, new Quaternion(1, 2, 3, 4));
             Compare(expected, new Quaternion(new Vector3(1, 2, 3), 4));
             Compare(expected, new Quaternion(new Vector4(1, 2, 3, 4)));
-
         }
 
         [Test]
@@ -157,7 +151,6 @@ namespace AegirMathTests
             Quaternion result;
             Quaternion.Normalize(ref q, out result);
             Compare(expected, result);
-
 
             q.Normalize();
             Compare(expected, q);

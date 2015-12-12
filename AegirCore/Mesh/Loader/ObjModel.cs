@@ -2,21 +2,20 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AegirCore.Mesh.Loader
 {
     public class ObjModel : Model
     {
         public string Mtl { get; set; }
+
         public bool IsValid
         {
             get
-            { 
-                if(Vertexes == null || Faces == null) { return false; }
-                if(Vertexes.Length<3 || Faces.Length<1) { return false; }
-                return true;      
+            {
+                if (Vertexes == null || Faces == null) { return false; }
+                if (Vertexes.Length < 3 || Faces.Length < 1) { return false; }
+                return true;
             }
         }
 
@@ -45,7 +44,7 @@ namespace AegirCore.Mesh.Loader
         /// <summary>
         /// Parses and loads a line from an OBJ file.
         /// Currently only supports V, VT, F and MTLLIB prefixes
-        /// </summary>		
+        /// </summary>
         private void processLine(string line, List<Vertex> vertexList, List<Face> faceList)
         {
             string[] parts = line.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
@@ -57,21 +56,21 @@ namespace AegirCore.Mesh.Loader
                     case "mtllib":
                         Mtl = parts[1];
                         break;
+
                     case "v":
                         Vertex v = new Vertex();
                         v.LoadFromStringArray(parts);
                         vertexList.Add(v);
                         v.Index = vertexList.Count();
                         break;
+
                     case "f":
                         Face f = new Face();
                         f.LoadFromStringArray(parts);
                         faceList.Add(f);
                         break;
-
                 }
             }
         }
-
     }
 }

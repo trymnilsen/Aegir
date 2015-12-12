@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AegirCore.Behaviour.World;
 using AegirCore.Simulation;
-using AegirCore.Behaviour.World;
-using System.Diagnostics;
 using AegirType;
+using System;
+using System.Diagnostics;
 
 namespace AegirCore.Behaviour.Vessel
 {
@@ -17,6 +13,7 @@ namespace AegirCore.Behaviour.Vessel
         private double heading;
         private TransformBehaviour transform;
         private VesselSimulationMode simMode;
+
         public VesselSimulationMode SimulationMode
         {
             get { return simMode; }
@@ -40,17 +37,19 @@ namespace AegirCore.Behaviour.Vessel
             get { return rateOfTurn; }
             set { rateOfTurn = value; }
         }
+
         public override void Update(SimulationTime time)
         {
-            if(simMode == VesselSimulationMode.Simulate)
+            if (simMode == VesselSimulationMode.Simulate)
             {
                 UpdateSimulation(time);
             }
             base.Update(time);
         }
+
         public void UpdateSimulation(SimulationTime time)
         {
-            if(transform== null)
+            if (transform == null)
             {
                 transform = GetComponent<TransformBehaviour>();
             }
@@ -66,6 +65,5 @@ namespace AegirCore.Behaviour.Vessel
             transform.RotateHeading(newHeading);
             Heading = newHeading;
         }
-
     }
 }

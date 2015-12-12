@@ -1,16 +1,12 @@
 ﻿using AegirType;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AegirCore.Simulation.Mesh
 {
-    public struct VertexPositionColor 
+    public struct VertexPositionColor
     {
         public Vector3 Position;
         public Color Color;
+
         public VertexPositionColor(Vector3 position, Color color)
         {
             this.Position = position;

@@ -1,9 +1,4 @@
 ﻿using AegirType;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AegirCore.Simulation.Mesh
 {
@@ -11,6 +6,7 @@ namespace AegirCore.Simulation.Mesh
     {
         //Translated these comments from french, does not mean i understand the fields :P
         public int I0;              // Indices
+
         public int I1;
         public int I2;
         public Color color;         // Color visible in Debug Mode

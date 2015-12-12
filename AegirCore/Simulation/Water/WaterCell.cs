@@ -3,15 +3,11 @@ using AegirCore.Simulation.Mesh;
 using AegirType;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AegirCore.Simulation.Water
 {
     public class WaterCell
     {
-
         // User specified options to configure the water object
         private WaterOptions mOptions;
 
@@ -27,22 +23,22 @@ namespace AegirCore.Simulation.Water
 
         // Ajouts
         public Vector3[] mVertex;
+
         private int mNbVertices;
         public List<SimulationTriangle> mTri;
         private int mNbTris;
 
-        Wave[] wave;
-        int NBWAVES;
-        MersenneTwister mRand = new MersenneTwister();
-        float tWave;
+        private Wave[] wave;
+        private int NBWAVES;
+        private MersenneTwister mRand = new MersenneTwister();
+        private float tWave;
         public float mMin, mMax;
-        const float SINCOEFF1 = -1f / 6f;
-        const float SINCOEFF2 = 1f / 120f;
-        const float SINCOEFF3 = -1f / 5040f;
-        float UpdateSea2_Ld, UpdateSea2_Lf;
+        private const float SINCOEFF1 = -1f / 6f;
+        private const float SINCOEFF2 = 1f / 120f;
+        private const float SINCOEFF3 = -1f / 5040f;
+        private float UpdateSea2_Ld, UpdateSea2_Lf;
         private Matrix mWorld;
         private int gTypeOfSea;
-
 
         /// <summary>
         /// Options to configure the water. Must be set before
@@ -64,14 +60,12 @@ namespace AegirCore.Simulation.Water
             set { mWorld = value; }
         }
 
-
         public WaterCell()
         {
-
         }
+
         public void Initialize()
         {
-
             // Build the water mesh
             mNbVertices = mOptions.SizeX * mOptions.SizeZ;
             mNbTris = (mOptions.SizeX - 1) * (mOptions.SizeZ - 1) * 2;
@@ -108,6 +102,7 @@ namespace AegirCore.Simulation.Water
             //InitializeRandomWaves1(3);
             UpdateSea2_Ld = mOptions.SizeX;
         }
+
         //protected override void LoadContent()
         //{
         //    base.LoadContent();
@@ -247,7 +242,7 @@ namespace AegirCore.Simulation.Water
 
         //    //if the application is going to send us the refraction map
         //    //exit early. The refraction map must be given to the water component
-        //    //before it renders. 
+        //    //before it renders.
         //    //***This option can be handy if you're already drawing your scene to a render target***
         //    if (mGrabRefractionFromFB)
         //    {
@@ -301,7 +296,7 @@ namespace AegirCore.Simulation.Water
         //    // Pass the position of the camera to the shader
         //    mEffect.Parameters["EyePos"].SetValue(mViewPos);
         //}
-        void GenTriGrid(int numVertRows, int numVertCols, float dx, float dz, Vector3 center, out Vector3[] verts, out int[] indices)
+        private void GenTriGrid(int numVertRows, int numVertCols, float dx, float dz, Vector3 center, out Vector3[] verts, out int[] indices)
         {
             // Generates a grid of vertices to use for the water plane.
 
@@ -311,7 +306,7 @@ namespace AegirCore.Simulation.Water
             // "dz"          > Cell spacing in the y dimension
             // "center"      > Center of the plane
             // "verts"       > Outputs the constructed vertices for the plane
-            // "indices"     > Outpus the constructed triangle indices for the plane          
+            // "indices"     > Outpus the constructed triangle indices for the plane
 
             int numVertices = numVertRows * numVertCols;
 
@@ -328,7 +323,7 @@ namespace AegirCore.Simulation.Water
 
             // We first build the grid geometry centered about the origin and on
             // the xz-plane, row-by-row and in a top-down fashion.  We then translate
-            // the grid vertices so that they are centered about the specified 
+            // the grid vertices so that they are centered about the specified
             // parameter 'center'.
 
             //verts.resize(numVertices);
@@ -343,7 +338,7 @@ namespace AegirCore.Simulation.Water
             {
                 for (float j = 0; j < numVertCols; ++j)
                 {
-                    // Negate the depth coordinate to put in quadrant four.  
+                    // Negate the depth coordinate to put in quadrant four.
                     // Then offset to center about coordinate system.
                     verts[k] = new Vector3(0, 0, 0);
                     verts[k].X = j * dx + xOffset;
@@ -422,6 +417,7 @@ namespace AegirCore.Simulation.Water
             ComputeMinMax();
             //bSoliton = false;
         }
+
         public void UpdateSea2(SimulationTime simTime)
         {
             //if (bSoliton) return;
@@ -433,7 +429,7 @@ namespace AegirCore.Simulation.Water
             int demi_sizeX = mOptions.SizeX / 2;
             int demi_sizeZ = mOptions.SizeZ / 2;
 
-            float dtWave = (float)simTime.DeltaTime*1000;
+            float dtWave = (float)simTime.DeltaTime * 1000;
 
             UpdateSea2_Ld -= CWave * dtWave;
             UpdateSea2_Lf = UpdateSea2_Ld - LWave;
@@ -475,6 +471,7 @@ namespace AegirCore.Simulation.Water
             //mVertexBuffer.SetData(mVertex);
             ComputeMinMax();
         }
+
         public void UpdateSea3(SimulationTime SimTime)
         {
             float HWave = 1f;
@@ -498,7 +495,6 @@ namespace AegirCore.Simulation.Water
                 v[i].X = i - mOptions.SizeX / 2 + r * (float)Math.Sin(k * (i - mOptions.SizeX / 2) + w * tWave + cambrure);
                 v[i].Y = 0 - r * (float)Math.Cos(k * (i - mOptions.SizeX / 2) + w * tWave + cambrure);
                 v[i].Z = i - mOptions.SizeX / 2;
-
             }
             Vector3[] n = new Vector3[mOptions.SizeX];
 
@@ -528,6 +524,7 @@ namespace AegirCore.Simulation.Water
             //mVertexBuffer.SetData(mVertex);
             ComputeMinMax();
         }
+
         public void UpdateSea4(SimulationTime simTime)
         {
             float dtWave = (float)simTime.DeltaTime * 1000;
@@ -590,6 +587,7 @@ namespace AegirCore.Simulation.Water
             //mVertexBuffer.SetData(mVertex);
             ComputeMinMax();
         }
+
         public void ComputeMinMax()
         {
             mMin = float.MaxValue;
@@ -608,7 +606,7 @@ namespace AegirCore.Simulation.Water
             }
         }
 
-        void Initialize6Waves()
+        private void Initialize6Waves()
         {
             // frequence = 2 * PI / wavelength
             // phase = speed * frequence
@@ -676,6 +674,7 @@ namespace AegirCore.Simulation.Water
             wave[5].Freq = 2f * (float)Math.PI / wave[5].Len;
             wave[5].Phase = wave[5].Speed * wave[5].Freq;
         }
+
         public void InitializeRandomWaves1(int nbWaves)
         {
             // Aucune vague n'est liée à une autre = toutes les vagues sont indépendantes
@@ -701,6 +700,7 @@ namespace AegirCore.Simulation.Water
                 System.Diagnostics.Debug.WriteLine("{" + w + "} " + wave[w].ToString());
             }
         }
+
         public void InitializeRandomWaves2(int nbWaves)
         {
             // Les vagues sont liées à une première vague = toutes les vagues ne sont pas indépendantes
@@ -756,7 +756,8 @@ namespace AegirCore.Simulation.Water
             // Dans tous les cas, il faut retourner une valeur
             return h;
         }
-        int GetWaterQuad(Vector3 p)
+
+        private int GetWaterQuad(Vector3 p)
         {
             // Identifie le quad (= 2 triangles) où se trouve le point P
             // Renvoie le numéro du premier triangle
@@ -779,7 +780,8 @@ namespace AegirCore.Simulation.Water
             }
             return triangle;
         }
-        bool GetHeightInTriangle(SimulationTriangle t, Vector3 p, out float h)
+
+        private bool GetHeightInTriangle(SimulationTriangle t, Vector3 p, out float h)
         {
             Vector2 A, B, C, P;
             Vector2 v0, v1, v2;
@@ -818,7 +820,8 @@ namespace AegirCore.Simulation.Water
             }
             return IsInTriangle;
         }
-        bool GetHeightInTriangle(Vector3 a, Vector3 b, Vector3 c, Vector3 p, out float h)
+
+        private bool GetHeightInTriangle(Vector3 a, Vector3 b, Vector3 c, Vector3 p, out float h)
         {
             Vector2 A, B, C, P;
             Vector2 v0, v1, v2;

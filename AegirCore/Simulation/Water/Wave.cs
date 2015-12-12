@@ -1,9 +1,4 @@
 ﻿using AegirType;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AegirCore.Simulation.Water
 {
@@ -16,6 +11,7 @@ namespace AegirCore.Simulation.Water
         public float Phase; // speed * 2*PI / wavelength
         public float Angle;
         public Vector2 Dir;
+
         public override string ToString()
         {
             return "L: " + Len.ToString("0.00") +

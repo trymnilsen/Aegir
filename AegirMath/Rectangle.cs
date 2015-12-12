@@ -1,20 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AegirType
 {
     /// <summary>
-    /// Describes a 2D-rectangle. 
+    /// Describes a 2D-rectangle.
     /// </summary>
     [DebuggerDisplay("{DebugDisplayString,nq}")]
     public struct Rectangle : IEquatable<Rectangle>
     {
         private static Rectangle emptyRectangle = new Rectangle();
-
 
         /// <summary>
         /// The x coordinate of the top-left corner of this <see cref="Rectangle"/>.
@@ -35,7 +30,6 @@ namespace AegirType
         /// The height of this <see cref="Rectangle"/>.
         /// </summary>
         public int Height;
-
 
         /// <summary>
         /// Returns a <see cref="Rectangle"/> with X=0, Y=0, Width=0, Height=0.
@@ -136,7 +130,6 @@ namespace AegirType
             }
         }
 
-
         internal string DebugDisplayString
         {
             get
@@ -149,7 +142,6 @@ namespace AegirType
                     );
             }
         }
-
 
         /// <summary>
         /// Creates a new instance of <see cref="Rectangle"/> struct, with the specified
@@ -181,7 +173,6 @@ namespace AegirType
             this.Height = size.Y;
         }
 
-
         /// <summary>
         /// Compares whether two <see cref="Rectangle"/> instances are equal.
         /// </summary>
@@ -203,7 +194,6 @@ namespace AegirType
         {
             return !(a == b);
         }
-
 
         /// <summary>
         /// Gets whether or not the provided coordinates lie within the bounds of this <see cref="Rectangle"/>.
@@ -317,7 +307,7 @@ namespace AegirType
         }
 
         /// <summary>
-        /// Adjusts the edges of this <see cref="Rectangle"/> by specified horizontal and vertical amounts. 
+        /// Adjusts the edges of this <see cref="Rectangle"/> by specified horizontal and vertical amounts.
         /// </summary>
         /// <param name="horizontalAmount">Value to adjust the left and right edges.</param>
         /// <param name="verticalAmount">Value to adjust the top and bottom edges.</param>
@@ -330,7 +320,7 @@ namespace AegirType
         }
 
         /// <summary>
-        /// Adjusts the edges of this <see cref="Rectangle"/> by specified horizontal and vertical amounts. 
+        /// Adjusts the edges of this <see cref="Rectangle"/> by specified horizontal and vertical amounts.
         /// </summary>
         /// <param name="horizontalAmount">Value to adjust the left and right edges.</param>
         /// <param name="verticalAmount">Value to adjust the top and bottom edges.</param>
@@ -354,7 +344,6 @@ namespace AegirType
                    value.Top < Bottom &&
                    Top < value.Bottom;
         }
-
 
         /// <summary>
         /// Gets whether or not the other <see cref="Rectangle"/> intersects with this rectangle.
@@ -484,6 +473,5 @@ namespace AegirType
             result.Width = Math.Max(value1.Right, value2.Right) - result.X;
             result.Height = Math.Max(value1.Bottom, value2.Bottom) - result.Y;
         }
-
     }
 }

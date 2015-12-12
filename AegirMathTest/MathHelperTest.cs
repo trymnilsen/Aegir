@@ -1,10 +1,5 @@
 ﻿using AegirType;
 using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AegirMathTests
 {
@@ -50,7 +45,7 @@ namespace AegirMathTests
             Assert.AreEqual(MathHelper.Lerp(-5f, 5f, 0.5f), 0f, "Lerp test failed on [-5,5,0.5]");
             Assert.AreEqual(MathHelper.Lerp(0f, 0f, 0.5f), 0f, "Lerp test failed on [0,0,0.5]");
             Assert.AreEqual(MathHelper.Lerp(-5f, -1f, 0.5f), -3f, "Lerp test failed on [-5,-1, 0.5]");
-            // The following test checks for XNA compatibility. 
+            // The following test checks for XNA compatibility.
             // Even though the calculation itself should return "1", the XNA implementaion returns 0 (presumably due to a efficiency/precision tradeoff).
             Assert.AreEqual(MathHelper.Lerp(10000000000000000f, 1f, 1f), 0f, "Lerp test failed on [10000000000000000,1,1]");
         }

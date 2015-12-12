@@ -1,20 +1,11 @@
 ﻿using Aegir.ViewModel.NodeProxy;
 using Aegir.ViewModel.Properties;
 using GalaSoft.MvvmLight.Ioc;
-using Microsoft.Practices.ServiceLocation;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 
 namespace Aegir.ViewModel
 {
     public class ViewModelLocator
     {
-
         static ViewModelLocator()
         {
             //#if DEBUG
@@ -27,7 +18,6 @@ namespace Aegir.ViewModel
             SimpleIoc.Default.Register<PlaybackViewModel>(true);
             SimpleIoc.Default.Register<MapViewModel>(true);
             SimpleIoc.Default.Register<ScenegraphViewModelProxy>(true);
-
         }
 
         /// <summary>
@@ -41,6 +31,7 @@ namespace Aegir.ViewModel
                 return SimpleIoc.Default.GetInstance<StatusBarViewModel>();
             }
         }
+
         /// <summary>
         /// Gets the Menubar view's viewmodel
         /// </summary>
@@ -52,6 +43,7 @@ namespace Aegir.ViewModel
                 return SimpleIoc.Default.GetInstance<MenuStripViewModel>();
             }
         }
+
         /// <summary>
         /// Gets the Menubar view's viewmodel
         /// </summary>
@@ -63,6 +55,7 @@ namespace Aegir.ViewModel
                 return SimpleIoc.Default.GetInstance<PlaybackViewModel>();
             }
         }
+
         /// <summary>
         /// Gets the properties viewmodel
         /// </summary>
@@ -73,8 +66,9 @@ namespace Aegir.ViewModel
                 return SimpleIoc.Default.GetInstance<PropertiesViewModel>();
             }
         }
+
         /// <summary>
-        /// Helper method for getting the objecttreeviewmodel 
+        /// Helper method for getting the objecttreeviewmodel
         /// </summary>
         public ScenegraphViewModelProxy ScenegraphVM
         {
@@ -83,6 +77,7 @@ namespace Aegir.ViewModel
                 return SimpleIoc.Default.GetInstance<ScenegraphViewModelProxy>();
             }
         }
+
         public MapViewModel MapVM
         {
             get
@@ -96,7 +91,6 @@ namespace Aegir.ViewModel
         /// </summary>
         public static void Cleanup()
         {
-
         }
     }
 }

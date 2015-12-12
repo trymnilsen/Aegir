@@ -1,10 +1,7 @@
 ﻿using AegirType;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AegirMathTests.Util
 {
@@ -188,6 +185,7 @@ namespace AegirMathTests.Util
             throw new NotImplementedException();
         }
     }
+
     public class PlaneComparer : IEqualityComparer<Plane>
     {
         static public PlaneComparer Epsilon = new PlaneComparer(0.000001f);
@@ -250,7 +248,7 @@ namespace AegirMathTests.Util
         }
     }
 
-    static class MathUtility
+    internal static class MathUtility
     {
         public static void MinMax(int a, int b, out int min, out int max)
         {

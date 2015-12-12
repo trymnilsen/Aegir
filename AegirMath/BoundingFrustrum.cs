@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AegirType
 {
@@ -13,11 +9,9 @@ namespace AegirType
     [DebuggerDisplay("{DebugDisplayString,nq}")]
     public class BoundingFrustum : IEquatable<BoundingFrustum>
     {
-
         private Matrix _matrix;
         private readonly Vector3[] _corners = new Vector3[CornerCount];
         private readonly Plane[] _planes = new Plane[PlaneCount];
-
 
         /// <summary>
         /// The number of planes in the frustum.
@@ -28,7 +22,6 @@ namespace AegirType
         /// The number of corner points in the frustum.
         /// </summary>
         public const int CornerCount = 8;
-
 
         /// <summary>
         /// Gets or sets the <see cref="Matrix"/> of the frustum.
@@ -107,7 +100,6 @@ namespace AegirType
             }
         }
 
-
         /// <summary>
         /// Constructs the frustum by extracting the view planes from a matrix.
         /// </summary>
@@ -176,6 +168,7 @@ namespace AegirType
                     case PlaneIntersectionType.Front:
                         result = ContainmentType.Disjoint;
                         return;
+
                     case PlaneIntersectionType.Intersecting:
                         intersects = true;
                         break;
@@ -203,6 +196,7 @@ namespace AegirType
                 {
                     case PlaneIntersectionType.Front:
                         return ContainmentType.Disjoint;
+
                     case PlaneIntersectionType.Intersecting:
                         intersects = true;
                         break;
@@ -242,6 +236,7 @@ namespace AegirType
                     case PlaneIntersectionType.Front:
                         result = ContainmentType.Disjoint;
                         return;
+
                     case PlaneIntersectionType.Intersecting:
                         intersects = true;
                         break;
@@ -314,7 +309,7 @@ namespace AegirType
         /// Returns a copy of internal corners array.
         /// </summary>
         /// <param name="corners">The array which values will be replaced to corner values of this instance. It must have size of <see cref="BoundingFrustum.CornerCount"/>.</param>
-		public void GetCorners(Vector3[] corners)
+        public void GetCorners(Vector3[] corners)
         {
             if (corners == null) throw new ArgumentNullException("corners");
             if (corners.Length < CornerCount) throw new ArgumentOutOfRangeException("corners");
@@ -441,9 +436,11 @@ namespace AegirType
                 case ContainmentType.Disjoint:
                     result = null;
                     return;
+
                 case ContainmentType.Contains:
                     result = 0.0f;
                     return;
+
                 case ContainmentType.Intersects:
 
                     // TODO: Needs additional test for not 0.0 and null results.
@@ -504,6 +501,7 @@ namespace AegirType
                     result = temp;
 
                     return;
+
                 default:
                     throw new ArgumentOutOfRangeException();
             }
@@ -524,7 +522,6 @@ namespace AegirType
                    " Bottom:" + this._planes[5] +
                    "}";
         }
-
 
         private void CreateCorners()
         {
@@ -577,11 +574,9 @@ namespace AegirType
             Vector3.Multiply(ref cross, a.D, out v1);
             //v1 = (a.D * (Vector3.Cross(b.Normal, c.Normal)));
 
-
             Vector3.Cross(ref c.Normal, ref a.Normal, out cross);
             Vector3.Multiply(ref cross, b.D, out v2);
             //v2 = (b.D * (Vector3.Cross(c.Normal, a.Normal)));
-
 
             Vector3.Cross(ref a.Normal, ref b.Normal, out cross);
             Vector3.Multiply(ref cross, c.D, out v3);
@@ -600,6 +595,5 @@ namespace AegirType
             p.Normal.Z *= factor;
             p.D *= factor;
         }
-
     }
 }

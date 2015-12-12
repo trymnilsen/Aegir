@@ -1,10 +1,4 @@
-﻿using AegirCore.Scene;
-using AegirType;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AegirType;
 
 namespace AegirCore.Behaviour.World
 {
@@ -23,7 +17,7 @@ namespace AegirCore.Behaviour.World
                 position = value;
             }
         }
-        
+
         public Quaternion Rotation
         {
             get { return rotation; }
@@ -43,30 +37,37 @@ namespace AegirCore.Behaviour.World
         {
             position.X = (float)x;
         }
+
         public void SetY(double y)
         {
             position.Y = (float)y;
         }
+
         public void SetZ(double z)
         {
             position.Z = (float)z;
         }
+
         public void Translate(Vector3 vector)
         {
-           Position = Position + vector;
+            Position = Position + vector;
         }
+
         public void TranslateX(double amount)
         {
             Position = Position + new Vector3((float)amount, 0, 0);
         }
+
         public void TranslateY(double amount)
         {
             Position = Position + new Vector3(0, (float)amount, 0);
         }
+
         public void TranslateZ(double amount)
         {
             Position = Position + new Vector3(0, 0, (float)amount);
         }
+
         public void RotateHeading(double newHeading)
         {
             Rotation = Quaternion.CreateFromAxisAngle(new Vector3(0, 0, 1), (float)newHeading);

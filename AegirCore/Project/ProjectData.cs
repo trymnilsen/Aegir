@@ -1,10 +1,5 @@
 ﻿using AegirCore.Scene;
 using AegirCore.Vessel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AegirCore.Project
 {
@@ -20,6 +15,7 @@ namespace AegirCore.Project
             Vessel = new VesselConfiguration();
             Name = "New Simulation";
         }
+
         public ProjectData(SceneGraph scene, VesselConfiguration vessel, string name)
         {
             Scene = scene;
