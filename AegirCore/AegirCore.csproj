@@ -105,6 +105,7 @@
     <Compile Include="Mesh\TriangleIntersection.cs" />
     <Compile Include="Mesh\TriangleWetted.cs" />
     <Compile Include="Mesh\VertexPositionColor.cs" />
+    <Compile Include="Simulation\LerpMode.cs" />
     <Compile Include="Simulation\SimulationEngine.cs" />
     <Compile Include="Simulation\SimulationTime.cs" />
     <Compile Include="Simulation\VesselSimulationMode.cs" />

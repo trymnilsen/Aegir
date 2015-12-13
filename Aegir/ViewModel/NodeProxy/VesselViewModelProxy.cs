@@ -124,6 +124,17 @@ namespace Aegir.ViewModel.NodeProxy
             set { renderForces = value; }
         }
 
+        private LerpMode lerpMode;
+
+        [Category("Dynamics")]
+        [DisplayName("User Value Interpolation")]
+        public LerpMode LerpMode
+        {
+            get { return lerpMode; }
+            set { lerpMode = value; }
+        }
+
+
         public VesselViewModelProxy(Vessel vessel)
             : base(vessel)
         {
