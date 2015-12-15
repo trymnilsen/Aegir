@@ -105,6 +105,11 @@
     <Compile Include="Mesh\TriangleIntersection.cs" />
     <Compile Include="Mesh\TriangleWetted.cs" />
     <Compile Include="Mesh\VertexPositionColor.cs" />
+    <Compile Include="Signals\Replay\NewReplayData.cs" />
+    <Compile Include="Signals\SignalHandler.cs" />
+    <Compile Include="Signals\Simulation\FloatingMeshCalculated.cs" />
+    <Compile Include="Signals\Vessel\VesselNavigationChanged.cs" />
+    <Compile Include="Signals\Vessel\VesselNavigationStep.cs" />
     <Compile Include="Simulation\LerpMode.cs" />
     <Compile Include="Simulation\SimulationEngine.cs" />
     <Compile Include="Simulation\SimulationTime.cs" />

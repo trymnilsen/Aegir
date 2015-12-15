@@ -203,10 +203,10 @@ namespace Aegir.ViewModel.NodeProxy
             //All nodes should have a transform behaviour
             transform = nodeData.GetComponent<TransformBehaviour>();
             RenderMeshBehaviour meshData = nodeData.GetComponent<RenderMeshBehaviour>();
-            if (meshData != null)
-            {
-                VisualFilePath = meshData.FilePath;
-            }
+            //if (meshData != null)
+            //{
+            //    VisualFilePath = meshData.FilePath;
+            //}
 
             ShowOutputCommand = new RelayCommand(ShowOutput);
         }
