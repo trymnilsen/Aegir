@@ -60,7 +60,6 @@
                 <MenuItem Header="Line"></MenuItem>
                 <MenuItem Header="Polygon"></MenuItem>
             </MenuItem>
-
             <MenuItem Header="View">
                 <MenuItem Header="Scene">
                     <MenuItem Header="Info">

@@ -104,16 +104,6 @@ namespace Aegir.ViewModel.NodeProxy
             set { hullColor = value; }
         }
 
-        private RenderingMode shipRenderingMode;
-
-        [Category("Rendering")]
-        [DisplayName("Ship Rendering")]
-        public RenderingMode shipRenderMode
-        {
-            get { return shipRenderingMode; }
-            set { shipRenderingMode = value; }
-        }
-
         private bool renderForces;
 
         [Category("Rendering")]

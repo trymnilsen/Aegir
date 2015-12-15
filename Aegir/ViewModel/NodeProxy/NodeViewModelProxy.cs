@@ -1,4 +1,5 @@
-﻿using Aegir.View.PropertyEditor.CustomEditor;
+﻿using Aegir.Rendering;
+using Aegir.View.PropertyEditor.CustomEditor;
 using Aegir.Windows;
 using AegirCore.Behaviour.Rendering;
 using AegirCore.Behaviour.World;
@@ -23,9 +24,10 @@ namespace Aegir.ViewModel.NodeProxy
         private RelayCommand showCommand;
         private NetworkProtocolType networkType;
         private OutputStreamWindow outputWindow;
-
+        private RenderingMode renderingMode;
         protected Node nodeData;
         private string visualFilePath;
+        private bool overideRenderingMode;
         private TransformBehaviour transform;
         private List<NodeViewModelProxy> children;
 
@@ -149,6 +151,22 @@ namespace Aegir.ViewModel.NodeProxy
         {
             get { return networkType; }
             set { networkType = value; }
+        }
+        
+        [Category("Rendering")]
+        [DisplayName("Rendering Mode")]
+        public RenderingMode RenderMode
+        {
+            get { return renderingMode; }
+            set { renderingMode = value; }
+        }
+
+        [Category("Rendering")]
+        [DisplayName("Override Mode")]
+        public bool OverrideRenderingMode
+        {
+            get { return overideRenderingMode; }
+            set { overideRenderingMode = value; }
         }
 
         [Browsable(false)]
