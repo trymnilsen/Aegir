@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AegirCore.Signals
+namespace AegirCore.Signals.Rendering
 {
-    class SignalHandler
+    class RenderMesh
     {
     }
 }
