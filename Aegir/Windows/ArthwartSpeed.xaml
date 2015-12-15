@@ -1,0 +1,45 @@
+﻿<Window x:Class="Aegir.Windows.ArthwartSpeed"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Aegir.Windows"
+        mc:Ignorable="d"
+        Title="Berthing Speed Helper" Height="200" Width="300">
+    <StackPanel Width="300">
+        <StackPanel Margin="5 0 0 0" Orientation="Horizontal">
+            <TextBlock Text="Vessel: "></TextBlock>
+            <TextBlock Text="VOS"></TextBlock>
+        </StackPanel>
+        <!--Speed-->
+        <Label Content="Bow Arthwart Speed"></Label>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"></ColumnDefinition>
+                <ColumnDefinition Width="40"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Slider Minimum="-30" Maximum="30"></Slider>
+            <TextBlock Grid.Column="1" Text="22.4"></TextBlock>
+        </Grid>
+        <!--Rate of Turn-->
+        <Label Content="Center Arthwart Speed"></Label>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"></ColumnDefinition>
+                <ColumnDefinition Width="40"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Slider Minimum="-30" Maximum="30"></Slider>
+            <TextBlock Grid.Column="1" Text="1.7"></TextBlock>
+        </Grid>
+        <!--Heading-->
+        <Label Content="Stern Arthwart Speed"></Label>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"></ColumnDefinition>
+                <ColumnDefinition Width="40"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Slider Minimum="-30" Maximum="30"></Slider>
+            <TextBlock Grid.Column="1" Text="157.3"></TextBlock>
+        </Grid>
+    </StackPanel>
+</Window>
