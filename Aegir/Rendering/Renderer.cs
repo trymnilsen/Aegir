@@ -1,4 +1,5 @@
-﻿using Aegir.ViewModel.NodeProxy;
+﻿using Aegir.Rendering.Visual;
+using Aegir.ViewModel.NodeProxy;
 using AegirCore.Scene;
 using System;
 using System.Collections.Generic;
