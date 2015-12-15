@@ -1,5 +1,6 @@
 ﻿using AegirCore.Behaviour;
 using AegirCore.Behaviour.World;
+using AegirCore.Signals;
 using AegirCore.Simulation;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -9,6 +10,7 @@ namespace AegirCore.Scene
 {
     public class Node
     {
+        private SignalRouter internalRouter;
         public string Name { get; set; }
 
         [DisplayName("Is Enabled")]
@@ -30,6 +32,7 @@ namespace AegirCore.Scene
         {
             Children = new ObservableCollection<Node>();
             Components = new ObservableCollection<BehaviourComponent>();
+            internalRouter = new SignalRouter();
             //Add some components
             Components.Add(new TransformBehaviour());
         }
@@ -45,6 +48,7 @@ namespace AegirCore.Scene
         public void AddComponent(BehaviourComponent component)
         {
             component.SetParentNode(this);
+            component.internalRouter = internalRouter;
             Components.Add(component);
         }
 

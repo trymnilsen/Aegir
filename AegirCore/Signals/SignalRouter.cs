@@ -8,5 +8,6 @@ namespace AegirCore.Signals
 {
     public class SignalRouter
     {
+
     }
 }

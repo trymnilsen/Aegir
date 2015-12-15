@@ -8,5 +8,6 @@ namespace Aegir.Rendering.Visual
 {
     public class VisualCache
     {
+         
     }
 }

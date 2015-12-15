@@ -7,8 +7,8 @@ namespace AegirCore.Behaviour
     public class BehaviourComponent
     {
         private Node parent;
-        protected SignalRouter internalRouter;
-        protected SignalRouter globalRouter;
+        public SignalRouter internalRouter { get; set; }
+        public SignalRouter globalRouter { get; set; }
         public string Name { get; set; }
 
 
