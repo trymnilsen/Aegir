@@ -15,6 +15,19 @@ namespace Aegir.Rendering.Visual
 
         }
 
+        public VisualCache Cache
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
         public Visual3D GetVisual(NodeViewModelProxy node)
         {
             return null;

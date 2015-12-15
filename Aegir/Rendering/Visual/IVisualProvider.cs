@@ -10,6 +10,7 @@ namespace Aegir.Rendering.Visual
 {
     public interface IVisualProvider
     {
+        VisualCache Cache {get;set;}
         Visual3D GetVisual(NodeViewModelProxy node);
     }
 }
