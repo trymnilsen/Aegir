@@ -908,12 +908,12 @@ namespace AegirCore.Simulation.Mesh
             mL_Vertex = new List<Vector3>();
             mL_Triangle = new List<SimulationTriangle>();
 
-            Vector3[] vectors = new Vector3[Model.Vertexes.Length];
-            for (int i = 0, l = Model.Vertexes.Length; i < l; i++)
+            Vector3[] vectors = new Vector3[Model.Vertices.Length];
+            for (int i = 0, l = Model.Vertices.Length; i < l; i++)
             {
-                vectors[i] = new Vector3((float)Model.Vertexes[i].X,
-                                         (float)Model.Vertexes[i].Y,
-                                         (float)Model.Vertexes[i].Z);
+                vectors[i] = new Vector3((float)Model.Vertices[i].X,
+                                         (float)Model.Vertices[i].Y,
+                                         (float)Model.Vertices[i].Z);
             }
             mVertex = vectors;
 

@@ -13,8 +13,8 @@ namespace AegirCore.Mesh.Loader
         {
             get
             {
-                if (Vertexes == null || Faces == null) { return false; }
-                if (Vertexes.Length < 3 || Faces.Length < 1) { return false; }
+                if (Vertices == null || Faces == null) { return false; }
+                if (Vertices.Length < 3 || Faces.Length < 1) { return false; }
                 return true;
             }
         }
@@ -28,16 +28,17 @@ namespace AegirCore.Mesh.Loader
         public void LoadObj(string path)
         {
             var VertexList = new List<Vertex>();
+            var NormalList = new List<Vertex>();
             var FaceList = new List<Face>();
 
             var input = File.ReadLines(path);
 
             foreach (string line in input)
             {
-                processLine(line, VertexList, FaceList);
+                processLine(line, VertexList, NormalList, FaceList);
             }
 
-            Vertexes = VertexList.ToArray();
+            Vertices = VertexList.ToArray();
             Faces = FaceList.ToArray();
         }
 
@@ -45,7 +46,9 @@ namespace AegirCore.Mesh.Loader
         /// Parses and loads a line from an OBJ file.
         /// Currently only supports V, VT, F and MTLLIB prefixes
         /// </summary>
-        private void processLine(string line, List<Vertex> vertexList, List<Face> faceList)
+        private void processLine(string line, List<Vertex> vertexList, 
+                                              List<Vertex> normalList,
+                                              List<Face> faceList)
         {
             string[] parts = line.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
 
@@ -53,21 +56,28 @@ namespace AegirCore.Mesh.Loader
             {
                 switch (parts[0])
                 {
-                    case "mtllib":
-                        Mtl = parts[1];
-                        break;
-
+                    //Vertex
                     case "v":
                         Vertex v = new Vertex();
                         v.LoadFromStringArray(parts);
                         vertexList.Add(v);
                         v.Index = vertexList.Count();
                         break;
-
+                    //Normal
+                    case "vn":
+                        Vertex n = new Vertex();
+                        n.LoadFromStringArray(parts);
+                        normalList.Add(n);
+                        n.Index = normalList.Count();
+                        break;
+                    //Face
                     case "f":
                         Face f = new Face();
                         f.LoadFromStringArray(parts);
                         faceList.Add(f);
+                        break;
+
+                    default:
                         break;
                 }
             }
