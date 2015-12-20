@@ -156,13 +156,12 @@
     <Compile Include="Messages\Project\LoadProjectFile.cs" />
     <Compile Include="Messages\Project\ProjectActivated.cs" />
     <Compile Include="Messages\Simulation\InvalidateEntities.cs" />
-    <Compile Include="Rendering\Visual\IVisualProvider.cs" />
+    <Compile Include="Rendering\Visual\VisualProvider.cs" />
     <Compile Include="Rendering\NodeMeshListener.cs" />
     <Compile Include="Rendering\Renderer.cs" />
     <Compile Include="Rendering\RenderingMode.cs" />
     <Compile Include="Rendering\ViewportRenderer.cs" />
     <Compile Include="Rendering\Visual\SolidMeshProvider.cs" />
-    <Compile Include="Rendering\Visual\VisualCache.cs" />
     <Compile Include="Rendering\Visual\VisualFactory.cs" />
     <Compile Include="Rendering\Visual\WireframeVisualProvider.cs" />
     <Compile Include="Shell.cs" />

@@ -1,4 +1,6 @@
 ﻿using Aegir.ViewModel.NodeProxy;
+using AegirCore.Behaviour.Rendering;
+using AegirCore.Mesh.Loader;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,30 +12,36 @@ namespace Aegir.Rendering.Visual
 {
     public class VisualFactory
     {
-        private Dictionary<RenderingMode, IVisualProvider> visualProviders;
-        public VisualFactory()
+        private Dictionary<RenderingMode, VisualProvider> visualProviders;
+        public VisualFactory(Dictionary<RenderingMode,VisualProvider> providers)
         {
-            visualProviders = new Dictionary<RenderingMode, IVisualProvider>();
+            visualProviders = providers;
         }
-        public Visual3D GetVisual(NodeViewModelProxy node, RenderingMode globalRenderMode)
+
+        public Geometry3D GetVisual(RenderDeclaration renderData, RenderingMode renderMode)
         {
-            RenderingMode mode = globalRenderMode;
-            //Node can overide
-            if(node.OverrideRenderingMode)
-            {
-                mode = node.RenderMode; 
-            }
             //If we don't have provider, give the default dummy visual
-            if(!visualProviders.ContainsKey(mode))
+            if(!visualProviders.ContainsKey(renderMode) || !(renderData.MeshData == null))
             {
                 return GetDummyVisual();
             }
-            return visualProviders[mode].GetVisual(node);
+
+            return visualProviders[renderMode].GetVisual(renderData.MeshData);
 
         }
-        private Visual3D GetDummyVisual()
+        private Geometry3D GetDummyVisual()
         {
             return null;
+        }
+        /// <summary>
+        /// Creates a new default configured factory
+        /// </summary>
+        /// <returns></returns>
+        public static VisualFactory CreateDefaultFactory()
+        {
+            var providers = new Dictionary<RenderingMode, VisualProvider>();
+            providers.Add(RenderingMode.Solid, new SolidMeshProvider());
+            return new VisualFactory(providers);
         }
     }
 }

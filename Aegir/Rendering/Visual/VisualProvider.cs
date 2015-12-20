@@ -9,16 +9,13 @@ using System.Windows.Media.Media3D;
 
 namespace Aegir.Rendering.Visual
 {
-    public class WireframeVisualProvider : VisualProvider
+    public abstract class VisualProvider
     {
-        public WireframeVisualProvider()
+        protected Dictionary<Model, Geometry3D> visualCache;
+        public VisualProvider()
         {
-
+            visualCache = new Dictionary<Model, Geometry3D>();
         }
-
-        public override Geometry3D GetVisual(Model node)
-        {
-            return null;
-        }
+        public abstract Geometry3D GetVisual(Model node);
     }
 }

@@ -5,27 +5,54 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media.Media3D;
 using Aegir.ViewModel.NodeProxy;
+using AegirCore.Mesh.Loader;
+using HelixToolkit.Wpf;
 
 namespace Aegir.Rendering.Visual
 {
-    public class SolidMeshProvider : IVisualProvider
+    public class SolidMeshProvider : VisualProvider
     {
-        public VisualCache Cache
+        public override Geometry3D GetVisual(Model node)
         {
-            get
+            if(visualCache.ContainsKey(node))
             {
-                throw new NotImplementedException();
+                return visualCache[node];
             }
-
-            set
-            {
-                throw new NotImplementedException();
-            }
+            return GenerateMesh(node);
         }
-
-        public Visual3D GetVisual(NodeViewModelProxy node)
+        private Geometry3D GenerateMesh(Model model)
         {
-            return null;
+            MeshBuilder meshBuilder = new MeshBuilder();
+
+            //Need to Vertexes to points3d
+            List<Point3D> vertexes = new List<Point3D>();
+            foreach(Vertex v in model.Vertices)
+            {
+                vertexes.Add(new Point3D(v.X, v.Y, v.Z));
+            }
+            //Collapse indices to one list
+            List<int> indices = new List<int>();
+            foreach (Face f in model.Faces)
+            {
+                indices.AddRange(f.VertexIndexList);
+            }
+            //Create normals on wpf vector format
+            List<Vector3D> normals = new List<Vector3D>();
+            foreach(Vertex vn in model.VertexNomals)
+            {
+                normals.Add(new Vector3D(vn.X, vn.Y, vn.Z));
+            }
+
+            if(normals.Count == 0)
+            {
+                meshBuilder.Append(vertexes, indices);
+            }
+            else 
+            {
+                meshBuilder.Append(vertexes, indices, normals);
+            }
+
+            return meshBuilder.ToMesh();
         }
     }
 }

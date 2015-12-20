@@ -27,7 +27,7 @@ namespace Aegir.Rendering
         public Renderer()
         {
             viewports = new List<ViewportRenderer>();
-            meshFactory = new VisualFactory();
+            meshFactory = VisualFactory.CreateDefaultFactory();
         }
         public void ChangeScene(SceneGraph scene)
         {

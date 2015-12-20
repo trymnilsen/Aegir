@@ -3,6 +3,7 @@ using Aegir.View.PropertyEditor.CustomEditor;
 using Aegir.Windows;
 using AegirCore.Behaviour.Rendering;
 using AegirCore.Behaviour.World;
+using AegirCore.Mesh.Loader;
 using AegirCore.Scene;
 using AegirNetwork;
 using AegirType;
@@ -188,6 +189,15 @@ namespace Aegir.ViewModel.NodeProxy
             set { visualFilePath = value; }
         }
 
+        private IEnumerable<RenderDeclaration> renderDeclarations;
+        [Browsable(false)]
+        public IEnumerable<RenderDeclaration> RenderDeclarations
+        {
+            get { return renderDeclarations; }
+            set { renderDeclarations = value; }
+        }
+
+
         //public double WorldRotationYaw
         //{
         //    get { }
@@ -203,10 +213,11 @@ namespace Aegir.ViewModel.NodeProxy
             //All nodes should have a transform behaviour
             transform = nodeData.GetComponent<TransformBehaviour>();
             RenderMeshBehaviour meshData = nodeData.GetComponent<RenderMeshBehaviour>();
-            //if (meshData != null)
-            //{
-            //    VisualFilePath = meshData.FilePath;
-            //}
+
+            if (meshData != null)
+            {
+                renderDeclarations = meshData.RenderDeclarations;
+            }
 
             ShowOutputCommand = new RelayCommand(ShowOutput);
         }

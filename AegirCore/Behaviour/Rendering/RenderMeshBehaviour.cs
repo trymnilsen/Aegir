@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace AegirCore.Behaviour.Rendering
 {
-    public class RenderDeclariation
+    public class RenderDeclaration
     {
         public string FileName { get; set; }
         public string RenderID { get; set; }
@@ -14,16 +14,17 @@ namespace AegirCore.Behaviour.Rendering
     /// </summary>
     public class RenderMeshBehaviour : BehaviourComponent
     {
-        private List<RenderDeclariation> RenderDeclarations;
+        public List<RenderDeclaration> RenderDeclarations { get; private set; }
 
         public RenderMeshBehaviour()
         {
-            RenderDeclarations = new List<RenderDeclariation>();
+            RenderDeclarations = new List<RenderDeclaration>();
         }
 
-        public void AddDeclaration(RenderDeclariation declaration)
+        public void AddDeclaration(RenderDeclaration declaration)
         {
 
         }
+
     }
 }
