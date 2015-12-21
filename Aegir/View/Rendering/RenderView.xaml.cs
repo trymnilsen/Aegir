@@ -95,10 +95,7 @@ namespace Aegir.View.Rendering
 
         private void OnInvalidateChildren()
         {
-            foreach (NodeMeshListener mesh in meshTransforms)
-            {
-                mesh.Invalidate();
-            }
+            renderHandler.Invalidate();
         }
 
         /// <summary>
@@ -118,79 +115,9 @@ namespace Aegir.View.Rendering
         /// </summary>
         private void RebuildVisualTree()
         {
-            meshTransforms.Clear();
-            UpdateViewportContent(TopViewport);
-            UpdateViewportContent(PerspectiveViewport);
-            UpdateViewportContent(FrontViewport);
-            UpdateViewportContent(RightViewport);
+            renderHandler.RebuildScene();
             Debug.WriteLine("Successfully Built Visual Tree");
         }
 
-        private void UpdateViewportContent(HelixViewport3D viewport)
-        {
-            foreach (NodeViewModelProxy node in Scene.Items)
-            {
-                RenderNode(node, viewport);
-            }
-        }
-
-        /// <summary>
-        /// Recursivly renders all nodes
-        /// </summary>
-        /// <param name="node"></param>
-        private void RenderNode(NodeViewModelProxy node, HelixViewport3D viewport)
-        {
-            if (node.HasVisual)
-            {
-                ModelVisual3D device3D = new ModelVisual3D();
-                string visualFilePath = node.VisualFilePath;
-                if (File.Exists(visualFilePath))
-                {
-                    Model3D mesh;
-                    if (!assetCache.ContainsKey(visualFilePath))
-                    {
-                        assetCache[visualFilePath] = LoadModel(visualFilePath);
-                    }
-                    mesh = assetCache[visualFilePath];
-                    device3D.Content = mesh;
-                }
-                else
-                {
-                    BoundingBoxWireFrameVisual3D mesh = new BoundingBoxWireFrameVisual3D();
-                    mesh.BoundingBox = new Rect3D(-0.5, -0.5, -0.5, 1, 1, 1);
-                    mesh.Color = ModelNotLoadedColor;
-                    device3D = mesh;
-                }
-
-                meshTransforms.Add(new NodeMeshListener(device3D, node));
-                viewport.Children.Add(device3D);
-            }
-            foreach (NodeViewModelProxy childNode in node.Children)
-            {
-                RenderNode(childNode, viewport);
-            }
-        }
-
-        private Model3D LoadModel(string model)
-        {
-            Model3D device = null;
-            try
-            {
-                //Adding a gesture here
-                //viewPort3d.RotateGesture = new MouseGesture(MouseAction.LeftClick);
-
-                //Import 3D model file
-                ModelImporter import = new ModelImporter();
-
-                //Load the 3D model file
-                device = import.Load(model);
-            }
-            catch (Exception e)
-            {
-                // Handle exception in case can not file 3D model
-                MessageBox.Show("Exception Error : " + e.Message + Environment.NewLine + e.StackTrace);
-            }
-            return device;
-        }
     }
 }
