@@ -19,11 +19,11 @@ namespace Aegir.Rendering
         }
         public void AddMeshToView(Visual3D mesh)
         {
-
+            viewport.Children.Add(mesh);
         }
         public void ClearView()
         {
-            
+            viewport.Children.Clear();
         }
     }
 }

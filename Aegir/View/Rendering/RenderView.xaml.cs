@@ -19,6 +19,7 @@ namespace Aegir.View.Rendering
     {
         public Dictionary<string, Model3D> assetCache;
         public List<NodeMeshListener> meshTransforms;
+        public Renderer renderHandler;
 
         public Color ModelNotLoadedColor
         {
@@ -54,6 +55,12 @@ namespace Aegir.View.Rendering
             InitializeComponent();
             assetCache = new Dictionary<string, Model3D>();
             meshTransforms = new List<NodeMeshListener>();
+            renderHandler = new Renderer();
+
+            renderHandler.AddViewport(new ViewportRenderer(TopViewport));
+            renderHandler.AddViewport(new ViewportRenderer(PerspectiveViewport));
+            renderHandler.AddViewport(new ViewportRenderer(RightViewport));
+            renderHandler.AddViewport(new ViewportRenderer(FrontViewport));
         }
 
         public static void OnSceneGraphChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
