@@ -23,16 +23,13 @@ namespace Aegir.Rendering.Visual
             //If we don't have provider, give the default dummy visual
             if(!visualProviders.ContainsKey(renderMode) || !(renderData.MeshData == null))
             {
-                return GetDummyVisual();
+                return null;
             }
 
             return visualProviders[renderMode].GetVisual(renderData.MeshData);
 
         }
-        private Geometry3D GetDummyVisual()
-        {
-            return null;
-        }
+
         /// <summary>
         /// Creates a new default configured factory
         /// </summary>

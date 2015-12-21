@@ -5,10 +5,10 @@ namespace Aegir.Rendering
 {
     public class NodeMeshListener
     {
-        public ModelVisual3D Visual { get; set; }
+        public Visual3D Visual { get; set; }
         public NodeViewModelProxy Source { get; set; }
 
-        public NodeMeshListener(ModelVisual3D visual, NodeViewModelProxy source)
+        public NodeMeshListener(Visual3D visual, NodeViewModelProxy source)
         {
             Source = source;
             Visual = visual;

@@ -2,6 +2,7 @@
 using Aegir.ViewModel.NodeProxy;
 using AegirCore.Behaviour.Rendering;
 using AegirCore.Scene;
+using HelixToolkit.Wpf;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,12 +26,20 @@ namespace Aegir.Rendering
             get { return renderMode; }
             set { renderMode = value; }
         }
+        private Color dummyVisualColor;
+
+        public Color DummyColor
+        {
+            get { return dummyVisualColor; }
+            set { dummyVisualColor = value; }
+        }
 
         public Renderer()
         {
             viewports = new List<ViewportRenderer>();
             meshFactory = VisualFactory.CreateDefaultFactory();
             meshListeners = new List<NodeMeshListener>();
+            DummyColor = Color.FromRgb(255, 0, 0);
         }
         public void ChangeScene(ScenegraphViewModelProxy scene)
         {
@@ -78,9 +87,20 @@ namespace Aegir.Rendering
             {
                 //Visual
                 Geometry3D meshData = meshFactory.GetVisual(renderData, mode);
-                Material foo = new DiffuseMaterial(new SolidColorBrush(Color.FromRgb(100, 100, 100)));
-                GeometryModel3D mesh = new GeometryModel3D();
-                ModelVisual3D visual = new ModelVisual3D();
+                Visual3D visual = null;
+                if(meshData != null)
+                {
+                    Material foo = new DiffuseMaterial(new SolidColorBrush(Color.FromRgb(100, 100, 100)));
+                    GeometryModel3D mesh = new GeometryModel3D(meshData, foo);
+                    ModelVisual3D modelVisual = new ModelVisual3D();
+                    modelVisual.Content = mesh;
+                    visual = modelVisual;
+                }
+                else
+                {
+                    //Factory did not have model, use dummy
+                    visual = GetDummyVisual();
+                }
                 //Create visual with transform listener
                 NodeMeshListener listener = new NodeMeshListener(visual, node);
                 meshListeners.Add(listener);
@@ -91,6 +111,13 @@ namespace Aegir.Rendering
                 }
             }
 
+        }
+        private Visual3D GetDummyVisual()
+        {
+            BoundingBoxWireFrameVisual3D mesh = new BoundingBoxWireFrameVisual3D();
+            mesh.BoundingBox = new Rect3D(-0.5, -0.5, -0.5, 1, 1, 1);
+            mesh.Color = DummyColor;
+            return mesh;
         }
         public void Invalidate()
         {
