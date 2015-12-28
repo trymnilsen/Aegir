@@ -9,13 +9,16 @@ using AegirNetwork;
 using AegirType;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Windows;
 
 namespace Aegir.ViewModel.NodeProxy
 {
-    public class NodeViewModelProxy : ViewModelBase
+    public class NodeViewModelProxy : ViewModelBase, IDisposable
     {
         private int port;
         private int listener;
@@ -189,9 +192,9 @@ namespace Aegir.ViewModel.NodeProxy
             set { visualFilePath = value; }
         }
 
-        private IEnumerable<RenderDeclaration> renderDeclarations;
+        private ObservableCollection<RenderDeclaration> renderDeclarations;
         [Browsable(false)]
-        public IEnumerable<RenderDeclaration> RenderDeclarations
+        public ObservableCollection<RenderDeclaration> RenderDeclarations
         {
             get { return renderDeclarations; }
             set { renderDeclarations = value; }
@@ -217,9 +220,15 @@ namespace Aegir.ViewModel.NodeProxy
             if (meshData != null)
             {
                 renderDeclarations = meshData.RenderDeclarations;
+                renderDeclarations.CollectionChanged += RenderDeclarations_CollectionChanged;
             }
 
             ShowOutputCommand = new RelayCommand(ShowOutput);
+        }
+
+        private void RenderDeclarations_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         private void ShowOutput()
@@ -267,6 +276,16 @@ namespace Aegir.ViewModel.NodeProxy
             return "NodeViewModelProxy For: " + nodeData.Name;
         }
 
+        public void Dispose()
+        {
+            if(renderDeclarations!=null)
+            {
+                renderDeclarations.CollectionChanged -= RenderDeclarations_CollectionChanged;
+            }
+        }
+        //Temp Workaround
+        public delegate void RenderDeclarationsChangedHandler();
+        public event RenderDeclarationsChangedHandler RenderDeclarationsChanged;
         //public void TriggerTransformChanged()
         //{
         //    TransformationChangedHandler transformEvent = TransformationChanged;

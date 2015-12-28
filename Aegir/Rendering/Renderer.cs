@@ -57,9 +57,12 @@ namespace Aegir.Rendering
             {
                 view.ClearView();
             }
-            foreach(NodeViewModelProxy node in scene.Items)
+            if(scene!=null)
             {
-                RenderNode(node);
+                foreach(NodeViewModelProxy node in scene.Items)
+                {
+                    RenderNode(node);
+                }
             }
         }
         //private Visual3D GetExistingVisualForNode(NodeViewModelProxy node)
@@ -88,6 +91,7 @@ namespace Aegir.Rendering
                 //Visual
                 Geometry3D meshData = meshFactory.GetVisual(renderData, mode);
                 Visual3D visual = null;
+                
                 if(meshData != null)
                 {
                     Material foo = new DiffuseMaterial(new SolidColorBrush(Color.FromRgb(100, 100, 100)));

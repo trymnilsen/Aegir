@@ -109,6 +109,7 @@
     <Compile Include="Signals\Replay\NewReplayData.cs" />
     <Compile Include="Signals\SignalRouter.cs" />
     <Compile Include="Signals\Simulation\FloatingMeshCalculated.cs" />
+    <Compile Include="Signals\Simulation\HullModelChanged.cs" />
     <Compile Include="Signals\Vessel\VesselNavigationChanged.cs" />
     <Compile Include="Signals\Vessel\VesselNavigationStep.cs" />
     <Compile Include="Simulation\LerpMode.cs" />

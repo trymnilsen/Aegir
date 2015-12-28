@@ -1,5 +1,6 @@
 ﻿using AegirCore.Mesh.Loader;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace AegirCore.Behaviour.Rendering
 {
@@ -14,11 +15,11 @@ namespace AegirCore.Behaviour.Rendering
     /// </summary>
     public class RenderMeshBehaviour : BehaviourComponent
     {
-        public List<RenderDeclaration> RenderDeclarations { get; private set; }
+        public ObservableCollection<RenderDeclaration> RenderDeclarations { get; private set; }
 
         public RenderMeshBehaviour()
         {
-            RenderDeclarations = new List<RenderDeclaration>();
+            RenderDeclarations = new ObservableCollection<RenderDeclaration>();
         }
 
         public void AddDeclaration(RenderDeclaration declaration)

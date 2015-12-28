@@ -106,6 +106,7 @@ namespace Aegir.View.Rendering
         /// </remarks>
         private void OnSceneGraphChanged()
         {
+            Debug.WriteLine("Scenegraph Changed");
             //For now we completly rebuild the visual tree
             RebuildVisualTree();
         }
