@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace AegirCore.Mesh.Loader
 {
-    public class ObjModel : Model
+    public class ObjModel : MeshData
     {
         public string Mtl { get; set; }
 

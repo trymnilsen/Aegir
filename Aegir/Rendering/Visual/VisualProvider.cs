@@ -11,11 +11,11 @@ namespace Aegir.Rendering.Visual
 {
     public abstract class VisualProvider
     {
-        protected Dictionary<Model, Geometry3D> visualCache;
+        protected Dictionary<MeshData, Geometry3D> visualCache;
         public VisualProvider()
         {
-            visualCache = new Dictionary<Model, Geometry3D>();
+            visualCache = new Dictionary<MeshData, Geometry3D>();
         }
-        public abstract Geometry3D GetVisual(Model node);
+        public abstract Geometry3D GetVisual(MeshData node);
     }
 }

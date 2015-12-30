@@ -12,7 +12,7 @@ namespace Aegir.Rendering.Visual
 {
     public class SolidMeshProvider : VisualProvider
     {
-        public override Geometry3D GetVisual(Model node)
+        public override Geometry3D GetVisual(MeshData node)
         {
             if(visualCache.ContainsKey(node))
             {
@@ -20,7 +20,7 @@ namespace Aegir.Rendering.Visual
             }
             return GenerateMesh(node);
         }
-        private Geometry3D GenerateMesh(Model model)
+        private Geometry3D GenerateMesh(MeshData model)
         {
             MeshBuilder meshBuilder = new MeshBuilder();
 

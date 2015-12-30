@@ -62,9 +62,9 @@ namespace AegirCore.Simulation.Mesh
 
         private WaterCell waterMesh;
 
-        protected Model mModel;
+        protected MeshData mModel;
 
-        public Model Model
+        public MeshData Model
         {
             get { return mModel; }
             set

@@ -2,6 +2,6 @@
 {
     public interface ModelLoader
     {
-        Model LoadModel(string FileContent);
+        MeshData LoadModel(string FileContent);
     }
 }

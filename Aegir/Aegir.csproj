@@ -160,6 +160,7 @@
     <Compile Include="Messages\Project\LoadProjectFile.cs" />
     <Compile Include="Messages\Project\ProjectActivated.cs" />
     <Compile Include="Messages\Simulation\InvalidateEntities.cs" />
+    <Compile Include="Rendering\RenderItem.cs" />
     <Compile Include="Rendering\Visual\VisualProvider.cs" />
     <Compile Include="Rendering\NodeMeshListener.cs" />
     <Compile Include="Rendering\Renderer.cs" />
