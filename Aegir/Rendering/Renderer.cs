@@ -99,6 +99,8 @@ namespace Aegir.Rendering
                     ModelVisual3D modelVisual = new ModelVisual3D();
                     modelVisual.Content = mesh;
                     visual = modelVisual;
+                    LinesVisual3D lines = new LinesVisual3D();
+
                 }
                 else
                 {

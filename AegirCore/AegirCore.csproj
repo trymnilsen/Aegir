@@ -75,10 +75,11 @@
     <Compile Include="Entity\GNSSReceiver.cs" />
     <Compile Include="Entity\Vessel.cs" />
     <Compile Include="Mesh\Loader\Face.cs" />
-    <Compile Include="Mesh\Loader\Model.cs" />
+    <Compile Include="Mesh\IndexedMeshData.cs" />
     <Compile Include="Mesh\Loader\ModelLoader.cs" />
     <Compile Include="Mesh\Loader\ObjModel.cs" />
     <Compile Include="Mesh\Loader\Vertex.cs" />
+    <Compile Include="Mesh\ObservableIndexedMeshData.cs" />
     <Compile Include="Output\Water.cs" />
     <Compile Include="Entity\WaterSegment.cs" />
     <Compile Include="Output\OutputData.cs" />

@@ -1,5 +1,6 @@
 ﻿using AegirCore.Behaviour.Rendering;
 using AegirCore.Behaviour.World;
+using AegirCore.Mesh;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,18 +10,28 @@ using System.Windows.Media.Media3D;
 
 namespace Aegir.Rendering
 {
-    public class RenderItem
+    public class RenderItem : IDisposable
     {
         private Vector3DCollection normals;
         private Visual3D visual;
+        private ObservableIndexedMeshData meshData;
 
         public Point3D[] Positions { get; private set; }
-        public MeshGeometry3D MeshData { get; private set; }
+        public MeshGeometry3D Geometry { get; private set; }
 
-        public RenderItem(Visual3D visual)
+        public RenderItem(Visual3D visual, ObservableIndexedMeshData meshData)
         {
             this.visual = visual;
+            this.meshData = meshData;
+
+            this.meshData.VerticePositionsChanged += MeshData_VerticePositionsChanged;
         }
+
+        private void MeshData_VerticePositionsChanged()
+        {
+            throw new NotImplementedException();
+        }
+
 
         public Transform3D GetVisualTransformation(TransformBehaviour transform)
         {
@@ -42,6 +53,11 @@ namespace Aegir.Rendering
             {
                 visual.Transform = transformation;
             });
+        }
+
+        public void Dispose()
+        {
+            
         }
     }
 }
