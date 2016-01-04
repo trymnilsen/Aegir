@@ -1,4 +1,5 @@
 ﻿using Aegir.ViewModel.NodeProxy;
+using AegirCore.Mesh;
 using AegirCore.Mesh.Loader;
 using System;
 using System.Collections.Generic;
@@ -16,7 +17,7 @@ namespace Aegir.Rendering.Visual
 
         }
 
-        public override Geometry3D GetVisual(MeshData node)
+        public override Geometry3D GetVisual(IndexedMeshData node)
         {
             return null;
         }

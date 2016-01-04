@@ -61,7 +61,7 @@ namespace Aegir.Rendering
             {
                 foreach(NodeViewModelProxy node in scene.Items)
                 {
-                    RenderNode(node);
+                    //RenderNode(node);
                 }
             }
         }
@@ -129,7 +129,7 @@ namespace Aegir.Rendering
         {
             foreach(NodeMeshListener listener in meshListeners)
             {
-                listener.Invalidate();
+                //listener.Invalidate();
             }
         }
         public void AddViewport(ViewportRenderer viewport)

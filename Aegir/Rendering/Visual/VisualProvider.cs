@@ -1,4 +1,5 @@
 ﻿using Aegir.ViewModel.NodeProxy;
+using AegirCore.Mesh;
 using AegirCore.Mesh.Loader;
 using System;
 using System.Collections.Generic;
@@ -11,11 +12,11 @@ namespace Aegir.Rendering.Visual
 {
     public abstract class VisualProvider
     {
-        protected Dictionary<MeshData, Geometry3D> visualCache;
+        protected Dictionary<IndexedMeshData, Geometry3D> visualCache;
         public VisualProvider()
         {
-            visualCache = new Dictionary<MeshData, Geometry3D>();
+            visualCache = new Dictionary<IndexedMeshData, Geometry3D>();
         }
-        public abstract Geometry3D GetVisual(MeshData node);
+        public abstract Geometry3D GetVisual(IndexedMeshData node);
     }
 }

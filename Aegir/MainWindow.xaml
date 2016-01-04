@@ -9,6 +9,7 @@
         xmlns:renderView="clr-namespace:Aegir.View.Rendering"
         xmlns:navView="clr-namespace:Aegir.View.Navigation"
         xmlns:outputView="clr-namespace:Aegir.View.Output"
+        xmlns:timelineView="clr-namespace:Aegir.View.Timeline"
         xmlns:fa="http://schemas.fontawesome.io/icons/"
         mc:Ignorable="d"
         Title="Aegir"
@@ -23,7 +24,7 @@
             <!--Menu Strip-->
             <RowDefinition Height="1*" MinHeight="200px"></RowDefinition>
             <!--Console-->
-            <RowDefinition Height="100px" MinHeight="30px"></RowDefinition>
+            <RowDefinition Height="60px" MinHeight="30px"></RowDefinition>
             <!--Main Area-->
             <RowDefinition Height="25px" MinHeight="25px"></RowDefinition>
             <!--StatusBar-->
@@ -58,13 +59,7 @@
         <!--~MainArea-->
         <!--Console-->
         <GridSplitter Grid.Row="2" Height="8" HorizontalAlignment="Stretch" VerticalAlignment="Top" />
-        <DockPanel Grid.Row="2" Margin="0 8 0 0" HorizontalAlignment="Stretch" Background="White" TextOptions.TextFormattingMode="Display">
-            <DockPanel DockPanel.Dock="Bottom">
-                <TextBlock Text="Command:" FontWeight="Bold" DockPanel.Dock="Left" Margin="3" VerticalAlignment="Center" />
-                <TextBox BorderThickness="0" Margin="3" />
-            </DockPanel>
-            <TextBox AcceptsReturn="True" IsReadOnly="True" VerticalScrollBarVisibility="Auto" Text="Application loaded.&#x0a; AegirSimulation, version 1.00, May 12 2010, 18:13:45&#x0a; ========== Compiling Datagrams: 3 succeeded, 0 failed, 0 skipped ==========" BorderThickness="0 0 0 1"  BorderBrush="Black" />
-        </DockPanel>
+        <timelineView:Timeline Grid.Row="2" Margin="0 8"></timelineView:Timeline>
         <!--StatusBar-->
         <views:StatusBar Grid.Row="3"></views:StatusBar>
         <!--~StatusBar-->

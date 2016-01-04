@@ -64,7 +64,9 @@ namespace AegirCore.Behaviour.Simulation
                 if (hullValid)
                 {
                     mesh.ToCompute = true;
-                    mesh.Model = hullModel;
+
+                    //Create MeshData
+                    mesh.Model = hullModel.GetMesh();
                 }
             }
 

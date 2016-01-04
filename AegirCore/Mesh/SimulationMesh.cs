@@ -1,4 +1,4 @@
-﻿using AegirCore.Mesh.Loader;
+﻿using AegirCore.Mesh;
 using AegirCore.Simulation.Water;
 using AegirType;
 using System;
@@ -62,9 +62,9 @@ namespace AegirCore.Simulation.Mesh
 
         private WaterCell waterMesh;
 
-        protected MeshData mModel;
+        protected IndexedMeshData mModel;
 
-        public MeshData Model
+        public IndexedMeshData Model
         {
             get { return mModel; }
             set
@@ -916,10 +916,9 @@ namespace AegirCore.Simulation.Mesh
                                          (float)Model.Vertices[i].Z);
             }
             mVertex = vectors;
-
-            for (int i = 0, l = Model.Faces.Length; i < l; i++)
+            int indexOffset = 0;
+            for (int i = 0, l = Model.Faces.Length/3; i < l; i++)
             {
-                Face face = Model.Faces[i];
 
                 // Get raw triangle index data
 
@@ -927,9 +926,12 @@ namespace AegirCore.Simulation.Mesh
                 SimulationTriangle SimTriangle = new SimulationTriangle();
                 Random rand = new Random();
 
-                SimTriangle.I0 = face.VertexIndexList[0];
-                SimTriangle.I1 = face.VertexIndexList[1];
-                SimTriangle.I2 = face.VertexIndexList[2];
+                SimTriangle.I0 = Model.Faces[indexOffset];
+                SimTriangle.I1 = Model.Faces[indexOffset+1];
+                SimTriangle.I2 = Model.Faces[indexOffset+2];
+
+                indexOffset+=3;
+
                 SimTriangle.color = new Color((float)rand.NextDouble(), (float)rand.NextDouble(), (float)rand.NextDouble());
                 Vector3 u = mVertex[SimTriangle.I1] - mVertex[SimTriangle.I0];
                 Vector3 v = mVertex[SimTriangle.I2] - mVertex[SimTriangle.I0];

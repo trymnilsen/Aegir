@@ -14,12 +14,12 @@ namespace Aegir.Rendering
     {
         private Vector3DCollection normals;
         private Visual3D visual;
-        private ObservableIndexedMeshData meshData;
+        private IndexedMeshData meshData;
 
         public Point3D[] Positions { get; private set; }
         public MeshGeometry3D Geometry { get; private set; }
 
-        public RenderItem(Visual3D visual, ObservableIndexedMeshData meshData)
+        public RenderItem(Visual3D visual, IndexedMeshData meshData)
         {
             this.visual = visual;
             this.meshData = meshData;

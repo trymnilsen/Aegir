@@ -7,12 +7,14 @@ using System.Windows.Media.Media3D;
 using Aegir.ViewModel.NodeProxy;
 using AegirCore.Mesh.Loader;
 using HelixToolkit.Wpf;
+using AegirType;
+using AegirCore.Mesh;
 
 namespace Aegir.Rendering.Visual
 {
     public class SolidMeshProvider : VisualProvider
     {
-        public override Geometry3D GetVisual(MeshData node)
+        public override Geometry3D GetVisual(IndexedMeshData node)
         {
             if(visualCache.ContainsKey(node))
             {
@@ -20,25 +22,22 @@ namespace Aegir.Rendering.Visual
             }
             return GenerateMesh(node);
         }
-        private Geometry3D GenerateMesh(MeshData model)
+        private Geometry3D GenerateMesh(IndexedMeshData model)
         {
             MeshBuilder meshBuilder = new MeshBuilder();
 
             //Need to Vertexes to points3d
             List<Point3D> vertexes = new List<Point3D>();
-            foreach(Vertex v in model.Vertices)
+            foreach(Vector3 v in model.Vertices)
             {
                 vertexes.Add(new Point3D(v.X, v.Y, v.Z));
             }
             //Collapse indices to one list
             List<int> indices = new List<int>();
-            foreach (Face f in model.Faces)
-            {
-                indices.AddRange(f.VertexIndexList);
-            }
+            indices.AddRange(model.Faces);
             //Create normals on wpf vector format
             List<Vector3D> normals = new List<Vector3D>();
-            foreach(Vertex vn in model.VertexNomals)
+            foreach(Vector3 vn in model.VertexNomals)
             {
                 normals.Add(new Vector3D(vn.X, vn.Y, vn.Z));
             }

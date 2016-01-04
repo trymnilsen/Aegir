@@ -3,7 +3,7 @@ using System.Globalization;
 
 namespace AegirCore.Mesh.Loader
 {
-    public class Vertex
+    public class Vector3Vertex
     {
         public double X { get; set; }
 

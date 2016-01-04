@@ -18,7 +18,7 @@ namespace AegirCore.Mesh.Loader
             for (int i = 0; i < vcount; i++)
             {
                 string[] parts = data[i + 1].Split('/');
-                //If we have 3 or more parts we have normal data at the third (one indexed) position
+                //If we have 3 or more parts we have normal data at the third position
                 if (parts.Length >= 3)
                 {
                     //Allocate normal list
