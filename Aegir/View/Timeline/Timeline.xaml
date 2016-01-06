@@ -54,8 +54,12 @@
                 <Style TargetType="Button" x:Key="PlayBackButton">
                     <Setter Property="Width" Value="28px"></Setter>
                 </Style>
+                <Style TargetType="RepeatButton" x:Key="IconRepeatButton">
+                    <Setter Property="Width" Value="28px"></Setter>
+                </Style>
             </Grid.Resources>
             <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="28px"/>
                 <ColumnDefinition Width="75px"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
@@ -63,9 +67,16 @@
                 <RowDefinition/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
+            <!--Zoom-->
+            <RepeatButton Delay="500" Style="{StaticResource IconRepeatButton}">
+                <fa:ImageAwesome Icon="SearchPlus"></fa:ImageAwesome>
+            </RepeatButton>
+            <RepeatButton Delay="500" Grid.Row="1" Style="{StaticResource IconRepeatButton}">
+                <fa:ImageAwesome Icon="SearchMinus"></fa:ImageAwesome>
+            </RepeatButton>
             <!--Key Buttons-->
-            <Button Content="Set Key"></Button>
-            <ToggleButton Content="Auto Key" Grid.Row="1" IsChecked="True" x:Name="ToggleAutoKeyButton">
+            <Button Content="Set Key" Grid.Column="1"></Button>
+            <ToggleButton Content="Auto Key" Grid.Column="1" Grid.Row="1" x:Name="ToggleAutoKeyButton">
                 <ToggleButton.Style>
                     <Style TargetType="ToggleButton">
                         <Style.Triggers>
@@ -77,7 +88,7 @@
                 </ToggleButton.Style>
             </ToggleButton>
             <!--Playback buttons-->
-            <StackPanel Orientation="Horizontal" Grid.Column="1">
+            <StackPanel Orientation="Horizontal" Grid.Column="2">
                 <Button Style="{StaticResource PlayBackButton}">
                     <fa:ImageAwesome Icon="FastBackward"></fa:ImageAwesome>
                 </Button>
@@ -94,7 +105,7 @@
                     <fa:ImageAwesome Icon="FastForward"></fa:ImageAwesome>
                 </Button>
             </StackPanel>
-            <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Horizontal">
+            <StackPanel Grid.Column="2" Grid.Row="1" Orientation="Horizontal">
                 <xctk:IntegerUpDown Width="112px" Value="{Binding ElementName=FrameSlider, Path=Value}"></xctk:IntegerUpDown>
                 <Button Style="{StaticResource PlayBackButton}">
                     <fa:ImageAwesome Icon="ListUl"></fa:ImageAwesome>

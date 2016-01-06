@@ -58,7 +58,17 @@
         </Grid>
         <!--~MainArea-->
         <!--Console-->
-        <GridSplitter Grid.Row="2" Height="8" HorizontalAlignment="Stretch" VerticalAlignment="Top" />
+        <GridSplitter Grid.Row="2" Height="8" HorizontalAlignment="Stretch" VerticalAlignment="Top" >
+            <GridSplitter.Style>
+                <Style TargetType="GridSplitter">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsChecked, ElementName=ToggleAutoKeyButton}" Value="True">
+                            <Setter Property="Background" Value="Crimson"></Setter>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </GridSplitter.Style>
+        </GridSplitter>
         <timelineView:Timeline Grid.Row="2" Margin="0 8"></timelineView:Timeline>
         <!--StatusBar-->
         <views:StatusBar Grid.Row="3"></views:StatusBar>
