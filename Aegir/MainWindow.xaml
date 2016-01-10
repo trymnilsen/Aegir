@@ -24,7 +24,7 @@
             <!--Menu Strip-->
             <RowDefinition Height="1*" MinHeight="200px"></RowDefinition>
             <!--Console-->
-            <RowDefinition Height="60px" MinHeight="30px"></RowDefinition>
+            <RowDefinition Height="50px"></RowDefinition>
             <!--Main Area-->
             <RowDefinition Height="25px" MinHeight="25px"></RowDefinition>
             <!--StatusBar-->
@@ -58,7 +58,7 @@
         </Grid>
         <!--~MainArea-->
         <!--Console-->
-        <GridSplitter Grid.Row="2" Height="8" HorizontalAlignment="Stretch" VerticalAlignment="Top" >
+        <!--<GridSplitter Grid.Row="2" Height="8" HorizontalAlignment="Stretch" VerticalAlignment="Top" >
             <GridSplitter.Style>
                 <Style TargetType="GridSplitter">
                     <Style.Triggers>
@@ -68,8 +68,8 @@
                     </Style.Triggers>
                 </Style>
             </GridSplitter.Style>
-        </GridSplitter>
-        <timelineView:Timeline Grid.Row="2" Margin="0 8"></timelineView:Timeline>
+        </GridSplitter>-->
+        <timelineView:Timeline Grid.Row="2"></timelineView:Timeline>
         <!--StatusBar-->
         <views:StatusBar Grid.Row="3"></views:StatusBar>
         <!--~StatusBar-->

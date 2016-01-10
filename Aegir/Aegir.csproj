@@ -153,6 +153,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Controls.cs" />
+    <Compile Include="Converter\DivideByConverter.cs" />
     <Compile Include="Converter\EnumToBoolConverter.cs" />
     <Compile Include="Converter\MatrixTransformConverter.cs" />
     <Compile Include="Converter\PlaybackButtonConverter.cs" />
@@ -218,9 +219,14 @@
     <Compile Include="View\StatusBar.xaml.cs">
       <DependentUpon>StatusBar.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Timeline\ITimelineKeyframeProvider.cs" />
+    <Compile Include="View\Timeline\KeyframeTimeline.xaml.cs">
+      <DependentUpon>KeyframeTimeline.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Timeline\Timeline.xaml.cs">
       <DependentUpon>Timeline.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Timeline\TimelineRange.cs" />
     <Compile Include="View\Waypoints.xaml.cs">
       <DependentUpon>Waypoints.xaml</DependentUpon>
     </Compile>
@@ -296,6 +302,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="View\Timeline\FrameSliderStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Timeline\KeyframeTimeline.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
