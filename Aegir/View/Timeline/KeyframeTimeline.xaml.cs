@@ -131,7 +131,7 @@ namespace Aegir.View.Timeline
             KeyFrameTimeLineRuler.Children.Clear();
             segments.Clear();
             double stepSize = (ActualWidth-keyFrameTicksPadding*2) / range;
-            while(!(stepSize<=10 || stepSize>=2))
+            while(!(stepSize<10 && stepSize>2))
             {
                 if(stepSize>10)
                 {
