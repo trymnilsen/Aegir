@@ -223,6 +223,7 @@
     <Compile Include="View\Timeline\KeyframeTimeline.xaml.cs">
       <DependentUpon>KeyframeTimeline.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Timeline\Segment.cs" />
     <Compile Include="View\Timeline\Timeline.xaml.cs">
       <DependentUpon>Timeline.xaml</DependentUpon>
     </Compile>
