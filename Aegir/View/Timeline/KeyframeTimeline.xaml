@@ -8,7 +8,7 @@
              d:DesignHeight="32" d:DesignWidth="300"
              SizeChanged="UserControl_SizeChanged">
     <Grid>
-        <Canvas SnapsToDevicePixels="True" Grid.Row="1" Height="20px" VerticalAlignment="Top" x:Name="KeyFrameTimeLineRuler">
+        <Canvas SnapsToDevicePixels="True" Grid.Row="1" Height="28px" VerticalAlignment="Top" x:Name="KeyFrameTimeLineRuler">
         </Canvas >
         
     </Grid>
