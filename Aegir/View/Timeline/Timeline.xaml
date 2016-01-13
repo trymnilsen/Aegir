@@ -38,12 +38,16 @@
                     </Style>
                 </Border.Style>
                 <Slider Margin="0 0 0 0" x:Name="FrameSlider" Minimum="{Binding ElementName=TimeRangeStartField, Path=Value}" Maximum="{Binding ElementName=TimeRangeEndField, Path=Value}" IsSnapToTickEnabled="True" LargeChange="1"
-                    Style="{DynamicResource FrameSliderStyle}" />
+                    Style="{DynamicResource FrameSliderStyle}" Background="#FFDDDDDD" />
             </Border>
+            <Border Grid.Row="1" BorderThickness="0 0 0 1" BorderBrush="Gray">
             <!--Timeline-->
-            <local:KeyframeTimeline Grid.Row="1" 
+            <local:KeyframeTimeline 
+                                    Background="#FFF1EDED"
+                                    TicksColor="#FF404040"
                                     TimeRangeEnd="{Binding ElementName=TimeRangeEndField, Path=Value}"
                                     TimeRangeStart="{Binding ElementName=TimeRangeStartField, Path=Value}"></local:KeyframeTimeline>
+            </Border>
         </Grid>
         <!--Controls-->
         <Grid Grid.Column="1">
