@@ -114,65 +114,57 @@ namespace Aegir.View.Timeline
         private void InvalidateTimeline()
         {
             //Get range
-            int range = TimeRangeEnd - TimeRangeStart;
+            int range = (TimeRangeEnd - TimeRangeStart) +1;
             //For now always have 5 segments
             double segmentSize = (ActualWidth / range  ) * 10;
 
             //Align ticks/viewport with range and width
             //KeyFrameTimeLineRuler.Background = ticksBrush;
             //Set Ruler Thickness
-
-            GenerateTickSegments(range, 5, 10);
+            int numOfSegments = (int)Math.Ceiling(range / 10d);
+            GenerateTickSegments(range, numOfSegments, 10);
 
         }
         private void GenerateTickSegments(int range, int numOfSegments, int numOfSegmentSteps)
         {
             double keyFrameTicksPadding = 10;
             KeyFrameTimeLineRuler.Children.Clear();
-            segments.Clear();
-            double stepSize = (ActualWidth-keyFrameTicksPadding*2) / range;
-            while(!(stepSize<10 && stepSize>2))
+            double stepSize = (ActualWidth-keyFrameTicksPadding*2) / (range -1);
+            //if (range > 40)
+            //{
+            //    while (!(stepSize < 10 && stepSize > 2))
+            //    {
+            //        if (stepSize > 10)
+            //        {
+            //            stepSize = stepSize / 2;
+            //        }
+            //        if (stepSize < 2)
+            //        {
+            //            stepSize = stepSize * 2;
+            //        }
+            //    }
+            //}
+            Line[] tickLines = new Line[range];
+            for (int i = 0; i < range; i++)
             {
-                if(stepSize>10)
-                {
-                    stepSize = stepSize / 2;
-                }
-                if(stepSize<2)
-                {
-                    stepSize = stepSize * 2;
-                }
-            }
-            for (int i = 0; i < numOfSegments; i++)
-            {
-                double xOffset = i * stepSize * numOfSegmentSteps + keyFrameTicksPadding;
-                Line[] tickLines = new Line[numOfSegmentSteps];
-                //Small ticks
-                for(int j=0; j < numOfSegmentSteps-1; j++)
-                {
-                    Line tick = new Line();
-                    tick.X1 = xOffset + stepSize * j;
-                    tick.X2 = xOffset + stepSize * j;
-                    tick.Y1 = 0;
-                    tick.Y2 = 10;
-                    tick.Stroke = TicksColor;
-                    tickLines[j] = tick;
-                    this.KeyFrameTimeLineRuler.Children.Add(tick);
-                }
+                double xOffset = i * stepSize  + keyFrameTicksPadding;
                 //Last tick of segment
-                Line lastTick = new Line();
-                lastTick.X1 = xOffset + stepSize * (numOfSegmentSteps-1);
-                lastTick.X2 = xOffset + stepSize * (numOfSegmentSteps-1);
-                lastTick.Y1 = 0;
-                lastTick.Y2 = 20;
-                lastTick.Stroke = TicksColor;
-                tickLines[numOfSegmentSteps-1] = lastTick;
+                Line tickLine = new Line();
+                tickLine.X1 = xOffset;
+                tickLine.X2 = xOffset;
+                tickLine.Y1 = 0;
+                if(i%numOfSegmentSteps == 0)
+                {
+                    tickLine.Y2 = 20;
+                }
+                else
+                {
+                    tickLine.Y2 = 10;
+                }
+                tickLine.Stroke = TicksColor;
+                tickLines[i] = tickLine;
 
-                this.KeyFrameTimeLineRuler.Children.Add(lastTick);
-
-                segments.Add(new Segment(tickLines, 
-                                        numOfSegmentSteps, 
-                                        xOffset, 
-                                        stepSize * numOfSegmentSteps));
+                this.KeyFrameTimeLineRuler.Children.Add(tickLine);
             }
         }
 
