@@ -54,7 +54,7 @@
 
 using System;
 
-namespace AegirCore.Simulation.Helper
+namespace AegirCore.Helper
 {
     /// <summary>
     /// Class MersenneTwister generates random numbers from a uniform distribution using

@@ -2,7 +2,7 @@
 
 namespace AegirCore.Entity
 {
-    public class GNSSReceiver : SceneNode
+    public class GNSSReceiver : Node
     {
         public GNSSReceiver()
         {

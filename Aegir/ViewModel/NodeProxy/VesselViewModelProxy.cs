@@ -2,9 +2,12 @@
 using AegirCore.Behaviour.Simulation;
 using AegirCore.Behaviour.Vessel;
 using AegirCore.Entity;
+using AegirCore.Mesh;
+using AegirCore.Mesh.Loader;
 using AegirCore.Simulation;
 using System;
 using System.ComponentModel;
+using System.Windows;
 using System.Windows.Media;
 using Xceed.Wpf.Toolkit.PropertyGrid.Editors;
 
@@ -79,8 +82,7 @@ namespace Aegir.ViewModel.NodeProxy
             get { return floatMeshBehaviour.HullModelPath; }
             set
             {
-                floatMeshBehaviour.HullModelPath = value;
-                RaisePropertyChanged();
+                
             }
         }
 
@@ -138,6 +140,22 @@ namespace Aegir.ViewModel.NodeProxy
             RaisePropertyChanged(nameof(Heading));
             RaisePropertyChanged(nameof(Speed));
             base.Invalidate();
+        }
+
+        private async void LoadHullModel(string path)
+        {
+            //floatMeshBehaviour.HullModelPath = value;
+            MeshLoader meshLoader = new MeshLoader();
+            try
+            {
+                MeshData mesh = await meshLoader.LoadMeshAsync(path);
+                ((Vessel)nodeData).VesselModel = mesh;
+                RaisePropertyChanged(nameof(VesselHull));
+            }
+            catch(Exception e)
+            {
+                MessageBox.Show("Loading error" + e.ToString());
+            }
         }
     }
 }

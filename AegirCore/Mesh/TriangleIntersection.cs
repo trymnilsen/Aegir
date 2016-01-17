@@ -1,6 +1,6 @@
 ﻿using AegirType;
 
-namespace AegirCore.Simulation.Mesh
+namespace AegirCore.Mesh
 {
     public class TriangleIntersection
     {

@@ -31,6 +31,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="log4net, Version=1.2.15.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.5\lib\net45-full\log4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.CodeAnalysis, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeAnalysis.Common.1.0.0\lib\net45\Microsoft.CodeAnalysis.dll</HintPath>
       <Private>True</Private>
@@ -74,11 +78,10 @@
     <Compile Include="Datagram\IDatagramService.cs" />
     <Compile Include="Entity\GNSSReceiver.cs" />
     <Compile Include="Entity\Vessel.cs" />
-    <Compile Include="Mesh\Loader\Face.cs" />
-    <Compile Include="Mesh\IndexedMeshData.cs" />
-    <Compile Include="Mesh\Loader\ModelLoader.cs" />
+    <Compile Include="Mesh\Loader\MeshLoader.cs" />
+    <Compile Include="Mesh\MeshData.cs" />
+    <Compile Include="Mesh\Loader\IModelLoader.cs" />
     <Compile Include="Mesh\Loader\ObjModel.cs" />
-    <Compile Include="Mesh\Loader\Vertex.cs" />
     <Compile Include="Output\Water.cs" />
     <Compile Include="Entity\WaterSegment.cs" />
     <Compile Include="Output\OutputData.cs" />
@@ -93,17 +96,16 @@
     <Compile Include="Scene\Node.cs" />
     <Compile Include="Scene\SceneContext.cs" />
     <Compile Include="Scene\SceneGraph.cs" />
-    <Compile Include="Scene\SceneNode.cs" />
     <Compile Include="Scripting\IScriptCompiler.cs" />
     <Compile Include="Scripting\ScriptCompiler.cs" />
     <Compile Include="Scripting\ScriptFile.cs" />
     <Compile Include="Helper\FourierCPU.cs" />
     <Compile Include="Helper\MersenneTwister.cs" />
-    <Compile Include="Mesh\Force.cs" />
-    <Compile Include="Mesh\SimulationMesh.cs" />
-    <Compile Include="Mesh\SimulationTriangle.cs" />
+    <Compile Include="Simulation\Force.cs" />
+    <Compile Include="Simulation\Boyancy\SimulationMesh.cs" />
+    <Compile Include="Simulation\Boyancy\SimulationTriangle.cs" />
     <Compile Include="Mesh\TriangleIntersection.cs" />
-    <Compile Include="Mesh\TriangleWetted.cs" />
+    <Compile Include="Simulation\Boyancy\TriangleWetted.cs" />
     <Compile Include="Mesh\VertexPositionColor.cs" />
     <Compile Include="Signals\Rendering\RenderMesh.cs" />
     <Compile Include="Signals\Replay\NewReplayData.cs" />

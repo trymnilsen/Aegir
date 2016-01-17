@@ -49,15 +49,15 @@ namespace AegirCore.Mesh.Loader
             Vertices = VertexList.ToArray();
             Faces = FaceList.ToArray();
         }
-        public IndexedMeshData GetMesh()
+        public MeshData GetMesh()
         {
-            return new IndexedMeshData(Faces,Vertices, VertexNomals);
+            return new MeshData(Faces,Vertices, VertexNomals);
 
         }
 
         /// <summary>
         /// Parses and loads a line from an OBJ file.
-        /// Currently only supports V, VT, F and MTLLIB prefixes
+        /// Currently only supports V and F
         /// </summary>
         private void processLine(string line)
         {

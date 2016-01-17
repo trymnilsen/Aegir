@@ -17,7 +17,7 @@ namespace Aegir.Rendering.Visual
 
         }
 
-        public override Geometry3D GetVisual(IndexedMeshData node)
+        public override Geometry3D GetVisual(MeshData node)
         {
             return null;
         }

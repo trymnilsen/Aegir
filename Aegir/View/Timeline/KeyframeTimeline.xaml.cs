@@ -231,16 +231,18 @@ namespace Aegir.View.Timeline
                 currentTimeHighlighter = new Rectangle();
             }
             currentTimeHighlighter.Fill = CurrentTimeHighlightColor;
-            currentTimeHighlighter.Width = 6;
-            currentTimeHighlighter.Height = 24;
+            currentTimeHighlighter.Width = 7;
+            currentTimeHighlighter.Height = 22;
+            currentTimeHighlighter.Stroke = new SolidColorBrush(Color.FromArgb(255, 128, 128, 128));
+            currentTimeHighlighter.StrokeThickness = 1;
             if(!KeyFrameTimeLineRuler.Children.Contains(currentTimeHighlighter))
             {
                 KeyFrameTimeLineRuler.Children.Add(currentTimeHighlighter);
             }
             double stepSize = (ActualWidth - 20) / (TimeRangeEnd - TimeRangeStart);
             double leftOffset = stepSize * CurrentTime + 10;
-            Canvas.SetLeft(currentTimeHighlighter, leftOffset-3);
-            Canvas.SetTop(currentTimeHighlighter, 2);
+            Canvas.SetLeft(currentTimeHighlighter, leftOffset-4);
+            Canvas.SetTop(currentTimeHighlighter, 0);
         }
         /// <summary>
         /// Invalidates the size of the timeline
@@ -292,14 +294,14 @@ namespace Aegir.View.Timeline
                 Line tickLine = new Line();
                 tickLine.X1 = xOffset;
                 tickLine.X2 = xOffset;
-                tickLine.Y1 = 4;
+                tickLine.Y1 = 0;
                 if(i%numOfSegmentSteps == 0)
                 {
-                    tickLine.Y2 = 24;
+                    tickLine.Y2 = 20;
                 }
                 else
                 {
-                    tickLine.Y2 = 14;
+                    tickLine.Y2 = 10;
                 }
                 tickLine.Stroke = TicksColor;
                 tickLines[i] = tickLine;

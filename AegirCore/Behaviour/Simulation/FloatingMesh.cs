@@ -1,5 +1,5 @@
 ﻿using AegirCore.Mesh.Loader;
-using AegirCore.Simulation.Mesh;
+using AegirCore.Simulation.Boyancy;
 using AegirCore.Simulation.Water;
 using System.IO;
 

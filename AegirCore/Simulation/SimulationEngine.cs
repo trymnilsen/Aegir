@@ -138,14 +138,17 @@ namespace AegirCore.Simulation
         /// <param name="state">Needed to conform to timercall back delegate, not used</param>
         private void DoSimulation(object state)
         {
-            IEnumerable<Node> rootNodes = scene.RootNodes;
-            simTime.FrameStart();
-            UpdateScenegraphChildren(rootNodes);
-            simTime.FrameEnd();
-            //Calculate timing
-            //Debug.WriteLine("DeltaTime:" + simTime.DeltaTime);
-            //Notify about a finished simulation step
-            TriggerStepFinished();
+            if(scene != null)
+            {
+                IEnumerable<Node> rootNodes = scene.RootNodes;
+                simTime.FrameStart();
+                UpdateScenegraphChildren(rootNodes);
+                simTime.FrameEnd();
+                //Calculate timing
+                //Debug.WriteLine("DeltaTime:" + simTime.DeltaTime);
+                //Notify about a finished simulation step
+                TriggerStepFinished();
+            }
         }
 
         /// <summary>

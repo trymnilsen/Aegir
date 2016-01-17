@@ -1,12 +1,32 @@
 ﻿using AegirCore.Behaviour.Rendering;
 using AegirCore.Behaviour.Simulation;
 using AegirCore.Behaviour.Vessel;
+using AegirCore.Mesh;
+using AegirCore.Mesh.Loader;
 using AegirCore.Scene;
+using log4net;
+using System;
 
 namespace AegirCore.Entity
 {
-    public class Vessel : SceneNode
+    public class Vessel : Node
     {
+
+        private MeshData vesselModel;
+        private MeshData hullModel;
+
+        public MeshData VesselModel
+        {
+            get { return vesselModel; }
+            set { vesselModel = value; }
+        }
+
+        public MeshData HullModel
+        {
+            get { return hullModel; }
+            set { hullModel = value; }
+        }
+
         public Vessel()
         {
             this.Name = "Vessel";

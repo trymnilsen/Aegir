@@ -8,7 +8,7 @@ namespace AegirCore.Behaviour.Rendering
     {
         public string FileName { get; set; }
         public string RenderID { get; set; }
-        public IndexedMeshData MeshData { get; set; }
+        public MeshData MeshData { get; set; }
     }
     /// <summary>
     /// Contains data need to load the correct mesh to render

@@ -47,7 +47,7 @@
                                     TicksColor="#FF404040"
                                     CurrentTime="{Binding ElementName=FrameSlider, Path=Value}"
                                     TimeRangeEnd="{Binding ElementName=TimeRangeEndField, Path=Value}"
-                                    TimeRangeStart="{Binding ElementName=TimeRangeStartField, Path=Value}"></local:KeyframeTimeline>
+                                    TimeRangeStart="{Binding ElementName=TimeRangeStartField, Path=Value}" CurrentTimeHighlightColor="#332929D6"></local:KeyframeTimeline>
             </Border>
         </Grid>
         <!--Controls-->

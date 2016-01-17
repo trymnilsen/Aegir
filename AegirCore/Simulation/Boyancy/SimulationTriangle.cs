@@ -1,6 +1,6 @@
 ﻿using AegirType;
 
-namespace AegirCore.Simulation.Mesh
+namespace AegirCore.Simulation.Boyancy
 {
     public struct SimulationTriangle
     {

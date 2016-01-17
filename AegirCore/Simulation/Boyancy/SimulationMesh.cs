@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 
-namespace AegirCore.Simulation.Mesh
+namespace AegirCore.Simulation.Boyancy
 {
     public class SimulationMesh
     {
@@ -62,9 +62,9 @@ namespace AegirCore.Simulation.Mesh
 
         private WaterCell waterMesh;
 
-        protected IndexedMeshData mModel;
+        protected MeshData mModel;
 
-        public IndexedMeshData Model
+        public MeshData Model
         {
             get { return mModel; }
             set
@@ -334,7 +334,7 @@ namespace AegirCore.Simulation.Mesh
             }
         }
 
-        public void Update(SimulationTime gameTime)
+        public void Update(SimulationTime simTime)
         {
             mWorld = Matrix.CreateFromYawPitchRoll(mRotationY, mRotationX, mRotationZ) * Matrix.CreateScale(mScale) * Matrix.CreateTranslation(mPosition);
 
@@ -348,7 +348,7 @@ namespace AegirCore.Simulation.Mesh
                 ComputeIntersections();
                 CreateMeshNewTri();
                 ComputeArchimede();
-                ComputeAllForces(gameTime);
+                ComputeAllForces(simTime);
                 //if (!IsComputed)  IsComputed = true;
             }
         }
