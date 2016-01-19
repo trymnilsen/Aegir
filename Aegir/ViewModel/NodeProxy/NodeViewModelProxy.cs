@@ -18,7 +18,7 @@ using System.Windows;
 
 namespace Aegir.ViewModel.NodeProxy
 {
-    public class NodeViewModelProxy : ViewModelBase, IDisposable
+    public class NodeViewModelProxy : ViewModelBase
     {
         private int port;
         private int listener;
@@ -191,13 +191,12 @@ namespace Aegir.ViewModel.NodeProxy
             get { return visualFilePath; }
             set { visualFilePath = value; }
         }
+        private RenderMeshBehaviour myVar;
 
-        private ObservableCollection<RenderDeclaration> renderDeclarations;
-        [Browsable(false)]
-        public ObservableCollection<RenderDeclaration> RenderDeclarations
+        public RenderMeshBehaviour MyProperty
         {
-            get { return renderDeclarations; }
-            set { renderDeclarations = value; }
+            get { return myVar; }
+            set { myVar = value; }
         }
 
 
@@ -215,21 +214,10 @@ namespace Aegir.ViewModel.NodeProxy
             this.children = new List<NodeViewModelProxy>();
             //All nodes should have a transform behaviour
             transform = nodeData.GetComponent<TransformBehaviour>();
-            RenderMeshBehaviour meshData = nodeData.GetComponent<RenderMeshBehaviour>();
-
-            if (meshData != null)
-            {
-                renderDeclarations = meshData.RenderDeclarations;
-                renderDeclarations.CollectionChanged += RenderDeclarations_CollectionChanged;
-            }
 
             ShowOutputCommand = new RelayCommand(ShowOutput);
         }
 
-        private void RenderDeclarations_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
-        {
-            throw new NotImplementedException();
-        }
 
         private void ShowOutput()
         {
@@ -276,16 +264,6 @@ namespace Aegir.ViewModel.NodeProxy
             return "NodeViewModelProxy For: " + nodeData.Name;
         }
 
-        public void Dispose()
-        {
-            if(renderDeclarations!=null)
-            {
-                renderDeclarations.CollectionChanged -= RenderDeclarations_CollectionChanged;
-            }
-        }
-        //Temp Workaround
-        public delegate void RenderDeclarationsChangedHandler();
-        public event RenderDeclarationsChangedHandler RenderDeclarationsChanged;
         //public void TriggerTransformChanged()
         //{
         //    TransformationChangedHandler transformEvent = TransformationChanged;
@@ -294,7 +272,6 @@ namespace Aegir.ViewModel.NodeProxy
         //        transformEvent();
         //    }
         //}
-        //public delegate void TransformationChangedHandler();
-        //public event TransformationChangedHandler TransformationChanged;
+
     }
 }

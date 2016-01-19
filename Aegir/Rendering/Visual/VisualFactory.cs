@@ -1,5 +1,6 @@
 ﻿using Aegir.ViewModel.NodeProxy;
 using AegirCore.Behaviour.Rendering;
+using AegirCore.Mesh;
 using AegirCore.Mesh.Loader;
 using System;
 using System.Collections.Generic;
@@ -18,15 +19,15 @@ namespace Aegir.Rendering.Visual
             visualProviders = providers;
         }
 
-        public Geometry3D GetVisual(RenderDeclaration renderData, RenderingMode renderMode)
+        public Geometry3D GetVisual(MeshData renderData, RenderingMode renderMode)
         {
             //If we don't have provider, give the default dummy visual
-            if(!visualProviders.ContainsKey(renderMode) || !(renderData.MeshData == null))
+            if(!visualProviders.ContainsKey(renderMode) || !(renderData == null))
             {
                 return null;
             }
 
-            return visualProviders[renderMode].GetVisual(renderData.MeshData);
+            return visualProviders[renderMode].GetVisual(renderData);
 
         }
 
