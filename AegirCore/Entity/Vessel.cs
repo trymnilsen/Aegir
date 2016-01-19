@@ -11,7 +11,6 @@ namespace AegirCore.Entity
 {
     public class Vessel : Node
     {
-
         private MeshData vesselModel;
         private MeshData hullModel;
 
@@ -24,7 +23,7 @@ namespace AegirCore.Entity
         public MeshData HullModel
         {
             get { return hullModel; }
-            set { hullModel = value; }
+            set { UpdateHullModel(value); }
         }
 
         public Vessel()
@@ -40,6 +39,16 @@ namespace AegirCore.Entity
             FloatingMesh mesh = new FloatingMesh(water.waterMesh);
 
             this.AddComponent(mesh);
+        }
+        private void UpdateHullModel(MeshData data)
+        {
+            if (data == hullModel) return;
+
+            RenderMeshBehaviour renderBehaviour = GetComponent<RenderMeshBehaviour>();
+            if(renderBehaviour == null)
+            {
+                renderBehaviour.Mesh = data;
+            }
         }
     }
 }

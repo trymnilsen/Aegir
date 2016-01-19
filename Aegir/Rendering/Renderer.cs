@@ -18,7 +18,7 @@ namespace Aegir.Rendering
         private ScenegraphViewModelProxy scene;
         private List<ViewportRenderer> viewports;
         private VisualFactory meshFactory;
-        private List<NodeMeshListener> meshListeners;
+        private List<RenderItem> renderItems;
         private RenderingMode renderMode;
 
         public RenderingMode RenderMode
@@ -38,7 +38,7 @@ namespace Aegir.Rendering
         {
             viewports = new List<ViewportRenderer>();
             meshFactory = VisualFactory.CreateDefaultFactory();
-            meshListeners = new List<NodeMeshListener>();
+            renderItems = new List<RenderItem>();
             DummyColor = Color.FromRgb(255, 0, 0);
         }
         public void ChangeScene(ScenegraphViewModelProxy scene)
@@ -52,7 +52,7 @@ namespace Aegir.Rendering
         public void RebuildScene()
         {
             //Clear nodemeshlisteners
-            meshListeners.Clear();
+            renderItems.Clear();
             foreach(ViewportRenderer view in viewports)
             {
                 view.ClearView();
@@ -79,40 +79,38 @@ namespace Aegir.Rendering
             {
                 RenderNode(child);
             }
-            //Get rendering mode
-            RenderingMode mode = RenderMode;
-            if(node.OverrideRenderingMode)
-            {
-                mode = node.RenderMode;
-            }
-            //Get geometry
-            foreach(RenderDeclaration renderData in node.RenderDeclarations)
-            {
-                //Visual
-                Geometry3D meshData = meshFactory.GetVisual(renderData, mode);
-                Visual3D visual = null;
+            RenderItem renderItem = null;
+            ////Get rendering mode
+            //RenderingMode mode = RenderMode;
+            //if(node.OverrideRenderingMode)
+            //{
+            //    mode = node.RenderMode;
+            //}
+
+            ////Visual
+            //Geometry3D meshData = meshFactory.GetVisual(node, mode);
+            //Visual3D visual = null;
                 
-                if(meshData != null)
-                {
-                    Material foo = new DiffuseMaterial(new SolidColorBrush(Color.FromRgb(100, 100, 100)));
-                    GeometryModel3D mesh = new GeometryModel3D(meshData, foo);
-                    ModelVisual3D modelVisual = new ModelVisual3D();
-                    modelVisual.Content = mesh;
-                    visual = modelVisual;
-                }
-                else
-                {
-                    //Factory did not have model, use dummy
-                    visual = GetDummyVisual();
-                }
-                //Create visual with transform listener
-                NodeMeshListener listener = new NodeMeshListener(visual, node);
-                meshListeners.Add(listener);
-                //Add to each viewpoer
-                foreach(ViewportRenderer viewport in viewports)
-                {
-                    viewport.AddMeshToView(visual);
-                }
+            //if(meshData != null)
+            //{
+            //    Material foo = new DiffuseMaterial(new SolidColorBrush(Color.FromRgb(100, 100, 100)));
+            //    GeometryModel3D mesh = new GeometryModel3D(meshData, foo);
+            //    ModelVisual3D modelVisual = new ModelVisual3D();
+            //    modelVisual.Content = mesh;
+            //    visual = modelVisual;
+            //}
+            //else
+            //{
+            //    //Factory did not have model, use dummy
+            //    visual = GetDummyVisual();
+            //}
+            ////Create visual with transform listener
+            //NodeMeshListener listener = new NodeMeshListener(visual, node);
+            //meshListeners.Add(listener);
+            ////Add to each viewpoer
+            foreach(ViewportRenderer viewport in viewports)
+            {
+                viewport.AddMeshToView(renderItem);
             }
 
         }
@@ -125,7 +123,7 @@ namespace Aegir.Rendering
         }
         public void Invalidate()
         {
-            foreach(NodeMeshListener listener in meshListeners)
+            foreach(NodeMeshListener listener in renderItems)
             {
                 //listener.Invalidate();
             }

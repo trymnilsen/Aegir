@@ -82,7 +82,7 @@ namespace Aegir.ViewModel.NodeProxy
             get { return floatMeshBehaviour.HullModelPath; }
             set
             {
-                
+                floatMeshBehaviour.HullModelPath = value;
             }
         }
 
@@ -142,17 +142,21 @@ namespace Aegir.ViewModel.NodeProxy
             base.Invalidate();
         }
 
-        private async void LoadHullModel(string path)
+        private void LoadHullModel(string path)
         {
             //floatMeshBehaviour.HullModelPath = value;
             MeshLoader meshLoader = new MeshLoader();
             try
             {
-                MeshData mesh = await meshLoader.LoadMeshAsync(path);
-                ((Vessel)nodeData).VesselModel = mesh;
+                if (path == String.Empty)
+                {
+                    return;
+                }
+                MeshData mesh = meshLoader.LoadMeshAsync(path);
+                ((Vessel)nodeData).HullModel = mesh;
                 RaisePropertyChanged(nameof(VesselHull));
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 MessageBox.Show("Loading error" + e.ToString());
             }

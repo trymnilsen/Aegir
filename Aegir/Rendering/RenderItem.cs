@@ -18,6 +18,7 @@ namespace Aegir.Rendering
 
         public Point3D[] Positions { get; private set; }
         public MeshGeometry3D Geometry { get; private set; }
+        public Visual3D Visual { get; private set; }
 
         public RenderItem(Visual3D visual, MeshData meshData)
         {
@@ -32,6 +33,7 @@ namespace Aegir.Rendering
             throw new NotImplementedException();
         }
 
+        
 
         public Transform3D GetVisualTransformation(TransformBehaviour transform)
         {

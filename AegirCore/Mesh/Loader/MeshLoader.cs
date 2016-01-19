@@ -10,7 +10,7 @@ namespace AegirCore.Mesh.Loader
     public class MeshLoader
     {
 
-        public async Task<MeshData> LoadMeshAsync(string path)
+        public MeshData LoadMeshAsync(string path)
         {
             FileInfo file = new FileInfo(path);
             if (!file.Exists)

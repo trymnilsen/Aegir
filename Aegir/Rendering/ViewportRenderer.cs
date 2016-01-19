@@ -17,9 +17,9 @@ namespace Aegir.Rendering
         {
             this.viewport = viewport;
         }
-        public void AddMeshToView(Visual3D mesh)
+        public void AddMeshToView(RenderItem renderItem)
         {
-            viewport.Children.Add(mesh);
+            viewport.Children.Add(renderItem.Visual);
         }
         public void ClearView()
         {
