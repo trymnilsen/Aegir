@@ -22,6 +22,7 @@ namespace Aegir.Rendering
         private ScenegraphViewModelProxy scene;
         private List<ViewportRenderer> viewports;
         private GeometryFactory meshFactory;
+        private VisualFactory visualFactory;
         private List<RenderItem> renderItems;
         private RenderingMode renderMode;
 
@@ -42,6 +43,7 @@ namespace Aegir.Rendering
         {
             viewports = new List<ViewportRenderer>();
             meshFactory = new GeometryFactory();
+            visualFactory = new VisualFactory();
             renderItems = new List<RenderItem>();
             DummyColor = Color.FromRgb(255, 0, 0);
         }
@@ -175,7 +177,6 @@ namespace Aegir.Rendering
         }
         private RenderItem GetRenderItem(MeshBehaviour behaviour, TransformBehaviour transform)
         {
-            Geometry3D geometry = meshFactory.GetGeometry(behaviour.Mesh);
             return null;
         }
         private Visual3D GetDummyVisual()
@@ -195,6 +196,7 @@ namespace Aegir.Rendering
         public void AddViewport(ViewportRenderer viewport)
         {
             viewports.Add(viewport);
+            viewport.VisualFactory = visualFactory;
         }
         private void ReleaseCurrentScene()
         {
