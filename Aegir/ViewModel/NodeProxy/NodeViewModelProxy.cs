@@ -1,6 +1,7 @@
 ﻿using Aegir.Rendering;
 using Aegir.View.PropertyEditor.CustomEditor;
 using Aegir.Windows;
+using AegirCore.Behaviour;
 using AegirCore.Behaviour.Rendering;
 using AegirCore.Behaviour.World;
 using AegirCore.Mesh.Loader;
@@ -218,6 +219,11 @@ namespace Aegir.ViewModel.NodeProxy
             ShowOutputCommand = new RelayCommand(ShowOutput);
         }
 
+        public T GetNodeComponent<T>() 
+            where T : BehaviourComponent
+        {
+            return nodeData.GetComponent<T>();
+        }
 
         private void ShowOutput()
         {

@@ -1,6 +1,8 @@
 ﻿using Aegir.Rendering.Visual;
 using Aegir.ViewModel.NodeProxy;
 using AegirCore.Behaviour.Rendering;
+using AegirCore.Behaviour.World;
+using AegirCore.Mesh;
 using AegirCore.Scene;
 using HelixToolkit.Wpf;
 using System;
@@ -17,7 +19,7 @@ namespace Aegir.Rendering
     {
         private ScenegraphViewModelProxy scene;
         private List<ViewportRenderer> viewports;
-        private VisualFactory meshFactory;
+        private GeometryFactory meshFactory;
         private List<RenderItem> renderItems;
         private RenderingMode renderMode;
 
@@ -37,7 +39,7 @@ namespace Aegir.Rendering
         public Renderer()
         {
             viewports = new List<ViewportRenderer>();
-            meshFactory = VisualFactory.CreateDefaultFactory();
+            meshFactory = GeometryFactory.CreateDefaultFactory();
             renderItems = new List<RenderItem>();
             DummyColor = Color.FromRgb(255, 0, 0);
         }
@@ -79,6 +81,14 @@ namespace Aegir.Rendering
             {
                 RenderNode(child);
             }
+            //Attach events to node
+
+            //Check if node has render component
+            var renderBehaviour = node.GetNodeComponent<RenderMeshBehaviour>();
+            if(renderBehaviour!=null)
+            {
+                renderBehaviour.MeshChanged += RenderBehaviour_MeshChanged;
+            }
             RenderItem renderItem = null;
             ////Get rendering mode
             //RenderingMode mode = RenderMode;
@@ -114,6 +124,40 @@ namespace Aegir.Rendering
             }
 
         }
+
+        private void RenderBehaviour_MeshChanged(RenderMeshBehaviour source, MeshChangedArgs eventArgs)
+        {
+            switch(eventArgs.Action)
+            {
+                case MeshChangeAction.Add:
+                    AddMesh(eventArgs.New);
+                    break; 
+                case MeshChangeAction.Remove:
+                    AddMesh(eventArgs.Old);
+                    break;
+                case MeshChangeAction.Change:
+                    ChangeMesh(eventArgs.Old, eventArgs.New);
+                    break;
+                default:
+                    break;
+            }   
+        }
+        private void ChangeMesh(MeshData oldMesh, MeshData newMesh)
+        {
+
+        }
+        private void AddMesh(MeshData mesh)
+        {
+
+        }
+        private void RemoveMesh(MeshData mesh)
+        {
+
+        }
+        private void RenderItem(RenderMeshBehaviour behaviour, TransformBehaviour transform)
+        {
+            //Geometry3D geometry = meshFactory.GetGeometry(behaviour.Mesh);
+        }
         private Visual3D GetDummyVisual()
         {
             BoundingBoxWireFrameVisual3D mesh = new BoundingBoxWireFrameVisual3D();
@@ -123,10 +167,10 @@ namespace Aegir.Rendering
         }
         public void Invalidate()
         {
-            foreach(NodeMeshListener listener in renderItems)
-            {
-                //listener.Invalidate();
-            }
+            //foreach(NodeMeshListener listener in renderItems)
+            //{
+            //    //listener.Invalidate();
+            //}
         }
         public void AddViewport(ViewportRenderer viewport)
         {
