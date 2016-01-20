@@ -38,7 +38,12 @@ namespace Aegir.Rendering
                 log.WarnFormat("No visual factory provided for viewport {0}",
                     viewPortName);
             }
-            viewport.Children.Add(renderItem.Visual);
+            else
+            {
+                Visual3D visual = VisualFactory.GetVisual(RenderMode, renderItem);
+                viewport.Children.Add(renderItem.Visual);
+
+            }
         }
         public void ClearView()
         {
