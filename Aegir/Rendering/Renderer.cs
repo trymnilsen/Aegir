@@ -84,7 +84,7 @@ namespace Aegir.Rendering
             //Attach events to node
 
             //Check if node has render component
-            var renderBehaviour = node.GetNodeComponent<RenderMeshBehaviour>();
+            var renderBehaviour = node.GetNodeComponent<MeshBehaviour>();
             if(renderBehaviour!=null)
             {
                 renderBehaviour.MeshChanged += RenderBehaviour_MeshChanged;
@@ -125,7 +125,7 @@ namespace Aegir.Rendering
 
         }
 
-        private void RenderBehaviour_MeshChanged(RenderMeshBehaviour source, MeshChangedArgs eventArgs)
+        private void RenderBehaviour_MeshChanged(MeshBehaviour source, MeshChangedArgs eventArgs)
         {
             switch(eventArgs.Action)
             {
@@ -154,7 +154,7 @@ namespace Aegir.Rendering
         {
 
         }
-        private void RenderItem(RenderMeshBehaviour behaviour, TransformBehaviour transform)
+        private void RenderItem(MeshBehaviour behaviour, TransformBehaviour transform)
         {
             //Geometry3D geometry = meshFactory.GetGeometry(behaviour.Mesh);
         }

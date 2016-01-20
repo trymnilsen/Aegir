@@ -8,16 +8,16 @@ namespace AegirCore.Behaviour.Mesh
     /// <summary>
     /// Contains data need to load the correct mesh to render
     /// </summary>
-    public class RenderMeshBehaviour : BehaviourComponent
+    public class MeshBehaviour : BehaviourComponent
     {
         public MeshData Mesh { get; set; }
-        public RenderMeshBehaviour(Node parentNode)
+        public MeshBehaviour(Node parentNode)
             :base(parentNode)
         {
            
         }
 
-        public delegate void MeshChangedHandler(RenderMeshBehaviour source, MeshChangedArgs args);
+        public delegate void MeshChangedHandler(MeshBehaviour source, MeshChangedArgs args);
         public event MeshChangedHandler MeshChanged;
     }
 }
