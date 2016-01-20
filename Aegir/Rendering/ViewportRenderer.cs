@@ -2,6 +2,7 @@
 using Aegir.ViewModel.NodeProxy;
 using AegirCore.Scene;
 using HelixToolkit.Wpf;
+using log4net;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,10 +14,12 @@ namespace Aegir.Rendering
 {
     public class ViewportRenderer
     {
+        private static readonly ILog log = LogManager.GetLogger(typeof(ViewportRenderer));
+        private HelixViewport3D viewport;
+
         public VisualFactory VisualFactory { get; set; }
         public RenderingMode RenderMode { get; set; }
 
-        HelixViewport3D viewport;
         public ViewportRenderer(HelixViewport3D viewport)
         {
             this.viewport = viewport;
@@ -25,6 +28,16 @@ namespace Aegir.Rendering
 
         public void AddMeshToView(RenderItem renderItem)
         {
+            if(VisualFactory==null)
+            {
+                string viewPortName = "NAMENOTDEFINED";
+                if(viewport.Name != null  && viewport.Name != string.Empty)
+                {
+                    viewPortName = viewport.Name;
+                }
+                log.WarnFormat("No visual factory provided for viewport {0}",
+                    viewPortName);
+            }
             viewport.Children.Add(renderItem.Visual);
         }
         public void ClearView()
