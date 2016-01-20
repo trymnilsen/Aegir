@@ -1,5 +1,4 @@
 ﻿using Aegir.ViewModel.NodeProxy;
-using AegirCore.Behaviour.Rendering;
 using AegirCore.Mesh;
 using AegirCore.Mesh.Loader;
 using System;

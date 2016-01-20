@@ -3,7 +3,7 @@ using AegirCore.Scene;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
-namespace AegirCore.Behaviour.Rendering
+namespace AegirCore.Behaviour.Mesh
 {
     /// <summary>
     /// Contains data need to load the correct mesh to render

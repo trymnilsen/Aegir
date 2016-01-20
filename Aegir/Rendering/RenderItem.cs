@@ -1,5 +1,4 @@
-﻿using AegirCore.Behaviour.Rendering;
-using AegirCore.Behaviour.World;
+﻿using AegirCore.Behaviour.World;
 using AegirCore.Mesh;
 using System;
 using System.Collections.Generic;

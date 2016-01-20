@@ -2,7 +2,6 @@
 using Aegir.View.PropertyEditor.CustomEditor;
 using Aegir.Windows;
 using AegirCore.Behaviour;
-using AegirCore.Behaviour.Rendering;
 using AegirCore.Behaviour.World;
 using AegirCore.Mesh.Loader;
 using AegirCore.Scene;
@@ -192,14 +191,6 @@ namespace Aegir.ViewModel.NodeProxy
             get { return visualFilePath; }
             set { visualFilePath = value; }
         }
-        private RenderMeshBehaviour myVar;
-
-        public RenderMeshBehaviour MyProperty
-        {
-            get { return myVar; }
-            set { myVar = value; }
-        }
-
 
         //public double WorldRotationYaw
         //{

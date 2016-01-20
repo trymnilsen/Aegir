@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AegirCore.Behaviour.Rendering
+namespace AegirCore.Behaviour.Mesh
 {
     public class MeshChangedArgs
     {

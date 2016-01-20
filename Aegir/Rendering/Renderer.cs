@@ -1,6 +1,6 @@
 ﻿using Aegir.Rendering.Visual;
 using Aegir.ViewModel.NodeProxy;
-using AegirCore.Behaviour.Rendering;
+using AegirCore.Behaviour.Mesh;
 using AegirCore.Behaviour.World;
 using AegirCore.Mesh;
 using AegirCore.Scene;
