@@ -157,7 +157,7 @@ namespace Aegir.Rendering
         private void AddMesh(MeshBehaviour mesh)
         {
             TransformBehaviour transform = 
-                mesh.parent.GetComponent<TransformBehaviour>();
+                mesh.Parent.GetComponent<TransformBehaviour>();
             
             if(transform!=null)
             {
@@ -168,7 +168,7 @@ namespace Aegir.Rendering
             {
                 log.WarnFormat("RenderItem discarded for meshBehaviour on" 
                     + "node({0}) no transform behaviour present",
-                    mesh.parent.Name);
+                    mesh.Parent.Name);
             }
         }
         private void RemoveMesh(MeshData mesh)
