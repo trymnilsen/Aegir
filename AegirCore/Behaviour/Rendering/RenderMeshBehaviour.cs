@@ -1,4 +1,5 @@
 ﻿using AegirCore.Mesh;
+using AegirCore.Scene;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
@@ -10,7 +11,8 @@ namespace AegirCore.Behaviour.Rendering
     public class RenderMeshBehaviour : BehaviourComponent
     {
         public MeshData Mesh { get; set; }
-        public RenderMeshBehaviour()
+        public RenderMeshBehaviour(Node parentNode)
+            :base(parentNode)
         {
            
         }

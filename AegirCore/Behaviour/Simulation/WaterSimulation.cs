@@ -1,4 +1,5 @@
-﻿using AegirCore.Simulation.Water;
+﻿using AegirCore.Scene;
+using AegirCore.Simulation.Water;
 
 namespace AegirCore.Behaviour.Simulation
 {
@@ -6,7 +7,8 @@ namespace AegirCore.Behaviour.Simulation
     {
         public WaterCell waterMesh { get; private set; }
 
-        public WaterSimulation()
+        public WaterSimulation(Node parentNode)
+            :base(parentNode)
         {
             waterMesh = new WaterCell();
         }

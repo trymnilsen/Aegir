@@ -29,14 +29,14 @@ namespace AegirCore.Entity
         public Vessel()
         {
             this.Name = "Vessel";
-            RenderMeshBehaviour RenderMesh = new RenderMeshBehaviour();
+            RenderMeshBehaviour RenderMesh = new RenderMeshBehaviour(this);
             this.AddComponent(RenderMesh);
 
-            VesselNavigationBehaviour navBehavour = new VesselNavigationBehaviour();
+            VesselNavigationBehaviour navBehavour = new VesselNavigationBehaviour(this);
             this.AddComponent(navBehavour);
 
-            WaterSimulation water = new WaterSimulation();
-            FloatingMesh mesh = new FloatingMesh(water.waterMesh);
+            WaterSimulation water = new WaterSimulation(this);
+            FloatingMesh mesh = new FloatingMesh(this,water.waterMesh);
 
             this.AddComponent(mesh);
         }

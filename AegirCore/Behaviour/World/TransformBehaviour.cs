@@ -1,4 +1,5 @@
-﻿using AegirType;
+﻿using AegirCore.Scene;
+using AegirType;
 
 namespace AegirCore.Behaviour.World
 {
@@ -27,7 +28,8 @@ namespace AegirCore.Behaviour.World
             }
         }
 
-        public TransformBehaviour()
+        public TransformBehaviour(Node parentNode)
+            :base(parentNode)
         {
             position = new Vector3();
             Rotation = new Quaternion();

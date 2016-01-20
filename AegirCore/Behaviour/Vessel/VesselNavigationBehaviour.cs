@@ -1,4 +1,5 @@
 ﻿using AegirCore.Behaviour.World;
+using AegirCore.Scene;
 using AegirCore.Simulation;
 using AegirType;
 using System;
@@ -37,7 +38,11 @@ namespace AegirCore.Behaviour.Vessel
             get { return rateOfTurn; }
             set { rateOfTurn = value; }
         }
+        public VesselNavigationBehaviour(Node parentNode)
+            :base(parentNode)
+        {
 
+        }
         public override void Update(SimulationTime time)
         {
             if (simMode == VesselSimulationMode.Simulate)

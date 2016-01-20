@@ -1,4 +1,5 @@
 ﻿using AegirCore.Mesh.Loader;
+using AegirCore.Scene;
 using AegirCore.Simulation.Boyancy;
 using AegirCore.Simulation.Water;
 using System.IO;
@@ -26,7 +27,8 @@ namespace AegirCore.Behaviour.Simulation
             }
         }
 
-        public FloatingMesh(WaterCell waterCell)
+        public FloatingMesh(Node parentNode, WaterCell waterCell)
+            :base(parentNode)
         {
             water = waterCell;
             mesh = new SimulationMesh(waterCell);

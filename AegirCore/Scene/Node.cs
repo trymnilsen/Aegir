@@ -34,7 +34,7 @@ namespace AegirCore.Scene
             Components = new ObservableCollection<BehaviourComponent>();
             internalRouter = new SignalRouter();
             //Add some components
-            Components.Add(new TransformBehaviour());
+            Components.Add(new TransformBehaviour(this));
         }
 
         public virtual void Update(SimulationTime time)
@@ -47,7 +47,6 @@ namespace AegirCore.Scene
 
         public void AddComponent(BehaviourComponent component)
         {
-            component.SetParentNode(this);
             component.internalRouter = internalRouter;
             Components.Add(component);
         }

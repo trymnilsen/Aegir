@@ -6,13 +6,12 @@ namespace AegirCore.Behaviour
 {
     public class BehaviourComponent
     {
-        private Node parent;
+        public Node parent { get; private set; }
         public SignalRouter internalRouter { get; set; }
         public SignalRouter globalRouter { get; set; }
         public string Name { get; set; }
 
-
-        public void SetParentNode(Node parentNode)
+        public BehaviourComponent(Node parentNode)
         {
             parent = parentNode;
         }
