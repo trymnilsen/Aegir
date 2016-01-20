@@ -5,6 +5,7 @@ using AegirCore.Behaviour.World;
 using AegirCore.Mesh;
 using AegirCore.Scene;
 using HelixToolkit.Wpf;
+using log4net;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +18,7 @@ namespace Aegir.Rendering
 {
     public class Renderer
     {
+        private static readonly ILog log = LogManager.GetLogger(typeof(Renderer));
         private ScenegraphViewModelProxy scene;
         private List<ViewportRenderer> viewports;
         private GeometryFactory meshFactory;
@@ -118,45 +120,63 @@ namespace Aegir.Rendering
             //NodeMeshListener listener = new NodeMeshListener(visual, node);
             //meshListeners.Add(listener);
             ////Add to each viewpoer
-            foreach(ViewportRenderer viewport in viewports)
-            {
-                viewport.AddMeshToView(renderItem);
-            }
-
         }
+        private void AddRenderItemToViewports(RenderItem itemToRender)
+        {
+            renderItems.Add(itemToRender);
 
+            foreach (ViewportRenderer viewport in viewports)
+            {
+                viewport.AddMeshToView(itemToRender);
+            }
+        }
         private void RenderBehaviour_MeshChanged(MeshBehaviour source, MeshChangedArgs eventArgs)
         {
             switch(eventArgs.Action)
             {
                 case MeshChangeAction.Add:
-                    AddMesh(eventArgs.New);
+                    AddMesh(source);
                     break; 
                 case MeshChangeAction.Remove:
-                    AddMesh(eventArgs.Old);
+                    RemoveMesh(eventArgs.Old);
                     break;
                 case MeshChangeAction.Change:
-                    ChangeMesh(eventArgs.Old, eventArgs.New);
+                    ChangeMesh(source, eventArgs.Old);
                     break;
                 default:
                     break;
             }   
         }
-        private void ChangeMesh(MeshData oldMesh, MeshData newMesh)
+        private void ChangeMesh(MeshBehaviour newMesh, MeshData oldMesh)
         {
-
+            RemoveMesh(oldMesh);
+            AddMesh(newMesh);
         }
-        private void AddMesh(MeshData mesh)
+        private void AddMesh(MeshBehaviour mesh)
         {
-
+            TransformBehaviour transform = 
+                mesh.parent.GetComponent<TransformBehaviour>();
+            
+            if(transform!=null)
+            {
+                RenderItem newMeshItem = GetRenderItem(mesh,transform);
+                AddRenderItemToViewports(newMeshItem);
+            }
+            else
+            {
+                log.WarnFormat("RenderItem discarded for meshBehaviour on" 
+                    + "node({0}) no transform behaviour present",
+                    mesh.parent.Name);
+            }
         }
         private void RemoveMesh(MeshData mesh)
         {
 
         }
-        private void RenderItem(MeshBehaviour behaviour, TransformBehaviour transform)
+        private RenderItem GetRenderItem(MeshBehaviour behaviour, TransformBehaviour transform)
         {
             Geometry3D geometry = meshFactory.GetGeometry(behaviour.Mesh);
+            return null;
         }
         private Visual3D GetDummyVisual()
         {

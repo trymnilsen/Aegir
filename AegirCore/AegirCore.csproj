@@ -69,9 +69,9 @@
   <ItemGroup>
     <Compile Include="ApplicationContext.cs" />
     <Compile Include="Behaviour\BehaviourComponent.cs" />
-    <Compile Include="Behaviour\Rendering\MeshChangeAction.cs" />
-    <Compile Include="Behaviour\Rendering\MeshChangedArgs.cs" />
-    <Compile Include="Behaviour\Rendering\RenderMeshBehaviour.cs" />
+    <Compile Include="Behaviour\Mesh\MeshChangeAction.cs" />
+    <Compile Include="Behaviour\Mesh\MeshChangedArgs.cs" />
+    <Compile Include="Behaviour\Mesh\MeshBehaviour.cs" />
     <Compile Include="Behaviour\Simulation\FloatingMesh.cs" />
     <Compile Include="Behaviour\Simulation\WaterSimulation.cs" />
     <Compile Include="Behaviour\Vessel\VesselNavigationBehaviour.cs" />
