@@ -15,7 +15,7 @@ namespace AegirCore.Behaviour.Rendering
            
         }
 
-        public delegate void MeshChangedHandler(MeshData oldMesh, MeshData newMesh);
-        public event MeshChangedHandler StepFinished;
+        public delegate void MeshChangedHandler(RenderMeshBehaviour source, MeshChangedArgs args);
+        public event MeshChangedHandler MeshChanged;
     }
 }
