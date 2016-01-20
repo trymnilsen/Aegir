@@ -11,10 +11,10 @@ using System.Windows.Media.Media3D;
 
 namespace Aegir.Rendering.Visual
 {
-    public class VisualFactory
+    public class GeometryFactory
     {
         private Dictionary<RenderingMode, VisualProvider> visualProviders;
-        public VisualFactory(Dictionary<RenderingMode,VisualProvider> providers)
+        public GeometryFactory(Dictionary<RenderingMode,VisualProvider> providers)
         {
             visualProviders = providers;
         }
@@ -35,11 +35,11 @@ namespace Aegir.Rendering.Visual
         /// Creates a new default configured factory
         /// </summary>
         /// <returns></returns>
-        public static VisualFactory CreateDefaultFactory()
+        public static GeometryFactory CreateDefaultFactory()
         {
             var providers = new Dictionary<RenderingMode, VisualProvider>();
             providers.Add(RenderingMode.Solid, new SolidMeshProvider());
-            return new VisualFactory(providers);
+            return new GeometryFactory(providers);
         }
     }
 }
