@@ -18,13 +18,23 @@ namespace Aegir.Rendering
         public Point3D[] Positions { get; private set; }
         public MeshGeometry3D Geometry { get; private set; }
         public Visual3D Visual { get; private set; }
+        public TransformBehaviour Transform { get; private set; }
 
-        public RenderItem(Visual3D visual, MeshData meshData)
+        public RenderItem(Visual3D visual, MeshData meshData, TransformBehaviour transform)
         {
             this.visual = visual;
             this.meshData = meshData;
-
+            Transform = transform;
             this.meshData.VerticePositionsChanged += MeshData_VerticePositionsChanged;
+        }
+
+        public void Invalidate()
+        {
+            Transform3D transformation = GetVisualTransformation(Transform);
+            visual.Dispatcher.InvokeAsync(() =>
+            {
+                visual.Transform = transformation;
+            });
         }
 
         private void MeshData_VerticePositionsChanged()
@@ -32,9 +42,7 @@ namespace Aegir.Rendering
             throw new NotImplementedException();
         }
 
-        
-
-        public Transform3D GetVisualTransformation(TransformBehaviour transform)
+        private Transform3D GetVisualTransformation(TransformBehaviour transform)
         {
             MatrixTransform3D matrixTransform = new MatrixTransform3D();
             Matrix3D matrix = new Matrix3D();
@@ -46,16 +54,6 @@ namespace Aegir.Rendering
             matrixTransform.Freeze();
             return matrixTransform;
         }
-
-        public void InvalidateTransform(TransformBehaviour transform)
-        {
-            Transform3D transformation = GetVisualTransformation(transform);
-            visual.Dispatcher.InvokeAsync(() =>
-            {
-                visual.Transform = transformation;
-            });
-        }
-
         public void Dispose()
         {
             

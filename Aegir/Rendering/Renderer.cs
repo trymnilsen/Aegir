@@ -39,7 +39,7 @@ namespace Aegir.Rendering
         public Renderer()
         {
             viewports = new List<ViewportRenderer>();
-            meshFactory = GeometryFactory.CreateDefaultFactory();
+            meshFactory = new GeometryFactory();
             renderItems = new List<RenderItem>();
             DummyColor = Color.FromRgb(255, 0, 0);
         }
@@ -167,10 +167,10 @@ namespace Aegir.Rendering
         }
         public void Invalidate()
         {
-            //foreach(NodeMeshListener listener in renderItems)
-            //{
-            //    //listener.Invalidate();
-            //}
+            foreach (RenderItem item in renderItems)
+            {
+                item.Invalidate();
+            }
         }
         public void AddViewport(ViewportRenderer viewport)
         {
