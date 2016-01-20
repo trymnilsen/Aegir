@@ -166,8 +166,10 @@
     <Compile Include="Rendering\Renderer.cs" />
     <Compile Include="Rendering\RenderingMode.cs" />
     <Compile Include="Rendering\ViewportRenderer.cs" />
+    <Compile Include="Rendering\Visual\IVisualProvider.cs" />
     <Compile Include="Rendering\Visual\SolidMeshProvider.cs" />
     <Compile Include="Rendering\Visual\GeometryFactory.cs" />
+    <Compile Include="Rendering\Visual\VisualCache.cs" />
     <Compile Include="Rendering\Visual\VisualFactory.cs" />
     <Compile Include="Rendering\Visual\VisualProvider.cs" />
     <Compile Include="Rendering\Visual\WireframeVisualProvider.cs" />

@@ -14,44 +14,46 @@ namespace Aegir.Rendering.Visual
 {
     public class SolidMeshProvider : VisualProvider
     {
-        public override Geometry3D GetVisual(MeshData node)
+        public override Visual3D GetVisual(RenderItem renderItem)
         {
-            if(visualCache.ContainsKey(node))
+            if (visualCache.ContainsKey(renderItem))
             {
-                return visualCache[node];
+                return visualCache[renderItem];
             }
-            return GenerateMesh(node);
+            return GenerateMesh(renderItem);
         }
-        private Geometry3D GenerateMesh(MeshData model)
+
+        private Visual3D GenerateMesh(RenderItem model)
         {
-            MeshBuilder meshBuilder = new MeshBuilder();
+            return null;
+            //MeshBuilder meshBuilder = new MeshBuilder();
 
-            //Need to Vertexes to points3d
-            List<Point3D> vertexes = new List<Point3D>();
-            foreach(Vector3 v in model.Vertices)
-            {
-                vertexes.Add(new Point3D(v.X, v.Y, v.Z));
-            }
-            //Collapse indices to one list
-            List<int> indices = new List<int>();
-            indices.AddRange(model.Faces);
-            //Create normals on wpf vector format
-            List<Vector3D> normals = new List<Vector3D>();
-            foreach(Vector3 vn in model.VertexNomals)
-            {
-                normals.Add(new Vector3D(vn.X, vn.Y, vn.Z));
-            }
+            ////Need to Vertexes to points3d
+            //List<Point3D> vertexes = new List<Point3D>();
+            //foreach(Vector3 v in model.Vertices)
+            //{
+            //    vertexes.Add(new Point3D(v.X, v.Y, v.Z));
+            //}
+            ////Collapse indices to one list
+            //List<int> indices = new List<int>();
+            //indices.AddRange(model.Faces);
+            ////Create normals on wpf vector format
+            //List<Vector3D> normals = new List<Vector3D>();
+            //foreach(Vector3 vn in model.VertexNomals)
+            //{
+            //    normals.Add(new Vector3D(vn.X, vn.Y, vn.Z));
+            //}
 
-            if(normals.Count == 0)
-            {
-                meshBuilder.Append(vertexes, indices);
-            }
-            else 
-            {
-                meshBuilder.Append(vertexes, indices, normals);
-            }
+            //if(normals.Count == 0)
+            //{
+            //    meshBuilder.Append(vertexes, indices);
+            //}
+            //else 
+            //{
+            //    meshBuilder.Append(vertexes, indices, normals);
+            //}
 
-            return meshBuilder.ToMesh();
+            //return meshBuilder.ToMesh();
         }
     }
 }

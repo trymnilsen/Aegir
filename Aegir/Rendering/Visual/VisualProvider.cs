@@ -10,13 +10,13 @@ using System.Windows.Media.Media3D;
 
 namespace Aegir.Rendering.Visual
 {
-    public abstract class VisualProvider
+    public abstract class VisualProvider : IVisualProvider
     {
-        protected Dictionary<MeshData, Geometry3D> visualCache;
+        protected Dictionary<RenderItem, Visual3D> visualCache;
         public VisualProvider()
         {
-            visualCache = new Dictionary<MeshData, Geometry3D>();
+            visualCache = new Dictionary<RenderItem, Visual3D>();
         }
-        public abstract Geometry3D GetVisual(MeshData node);
+        public abstract Visual3D GetVisual(RenderItem renderItem);
     }
 }

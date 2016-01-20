@@ -43,7 +43,7 @@ namespace Aegir.Rendering
         {
             viewports = new List<ViewportRenderer>();
             meshFactory = new GeometryFactory();
-            visualFactory = new VisualFactory();
+            visualFactory = VisualFactory.GetFactoryWithDefaultProviders();
             renderItems = new List<RenderItem>();
             DummyColor = Color.FromRgb(255, 0, 0);
         }
