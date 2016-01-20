@@ -12,33 +12,28 @@ namespace Aegir.Rendering.Visual
 {
     public class GeometryFactory
     {
-        private Dictionary<RenderingMode, VisualProvider> visualProviders;
-        public GeometryFactory(Dictionary<RenderingMode,VisualProvider> providers)
-        {
-            visualProviders = providers;
-        }
+        private Dictionary<MeshData, Geometry3D> geometryCache;
+        private object cacheLock = new object();
 
-        public Geometry3D GetVisual(MeshData renderData, RenderingMode renderMode)
+        public Geometry3D GetGeometry(MeshData mesh)
         {
+            Geometry3D geometry;
             //If we don't have provider, give the default dummy visual
-            if(!visualProviders.ContainsKey(renderMode) || !(renderData == null))
+            lock(cacheLock)
             {
-                return null;
+                if(!geometryCache.ContainsKey(mesh))
+                {
+                    geometry = GenerateGeometryFromMesh(mesh);
+                    geometryCache.Add(mesh, geometry);
+                }
             }
 
-            return visualProviders[renderMode].GetVisual(renderData);
+            return geometryCache[mesh];
 
         }
-
-        /// <summary>
-        /// Creates a new default configured factory
-        /// </summary>
-        /// <returns></returns>
-        public static GeometryFactory CreateDefaultFactory()
+        private Geometry3D GenerateGeometryFromMesh(MeshData mesh)
         {
-            var providers = new Dictionary<RenderingMode, VisualProvider>();
-            providers.Add(RenderingMode.Solid, new SolidMeshProvider());
-            return new GeometryFactory(providers);
+            return null;
         }
     }
 }

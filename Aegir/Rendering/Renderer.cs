@@ -156,7 +156,7 @@ namespace Aegir.Rendering
         }
         private void RenderItem(MeshBehaviour behaviour, TransformBehaviour transform)
         {
-            //Geometry3D geometry = meshFactory.GetGeometry(behaviour.Mesh);
+            Geometry3D geometry = meshFactory.GetGeometry(behaviour.Mesh);
         }
         private Visual3D GetDummyVisual()
         {
