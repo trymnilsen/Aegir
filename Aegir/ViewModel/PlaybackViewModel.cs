@@ -1,4 +1,5 @@
-﻿using AegirCore.Playback;
+﻿using Aegir.Util;
+using AegirCore.Playback;
 using GalaSoft.MvvmLight;
 using System.Diagnostics;
 
@@ -16,7 +17,7 @@ namespace Aegir.ViewModel
                 if (value != playMode)
                 {
                     playMode = value;
-                    Debug.WriteLine("Setting Playmode to: " + value);
+                    DebugUtil.LogWithLocation("Setting Playmode to: " + value);
                     RaisePropertyChanged("PlayMode");
                 }
             }

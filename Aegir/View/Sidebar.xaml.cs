@@ -1,4 +1,5 @@
-﻿using AegirCore.Scene;
+﻿using Aegir.Util;
+using AegirCore.Scene;
 using System;
 using System.Diagnostics;
 using System.Windows;
@@ -62,9 +63,9 @@ namespace Aegir.View
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                Debug.WriteLine("Error");
+                DebugUtil.LogWithLocation("Error: \n"+ex.ToString());
             }
         }
 
@@ -92,7 +93,7 @@ namespace Aegir.View
         //    }
         //    catch (Exception)
         //    {
-        //        Debug.WriteLine("Error");
+        //        DebugUtil.LogWithLocation("Error");
         //    }
         //}
         private void treeView_Drop(object sender, DragEventArgs e)
@@ -113,7 +114,7 @@ namespace Aegir.View
             }
             catch (Exception)
             {
-                Debug.WriteLine("Error");
+                DebugUtil.LogWithLocation("Error");
             }
         }
 
@@ -138,7 +139,7 @@ namespace Aegir.View
             //        }
             //        catch (Exception)
             //        {
-            //            Debug.WriteLine("Error");
+            //            DebugUtil.LogWithLocation("Error");
             //        }
             //    }
             //}

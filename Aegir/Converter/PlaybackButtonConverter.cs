@@ -1,4 +1,5 @@
-﻿using AegirCore.Playback;
+﻿using Aegir.Util;
+using AegirCore.Playback;
 using System;
 using System.Diagnostics;
 using System.Globalization;
@@ -11,7 +12,7 @@ namespace Aegir.Converter
         public override object ConvertBack(object value, Type targetType,
                                 object parameter, CultureInfo culture)
         {
-            Debug.WriteLine("Converting Back");
+            DebugUtil.LogWithLocation("Converting Back");
             //Check that our value is bool and parameter enum
             if (!(value is bool) || !(parameter is PlaybackMode)) return Binding.DoNothing;
             //If value is false, we did not click on the other button.. And therefor

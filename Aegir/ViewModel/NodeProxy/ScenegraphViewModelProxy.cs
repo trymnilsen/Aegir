@@ -1,6 +1,7 @@
 ﻿using Aegir.Messages.ObjectTree;
 using Aegir.Messages.Project;
 using Aegir.Messages.Simulation;
+using Aegir.Util;
 using AegirCore.Entity;
 using AegirCore.Scene;
 using GalaSoft.MvvmLight;
@@ -91,12 +92,12 @@ namespace Aegir.ViewModel.NodeProxy
 
         private void RemoveItem(NodeViewModelProxy item)
         {
-            Debug.WriteLine("Removing Item" + item);
+            DebugUtil.LogWithLocation("Removing Item" + item);
         }
 
         private void MoveTo(NodeViewModelProxy item)
         {
-            Debug.WriteLine("Moving Item" + item);
+            DebugUtil.LogWithLocation("Moving Item" + item);
         }
 
         /// <summary>

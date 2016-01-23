@@ -36,7 +36,7 @@ namespace Aegir.Rendering.Visual
                 return null;
             }
         }
-        public static VisualFactory GetFactoryWithDefaultProviders()
+        public static VisualFactory GetNewFactoryWithDefaultProviders()
         {
             var providers = new Dictionary<RenderingMode, VisualCache>();
             //Add new default providers here

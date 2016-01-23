@@ -11,18 +11,13 @@ namespace Aegir.Rendering
 {
     public class RenderItem : IDisposable
     {
-        private Vector3DCollection normals;
-        private Visual3D visual;
         private MeshData meshData;
 
-        public Point3D[] Positions { get; private set; }
         public MeshGeometry3D Geometry { get; private set; }
-        public Visual3D Visual { get; private set; }
         public TransformBehaviour Transform { get; private set; }
 
-        public RenderItem(Visual3D visual, MeshData meshData, TransformBehaviour transform)
+        public RenderItem(MeshData meshData, TransformBehaviour transform)
         {
-            this.visual = visual;
             this.meshData = meshData;
             Transform = transform;
             this.meshData.VerticePositionsChanged += MeshData_VerticePositionsChanged;

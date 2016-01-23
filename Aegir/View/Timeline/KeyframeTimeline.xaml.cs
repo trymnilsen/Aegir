@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Aegir.Util;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -174,7 +175,7 @@ namespace Aegir.View.Timeline
         /// <param name="e">Event object for our change</param>
         public static void TimeRangeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            Debug.WriteLine("DP Callback, TimeRangeStartChanged");
+            DebugUtil.LogWithLocation("DP Callback, TimeRangeStartChanged");
             KeyframeTimeline view = d as KeyframeTimeline;
             if (view != null)
             {
@@ -188,7 +189,7 @@ namespace Aegir.View.Timeline
         /// <param name="e">Event object for our change</param>
         public static void CurrentTimeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            Debug.WriteLine("DP Callback, TimeRangeStartChanged");
+            DebugUtil.LogWithLocation("DP Callback, TimeRangeStartChanged");
             KeyframeTimeline view = d as KeyframeTimeline;
             if (view != null)
             {
@@ -200,7 +201,7 @@ namespace Aegir.View.Timeline
         /// </summary>
         public void UpdateTimeRange()
         {
-            Debug.WriteLine("TimeRange Update: " + TimeRangeStart + "/" + TimeRangeEnd);
+            DebugUtil.LogWithLocation("TimeRange Update: " + TimeRangeStart + "/" + TimeRangeEnd);
             InvalidateTimeline();
             InvalidateCurrentTimeHighlight();
         }

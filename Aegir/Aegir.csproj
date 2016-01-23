@@ -176,6 +176,7 @@
     <Compile Include="Rendering\Visual\WireframeVisualProvider.cs" />
     <Compile Include="Shell.cs" />
     <Compile Include="Util\BindingHelper.cs" />
+    <Compile Include="Util\DebugWriteExtension.cs" />
     <Compile Include="ViewModel\MapViewModel.cs" />
     <Compile Include="ViewModel\MenuStripViewModel.cs" />
     <Compile Include="ViewModel\NodeProxy\NodeViewModelProxy.cs" />

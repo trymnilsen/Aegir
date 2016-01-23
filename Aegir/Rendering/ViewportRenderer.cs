@@ -25,6 +25,7 @@ namespace Aegir.Rendering
         {
             this.viewport = viewport;
             this.VisualFactory = VisualFactory;
+            listeners = new List<RenderItemListener>();
         }
 
         public void AddMeshToView(RenderItem renderItem)
@@ -44,7 +45,7 @@ namespace Aegir.Rendering
                 Visual3D visual = VisualFactory.GetVisual(RenderMode, renderItem);
                 RenderItemListener listener = new RenderItemListener(visual, renderItem);
                 listeners.Add(listener);
-                viewport.Children.Add(renderItem.Visual);
+                viewport.Children.Add(visual);
             }
         }
         public void ClearView()

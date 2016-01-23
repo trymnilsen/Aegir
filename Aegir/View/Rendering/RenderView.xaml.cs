@@ -72,7 +72,7 @@ namespace Aegir.View.Rendering
             ScenegraphViewModelProxy oldScene = e.OldValue as ScenegraphViewModelProxy;
             if (newScene != null)
             {
-                //view.OnSceneGraphInstanceChanged(newScene, oldScene);
+                view.OnSceneGraphInstanceChanged(newScene, oldScene);
             }
         }
 
@@ -91,6 +91,7 @@ namespace Aegir.View.Rendering
             }
             newScene.ScenegraphChanged += OnSceneGraphChanged;
             newScene.InvalidateChildren += OnInvalidateChildren;
+            renderHandler.ChangeScene(newScene);
             RebuildVisualTree();
         }
 
