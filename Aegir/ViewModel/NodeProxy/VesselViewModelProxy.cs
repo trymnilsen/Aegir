@@ -82,7 +82,7 @@ namespace Aegir.ViewModel.NodeProxy
             get { return floatMeshBehaviour.HullModelPath; }
             set
             {
-                floatMeshBehaviour.HullModelPath = value;
+                LoadHullModel(value);
             }
         }
 

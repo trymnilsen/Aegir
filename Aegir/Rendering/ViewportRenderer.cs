@@ -16,6 +16,7 @@ namespace Aegir.Rendering
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(ViewportRenderer));
         private HelixViewport3D viewport;
+        private List<RenderItemListener> listeners;
 
         public VisualFactory VisualFactory { get; set; }
         public RenderingMode RenderMode { get; set; }
@@ -41,12 +42,17 @@ namespace Aegir.Rendering
             else
             {
                 Visual3D visual = VisualFactory.GetVisual(RenderMode, renderItem);
+                RenderItemListener listener = new RenderItemListener(visual, renderItem);
+                listeners.Add(listener);
                 viewport.Children.Add(renderItem.Visual);
-
             }
         }
         public void ClearView()
         {
+            foreach(RenderItemListener listener in listeners)
+            {
+                listener.Dispose();
+            }
             viewport.Children.Clear();
         }
     }

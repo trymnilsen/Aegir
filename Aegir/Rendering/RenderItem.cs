@@ -30,33 +30,39 @@ namespace Aegir.Rendering
 
         public void Invalidate()
         {
-            Transform3D transformation = GetVisualTransformation(Transform);
-            visual.Dispatcher.InvokeAsync(() =>
-            {
-                visual.Transform = transformation;
-            });
+            TriggerTransformChanged();
         }
 
         private void MeshData_VerticePositionsChanged()
         {
-            throw new NotImplementedException();
+            TriggerGeometryChanged();
         }
 
-        private Transform3D GetVisualTransformation(TransformBehaviour transform)
-        {
-            MatrixTransform3D matrixTransform = new MatrixTransform3D();
-            Matrix3D matrix = new Matrix3D();
-            Quaternion q = new Quaternion(transform.Rotation.X, transform.Rotation.Y, transform.Rotation.Z, transform.Rotation.W);
-            matrix.Rotate(q);
-            matrix.Translate(new Vector3D(transform.Position.X, transform.Position.Y, transform.Position.Z));
-
-            matrixTransform.Matrix = matrix;
-            matrixTransform.Freeze();
-            return matrixTransform;
-        }
         public void Dispose()
         {
-            
+            this.meshData.VerticePositionsChanged -= MeshData_VerticePositionsChanged;
         }
+
+        private void TriggerTransformChanged()
+        {
+            TransformationChangedHandler transformHandler = TransformChanged;
+            if(transformHandler != null)
+            {
+                transformHandler();
+            }
+        }
+        private void TriggerGeometryChanged()
+        {
+            GeometryChangedHandler geometryHandler = MeshGeometryChanged;
+            if (geometryHandler != null)
+            {
+                geometryHandler();
+            }
+        }
+        public delegate void TransformationChangedHandler();
+        public event TransformationChangedHandler TransformChanged;
+
+        public delegate void GeometryChangedHandler();
+        public event GeometryChangedHandler MeshGeometryChanged;
     }
 }

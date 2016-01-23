@@ -157,7 +157,19 @@
                 </ModelVisual3D>-->
                 <ht:DefaultLights></ht:DefaultLights>
             </ht:HelixViewport3D>
-            <ToggleButton x:Name="TopRightLabel" Content="Perspective" Style="{StaticResource ViewButtonStyle}" />
+            <ToggleButton x:Name="TopRightLabel" Content="Perspective" Style="{StaticResource ViewButtonStyle}" >
+                <ToggleButton.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Rendering Mode">
+                            <MenuItem IsCheckable="True" Header="Same as global"></MenuItem>
+                            <MenuItem IsCheckable="True" Header="Solid"></MenuItem>
+                            <MenuItem IsCheckable="True" Header="Wireframe"></MenuItem>
+                        </MenuItem>
+                        <MenuItem Header="Center On Selected"></MenuItem>
+                        <MenuItem IsCheckable="True" Header="Follow Selected"></MenuItem>
+                    </ContextMenu>
+                </ToggleButton.ContextMenu>
+            </ToggleButton>
         </Grid>
         <Grid x:Name="BottomLeftView" DataContext="{Binding ElementName=BottomLeftLabel}">
             <Grid.Style>

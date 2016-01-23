@@ -58,6 +58,10 @@ namespace Aegir.Rendering
         public void RebuildScene()
         {
             //Clear nodemeshlisteners
+            foreach(RenderItem item in renderItems)
+            {
+                item.Dispose();
+            }
             renderItems.Clear();
             foreach(ViewportRenderer view in viewports)
             {
@@ -67,7 +71,7 @@ namespace Aegir.Rendering
             {
                 foreach(NodeViewModelProxy node in scene.Items)
                 {
-                    //RenderNode(node);
+                    RenderNode(node);
                 }
             }
         }
@@ -93,7 +97,7 @@ namespace Aegir.Rendering
             {
                 renderBehaviour.MeshChanged += RenderBehaviour_MeshChanged;
             }
-            RenderItem renderItem = null;
+            //RenderItem renderItem = null;
             ////Get rendering mode
             //RenderingMode mode = RenderMode;
             //if(node.OverrideRenderingMode)
@@ -126,7 +130,6 @@ namespace Aegir.Rendering
         private void AddRenderItemToViewports(RenderItem itemToRender)
         {
             renderItems.Add(itemToRender);
-
             foreach (ViewportRenderer viewport in viewports)
             {
                 viewport.AddMeshToView(itemToRender);
@@ -136,7 +139,7 @@ namespace Aegir.Rendering
         {
             switch(eventArgs.Action)
             {
-                case MeshChangeAction.Add:
+                case MeshChangeAction.New:
                     AddMesh(source);
                     break; 
                 case MeshChangeAction.Remove:

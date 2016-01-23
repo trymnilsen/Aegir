@@ -45,7 +45,7 @@ namespace AegirCore.Entity
             if (data == hullModel) return;
 
             MeshBehaviour renderBehaviour = GetComponent<MeshBehaviour>();
-            if(renderBehaviour == null)
+            if(renderBehaviour != null)
             {
                 renderBehaviour.Mesh = data;
             }

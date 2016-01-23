@@ -1,4 +1,5 @@
 ﻿using Aegir.Rendering;
+using Aegir.Util;
 using Aegir.ViewModel.NodeProxy;
 using HelixToolkit.Wpf;
 using System;
@@ -65,7 +66,7 @@ namespace Aegir.View.Rendering
 
         public static void OnSceneGraphChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            Debug.WriteLine("DP Callback, Scene Changed");
+            DebugUtil.LogWithLocation("DP Callback, Scene Changed");
             RenderView view = d as RenderView;
             ScenegraphViewModelProxy newScene = e.NewValue as ScenegraphViewModelProxy;
             ScenegraphViewModelProxy oldScene = e.OldValue as ScenegraphViewModelProxy;
@@ -77,7 +78,7 @@ namespace Aegir.View.Rendering
 
         public void OnSceneGraphInstanceChanged(ScenegraphViewModelProxy newScene, ScenegraphViewModelProxy oldScene)
         {
-            Debug.WriteLine("Scene Instance changed");
+            DebugUtil.LogWithLocation("Scene Instance changed");
             //unlisten old
             if (oldScene != null)
             {
@@ -106,7 +107,7 @@ namespace Aegir.View.Rendering
         /// </remarks>
         private void OnSceneGraphChanged()
         {
-            Debug.WriteLine("Scenegraph Changed");
+            DebugUtil.LogWithLocation("Scenegraph Changed");
             //For now we completly rebuild the visual tree
             RebuildVisualTree();
         }
@@ -116,8 +117,8 @@ namespace Aegir.View.Rendering
         /// </summary>
         private void RebuildVisualTree()
         {
-            //renderHandler.RebuildScene();
-            Debug.WriteLine("Successfully Built Visual Tree");
+            renderHandler.RebuildScene();
+            DebugUtil.LogWithLocation("Successfully Built Visual Tree");
         }
 
     }

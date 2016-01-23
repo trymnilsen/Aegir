@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using log4net;
+using System.Windows;
 
 namespace Aegir
 {
@@ -7,10 +8,12 @@ namespace Aegir
     /// </summary>
     public partial class App : Application
     {
+        private static readonly ILog log = LogManager.GetLogger(typeof(App));
         private Shell appShell;
 
         public App()
         {
+            log.Debug("Starting Application");
             var foo = new ViewModel.ViewModelLocator();
             appShell = new Shell();
         }
@@ -18,6 +21,11 @@ namespace Aegir
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             appShell.ShellLoaded();
+        }
+
+        private void Application_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
+        {
+            log.FatalFormat("Fatal Error Occured in Application: \n{0}",e.Exception);
         }
     }
 }

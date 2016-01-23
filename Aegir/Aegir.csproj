@@ -165,6 +165,7 @@
     <Compile Include="Rendering\NodeMeshListener.cs" />
     <Compile Include="Rendering\Renderer.cs" />
     <Compile Include="Rendering\RenderingMode.cs" />
+    <Compile Include="Rendering\RenderItemListener.cs" />
     <Compile Include="Rendering\ViewportRenderer.cs" />
     <Compile Include="Rendering\Visual\IVisualProvider.cs" />
     <Compile Include="Rendering\Visual\SolidMeshProvider.cs" />

@@ -8,7 +8,7 @@ namespace AegirCore.Behaviour.Mesh
 {
     public enum MeshChangeAction
     {
-        Add,
+        New,
         Remove,
         Change
     }

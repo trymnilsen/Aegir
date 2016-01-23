@@ -21,7 +21,7 @@ namespace AegirCore.Mesh.Loader
             string ext = file.Extension.ToLower();
             switch(ext)
             {
-                case "obj":
+                case ".obj":
                     ObjModel objLoader = new ObjModel();
                     objLoader.LoadObj(path);
                     return objLoader.GetMesh();
