@@ -14,11 +14,11 @@ namespace Aegir.Rendering.Visual
 
         public VisualCache(IVisualProvider provider)
         {
-
+            this.provider = provider;
         }
         public Visual3D GetVisual(RenderItem item)
         {
-            return null;
+            return provider.GetVisual(item);
         }
     }
 }

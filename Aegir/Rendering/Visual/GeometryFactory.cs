@@ -1,6 +1,8 @@
 ﻿using Aegir.ViewModel.NodeProxy;
 using AegirCore.Mesh;
 using AegirCore.Mesh.Loader;
+using AegirType;
+using HelixToolkit.Wpf;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,14 +12,18 @@ using System.Windows.Media.Media3D;
 
 namespace Aegir.Rendering.Visual
 {
-    public class GeometryFactory
+    public class GeometryFactory : IGeometryFactory
     {
-        private Dictionary<MeshData, Geometry3D> geometryCache;
+        private Dictionary<MeshData, MeshGeometry3D> geometryCache;
         private object cacheLock = new object();
 
-        public Geometry3D GetGeometry(MeshData mesh)
+        public GeometryFactory()
         {
-            Geometry3D geometry;
+            geometryCache = new Dictionary<MeshData, MeshGeometry3D>();
+        }
+        public MeshGeometry3D GetGeometry(MeshData mesh)
+        {
+            MeshGeometry3D geometry;
             //If we don't have provider, give the default dummy visual
             lock(cacheLock)
             {
@@ -31,9 +37,24 @@ namespace Aegir.Rendering.Visual
             return geometryCache[mesh];
 
         }
-        private Geometry3D GenerateGeometryFromMesh(MeshData mesh)
+        private MeshGeometry3D GenerateGeometryFromMesh(MeshData mesh)
         {
-            return null;
-        }
+            MeshBuilder meshBuilder = new MeshBuilder(true,true);
+            List<Point3D> positions = new List<Point3D>();
+            List<Vector3D> normals = new List<Vector3D>();
+
+            foreach(Vector3 pos in mesh.Positions)
+            {
+                positions.Add(new Point3D(pos.X, pos.Y, pos.Z));
+            }
+            foreach(Vector3 normal in mesh.VertexNomals)
+            {
+                normals.Add(new Vector3D(normal.X, normal.Y, normal.Z));
+            }
+
+            meshBuilder.AddTriangles(positions);
+
+            return meshBuilder.ToMesh();
+        } 
     }
 }

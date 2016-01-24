@@ -9,6 +9,7 @@ using AegirCore.Mesh.Loader;
 using HelixToolkit.Wpf;
 using AegirType;
 using AegirCore.Mesh;
+using System.Windows.Media;
 
 namespace Aegir.Rendering.Visual
 {
@@ -20,14 +21,17 @@ namespace Aegir.Rendering.Visual
             {
                 return visualCache[renderItem];
             }
-            return GenerateMesh(renderItem);
+            Visual3D visual = GenerateMesh(renderItem);
+            visualCache[renderItem] = visual;
+            return visual;
         }
 
         private Visual3D GenerateMesh(RenderItem model)
         {
-            return null;
-            //MeshBuilder meshBuilder = new MeshBuilder();
-
+            MeshGeometryVisual3D visual = new MeshGeometryVisual3D();
+            visual.MeshGeometry = model.Geometry;
+            visual.Material = new DiffuseMaterial(new SolidColorBrush(System.Windows.Media.Color.FromArgb(255, 200, 0, 0)));
+            return visual;
             ////Need to Vertexes to points3d
             //List<Point3D> vertexes = new List<Point3D>();
             //foreach(Vector3 v in model.Vertices)

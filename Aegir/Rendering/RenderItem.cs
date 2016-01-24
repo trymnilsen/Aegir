@@ -11,13 +11,31 @@ namespace Aegir.Rendering
 {
     public class RenderItem : IDisposable
     {
+        private bool IsGeometryDirty;
+        private IGeometryFactory geometryFactory;
         private MeshData meshData;
 
-        public MeshGeometry3D Geometry { get; private set; }
+        private MeshGeometry3D geometry;
+
+        public MeshGeometry3D Geometry
+        {
+            get
+            {
+                if(IsGeometryDirty || geometry == null)
+                {
+                    geometry = geometryFactory.GetGeometry(meshData);
+                    IsGeometryDirty = false;
+                }
+                return geometry;
+            }
+        }
+
         public TransformBehaviour Transform { get; private set; }
 
-        public RenderItem(MeshData meshData, TransformBehaviour transform)
+        public RenderItem(IGeometryFactory geometryFactory, MeshData meshData, TransformBehaviour transform)
         {
+            this.geometryFactory = geometryFactory;
+            this.IsGeometryDirty = true;
             this.meshData = meshData;
             Transform = transform;
             this.meshData.VerticePositionsChanged += MeshData_VerticePositionsChanged;
@@ -30,6 +48,7 @@ namespace Aegir.Rendering
 
         private void MeshData_VerticePositionsChanged()
         {
+            IsGeometryDirty = true;
             TriggerGeometryChanged();
         }
 

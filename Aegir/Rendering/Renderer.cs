@@ -1,4 +1,5 @@
 ﻿using Aegir.Rendering.Visual;
+using Aegir.Util;
 using Aegir.ViewModel.NodeProxy;
 using AegirCore.Behaviour.Mesh;
 using AegirCore.Behaviour.World;
@@ -21,7 +22,7 @@ namespace Aegir.Rendering
         private static readonly ILog log = LogManager.GetLogger(typeof(Renderer));
         private ScenegraphViewModelProxy scene;
         private List<ViewportRenderer> viewports;
-        private GeometryFactory meshFactory;
+        private IGeometryFactory meshFactory;
         private List<RenderItem> renderItems;
         private RenderingMode renderMode;
 
@@ -162,12 +163,13 @@ namespace Aegir.Rendering
             
             if(transform!=null)
             {
-                RenderItem newMeshItem = new RenderItem(mesh.Mesh, transform);
+                
+                RenderItem newMeshItem = new RenderItem(meshFactory, mesh.Mesh, transform);
                 AddRenderItemToViewports(newMeshItem);
             }
             else
             {
-                log.WarnFormat("RenderItem discarded for meshBehaviour on" 
+                log.WarnFormat("RenderItem discarded for meshBehaviour on"
                     + "node({0}) no transform behaviour present",
                     mesh.Parent.Name);
             }

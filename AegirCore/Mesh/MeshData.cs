@@ -22,7 +22,14 @@ namespace AegirCore.Mesh
         /// <summary>
         /// Postions collapsed from the indexed list (I.E not indexed)
         /// </summary>
-        public Vector3[] Positions { get; set; }
+        public Vector3[] Positions
+        {
+            get
+            {
+                return ExpandIndexedPositons();
+            }
+        }
+
 
 
         public MeshData(int[] faceIndices, Vector3[] vertices, Vector3[] normals)
@@ -31,7 +38,15 @@ namespace AegirCore.Mesh
             this.Vertices = vertices;
             this.VertexNomals = normals;
         }
-
+        private Vector3[] ExpandIndexedPositons()
+        {
+            Vector3[] vectors = new Vector3[Faces.Length];
+            for (int i = 0; i < Faces.Length; i++)
+            {
+                vectors[i] = Vertices[Faces[i]];
+            }
+            return vectors;
+        }
         public delegate void MeshChangedHandler();
 
         public event MeshChangedHandler VerticePositionsChanged;

@@ -2,6 +2,7 @@
 using Aegir.Util;
 using Aegir.ViewModel.NodeProxy;
 using HelixToolkit.Wpf;
+using log4net;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -18,6 +19,8 @@ namespace Aegir.View.Rendering
     /// </summary>
     public partial class RenderView : UserControl
     {
+        private static readonly ILog log = LogManager.GetLogger(typeof(RenderView));
+
         public Dictionary<string, Model3D> assetCache;
         public List<NodeMeshListener> meshTransforms;
         public Renderer renderHandler;
@@ -66,7 +69,7 @@ namespace Aegir.View.Rendering
 
         public static void OnSceneGraphChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            DebugUtil.LogWithLocation("DP Callback, Scene Changed");
+            log.Debug("ScenegraphDP Callback triggered");
             RenderView view = d as RenderView;
             ScenegraphViewModelProxy newScene = e.NewValue as ScenegraphViewModelProxy;
             ScenegraphViewModelProxy oldScene = e.OldValue as ScenegraphViewModelProxy;
@@ -78,7 +81,7 @@ namespace Aegir.View.Rendering
 
         public void OnSceneGraphInstanceChanged(ScenegraphViewModelProxy newScene, ScenegraphViewModelProxy oldScene)
         {
-            DebugUtil.LogWithLocation("Scene Instance changed");
+            log.Debug("Scene Instance changed");
             //unlisten old
             if (oldScene != null)
             {
@@ -108,7 +111,6 @@ namespace Aegir.View.Rendering
         /// </remarks>
         private void OnSceneGraphChanged()
         {
-            DebugUtil.LogWithLocation("Scenegraph Changed");
             //For now we completly rebuild the visual tree
             RebuildVisualTree();
         }
@@ -118,8 +120,13 @@ namespace Aegir.View.Rendering
         /// </summary>
         private void RebuildVisualTree()
         {
+            log.Debug("Rebuild Visual Tree - START ");
+            Stopwatch rebuildTime = new Stopwatch();
+            rebuildTime.Start();
             renderHandler.RebuildScene();
-            DebugUtil.LogWithLocation("Successfully Built Visual Tree");
+            rebuildTime.Stop();
+            log.DebugFormat("Rebuild Visual Tree - END USED {0}ms",
+                rebuildTime.Elapsed.TotalMilliseconds);
         }
 
     }

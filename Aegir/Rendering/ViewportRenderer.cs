@@ -23,6 +23,7 @@ namespace Aegir.Rendering
 
         public ViewportRenderer(HelixViewport3D viewport)
         {
+            RenderMode = RenderingMode.Solid;
             this.viewport = viewport;
             this.VisualFactory = VisualFactory;
             listeners = new List<RenderItemListener>();
