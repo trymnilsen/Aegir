@@ -1,6 +1,12 @@
-﻿namespace AegirCore.Entity
+﻿using AegirCore.Scene;
+
+namespace AegirCore.Entity
 {
-    public class WaterSegment
+    public class WaterSegment : Node
     {
+        public WaterSegment()
+        {
+
+        }
     }
 }

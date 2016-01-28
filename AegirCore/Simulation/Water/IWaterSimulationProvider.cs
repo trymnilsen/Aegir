@@ -1,7 +1,10 @@
-﻿namespace AegirCore.Simulation.Water
+﻿using AegirCore.Mesh;
+
+namespace AegirCore.Simulation.Water
 {
     public interface IWaterSimulationProvider
     {
-        void Update(SimulationTime deltaTime, WaterCell WaterMesh);
+        MeshData Geometry { get; }
+        void Update(SimulationTime deltaTime);
     }
 }
