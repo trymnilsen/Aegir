@@ -5,8 +5,10 @@ using AegirCore.Entity;
 using AegirCore.Mesh;
 using AegirCore.Mesh.Loader;
 using AegirCore.Simulation;
+using log4net;
 using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Media;
 using Xceed.Wpf.Toolkit.PropertyGrid.Editors;
@@ -15,6 +17,8 @@ namespace Aegir.ViewModel.NodeProxy
 {
     public class VesselViewModelProxy : NodeViewModelProxy
     {
+        private static readonly ILog log = LogManager.GetLogger(typeof(VesselViewModelProxy));
+        
         private VesselNavigationBehaviour navBehaviour;
         private FloatingMesh floatMeshBehaviour;
 
@@ -144,6 +148,7 @@ namespace Aegir.ViewModel.NodeProxy
 
         private void LoadHullModel(string path)
         {
+            Stopwatch loadTime = Stopwatch.StartNew();
             //floatMeshBehaviour.HullModelPath = value;
             MeshLoader meshLoader = new MeshLoader();
             try
@@ -160,6 +165,8 @@ namespace Aegir.ViewModel.NodeProxy
             {
                 MessageBox.Show("Loading error" + e.ToString());
             }
+            loadTime.Stop();
+            log.DebugFormat("Load Time of {0} was {1}ms", path, loadTime.Elapsed.TotalMilliseconds);
         }
     }
 }

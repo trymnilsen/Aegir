@@ -9,12 +9,13 @@ namespace AegirCore.Mesh.Loader
 {
     public class ObjModel
     {
-        private List<int> facesNormalIndices;
+        private List<int> facesTextureCoords;
+        private List<Vector3> textureIndices;
 
         public List<int> Faces { get; set; }
         public List<Vector3> Vertices { get; set; }
         public List<Vector3> VertexNomals { get; set; }
-
+        public List<Vector3> TextureCoords { get; set; }
         public string Mtl { get; set; }
 
         public bool IsValid
@@ -32,9 +33,10 @@ namespace AegirCore.Mesh.Loader
         public ObjModel()
         {
             Faces = new List<int>();
-            facesNormalIndices = new List<int>();
-
+            facesTextureCoords = new List<int>();
+            TextureCoords = new List<Vector3>();
             Vertices = new List<Vector3>();
+            textureIndices = new List<Vector3>();
             VertexNomals = new List<Vector3>();
         }
 
@@ -52,13 +54,34 @@ namespace AegirCore.Mesh.Loader
             {
                 processLine(line);
             }
+
+            ExpandTextureVertices();
         }
         public MeshData GetMesh()
         {
-            return new MeshData(Faces.ToArray(),Vertices.ToArray(), VertexNomals.ToArray());
+            return new MeshData(Faces.ToArray(),Vertices.ToArray(), VertexNomals.ToArray(), TextureCoords.ToArray());
 
         }
+        private void ExpandTextureVertices()
+        {
+            if (facesTextureCoords.Count != 0)
+            { 
+                foreach (int index in facesTextureCoords)
+                {
+                    Vector3 vector = textureIndices[index];
+                    TextureCoords.Add(new Vector3(vector.X, vector.Y, vector.Z));
+                }
+            }
+            else
+            {
+                //Generate same for all
+                for (int i = 0; i < Faces.Count; i++)
+                {
+                    TextureCoords.Add(new Vector3(1, 1, 0));
+                }
+            }
 
+        }
         /// <summary>
         /// Parses and loads a line from an OBJ file.
         /// Currently only supports V and F
@@ -80,6 +103,11 @@ namespace AegirCore.Mesh.Loader
                     case "vn":
                         Vector3 n = LoadFromVectorFromStringArray(parts);
                         VertexNomals.Add(n);
+                        break;
+                    //Texture coord
+                    case "vt":
+                        Vector3 t = LoadFromVectorFromStringArray(parts);
+                        textureIndices.Add(t);
                         break;
                     //Face
                     case "f":
@@ -134,10 +162,19 @@ namespace AegirCore.Mesh.Loader
                 //    if (!success) throw new ArgumentException("Could not parse normal parameter as int");
                 //    vertexIndexList[i] = nIndex - 1;
                 //}
+                if(parts.Length>=2)
+                {
+                    int tIndex;
+                    success = int.TryParse(parts[1], out tIndex);
+                    if(success)
+                    {
+                        facesTextureCoords.Add(tIndex-1);
+                    }
+                }
                 //Load Vertex data
                 int vIndex;
                 success = int.TryParse(parts[0], out vIndex);
-                if (!success) throw new ArgumentException("Could not parse vertex parameter as int");
+                if (!success) throw new ArgumentException("Could not parse face vertice index parameter as int");
                 vertexIndexList[i] = vIndex - 1;
             }
             Faces.AddRange(vertexIndexList);

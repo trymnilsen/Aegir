@@ -249,6 +249,9 @@
     <Compile Include="Windows\SimpleNavigation.xaml.cs">
       <DependentUpon>SimpleNavigation.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\TimelineSettings.xaml.cs">
+      <DependentUpon>TimelineSettings.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\VesselSetup.xaml.cs">
       <DependentUpon>VesselSetup.xaml</DependentUpon>
     </Compile>
@@ -337,6 +340,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Windows\SimpleNavigation.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\TimelineSettings.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

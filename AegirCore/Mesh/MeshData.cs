@@ -22,6 +22,7 @@ namespace AegirCore.Mesh
         /// <summary>
         /// Postions collapsed from the indexed list (I.E not indexed)
         /// </summary>
+        public Vector3[] TextureCoords { get; set; }
         public Vector3[] Positions
         {
             get
@@ -32,11 +33,12 @@ namespace AegirCore.Mesh
 
 
 
-        public MeshData(int[] faceIndices, Vector3[] vertices, Vector3[] normals)
+        public MeshData(int[] faceIndices, Vector3[] vertices, Vector3[] normals, Vector3[] textureCoords)
         {
             this.Faces = faceIndices;
             this.Vertices = vertices;
             this.VertexNomals = normals;
+            this.TextureCoords = textureCoords;
         }
         private Vector3[] ExpandIndexedPositons()
         {

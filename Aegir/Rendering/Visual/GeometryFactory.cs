@@ -42,6 +42,7 @@ namespace Aegir.Rendering.Visual
             MeshBuilder meshBuilder = new MeshBuilder(true,true);
             List<Point3D> positions = new List<Point3D>();
             List<Vector3D> normals = new List<Vector3D>();
+            List<System.Windows.Point> texture = new List<System.Windows.Point>();
 
             foreach(Vector3 pos in mesh.Positions)
             {
@@ -51,8 +52,13 @@ namespace Aegir.Rendering.Visual
             {
                 normals.Add(new Vector3D(normal.X, normal.Y, normal.Z));
             }
+            foreach (Vector3 uv in mesh.TextureCoords)
+            {
+                //only 1 and 0 works for no
+                texture.Add(new System.Windows.Point((int)uv.X, (int)uv.Y));
+            }
 
-            meshBuilder.AddTriangles(positions);
+            meshBuilder.AddTriangles(positions,normals,texture);
 
             return meshBuilder.ToMesh();
         } 
