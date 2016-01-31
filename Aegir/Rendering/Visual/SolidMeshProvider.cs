@@ -30,7 +30,7 @@ namespace Aegir.Rendering.Visual
         {
             MeshGeometryVisual3D visual = new MeshGeometryVisual3D();
             visual.MeshGeometry = model.Geometry;
-            visual.Material = new DiffuseMaterial(new SolidColorBrush(System.Windows.Media.Color.FromArgb(255, 200, 0, 0)));
+            visual.Material = new DiffuseMaterial(new SolidColorBrush(System.Windows.Media.Color.FromArgb(255, 122, 122, 122)));
             return visual;
             ////Need to Vertexes to points3d
             //List<Point3D> vertexes = new List<Point3D>();

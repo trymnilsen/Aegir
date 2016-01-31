@@ -183,6 +183,7 @@
     <Compile Include="ViewModel\NodeProxy\NodeViewModelProxy.cs" />
     <Compile Include="ViewModel\NodeProxy\ScenegraphViewModelProxy.cs" />
     <Compile Include="ViewModel\NodeProxy\VesselViewModelProxy.cs" />
+    <Compile Include="ViewModel\NodeProxy\WorldViewModelProxy.cs" />
     <Compile Include="ViewModel\OutputViewModel.cs" />
     <Compile Include="ViewModel\PlaybackViewModel.cs" />
     <Compile Include="ViewModel\Properties\NodeViewModel.cs" />
@@ -445,7 +446,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <SplashScreen Include="Splash.png" />
+    <None Include="Splash.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

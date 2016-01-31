@@ -8,7 +8,7 @@ namespace AegirCore.Behaviour.Simulation
 {
     public class FloatingMesh : BehaviourComponent
     {
-        private WaterCell water;
+        private WaterMesh water;
         private SimulationMesh mesh;
 
         private string hullModelPath;
@@ -27,11 +27,11 @@ namespace AegirCore.Behaviour.Simulation
             }
         }
 
-        public FloatingMesh(Node parentNode, WaterCell waterCell)
+        public FloatingMesh(Node parentNode, WaterMesh waterMesh)
             :base(parentNode)
         {
-            water = waterCell;
-            mesh = new SimulationMesh(waterCell);
+            water = waterMesh;
+            mesh = new SimulationMesh(waterMesh);
         }
 
         public string HullModelPath

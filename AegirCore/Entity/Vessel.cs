@@ -4,6 +4,7 @@ using AegirCore.Behaviour.Vessel;
 using AegirCore.Mesh;
 using AegirCore.Mesh.Loader;
 using AegirCore.Scene;
+using AegirCore.Simulation.Water;
 using log4net;
 using System;
 
@@ -26,7 +27,7 @@ namespace AegirCore.Entity
             set { UpdateHullModel(value); }
         }
 
-        public Vessel()
+        public Vessel(WaterCell water)
         {
             this.Name = "Vessel";
             MeshBehaviour RenderMesh = new MeshBehaviour(this);
@@ -35,8 +36,7 @@ namespace AegirCore.Entity
             VesselNavigationBehaviour navBehavour = new VesselNavigationBehaviour(this);
             this.AddComponent(navBehavour);
 
-            WaterSimulation water = new WaterSimulation(this);
-            FloatingMesh mesh = new FloatingMesh(this,water.waterMesh);
+            FloatingMesh mesh = new FloatingMesh(this,water);
 
             this.AddComponent(mesh);
         }

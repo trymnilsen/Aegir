@@ -31,7 +31,10 @@ namespace AegirCore.Mesh
             }
         }
 
+        public MeshData()
+        {
 
+        }
 
         public MeshData(int[] faceIndices, Vector3[] vertices, Vector3[] normals, Vector3[] textureCoords)
         {

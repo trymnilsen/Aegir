@@ -181,6 +181,10 @@ namespace Aegir.ViewModel.NodeProxy
             {
                 return new VesselViewModelProxy(n as Vessel);
             }
+            if(n.GetType() == typeof(World))
+            {
+                return new WorldViewModelProxy(n as World);
+            }
             return new NodeViewModelProxy(n);
         }
 

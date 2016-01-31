@@ -60,7 +60,7 @@ namespace AegirCore.Simulation.Boyancy
         private const float mGRAVITY = 9.81f;
         private const float mWATERDENSITY = 1027f;  // SI = kg / m3
 
-        private WaterCell waterMesh;
+        private WaterMesh waterMesh;
 
         protected MeshData mModel;
 
@@ -298,7 +298,7 @@ namespace AegirCore.Simulation.Boyancy
             set { mType = value; }
         }
 
-        public SimulationMesh(WaterCell water)
+        public SimulationMesh(WaterMesh water)
         {
             waterMesh = water;
             mPosition = Vector3.Zero;
@@ -1185,9 +1185,9 @@ namespace AegirCore.Simulation.Boyancy
         private void ListWaterTriToTest()
         {
             mL_WaterTriToTest = new List<int>();
-            int halfWidth = (int)((waterMesh.Options.SizeX - 1) / 2);
-            int OffsetX = (waterMesh.Options.SizeX - 1) / 2;
-            int OffsetZ = (waterMesh.Options.SizeZ - 1) / 2;
+            int halfWidth = (int)((waterMesh.XQuads - 1) / 2);
+            int OffsetX = (waterMesh.XQuads - 1) / 2;
+            int OffsetZ = (waterMesh.YQuads - 1) / 2;
             int t;
             int deltaX = 1;
             int deltaY = 0;
@@ -1226,9 +1226,10 @@ namespace AegirCore.Simulation.Boyancy
                     m2 = mVertexWorld[mTri[m].I2];
 
                     // Triangle de l'eau
-                    w0 = waterMesh.mVertex[waterMesh.mTri[w].I0];
-                    w1 = waterMesh.mVertex[waterMesh.mTri[w].I1];
-                    w2 = waterMesh.mVertex[waterMesh.mTri[w].I2];
+                    //TODO: FIX to enable floating sim
+                    //w0 = waterMesh.mVertex[waterMesh.mTri[w].I0];
+                    //w1 = waterMesh.mVertex[waterMesh.mTri[w].I1];
+                    //w2 = waterMesh.mVertex[waterMesh.mTri[w].I2];
 
                     // Si les 2 triangles ont une intersection
                     if (TriangleIntersection.Intersection_3d(m0, m1, m2, w0, w1, w2) == 1)

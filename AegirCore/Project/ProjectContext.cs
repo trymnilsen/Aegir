@@ -1,4 +1,5 @@
-﻿using AegirCore.Entity;
+﻿using AegirCore.Behaviour.Simulation;
+using AegirCore.Entity;
 using AegirCore.Project.Event;
 using AegirCore.Scene;
 using AegirCore.Vessel;
@@ -51,11 +52,16 @@ namespace AegirCore.Project
         public ProjectData CreateNewProject()
         {
             SceneGraph scene = new SceneGraph();
-            scene.RootNodes.Add(new Water());
-            var vessel = new Entity.Vessel();
-            vessel.Children.Add(new GNSSReceiver());
-            vessel.Children.Add(new GNSSReceiver());
-            scene.RootNodes.Add(vessel);
+            World worldNode = new World();
+
+            var vessel = new Entity.Vessel(worldNode.GetComponent<WaterSimulation>()?.WaterCell);
+            vessel.Children.Add(new GNSSReceiver() { Name = "In Aft" });
+            vessel.Children.Add(new GNSSReceiver() { Name = "In Fore" });
+            vessel.Children.Add(new GNSSReceiver() { Name = "Out Aft" });
+            vessel.Children.Add(new GNSSReceiver() { Name = "Out Fore" });
+            worldNode.Children.Add(vessel);
+            scene.RootNodes.Add(worldNode);
+            scene.RootNodes.Add(new Map());
             //scene.RootNodes.Add(new Water());
             VesselConfiguration vesselConf = new VesselConfiguration();
             return new ProjectData(scene, vesselConf, "New Simulation");

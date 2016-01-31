@@ -79,12 +79,13 @@
     <Compile Include="Datagram\DatagramService.cs" />
     <Compile Include="Datagram\IDatagramService.cs" />
     <Compile Include="Entity\GNSSReceiver.cs" />
+    <Compile Include="Entity\Map.cs" />
     <Compile Include="Entity\Vessel.cs" />
     <Compile Include="Mesh\Loader\MeshLoader.cs" />
     <Compile Include="Mesh\MeshData.cs" />
     <Compile Include="Mesh\Loader\IModelLoader.cs" />
     <Compile Include="Mesh\Loader\ObjModel.cs" />
-    <Compile Include="Output\Water.cs" />
+    <Compile Include="Entity\World.cs" />
     <Compile Include="Entity\WaterSegment.cs" />
     <Compile Include="Output\OutputData.cs" />
     <Compile Include="Output\OutputManager.cs" />
@@ -123,9 +124,12 @@
     <Compile Include="Simulation\Water\IWaterSimulationProvider.cs" />
     <Compile Include="Simulation\Water\Ocean.cs" />
     <Compile Include="Simulation\Water\WaterCell.cs" />
+    <Compile Include="Simulation\Water\WaterMesh.cs" />
     <Compile Include="Simulation\Water\WaterOptions.cs" />
     <Compile Include="Simulation\Water\WaterSimulationMode.cs" />
     <Compile Include="Simulation\Water\Wave.cs" />
+    <Compile Include="Simulation\Water\Wave\CurveWave.cs" />
+    <Compile Include="Simulation\Water\Wave\FlatWave.cs" />
     <Compile Include="Vessel\VesselConfiguration.cs" />
     <Compile Include="Vessel\VesselContext.cs" />
   </ItemGroup>
