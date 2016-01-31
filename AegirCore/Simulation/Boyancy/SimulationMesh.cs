@@ -1227,9 +1227,9 @@ namespace AegirCore.Simulation.Boyancy
 
                     // Triangle de l'eau
                     //TODO: FIX to enable floating sim
-                    //w0 = waterMesh.mVertex[waterMesh.mTri[w].I0];
-                    //w1 = waterMesh.mVertex[waterMesh.mTri[w].I1];
-                    //w2 = waterMesh.mVertex[waterMesh.mTri[w].I2];
+                    w0 = waterMesh.mVertex[waterMesh.mTri[w].I0];
+                    w1 = waterMesh.mVertex[waterMesh.mTri[w].I1];
+                    w2 = waterMesh.mVertex[waterMesh.mTri[w].I2];
 
                     // Si les 2 triangles ont une intersection
                     if (TriangleIntersection.Intersection_3d(m0, m1, m2, w0, w1, w2) == 1)
