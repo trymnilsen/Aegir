@@ -54,7 +54,7 @@ namespace AegirCore.Project
             SceneGraph scene = new SceneGraph();
             World worldNode = new World();
 
-            var vessel = new Entity.Vessel(worldNode.GetComponent<WaterSimulation>()?.WaterCell);
+            var vessel = new Entity.Vessel(worldNode.GetComponent<WaterSimulation>()?.Mesh);
             vessel.Children.Add(new GNSSReceiver() { Name = "In Aft" });
             vessel.Children.Add(new GNSSReceiver() { Name = "In Fore" });
             vessel.Children.Add(new GNSSReceiver() { Name = "Out Aft" });

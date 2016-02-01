@@ -27,7 +27,7 @@ namespace AegirCore.Entity
             set { UpdateHullModel(value); }
         }
 
-        public Vessel(WaterCell water)
+        public Vessel(WaterMesh water)
         {
             this.Name = "Vessel";
             MeshBehaviour RenderMesh = new MeshBehaviour(this);

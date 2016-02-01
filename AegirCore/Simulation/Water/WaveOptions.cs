@@ -2,7 +2,7 @@
 
 namespace AegirCore.Simulation.Water
 {
-    public class Wave
+    public class WaveOptions
     {
         public float Len;
         public float Freq;  // 2*PI / wavelength

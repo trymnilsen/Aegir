@@ -12,7 +12,7 @@ namespace AegirCore.Behaviour.Simulation
         public double Length { get; set; }
         public double Width { get; set; }
         public WaterCell WaterCell { get; private set; }
-        public MeshData Mesh { get;  private set; }
+        public WaterMesh Mesh { get;  private set; }
 
         public WaterSimulation(Node parentNode)
             :base(parentNode)

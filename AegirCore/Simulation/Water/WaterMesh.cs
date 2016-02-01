@@ -1,4 +1,5 @@
 ﻿using AegirCore.Mesh;
+using AegirCore.Simulation.Boyancy;
 using AegirType;
 using System;
 using System.Collections.Generic;
@@ -8,10 +9,16 @@ using System.Threading.Tasks;
 
 namespace AegirCore.Simulation.Water
 {
-    public class WaterMesh : MeshData
+    public class WaterMesh
     {
+        private MeshData meshGeometry;
         private int numOfXQuads;
         private int numOfYQuads;
+
+        public Vector3[] mVertex;
+
+        private int mNbVertices;
+        public List<SimulationTriangle> mTri;
 
         public int XQuads
         {
@@ -32,7 +39,7 @@ namespace AegirCore.Simulation.Water
         }
         public float GetWaterHeight(Vector3 position)
         {
-
+            return 0f;
         }
         private void RegenerateWaterMesh()
         {

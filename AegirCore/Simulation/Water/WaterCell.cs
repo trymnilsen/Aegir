@@ -28,7 +28,7 @@ namespace AegirCore.Simulation.Water
         public List<SimulationTriangle> mTri;
         private int mNbTris;
 
-        private Wave[] wave;
+        private WaveOptions[] wave;
         private int NBWAVES;
         private MersenneTwister mRand = new MersenneTwister();
         private float tWave;
@@ -612,9 +612,9 @@ namespace AegirCore.Simulation.Water
             // phase = speed * frequence
 
             NBWAVES = 6;
-            wave = new Wave[NBWAVES];
+            wave = new WaveOptions[NBWAVES];
 
-            wave[0] = new Wave();
+            wave[0] = new WaveOptions();
             wave[0].Len = 3.46f;
             wave[0].Amp = 0.09f;
             wave[0].Speed = 1.5f;
@@ -624,7 +624,7 @@ namespace AegirCore.Simulation.Water
             wave[0].Freq = 2f * (float)Math.PI / wave[0].Len;
             wave[0].Phase = wave[0].Speed * wave[0].Freq;
 
-            wave[1] = new Wave();
+            wave[1] = new WaveOptions();
             wave[1].Len = 2.38f;
             wave[1].Amp = 0.06f;
             wave[1].Speed = 0.98f;
@@ -634,7 +634,7 @@ namespace AegirCore.Simulation.Water
             wave[1].Freq = 2f * (float)Math.PI / wave[1].Len;
             wave[1].Phase = wave[1].Speed * wave[1].Freq;
 
-            wave[2] = new Wave();
+            wave[2] = new WaveOptions();
             wave[2].Len = 5.93f;
             wave[2].Amp = 0.15f;
             wave[2].Speed = 0.49f;
@@ -644,7 +644,7 @@ namespace AegirCore.Simulation.Water
             wave[2].Freq = 2f * (float)Math.PI / wave[2].Len;
             wave[2].Phase = wave[2].Speed * wave[2].Freq;
 
-            wave[3] = new Wave();
+            wave[3] = new WaveOptions();
             wave[3].Len = 6.2f;
             wave[3].Amp = 0.15f;
             wave[3].Speed = 1.75f;
@@ -654,7 +654,7 @@ namespace AegirCore.Simulation.Water
             wave[3].Freq = 2f * (float)Math.PI / wave[3].Len;
             wave[3].Phase = wave[3].Speed * wave[3].Freq;
 
-            wave[4] = new Wave();
+            wave[4] = new WaveOptions();
             wave[4].Len = 3.78f;
             wave[4].Amp = 0.09f;
             wave[4].Speed = 1.06f;
@@ -664,7 +664,7 @@ namespace AegirCore.Simulation.Water
             wave[4].Freq = 2f * (float)Math.PI / wave[4].Len;
             wave[4].Phase = wave[4].Speed * wave[4].Freq;
 
-            wave[5] = new Wave();
+            wave[5] = new WaveOptions();
             wave[5].Len = 8.82f;
             wave[5].Amp = 0.22f;
             wave[5].Speed = 0.00f;
@@ -682,14 +682,14 @@ namespace AegirCore.Simulation.Water
             // phase = speed * frequence
 
             NBWAVES = nbWaves;
-            wave = new Wave[nbWaves];
+            wave = new WaveOptions[nbWaves];
 
             for (int w = 0; w < nbWaves; w++)
             {
                 //mRand.Initialize();
 
                 float t = mRand.NextFloatPositive();
-                wave[w] = new Wave();
+                wave[w] = new WaveOptions();
                 wave[w].Len = 15f * t * mRand.NextFloatPositive();
                 wave[w].Amp = wave[w].Len * 0.025f;
                 wave[w].Speed = wave[w].Len * mRand.NextFloatPositive();
@@ -708,10 +708,10 @@ namespace AegirCore.Simulation.Water
             // phase = speed * frequence
 
             NBWAVES = nbWaves;
-            wave = new Wave[nbWaves];
+            wave = new WaveOptions[nbWaves];
 
             float t = mRand.NextFloatPositive();
-            wave[0] = new Wave();
+            wave[0] = new WaveOptions();
             wave[0].Len = 15f;// +5f * mRand.NextFloatPositive();
             wave[0].Amp = wave[0].Len * 0.025f;
             wave[0].Speed = 0.15f * wave[0].Len;// wave[0].len * mRand.NextFloatPositive();
@@ -724,7 +724,7 @@ namespace AegirCore.Simulation.Water
             for (int w = 1; w < nbWaves; w++)
             {
                 t = mRand.NextFloatPositive();
-                wave[w] = new Wave();
+                wave[w] = new WaveOptions();
                 wave[w].Len = (float)w + mRand.NextFloatPositive();
                 wave[w].Amp = wave[w].Len * 0.025f;
                 wave[w].Speed = 0.15f * wave[w].Len;// wave[w].len * mRand.NextFloatPositive();

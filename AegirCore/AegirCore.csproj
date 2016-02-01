@@ -127,7 +127,7 @@
     <Compile Include="Simulation\Water\WaterMesh.cs" />
     <Compile Include="Simulation\Water\WaterOptions.cs" />
     <Compile Include="Simulation\Water\WaterSimulationMode.cs" />
-    <Compile Include="Simulation\Water\Wave.cs" />
+    <Compile Include="Simulation\Water\WaveOptions.cs" />
     <Compile Include="Simulation\Water\Wave\CurveWave.cs" />
     <Compile Include="Simulation\Water\Wave\FlatWave.cs" />
     <Compile Include="Vessel\VesselConfiguration.cs" />

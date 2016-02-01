@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AegirCore.Simulation.Water.Wave
+namespace AegirCore.Simulation.Water.Waves
 {
     public class FlatWave
     {
