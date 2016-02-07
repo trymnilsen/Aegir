@@ -19,23 +19,7 @@ namespace AegirCore.Keyframe
         {
 
         }
-        public void CreateKeyframe(Node node)
-        {
-            //Get all behaviours on node
-            IEnumerable<BehaviourComponent> behaviours = node.Components;
-            List<PropertyInfo> animatedProperties = new List<PropertyInfo>();
 
-            foreach(BehaviourComponent behaviour in behaviours)
-            {
-                Type behaviourType = behaviour.GetType();
-                IEnumerable<PropertyInfo> properties = behaviourType.GetProperties().Where(
-                    prop => Attribute.IsDefined(prop, typeof(KeyframeAnimationProperty)));
-
-                animatedProperties.AddRange(properties);
-            }
-
-
-        }
         /// <summary>
         /// Sets the current time on timeline for the engine and transforms
         /// values to this value as well
