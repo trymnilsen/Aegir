@@ -81,6 +81,12 @@
     <Compile Include="Entity\GNSSReceiver.cs" />
     <Compile Include="Entity\Map.cs" />
     <Compile Include="Entity\Vessel.cs" />
+    <Compile Include="Keyframe\EventKeyframe.cs" />
+    <Compile Include="Keyframe\Keyframe.cs" />
+    <Compile Include="Keyframe\KeyframeAnimationPropertyAttribute.cs" />
+    <Compile Include="Keyframe\KeyframeEngine.cs" />
+    <Compile Include="Keyframe\Timeline.cs" />
+    <Compile Include="Keyframe\ValueKeyframe.cs" />
     <Compile Include="Mesh\Loader\MeshLoader.cs" />
     <Compile Include="Mesh\MeshData.cs" />
     <Compile Include="Mesh\Loader\IModelLoader.cs" />
@@ -147,7 +153,10 @@
     <Analyzer Include="..\packages\Microsoft.CodeAnalysis.Analyzers.1.0.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.CSharp.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Behaviour\Keyframe\" />
     <Folder Include="Collections\" />
+    <Folder Include="Keyframe\Animator\" />
+    <Folder Include="Keyframe\Executor\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

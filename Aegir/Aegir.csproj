@@ -189,6 +189,7 @@
     <Compile Include="ViewModel\Properties\NodeViewModel.cs" />
     <Compile Include="ViewModel\Properties\PropertiesViewModel.cs" />
     <Compile Include="ViewModel\StatusBarViewModel.cs" />
+    <Compile Include="ViewModel\Timeline\TimelineViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="ViewModel\WaypointViewModel.cs" />
     <Compile Include="View\ComponentEditor.xaml.cs">
@@ -252,6 +253,9 @@
     </Compile>
     <Compile Include="Windows\TimelineSettings.xaml.cs">
       <DependentUpon>TimelineSettings.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\VesselSelector.xaml.cs">
+      <DependentUpon>VesselSelector.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\VesselSetup.xaml.cs">
       <DependentUpon>VesselSetup.xaml</DependentUpon>
@@ -348,6 +352,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Windows\VesselSelector.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Windows\VesselSetup.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -396,7 +404,9 @@
     <None Include="hulltall.obj">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

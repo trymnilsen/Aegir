@@ -12,14 +12,14 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace Aegir.Ui.VesselSelector
+namespace Aegir.Windows
 {
     /// <summary>
-    /// Interaction logic for VesselSelectorWindow.xaml
+    /// Interaction logic for VesselSelector.xaml
     /// </summary>
-    public partial class VesselSelectorWindow : Window
+    public partial class VesselSelector : Window
     {
-        public VesselSelectorWindow()
+        public VesselSelector()
         {
             InitializeComponent();
         }
