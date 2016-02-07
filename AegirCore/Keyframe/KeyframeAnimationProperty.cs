@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace AegirCore.Keyframe
 {
     [System.AttributeUsage(AttributeTargets.Property, Inherited = false)]
-    public sealed class KeyframeAnimationPropertyAttribute : Attribute
+    public sealed class KeyframeAnimationProperty : Attribute
     {
 
     }

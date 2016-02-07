@@ -83,9 +83,9 @@
     <Compile Include="Entity\Vessel.cs" />
     <Compile Include="Keyframe\EventKeyframe.cs" />
     <Compile Include="Keyframe\Keyframe.cs" />
-    <Compile Include="Keyframe\KeyframeAnimationPropertyAttribute.cs" />
+    <Compile Include="Keyframe\KeyframeAnimationProperty.cs" />
     <Compile Include="Keyframe\KeyframeEngine.cs" />
-    <Compile Include="Keyframe\Timeline.cs" />
+    <Compile Include="Keyframe\KeyframeTimeline.cs" />
     <Compile Include="Keyframe\ValueKeyframe.cs" />
     <Compile Include="Mesh\Loader\MeshLoader.cs" />
     <Compile Include="Mesh\MeshData.cs" />

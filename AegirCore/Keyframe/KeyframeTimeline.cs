@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace AegirCore.Keyframe
 {
-    public class Timeline
+    public class KeyframeTimeline
     {
         public Dictionary<Node,SortedDictionary<int, List<Keyframe>>> Keyframes { get; set; }
 

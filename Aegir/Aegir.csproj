@@ -189,6 +189,7 @@
     <Compile Include="ViewModel\Properties\NodeViewModel.cs" />
     <Compile Include="ViewModel\Properties\PropertiesViewModel.cs" />
     <Compile Include="ViewModel\StatusBarViewModel.cs" />
+    <Compile Include="ViewModel\Timeline\KeyframeViewModel.cs" />
     <Compile Include="ViewModel\Timeline\TimelineViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="ViewModel\WaypointViewModel.cs" />
