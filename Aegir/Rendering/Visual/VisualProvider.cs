@@ -17,6 +17,16 @@ namespace Aegir.Rendering.Visual
         {
             visualCache = new Dictionary<RenderItem, Visual3D>();
         }
-        public abstract Visual3D GetVisual(RenderItem renderItem);
+        public Visual3D GetVisual(RenderItem renderItem)
+        {
+            if (visualCache.ContainsKey(renderItem))
+            {
+                return visualCache[renderItem];
+            }
+            Visual3D visual = CreateVisual(renderItem);
+            visualCache[renderItem] = visual;
+            return visual;
+        }
+        protected abstract Visual3D CreateVisual(RenderItem renderItem);
     }
 }

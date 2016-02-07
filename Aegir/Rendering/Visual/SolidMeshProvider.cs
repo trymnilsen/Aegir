@@ -15,21 +15,10 @@ namespace Aegir.Rendering.Visual
 {
     public class SolidMeshProvider : VisualProvider
     {
-        public override Visual3D GetVisual(RenderItem renderItem)
-        {
-            if (visualCache.ContainsKey(renderItem))
-            {
-                return visualCache[renderItem];
-            }
-            Visual3D visual = GenerateMesh(renderItem);
-            visualCache[renderItem] = visual;
-            return visual;
-        }
-
-        private Visual3D GenerateMesh(RenderItem model)
+        protected override Visual3D CreateVisual(RenderItem renderItem)
         {
             MeshGeometryVisual3D visual = new MeshGeometryVisual3D();
-            visual.MeshGeometry = model.Geometry;
+            visual.MeshGeometry = renderItem.Geometry;
             visual.Material = new DiffuseMaterial(new SolidColorBrush(System.Windows.Media.Color.FromArgb(255, 122, 122, 122)));
             return visual;
             ////Need to Vertexes to points3d

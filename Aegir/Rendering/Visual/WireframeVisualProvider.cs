@@ -17,7 +17,7 @@ namespace Aegir.Rendering.Visual
 
         }
 
-        public override Visual3D GetVisual(RenderItem renderItem)
+        protected override Visual3D CreateVisual(RenderItem renderItem)
         {
             return null;
         }
