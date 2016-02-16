@@ -1,5 +1,6 @@
 ﻿using Aegir.Rendering.Visual;
 using Aegir.ViewModel.NodeProxy;
+using AegirCore.Behaviour.World;
 using AegirCore.Scene;
 using HelixToolkit.Wpf;
 using log4net;
@@ -28,8 +29,13 @@ namespace Aegir.Rendering
             this.VisualFactory = VisualFactory;
             listeners = new List<RenderItemListener>();
         }
-
-        public void AddMeshToView(RenderItem renderItem)
+        public void AddVisual(Visual3D visual, TransformBehaviour transform)
+        {
+            RenderItemListener listener = new RenderItemListener(visual, transform);
+            listeners.Add(listener);
+            viewport.Children.Add(visual);
+        }
+        public void AddRenderItemToView(RenderItem renderItem)
         {
             if(VisualFactory==null)
             {
@@ -44,9 +50,7 @@ namespace Aegir.Rendering
             else
             {
                 Visual3D visual = VisualFactory.GetVisual(RenderMode, renderItem);
-                RenderItemListener listener = new RenderItemListener(visual, renderItem);
-                listeners.Add(listener);
-                viewport.Children.Add(visual);
+                AddVisual(visual, renderItem.Transform);
             }
         }
         public void ClearView()

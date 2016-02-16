@@ -17,7 +17,7 @@ namespace AegirCore.Keyframe
         {
             return null;
         }
-        public void CreateKeyframeOnNode(Node node)
+        public void CreateKeyframeOnNode(Node node, int time)
         {
             //Get all behaviours on node
             IEnumerable<BehaviourComponent> behaviours = node.Components;

@@ -96,6 +96,15 @@ namespace Aegir.Rendering
             {
                 renderBehaviour.MeshChanged += RenderBehaviour_MeshChanged;
             }
+            else
+            {
+                //No meshdata, lets show a dummy
+                Visual3D dummyVisual = GetDummyVisual();
+                var transformBehaviour = node.GetNodeComponent<TransformBehaviour>();
+
+                AddToViewports(dummyVisual, transformBehaviour);
+            }
+
             //RenderItem renderItem = null;
             ////Get rendering mode
             //RenderingMode mode = RenderMode;
@@ -126,12 +135,19 @@ namespace Aegir.Rendering
             //meshListeners.Add(listener);
             ////Add to each viewpoer
         }
-        private void AddRenderItemToViewports(RenderItem itemToRender)
+        private void AddToViewports(RenderItem itemToRender)
         {
             renderItems.Add(itemToRender);
             foreach (ViewportRenderer viewport in viewports)
             {
-                viewport.AddMeshToView(itemToRender);
+                viewport.AddRenderItemToView(itemToRender);
+            }
+        }
+        private void AddToViewports(Visual3D visual, TransformBehaviour transform)
+        {
+            foreach(ViewportRenderer viewport in viewports)
+            {
+                viewport.AddVisual(visual, transform);
             }
         }
         private void RenderBehaviour_MeshChanged(MeshBehaviour source, MeshChangedArgs eventArgs)
@@ -165,7 +181,7 @@ namespace Aegir.Rendering
             {
                 
                 RenderItem newMeshItem = new RenderItem(meshFactory, mesh.Mesh, transform);
-                AddRenderItemToViewports(newMeshItem);
+                AddToViewports(newMeshItem);
             }
             else
             {

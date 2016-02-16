@@ -12,16 +12,16 @@ namespace Aegir.Rendering
     {
         public Visual3D Visual { get; private set; }
 
-        public RenderItem Item { get; private set; }
+        public TransformBehaviour Item { get; private set; }
 
-        public RenderItemListener(Visual3D visual, RenderItem item)
+        public RenderItemListener(Visual3D visual, TransformBehaviour item)
         {
             this.Visual = visual;
             this.Item = item;
         }
         public void Invalidate()
         {
-            Transform3D transformation = GetVisualTransformation(Item.Transform);
+            Transform3D transformation = GetVisualTransformation(Item);
             Visual.Dispatcher.InvokeAsync(() =>
             {
                 Visual.Transform = transformation;

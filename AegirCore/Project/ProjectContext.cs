@@ -55,10 +55,8 @@ namespace AegirCore.Project
             World worldNode = new World();
 
             var vessel = new Entity.Vessel(worldNode.GetComponent<WaterSimulation>()?.Mesh);
-            vessel.Children.Add(new GNSSReceiver() { Name = "In Aft" });
-            vessel.Children.Add(new GNSSReceiver() { Name = "In Fore" });
-            vessel.Children.Add(new GNSSReceiver() { Name = "Out Aft" });
-            vessel.Children.Add(new GNSSReceiver() { Name = "Out Fore" });
+            vessel.Children.Add(new GNSSReceiver() { Name = "Aft" });
+            vessel.Children.Add(new GNSSReceiver() { Name = "Fore" });
             worldNode.Children.Add(vessel);
             scene.RootNodes.Add(worldNode);
             scene.RootNodes.Add(new Map());
