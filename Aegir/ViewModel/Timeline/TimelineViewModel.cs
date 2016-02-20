@@ -154,16 +154,19 @@ namespace Aegir.ViewModel.Timeline
         {
             if(timeline != null)
             {
-                timeline.KeyframeAdded -= NewTimeline_KeyframeAdded;
+                timeline.KeyframeAdded -= Timeline_KeyframeAdded;
             }
-            newTimeline.KeyframeAdded += NewTimeline_KeyframeAdded;
+            newTimeline.KeyframeAdded += Timeline_KeyframeAdded;
             timeline = newTimeline;
         }
         /// <summary>
         /// Event for when a keyframe is added to the timeline
         /// </summary>
         /// <param name="key"></param>
-        private void NewTimeline_KeyframeAdded(Keyframe key)
+
+
+        private void Timeline_KeyframeAdded(Keyframe key)
+
         {
             throw new NotImplementedException();
         }
