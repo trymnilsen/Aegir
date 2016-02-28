@@ -1,4 +1,5 @@
-﻿using AegirCore.Scene;
+﻿using AegirCore.Keyframe;
+using AegirCore.Scene;
 using log4net;
 using System;
 using System.Collections.Generic;
@@ -45,6 +46,13 @@ namespace AegirCore.Simulation
         /// </summary>
         private SceneGraph scene;
 
+        private KeyframeEngine keyframeExecutor;
+
+        public KeyframeEngine KeyframeEngine
+        {
+            get { return keyframeExecutor; }
+        }
+
         /// <summary>
         /// The timescale used in the engine, enables slowing down time or speeding it up
         /// </summary>
@@ -78,6 +86,8 @@ namespace AegirCore.Simulation
 
             this.simTime = new SimulationTime();
             this.simulateStepTimer = new Timer(new TimerCallback(DoSimulation), null, Timeout.Infinite, targetDeltaTime);
+
+            this.keyframeExecutor = new KeyframeEngine();
         }
 
         /// <summary>

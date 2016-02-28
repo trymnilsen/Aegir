@@ -7,9 +7,30 @@
              mc:Ignorable="d" 
              d:DesignHeight="32" d:DesignWidth="300"
              SizeChanged="UserControl_SizeChanged">
-    <Grid>
+    <Grid Background="Transparent">
+        <Grid.ContextMenu>
+            <ContextMenu>
+                <MenuItem Header="Aft : Transform - X"></MenuItem>
+                <MenuItem Header="Aft : Transform - Y"></MenuItem>
+                <MenuItem Header="Aft : Transform - Z"></MenuItem>
+                <Separator></Separator>
+                <MenuItem Header="Delete Key">
+                    <MenuItem Header="Aft : Transform - X"></MenuItem>
+                    <MenuItem Header="Aft : Transform - Y"></MenuItem>
+                    <MenuItem Header="Aft : Transform - Z"></MenuItem>
+                    <Separator></Separator>
+                    <MenuItem Header="All"></MenuItem>
+                </MenuItem>
+                <Separator></Separator>
+                <MenuItem Header="Filter">
+                    <MenuItem Header="All"></MenuItem>
+                    <MenuItem Header="Transform Keys"></MenuItem>
+                </MenuItem>
+                <Separator></Separator>
+                <MenuItem Header="Go to time"></MenuItem>
+            </ContextMenu>
+        </Grid.ContextMenu>
         <Canvas SnapsToDevicePixels="True" Grid.Row="1" Height="28px" VerticalAlignment="Top" x:Name="KeyFrameTimeLineRuler">
         </Canvas >
-        
     </Grid>
 </UserControl>

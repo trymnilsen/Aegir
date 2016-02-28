@@ -1,4 +1,5 @@
-﻿using AegirCore.Scene;
+﻿using AegirCore.Keyframe;
+using AegirCore.Scene;
 using AegirType;
 
 namespace AegirCore.Behaviour.World
@@ -10,6 +11,7 @@ namespace AegirCore.Behaviour.World
 
         public bool Notify { get; set; }
 
+        [KeyframeAnimationProperty]
         public Vector3 Position
         {
             get { return position; }

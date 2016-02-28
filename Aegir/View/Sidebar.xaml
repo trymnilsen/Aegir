@@ -73,72 +73,7 @@
               ShowsPreview="True"
               Height="5"></GridSplitter>
         <Border Grid.Row="2">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="20px"/>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
-                <Grid Background="White">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="30px"/>
-                        <ColumnDefinition Width="50px"/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
-                    <Border Background="White" SnapsToDevicePixels="True" BorderThickness="1"
-                                    Padding="1" Width="14" Height="13" Margin="0 -1 5 0">
-                        <Border.BorderBrush>
-                            <SolidColorBrush>
-                                <SolidColorBrush.Color>
-                                    <Color R="112" G="112" B="112" A="255"></Color>
-                                </SolidColorBrush.Color>
-                            </SolidColorBrush>
-                        </Border.BorderBrush>
-                        <Rectangle SnapsToDevicePixels="True" Width="10" Height="9" Fill="Orange"></Rectangle>
-                    </Border>
-                    <TextBlock Text="Name: " Grid.Column="1"></TextBlock>
-                    <TextBox Grid.Column="2"></TextBox>
-                </Grid>
-                <ListBox Grid.Row="1" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.CanContentScroll="True">
-                    <ListBoxItem>
-                        <StackPanel Orientation="Horizontal">
-                            <CheckBox IsChecked="True" Margin="0 0 5 0"></CheckBox>
-                            <TextBlock Text="Network"></TextBlock>
-                        </StackPanel>
-                    </ListBoxItem>
-                    <ListBoxItem>
-                        <StackPanel Orientation="Horizontal">
-                            <CheckBox IsChecked="True" Margin="0 0 5 0"></CheckBox>
-                            <TextBlock Text="File"></TextBlock>
-                        </StackPanel>
-                    </ListBoxItem>
-                    <ListBoxItem>
-                        <StackPanel Orientation="Horizontal">
-                            <CheckBox IsChecked="True" Margin="0 0 5 0"></CheckBox>
-                            <TextBlock Text="Simulation"></TextBlock>
-                        </StackPanel>
-                    </ListBoxItem>
-                    <ListBoxItem>
-                        <StackPanel Orientation="Horizontal">
-                            <CheckBox IsChecked="True" Margin="0 0 5 0"></CheckBox>
-                            <TextBlock Text="Transform"></TextBlock>
-                        </StackPanel>
-                    </ListBoxItem>
-                    <ListBoxItem>
-                        <StackPanel Orientation="Horizontal">
-                            <CheckBox IsChecked="True" Margin="0 0 5 0"></CheckBox>
-                            <TextBlock Text="Rendering"></TextBlock>
-                        </StackPanel>
-                    </ListBoxItem>
-                    <ListBoxItem>
-                        <StackPanel Orientation="Horizontal">
-                            <CheckBox IsChecked="True" Margin="0 0 5 0"></CheckBox>
-                            <TextBlock Text="Navigation"></TextBlock>
-                        </StackPanel>
-                    </ListBoxItem>
-                </ListBox>
-            <views:ComponentEditor Grid.Row="2"></views:ComponentEditor>
-            </Grid>
+            <views:ComponentEditor></views:ComponentEditor>
         </Border>
     </Grid>
 </UserControl>

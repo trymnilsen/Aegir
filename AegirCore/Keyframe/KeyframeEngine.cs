@@ -13,11 +13,9 @@ namespace AegirCore.Keyframe
     {
         public KeyframeTimeline Keyframes { get; set; }
 
-        public SceneGraph Scene { get; set; }
-
         public KeyframeEngine()
         {
-
+            Keyframes = new KeyframeTimeline();
         }
 
         /// <summary>

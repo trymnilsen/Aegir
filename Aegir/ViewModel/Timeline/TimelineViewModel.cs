@@ -119,6 +119,7 @@ namespace Aegir.ViewModel.Timeline
             MessengerInstance.Register<SelectedNodeChanged>(this, ActiveNodeChanged);
             MessengerInstance.Register<ActiveTimelineChanged>(this, TimelineChanged);
             AddKeyframeCommand = new RelayCommand(AddKeyframes);
+            Keyframes = new ObservableCollection<KeyframeViewModel>();
         }
         /// <summary>
         /// Requests the timeline to create a new "Snapshot" of keyframes for the given timeline time
@@ -154,7 +155,7 @@ namespace Aegir.ViewModel.Timeline
             log.DebugFormat("SelectedNodeChanged Received, ActiveNode Changed to {0}",
                             activeNode?.Name);
 
-            ResetTimeline(TimelineStart,TimelineEnd);
+            //ResetTimeline(TimelineStart,TimelineEnd);
         }
         /// <summary>
         /// Set the range for the curent timeline
@@ -196,7 +197,10 @@ namespace Aegir.ViewModel.Timeline
 
         private void Timeline_KeyframeAdded(Node node, int time, Keyframe key)
         {
-            
+            KeyframeViewModel keyVM = new KeyframeViewModel();
+            keyVM.Time = time;
+
+            Keyframes.Add(keyVM);
         }
     }
 }

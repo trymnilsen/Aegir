@@ -1,5 +1,6 @@
 ﻿using Aegir.Messages.Project;
 using Aegir.Messages.Simulation;
+using Aegir.Messages.Timeline;
 using AegirCore;
 using AegirCore.Project;
 using AegirCore.Project.Event;
@@ -30,6 +31,7 @@ namespace Aegir
         {
             ProjectData newProject = Context.Project.CreateNewProject();
             Context.Project.OpenProject(newProject);
+            ActiveTimelineChanged.Send(Context.Engine.KeyframeEngine.Keyframes);
         }
 
         private void OpenProject(LoadProjectFile message)

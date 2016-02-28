@@ -56,6 +56,7 @@
                                             Background="#FFCDCDCD"
                                             TicksColor="#FF404040"
                                             CurrentTime="{Binding Time}"
+                                            KeyframeSource="{Binding Keyframes}"
                                             CurrentTimeHighlightColor="#332929D6"></local:KeyframeTimeline>
                 </Grid>
             </Border>

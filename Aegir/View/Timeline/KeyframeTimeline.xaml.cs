@@ -1,6 +1,10 @@
 ﻿using Aegir.Util;
+using Aegir.ViewModel.Timeline;
+using log4net;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -22,7 +26,10 @@ namespace Aegir.View.Timeline
     /// </summary>
     public partial class KeyframeTimeline : UserControl
     {
+        private static readonly ILog log = LogManager.GetLogger(typeof(KeyframeTimeline));
+
         private Rectangle currentTimeHighlighter;
+        private List<Visual> keyframeVisuals;
         /// <summary>
         /// Where the start of our timeline is
         /// </summary>
@@ -134,13 +141,79 @@ namespace Aegir.View.Timeline
                                     new PropertyChangedCallback(CurrentTimeHighlightChanged)
                                 ));
 
+
+
+        public ObservableCollection<KeyframeViewModel> KeyframeSource
+        {
+            get { return GetValue(KeyframeSourceProperty) as ObservableCollection<KeyframeViewModel>; }
+            set
+            {
+                SetValue(KeyframeSourceProperty, value);
+            }
+        }
+
+        // Using a DependencyProperty as the backing store for MyProperty.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty KeyframeSourceProperty =
+            DependencyProperty.Register(nameof(KeyframeSource), 
+                                typeof(ObservableCollection<KeyframeViewModel>), 
+                                typeof(KeyframeTimeline), 
+                                new PropertyMetadata(
+                                   new PropertyChangedCallback(KeyframeSourceChanged)
+                                ));
+
         /// <summary>
         /// Instanciates a new Keyframe timeline
         /// </summary>
         public KeyframeTimeline()
         {
             InitializeComponent();
+            keyframeVisuals = new List<Visual>();
+        }
+        /// <summary>
+        /// Handler for changes to our collection of keyframe viewmodels
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void KeyframeSource_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            if(e.Action == NotifyCollectionChangedAction.Add)
+            {
+                foreach(KeyframeViewModel keyVM in e.NewItems)
+                {
+                    AddKeyframe(keyVM);
+                }
+            }
+            else
+            {
+                InvalidateKeyframeVisuals();
+            }
+        }
 
+        /// <summary>
+        /// DP Callback for the keyframes source
+        /// </summary>
+        /// <param name="d"></param>
+        /// <param name="e"></param>
+        private static void KeyframeSourceChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            KeyframeTimeline view = d as KeyframeTimeline;
+            if (view != null)
+            {
+                if(e.OldValue!=null && e.OldValue is ObservableCollection<KeyframeViewModel>)
+                {
+
+                    (e.OldValue as ObservableCollection<KeyframeViewModel>).CollectionChanged -= 
+                                                        view.KeyframeSource_CollectionChanged;
+                }
+                if (e.NewValue != null && e.NewValue is ObservableCollection<KeyframeViewModel>)
+                {
+
+                    (e.NewValue as ObservableCollection<KeyframeViewModel>).CollectionChanged +=
+                                                        view.KeyframeSource_CollectionChanged;
+                }
+
+                view.InvalidateKeyframeVisuals();
+            }
         }
         /// <summary>
         /// Callback for dependency property of the color of our ticks
@@ -175,7 +248,6 @@ namespace Aegir.View.Timeline
         /// <param name="e">Event object for our change</param>
         public static void TimeRangeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            DebugUtil.LogWithLocation("DP Callback, TimeRangeStartChanged");
             KeyframeTimeline view = d as KeyframeTimeline;
             if (view != null)
             {
@@ -189,7 +261,6 @@ namespace Aegir.View.Timeline
         /// <param name="e">Event object for our change</param>
         public static void CurrentTimeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            DebugUtil.LogWithLocation("DP Callback, TimeRangeStartChanged");
             KeyframeTimeline view = d as KeyframeTimeline;
             if (view != null)
             {
@@ -201,9 +272,8 @@ namespace Aegir.View.Timeline
         /// </summary>
         public void UpdateTimeRange()
         {
-            DebugUtil.LogWithLocation("TimeRange Update: " + TimeRangeStart + "/" + TimeRangeEnd);
-            InvalidateTimeline();
-            InvalidateCurrentTimeHighlight();
+            log.DebugFormat("TimeRange Update: {0} / {1}", TimeRangeStart, TimeRangeEnd);
+            InvalidateFullTimeline();
         }
         /// <summary>
         /// Updates the current time on timeline and invalidates the highlight rectangle
@@ -219,8 +289,16 @@ namespace Aegir.View.Timeline
         /// <param name="e"></param>
         private void UserControl_SizeChanged(object sender, SizeChangedEventArgs e)
         {
+            InvalidateFullTimeline();
+        }
+        /// <summary>
+        /// Invalidates all of the timeline parts
+        /// </summary>
+        private void InvalidateFullTimeline()
+        {
             InvalidateTimeline();
             InvalidateCurrentTimeHighlight();
+            InvalidateKeyframeVisuals();
         }
         /// <summary>
         /// Invalidates the position and color of the current time highlight rectangle
@@ -246,12 +324,23 @@ namespace Aegir.View.Timeline
             Canvas.SetTop(currentTimeHighlighter, 0);
         }
         /// <summary>
+        /// Invalidate the visuals related to showing keyframes
+        /// </summary>
+        private void InvalidateKeyframeVisuals()
+        {
+            keyframeVisuals.Clear();
+            foreach(KeyframeViewModel keyframe in KeyframeSource)
+            {
+                AddKeyframe(keyframe);
+            }
+        }
+        /// <summary>
         /// Invalidates the size of the timeline
         /// </summary>
         private void InvalidateTimeline()
         {
             //Get range
-            int range = (TimeRangeEnd - TimeRangeStart) +1;
+            int range = (TimeRangeEnd - TimeRangeStart) + 1;
             //For now always have 5 segments
             double segmentSize = (ActualWidth / range  ) * 10;
 
@@ -260,7 +349,27 @@ namespace Aegir.View.Timeline
             //Set Ruler Thickness
             int numOfSegments = (int)Math.Ceiling(range / 10d);
             GenerateTickSegments(range, numOfSegments, 10);
+            
+        }
+        /// <summary>
+        /// Add visual for a single keyframe
+        /// </summary>
+        /// <param name="key"></param>
+        private void AddKeyframe(KeyframeViewModel key)
+        {
+            Rectangle keyframeRectangle = new Rectangle();
+            keyframeRectangle.Width = 7;
+            keyframeRectangle.Height = 7;
+            keyframeRectangle.Fill = new SolidColorBrush(Color.FromArgb(255, 204, 48, 9));
+            keyframeRectangle.Stroke = new SolidColorBrush(Color.FromArgb(255, 60, 14, 2));
+            keyframeRectangle.StrokeThickness = 1;
+            double stepSize = (ActualWidth - 20) / (TimeRangeEnd - TimeRangeStart);
+            double leftOffset = stepSize * key.Time + 10;
+            Canvas.SetLeft(keyframeRectangle, leftOffset - 4);
+            Canvas.SetTop(keyframeRectangle, 16);
 
+            this.KeyFrameTimeLineRuler.Children.Add(keyframeRectangle);
+            keyframeVisuals.Add(keyframeRectangle);
         }
         /// <summary>
         /// Generates tick visuals

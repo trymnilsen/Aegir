@@ -17,9 +17,9 @@ namespace Aegir.Messages.Timeline
             this.Timeline = timeline;
         }
 
-        public static void Send(KeyframeTimeline selectedNode)
+        public static void Send(KeyframeTimeline timeline)
         {
-            Messenger.Default.Send<ActiveTimelineChanged>(new ActiveTimelineChanged(selectedNode));
+            Messenger.Default.Send<ActiveTimelineChanged>(new ActiveTimelineChanged(timeline));
         }
     }
 }
