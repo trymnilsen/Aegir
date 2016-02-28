@@ -7,7 +7,8 @@
              xmlns:fa="http://schemas.fontawesome.io/icons/"
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              mc:Ignorable="d"
-             d:DesignHeight="50" d:DesignWidth="800">
+             d:DesignHeight="50" d:DesignWidth="800"
+             DataContext="{Binding TimelineVM, Source={StaticResource VMLocator}}">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -37,7 +38,7 @@
                         </Style.Triggers>
                     </Style>
                 </Border.Style>
-                <Slider Margin="0 0 0 0" x:Name="FrameSlider" Minimum="{Binding ElementName=TimeRangeStartField, Path=Value}" Maximum="{Binding ElementName=TimeRangeEndField, Path=Value}" IsSnapToTickEnabled="True" LargeChange="1"
+                <Slider Margin="0 0 0 0" x:Name="FrameSlider" Value="{Binding Time}" Minimum="{Binding TimelineStart}" Maximum="{Binding TimelineEnd}" IsSnapToTickEnabled="True" LargeChange="1"
                     Style="{DynamicResource FrameSliderStyle}" Background="#FFF0F0F0" />
             </Border>
             
@@ -54,9 +55,8 @@
                     <local:KeyframeTimeline Grid.Column="1"
                                             Background="#FFCDCDCD"
                                             TicksColor="#FF404040"
-                                            CurrentTime="{Binding ElementName=FrameSlider, Path=Value}"
-                                            TimeRangeEnd="{Binding ElementName=TimeRangeEndField, Path=Value}"
-                                            TimeRangeStart="{Binding ElementName=TimeRangeStartField, Path=Value}" CurrentTimeHighlightColor="#332929D6"></local:KeyframeTimeline>
+                                            CurrentTime="{Binding Time}"
+                                            CurrentTimeHighlightColor="#332929D6"></local:KeyframeTimeline>
                 </Grid>
             </Border>
         </Grid>
@@ -92,7 +92,7 @@
                 <fa:ImageAwesome Icon="SearchMinus"></fa:ImageAwesome>
             </RepeatButton>
             <!--Key Buttons-->
-            <Button Content="Set Key" Grid.Column="1"></Button>
+            <Button Content="Set Key" Grid.Column="1" Command="{Binding AddKeyframeCommand}"></Button>
             <ToggleButton Content="Auto Key" Grid.Column="1" Grid.Row="1" x:Name="ToggleAutoKeyButton">
                 <ToggleButton.Style>
                     <Style TargetType="ToggleButton">
@@ -123,8 +123,7 @@
                 </Button>
             </StackPanel>
             <StackPanel Grid.Column="2" Grid.Row="1" Orientation="Horizontal">
-                <xctk:IntegerUpDown Width="55px" Value="0" x:Name="TimeRangeStartField"></xctk:IntegerUpDown>
-                <xctk:IntegerUpDown Width="55px" Value="100" x:Name="TimeRangeEndField"></xctk:IntegerUpDown>
+                <xctk:IntegerUpDown Width="112px" Value="{Binding Time}" x:Name="TimeRangeStartField"></xctk:IntegerUpDown>
                 <Button Style="{StaticResource PlayBackButton}">
                     <fa:ImageAwesome Icon="ListUl"></fa:ImageAwesome>
                 </Button>

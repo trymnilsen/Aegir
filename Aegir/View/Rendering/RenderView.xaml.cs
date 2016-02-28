@@ -100,7 +100,7 @@ namespace Aegir.View.Rendering
 
         private void OnInvalidateChildren()
         {
-            //renderHandler.Invalidate();
+            renderHandler.Invalidate();
         }
 
         /// <summary>

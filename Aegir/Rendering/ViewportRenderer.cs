@@ -19,14 +19,34 @@ namespace Aegir.Rendering
         private HelixViewport3D viewport;
         private List<RenderItemListener> listeners;
 
-        public VisualFactory VisualFactory { get; set; }
+        private VisualFactory visualFactory;
+
+        public VisualFactory VisualFactory
+        {
+            get
+            {
+                if (visualFactory == null)
+                {
+                    string viewPortName = "NAMENOTDEFINED";
+                    if (viewport.Name != null && viewport.Name != string.Empty)
+                    {
+                        viewPortName = viewport.Name;
+                    }
+                    log.WarnFormat("No visual factory provided for viewport {0}",
+                        viewPortName);
+                }
+                return visualFactory;
+            }
+            set { visualFactory = value; }
+        }
+
         public RenderingMode RenderMode { get; set; }
 
         public ViewportRenderer(HelixViewport3D viewport)
         {
             RenderMode = RenderingMode.Solid;
             this.viewport = viewport;
-            this.VisualFactory = VisualFactory;
+            this.visualFactory = VisualFactory;
             listeners = new List<RenderItemListener>();
         }
         public void AddVisual(Visual3D visual, TransformBehaviour transform)
@@ -34,6 +54,18 @@ namespace Aegir.Rendering
             RenderItemListener listener = new RenderItemListener(visual, transform);
             listeners.Add(listener);
             viewport.Children.Add(visual);
+        }
+        public void AddDummy(TransformBehaviour transformBehaviour)
+        {
+            Visual3D dummyVisual = VisualFactory.GetDummyVisual();
+            AddVisual(dummyVisual, transformBehaviour);
+        }
+        public void InvalidateVisuals()
+        {
+            foreach(RenderItemListener listener in listeners)
+            {
+                listener.Invalidate();
+            }
         }
         public void AddRenderItemToView(RenderItem renderItem)
         {

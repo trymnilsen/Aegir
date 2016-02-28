@@ -1,5 +1,6 @@
 ﻿using Aegir.ViewModel.NodeProxy;
 using Aegir.ViewModel.Properties;
+using Aegir.ViewModel.Timeline;
 using GalaSoft.MvvmLight.Ioc;
 
 namespace Aegir.ViewModel
@@ -17,9 +18,16 @@ namespace Aegir.ViewModel
             SimpleIoc.Default.Register<MenuStripViewModel>(true);
             SimpleIoc.Default.Register<PlaybackViewModel>(true);
             SimpleIoc.Default.Register<MapViewModel>(true);
-            SimpleIoc.Default.Register<ScenegraphViewModelProxy>(true);
+            SimpleIoc.Default.Register<ScenegraphViewModelProxy>(true); 
+            SimpleIoc.Default.Register<TimelineViewModel>(true);
         }
-
+        public TimelineViewModel TimelineVM
+        {
+            get
+            {
+                return SimpleIoc.Default.GetInstance<TimelineViewModel>();
+            }
+        }
         /// <summary>
         /// Gets the Statusbar view's viewmodel
         /// </summary>

@@ -102,7 +102,7 @@ namespace Aegir.Rendering
                 Visual3D dummyVisual = GetDummyVisual();
                 var transformBehaviour = node.GetNodeComponent<TransformBehaviour>();
 
-                AddToViewports(dummyVisual, transformBehaviour);
+                AddDummyToViewports(transformBehaviour);
             }
 
             //RenderItem renderItem = null;
@@ -135,6 +135,15 @@ namespace Aegir.Rendering
             //meshListeners.Add(listener);
             ////Add to each viewpoer
         }
+
+        private void AddDummyToViewports(TransformBehaviour transformBehaviour)
+        {
+            foreach(ViewportRenderer viewport in viewports)
+            {
+                viewport.AddDummy(transformBehaviour);
+            }
+        }
+
         private void AddToViewports(RenderItem itemToRender)
         {
             renderItems.Add(itemToRender);
@@ -143,6 +152,7 @@ namespace Aegir.Rendering
                 viewport.AddRenderItemToView(itemToRender);
             }
         }
+
         private void AddToViewports(Visual3D visual, TransformBehaviour transform)
         {
             foreach(ViewportRenderer viewport in viewports)
@@ -203,9 +213,9 @@ namespace Aegir.Rendering
         }
         public void Invalidate()
         {
-            foreach (RenderItem item in renderItems)
+            foreach (ViewportRenderer viewport in viewports)
             {
-                item.Invalidate();
+                viewport.InvalidateVisuals();
             }
         }
         public void AddViewport(ViewportRenderer viewport)

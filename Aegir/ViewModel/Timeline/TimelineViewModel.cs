@@ -4,9 +4,11 @@ using AegirCore.Keyframe;
 using AegirCore.Scene;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using log4net;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,6 +20,7 @@ namespace Aegir.ViewModel.Timeline
     /// </summary>
     public class TimelineViewModel : ViewModelBase
     {
+        private static readonly ILog log = LogManager.GetLogger(typeof(TimelineViewModel));
         /// <summary>
         /// Backing store for if the timeline is scoped
         /// </summary>
@@ -73,7 +76,11 @@ namespace Aegir.ViewModel.Timeline
         public int Time
         {
             get { return currentTimelinePosition; }
-            set { currentTimelinePosition = value; }    
+            set
+            {
+                currentTimelinePosition = value;
+                RaisePropertyChanged();
+            }    
         }
 
         /// <summary>
@@ -82,7 +89,11 @@ namespace Aegir.ViewModel.Timeline
         public int TimelineStart
         {
             get { return timelineStart; }
-            set { timelineStart = value; }
+            set
+            {
+                timelineStart = value;
+                RaisePropertyChanged();
+            }
         }
 
         /// <summary>
@@ -91,7 +102,11 @@ namespace Aegir.ViewModel.Timeline
         public int TimelineEnd
         {
             get { return timelineEnd; }
-            set { timelineEnd = value; }
+            set
+            {
+                timelineEnd = value;
+                RaisePropertyChanged();
+            }
         }
 
         /// <summary>
@@ -99,6 +114,8 @@ namespace Aegir.ViewModel.Timeline
         /// </summary>
         public TimelineViewModel()
         {
+            TimelineStart = 0;
+            TimelineEnd = 100;
             MessengerInstance.Register<SelectedNodeChanged>(this, ActiveNodeChanged);
             MessengerInstance.Register<ActiveTimelineChanged>(this, TimelineChanged);
             AddKeyframeCommand = new RelayCommand(AddKeyframes);
@@ -108,7 +125,13 @@ namespace Aegir.ViewModel.Timeline
         /// </summary>
         private void AddKeyframes()
         {
+            log.DebugFormat("SetKeyframe at frame {0} on {1}",
+                            Time, activeNode?.Name);
+            Stopwatch sw = Stopwatch.StartNew();
             timeline.CreateKeyframeOnNode(activeNode, Time);
+            sw.Stop();
+            log.DebugFormat("SetKeyframe finished, used {0} ms", 
+                            sw.Elapsed.TotalMilliseconds);
         }
         /// <summary>
         /// Message callback for timeline instance changed
@@ -116,6 +139,8 @@ namespace Aegir.ViewModel.Timeline
         /// <param name="message">A message containing the new timeline</param>
         private void TimelineChanged(ActiveTimelineChanged message)
         {
+            log.DebugFormat("ActiveTimelineChanged Received, Timeline changed to {0}",
+                            message?.Timeline.ToString());
             SetTimeLine(message.Timeline);
         }
         /// <summary>
@@ -125,6 +150,10 @@ namespace Aegir.ViewModel.Timeline
         /// <param name="message"></param>
         private void ActiveNodeChanged(SelectedNodeChanged message)
         {
+            activeNode = message.SelectedNode.NodeSource;
+            log.DebugFormat("SelectedNodeChanged Received, ActiveNode Changed to {0}",
+                            activeNode?.Name);
+
             ResetTimeline(TimelineStart,TimelineEnd);
         }
         /// <summary>
@@ -165,10 +194,9 @@ namespace Aegir.ViewModel.Timeline
         /// <param name="key"></param>
 
 
-        private void Timeline_KeyframeAdded(Keyframe key)
-
+        private void Timeline_KeyframeAdded(Node node, int time, Keyframe key)
         {
-            throw new NotImplementedException();
+            
         }
     }
 }

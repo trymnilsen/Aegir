@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AegirCore.Keyframe
 {
-    public class EventKeyframe : Keyframe
-    {
-    }
+    //public class EventKeyframe : Keyframe
+    //{
+    //}
 }

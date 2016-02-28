@@ -42,6 +42,12 @@ namespace Aegir.ViewModel.NodeProxy
             set { children = value; }
         }
 
+        [Browsable(false)]
+        public Node NodeSource
+        {
+            get { return nodeData; }
+        }
+
         [DisplayName("X")]
         [Category("World Transformation")]
         public double WorldTranslateX

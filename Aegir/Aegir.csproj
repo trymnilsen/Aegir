@@ -179,6 +179,7 @@
     <Compile Include="Shell.cs" />
     <Compile Include="Util\BindingHelper.cs" />
     <Compile Include="Util\DebugUtil.cs" />
+    <Compile Include="ViewModel\ContextMenuViewModel.cs" />
     <Compile Include="ViewModel\MapViewModel.cs" />
     <Compile Include="ViewModel\MenuStripViewModel.cs" />
     <Compile Include="ViewModel\NodeProxy\NodeViewModelProxy.cs" />
