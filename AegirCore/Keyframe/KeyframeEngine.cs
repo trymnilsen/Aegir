@@ -16,13 +16,39 @@ namespace AegirCore.Keyframe
         private static readonly ILog log = LogManager.GetLogger(typeof(KeyframeEngine));
 
         public KeyframeTimeline Keyframes { get; set; }
- 
+
+        private PlaybackMode playMode;
+
+        public PlaybackMode PlaybackMode
+        {
+            get { return playMode; }
+            set { playMode = value; }
+        }
+        private Node scopeTarget;
+
+        public Node ScopeTarget
+        {
+            get { return scopeTarget; }
+            set { scopeTarget = value; }
+        }
+
+        public bool IsScoped
+        {
+            get { return scopeTarget == null; }
+        }
 
         public KeyframeEngine()
         {
             Keyframes = new KeyframeTimeline();
         }
+        /// <summary>
+        /// Change the playbackmode of the keyframe engine
+        /// </summary>
+        /// <param name="mode">Playback mode</param>
+        public void ChangePlaybackMode(PlaybackMode mode)
+        {
 
+        }
         /// <summary>
         /// Sets the current time on timeline for the engine and transforms
         /// values to this value as well
