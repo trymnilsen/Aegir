@@ -1,4 +1,4 @@
-﻿namespace AegirCore.Playback
+﻿namespace AegirCore.Keyframe
 {
     public enum PlaybackMode
     {
