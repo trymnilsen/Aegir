@@ -11,7 +11,7 @@ namespace AegirCore
         public ApplicationContext()
         {
             Project = new ProjectContext();
-            Engine = new SimulationEngine(30);
+            Engine = new SimulationEngine();
             //Attach project events
             Project.ProjectActivated += Project_ProjectActivated;
         }
