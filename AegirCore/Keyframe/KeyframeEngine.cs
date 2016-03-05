@@ -14,17 +14,28 @@ namespace AegirCore.Keyframe
     {
 
         private static readonly ILog log = LogManager.GetLogger(typeof(KeyframeEngine));
+        /// <summary>
+        /// Backing store for PlaybackMode
+        /// </summary>
+        private PlaybackMode playMode;
+        /// <summary>
+        /// backing store for ScopeTarget if any
+        /// </summary>
+        private Node scopeTarget;
 
+        /// <summary>
+        /// All our keyframes
+        /// </summary>
         public KeyframeTimeline Keyframes { get; set; }
 
-        private PlaybackMode playMode;
-
+        /// <summary>
+        /// Gets or set the current playback mode of keyframe engine
+        /// </summary>
         public PlaybackMode PlaybackMode
         {
             get { return playMode; }
             set { playMode = value; }
         }
-        private Node scopeTarget;
 
         public Node ScopeTarget
         {
