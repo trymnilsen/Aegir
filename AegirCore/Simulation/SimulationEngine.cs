@@ -3,6 +3,7 @@ using AegirCore.Scene;
 using log4net;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Composition;
 using System.Threading;
 
 namespace AegirCore.Simulation
@@ -10,18 +11,14 @@ namespace AegirCore.Simulation
     /// <summary>
     /// Wrapps the functionality for simulating the entities in our simulated world
     /// </summary>
+    [Export(typeof(SimulationEngine))]
     public class SimulationEngine : IDisposable
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(SimulationEngine));
         /// <summary>
         /// Target time for each simulation step, anything below this is ok
         /// </summary>
-        private readonly int targetDeltaTime;
-
-        /// <summary>
-        /// Updates we idealy want per second
-        /// </summary>
-        private readonly int updatesPerSecond;
+        private int targetDeltaTime;
 
         /// <summary>
         /// The deltatime in ms for the last simulation step.
@@ -73,20 +70,30 @@ namespace AegirCore.Simulation
             get { return isStarted; }
             set { isStarted = value; }
         }
+        private int updatesPerSecond;
+
+        public int UpdatesPerSecond
+        {
+            get { return updatesPerSecond; }
+            set
+            {
+                updatesPerSecond = value;
+                UpdateTargetUpdatesPerSecond();
+            }
+        }
+
 
         /// <summary>
         /// Constructs a new engine instance
         /// </summary>
         /// <param name="updatesPerSecond">The ideal updates per second wanted</param>
-        public SimulationEngine(int updatesPerSecond)
+        public SimulationEngine()
         {
-            this.updatesPerSecond = updatesPerSecond;
-            this.targetDeltaTime = 1000 / updatesPerSecond;
-            this.lastDeltaTime = targetDeltaTime;
-
             this.simTime = new SimulationTime();
             this.simulateStepTimer = new Timer(new TimerCallback(DoSimulation), null, Timeout.Infinite, targetDeltaTime);
-
+            updatesPerSecond = 30;
+            targetDeltaTime = 1000 / updatesPerSecond;
+            lastDeltaTime = targetDeltaTime;
             this.keyframeExecutor = new KeyframeEngine();
         }
 
@@ -146,7 +153,11 @@ namespace AegirCore.Simulation
         public void Resume()
         {
         }
+        private void UpdateTargetUpdatesPerSecond()
+        {
 
+            //simulateStepTimer.Change(0, targetDeltaTime);
+        }
         /// <summary>
         /// Runs one step of simulation. This is called by the Thread Timer
         /// </summary>
