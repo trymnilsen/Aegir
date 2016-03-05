@@ -9,9 +9,9 @@ namespace AegirCore.Keyframe
 {
     public class Keyframe
     {
-        private PropertyInfo property;
-        private object value;
-        private object target;
+        public PropertyInfo property { get; private set; }
+        public object value { get; private set; }
+        public object target { get; private set; }
 
         public Keyframe(PropertyInfo property, object target, 
                         object value)
@@ -19,10 +19,6 @@ namespace AegirCore.Keyframe
             this.property = property;
             this.target = target;
             this.value = value;
-        }
-        public void Apply()
-        {
-            property.SetValue(target, value);
         }
     }
 }

@@ -23,46 +23,8 @@ namespace AegirCore.Keyframe
         {
             return null;
         }
-        public void CreateKeyframeOnNode(Node node, int time)
-        {
-            if(node == null)
-            {
-                throw new ArgumentNullException("node", "node cannot be null");
-            }
-            //Get all behaviours on node
-            IEnumerable<BehaviourComponent> behaviours = node.Components;
 
-            foreach (BehaviourComponent behaviour in behaviours)
-            {
-                //Get all properties with the KeyframeAnimationProperty attribute
-                Type behaviourType = behaviour.GetType();
-                IEnumerable<PropertyInfo> properties = behaviourType.GetProperties().Where(
-                    prop => Attribute.IsDefined(prop, typeof(KeyframeAnimationProperty)) 
-                );
-
-                if(properties.Count() == 0)
-                {
-                    log.DebugFormat("{0} has no properties with [KeyframeAnimationProperty] attribute", 
-                                    behaviour.Name);
-                }
-                foreach(PropertyInfo propInfo in properties)
-                {
-                    //We need the property to be both readable and writeable
-                    if(!propInfo.CanWrite || !propInfo.CanRead)
-                    {
-                        log.WarnFormat("Property {0} needs both read and write access", propInfo.Name);
-                        continue;
-                    }
-
-                    object currentPropertyValue = propInfo.GetValue(behaviour);
-                    Keyframe key = new Keyframe(propInfo, behaviour, currentPropertyValue);
-                    //Add it to the timeline
-                    AddKeyframe(node, key, time);
-                }
-            }
-            
-        }
-        private void AddKeyframe(Node node, Keyframe key, int time)
+        public void AddKeyframe(Node node, Keyframe key, int time)
         {
             //First check if there is an entry for our node, if not.. create it
             if(!Keyframes.ContainsKey(node))
