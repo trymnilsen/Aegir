@@ -75,7 +75,13 @@ namespace AegirCore.Keyframe
         {
 
         }
-        public void CreateKeyframeOnNode(Node node, int time)
+        /// <summary>
+        /// Captures the current values for a given node and creates a keyframe
+        /// at the given time and with the captured values
+        /// </summary>
+        /// <param name="node">Node to capture</param>
+        /// <param name="time">Time to create keyframe at</param>
+        public void CaptureAndAddToTimeline(Node node, int time)
         {
             if (node == null)
             {
