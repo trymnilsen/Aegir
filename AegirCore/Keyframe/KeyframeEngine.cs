@@ -73,7 +73,10 @@ namespace AegirCore.Keyframe
         /// <param name="time"></param>
         public void Seek(int time)
         {
-
+            //if(IsScoped)
+            //{
+            //    ExecuteKeyframesForNode()
+            //}
         }
         /// <summary>
         /// Captures the current values for a given node and creates a keyframe
@@ -119,6 +122,43 @@ namespace AegirCore.Keyframe
                 }
             }
         }
-        
+        private void ExecuteKeyframesForNode(Node node, int time)
+        {
+            //Check if node has any entries
+            if(!Keyframes.Keyframes.ContainsKey(node))
+            {
+                return;
+            }
+            
+            if(!Keyframes.Keyframes[node].ContainsKey(time))
+            {
+                return;
+            }
+
+            foreach(Keyframe key in Keyframes.Keyframes[node][time])
+            {
+
+            }
+        }
+        /// <summary>
+        /// Triggers playmode changed event
+        /// </summary>
+        /// <param name="oldMode">The old Mode</param>
+        /// <param name="newMode">The new Mode</param>
+        private void TriggerPlaymodeChanged(PlaybackMode oldMode, PlaybackMode newMode)
+        {
+            KeyframePlaymodeChangedHandler playModeChangedEvent = PlaymodeChanged;
+            if (playModeChangedEvent != null)
+            {
+                playModeChangedEvent(oldMode,newMode);
+            }
+        }
+
+        public delegate void KeyframePlaymodeChangedHandler(PlaybackMode oldMode, PlaybackMode newMode);
+        /// <summary>
+        /// Fires when the playmode has changed
+        /// </summary>
+        public event KeyframePlaymodeChangedHandler PlaymodeChanged;
+
     }
 }
