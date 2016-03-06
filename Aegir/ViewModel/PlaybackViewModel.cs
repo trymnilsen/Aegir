@@ -1,5 +1,5 @@
 ﻿using Aegir.Util;
-using AegirCore.Playback;
+using AegirCore.Keyframe;
 using GalaSoft.MvvmLight;
 using System.Diagnostics;
 
