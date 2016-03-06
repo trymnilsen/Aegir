@@ -36,13 +36,19 @@ namespace AegirCore.Keyframe
             get { return playMode; }
             set { playMode = value; }
         }
-
+        /// <summary>
+        /// Enables scoping playback to a given node.
+        /// Setting this will only play keyframes related to this node
+        /// </summary>
         public Node ScopeTarget
         {
             get { return scopeTarget; }
             set { scopeTarget = value; }
         }
-
+        /// <summary>
+        /// Returns if the keyframe engine is currently running in scoped mode
+        /// I.E only playing keyframes on a single node
+        /// </summary>
         public bool IsScoped
         {
             get { return scopeTarget == null; }
