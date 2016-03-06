@@ -7,18 +7,26 @@ using System.Threading.Tasks;
 
 namespace AegirCore.Keyframe
 {
-    public class Keyframe
+    /// <summary>
+    /// Baseclass for all keyframes, exposes the property keyframed as well the 
+    /// object instance containing the given property to be keyframed
+    /// </summary>
+    public abstract class Keyframe
     {
-        public PropertyInfo property { get; private set; }
-        public object value { get; private set; }
-        public object target { get; private set; }
 
-        public Keyframe(PropertyInfo property, object target, 
-                        object value)
+        /// <summary>
+        /// The property we are keyframing
+        /// </summary>
+        public PropertyInfo Property { get; private set; }
+        /// <summary>
+        /// The value our keyframe represents
+        /// </summary>
+        public object Target { get; private set; }
+
+        protected Keyframe(PropertyInfo property, object target)
         {
-            this.property = property;
-            this.target = target;
-            this.value = value;
+            Property = property;
+            Target = target;
         }
     }
 }
