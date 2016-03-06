@@ -76,10 +76,7 @@ namespace AegirCore.Keyframe
         /// <param name="time"></param>
         public void Seek(int time)
         {
-            //if(IsScoped)
-            //{
-            //    ExecuteKeyframesForNode()
-            //}
+            
         }
         /// <summary>
         /// Captures the current values for a given node and creates a keyframe
@@ -128,12 +125,7 @@ namespace AegirCore.Keyframe
         private void ExecuteKeyframesForNode(Node node, int time)
         {
             //Check if node has any entries
-            if(!Keyframes.Keyframes.ContainsKey(node))
-            {
-                return;
-            }
-            
-            if(!Keyframes.Keyframes[node].ContainsKey(time))
+            if(!Keyframes.NodeHasAnyKeyframes(node))
             {
                 return;
             }

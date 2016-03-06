@@ -129,7 +129,7 @@ namespace Aegir.ViewModel.Timeline
             log.DebugFormat("SetKeyframe at frame {0} on {1}",
                             Time, activeNode?.Name);
             Stopwatch sw = Stopwatch.StartNew();
-            timeline.CreateKeyframeOnNode(activeNode, Time);
+            //timeline.CreateKeyframeOnNode(activeNode, Time);
             sw.Stop();
             log.DebugFormat("SetKeyframe finished, used {0} ms", 
                             sw.Elapsed.TotalMilliseconds);

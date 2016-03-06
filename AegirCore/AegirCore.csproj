@@ -82,11 +82,14 @@
     <Compile Include="Entity\Map.cs" />
     <Compile Include="Entity\Vessel.cs" />
     <Compile Include="Keyframe\EventKeyframe.cs" />
+    <Compile Include="Keyframe\Interpolator\LinearDoubleInterpolator.cs" />
+    <Compile Include="Keyframe\Interpolator\LinearIntegerInterpolator.cs" />
     <Compile Include="Keyframe\Keyframe.cs" />
     <Compile Include="Keyframe\KeyframeAnimationProperty.cs" />
     <Compile Include="Keyframe\KeyframeEngine.cs" />
     <Compile Include="Keyframe\KeyframeTimeline.cs" />
     <Compile Include="Keyframe\PlaybackMode.cs" />
+    <Compile Include="Keyframe\TimelineScopeMode.cs" />
     <Compile Include="Keyframe\ValueKeyframe.cs" />
     <Compile Include="Mesh\Loader\MeshLoader.cs" />
     <Compile Include="Mesh\MeshData.cs" />
@@ -155,7 +158,6 @@
   <ItemGroup>
     <Folder Include="Behaviour\Keyframe\" />
     <Folder Include="Collections\" />
-    <Folder Include="Keyframe\Animator\" />
     <Folder Include="Keyframe\Factory\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
