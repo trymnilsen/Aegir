@@ -23,6 +23,7 @@ namespace AegirCore.Keyframe
         /// </summary>
         private Node scopeTarget;
 
+        private TimelineScopeMode scopeMode;
         /// <summary>
         /// All our keyframes
         /// </summary>
@@ -46,13 +47,15 @@ namespace AegirCore.Keyframe
             set { scopeTarget = value; }
         }
         /// <summary>
-        /// Returns if the keyframe engine is currently running in scoped mode
-        /// I.E only playing keyframes on a single node
+        /// Gets or sets the current scoping settings
         /// </summary>
-        public bool IsScoped
+
+        public TimelineScopeMode TimelineScope
         {
-            get { return scopeTarget == null; }
+            get { return scopeMode; }
+            set { scopeMode = value; }
         }
+
 
         public KeyframeEngine()
         {
