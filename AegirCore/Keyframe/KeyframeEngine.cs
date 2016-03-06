@@ -116,7 +116,7 @@ namespace AegirCore.Keyframe
                     }
 
                     object currentPropertyValue = propInfo.GetValue(behaviour);
-                    Keyframe key = new Keyframe(propInfo, behaviour, currentPropertyValue);
+                    Keyframe key = new ValueKeyframe(propInfo, behaviour, currentPropertyValue);
                     //Add it to the timeline
                     Keyframes.AddKeyframe(node, key, time);
                 }
