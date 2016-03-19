@@ -11,7 +11,7 @@ namespace AegirCore.Behaviour.World
 
         public bool Notify { get; set; }
 
-        [KeyframeAnimationProperty]
+        [KeyframeProperty]
         public Vector3 Position
         {
             get { return position; }

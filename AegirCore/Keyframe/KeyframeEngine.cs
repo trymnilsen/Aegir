@@ -76,19 +76,18 @@ namespace AegirCore.Keyframe
         /// <param name="time"></param>
         public void Seek(int time)
         {
-            IEnumerable<PropertyInfo> keyframeProperties = GetProperties();
+            IEnumerable<KeyframePropertyInfo> keyframeProperties = GetProperties();
             //Check if we have any properties to animate
             if(keyframeProperties == null)
             {
                 //Nope, none found.. Return
                 return;
             }
-            foreach (PropertyInfo property in keyframeProperties)
+            foreach (KeyframePropertyInfo property in keyframeProperties)
             {
+                //Get keyframe
+                
                 //Get closest time keys
-                int beforeTime = Keyframes.FindClosestKeyBefore(time, property);
-                int afterTime = Keyframes.FindClosestKeyAfter(time, property);
-
                 
             }
         }
@@ -113,7 +112,7 @@ namespace AegirCore.Keyframe
                 //Get all properties with the KeyframeAnimationProperty attribute
                 Type behaviourType = behaviour.GetType();
                 IEnumerable<PropertyInfo> properties = behaviourType.GetProperties().Where(
-                    prop => Attribute.IsDefined(prop, typeof(KeyframeAnimationProperty))
+                    prop => Attribute.IsDefined(prop, typeof(KeyframeProperty))
                 );
 
                 if (properties.Count() == 0)
@@ -131,13 +130,14 @@ namespace AegirCore.Keyframe
                     }
 
                     object currentPropertyValue = propInfo.GetValue(behaviour);
-                    Keyframe key = new ValueKeyframe(propInfo, behaviour, currentPropertyValue);
+                    KeyframePropertyInfo keyFrameProperty = new KeyframePropertyInfo(propInfo, PropertyType.Interpolatable);
+                    Keyframe key = new ValueKeyframe(keyFrameProperty, behaviour, currentPropertyValue);
                     //Add it to the timeline
                     Keyframes.AddKeyframe(key, time, node);
                 }
             }
         }
-        private IEnumerable<PropertyInfo> GetProperties()
+        private IEnumerable<KeyframePropertyInfo> GetProperties()
         {
             switch(TimelineScope)
             {

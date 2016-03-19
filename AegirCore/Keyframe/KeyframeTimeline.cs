@@ -15,16 +15,13 @@ namespace AegirCore.Keyframe
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(KeyframeTimeline));
 
-        public Dictionary<Node,SortedDictionary<int, List<Keyframe>>> Keyframes { get; set; }
-
-        private Dictionary<PropertyInfo, SortedList<int, Keyframe>> propertiesMappedKeyframes;
-        private Dictionary<Node, List<PropertyInfo>> nodeMappedPropertyInfo;
+        private Dictionary<KeyframePropertyInfo, SortedList<int, Keyframe>> propertiesMappedKeyframes;
+        private Dictionary<Node, List<KeyframePropertyInfo>> nodeMappedPropertyInfo;
 
         public KeyframeTimeline()
         {
-            Keyframes = new Dictionary<Node, SortedDictionary<int, List<Keyframe>>>();
-            propertiesMappedKeyframes = new Dictionary<PropertyInfo, SortedList<int, Keyframe>>();
-            nodeMappedPropertyInfo = new Dictionary<Node, List<PropertyInfo>>();
+            propertiesMappedKeyframes = new Dictionary<KeyframePropertyInfo, SortedList<int, Keyframe>>();
+            nodeMappedPropertyInfo = new Dictionary<Node, List<KeyframePropertyInfo>>();
         }
         /// <summary>
         /// Adds the keyframe to the timeline
@@ -44,7 +41,7 @@ namespace AegirCore.Keyframe
             //lastly add a nodeMappedProperty entry
             if(!nodeMappedPropertyInfo.ContainsKey(node))
             {
-                nodeMappedPropertyInfo.Add(node, new List<PropertyInfo>());
+                nodeMappedPropertyInfo.Add(node, new List<KeyframePropertyInfo>());
             }
             nodeMappedPropertyInfo[node].Add(key.Property);
             //Raise added event
@@ -58,7 +55,7 @@ namespace AegirCore.Keyframe
         /// <param name="time">time to fetch</param>
         /// <param name="property">property to fetch</param>
         /// <returns></returns>
-        public Keyframe GetAtTime(int time, PropertyInfo property)
+        public Keyframe GetAtTime(int time, KeyframePropertyInfo property)
         {
             if(!propertiesMappedKeyframes.ContainsKey(property))
             {
@@ -83,7 +80,7 @@ namespace AegirCore.Keyframe
                 return false;
             }
             //We can have an entry but no keyframes
-            if(Keyframes[node].Count==0)
+            if(nodeMappedPropertyInfo[node].Count==0)
             {
                 return false;
             }
@@ -94,7 +91,7 @@ namespace AegirCore.Keyframe
         /// Returns all Properties currently keyframed
         /// </summary>
         /// <returns></returns>
-        public IReadOnlyCollection<PropertyInfo> GetAllProperties()
+        public IReadOnlyCollection<KeyframePropertyInfo> GetAllProperties()
         {
             return propertiesMappedKeyframes.Keys;
         }
@@ -103,7 +100,7 @@ namespace AegirCore.Keyframe
         /// </summary>
         /// <param name="node"></param>
         /// <returns></returns>
-        public IReadOnlyCollection<PropertyInfo> GetAllPropertiesForNode(Node node)
+        public IReadOnlyCollection<KeyframePropertyInfo> GetAllPropertiesForNode(Node node)
         {
             if(nodeMappedPropertyInfo.ContainsKey(node))
             {
@@ -120,7 +117,7 @@ namespace AegirCore.Keyframe
         /// <param name="start">start of interval</param>
         /// <param name="end">end of interval</param>
         /// <returns></returns>
-        public IReadOnlyDictionary<PropertyInfo, IReadOnlyDictionary<int,Keyframe>> GetKeyframeBetween(int start, int end)
+        public IReadOnlyDictionary<KeyframePropertyInfo, IReadOnlyDictionary<int,Keyframe>> GetKeyframeBetween(int start, int end)
         {
             return null;
         }
@@ -149,7 +146,7 @@ namespace AegirCore.Keyframe
         /// <param name="property"></param>
         /// <param name="time"></param>
         /// <returns>A tuple cotaining before as item1 and after as item2</returns>
-        private Tuple<int, int> GetClosestKeys(PropertyInfo property, int time)
+        private Tuple<int, int> GetClosestKeys(KeyframePropertyInfo property, int time)
         {
             IList<int> keyframeTimeKeys = propertiesMappedKeyframes[property].Keys;
 

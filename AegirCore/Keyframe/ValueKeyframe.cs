@@ -18,7 +18,7 @@ namespace AegirCore.Keyframe
         /// </summary>
         public object Value { get; private set; }
 
-        public ValueKeyframe(PropertyInfo property, object target,
+        public ValueKeyframe(KeyframePropertyInfo property, object target,
                         object value) : base(property,target)
         {
             Value = value;

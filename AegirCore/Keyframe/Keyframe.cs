@@ -17,13 +17,13 @@ namespace AegirCore.Keyframe
         /// <summary>
         /// The property we are keyframing
         /// </summary>
-        public PropertyInfo Property { get; private set; }
+        public KeyframePropertyInfo Property { get; private set; }
         /// <summary>
         /// The value our keyframe represents
         /// </summary>
         public object Target { get; private set; }
 
-        protected Keyframe(PropertyInfo property, object target)
+        protected Keyframe(KeyframePropertyInfo property, object target)
         {
             Property = property;
             Target = target;

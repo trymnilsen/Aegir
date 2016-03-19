@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace AegirCore.Keyframe
 {
-    [System.AttributeUsage(AttributeTargets.Property, Inherited = false)]
-    public sealed class KeyframeAnimationProperty : Attribute
+    public enum PropertyType
     {
-
+        Interpolatable,
+        Executable
     }
 }

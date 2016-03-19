@@ -81,14 +81,16 @@
     <Compile Include="Entity\GNSSReceiver.cs" />
     <Compile Include="Entity\Map.cs" />
     <Compile Include="Entity\Vessel.cs" />
+    <Compile Include="Keyframe\KeyframePropertyInfo.cs" />
     <Compile Include="Keyframe\EventKeyframe.cs" />
     <Compile Include="Keyframe\Interpolator\LinearDoubleInterpolator.cs" />
     <Compile Include="Keyframe\Interpolator\LinearIntegerInterpolator.cs" />
     <Compile Include="Keyframe\Keyframe.cs" />
-    <Compile Include="Keyframe\KeyframeAnimationProperty.cs" />
+    <Compile Include="Keyframe\KeyframeProperty.cs" />
     <Compile Include="Keyframe\KeyframeEngine.cs" />
     <Compile Include="Keyframe\KeyframeTimeline.cs" />
     <Compile Include="Keyframe\PlaybackMode.cs" />
+    <Compile Include="Keyframe\PropertyType.cs" />
     <Compile Include="Keyframe\Test.cs" />
     <Compile Include="Keyframe\TimelineScopeMode.cs" />
     <Compile Include="Keyframe\ValueKeyframe.cs" />
