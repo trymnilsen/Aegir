@@ -15,6 +15,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AegirMathTest", "AegirMathT
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AegirViewHelper", "AegirViewHelper\AegirViewHelper.csproj", "{9F91C0D0-0845-49C8-9EB5-FEB1174F765C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AegirCoreTest", "AegirCoreTest\AegirCoreTest.csproj", "{E902381D-6DA7-490F-85EF-2FF7EF5C005A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestBench", "TestBench\TestBench.csproj", "{7305EF3B-A9CE-4280-8652-9680478E595C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +49,14 @@ Global
 		{9F91C0D0-0845-49C8-9EB5-FEB1174F765C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9F91C0D0-0845-49C8-9EB5-FEB1174F765C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9F91C0D0-0845-49C8-9EB5-FEB1174F765C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E902381D-6DA7-490F-85EF-2FF7EF5C005A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E902381D-6DA7-490F-85EF-2FF7EF5C005A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E902381D-6DA7-490F-85EF-2FF7EF5C005A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E902381D-6DA7-490F-85EF-2FF7EF5C005A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7305EF3B-A9CE-4280-8652-9680478E595C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7305EF3B-A9CE-4280-8652-9680478E595C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7305EF3B-A9CE-4280-8652-9680478E595C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7305EF3B-A9CE-4280-8652-9680478E595C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

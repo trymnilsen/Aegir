@@ -17,13 +17,13 @@ namespace AegirCore.Keyframe
 
         public Dictionary<Node,SortedDictionary<int, List<Keyframe>>> Keyframes { get; set; }
 
-        private Dictionary<PropertyInfo, SortedDictionary<int, Keyframe>> propertiesMappedKeyframes;
+        private Dictionary<PropertyInfo, SortedList<int, Keyframe>> propertiesMappedKeyframes;
         private Dictionary<Node, List<PropertyInfo>> nodeMappedPropertyInfo;
 
         public KeyframeTimeline()
         {
             Keyframes = new Dictionary<Node, SortedDictionary<int, List<Keyframe>>>();
-            propertiesMappedKeyframes = new Dictionary<PropertyInfo, SortedDictionary<int, Keyframe>>();
+            propertiesMappedKeyframes = new Dictionary<PropertyInfo, SortedList<int, Keyframe>>();
             nodeMappedPropertyInfo = new Dictionary<Node, List<PropertyInfo>>();
         }
         /// <summary>
@@ -37,7 +37,7 @@ namespace AegirCore.Keyframe
             //Check if we have any entry for this property info
             if(!propertiesMappedKeyframes.ContainsKey(key.Property))
             {
-                propertiesMappedKeyframes.Add(key.Property, new SortedDictionary<int, Keyframe>());
+                propertiesMappedKeyframes.Add(key.Property, new SortedList<int, Keyframe>());
             }
             propertiesMappedKeyframes[key.Property].Add(time, key);
 
@@ -110,10 +110,19 @@ namespace AegirCore.Keyframe
 
             return true;
         }
+        /// <summary>
+        /// Returns all Properties currently keyframed
+        /// </summary>
+        /// <returns></returns>
         public IReadOnlyCollection<PropertyInfo> GetAllProperties()
         {
             return propertiesMappedKeyframes.Keys;
         }
+        /// <summary>
+        /// Returns all properties registered for the given node
+        /// </summary>
+        /// <param name="node"></param>
+        /// <returns></returns>
         public IReadOnlyCollection<PropertyInfo> GetAllPropertiesForNode(Node node)
         {
             if(nodeMappedPropertyInfo.ContainsKey(node))
@@ -153,6 +162,72 @@ namespace AegirCore.Keyframe
         public override string ToString()
         {
             return base.ToString();
+        }
+        /// <summary>
+        /// Retrieves the closest keys for the given time and property
+        /// </summary>
+        /// <param name="property"></param>
+        /// <param name="time"></param>
+        /// <returns></returns>
+        private Tuple<int, int> GetClosestKeys(PropertyInfo property, int time)
+        {
+            IList<int> keyframeTimeKeys = propertiesMappedKeyframes[property].Keys;
+
+            if (propertiesMappedKeyframes.Count < 1)
+            {
+                return new Tuple<int, int>(0, 0);
+            }
+            int firstKey = 0, lastKey = 0;
+            //Find closest lower bound index
+            int index = BinarySearch(keyframeTimeKeys, time);
+            //Get the keys for our retrieved indices
+            if (index != 0)
+            {
+                //We have at least one item before us
+                firstKey = keyframeTimeKeys[index - 1];
+                //Check if our first key is also the last, in this case lastkey
+                //will be the same as first key.. If we are not at the end we
+                //assign lastkey to one the content of one index higher
+                if (index < keyframeTimeKeys.Count)
+                {
+                    lastKey = keyframeTimeKeys[index];
+                }
+                else
+                {
+                    lastKey = firstKey;
+                }
+            }
+            else
+            {
+                //if index is 0 this means there are no keyframes before our
+                //given time. We know there is at least one entry therefore we can
+                //assume that the first entry in our list of keyframes is the closest one
+                firstKey = keyframeTimeKeys[0];
+                lastKey = firstKey;
+            }
+
+            return new Tuple<int, int>(firstKey, lastKey);
+        }
+        /// <summary>
+        /// Helper method for doing a binary search of the lower bound time
+        /// </summary>
+        /// <param name="list"></param>
+        /// <param name="time"></param>
+        /// <returns></returns>
+        private int BinarySearch(IList<int> list, int time)
+        {
+            if (list == null)
+                throw new ArgumentNullException("list");
+            var comp = Comparer<int>.Default;
+            int lo = 0, hi = list.Count - 1;
+            while (lo < hi)
+            {
+                int m = (hi + lo) / 2;
+                if (comp.Compare(list[m], time) < 0) lo = m + 1;
+                else hi = m - 1;
+            }
+            if (comp.Compare(list[lo], time) < 0) lo++;
+            return lo;
         }
 
         public delegate void KeyframeAddedHandler(Node node, int time, Keyframe key);

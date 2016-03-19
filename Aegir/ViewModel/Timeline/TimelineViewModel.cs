@@ -169,12 +169,12 @@ namespace Aegir.ViewModel.Timeline
                 return;
             }
 
-            var keyframes = timeline.GetKeyframeBetweenOnNode(activeNode, start, end);
+            //var keyframes = timeline.GetKeyframeBetweenOnNode(activeNode, start, end);
 
-            foreach(var frameSet in keyframes)
-            {
+            //foreach(var frameSet in keyframes)
+            //{
 
-            }
+            //}
         }
         /// <summary>
         /// Sets the current timeline instance and binds/unbinds events to it

@@ -89,6 +89,7 @@
     <Compile Include="Keyframe\KeyframeEngine.cs" />
     <Compile Include="Keyframe\KeyframeTimeline.cs" />
     <Compile Include="Keyframe\PlaybackMode.cs" />
+    <Compile Include="Keyframe\Test.cs" />
     <Compile Include="Keyframe\TimelineScopeMode.cs" />
     <Compile Include="Keyframe\ValueKeyframe.cs" />
     <Compile Include="Mesh\Loader\MeshLoader.cs" />
