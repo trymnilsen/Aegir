@@ -53,26 +53,6 @@ namespace AegirCore.Keyframe
 
         //Timeline collection method
         /// <summary>
-        /// Finds the closest key before the given time
-        /// </summary>
-        /// <param name="time">Time to look before of</param>
-        /// <param name="property">property for look for</param>
-        /// <returns>the time at which the closest key is</returns>
-        public int FindClosestKeyBefore(int time, PropertyInfo property)
-        {
-            return 1;
-        }
-        /// <summary>
-        /// Finds the closest key after the given time
-        /// </summary>
-        /// <param name="time">Time to look after of</param>
-        /// <param name="property">property for look for</param>
-        /// <returns>the time at which the closest key is</returns>
-        public int FindClosestKeyAfter(int time, PropertyInfo property)
-        {
-            return 1;
-        }
-        /// <summary>
         /// Gets the keyframe for the given property at the given time
         /// </summary>
         /// <param name="time">time to fetch</param>
@@ -168,7 +148,7 @@ namespace AegirCore.Keyframe
         /// </summary>
         /// <param name="property"></param>
         /// <param name="time"></param>
-        /// <returns></returns>
+        /// <returns>A tuple cotaining before as item1 and after as item2</returns>
         private Tuple<int, int> GetClosestKeys(PropertyInfo property, int time)
         {
             IList<int> keyframeTimeKeys = propertiesMappedKeyframes[property].Keys;
