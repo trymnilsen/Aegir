@@ -16,41 +16,79 @@ namespace AegirCore.Keyframe
         private static readonly ILog log = LogManager.GetLogger(typeof(KeyframeTimeline));
 
         public Dictionary<Node,SortedDictionary<int, List<Keyframe>>> Keyframes { get; set; }
+
+        private Dictionary<PropertyInfo, SortedDictionary<int, Keyframe>> propertiesMappedKeyframes;
+        private Dictionary<Node, List<PropertyInfo>> nodeMappedPropertyInfo;
+
         public KeyframeTimeline()
         {
             Keyframes = new Dictionary<Node, SortedDictionary<int, List<Keyframe>>>();
+            propertiesMappedKeyframes = new Dictionary<PropertyInfo, SortedDictionary<int, Keyframe>>();
+            nodeMappedPropertyInfo = new Dictionary<Node, List<PropertyInfo>>();
         }
-
-        public void AddKeyframe(Node node, Keyframe key, int time)
+        /// <summary>
+        /// Adds the keyframe to the timeline
+        /// </summary>
+        /// <param name="key">the keyframe itself</param>
+        /// <param name="time">the time at which the keyframe is</param>
+        /// <param name="node">on which node is this keyframe</param>
+        public void AddKeyframe(Keyframe key, int time, Node node)
         {
-            //First check if there is an entry for our node, if not.. create it
-            if(!Keyframes.ContainsKey(node))
+            //Check if we have any entry for this property info
+            if(!propertiesMappedKeyframes.ContainsKey(key.Property))
             {
-                Keyframes.Add(node, new SortedDictionary<int, List<Keyframe>>());
+                propertiesMappedKeyframes.Add(key.Property, new SortedDictionary<int, Keyframe>());
             }
-            //Then check if the dictionary holding node isolated key 
-            //has an list entry for our time
-            if (!Keyframes[node].ContainsKey(time))
+            propertiesMappedKeyframes[key.Property].Add(time, key);
+
+            //lastly add a nodeMappedProperty entry
+            if(!nodeMappedPropertyInfo.ContainsKey(node))
             {
-                Keyframes[node].Add(time, new List<Keyframe>());
+                nodeMappedPropertyInfo.Add(node, new List<PropertyInfo>());
             }
-            //Lastly add the keyframe
-            Keyframes[node][time].Add(key);
+            nodeMappedPropertyInfo[node].Add(key.Property);
+            //Raise added event
             RaiseKeyframeAdded(node, time, key);
         }
 
-        //Timeline collection methods
-        public Keyframe GetClosestValueKeyBefore(int time, PropertyInfo property)
+        //Timeline collection method
+        /// <summary>
+        /// Finds the closest key before the given time
+        /// </summary>
+        /// <param name="time">Time to look before of</param>
+        /// <param name="property">property for look for</param>
+        /// <returns>the time at which the closest key is</returns>
+        public int FindClosestKeyBefore(int time, PropertyInfo property)
         {
-
+            return 1;
         }
-        public Keyframe GetClosestValueKeyAfter(int time, PropertyInfo property)
+        /// <summary>
+        /// Finds the closest key after the given time
+        /// </summary>
+        /// <param name="time">Time to look after of</param>
+        /// <param name="property">property for look for</param>
+        /// <returns>the time at which the closest key is</returns>
+        public int FindClosestKeyAfter(int time, PropertyInfo property)
         {
-
+            return 1;
         }
-        public Keyframe GetAtTime(int time)
+        /// <summary>
+        /// Gets the keyframe for the given property at the given time
+        /// </summary>
+        /// <param name="time">time to fetch</param>
+        /// <param name="property">property to fetch</param>
+        /// <returns></returns>
+        public Keyframe GetAtTime(int time, PropertyInfo property)
         {
-
+            if(!propertiesMappedKeyframes.ContainsKey(property))
+            {
+                return null;
+            }
+            if(!propertiesMappedKeyframes[property].ContainsKey(time))
+            {
+                return null;
+            }
+            return propertiesMappedKeyframes[property][time];
         }
         /// <summary>
         /// Checks if the given node has any keyframes on the timeline
@@ -60,7 +98,7 @@ namespace AegirCore.Keyframe
         public bool NodeHasAnyKeyframes(Node node)
         {
             //If there is no node,there is no way we can have any keyframes
-            if(!Keyframes.ContainsKey(node))
+            if(!nodeMappedPropertyInfo.ContainsKey(node))
             {
                 return false;
             }
@@ -72,15 +110,28 @@ namespace AegirCore.Keyframe
 
             return true;
         }
-
+        public IReadOnlyCollection<PropertyInfo> GetAllProperties()
+        {
+            return propertiesMappedKeyframes.Keys;
+        }
+        public IReadOnlyCollection<PropertyInfo> GetAllPropertiesForNode(Node node)
+        {
+            if(nodeMappedPropertyInfo.ContainsKey(node))
+            {
+                return nodeMappedPropertyInfo[node];
+            }
+            else
+            {
+                return null;
+            }
+        }
         /// <summary>
-        /// Returns keyframes between the interval on the given node
+        /// Returns keyframes between the interval
         /// </summary>
-        /// <param name="node"></param>
-        /// <param name="start"></param>
-        /// <param name="end"></param>
+        /// <param name="start">start of interval</param>
+        /// <param name="end">end of interval</param>
         /// <returns></returns>
-        public SortedDictionary<int, List<Keyframe>> GetKeyframeBetweenOnNode(Node node, int start, int end)
+        public IReadOnlyDictionary<PropertyInfo, IReadOnlyDictionary<int,Keyframe>> GetKeyframeBetween(int start, int end)
         {
             return null;
         }
@@ -99,15 +150,16 @@ namespace AegirCore.Keyframe
             }
         }
 
+        public override string ToString()
+        {
+            return base.ToString();
+        }
+
         public delegate void KeyframeAddedHandler(Node node, int time, Keyframe key);
         /// <summary>
         /// Raised when a keyframe is added to the timeline
         /// </summary>
         public event KeyframeAddedHandler KeyframeAdded;
 
-        public override string ToString()
-        {
-            return base.ToString();
-        }
     }
 }

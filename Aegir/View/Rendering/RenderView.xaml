@@ -131,7 +131,10 @@
                 </ModelVisual3D>-->
                 <ht:DefaultLights></ht:DefaultLights>
             </ht:HelixViewport3D>
-            <ToggleButton x:Name="TopLeftLabel" Content="Top" Style="{StaticResource ViewButtonStyle}" />
+            <StackPanel Orientation="Horizontal">
+                <ToggleButton x:Name="TopLeftLabel" Content="Top" Style="{StaticResource ViewButtonStyle}" />
+                <ToggleButton x:Name="TopLeftMap" Content="Map" Style="{StaticResource ViewButtonStyle}" />
+            </StackPanel>
         </Grid>
 
         <Grid x:Name="TopRightView" DataContext="{Binding ElementName=TopRightLabel}">

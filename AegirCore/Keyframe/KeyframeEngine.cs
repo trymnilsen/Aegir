@@ -76,8 +76,23 @@ namespace AegirCore.Keyframe
         /// <param name="time"></param>
         public void Seek(int time)
         {
-            
+            IEnumerable<PropertyInfo> keyframeProperties = GetProperties();
+            //Check if we have any properties to animate
+            if(keyframeProperties == null)
+            {
+                //Nope, none found.. Return
+                return;
+            }
+            foreach (PropertyInfo property in keyframeProperties)
+            {
+                //Get closest time keys
+                int beforeTime = Keyframes.FindClosestKeyBefore(time, property);
+                int afterTime = Keyframes.FindClosestKeyAfter(time, property);
+
+                
+            }
         }
+
         /// <summary>
         /// Captures the current values for a given node and creates a keyframe
         /// at the given time and with the captured values
@@ -118,21 +133,20 @@ namespace AegirCore.Keyframe
                     object currentPropertyValue = propInfo.GetValue(behaviour);
                     Keyframe key = new ValueKeyframe(propInfo, behaviour, currentPropertyValue);
                     //Add it to the timeline
-                    Keyframes.AddKeyframe(node, key, time);
+                    Keyframes.AddKeyframe(key, time, node);
                 }
             }
         }
-        private void ExecuteKeyframesForNode(Node node, int time)
+        private IEnumerable<PropertyInfo> GetProperties()
         {
-            //Check if node has any entries
-            if(!Keyframes.NodeHasAnyKeyframes(node))
+            switch(TimelineScope)
             {
-                return;
-            }
-
-            foreach(Keyframe key in Keyframes.Keyframes[node][time])
-            {
-
+                case TimelineScopeMode.None:
+                    return Keyframes.GetAllProperties();
+                case TimelineScopeMode.Node:
+                    return Keyframes.GetAllPropertiesForNode(ScopeTarget);
+                default:
+                    return null;
             }
         }
         /// <summary>
