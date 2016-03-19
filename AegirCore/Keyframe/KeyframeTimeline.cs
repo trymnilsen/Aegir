@@ -146,7 +146,7 @@ namespace AegirCore.Keyframe
         /// <param name="property"></param>
         /// <param name="time"></param>
         /// <returns>A tuple cotaining before as item1 and after as item2</returns>
-        private Tuple<int, int> GetClosestKeys(KeyframePropertyInfo property, int time)
+        public Tuple<int, int> GetClosestKeys(KeyframePropertyInfo property, int time)
         {
             IList<int> keyframeTimeKeys = propertiesMappedKeyframes[property].Keys;
 

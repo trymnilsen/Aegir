@@ -83,11 +83,20 @@ namespace AegirCore.Keyframe
                 //Nope, none found.. Return
                 return;
             }
+
             foreach (KeyframePropertyInfo property in keyframeProperties)
             {
-                //Get keyframe
-                
-                //Get closest time keys
+                switch(property.Type)
+                {
+                    case PropertyType.Executable:
+                        SeekEventKeyframe(property, time);
+                        break;
+                    case PropertyType.Interpolatable:
+                        SeekValueKeyframe(property, time);
+                        break;
+                    default:
+                        break;
+                }
                 
             }
         }
@@ -137,6 +146,29 @@ namespace AegirCore.Keyframe
                 }
             }
         }
+        private void SeekValueKeyframe(KeyframePropertyInfo property, int time)
+        {
+            //Get closest keys
+            Tuple<int, int> interval = Keyframes.GetClosestKeys(property, time);
+            //int t = 5;
+        }
+        private void SeekEventKeyframe(KeyframePropertyInfo property, int time)
+        {
+            //Check if the property has any keyframes at this exact time
+            EventKeyframe action = Keyframes.GetAtTime(time, property) as EventKeyframe;
+            if(action!=null)
+            {
+                if (action.ActionToExecute != null)
+                {
+                    action.ActionToExecute();
+                }
+                else
+                {
+                    log.ErrorFormat("Event Keyframe at {0} was not triggered due to action being null",time);
+                }
+            }
+        }
+
         private IEnumerable<KeyframePropertyInfo> GetProperties()
         {
             switch(TimelineScope)
