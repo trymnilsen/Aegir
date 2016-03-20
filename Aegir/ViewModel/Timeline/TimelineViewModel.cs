@@ -36,6 +36,8 @@ namespace Aegir.ViewModel.Timeline
         /// </summary>
         private Node activeNode;
 
+        private KeyframeEngine engine;
+
         private int timelineStart;
         private int timelineEnd;
         private int currentTimelinePosition;
@@ -118,21 +120,25 @@ namespace Aegir.ViewModel.Timeline
             TimelineEnd = 100;
             MessengerInstance.Register<SelectedNodeChanged>(this, ActiveNodeChanged);
             MessengerInstance.Register<ActiveTimelineChanged>(this, TimelineChanged);
-            AddKeyframeCommand = new RelayCommand(AddKeyframes);
+            AddKeyframeCommand = new RelayCommand(CaptureKeyframes, CanCaptureKeyframes);
             Keyframes = new ObservableCollection<KeyframeViewModel>();
         }
         /// <summary>
         /// Requests the timeline to create a new "Snapshot" of keyframes for the given timeline time
         /// </summary>
-        private void AddKeyframes()
+        private void CaptureKeyframes()
         {
             log.DebugFormat("SetKeyframe at frame {0} on {1}",
                             Time, activeNode?.Name);
             Stopwatch sw = Stopwatch.StartNew();
-            //timeline.CreateKeyframeOnNode(activeNode, Time);
+            engine.CaptureAndAddToTimeline(activeNode, Time);
             sw.Stop();
             log.DebugFormat("SetKeyframe finished, used {0} ms", 
                             sw.Elapsed.TotalMilliseconds);
+        }
+        private bool CanCaptureKeyframes()
+        {
+            return (activeNode != null);
         }
         /// <summary>
         /// Message callback for timeline instance changed
@@ -143,6 +149,7 @@ namespace Aegir.ViewModel.Timeline
             log.DebugFormat("ActiveTimelineChanged Received, Timeline changed to {0}",
                             message?.Timeline.ToString());
             SetTimeLine(message.Timeline);
+            engine = message.Engine;
         }
         /// <summary>
         /// Message callback for the currently selected node, (For example if scoping is 
@@ -154,7 +161,7 @@ namespace Aegir.ViewModel.Timeline
             activeNode = message.SelectedNode.NodeSource;
             log.DebugFormat("SelectedNodeChanged Received, ActiveNode Changed to {0}",
                             activeNode?.Name);
-
+            AddKeyframeCommand.RaiseCanExecuteChanged();
             //ResetTimeline(TimelineStart,TimelineEnd);
         }
         /// <summary>

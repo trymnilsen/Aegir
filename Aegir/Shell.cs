@@ -31,7 +31,7 @@ namespace Aegir
         {
             ProjectData newProject = Context.Project.CreateNewProject();
             Context.Project.OpenProject(newProject);
-            ActiveTimelineChanged.Send(Context.Engine.KeyframeEngine.Keyframes);
+            ActiveTimelineChanged.Send(Context.Engine.KeyframeEngine.Keyframes, Context.Engine.KeyframeEngine);
         }
 
         private void OpenProject(LoadProjectFile message)

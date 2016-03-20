@@ -100,7 +100,14 @@ namespace AegirCore.Keyframe
                 
             }
         }
+        public void NextFrame()
+        {
 
+        }
+        public void PreviousFrame()
+        {
+
+        }
         /// <summary>
         /// Captures the current values for a given node and creates a keyframe
         /// at the given time and with the captured values
@@ -124,11 +131,11 @@ namespace AegirCore.Keyframe
                     prop => Attribute.IsDefined(prop, typeof(KeyframeProperty))
                 );
 
-                if (properties.Count() == 0)
-                {
-                    log.DebugFormat("{0} has no properties with [KeyframeAnimationProperty] attribute",
-                                    behaviour.Name);
-                }
+                //if (properties.Count() == 0)
+                //{
+                //    log.DebugFormat("{0} has no properties with [KeyframeAnimationProperty] attribute",
+                //                    behaviour);
+                //}
                 foreach (PropertyInfo propInfo in properties)
                 {
                     //We need the property to be both readable and writeable

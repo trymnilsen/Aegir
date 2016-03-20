@@ -45,12 +45,12 @@
             <Border Grid.Row="1" BorderThickness="0 1 0 1" BorderBrush="Gray">
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="30"></ColumnDefinition>
+                        <!--<ColumnDefinition Width="30"></ColumnDefinition>-->
                         <ColumnDefinition></ColumnDefinition>
                     </Grid.ColumnDefinitions>
-                    <ToggleButton>
+                    <!--<ToggleButton>
                         <fa:ImageAwesome Icon="Sliders" Width="20px"></fa:ImageAwesome>
-                    </ToggleButton>
+                    </ToggleButton>-->
                     <!--Timeline-->
                     <local:KeyframeTimeline Grid.Column="1"
                                             Background="#FFCDCDCD"

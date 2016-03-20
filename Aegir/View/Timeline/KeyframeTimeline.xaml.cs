@@ -359,14 +359,14 @@ namespace Aegir.View.Timeline
         {
             Rectangle keyframeRectangle = new Rectangle();
             keyframeRectangle.Width = 7;
-            keyframeRectangle.Height = 7;
+            keyframeRectangle.Height = 12;
             keyframeRectangle.Fill = new SolidColorBrush(Color.FromArgb(255, 204, 48, 9));
             keyframeRectangle.Stroke = new SolidColorBrush(Color.FromArgb(255, 60, 14, 2));
             keyframeRectangle.StrokeThickness = 1;
             double stepSize = (ActualWidth - 20) / (TimeRangeEnd - TimeRangeStart);
             double leftOffset = stepSize * key.Time + 10;
             Canvas.SetLeft(keyframeRectangle, leftOffset - 4);
-            Canvas.SetTop(keyframeRectangle, 16);
+            Canvas.SetTop(keyframeRectangle, 4);
 
             this.KeyFrameTimeLineRuler.Children.Add(keyframeRectangle);
             keyframeVisuals.Add(keyframeRectangle);
