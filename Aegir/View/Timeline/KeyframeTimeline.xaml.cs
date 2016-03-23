@@ -329,9 +329,12 @@ namespace Aegir.View.Timeline
         private void InvalidateKeyframeVisuals()
         {
             keyframeVisuals.Clear();
-            foreach(KeyframeViewModel keyframe in KeyframeSource)
+            if(KeyframeSource != null)
             {
-                AddKeyframe(keyframe);
+                foreach(KeyframeViewModel keyframe in KeyframeSource)
+                {
+                    AddKeyframe(keyframe);
+                }
             }
         }
         /// <summary>

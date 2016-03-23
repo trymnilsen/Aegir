@@ -54,6 +54,25 @@ namespace Aegir.View.Rendering
                                             new PropertyChangedCallback(OnSceneGraphChanged)
                                         ));
 
+
+        public ViewportFocus ActiveViewport
+        {
+            get { return (ViewportFocus)GetValue(FocusProperty); }
+            set { SetValue(FocusProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for Focus.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty FocusProperty =
+            DependencyProperty.Register("Focus", 
+                typeof(ViewportFocus), 
+                typeof(RenderView), 
+                new PropertyMetadata(
+                    ViewportFocus.NONE,
+                    new PropertyChangedCallback(OnViewportFocusChanged)
+                ));
+
+
+
         public RenderView()
         {
             InitializeComponent();
@@ -65,18 +84,12 @@ namespace Aegir.View.Rendering
             renderHandler.AddViewport(new ViewportRenderer(PerspectiveViewport));
             renderHandler.AddViewport(new ViewportRenderer(RightViewport));
             renderHandler.AddViewport(new ViewportRenderer(FrontViewport));
+
         }
 
-        public static void OnSceneGraphChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private void TopLeftView_IsKeyboardFocusWithinChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            log.Debug("ScenegraphDP Callback triggered");
-            RenderView view = d as RenderView;
-            ScenegraphViewModelProxy newScene = e.NewValue as ScenegraphViewModelProxy;
-            ScenegraphViewModelProxy oldScene = e.OldValue as ScenegraphViewModelProxy;
-            if (newScene != null)
-            {
-                view.OnSceneGraphInstanceChanged(newScene, oldScene);
-            }
+            log.Debug("TopLeftViewGot Focus");
         }
 
         public void OnSceneGraphInstanceChanged(ScenegraphViewModelProxy newScene, ScenegraphViewModelProxy oldScene)
@@ -97,7 +110,26 @@ namespace Aegir.View.Rendering
             renderHandler.ChangeScene(newScene);
             RebuildVisualTree();
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="d"></param>
+        /// <param name="e"></param>
+        private static void OnSceneGraphChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            log.Debug("ScenegraphDP Callback triggered");
+            RenderView view = d as RenderView;
+            ScenegraphViewModelProxy newScene = e.NewValue as ScenegraphViewModelProxy;
+            ScenegraphViewModelProxy oldScene = e.OldValue as ScenegraphViewModelProxy;
+            if (newScene != null)
+            {
+                view.OnSceneGraphInstanceChanged(newScene, oldScene);
+            }
+        }
+        private static void OnViewportFocusChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
 
+        }
         private void OnInvalidateChildren()
         {
             renderHandler.Invalidate();
