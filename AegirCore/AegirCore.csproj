@@ -102,6 +102,8 @@
     <Compile Include="Entity\WaterSegment.cs" />
     <Compile Include="Output\OutputData.cs" />
     <Compile Include="Output\OutputManager.cs" />
+    <Compile Include="Persistence\FilePersister.cs" />
+    <Compile Include="Persistence\IPersistable.cs" />
     <Compile Include="Project\Event\ProjectActivateEventArgs.cs" />
     <Compile Include="Project\ProjectContext.cs" />
     <Compile Include="Project\ProjectData.cs" />
