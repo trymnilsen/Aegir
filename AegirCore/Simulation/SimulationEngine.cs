@@ -14,6 +14,8 @@ namespace AegirCore.Simulation
     [Export(typeof(SimulationEngine))]
     public class SimulationEngine : IDisposable
     {
+
+        private object lockObject = new object();
         private static readonly ILog log = LogManager.GetLogger(typeof(SimulationEngine));
         /// <summary>
         /// Target time for each simulation step, anything below this is ok
@@ -164,22 +166,33 @@ namespace AegirCore.Simulation
         /// <param name="state">Needed to conform to timercall back delegate, not used</param>
         private void DoSimulation(object state)
         {
-            if(scene != null)
+            if (Monitor.TryEnter(lockObject, 33))
             {
-                IEnumerable<Node> rootNodes = scene.RootNodes;
-                simTime.FrameStart();
-                //Do keyframing
-                if(KeyframeEngine.PlaybackMode == PlaybackMode.PLAYING)
+                try
                 {
-                    KeyframeEngine.Step();
+                    // Do work
+                    if (scene != null)
+                    {
+                        IEnumerable<Node> rootNodes = scene.RootNodes;
+                        simTime.FrameStart();
+                        //Do keyframing
+                        if(KeyframeEngine.PlaybackMode == PlaybackMode.PLAYING)
+                        {
+                            KeyframeEngine.Step();
+                        }
+                        //Update behaviours
+                        UpdateScenegraphChildren(rootNodes);
+                        simTime.FrameEnd();
+                        //Calculate timing
+                        //Debug.WriteLine("DeltaTime:" + simTime.DeltaTime);
+                        //Notify about a finished simulation step
+                        TriggerStepFinished();
+                    }
                 }
-                //Update behaviours
-                UpdateScenegraphChildren(rootNodes);
-                simTime.FrameEnd();
-                //Calculate timing
-                //Debug.WriteLine("DeltaTime:" + simTime.DeltaTime);
-                //Notify about a finished simulation step
-                TriggerStepFinished();
+                finally
+                {
+                    Monitor.Exit(lockObject);
+                }
             }
         }
 

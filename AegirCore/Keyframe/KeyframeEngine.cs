@@ -30,6 +30,7 @@ namespace AegirCore.Keyframe
         private TimelineScopeMode scopeMode;
 
         private Dictionary<Type, IValueInterpolator> interpolatorCache;
+        private Dictionary<PropertyInfo, KeyframePropertyInfo> keyframeInfoCache;
         /// <summary>
         /// All our keyframes
         /// </summary>
@@ -85,6 +86,9 @@ namespace AegirCore.Keyframe
         {
             PlaybackMode = PlaybackMode.PAUSED;
             Keyframes = new KeyframeTimeline();
+
+            keyframeInfoCache = new Dictionary<PropertyInfo, KeyframePropertyInfo>();
+
             interpolatorCache = new Dictionary<Type, IValueInterpolator>();
 
             interpolatorCache.Add(typeof(Vector3), new LinearVector3Interpolator());
@@ -212,8 +216,15 @@ namespace AegirCore.Keyframe
                     }
 
                     object currentPropertyValue = propInfo.GetValue(behaviour);
-                    KeyframePropertyInfo keyFrameProperty = new KeyframePropertyInfo(propInfo, PropertyType.Interpolatable);
-                    Keyframe key = new ValueKeyframe(keyFrameProperty, behaviour, currentPropertyValue);
+                    //Try and get this keyframe property info
+                    if(!keyframeInfoCache.ContainsKey(propInfo))
+                    {
+                        keyframeInfoCache.Add(propInfo, new KeyframePropertyInfo(propInfo, PropertyType.Interpolatable));
+                    }
+
+                    KeyframePropertyInfo keyframeProperty = keyframeInfoCache[propInfo];
+
+                    Keyframe key = new ValueKeyframe(keyframeProperty, behaviour, currentPropertyValue);
                     //Add it to the timeline
                     Keyframes.AddKeyframe(key, time, node);
                 }
@@ -243,8 +254,8 @@ namespace AegirCore.Keyframe
             {
                 if(interpolatorCache.ContainsKey(valueType))
                 {
-                    Keyframe from = Keyframes.GetAtTime(interval.Item1, property);
-                    Keyframe to = Keyframes.GetAtTime(interval.Item2, property);
+                    ValueKeyframe from = Keyframes.GetAtTime(interval.Item1, property) as ValueKeyframe;
+                    ValueKeyframe to = Keyframes.GetAtTime(interval.Item2, property) as ValueKeyframe;
 
                     double diff = interval.Item2 - interval.Item1;
                     double diffFromLowest = time - interval.Item1;
@@ -257,7 +268,7 @@ namespace AegirCore.Keyframe
 
                     double t = diffFromLowest / diff;
 
-                    object interpolatedValue = interpolatorCache[valueType].InterpolateBetween(from, to, t);
+                    object interpolatedValue = interpolatorCache[valueType].InterpolateBetween(from.Value, to.Value, t);
 
                     property.Property.SetValue(from.Target, interpolatedValue);
                 }
