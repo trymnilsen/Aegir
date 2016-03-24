@@ -8,6 +8,6 @@ namespace AegirCore.Keyframe
 {
     public interface IValueInterpolator
     {
-        object InterpolateBetween(object from, object To, int t);
+        object InterpolateBetween(object fromValue, object toValue, double t);
     }
 }

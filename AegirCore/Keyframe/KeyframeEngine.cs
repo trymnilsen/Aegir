@@ -29,7 +29,7 @@ namespace AegirCore.Keyframe
 
         private TimelineScopeMode scopeMode;
 
-        private Dictionary<Type, IValueInterpolator> InterpolatorCache;
+        private Dictionary<Type, IValueInterpolator> interpolatorCache;
         /// <summary>
         /// All our keyframes
         /// </summary>
@@ -79,9 +79,9 @@ namespace AegirCore.Keyframe
         public KeyframeEngine()
         {
             Keyframes = new KeyframeTimeline();
-            valueInterpolatorCache = new Dictionary<Type, IValueInterpolator>();
+            interpolatorCache = new Dictionary<Type, IValueInterpolator>();
 
-            valueInterpolatorCache.Add(typeof(Vector3), new LinearVector3Interpolator());
+            interpolatorCache.Add(typeof(Vector3), new LinearVector3Interpolator());
         }
         /// <summary>
         /// Change the playbackmode of the keyframe engine
@@ -214,9 +214,49 @@ namespace AegirCore.Keyframe
             //Get closest keys
             Tuple<int, int> interval = Keyframes.GetClosestKeys(property, time);
             //int t = 5;
-            Type ValueType = property.Property.PropertyType;
+            Type valueType = property.Property.PropertyType;
 
+            //If both keys are the same, no need for interpolation
+            if(interval.Item1 == interval.Item2)
+            {
+                ValueKeyframe value = Keyframes.GetAtTime(interval.Item1, property) as ValueKeyframe;
 
+                if(value == null)
+                {
+                    //Property had no keyframes or was not a value keyframe there is nothing to do, just return
+                    return;
+                }
+
+                property.Property.SetValue(value.Target, value.Value);
+            }
+            else
+            {
+                if(interpolatorCache.ContainsKey(valueType))
+                {
+                    Keyframe from = Keyframes.GetAtTime(interval.Item1, property);
+                    Keyframe to = Keyframes.GetAtTime(interval.Item2, property);
+
+                    double diff = interval.Item2 - interval.Item1;
+                    double diffFromLowest = time - interval.Item1;
+
+                    if(diff == 0)
+                    {
+                        log.Error("Difference between keyframes was 0, cannot continue");
+                        return;
+                    }
+
+                    double t = diffFromLowest / diff;
+
+                    object interpolatedValue = interpolatorCache[valueType].InterpolateBetween(from, to, t);
+
+                    property.Property.SetValue(from.Target, interpolatedValue);
+                }
+                else
+                {
+                    log.WarnFormat("Interpolator cache did not contain a implementation for type {0}", valueType);
+                }
+
+            }
         }
         private void SeekEventKeyframe(KeyframePropertyInfo property, int time)
         {

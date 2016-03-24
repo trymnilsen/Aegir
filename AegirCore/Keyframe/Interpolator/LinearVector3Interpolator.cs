@@ -7,11 +7,19 @@ using System.Threading.Tasks;
 
 namespace AegirCore.Keyframe.Interpolator
 {
-    public class LinearVector3Interpolator : IValueInterpolator<Vector3>
+    public class LinearVector3Interpolator : IValueInterpolator
     {
-        public Vector3 InterpolateBetween(Vector3 from, Vector3 To, int t)
+        public object InterpolateBetween(object fromValue, object toValue, double t)
         {
-            throw new NotImplementedException();
+            if(fromValue is Vector3 && toValue is Vector3)
+            {
+                Vector3 from = (Vector3)fromValue;
+                Vector3 to = (Vector3)toValue;
+
+                return Vector3.Lerp(from, to, (float)t);
+            }
+
+            return Vector3.Zero;
         }
     }
 }
