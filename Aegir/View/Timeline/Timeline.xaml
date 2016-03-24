@@ -113,9 +113,9 @@
                 <Button Style="{StaticResource PlayBackButton}">
                     <fa:ImageAwesome Icon="StepBackward"></fa:ImageAwesome>
                 </Button>
-                <Button Style="{StaticResource PlayBackButton}">
+                <ToggleButton Width="28" Command="{Binding PlayPauseCommand}">
                     <fa:ImageAwesome Icon="Play"></fa:ImageAwesome>
-                </Button>
+                </ToggleButton>
                 <Button Style="{StaticResource PlayBackButton}">
                     <fa:ImageAwesome Icon="StepForward"></fa:ImageAwesome>
                 </Button>
