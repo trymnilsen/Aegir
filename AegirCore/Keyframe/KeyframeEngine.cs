@@ -1,8 +1,12 @@
 ﻿using AegirCore.Behaviour;
+using AegirCore.Keyframe.Interpolator;
 using AegirCore.Scene;
+using AegirCore.Simulation;
+using AegirType;
 using log4net;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -24,6 +28,8 @@ namespace AegirCore.Keyframe
         private Node scopeTarget;
 
         private TimelineScopeMode scopeMode;
+
+        private Dictionary<Type, IValueInterpolator> InterpolatorCache;
         /// <summary>
         /// All our keyframes
         /// </summary>
@@ -56,10 +62,26 @@ namespace AegirCore.Keyframe
             set { scopeMode = value; }
         }
 
+        private int currentKeyTime;
+        private int nextKeyTime;
+
+        public int Time
+        {
+            get { return currentKeyTime; }
+            set
+            {
+                nextKeyTime = value;
+                //Seek(currentTime);
+            }
+        }
+
 
         public KeyframeEngine()
         {
             Keyframes = new KeyframeTimeline();
+            valueInterpolatorCache = new Dictionary<Type, IValueInterpolator>();
+
+            valueInterpolatorCache.Add(typeof(Vector3), new LinearVector3Interpolator());
         }
         /// <summary>
         /// Change the playbackmode of the keyframe engine
@@ -74,7 +96,7 @@ namespace AegirCore.Keyframe
         /// values to this value as well
         /// </summary>
         /// <param name="time"></param>
-        public void Seek(int time)
+        private void Seek(int time)
         {
             IEnumerable<KeyframePropertyInfo> keyframeProperties = GetProperties();
             //Check if we have any properties to animate
@@ -97,16 +119,50 @@ namespace AegirCore.Keyframe
                     default:
                         break;
                 }
-                
+            }
+
+            currentKeyTime = nextKeyTime;
+        }
+        /// <summary>
+        /// Step the keyframe engine one time
+        /// </summary>
+        /// <param name="simulationTime"></param>
+        /// <param name="subTime"></param>
+        public void Step()
+        {
+            //is it time for advancing one key time?
+            //if((nextKeyTime-currentKeyTime) == 0)
+            //{
+            //    switch(PlaybackMode)
+            //    {
+            //        case PlaybackMode.PLAYING:
+            //            NextFrame();
+            //            break;
+            //        case PlaybackMode.REWIND:
+            //            PreviousFrame();
+            //            break;
+            //        case PlaybackMode.PAUSED:
+            //        default:
+            //            return;//Paused should should not trigger a seek and recalc of keys
+            //    }
+            //}
+            //For now only update if next key time is different from current
+            if(nextKeyTime!=currentKeyTime)
+            {
+                Stopwatch sw = Stopwatch.StartNew();
+                Seek(nextKeyTime);
+                sw.Stop();
+                log.DebugFormat("Seek used {0} ms", sw.Elapsed.TotalMilliseconds);
             }
         }
+
         public void NextFrame()
         {
-
+            Time++;
         }
         public void PreviousFrame()
         {
-
+            Time--;
         }
         /// <summary>
         /// Captures the current values for a given node and creates a keyframe
@@ -158,6 +214,9 @@ namespace AegirCore.Keyframe
             //Get closest keys
             Tuple<int, int> interval = Keyframes.GetClosestKeys(property, time);
             //int t = 5;
+            Type ValueType = property.Property.PropertyType;
+
+
         }
         private void SeekEventKeyframe(KeyframePropertyInfo property, int time)
         {

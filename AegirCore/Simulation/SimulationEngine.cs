@@ -168,6 +168,9 @@ namespace AegirCore.Simulation
             {
                 IEnumerable<Node> rootNodes = scene.RootNodes;
                 simTime.FrameStart();
+                //Do keyframing
+                KeyframeEngine.Step();
+                //Update behaviours
                 UpdateScenegraphChildren(rootNodes);
                 simTime.FrameEnd();
                 //Calculate timing

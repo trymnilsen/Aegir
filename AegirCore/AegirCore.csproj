@@ -97,6 +97,8 @@
     <Compile Include="Entity\GNSSReceiver.cs" />
     <Compile Include="Entity\Map.cs" />
     <Compile Include="Entity\Vessel.cs" />
+    <Compile Include="Keyframe\Interpolator\LinearVector3Interpolator.cs" />
+    <Compile Include="Keyframe\IValueInterpolator.cs" />
     <Compile Include="Keyframe\KeyframePropertyInfo.cs" />
     <Compile Include="Keyframe\EventKeyframe.cs" />
     <Compile Include="Keyframe\Interpolator\LinearDoubleInterpolator.cs" />

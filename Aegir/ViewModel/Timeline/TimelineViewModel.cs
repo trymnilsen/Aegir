@@ -12,6 +12,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Data;
 
 namespace Aegir.ViewModel.Timeline
 {
@@ -81,6 +82,8 @@ namespace Aegir.ViewModel.Timeline
             set
             {
                 currentTimelinePosition = value;
+                log.DebugFormat("Time Updated to {0}", value);
+                UpdateTime();
                 RaisePropertyChanged();
             }    
         }
@@ -122,6 +125,10 @@ namespace Aegir.ViewModel.Timeline
             MessengerInstance.Register<ActiveTimelineChanged>(this, TimelineChanged);
             AddKeyframeCommand = new RelayCommand(CaptureKeyframes, CanCaptureKeyframes);
             Keyframes = new ObservableCollection<KeyframeViewModel>();
+        }
+        private void UpdateTime()
+        {
+            engine.Time = Time;
         }
         /// <summary>
         /// Requests the timeline to create a new "Snapshot" of keyframes for the given timeline time
