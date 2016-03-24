@@ -88,6 +88,30 @@ namespace Aegir.ViewModel.Timeline
             }    
         }
 
+        public PlaybackMode PlayMode
+        {
+            get
+            {
+                if(engine!=null)
+                {
+                    return engine.PlaybackMode;
+                }    
+                else
+                {
+                    return PlaybackMode.PAUSED;
+                }
+            }
+            set
+            {
+                if(engine!=null)
+                {
+                    log.DebugFormat("Setting keyframe engine playmode to {0}", value);
+                    engine.PlaybackMode = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
         /// <summary>
         /// Where our timeline starts
         /// </summary>
@@ -100,6 +124,15 @@ namespace Aegir.ViewModel.Timeline
                 RaisePropertyChanged();
             }
         }
+
+        private RelayCommand playPauseCommand;
+
+        public RelayCommand PlayPauseCommand
+        {
+            get { return playPauseCommand; }
+            set { playPauseCommand = value; }
+        }
+
 
         /// <summary>
         /// Where our timeline ends
@@ -125,6 +158,18 @@ namespace Aegir.ViewModel.Timeline
             MessengerInstance.Register<ActiveTimelineChanged>(this, TimelineChanged);
             AddKeyframeCommand = new RelayCommand(CaptureKeyframes, CanCaptureKeyframes);
             Keyframes = new ObservableCollection<KeyframeViewModel>();
+            playPauseCommand = new RelayCommand(TogglePlayPauseState);
+        }
+        private void TogglePlayPauseState()
+        {
+            if(PlayMode == PlaybackMode.PLAYING)
+            {
+                PlayMode = PlaybackMode.PAUSED;
+            }
+            else if(PlayMode == PlaybackMode.PAUSED)
+            {
+                PlayMode = PlaybackMode.PLAYING;
+            }
         }
         private void UpdateTime()
         {

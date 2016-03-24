@@ -41,7 +41,11 @@ namespace AegirCore.Keyframe
         public PlaybackMode PlaybackMode
         {
             get { return playMode; }
-            set { playMode = value; }
+            set
+            {
+                playMode = value;
+                log.DebugFormat("Playback mode changed to {0}", value);
+            }
         }
         /// <summary>
         /// Enables scoping playback to a given node.
@@ -71,6 +75,7 @@ namespace AegirCore.Keyframe
             set
             {
                 nextKeyTime = value;
+                log.DebugFormat("Next frametime set to {0}", value);
                 //Seek(currentTime);
             }
         }
@@ -78,6 +83,7 @@ namespace AegirCore.Keyframe
 
         public KeyframeEngine()
         {
+            PlaybackMode = PlaybackMode.PAUSED;
             Keyframes = new KeyframeTimeline();
             interpolatorCache = new Dictionary<Type, IValueInterpolator>();
 
@@ -102,6 +108,7 @@ namespace AegirCore.Keyframe
             //Check if we have any properties to animate
             if(keyframeProperties == null)
             {
+                log.Debug("No keyframeable properties found");
                 //Nope, none found.. Return
                 return;
             }
@@ -147,8 +154,11 @@ namespace AegirCore.Keyframe
             //    }
             //}
             //For now only update if next key time is different from current
+
             if(nextKeyTime!=currentKeyTime)
             {
+                log.DebugFormat("Seek, current time {0} next time {1}", currentKeyTime, nextKeyTime);
+                log.Debug("Seek started");
                 Stopwatch sw = Stopwatch.StartNew();
                 Seek(nextKeyTime);
                 sw.Stop();

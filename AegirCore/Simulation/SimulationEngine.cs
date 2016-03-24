@@ -169,7 +169,10 @@ namespace AegirCore.Simulation
                 IEnumerable<Node> rootNodes = scene.RootNodes;
                 simTime.FrameStart();
                 //Do keyframing
-                KeyframeEngine.Step();
+                if(KeyframeEngine.PlaybackMode == PlaybackMode.PLAYING)
+                {
+                    KeyframeEngine.Step();
+                }
                 //Update behaviours
                 UpdateScenegraphChildren(rootNodes);
                 simTime.FrameEnd();
