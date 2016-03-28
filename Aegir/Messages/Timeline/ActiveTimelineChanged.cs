@@ -1,10 +1,5 @@
 ﻿using AegirCore.Keyframe;
 using GalaSoft.MvvmLight.Messaging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Aegir.Messages.Timeline
 {
@@ -21,7 +16,7 @@ namespace Aegir.Messages.Timeline
 
         public static void Send(KeyframeTimeline timeline, KeyframeEngine engine)
         {
-            Messenger.Default.Send<ActiveTimelineChanged>(new ActiveTimelineChanged(timeline,engine));
+            Messenger.Default.Send<ActiveTimelineChanged>(new ActiveTimelineChanged(timeline, engine));
         }
     }
 }

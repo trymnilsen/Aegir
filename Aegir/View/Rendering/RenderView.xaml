@@ -132,7 +132,7 @@
                 <ht:DefaultLights></ht:DefaultLights>
             </ht:HelixViewport3D>
             <StackPanel Orientation="Horizontal">
-                <ToggleButton x:Name="TopLeftLabel" Content="Top" Style="{StaticResource ViewButtonStyle}" >
+                <ToggleButton x:Name="TopLeftLabel" Content="Top" Style="{StaticResource ViewButtonStyle}">
                     <ToggleButton.ContextMenu>
                         <ContextMenu>
                             <MenuItem Header="Camera">
@@ -177,7 +177,7 @@
                 </ModelVisual3D>-->
                 <ht:DefaultLights></ht:DefaultLights>
             </ht:HelixViewport3D>
-            <ToggleButton x:Name="TopRightLabel" Content="Perspective" Style="{StaticResource ViewButtonStyle}" >
+            <ToggleButton x:Name="TopRightLabel" Content="Perspective" Style="{StaticResource ViewButtonStyle}">
                 <ToggleButton.ContextMenu>
                     <ContextMenu>
                         <MenuItem Header="Camera">
@@ -215,7 +215,7 @@
                 <ht:DefaultLights></ht:DefaultLights>
                 <local:GridLines YAxisLineColor="#4B4B96" LengthDirection="1,0,0" Normal="0,-1,0" />
             </ht:HelixViewport3D>
-            <ToggleButton x:Name="BottomLeftLabel" Content="Front" Style="{StaticResource ViewButtonStyle}" >
+            <ToggleButton x:Name="BottomLeftLabel" Content="Front" Style="{StaticResource ViewButtonStyle}">
                 <ToggleButton.ContextMenu>
                     <ContextMenu>
                         <MenuItem Header="Camera">
@@ -254,7 +254,7 @@
                 <ht:DefaultLights></ht:DefaultLights>
                 <local:GridLines XAxisLineColor="#4B964B" YAxisLineColor="#4B4B96" LengthDirection="0,1,0" Normal="1,0,0" />
             </ht:HelixViewport3D>
-            <ToggleButton x:Name="BottomRightLabel" Content="Right" Style="{StaticResource ViewButtonStyle}" >
+            <ToggleButton x:Name="BottomRightLabel" Content="Right" Style="{StaticResource ViewButtonStyle}">
                 <ToggleButton.ContextMenu>
                     <ContextMenu>
                         <MenuItem Header="Camera">

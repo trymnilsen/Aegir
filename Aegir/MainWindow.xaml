@@ -58,7 +58,7 @@
         </Grid>
         <!--~MainArea-->
         <!--Console-->
-        <!--<GridSplitter Grid.Row="2" Height="8" HorizontalAlignment="Stretch" VerticalAlignment="Top" >
+        <!--<GridSplitter Grid.Row="2" Height="8" HorizontalAlignment="Stretch" VerticalAlignment="Top">
             <GridSplitter.Style>
                 <Style TargetType="GridSplitter">
                     <Style.Triggers>

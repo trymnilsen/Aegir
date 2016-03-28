@@ -23,8 +23,8 @@
             <Border Padding="20 20 20 0">
                 <Grid Width="148" Height="160">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="128"/>
-                        <RowDefinition/>
+                        <RowDefinition Height="128" />
+                        <RowDefinition />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="128"></ColumnDefinition>
@@ -54,7 +54,6 @@
                                                 </GeometryGroup>
                                             </GeometryDrawing.Geometry>
                                         </GeometryDrawing>
-
                                     </DrawingGroup>
                                 </DrawingBrush.Drawing>
                             </DrawingBrush>

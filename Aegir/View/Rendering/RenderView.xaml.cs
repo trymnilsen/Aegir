@@ -1,12 +1,9 @@
 ﻿using Aegir.Rendering;
-using Aegir.Util;
 using Aegir.ViewModel.NodeProxy;
-using HelixToolkit.Wpf;
 using log4net;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -54,7 +51,6 @@ namespace Aegir.View.Rendering
                                             new PropertyChangedCallback(OnSceneGraphChanged)
                                         ));
 
-
         public ViewportFocus ActiveViewport
         {
             get { return (ViewportFocus)GetValue(FocusProperty); }
@@ -63,15 +59,13 @@ namespace Aegir.View.Rendering
 
         // Using a DependencyProperty as the backing store for Focus.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty FocusProperty =
-            DependencyProperty.Register("Focus", 
-                typeof(ViewportFocus), 
-                typeof(RenderView), 
+            DependencyProperty.Register("Focus",
+                typeof(ViewportFocus),
+                typeof(RenderView),
                 new PropertyMetadata(
                     ViewportFocus.NONE,
                     new PropertyChangedCallback(OnViewportFocusChanged)
                 ));
-
-
 
         public RenderView()
         {
@@ -84,7 +78,6 @@ namespace Aegir.View.Rendering
             renderHandler.AddViewport(new ViewportRenderer(PerspectiveViewport));
             renderHandler.AddViewport(new ViewportRenderer(RightViewport));
             renderHandler.AddViewport(new ViewportRenderer(FrontViewport));
-
         }
 
         private void TopLeftView_IsKeyboardFocusWithinChanged(object sender, DependencyPropertyChangedEventArgs e)
@@ -110,8 +103,9 @@ namespace Aegir.View.Rendering
             renderHandler.ChangeScene(newScene);
             RebuildVisualTree();
         }
+
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="d"></param>
         /// <param name="e"></param>
@@ -126,10 +120,11 @@ namespace Aegir.View.Rendering
                 view.OnSceneGraphInstanceChanged(newScene, oldScene);
             }
         }
+
         private static void OnViewportFocusChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-
         }
+
         private void OnInvalidateChildren()
         {
             renderHandler.Invalidate();
@@ -160,6 +155,5 @@ namespace Aegir.View.Rendering
             log.DebugFormat("Rebuild Visual Tree - END USED {0}ms",
                 rebuildTime.Elapsed.TotalMilliseconds);
         }
-
     }
 }

@@ -1,12 +1,4 @@
-﻿using Aegir.ViewModel.NodeProxy;
-using AegirCore.Mesh;
-using AegirCore.Mesh.Loader;
-using HelixToolkit.Wpf;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using HelixToolkit.Wpf;
 using System.Windows.Media;
 using System.Windows.Media.Media3D;
 
@@ -16,7 +8,6 @@ namespace Aegir.Rendering.Visual
     {
         public WireframeVisualProvider()
         {
-
         }
 
         protected override Visual3D CreateVisual(RenderItem renderItem)
@@ -27,6 +18,5 @@ namespace Aegir.Rendering.Visual
             wireframeVisual.Color = Color.FromArgb(255, 0, 180, 20);
             return wireframeVisual;
         }
-
     }
 }

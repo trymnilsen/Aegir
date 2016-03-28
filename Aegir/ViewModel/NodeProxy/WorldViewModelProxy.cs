@@ -7,7 +7,7 @@ namespace Aegir.ViewModel.NodeProxy
         private World world;
 
         public WorldViewModelProxy(World world)
-            :base(world)
+            : base(world)
         {
             this.world = world;
         }

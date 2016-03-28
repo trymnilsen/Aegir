@@ -1,10 +1,6 @@
 ﻿using HelixToolkit.Wpf;
 using log4net;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Media;
 using System.Windows.Media.Media3D;
 
@@ -27,12 +23,13 @@ namespace Aegir.Rendering.Visual
             this.providers = providers;
             DummyColor = Color.FromRgb(255, 0, 0);
         }
+
         public Visual3D GetVisual(RenderingMode mode, RenderItem item)
         {
-            if(providers.ContainsKey(mode))
+            if (providers.ContainsKey(mode))
             {
                 Visual3D visual = providers[mode].GetVisual(item);
-                if(visual == null)
+                if (visual == null)
                 {
                     log.WarnFormat("Provider for {0} was defined but returned null",
                         mode);
@@ -45,6 +42,7 @@ namespace Aegir.Rendering.Visual
                 return null;
             }
         }
+
         public Visual3D GetDummyVisual()
         {
             BoundingBoxWireFrameVisual3D mesh = new BoundingBoxWireFrameVisual3D();
@@ -52,6 +50,7 @@ namespace Aegir.Rendering.Visual
             mesh.Color = DummyColor;
             return mesh;
         }
+
         public static VisualFactory GetNewFactoryWithDefaultProviders()
         {
             var providers = new Dictionary<RenderingMode, VisualCache>();

@@ -1,10 +1,6 @@
 ﻿using AegirCore.Behaviour.World;
 using AegirCore.Mesh;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Media.Media3D;
 
 namespace Aegir.Rendering
@@ -21,7 +17,7 @@ namespace Aegir.Rendering
         {
             get
             {
-                if(IsGeometryDirty || geometry == null)
+                if (IsGeometryDirty || geometry == null)
                 {
                     geometry = geometryFactory.GetGeometry(meshData);
                     IsGeometryDirty = false;
@@ -60,11 +56,12 @@ namespace Aegir.Rendering
         private void TriggerTransformChanged()
         {
             TransformationChangedHandler transformHandler = TransformChanged;
-            if(transformHandler != null)
+            if (transformHandler != null)
             {
                 transformHandler();
             }
         }
+
         private void TriggerGeometryChanged()
         {
             GeometryChangedHandler geometryHandler = MeshGeometryChanged;
@@ -73,10 +70,13 @@ namespace Aegir.Rendering
                 geometryHandler();
             }
         }
+
         public delegate void TransformationChangedHandler();
+
         public event TransformationChangedHandler TransformChanged;
 
         public delegate void GeometryChangedHandler();
+
         public event GeometryChangedHandler MeshGeometryChanged;
     }
 }

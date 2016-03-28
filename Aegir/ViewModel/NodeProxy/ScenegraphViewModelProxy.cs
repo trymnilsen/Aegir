@@ -9,7 +9,6 @@ using GalaSoft.MvvmLight.Command;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 
 namespace Aegir.ViewModel.NodeProxy
 {
@@ -181,7 +180,7 @@ namespace Aegir.ViewModel.NodeProxy
             {
                 return new VesselViewModelProxy(n as Vessel);
             }
-            if(n.GetType() == typeof(World))
+            if (n.GetType() == typeof(World))
             {
                 return new WorldViewModelProxy(n as World);
             }

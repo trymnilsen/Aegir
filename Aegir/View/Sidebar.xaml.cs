@@ -1,7 +1,6 @@
 ﻿using Aegir.Util;
 using AegirCore.Scene;
 using System;
-using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -65,7 +64,7 @@ namespace Aegir.View
             }
             catch (Exception ex)
             {
-                DebugUtil.LogWithLocation("Error: \n"+ex.ToString());
+                DebugUtil.LogWithLocation("Error: \n" + ex.ToString());
             }
         }
 

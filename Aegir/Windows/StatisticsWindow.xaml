@@ -16,27 +16,27 @@
                             <TextBlock Text="TU = Target updates"></TextBlock>
                         </TextBlock.ToolTip>
                     </TextBlock>
-                    <TextBox IsReadOnly="True" Width="50" DockPanel.Dock="Right" Text="33.333"/>
+                    <TextBox IsReadOnly="True" Width="50" DockPanel.Dock="Right" Text="33.333" />
                 </DockPanel>
                 <DockPanel LastChildFill="False" Margin="0 5 0 0">
                     <TextBlock DockPanel.Dock="Left" Text="Simulation"></TextBlock>
                     <TextBlock DockPanel.Dock="Right" Margin="5 0" Text="ms"></TextBlock>
-                    <TextBox IsReadOnly="True" Width="50" DockPanel.Dock="Right" Text="7.678"/>
+                    <TextBox IsReadOnly="True" Width="50" DockPanel.Dock="Right" Text="7.678" />
                 </DockPanel>
                 <DockPanel LastChildFill="False" Margin="0 5 0 0">
                     <TextBlock DockPanel.Dock="Left" Text="Keyframing"></TextBlock>
                     <TextBlock DockPanel.Dock="Right" Margin="5 0" Text="ms"></TextBlock>
-                    <TextBox IsReadOnly="True" Width="50" DockPanel.Dock="Right" Text="5.218"/>
+                    <TextBox IsReadOnly="True" Width="50" DockPanel.Dock="Right" Text="5.218" />
                 </DockPanel>
                 <DockPanel LastChildFill="False" Margin="0 5 0 0">
                     <TextBlock DockPanel.Dock="Left" Text="Coordinate Conversion"></TextBlock>
                     <TextBlock DockPanel.Dock="Right" Margin="5 0" Text="ms"></TextBlock>
-                    <TextBox IsReadOnly="True" Width="50" DockPanel.Dock="Right" Text="2.150"/>
+                    <TextBox IsReadOnly="True" Width="50" DockPanel.Dock="Right" Text="2.150" />
                 </DockPanel>
                 <DockPanel LastChildFill="False" Margin="0 5 0 0">
                     <TextBlock DockPanel.Dock="Left" Text="Total Time Taken"></TextBlock>
                     <TextBlock DockPanel.Dock="Right" Margin="5 0" Text="ms"></TextBlock>
-                    <TextBox IsReadOnly="True" Width="50" DockPanel.Dock="Right" Text="15.934"/>
+                    <TextBox IsReadOnly="True" Width="50" DockPanel.Dock="Right" Text="15.934" />
                 </DockPanel>
             </StackPanel>
         </GroupBox>
@@ -45,17 +45,17 @@
                 <DockPanel LastChildFill="False" Margin="0 5 0 0">
                     <TextBlock DockPanel.Dock="Left" Text="Target Updates (TU)"></TextBlock>
                     <TextBlock DockPanel.Dock="Right" Margin="5 0" Text="Per Second"></TextBlock>
-                    <TextBox IsReadOnly="True" Width="50" DockPanel.Dock="Right" Text="30"/>
+                    <TextBox IsReadOnly="True" Width="50" DockPanel.Dock="Right" Text="30" />
                 </DockPanel>
                 <DockPanel LastChildFill="False" Margin="0 5 0 0">
                     <TextBlock DockPanel.Dock="Left" Text="Last Second"></TextBlock>
                     <TextBlock DockPanel.Dock="Right" Margin="5 0" Text="Per Second"></TextBlock>
-                    <TextBox IsReadOnly="True" Width="50" DockPanel.Dock="Right" Text="30"/>
+                    <TextBox IsReadOnly="True" Width="50" DockPanel.Dock="Right" Text="30" />
                 </DockPanel>
                 <DockPanel LastChildFill="False" Margin="0 5 0 0">
                     <TextBlock DockPanel.Dock="Left" Text="Calculated"></TextBlock>
                     <TextBlock DockPanel.Dock="Right" Margin="5 0" Text="Per Second"></TextBlock>
-                    <TextBox IsReadOnly="True" Width="50" DockPanel.Dock="Right" Text="29.997"/>
+                    <TextBox IsReadOnly="True" Width="50" DockPanel.Dock="Right" Text="29.997" />
                 </DockPanel>
             </StackPanel>
         </GroupBox>
@@ -64,17 +64,17 @@
                 <DockPanel LastChildFill="False" Margin="0 5 0 0">
                     <TextBlock DockPanel.Dock="Left" Text="Avg"></TextBlock>
                     <TextBlock DockPanel.Dock="Right" Margin="5 0" Text="ms"></TextBlock>
-                    <TextBox IsReadOnly="True" Width="50" DockPanel.Dock="Right" Text="0.071"/>
+                    <TextBox IsReadOnly="True" Width="50" DockPanel.Dock="Right" Text="0.071" />
                 </DockPanel>
                 <DockPanel LastChildFill="False" Margin="0 5 0 0">
                     <TextBlock DockPanel.Dock="Left" Text="Min"></TextBlock>
                     <TextBlock DockPanel.Dock="Right" Margin="5 0" Text="ms"></TextBlock>
-                    <TextBox IsReadOnly="True" Width="50" DockPanel.Dock="Right" Text="0.027"/>
+                    <TextBox IsReadOnly="True" Width="50" DockPanel.Dock="Right" Text="0.027" />
                 </DockPanel>
                 <DockPanel LastChildFill="False" Margin="0 5 0 0">
                     <TextBlock DockPanel.Dock="Left" Text="Max"></TextBlock>
                     <TextBlock DockPanel.Dock="Right" Margin="5 0" Text="ms"></TextBlock>
-                    <TextBox IsReadOnly="True" Width="50" DockPanel.Dock="Right" Text="1.011"/>
+                    <TextBox IsReadOnly="True" Width="50" DockPanel.Dock="Right" Text="1.011" />
                 </DockPanel>
             </StackPanel>
         </GroupBox>

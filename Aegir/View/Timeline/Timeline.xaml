@@ -41,7 +41,7 @@
                 <Slider Margin="0 0 0 0" x:Name="FrameSlider" Value="{Binding Time}" Minimum="{Binding TimelineStart}" Maximum="{Binding TimelineEnd}" IsSnapToTickEnabled="True" LargeChange="1"
                     Style="{DynamicResource FrameSliderStyle}" Background="#FFF0F0F0" />
             </Border>
-            
+
             <Border Grid.Row="1" BorderThickness="0 1 0 1" BorderBrush="Gray">
                 <Grid>
                     <Grid.ColumnDefinitions>

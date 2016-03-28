@@ -18,9 +18,10 @@ namespace Aegir.ViewModel
             SimpleIoc.Default.Register<MenuStripViewModel>(true);
             SimpleIoc.Default.Register<PlaybackViewModel>(true);
             SimpleIoc.Default.Register<MapViewModel>(true);
-            SimpleIoc.Default.Register<ScenegraphViewModelProxy>(true); 
+            SimpleIoc.Default.Register<ScenegraphViewModelProxy>(true);
             SimpleIoc.Default.Register<TimelineViewModel>(true);
         }
+
         public TimelineViewModel TimelineVM
         {
             get
@@ -28,6 +29,7 @@ namespace Aegir.ViewModel
                 return SimpleIoc.Default.GetInstance<TimelineViewModel>();
             }
         }
+
         /// <summary>
         /// Gets the Statusbar view's viewmodel
         /// </summary>

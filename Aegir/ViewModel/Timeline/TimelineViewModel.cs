@@ -5,14 +5,8 @@ using AegirCore.Scene;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using log4net;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Data;
 
 namespace Aegir.ViewModel.Timeline
 {
@@ -22,6 +16,7 @@ namespace Aegir.ViewModel.Timeline
     public class TimelineViewModel : ViewModelBase
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(TimelineViewModel));
+
         /// <summary>
         /// Backing store for if the timeline is scoped
         /// </summary>
@@ -42,11 +37,13 @@ namespace Aegir.ViewModel.Timeline
         private int timelineStart;
         private int timelineEnd;
         private int currentTimelinePosition;
+
         /// <summary>
-        /// Command for creating keyframes at the current timeline 
+        /// Command for creating keyframes at the current timeline
         /// value for the selected node
         /// </summary>
         public RelayCommand AddKeyframeCommand { get; set; }
+
         /// <summary>
         /// The timeline we currently are using and reading/adding keyframes to
         /// </summary>
@@ -61,10 +58,12 @@ namespace Aegir.ViewModel.Timeline
                 RaisePropertyChanged();
             }
         }
+
         /// <summary>
         /// Collection of viewmodels for the keyframes on our current timeline
         /// </summary>
         public ObservableCollection<KeyframeViewModel> Keyframes { get; private set; }
+
         /// <summary>
         /// Is the timeline currently scoped to our active object or active for all
         /// </summary>
@@ -73,6 +72,7 @@ namespace Aegir.ViewModel.Timeline
             get { return isScoped; }
             set { isScoped = value; }
         }
+
         /// <summary>
         /// Current position on our timeline
         /// </summary>
@@ -85,17 +85,17 @@ namespace Aegir.ViewModel.Timeline
                 log.DebugFormat("Time Updated to {0}", value);
                 UpdateTime();
                 RaisePropertyChanged();
-            }    
+            }
         }
 
         public PlaybackMode PlayMode
         {
             get
             {
-                if(engine!=null)
+                if (engine != null)
                 {
                     return engine.PlaybackMode;
-                }    
+                }
                 else
                 {
                     return PlaybackMode.PAUSED;
@@ -103,7 +103,7 @@ namespace Aegir.ViewModel.Timeline
             }
             set
             {
-                if(engine!=null)
+                if (engine != null)
                 {
                     log.DebugFormat("Setting keyframe engine playmode to {0}", value);
                     engine.PlaybackMode = value;
@@ -133,7 +133,6 @@ namespace Aegir.ViewModel.Timeline
             set { playPauseCommand = value; }
         }
 
-
         /// <summary>
         /// Where our timeline ends
         /// </summary>
@@ -160,21 +159,24 @@ namespace Aegir.ViewModel.Timeline
             Keyframes = new ObservableCollection<KeyframeViewModel>();
             playPauseCommand = new RelayCommand(TogglePlayPauseState);
         }
+
         private void TogglePlayPauseState()
         {
-            if(PlayMode == PlaybackMode.PLAYING)
+            if (PlayMode == PlaybackMode.PLAYING)
             {
                 PlayMode = PlaybackMode.PAUSED;
             }
-            else if(PlayMode == PlaybackMode.PAUSED)
+            else if (PlayMode == PlaybackMode.PAUSED)
             {
                 PlayMode = PlaybackMode.PLAYING;
             }
         }
+
         private void UpdateTime()
         {
             engine.Time = Time;
         }
+
         /// <summary>
         /// Requests the timeline to create a new "Snapshot" of keyframes for the given timeline time
         /// </summary>
@@ -185,13 +187,15 @@ namespace Aegir.ViewModel.Timeline
             Stopwatch sw = Stopwatch.StartNew();
             engine.CaptureAndAddToTimeline(activeNode, Time);
             sw.Stop();
-            log.DebugFormat("SetKeyframe finished, used {0} ms", 
+            log.DebugFormat("SetKeyframe finished, used {0} ms",
                             sw.Elapsed.TotalMilliseconds);
         }
+
         private bool CanCaptureKeyframes()
         {
             return (activeNode != null);
         }
+
         /// <summary>
         /// Message callback for timeline instance changed
         /// </summary>
@@ -203,8 +207,9 @@ namespace Aegir.ViewModel.Timeline
             SetTimeLine(message.Timeline);
             engine = message.Engine;
         }
+
         /// <summary>
-        /// Message callback for the currently selected node, (For example if scoping is 
+        /// Message callback for the currently selected node, (For example if scoping is
         /// enabled we need to filter out keyframes local to only this node)
         /// </summary>
         /// <param name="message"></param>
@@ -216,14 +221,15 @@ namespace Aegir.ViewModel.Timeline
             AddKeyframeCommand.RaiseCanExecuteChanged();
             //ResetTimeline(TimelineStart,TimelineEnd);
         }
+
         /// <summary>
         /// Set the range for the curent timeline
         /// </summary>
         /// <param name="start"></param>
         /// <param name="end"></param>
-        private void ResetTimeline(int start,int end)
+        private void ResetTimeline(int start, int end)
         {
-            if(timeline==null)
+            if (timeline == null)
             {
                 return;
             }
@@ -232,27 +238,27 @@ namespace Aegir.ViewModel.Timeline
 
             //foreach(var frameSet in keyframes)
             //{
-
             //}
         }
+
         /// <summary>
         /// Sets the current timeline instance and binds/unbinds events to it
         /// </summary>
         /// <param name="newTimeline"></param>
         private void SetTimeLine(KeyframeTimeline newTimeline)
         {
-            if(timeline != null)
+            if (timeline != null)
             {
                 timeline.KeyframeAdded -= Timeline_KeyframeAdded;
             }
             newTimeline.KeyframeAdded += Timeline_KeyframeAdded;
             timeline = newTimeline;
         }
+
         /// <summary>
         /// Event for when a keyframe is added to the timeline
         /// </summary>
         /// <param name="key"></param>
-
 
         private void Timeline_KeyframeAdded(Node node, int time, Keyframe key)
         {

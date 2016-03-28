@@ -1,17 +1,11 @@
 ﻿using Aegir.Rendering.Visual;
-using Aegir.Util;
 using Aegir.ViewModel.NodeProxy;
 using AegirCore.Behaviour.Mesh;
 using AegirCore.Behaviour.World;
 using AegirCore.Mesh;
-using AegirCore.Scene;
 using HelixToolkit.Wpf;
 using log4net;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Media;
 using System.Windows.Media.Media3D;
 
@@ -31,6 +25,7 @@ namespace Aegir.Rendering
             get { return renderMode; }
             set { renderMode = value; }
         }
+
         private Color dummyVisualColor;
 
         public Color DummyColor
@@ -46,34 +41,37 @@ namespace Aegir.Rendering
             renderItems = new List<RenderItem>();
             DummyColor = Color.FromRgb(255, 0, 0);
         }
+
         public void ChangeScene(ScenegraphViewModelProxy scene)
         {
-            if(scene!=null)
+            if (scene != null)
             {
                 ReleaseCurrentScene();
             }
             this.scene = scene;
         }
+
         public void RebuildScene()
         {
             //Clear nodemeshlisteners
-            foreach(RenderItem item in renderItems)
+            foreach (RenderItem item in renderItems)
             {
                 item.Dispose();
             }
             renderItems.Clear();
-            foreach(ViewportRenderer view in viewports)
+            foreach (ViewportRenderer view in viewports)
             {
                 //view.ClearView();
             }
-            if(scene!=null)
+            if (scene != null)
             {
-                foreach(NodeViewModelProxy node in scene.Items)
+                foreach (NodeViewModelProxy node in scene.Items)
                 {
                     RenderNode(node);
                 }
             }
         }
+
         //private Visual3D GetExistingVisualForNode(NodeViewModelProxy node)
         //{
         //    //Check if any of weak references in cache matches this node
@@ -84,7 +82,7 @@ namespace Aegir.Rendering
         //}
         private void RenderNode(NodeViewModelProxy node)
         {
-            foreach(NodeViewModelProxy child in node.Children)
+            foreach (NodeViewModelProxy child in node.Children)
             {
                 RenderNode(child);
             }
@@ -92,7 +90,7 @@ namespace Aegir.Rendering
 
             //Check if node has render component
             var renderBehaviour = node.GetNodeComponent<MeshBehaviour>();
-            if(renderBehaviour!=null)
+            if (renderBehaviour != null)
             {
                 renderBehaviour.MeshChanged += RenderBehaviour_MeshChanged;
             }
@@ -116,7 +114,7 @@ namespace Aegir.Rendering
             ////Visual
             //Geometry3D meshData = meshFactory.GetVisual(node, mode);
             //Visual3D visual = null;
-                
+
             //if(meshData != null)
             //{
             //    Material foo = new DiffuseMaterial(new SolidColorBrush(Color.FromRgb(100, 100, 100)));
@@ -138,7 +136,7 @@ namespace Aegir.Rendering
 
         private void AddDummyToViewports(TransformBehaviour transformBehaviour)
         {
-            foreach(ViewportRenderer viewport in viewports)
+            foreach (ViewportRenderer viewport in viewports)
             {
                 viewport.AddDummy(transformBehaviour);
             }
@@ -155,41 +153,46 @@ namespace Aegir.Rendering
 
         private void AddToViewports(Visual3D visual, TransformBehaviour transform)
         {
-            foreach(ViewportRenderer viewport in viewports)
+            foreach (ViewportRenderer viewport in viewports)
             {
                 viewport.AddVisual(visual, transform);
             }
         }
+
         private void RenderBehaviour_MeshChanged(MeshBehaviour source, MeshChangedArgs eventArgs)
         {
-            switch(eventArgs.Action)
+            switch (eventArgs.Action)
             {
                 case MeshChangeAction.New:
                     AddMesh(source);
-                    break; 
+                    break;
+
                 case MeshChangeAction.Remove:
                     RemoveMesh(eventArgs.Old);
                     break;
+
                 case MeshChangeAction.Change:
                     ChangeMesh(source, eventArgs.Old);
                     break;
+
                 default:
                     break;
-            }   
+            }
         }
+
         private void ChangeMesh(MeshBehaviour newMesh, MeshData oldMesh)
         {
             RemoveMesh(oldMesh);
             AddMesh(newMesh);
         }
+
         private void AddMesh(MeshBehaviour mesh)
         {
-            TransformBehaviour transform = 
+            TransformBehaviour transform =
                 mesh.Parent.GetComponent<TransformBehaviour>();
-            
-            if(transform!=null)
+
+            if (transform != null)
             {
-                
                 RenderItem newMeshItem = new RenderItem(meshFactory, mesh.Mesh, transform);
                 AddToViewports(newMeshItem);
             }
@@ -200,10 +203,11 @@ namespace Aegir.Rendering
                     mesh.Parent.Name);
             }
         }
+
         private void RemoveMesh(MeshData mesh)
         {
-
         }
+
         private Visual3D GetDummyVisual()
         {
             BoundingBoxWireFrameVisual3D mesh = new BoundingBoxWireFrameVisual3D();
@@ -211,6 +215,7 @@ namespace Aegir.Rendering
             mesh.Color = DummyColor;
             return mesh;
         }
+
         public void Invalidate()
         {
             foreach (ViewportRenderer viewport in viewports)
@@ -218,14 +223,15 @@ namespace Aegir.Rendering
                 viewport.InvalidateVisuals();
             }
         }
+
         public void AddViewport(ViewportRenderer viewport)
         {
             viewports.Add(viewport);
             viewport.VisualFactory = VisualFactory.GetNewFactoryWithDefaultProviders();
         }
+
         private void ReleaseCurrentScene()
         {
-
         }
     }
 }

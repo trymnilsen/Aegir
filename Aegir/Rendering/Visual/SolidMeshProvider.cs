@@ -1,15 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Media.Media3D;
-using Aegir.ViewModel.NodeProxy;
-using AegirCore.Mesh.Loader;
-using HelixToolkit.Wpf;
-using AegirType;
-using AegirCore.Mesh;
+﻿using HelixToolkit.Wpf;
 using System.Windows.Media;
+using System.Windows.Media.Media3D;
 
 namespace Aegir.Rendering.Visual
 {
@@ -41,7 +32,7 @@ namespace Aegir.Rendering.Visual
             //{
             //    meshBuilder.Append(vertexes, indices);
             //}
-            //else 
+            //else
             //{
             //    meshBuilder.Append(vertexes, indices, normals);
             //}

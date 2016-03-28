@@ -1,7 +1,6 @@
 ﻿using Aegir.Util;
 using AegirCore.Keyframe;
 using GalaSoft.MvvmLight;
-using System.Diagnostics;
 
 namespace Aegir.ViewModel
 {

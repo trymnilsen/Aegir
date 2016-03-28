@@ -52,15 +52,15 @@
                             <Color R="112" G="112" B="112" A="255"></Color>
                         </SolidColorBrush.Color>
                     </SolidColorBrush>
-                    <HierarchicalDataTemplate DataType="{x:Type model:NodeViewModelProxy}" 
+                    <HierarchicalDataTemplate DataType="{x:Type model:NodeViewModelProxy}"
                                               ItemsSource="{Binding Children}">
                         <StackPanel Orientation="Horizontal">
                             <CheckBox IsChecked="{Binding IsEnabled}" Margin="0 0 5 0"></CheckBox>
                             <Border Background="White" SnapsToDevicePixels="True" BorderThickness="1" BorderBrush="{StaticResource BorderBrush}"
                                     Padding="1" Width="14" Height="13" Margin="0 -1 5 0">
-                                <Rectangle SnapsToDevicePixels="True" Width="10" Height="9" Fill="Orange"></Rectangle> 
+                                <Rectangle SnapsToDevicePixels="True" Width="10" Height="9" Fill="Orange"></Rectangle>
                             </Border>
-                            <fa:ImageAwesome Foreground="{StaticResource BorderBrush}" SnapsToDevicePixels="True" Margin="0 0 5 0" Icon="Tag" Width="12" Height="12"/>
+                            <fa:ImageAwesome Foreground="{StaticResource BorderBrush}" SnapsToDevicePixels="True" Margin="0 0 5 0" Icon="Tag" Width="12" Height="12" />
                             <TextBlock Text="{Binding Name}" Margin="0 0 10 0"></TextBlock>
                         </StackPanel>
                     </HierarchicalDataTemplate>

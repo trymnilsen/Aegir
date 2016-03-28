@@ -25,7 +25,7 @@ namespace Aegir
 
         private void Application_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
         {
-            log.FatalFormat("Fatal Error Occured in Application: \n{0}",e.Exception);
+            log.FatalFormat("Fatal Error Occured in Application: \n{0}", e.Exception);
         }
     }
 }

@@ -18,7 +18,7 @@ namespace Aegir.ViewModel.NodeProxy
     public class VesselViewModelProxy : NodeViewModelProxy
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(VesselViewModelProxy));
-        
+
         private VesselNavigationBehaviour navBehaviour;
         private FloatingMesh floatMeshBehaviour;
 
@@ -129,7 +129,6 @@ namespace Aegir.ViewModel.NodeProxy
             get { return lerpMode; }
             set { lerpMode = value; }
         }
-
 
         public VesselViewModelProxy(Vessel vessel)
             : base(vessel)

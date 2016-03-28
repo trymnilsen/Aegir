@@ -3,16 +3,12 @@ using Aegir.View.PropertyEditor.CustomEditor;
 using Aegir.Windows;
 using AegirCore.Behaviour;
 using AegirCore.Behaviour.World;
-using AegirCore.Mesh.Loader;
 using AegirCore.Scene;
 using AegirNetwork;
 using AegirType;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
-using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Windows;
 
@@ -162,7 +158,7 @@ namespace Aegir.ViewModel.NodeProxy
             get { return networkType; }
             set { networkType = value; }
         }
-        
+
         [Category("Rendering")]
         [DisplayName("Rendering Mode")]
         public RenderingMode RenderMode
@@ -216,7 +212,7 @@ namespace Aegir.ViewModel.NodeProxy
             ShowOutputCommand = new RelayCommand(ShowOutput);
         }
 
-        public T GetNodeComponent<T>() 
+        public T GetNodeComponent<T>()
             where T : BehaviourComponent
         {
             return nodeData.GetComponent<T>();
@@ -275,6 +271,5 @@ namespace Aegir.ViewModel.NodeProxy
         //        transformEvent();
         //    }
         //}
-
     }
 }

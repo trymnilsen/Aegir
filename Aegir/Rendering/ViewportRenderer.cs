@@ -1,14 +1,8 @@
 ﻿using Aegir.Rendering.Visual;
-using Aegir.ViewModel.NodeProxy;
 using AegirCore.Behaviour.World;
-using AegirCore.Scene;
 using HelixToolkit.Wpf;
 using log4net;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Media.Media3D;
 
 namespace Aegir.Rendering
@@ -49,30 +43,34 @@ namespace Aegir.Rendering
             this.visualFactory = VisualFactory;
             listeners = new List<RenderItemListener>();
         }
+
         public void AddVisual(Visual3D visual, TransformBehaviour transform)
         {
             RenderItemListener listener = new RenderItemListener(visual, transform);
             listeners.Add(listener);
             viewport.Children.Add(visual);
         }
+
         public void AddDummy(TransformBehaviour transformBehaviour)
         {
             Visual3D dummyVisual = VisualFactory.GetDummyVisual();
             AddVisual(dummyVisual, transformBehaviour);
         }
+
         public void InvalidateVisuals()
         {
-            foreach(RenderItemListener listener in listeners)
+            foreach (RenderItemListener listener in listeners)
             {
                 listener.Invalidate();
             }
         }
+
         public void AddRenderItemToView(RenderItem renderItem)
         {
-            if(VisualFactory==null)
+            if (VisualFactory == null)
             {
                 string viewPortName = "NAMENOTDEFINED";
-                if(viewport.Name != null  && viewport.Name != string.Empty)
+                if (viewport.Name != null && viewport.Name != string.Empty)
                 {
                     viewPortName = viewport.Name;
                 }
@@ -85,9 +83,10 @@ namespace Aegir.Rendering
                 AddVisual(visual, renderItem.Transform);
             }
         }
+
         public void ClearView()
         {
-            foreach(RenderItemListener listener in listeners)
+            foreach (RenderItemListener listener in listeners)
             {
                 listener.Dispose();
             }

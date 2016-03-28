@@ -13,10 +13,8 @@
             <RowDefinition Height="25"></RowDefinition>
         </Grid.RowDefinitions>
         <GroupBox Header="Playback">
-            
         </GroupBox>
         <GroupBox Grid.Row="1" Header="Timeline">
-
         </GroupBox>
         <Button Grid.Row="2">Ok</Button>
     </Grid>

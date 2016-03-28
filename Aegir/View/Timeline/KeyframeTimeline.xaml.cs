@@ -1,22 +1,12 @@
-﻿using Aegir.Util;
-using Aegir.ViewModel.Timeline;
+﻿using Aegir.ViewModel.Timeline;
 using log4net;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace Aegir.View.Timeline
@@ -30,6 +20,7 @@ namespace Aegir.View.Timeline
 
         private Rectangle currentTimeHighlighter;
         private List<Visual> keyframeVisuals;
+
         /// <summary>
         /// Where the start of our timeline is
         /// </summary>
@@ -41,6 +32,7 @@ namespace Aegir.View.Timeline
                 SetValue(TimeRangeStartProperty, value);
             }
         }
+
         /// <summary>
         /// TimeRangeStart Dep Property
         /// </summary>
@@ -52,6 +44,7 @@ namespace Aegir.View.Timeline
                                     0,
                                     new PropertyChangedCallback(TimeRangeChanged)
                                 ));
+
         /// <summary>
         /// Where the end of our timeline is
         /// </summary>
@@ -63,6 +56,7 @@ namespace Aegir.View.Timeline
                 SetValue(TimeRangeEndProperty, value);
             }
         }
+
         /// <summary>
         /// Dependency property for Timerange end
         /// </summary>
@@ -74,6 +68,7 @@ namespace Aegir.View.Timeline
                                     100,
                                     new PropertyChangedCallback(TimeRangeChanged)
                                 ));
+
         /// <summary>
         /// Currently where in time on our timeline we are
         /// </summary>
@@ -85,6 +80,7 @@ namespace Aegir.View.Timeline
                 SetValue(CurrentTimeProperty, value);
             }
         }
+
         /// <summary>
         /// Dependency property for our time/position on timeline
         /// </summary>
@@ -96,6 +92,7 @@ namespace Aegir.View.Timeline
                                     0,
                                     new PropertyChangedCallback(CurrentTimeChanged)
                                 ));
+
         /// <summary>
         /// Color of the ticks on the timeline
         /// </summary>
@@ -107,17 +104,19 @@ namespace Aegir.View.Timeline
                 SetValue(TicksColorProperty, value);
             }
         }
+
         /// <summary>
         /// Dependency property for our ticks color
         /// </summary>
         public static readonly DependencyProperty TicksColorProperty =
             DependencyProperty.Register(nameof(TicksColor),
                                 typeof(Brush),
-                                typeof(KeyframeTimeline), 
+                                typeof(KeyframeTimeline),
                                 new PropertyMetadata(
-                                    new SolidColorBrush(Color.FromArgb(255,255,0,0)), 
+                                    new SolidColorBrush(Color.FromArgb(255, 255, 0, 0)),
                                     new PropertyChangedCallback(TicksColorChanged)
                                 ));
+
         /// <summary>
         /// Color of the rectangle highlighting where in time we are on our timeline
         /// </summary>
@@ -129,6 +128,7 @@ namespace Aegir.View.Timeline
                 SetValue(CurrentTimeHighlightColorProperty, value);
             }
         }
+
         /// <summary>
         /// Dependency property for color of current time highlight rectangle
         /// </summary>
@@ -141,8 +141,6 @@ namespace Aegir.View.Timeline
                                     new PropertyChangedCallback(CurrentTimeHighlightChanged)
                                 ));
 
-
-
         public ObservableCollection<KeyframeViewModel> KeyframeSource
         {
             get { return GetValue(KeyframeSourceProperty) as ObservableCollection<KeyframeViewModel>; }
@@ -154,9 +152,9 @@ namespace Aegir.View.Timeline
 
         // Using a DependencyProperty as the backing store for MyProperty.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty KeyframeSourceProperty =
-            DependencyProperty.Register(nameof(KeyframeSource), 
-                                typeof(ObservableCollection<KeyframeViewModel>), 
-                                typeof(KeyframeTimeline), 
+            DependencyProperty.Register(nameof(KeyframeSource),
+                                typeof(ObservableCollection<KeyframeViewModel>),
+                                typeof(KeyframeTimeline),
                                 new PropertyMetadata(
                                    new PropertyChangedCallback(KeyframeSourceChanged)
                                 ));
@@ -169,6 +167,7 @@ namespace Aegir.View.Timeline
             InitializeComponent();
             keyframeVisuals = new List<Visual>();
         }
+
         /// <summary>
         /// Handler for changes to our collection of keyframe viewmodels
         /// </summary>
@@ -176,9 +175,9 @@ namespace Aegir.View.Timeline
         /// <param name="e"></param>
         private void KeyframeSource_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            if(e.Action == NotifyCollectionChangedAction.Add)
+            if (e.Action == NotifyCollectionChangedAction.Add)
             {
-                foreach(KeyframeViewModel keyVM in e.NewItems)
+                foreach (KeyframeViewModel keyVM in e.NewItems)
                 {
                     AddKeyframe(keyVM);
                 }
@@ -199,15 +198,13 @@ namespace Aegir.View.Timeline
             KeyframeTimeline view = d as KeyframeTimeline;
             if (view != null)
             {
-                if(e.OldValue!=null && e.OldValue is ObservableCollection<KeyframeViewModel>)
+                if (e.OldValue != null && e.OldValue is ObservableCollection<KeyframeViewModel>)
                 {
-
-                    (e.OldValue as ObservableCollection<KeyframeViewModel>).CollectionChanged -= 
+                    (e.OldValue as ObservableCollection<KeyframeViewModel>).CollectionChanged -=
                                                         view.KeyframeSource_CollectionChanged;
                 }
                 if (e.NewValue != null && e.NewValue is ObservableCollection<KeyframeViewModel>)
                 {
-
                     (e.NewValue as ObservableCollection<KeyframeViewModel>).CollectionChanged +=
                                                         view.KeyframeSource_CollectionChanged;
                 }
@@ -215,6 +212,7 @@ namespace Aegir.View.Timeline
                 view.InvalidateKeyframeVisuals();
             }
         }
+
         /// <summary>
         /// Callback for dependency property of the color of our ticks
         /// </summary>
@@ -228,6 +226,7 @@ namespace Aegir.View.Timeline
                 view.InvalidateTimeline();
             }
         }
+
         /// <summary>
         /// Callback for highlight rectangle color change
         /// </summary>
@@ -241,6 +240,7 @@ namespace Aegir.View.Timeline
                 view.InvalidateCurrentTimeHighlight();
             }
         }
+
         /// <summary>
         /// Either start or end changed
         /// </summary>
@@ -254,6 +254,7 @@ namespace Aegir.View.Timeline
                 view.UpdateTimeRange();
             }
         }
+
         /// <summary>
         /// Callback for dep prop change of current time on timeline
         /// </summary>
@@ -267,6 +268,7 @@ namespace Aegir.View.Timeline
                 view.InvalidateCurrentTimeHighlight();
             }
         }
+
         /// <summary>
         /// Updates the current Time Range and Invalidates the ticks/size of the timeline
         /// </summary>
@@ -275,6 +277,7 @@ namespace Aegir.View.Timeline
             log.DebugFormat("TimeRange Update: {0} / {1}", TimeRangeStart, TimeRangeEnd);
             InvalidateFullTimeline();
         }
+
         /// <summary>
         /// Updates the current time on timeline and invalidates the highlight rectangle
         /// </summary>
@@ -282,6 +285,7 @@ namespace Aegir.View.Timeline
         {
             InvalidateCurrentTimeHighlight();
         }
+
         /// <summary>
         /// Called upon control changing size, requiring repositioning of the timeline ticks
         /// </summary>
@@ -291,6 +295,7 @@ namespace Aegir.View.Timeline
         {
             InvalidateFullTimeline();
         }
+
         /// <summary>
         /// Invalidates all of the timeline parts
         /// </summary>
@@ -300,6 +305,7 @@ namespace Aegir.View.Timeline
             InvalidateCurrentTimeHighlight();
             InvalidateKeyframeVisuals();
         }
+
         /// <summary>
         /// Invalidates the position and color of the current time highlight rectangle
         /// </summary>
@@ -314,29 +320,31 @@ namespace Aegir.View.Timeline
             currentTimeHighlighter.Height = 22;
             currentTimeHighlighter.Stroke = new SolidColorBrush(Color.FromArgb(255, 128, 128, 128));
             currentTimeHighlighter.StrokeThickness = 1;
-            if(!KeyFrameTimeLineRuler.Children.Contains(currentTimeHighlighter))
+            if (!KeyFrameTimeLineRuler.Children.Contains(currentTimeHighlighter))
             {
                 KeyFrameTimeLineRuler.Children.Add(currentTimeHighlighter);
             }
             double stepSize = (ActualWidth - 20) / (TimeRangeEnd - TimeRangeStart);
             double leftOffset = stepSize * CurrentTime + 10;
-            Canvas.SetLeft(currentTimeHighlighter, leftOffset-4);
+            Canvas.SetLeft(currentTimeHighlighter, leftOffset - 4);
             Canvas.SetTop(currentTimeHighlighter, 0);
         }
+
         /// <summary>
         /// Invalidate the visuals related to showing keyframes
         /// </summary>
         private void InvalidateKeyframeVisuals()
         {
             keyframeVisuals.Clear();
-            if(KeyframeSource != null)
+            if (KeyframeSource != null)
             {
-                foreach(KeyframeViewModel keyframe in KeyframeSource)
+                foreach (KeyframeViewModel keyframe in KeyframeSource)
                 {
                     AddKeyframe(keyframe);
                 }
             }
         }
+
         /// <summary>
         /// Invalidates the size of the timeline
         /// </summary>
@@ -345,15 +353,15 @@ namespace Aegir.View.Timeline
             //Get range
             int range = (TimeRangeEnd - TimeRangeStart) + 1;
             //For now always have 5 segments
-            double segmentSize = (ActualWidth / range  ) * 10;
+            double segmentSize = (ActualWidth / range) * 10;
 
             //Align ticks/viewport with range and width
             //KeyFrameTimeLineRuler.Background = ticksBrush;
             //Set Ruler Thickness
             int numOfSegments = (int)Math.Ceiling(range / 10d);
             GenerateTickSegments(range, numOfSegments, 10);
-            
         }
+
         /// <summary>
         /// Add visual for a single keyframe
         /// </summary>
@@ -374,6 +382,7 @@ namespace Aegir.View.Timeline
             this.KeyFrameTimeLineRuler.Children.Add(keyframeRectangle);
             keyframeVisuals.Add(keyframeRectangle);
         }
+
         /// <summary>
         /// Generates tick visuals
         /// </summary>
@@ -384,7 +393,7 @@ namespace Aegir.View.Timeline
         {
             double keyFrameTicksPadding = 10;
             KeyFrameTimeLineRuler.Children.Clear();
-            double stepSize = (ActualWidth-keyFrameTicksPadding*2) / (range -1);
+            double stepSize = (ActualWidth - keyFrameTicksPadding * 2) / (range - 1);
             //if (range > 40)
             //{
             //    while (!(stepSize < 10 && stepSize > 2))
@@ -402,13 +411,13 @@ namespace Aegir.View.Timeline
             Line[] tickLines = new Line[range];
             for (int i = 0; i < range; i++)
             {
-                double xOffset = i * stepSize  + keyFrameTicksPadding;
+                double xOffset = i * stepSize + keyFrameTicksPadding;
                 //Last tick of segment
                 Line tickLine = new Line();
                 tickLine.X1 = xOffset;
                 tickLine.X2 = xOffset;
                 tickLine.Y1 = 0;
-                if(i%numOfSegmentSteps == 0)
+                if (i % numOfSegmentSteps == 0)
                 {
                     tickLine.Y2 = 20;
                 }
