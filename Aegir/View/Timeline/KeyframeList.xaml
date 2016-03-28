@@ -4,8 +4,32 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Aegir.View.Timeline"
+             xmlns:timeline="clr-namespace:Aegir.ViewModel.Timeline"
+             xmlns:conv="clr-namespace:Aegir.Converter"
              mc:Ignorable="d" 
              d:DesignHeight="32" d:DesignWidth="300">
+    <UserControl.Resources>
+        <conv:ColorToBrushConverter x:Key="ColorToBrushConv"></conv:ColorToBrushConverter>
+        <!-- A data-template that defines the visuals for a a key -->
+        <DataTemplate DataType="{x:Type timeline:KeyframeViewModel}">
+            
+         <!--The Rectangle is embedded in the Grid so that we
+            can set the Margin. The margin is set so that the ListBox
+            item selection fits nicely around the Rectangle.--> 
+        
+            <Grid Margin="0,2,2,2">
+                <Rectangle
+                    Width="{Binding Width}"
+                    Height="{Binding Height}"
+                    Fill="{Binding Color, Converter={StaticResource ColorToBrushConv}}"
+                    Cursor="Hand"
+                    MouseDown="Keyframe_MouseDown"
+                    MouseUp="Keyframe_MouseUp"
+                    MouseMove="Keyframe_MouseMove"
+                    />
+            </Grid>
+        </DataTemplate>
+    </UserControl.Resources>
     <Grid Name="GridContainer" 
           MouseDown="Window_MouseDown"
           MouseUp="Window_MouseUp"

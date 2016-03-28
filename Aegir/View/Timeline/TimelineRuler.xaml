@@ -8,21 +8,7 @@
              d:DesignHeight="32" d:DesignWidth="300"
              SizeChanged="UserControl_SizeChanged">
     <UserControl.Resources>
-        <!-- A data-template that defines the visuals for a a key -->
-        <!--<DataTemplate DataType="{x:Type local:RectangleViewModel}">
-            -->
-        <!-- The Rectangle is embedded in the Grid so that we
-            can set the Margin. The margin is set so that the ListBox
-            item selection fits nicely around the Rectangle. -->
-        <!--
-            <Grid Margin="0,2,2,2">
-                <Rectangle
-                    Width="{Binding Width}"
-                    Height="{Binding Height}"
-                    Fill="Red"
-                    Cursor="Hand" />
-            </Grid>
-        </DataTemplate>-->
+
     </UserControl.Resources>
 
     <Grid Background="Transparent">
@@ -53,34 +39,5 @@
                 Height="28px" VerticalAlignment="Top"
                 x:Name="KeyFrameTimeLineRuler">
         </Canvas>
-        <!--Keyframes-->
-        <Grid x:Name="KeyframeContainer">
-            <ListBox x:Name="keyFrameListBox" ItemsSource="{Binding Rectangles}"
-                     SelectionMode="Extended">
-                <ListBox.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <Canvas />
-                    </ItemsPanelTemplate>
-                </ListBox.ItemsPanel>
-                <ListBox.ItemContainerStyle>
-                    <Style TargetType="ListBoxItem">
-                        <Setter Property="Canvas.Left" Value="{Binding X}" />
-                        <Setter Property="Canvas.Top" Value="{Binding Y}" />
-                    </Style>
-                </ListBox.ItemContainerStyle>
-            </ListBox>
-
-            <!--
-                This Canvas and Border are used as a very simple way to render a drag selection rectangle.
-                -->
-            <Canvas x:Name="dragSelectionCanvas" Visibility="Collapsed">
-                <Border x:Name="dragSelectionBorder"
-                        BorderBrush="Blue"
-                        BorderThickness="1"
-                        Background="LightBlue"
-                        CornerRadius="1"
-                        Opacity="0.5" />
-            </Canvas>
-        </Grid>
     </Grid>
 </UserControl>

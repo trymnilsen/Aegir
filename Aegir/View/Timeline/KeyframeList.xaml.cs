@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Aegir.ViewModel.Timeline;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -64,9 +65,186 @@ namespace Aegir.View.Timeline
         }
 
         /// <summary>
+        /// Event raised when the mouse is pressed down on a keyframe.
+        /// </summary>
+        private void Keyframe_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton != MouseButton.Left)
+            {
+                return;
+            }
+
+            FrameworkElement keyframe = (FrameworkElement)sender;
+            KeyframeViewModel keyframeViewmodel = (KeyframeViewModel)keyframe.DataContext;
+
+            isLeftMouseDownOnKeyframe = true;
+
+            if ((Keyboard.Modifiers & ModifierKeys.Control) != 0)
+            {
+                //
+                // Control key was held down.
+                // This means that the keyframe is being added to or removed 
+                // from the existing selection. Don't do anything yet, 
+                // we will act on this later in the MouseUp event handler.
+                //
+                isLeftMouseAndControlDownOnKeyframe = true;
+            }
+            else
+            {
+                //
+                // Control key is not held down.
+                //
+                isLeftMouseAndControlDownOnKeyframe = false;
+
+                if (this.listBox.SelectedItems.Count == 0)
+                {
+                    //
+                    // Nothing already selected, select the item.
+                    //
+                    this.listBox.SelectedItems.Add(keyframeViewmodel);
+                }
+                else if (this.listBox.SelectedItems.Contains(keyframeViewmodel))
+                {
+                    // 
+                    // Item is already selected, do nothing.
+                    // We will act on this in the MouseUp if there was no drag operation.
+                    //
+                }
+                else
+                {
+                    //
+                    // Item is not selected.
+                    // Deselect all, and select the item.
+                    //
+                    this.listBox.SelectedItems.Clear();
+                    this.listBox.SelectedItems.Add(keyframeViewmodel);
+                }
+            }
+
+            keyframe.CaptureMouse();
+            origMouseDownPoint = e.GetPosition(GridContainer);
+            listBox.Focus();
+            Keyboard.Focus(listBox);
+            e.Handled = true;
+        }
+
+        /// <summary>
+        /// Event raised when the mouse is released on a keyframe.
+        /// </summary>
+        private void Keyframe_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            if (isLeftMouseDownOnKeyframe)
+            {
+                FrameworkElement keyframe = (FrameworkElement)sender;
+                KeyframeViewModel keyframeViewModel = (KeyframeViewModel)keyframe.DataContext;
+
+                if (!isDraggingKeyframe)
+                {
+                    //
+                    // Execute mouse up selection logic only if there was no drag operation.
+                    //
+                    if (isLeftMouseAndControlDownOnKeyframe)
+                    {
+                        //
+                        // Control key was held down.
+                        // Toggle the selection.
+                        //
+                        if (this.listBox.SelectedItems.Contains(keyframeViewModel))
+                        {
+                            //
+                            // Item was already selected, control-click removes it from the selection.
+                            //
+                            this.listBox.SelectedItems.Remove(keyframeViewModel);
+                        }
+                        else
+                        {
+                            // 
+                            // Item was not already selected, control-click adds it to the selection.
+                            //
+                            this.listBox.SelectedItems.Add(keyframeViewModel);
+                        }
+                    }
+                    else
+                    {
+                        //
+                        // Control key was not held down.
+                        //
+                        if (this.listBox.SelectedItems.Count == 1 &&
+                            this.listBox.SelectedItem == keyframeViewModel)
+                        {
+                            //
+                            // The item that was clicked is already the only selected item.
+                            // Don't need to do anything.
+                            //
+                        }
+                        else
+                        {
+                            //
+                            // Clear the selection and select the clicked item as the only selected item.
+                            //
+                            this.listBox.SelectedItems.Clear();
+                            this.listBox.SelectedItems.Add(keyframeViewModel);
+                        }
+                    }
+                }
+
+                keyframe.ReleaseMouseCapture();
+                isLeftMouseDownOnKeyframe = false;
+                isLeftMouseAndControlDownOnKeyframe = false;
+
+                e.Handled = true;
+            }
+
+            isDraggingKeyframe = false;
+        }
+
+        /// <summary>
+        /// Event raised when the mouse is moved over a keyframe.
+        /// </summary>
+        private void Keyframe_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (isDraggingKeyframe)
+            {
+                //
+                // Drag-move selected keyframes.
+                //
+                Point curMouseDownPoint = e.GetPosition(GridContainer);
+                var dragDelta = curMouseDownPoint - origMouseDownPoint;
+
+                origMouseDownPoint = curMouseDownPoint;
+
+                foreach (KeyframeViewModel keyframe in this.listBox.SelectedItems)
+                {
+                    keyframe.CanvasX += dragDelta.X;
+                    keyframe.CanvasY += dragDelta.Y;
+                }
+            }
+            else if (isLeftMouseDownOnKeyframe)
+            {
+                //
+                // The user is left-dragging the keyframe,
+                // but don't initiate the drag operation until
+                // the mouse cursor has moved more than the threshold value.
+                //
+                Point curMouseDownPoint = e.GetPosition(GridContainer);
+                var dragDelta = curMouseDownPoint - origMouseDownPoint;
+                double dragDistance = Math.Abs(dragDelta.Length);
+                if (dragDistance > DragThreshold)
+                {
+                    //
+                    // When the mouse has been dragged more than the threshold value commence dragging the keyframe.
+                    //
+                    isDraggingKeyframe = true;
+                }
+
+                e.Handled = true;
+            }
+        }
+
+        /// <summary>
         /// Event raised when the user presses down the left mouse-button.
         /// </summary>
-        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        private void Control_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.ChangedButton == MouseButton.Left)
             {
@@ -88,7 +266,7 @@ namespace Aegir.View.Timeline
         /// <summary>
         /// Event raised when the user releases the left mouse-button.
         /// </summary>
-        private void Window_MouseUp(object sender, MouseButtonEventArgs e)
+        private void Control_MouseUp(object sender, MouseButtonEventArgs e)
         {
             if (e.ChangedButton == MouseButton.Left)
             {
@@ -128,7 +306,7 @@ namespace Aegir.View.Timeline
         /// <summary>
         /// Event raised when the user moves the mouse button.
         /// </summary>
-        private void Window_MouseMove(object sender, MouseEventArgs e)
+        private void Control_MouseMove(object sender, MouseEventArgs e)
         {
             if (isDraggingSelectionRect)
             {
@@ -216,7 +394,7 @@ namespace Aegir.View.Timeline
         }
 
         /// <summary>
-        /// Select all nodes that are in the drag selection rectangle.
+        /// Select all elements that are in the drag selection rectangle.
         /// </summary>
         private void ApplyDragSelectionRect()
         {
@@ -242,12 +420,12 @@ namespace Aegir.View.Timeline
             //
             // Find and select all the list box items.
             //
-            //foreach (RectangleViewModel rectangleViewModel in this.ViewModel.Rectangles)
+            //foreach (KeyframeViewModel keyframeVM in this.KeyframeViewModels)
             //{
-            //    Rect itemRect = new Rect(rectangleViewModel.X, rectangleViewModel.Y, rectangleViewModel.Width, rectangleViewModel.Height);
+            //    Rect itemRect = new Rect(keyframeVM.CanvasX, keyframeVM.CanvasY, 8, 14);
             //    if (dragRect.Contains(itemRect))
             //    {
-            //        listBox.SelectedItems.Add(rectangleViewModel);
+            //        listBox.SelectedItems.Add(keyframeVM);
             //    }
             //}
         }
