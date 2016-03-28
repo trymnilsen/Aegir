@@ -1,4 +1,6 @@
-﻿using System;
+﻿using AegirCore.Behaviour;
+using AegirCore.Scene;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -22,6 +24,27 @@ namespace AegirCore.Keyframe
                         object value) : base(property,target)
         {
             Value = value;
+        }
+
+        public override string ToString()
+        {
+            StringBuilder keyframeName = new StringBuilder();
+            if(Target is BehaviourComponent)
+            {
+                BehaviourComponent behaviour = (Target as BehaviourComponent);
+                keyframeName.Append(behaviour.Parent.ToString());
+                keyframeName.Append(" : ");
+                keyframeName.Append(behaviour.ToString());
+            }
+            else
+            {
+                keyframeName.Append(Target.ToString());
+            }
+
+            keyframeName.Append(" - ");
+            keyframeName.Append(Property.Property.Name);
+
+            return keyframeName.ToString();
         }
 
     }

@@ -77,6 +77,10 @@ namespace AegirCore.Behaviour.World
             Rotation = Quaternion.CreateFromAxisAngle(new Vector3(0, 0, 1), (float)newHeading);
         }
 
+        public override string ToString()
+        {
+            return "Transform";
+        }
         //public void TriggerTransformChanged()
         //{
         //    TransformationChangedHandler transformEvent = TransformationChanged;

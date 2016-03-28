@@ -169,6 +169,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Controls.cs" />
+    <Compile Include="Converter\ColorToBrushConverter.cs" />
     <Compile Include="Converter\DivideByConverter.cs" />
     <Compile Include="Converter\EnumToBoolConverter.cs" />
     <Compile Include="Converter\MatrixTransformConverter.cs" />

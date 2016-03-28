@@ -56,5 +56,9 @@ namespace AegirCore.Scene
         {
             return Components.FirstOrDefault(x => x.GetType().Equals(typeof(T))) as T;
         }
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }
