@@ -31,9 +31,9 @@
         </DataTemplate>
     </UserControl.Resources>
     <Grid Name="GridContainer" 
-          MouseDown="Window_MouseDown"
-          MouseUp="Window_MouseUp"
-          MouseMove="Window_MouseMove">
+          MouseDown="Control_MouseDown"
+          MouseUp="Control_MouseUp"
+          MouseMove="Control_MouseMove">
         <!--This ListBox presents the keyframes.
             The data-template that defines the visuals 
             for each keyframe is in the resources section 
