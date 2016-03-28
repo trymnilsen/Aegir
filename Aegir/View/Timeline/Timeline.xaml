@@ -52,12 +52,13 @@
                         <fa:ImageAwesome Icon="Sliders" Width="20px"></fa:ImageAwesome>
                     </ToggleButton>-->
                     <!--Timeline-->
-                    <local:KeyframeTimeline Grid.Column="1"
-                                            Background="#FFCDCDCD"
-                                            TicksColor="#FF404040"
-                                            CurrentTime="{Binding Time}"
-                                            KeyframeSource="{Binding Keyframes}"
-                                            CurrentTimeHighlightColor="#332929D6"></local:KeyframeTimeline>
+                    <local:TimelineRuler Grid.Column="1"
+                                Background="#FFCDCDCD"
+                                TicksColor="#FF404040"
+                                CurrentTime="{Binding Time}"
+                                KeyframeSource="{Binding Keyframes}"
+                                CurrentTimeHighlightColor="#332929D6"/>
+                    <local:KeyframeList Grid.Column="1"/>
                 </Grid>
             </Border>
         </Grid>

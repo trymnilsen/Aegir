@@ -1,0 +1,42 @@
+﻿<UserControl x:Class="Aegir.View.Timeline.KeyframeList"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Aegir.View.Timeline"
+             mc:Ignorable="d" 
+             d:DesignHeight="32" d:DesignWidth="300">
+    <Grid Name="GridContainer" 
+          MouseDown="Window_MouseDown"
+          MouseUp="Window_MouseUp"
+          MouseMove="Window_MouseMove">
+        <!--This ListBox presents the keyframes.
+            The data-template that defines the visuals 
+            for each keyframe is in the resources section 
+            at the start of this file.-->
+        <ListBox x:Name="listBox" ItemsSource="{Binding Rectangles}"
+                SelectionMode="Extended">
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Canvas />
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="ListBoxItem" >
+                    <Setter Property="Canvas.Left" Value="{Binding X}" />
+                    <Setter Property="Canvas.Top" Value="{Binding Y}" />
+                </Style>
+            </ListBox.ItemContainerStyle>
+        </ListBox>
+        <!-- This Canvas and Border are used as a very simple way 
+                to render a drag selection rectangle. -->
+        <Canvas x:Name="dragSelectionCanvas" Visibility="Collapsed" >
+            <Border x:Name="dragSelectionBorder" 
+                    BorderBrush="Blue"
+                    BorderThickness="1"
+                    Background="LightBlue"
+                    CornerRadius="1"
+                    Opacity="0.5" />
+        </Canvas>
+    </Grid>
+</UserControl>

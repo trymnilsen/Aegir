@@ -14,11 +14,20 @@ namespace Aegir.View.Timeline
     /// <summary>
     /// Interaction logic for KeyframeTimeline.xaml
     /// </summary>
-    public partial class KeyframeTimeline : UserControl
+    public partial class TimelineRuler : UserControl
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(KeyframeTimeline));
-
+        /// <summary>
+        /// Access to logging
+        /// </summary>
+        private static readonly ILog log = LogManager.GetLogger(typeof(TimelineRuler));
+        /// <summary>
+        /// Visual for the rectangle highlighting the current time
+        /// </summary>
         private Rectangle currentTimeHighlighter;
+        /// <summary>
+        /// Keyframe visuals
+        /// </summary>
+        [ObsoleteAttribute("Will be removed")]
         private List<Visual> keyframeVisuals;
 
         /// <summary>
@@ -39,7 +48,7 @@ namespace Aegir.View.Timeline
         public static readonly DependencyProperty TimeRangeStartProperty =
             DependencyProperty.Register(nameof(TimeRangeStart),
                                 typeof(int),
-                                typeof(KeyframeTimeline),
+                                typeof(TimelineRuler),
                                 new PropertyMetadata(
                                     0,
                                     new PropertyChangedCallback(TimeRangeChanged)
@@ -63,7 +72,7 @@ namespace Aegir.View.Timeline
         public static readonly DependencyProperty TimeRangeEndProperty =
             DependencyProperty.Register(nameof(TimeRangeEnd),
                                 typeof(int),
-                                typeof(KeyframeTimeline),
+                                typeof(TimelineRuler),
                                 new PropertyMetadata(
                                     100,
                                     new PropertyChangedCallback(TimeRangeChanged)
@@ -87,7 +96,7 @@ namespace Aegir.View.Timeline
         public static readonly DependencyProperty CurrentTimeProperty =
             DependencyProperty.Register(nameof(CurrentTime),
                                 typeof(int),
-                                typeof(KeyframeTimeline),
+                                typeof(TimelineRuler),
                                 new PropertyMetadata(
                                     0,
                                     new PropertyChangedCallback(CurrentTimeChanged)
@@ -111,7 +120,7 @@ namespace Aegir.View.Timeline
         public static readonly DependencyProperty TicksColorProperty =
             DependencyProperty.Register(nameof(TicksColor),
                                 typeof(Brush),
-                                typeof(KeyframeTimeline),
+                                typeof(TimelineRuler),
                                 new PropertyMetadata(
                                     new SolidColorBrush(Color.FromArgb(255, 255, 0, 0)),
                                     new PropertyChangedCallback(TicksColorChanged)
@@ -135,7 +144,7 @@ namespace Aegir.View.Timeline
         public static readonly DependencyProperty CurrentTimeHighlightColorProperty =
             DependencyProperty.Register(nameof(CurrentTimeHighlightColor),
                                 typeof(Brush),
-                                typeof(KeyframeTimeline),
+                                typeof(TimelineRuler),
                                 new PropertyMetadata(
                                     new SolidColorBrush(Color.FromArgb(100, 0, 0, 255)),
                                     new PropertyChangedCallback(CurrentTimeHighlightChanged)
@@ -154,7 +163,7 @@ namespace Aegir.View.Timeline
         public static readonly DependencyProperty KeyframeSourceProperty =
             DependencyProperty.Register(nameof(KeyframeSource),
                                 typeof(ObservableCollection<KeyframeViewModel>),
-                                typeof(KeyframeTimeline),
+                                typeof(TimelineRuler),
                                 new PropertyMetadata(
                                    new PropertyChangedCallback(KeyframeSourceChanged)
                                 ));
@@ -162,7 +171,7 @@ namespace Aegir.View.Timeline
         /// <summary>
         /// Instanciates a new Keyframe timeline
         /// </summary>
-        public KeyframeTimeline()
+        public TimelineRuler()
         {
             InitializeComponent();
             keyframeVisuals = new List<Visual>();
@@ -195,7 +204,7 @@ namespace Aegir.View.Timeline
         /// <param name="e"></param>
         private static void KeyframeSourceChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            KeyframeTimeline view = d as KeyframeTimeline;
+            TimelineRuler view = d as TimelineRuler;
             if (view != null)
             {
                 if (e.OldValue != null && e.OldValue is ObservableCollection<KeyframeViewModel>)
@@ -220,7 +229,7 @@ namespace Aegir.View.Timeline
         /// <param name="e">Event object for our change</param>
         public static void TicksColorChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            KeyframeTimeline view = d as KeyframeTimeline;
+            TimelineRuler view = d as TimelineRuler;
             if (view != null)
             {
                 view.InvalidateTimeline();
@@ -234,7 +243,7 @@ namespace Aegir.View.Timeline
         /// <param name="e">Event object for our change</param>
         public static void CurrentTimeHighlightChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            KeyframeTimeline view = d as KeyframeTimeline;
+            TimelineRuler view = d as TimelineRuler;
             if (view != null)
             {
                 view.InvalidateCurrentTimeHighlight();
@@ -248,7 +257,7 @@ namespace Aegir.View.Timeline
         /// <param name="e">Event object for our change</param>
         public static void TimeRangeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            KeyframeTimeline view = d as KeyframeTimeline;
+            TimelineRuler view = d as TimelineRuler;
             if (view != null)
             {
                 view.UpdateTimeRange();
@@ -262,7 +271,7 @@ namespace Aegir.View.Timeline
         /// <param name="e">Event object for our change</param>
         public static void CurrentTimeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            KeyframeTimeline view = d as KeyframeTimeline;
+            TimelineRuler view = d as TimelineRuler;
             if (view != null)
             {
                 view.InvalidateCurrentTimeHighlight();

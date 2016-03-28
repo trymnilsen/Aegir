@@ -42,6 +42,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>Aegir.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -51,6 +52,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>Aegir.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>aegiricon.ico</ApplicationIcon>
@@ -248,15 +250,15 @@
     <Compile Include="View\StatusBar.xaml.cs">
       <DependentUpon>StatusBar.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Timeline\ITimelineKeyframeProvider.cs" />
-    <Compile Include="View\Timeline\KeyframeTimeline.xaml.cs">
-      <DependentUpon>KeyframeTimeline.xaml</DependentUpon>
+    <Compile Include="View\Timeline\KeyframeList.xaml.cs">
+      <DependentUpon>KeyframeList.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Timeline\Segment.cs" />
+    <Compile Include="View\Timeline\TimelineRuler.xaml.cs">
+      <DependentUpon>TimelineRuler.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Timeline\Timeline.xaml.cs">
       <DependentUpon>Timeline.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Timeline\TimelineRange.cs" />
     <Compile Include="View\Waypoints.xaml.cs">
       <DependentUpon>Waypoints.xaml</DependentUpon>
     </Compile>
@@ -344,7 +346,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\Timeline\KeyframeTimeline.xaml">
+    <Page Include="View\Timeline\KeyframeList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Timeline\TimelineRuler.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -407,6 +413,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="Aegir.ruleset" />
     <None Include="Content\cruiseship.obj">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
