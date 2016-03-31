@@ -150,76 +150,12 @@ namespace Aegir.View.Timeline
                                     new PropertyChangedCallback(CurrentTimeHighlightChanged)
                                 ));
 
-        public ObservableCollection<KeyframeViewModel> KeyframeSource
-        {
-            get { return GetValue(KeyframeSourceProperty) as ObservableCollection<KeyframeViewModel>; }
-            set
-            {
-                SetValue(KeyframeSourceProperty, value);
-            }
-        }
-
-        // Using a DependencyProperty as the backing store for MyProperty.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty KeyframeSourceProperty =
-            DependencyProperty.Register(nameof(KeyframeSource),
-                                typeof(ObservableCollection<KeyframeViewModel>),
-                                typeof(TimelineRuler),
-                                new PropertyMetadata(
-                                   new PropertyChangedCallback(KeyframeSourceChanged)
-                                ));
-
         /// <summary>
         /// Instanciates a new Keyframe timeline
         /// </summary>
         public TimelineRuler()
         {
             InitializeComponent();
-            keyframeVisuals = new List<Visual>();
-        }
-
-        /// <summary>
-        /// Handler for changes to our collection of keyframe viewmodels
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void KeyframeSource_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
-        {
-            if (e.Action == NotifyCollectionChangedAction.Add)
-            {
-                foreach (KeyframeViewModel keyVM in e.NewItems)
-                {
-                    AddKeyframe(keyVM);
-                }
-            }
-            else
-            {
-                InvalidateKeyframeVisuals();
-            }
-        }
-
-        /// <summary>
-        /// DP Callback for the keyframes source
-        /// </summary>
-        /// <param name="d"></param>
-        /// <param name="e"></param>
-        private static void KeyframeSourceChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            TimelineRuler view = d as TimelineRuler;
-            if (view != null)
-            {
-                if (e.OldValue != null && e.OldValue is ObservableCollection<KeyframeViewModel>)
-                {
-                    (e.OldValue as ObservableCollection<KeyframeViewModel>).CollectionChanged -=
-                                                        view.KeyframeSource_CollectionChanged;
-                }
-                if (e.NewValue != null && e.NewValue is ObservableCollection<KeyframeViewModel>)
-                {
-                    (e.NewValue as ObservableCollection<KeyframeViewModel>).CollectionChanged +=
-                                                        view.KeyframeSource_CollectionChanged;
-                }
-
-                view.InvalidateKeyframeVisuals();
-            }
         }
 
         /// <summary>
@@ -312,7 +248,6 @@ namespace Aegir.View.Timeline
         {
             InvalidateTimeline();
             InvalidateCurrentTimeHighlight();
-            InvalidateKeyframeVisuals();
         }
 
         /// <summary>
@@ -340,21 +275,6 @@ namespace Aegir.View.Timeline
         }
 
         /// <summary>
-        /// Invalidate the visuals related to showing keyframes
-        /// </summary>
-        private void InvalidateKeyframeVisuals()
-        {
-            keyframeVisuals.Clear();
-            if (KeyframeSource != null)
-            {
-                foreach (KeyframeViewModel keyframe in KeyframeSource)
-                {
-                    AddKeyframe(keyframe);
-                }
-            }
-        }
-
-        /// <summary>
         /// Invalidates the size of the timeline
         /// </summary>
         private void InvalidateTimeline()
@@ -369,27 +289,6 @@ namespace Aegir.View.Timeline
             //Set Ruler Thickness
             int numOfSegments = (int)Math.Ceiling(range / 10d);
             GenerateTickSegments(range, numOfSegments, 10);
-        }
-
-        /// <summary>
-        /// Add visual for a single keyframe
-        /// </summary>
-        /// <param name="key"></param>
-        private void AddKeyframe(KeyframeViewModel key)
-        {
-            Rectangle keyframeRectangle = new Rectangle();
-            keyframeRectangle.Width = 7;
-            keyframeRectangle.Height = 12;
-            keyframeRectangle.Fill = new SolidColorBrush(Color.FromArgb(255, 204, 48, 9));
-            keyframeRectangle.Stroke = new SolidColorBrush(Color.FromArgb(255, 60, 14, 2));
-            keyframeRectangle.StrokeThickness = 1;
-            double stepSize = (ActualWidth - 20) / (TimeRangeEnd - TimeRangeStart);
-            double leftOffset = stepSize * key.Time + 10;
-            Canvas.SetLeft(keyframeRectangle, leftOffset - 4);
-            Canvas.SetTop(keyframeRectangle, 4);
-
-            this.KeyFrameTimeLineRuler.Children.Add(keyframeRectangle);
-            keyframeVisuals.Add(keyframeRectangle);
         }
 
         /// <summary>
