@@ -7,9 +7,6 @@
              mc:Ignorable="d"
              d:DesignHeight="32" d:DesignWidth="300"
              SizeChanged="UserControl_SizeChanged">
-    <UserControl.Resources>
-
-    </UserControl.Resources>
 
     <Grid Background="Transparent">
         <Grid.ContextMenu>

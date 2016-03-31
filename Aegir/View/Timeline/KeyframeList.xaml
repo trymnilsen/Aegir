@@ -39,7 +39,7 @@
             for each keyframe is in the resources section 
             at the start of this file.-->
         <ListBox x:Name="listBox" ItemsSource="{Binding Keyframes}"
-                SelectionMode="Extended">
+                SelectionMode="Extended" Background="Transparent">
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
                     <Canvas />
