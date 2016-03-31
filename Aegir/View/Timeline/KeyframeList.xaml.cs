@@ -1,6 +1,7 @@
 ﻿using Aegir.ViewModel.Timeline;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -59,11 +60,39 @@ namespace Aegir.View.Timeline
         /// </summary>
         private bool isDraggingKeyframe = false;
 
+
+
+        public ObservableCollection<KeyframeViewModel> Keyframes
+        {
+            get { return (ObservableCollection<KeyframeViewModel>)GetValue(KeyframesProperty); }
+            set { SetValue(KeyframesProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for Keyframes.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty KeyframesProperty =
+            DependencyProperty.Register(nameof(Keyframes), 
+                typeof(ObservableCollection<KeyframeViewModel>), 
+                typeof(KeyframeList), 
+                new PropertyMetadata(KeyframeCollectionChanged));
+
+
+
         public KeyframeList()
         {
             InitializeComponent();
         }
-
+        private static void KeyframeCollectionChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            KeyframeList view = d as KeyframeList;
+            if (view != null)
+            {
+                view.KeyframeCollectionUpdated();
+            }
+        }
+        private void KeyframeCollectionUpdated()
+        {
+            listBox.ItemsSource = Keyframes;
+        }
         /// <summary>
         /// Event raised when the mouse is pressed down on a keyframe.
         /// </summary>

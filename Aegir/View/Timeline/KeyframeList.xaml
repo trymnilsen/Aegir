@@ -38,7 +38,7 @@
             The data-template that defines the visuals 
             for each keyframe is in the resources section 
             at the start of this file.-->
-        <ListBox x:Name="listBox" ItemsSource="{Binding Rectangles}"
+        <ListBox x:Name="listBox" ItemsSource="{Binding Keyframes}"
                 SelectionMode="Extended">
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
