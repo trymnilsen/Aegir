@@ -57,7 +57,7 @@
                                 TicksColor="#FF404040"
                                 CurrentTime="{Binding Time}"
                                 CurrentTimeHighlightColor="#332929D6"/>
-                    <local:KeyframeList Grid.Column="1"/>
+                    <local:KeyframeList Grid.Column="1" Keyframes="{Binding Keyframes}"/>
                 </Grid>
             </Border>
         </Grid>

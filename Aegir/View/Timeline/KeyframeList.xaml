@@ -19,9 +19,9 @@
         
             <Grid Margin="0,2,2,2">
                 <Rectangle
-                    Width="{Binding Width}"
-                    Height="{Binding Height}"
-                    Fill="{Binding Color, Converter={StaticResource ColorToBrushConv}}"
+                    Width="8"
+                    Height="14"
+                    Fill="Red"
                     Cursor="Hand"
                     MouseDown="Keyframe_MouseDown"
                     MouseUp="Keyframe_MouseUp"
@@ -48,7 +48,7 @@
             <ListBox.ItemContainerStyle>
                 <Style TargetType="ListBoxItem" >
                     <Setter Property="Canvas.Left" Value="{Binding X}" />
-                    <Setter Property="Canvas.Top" Value="{Binding Y}" />
+                    <Setter Property="Canvas.Top" Value="2" />
                 </Style>
             </ListBox.ItemContainerStyle>
         </ListBox>
