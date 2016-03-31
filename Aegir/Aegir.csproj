@@ -174,6 +174,7 @@
     <Compile Include="Converter\ColorToBrushConverter.cs" />
     <Compile Include="Converter\DivideByConverter.cs" />
     <Compile Include="Converter\EnumToBoolConverter.cs" />
+    <Compile Include="Converter\KeyframeTimelinePositionConverter.cs" />
     <Compile Include="Converter\MatrixTransformConverter.cs" />
     <Compile Include="Converter\PlaybackButtonConverter.cs" />
     <Compile Include="Messages\ObjectTree\SelectedNodeChanged.cs" />
