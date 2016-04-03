@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AegirCore.Persistence
+namespace AegirCore.Persistence.Definition
 {
-    public interface IPersistable
+    class Node
     {
-         
     }
 }

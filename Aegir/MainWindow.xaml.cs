@@ -16,19 +16,7 @@ namespace Aegir
 
         private void FileOpenClick(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
 
-            openFileDialog.InitialDirectory = "c:\\";
-            openFileDialog.Filter = "Project Files (*.proj)|*.proj|All files (*.*)|*.*";
-            openFileDialog.FilterIndex = 2;
-            openFileDialog.RestoreDirectory = true;
-
-            bool? foo = openFileDialog.ShowDialog();
-
-            if (foo.HasValue && foo.Value)
-            {
-                LoadProjectFile.Send(openFileDialog.FileName);
-            }
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)

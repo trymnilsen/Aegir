@@ -11,7 +11,7 @@ namespace AegirCore.Project.Event
     public class ProjectLoadEventArgs : EventArgs
     {
         public ProjectLoadStatus LoadStatus { get; private set; }
-        public ProjectFile Project { get; private set; }
+        public ProjectData Project { get; private set; }
         public string FilePath { get; private set; }
 
         public ProjectLoadEventArgs(string filepath)
@@ -20,7 +20,7 @@ namespace AegirCore.Project.Event
             LoadStatus = ProjectLoadStatus.NOTEXISTING;
         }
 
-        public ProjectLoadEventArgs(string filepath, ProjectFile project)
+        public ProjectLoadEventArgs(string filepath, ProjectData project)
         {
             FilePath = filepath;
             Project = project;

@@ -180,6 +180,7 @@
     <Compile Include="Messages\ObjectTree\SelectedNodeChanged.cs" />
     <Compile Include="Messages\Project\LoadProjectFile.cs" />
     <Compile Include="Messages\Project\ProjectActivated.cs" />
+    <Compile Include="Messages\Project\SaveProjectFile.cs" />
     <Compile Include="Messages\Simulation\InvalidateEntities.cs" />
     <Compile Include="Messages\Timeline\ActiveTimelineChanged.cs" />
     <Compile Include="Rendering\IGeometryFactory.cs" />

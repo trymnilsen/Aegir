@@ -17,6 +17,7 @@ namespace Aegir
             /*Environment*/
             Context = new ApplicationContext();
             Messenger.Default.Register<LoadProjectFile>(this, OpenProject);
+            Messenger.Default.Register<SaveProjectFile>(this, SaveProject);
 
             Context.Project.ProjectActivated += OnProjectActivated;
             Context.Engine.StepFinished += Engine_StepFinished;
@@ -38,7 +39,10 @@ namespace Aegir
         {
             Context.Project.OpenProject(message.FilePath);
         }
-
+        private void SaveProject(SaveProjectFile message)
+        {
+            Context.Project.SaveProject(message.FilePath);
+        }
         private void OnProjectActivated(ProjectActivateEventArgs e)
         {
             ProjectActivated.Send(e.Project);

@@ -19,6 +19,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AegirCoreTest", "AegirCoreT
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestBench", "TestBench\TestBench.csproj", "{7305EF3B-A9CE-4280-8652-9680478E595C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ViewTools", "ViewTools\ViewTools.csproj", "{117A5DF9-A408-44F3-90CC-B83D149E7EBC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ViewPropertyGrid", "ViewPropertyGrid\ViewPropertyGrid.csproj", "{4151F55A-E041-49B5-BA96-BCBE07EDFA78}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -57,6 +61,14 @@ Global
 		{7305EF3B-A9CE-4280-8652-9680478E595C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7305EF3B-A9CE-4280-8652-9680478E595C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7305EF3B-A9CE-4280-8652-9680478E595C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{117A5DF9-A408-44F3-90CC-B83D149E7EBC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{117A5DF9-A408-44F3-90CC-B83D149E7EBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{117A5DF9-A408-44F3-90CC-B83D149E7EBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{117A5DF9-A408-44F3-90CC-B83D149E7EBC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4151F55A-E041-49B5-BA96-BCBE07EDFA78}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4151F55A-E041-49B5-BA96-BCBE07EDFA78}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4151F55A-E041-49B5-BA96-BCBE07EDFA78}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4151F55A-E041-49B5-BA96-BCBE07EDFA78}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -4,11 +4,16 @@ using AegirCore.Project.Event;
 using AegirCore.Scene;
 using AegirCore.Vessel;
 using System.IO;
+using System;
+using Newtonsoft.Json;
+using System.Xml.Serialization;
+using AegirCore.Persistence;
 
 namespace AegirCore.Project
 {
     public class ProjectContext
     {
+        private readonly ProjectPersister persistance;
         private ProjectData activeProject;
 
         public ProjectData ActiveProject
@@ -29,6 +34,7 @@ namespace AegirCore.Project
 
         public ProjectContext()
         {
+            persistance = new ProjectPersister();
         }
 
         /// <summary>
@@ -51,18 +57,19 @@ namespace AegirCore.Project
 
         public ProjectData CreateNewProject()
         {
-            SceneGraph scene = new SceneGraph();
-            World worldNode = new World();
+            return new DefaultProject();
+        }
 
-            var vessel = new Entity.Vessel(worldNode.GetComponent<WaterSimulation>()?.Mesh);
-            vessel.Children.Add(new GNSSReceiver() { Name = "Aft" });
-            vessel.Children.Add(new GNSSReceiver() { Name = "Fore" });
-            worldNode.Children.Add(vessel);
-            scene.RootNodes.Add(worldNode);
-            scene.RootNodes.Add(new Map());
-            //scene.RootNodes.Add(new Water());
-            VesselConfiguration vesselConf = new VesselConfiguration();
-            return new ProjectData(scene, vesselConf, "New Simulation");
+        public void SaveProject(string filePath)
+        {
+            XmlSerializer SerializerObj = new XmlSerializer(typeof(SceneGraph));
+
+            // Create a new file stream to write the serialized object to a file
+            TextWriter WriteFileStream = new StreamWriter(filePath);
+            SerializerObj.Serialize(WriteFileStream, ActiveProject.Scene);
+
+            // Cleanup
+            WriteFileStream.Close();
         }
 
         private void TriggerProjectLoadSuccess(ProjectLoadEventArgs e)

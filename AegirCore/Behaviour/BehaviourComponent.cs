@@ -1,11 +1,13 @@
 ﻿using AegirCore.Scene;
 using AegirCore.Signals;
 using AegirCore.Simulation;
+using System.Xml.Serialization;
 
 namespace AegirCore.Behaviour
 {
     public class BehaviourComponent
     {
+        [XmlIgnore]
         public Node Parent { get; private set; }
         public SignalRouter internalRouter { get; set; }
         public SignalRouter globalRouter { get; set; }
@@ -15,7 +17,10 @@ namespace AegirCore.Behaviour
         {
             Parent = parentNode;
         }
+        public BehaviourComponent()
+        {
 
+        }
         public T GetComponent<T>()
             where T : BehaviourComponent
         {

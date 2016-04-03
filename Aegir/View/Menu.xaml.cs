@@ -1,4 +1,6 @@
-﻿using System.Windows.Controls;
+﻿using Aegir.Messages.Project;
+using Microsoft.Win32;
+using System.Windows.Controls;
 
 namespace Aegir.View
 {
@@ -10,6 +12,40 @@ namespace Aegir.View
         public Menu()
         {
             InitializeComponent();
+        }
+
+        private void MenuItem_Open_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+
+            openFileDialog.InitialDirectory = "c:\\";
+            openFileDialog.Filter = "Project Files (*.aprj)|*.aprj|All files (*.*)|*.*";
+            openFileDialog.FilterIndex = 2;
+            openFileDialog.RestoreDirectory = true;
+
+            bool? foo = openFileDialog.ShowDialog();
+
+            if (foo.HasValue && foo.Value)
+            {
+                LoadProjectFile.Send(openFileDialog.FileName);
+            }
+        }
+
+        private void MenuItem_Save_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            SaveFileDialog openFileDialog = new SaveFileDialog();
+
+            openFileDialog.InitialDirectory = "c:\\";
+            openFileDialog.Filter = "Project Files (*.aprj)|*.aprj|All files (*.*)|*.*";
+            openFileDialog.FilterIndex = 2;
+            openFileDialog.RestoreDirectory = true;
+
+            bool? foo = openFileDialog.ShowDialog();
+
+            if (foo.HasValue && foo.Value)
+            {
+                SaveProjectFile.Send(openFileDialog.FileName);
+            }
         }
     }
 }

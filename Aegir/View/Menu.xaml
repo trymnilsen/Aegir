@@ -28,10 +28,10 @@
             <MenuItem Header="File">
                 <MenuItem Header="New Simulation"></MenuItem>
                 <Separator></Separator>
-                <MenuItem Header="Open Simulation"></MenuItem>
+                <MenuItem Header="Open Simulation" Click="MenuItem_Open_Click"></MenuItem>
                 <MenuItem Header="Open Replay"></MenuItem>
                 <Separator></Separator>
-                <MenuItem Header="Save Simulation"></MenuItem>
+                <MenuItem Header="Save Simulation" Click="MenuItem_Save_Click"></MenuItem>
                 <Separator></Separator>
                 <MenuItem Header="Quit"></MenuItem>
             </MenuItem>
