@@ -126,6 +126,7 @@
     <Compile Include="Persistence\ProjectPersister.cs" />
     <Compile Include="Persistence\ScenePersister.cs" />
     <Compile Include="Persistence\TimelinePersister.cs" />
+    <Compile Include="Project\DefaultProject.cs" />
     <Compile Include="Project\Event\ProjectActivateEventArgs.cs" />
     <Compile Include="Project\ProjectContext.cs" />
     <Compile Include="Project\ProjectData.cs" />

@@ -62,14 +62,14 @@ namespace AegirCore.Project
 
         public void SaveProject(string filePath)
         {
-            XmlSerializer SerializerObj = new XmlSerializer(typeof(SceneGraph));
+            string serializedContent = JsonConvert.SerializeObject(ActiveProject.Scene, new JsonSerializerSettings()
+            {
+                TypeNameHandling = TypeNameHandling.Auto,
+                Formatting = Formatting.Indented,
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+            });
 
-            // Create a new file stream to write the serialized object to a file
-            TextWriter WriteFileStream = new StreamWriter(filePath);
-            SerializerObj.Serialize(WriteFileStream, ActiveProject.Scene);
-
-            // Cleanup
-            WriteFileStream.Close();
+            File.WriteAllText(filePath, serializedContent);
         }
 
         private void TriggerProjectLoadSuccess(ProjectLoadEventArgs e)

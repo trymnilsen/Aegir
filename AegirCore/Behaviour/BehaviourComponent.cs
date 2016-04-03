@@ -1,13 +1,14 @@
 ﻿using AegirCore.Scene;
 using AegirCore.Signals;
 using AegirCore.Simulation;
+using Newtonsoft.Json;
 using System.Xml.Serialization;
 
 namespace AegirCore.Behaviour
 {
     public class BehaviourComponent
     {
-        [XmlIgnore]
+        [JsonIgnore]
         public Node Parent { get; private set; }
         public SignalRouter internalRouter { get; set; }
         public SignalRouter globalRouter { get; set; }
