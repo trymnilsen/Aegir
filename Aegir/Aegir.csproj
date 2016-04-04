@@ -252,6 +252,7 @@
     <Compile Include="View\StatusBar.xaml.cs">
       <DependentUpon>StatusBar.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Timeline\CanvasCalculator.cs" />
     <Compile Include="View\Timeline\KeyframeList.xaml.cs">
       <DependentUpon>KeyframeList.xaml</DependentUpon>
     </Compile>

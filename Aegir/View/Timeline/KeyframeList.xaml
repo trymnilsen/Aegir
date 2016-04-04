@@ -4,14 +4,15 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Aegir.View.Timeline"
-             xmlns:timeline="clr-namespace:Aegir.ViewModel.Timeline"
              xmlns:conv="clr-namespace:Aegir.Converter"
              mc:Ignorable="d" 
-             d:DesignHeight="32" d:DesignWidth="300">
+             d:DesignHeight="32" d:DesignWidth="300"
+             Name="KeyframeListControl" SizeChanged="KeyframeListControl_SizeChanged">
     <UserControl.Resources>
         <conv:ColorToBrushConverter x:Key="ColorToBrushConv"></conv:ColorToBrushConverter>
+        <conv:KeyframeTimelinePositionConverter x:Key="KeyframePositionConv"></conv:KeyframeTimelinePositionConverter>
         <!-- A data-template that defines the visuals for a a key -->
-        <DataTemplate DataType="{x:Type timeline:KeyframeViewModel}">
+        <DataTemplate DataType="{x:Type local:KeyframeListItem}">
             
          <!--The Rectangle is embedded in the Grid so that we
             can set the Margin. The margin is set so that the ListBox
@@ -38,8 +39,7 @@
             The data-template that defines the visuals 
             for each keyframe is in the resources section 
             at the start of this file.-->
-        <ListBox x:Name="listBox" ItemsSource="{Binding Keyframes}"
-                SelectionMode="Extended" Background="Transparent">
+        <ListBox x:Name="listBox" SelectionMode="Extended" Background="Transparent">
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
                     <Canvas />
@@ -47,7 +47,7 @@
             </ListBox.ItemsPanel>
             <ListBox.ItemContainerStyle>
                 <Style TargetType="ListBoxItem" >
-                    <Setter Property="Canvas.Left" Value="{Binding X}" />
+                    <Setter Property="Canvas.Left" Value="{Binding TimelinePositionX}"/>
                     <Setter Property="Canvas.Top" Value="2" />
                 </Style>
             </ListBox.ItemContainerStyle>

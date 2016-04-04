@@ -1,7 +1,9 @@
 ﻿using Aegir.ViewModel.Timeline;
+using GalaSoft.MvvmLight;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,11 +20,36 @@ using System.Windows.Shapes;
 namespace Aegir.View.Timeline
 {
 
+    internal class KeyframeListItem : ObservableObject
+    {
+        public int Time { get; private set; }
+        public KeyframeViewModel KeyVM { get; private set; }
+
+        private double xpos;
+
+        public double TimelinePositionX
+        {
+            get { return xpos; }
+            set
+            {
+                xpos = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public KeyframeListItem(KeyframeViewModel viewModel)
+        {
+            this.KeyVM = viewModel;
+            this.Time = viewModel.Time;
+        }
+    }
     /// <summary>
     /// Interaction logic for KeyframeList.xaml
     /// </summary>
     public partial class KeyframeList : UserControl
     {
+
+        private ObservableCollection<KeyframeListItem> keyItems;
         /// <summary>
         /// Set to 'true' when the left mouse-button is down.
         /// </summary>
@@ -75,11 +102,40 @@ namespace Aegir.View.Timeline
                 typeof(KeyframeList), 
                 new PropertyMetadata(KeyframeCollectionChanged));
 
+        public int TimeRangeStart
+        {
+            get { return (int)GetValue(TimerangeStartProperty); }
+            set
+            {
+                SetValue(TimerangeStartProperty, value);
+                TimeRangeChanged();
+            }
+        }
+
+        // Using a DependencyProperty as the backing store for TimerangeStart.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty TimerangeStartProperty =
+            DependencyProperty.Register(nameof(TimeRangeStart), typeof(int), typeof(KeyframeList), new PropertyMetadata(0));
+
+        public int TimeRangeEnd
+        {
+            get { return (int)GetValue(TimerangeEndProperty); }
+            set
+            {
+                SetValue(TimerangeEndProperty, value);
+                TimeRangeChanged();
+            }
+        }
+
+        // Using a DependencyProperty as the backing store for TimerangeEnd.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty TimerangeEndProperty =
+            DependencyProperty.Register(nameof(TimeRangeEnd), typeof(int), typeof(KeyframeList), new PropertyMetadata(0));
 
 
         public KeyframeList()
         {
             InitializeComponent();
+            keyItems = new ObservableCollection<KeyframeListItem>();
+            listBox.ItemsSource = keyItems;
         }
         private static void KeyframeCollectionChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -89,9 +145,53 @@ namespace Aegir.View.Timeline
                 view.KeyframeCollectionUpdated();
             }
         }
+
+
+        private void TimeRangeChanged()
+        {
+            InvalidatePositions();
+        }
         private void KeyframeCollectionUpdated()
         {
-            listBox.ItemsSource = Keyframes;
+            Keyframes.CollectionChanged += KeyframeCollectionChanged;
+        }
+
+        private void KeyframeCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            switch(e.Action)
+            {
+                case NotifyCollectionChangedAction.Add:
+                    foreach(KeyframeViewModel key in e.NewItems) { AddKeyframes(key); }
+                    break;
+                case NotifyCollectionChangedAction.Remove:
+                    foreach(KeyframeViewModel key in e.OldItems) { RemoveKeyframes(key); }
+                    break;
+                default:
+                    break;
+            }
+        }
+        private void AddKeyframes(KeyframeViewModel keyVM)
+        {
+            KeyframeListItem key = new KeyframeListItem(keyVM);
+            double position = GetCanvasPosition(keyVM.Time);
+            key.TimelinePositionX = position;
+
+            keyItems.Add(key);
+        }
+        private void RemoveKeyframes(KeyframeViewModel keyVM)
+        {
+
+        }
+
+        private void InvalidatePositions()
+        {
+
+        }
+        private double GetCanvasPosition(int time)
+        {
+            double stepSize = (ActualWidth - 20) / (TimeRangeEnd - TimeRangeStart);
+            double leftOffset = stepSize * time;
+            return leftOffset;
         }
         /// <summary>
         /// Event raised when the mouse is pressed down on a keyframe.
@@ -242,10 +342,10 @@ namespace Aegir.View.Timeline
 
                 origMouseDownPoint = curMouseDownPoint;
 
-                foreach (KeyframeViewModel keyframe in this.listBox.SelectedItems)
+                foreach (KeyframeListItem keyframe in this.listBox.SelectedItems)
                 {
-                    keyframe.CanvasX += dragDelta.X;
-                    keyframe.CanvasY += dragDelta.Y;
+                    keyframe.TimelinePositionX += dragDelta.X;
+                    //keyframe.CanvasY += dragDelta.Y;
                 }
             }
             else if (isLeftMouseDownOnKeyframe)
@@ -457,6 +557,11 @@ namespace Aegir.View.Timeline
             //        listBox.SelectedItems.Add(keyframeVM);
             //    }
             //}
+        }
+
+        private void KeyframeListControl_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            InvalidatePositions();
         }
     }
 }
