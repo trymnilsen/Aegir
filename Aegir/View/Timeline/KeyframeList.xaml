@@ -19,15 +19,25 @@
             item selection fits nicely around the Rectangle.--> 
         
             <Grid Margin="0,2,2,2">
-                <Rectangle
-                    Width="8"
-                    Height="14"
-                    Fill="Red"
-                    Cursor="Hand"
+                <Rectangle Width="7" Height="14" Cursor="Hand" StrokeThickness="1"
                     MouseDown="Keyframe_MouseDown"
                     MouseUp="Keyframe_MouseUp"
-                    MouseMove="Keyframe_MouseMove"
-                    />
+                    MouseMove="Keyframe_MouseMove">
+                    <Rectangle.Fill>
+                        <SolidColorBrush>
+                            <SolidColorBrush.Color>
+                                <Color R="204" G="48" B="9" A="255"></Color>
+                            </SolidColorBrush.Color>
+                        </SolidColorBrush>
+                    </Rectangle.Fill>
+                    <Rectangle.Stroke>
+                        <SolidColorBrush>
+                            <SolidColorBrush.Color>
+                                <Color R="60" G="14" B="2" A="255"></Color>
+                            </SolidColorBrush.Color>
+                        </SolidColorBrush>
+                    </Rectangle.Stroke>
+                </Rectangle>
             </Grid>
         </DataTemplate>
     </UserControl.Resources>

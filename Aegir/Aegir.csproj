@@ -256,6 +256,9 @@
     <Compile Include="View\Timeline\KeyframeList.xaml.cs">
       <DependentUpon>KeyframeList.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Timeline\TimelineHighlighter.xaml.cs">
+      <DependentUpon>TimelineHighlighter.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Timeline\TimelineRuler.xaml.cs">
       <DependentUpon>TimelineRuler.xaml</DependentUpon>
     </Compile>
@@ -350,6 +353,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Timeline\KeyframeList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Timeline\TimelineHighlighter.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

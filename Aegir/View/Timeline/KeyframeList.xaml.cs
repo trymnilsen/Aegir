@@ -190,7 +190,7 @@ namespace Aegir.View.Timeline
         private double GetCanvasPosition(int time)
         {
             double stepSize = (ActualWidth - 20) / (TimeRangeEnd - TimeRangeStart);
-            double leftOffset = stepSize * time;
+            double leftOffset = stepSize * time - 1;
             return leftOffset;
         }
         /// <summary>
@@ -204,7 +204,7 @@ namespace Aegir.View.Timeline
             }
 
             FrameworkElement keyframe = (FrameworkElement)sender;
-            KeyframeViewModel keyframeViewmodel = (KeyframeViewModel)keyframe.DataContext;
+            KeyframeListItem keyframeViewmodel = (KeyframeListItem)keyframe.DataContext;
 
             isLeftMouseDownOnKeyframe = true;
 
@@ -265,7 +265,7 @@ namespace Aegir.View.Timeline
             if (isLeftMouseDownOnKeyframe)
             {
                 FrameworkElement keyframe = (FrameworkElement)sender;
-                KeyframeViewModel keyframeViewModel = (KeyframeViewModel)keyframe.DataContext;
+                KeyframeListItem keyframeViewModel = (KeyframeListItem)keyframe.DataContext;
 
                 if (!isDraggingKeyframe)
                 {
