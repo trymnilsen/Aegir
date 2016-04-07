@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -50,6 +51,12 @@ namespace Aegir.View.Timeline
     {
 
         private ObservableCollection<KeyframeListItem> keyItems;
+        /// <summary>
+        /// The total distance dragged in the current drag operation
+        /// </summary>
+        private double currentDeltaStepDistance;
+
+        private int currentOperationFramesDragged;
         /// <summary>
         /// Set to 'true' when the left mouse-button is down.
         /// </summary>
@@ -190,7 +197,7 @@ namespace Aegir.View.Timeline
         private double GetCanvasPosition(int time)
         {
             double stepSize = (ActualWidth - 20) / (TimeRangeEnd - TimeRangeStart);
-            double leftOffset = stepSize * time - 1;
+            double leftOffset = stepSize * time + 2;
             return leftOffset;
         }
         /// <summary>
@@ -316,6 +323,38 @@ namespace Aegir.View.Timeline
                         }
                     }
                 }
+                else
+                {
+                    Debug.WriteLine("Frames Moved " + currentOperationFramesDragged);
+                    bool hasKeyConflict = false;
+
+                    foreach(KeyframeListItem key in this.listBox.SelectedItems)
+                    {
+                        int newTime = key.Time + currentOperationFramesDragged;
+                        if(Keyframes.Any(x=>x.Time == newTime))
+                        {
+                            hasKeyConflict = true;
+                        }
+                    }
+                    if(hasKeyConflict)
+                    {
+                        MessageBoxResult confirmBox = MessageBox.Show("One or more of the dragged keyframes will overwrite an existing keyframe", "Overwrite keyframes", MessageBoxButton.OKCancel);
+
+                        if (confirmBox == MessageBoxResult.Yes)
+                        {
+                            Debug.WriteLine("Overwriting");
+                        }
+                        else
+                        {
+                            Debug.WriteLine("Dont overwrite");
+                            double stepSize = (ActualWidth - 20) / (TimeRangeEnd - TimeRangeStart);
+                            foreach (KeyframeListItem key in this.listBox.SelectedItems)
+                            {
+                                key.TimelinePositionX = stepSize * currentOperationFramesDragged;
+                            }
+                        }
+                    }
+                }
 
                 keyframe.ReleaseMouseCapture();
                 isLeftMouseDownOnKeyframe = false;
@@ -325,6 +364,8 @@ namespace Aegir.View.Timeline
             }
 
             isDraggingKeyframe = false;
+            currentDeltaStepDistance = 0;
+            currentOperationFramesDragged = 0;
         }
 
         /// <summary>
@@ -341,12 +382,29 @@ namespace Aegir.View.Timeline
                 var dragDelta = curMouseDownPoint - origMouseDownPoint;
 
                 origMouseDownPoint = curMouseDownPoint;
+                currentDeltaStepDistance += dragDelta.X;
 
-                foreach (KeyframeListItem keyframe in this.listBox.SelectedItems)
+                double stepSize = (ActualWidth - 20) / (TimeRangeEnd - TimeRangeStart);
+
+                if(Math.Abs(currentDeltaStepDistance)>=stepSize)
                 {
-                    keyframe.TimelinePositionX += dragDelta.X;
-                    //keyframe.CanvasY += dragDelta.Y;
+                    foreach (KeyframeListItem keyframe in this.listBox.SelectedItems)
+                    {
+                        keyframe.TimelinePositionX += currentDeltaStepDistance;
+                        
+                        //keyframe.CanvasY += dragDelta.Y;
+                    }
+                    if(currentDeltaStepDistance>0)
+                    {
+                        currentOperationFramesDragged++;
+                    }
+                    else
+                    {
+                        currentOperationFramesDragged--;
+                    }
+                    currentDeltaStepDistance = 0;
                 }
+
             }
             else if (isLeftMouseDownOnKeyframe)
             {
@@ -517,9 +575,9 @@ namespace Aegir.View.Timeline
             // Update the coordinates of the rectangle used for drag selection.
             //
             Canvas.SetLeft(dragSelectionBorder, x);
-            Canvas.SetTop(dragSelectionBorder, y);
+            Canvas.SetTop(dragSelectionBorder, 2);
             dragSelectionBorder.Width = width;
-            dragSelectionBorder.Height = height;
+            dragSelectionBorder.Height = 20;
         }
 
         /// <summary>
@@ -549,14 +607,14 @@ namespace Aegir.View.Timeline
             //
             // Find and select all the list box items.
             //
-            //foreach (KeyframeViewModel keyframeVM in this.KeyframeViewModels)
-            //{
-            //    Rect itemRect = new Rect(keyframeVM.CanvasX, keyframeVM.CanvasY, 8, 14);
-            //    if (dragRect.Contains(itemRect))
-            //    {
-            //        listBox.SelectedItems.Add(keyframeVM);
-            //    }
-            //}
+            foreach (KeyframeListItem key in keyItems)
+            {
+                Rect itemRect = new Rect(key.TimelinePositionX, 2, 8, 20);
+                if (dragRect.Contains(itemRect))
+                {
+                    listBox.SelectedItems.Add(key);
+                }
+            }
         }
 
         private void KeyframeListControl_SizeChanged(object sender, SizeChangedEventArgs e)
