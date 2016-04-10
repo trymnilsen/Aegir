@@ -27,7 +27,9 @@ namespace Aegir.ViewModel.NodeProxy
         /// <summary>
         /// Command to be executed when selected item has changed
         /// </summary>
-        public RelayCommand<NodeViewModelProxy> SelectItemChanged { get; private set; }
+        public RelayCommand<NodeViewModelProxy> SelectItemViewModelChangedCommand { get; private set; }
+
+        public RelayCommand<Node> SelectRawNodeChangedCommand { get; private set; }
 
         /// <summary>
         /// Command to be executed when an item is wanted to be removed from the graph
@@ -63,9 +65,10 @@ namespace Aegir.ViewModel.NodeProxy
         /// </summary>
         public ScenegraphViewModelProxy()
         {
-            SelectItemChanged = new RelayCommand<NodeViewModelProxy>(c => SelectedItem = c);
+            SelectItemViewModelChangedCommand = new RelayCommand<NodeViewModelProxy>(c => SelectedItem = c);
             RemoveItemCommand = new RelayCommand<NodeViewModelProxy>(RemoveItem);
             MoveItemCommand = new RelayCommand<NodeViewModelProxy>(MoveTo);
+            SelectRawNodeChangedCommand = new RelayCommand<Node>(SetRawNodeAsSelectedItem);
 
             MessengerInstance.Register<ProjectActivated>(this, ProjectChanged);
             MessengerInstance.Register<InvalidateEntities>(this, OnInvalidateEntitiesMessage);
@@ -75,6 +78,7 @@ namespace Aegir.ViewModel.NodeProxy
             lastNotifyProxyProperty = DateTime.Now;
         }
 
+
         /// <summary>
         /// Updates the currently active selected item in the graph
         /// </summary>
@@ -83,7 +87,18 @@ namespace Aegir.ViewModel.NodeProxy
         {
             SelectedNodeChanged.Send(newItem);
         }
-
+        private void SetRawNodeAsSelectedItem(Node node)
+        {
+            //look through view models
+            foreach(NodeViewModelProxy nodeVM in Items)
+            {
+                if(nodeVM.NodeSource == node)
+                {
+                    SelectedItem = nodeVM;
+                    break;
+                }
+            }
+        }
         private void ProjectChanged(ProjectActivated projectMessage)
         {
             RebuildScenegraphNodes(projectMessage.Project.Scene.RootNodes);

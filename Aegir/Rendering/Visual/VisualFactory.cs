@@ -10,7 +10,7 @@ namespace Aegir.Rendering.Visual
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(VisualFactory));
         private Color dummyVisualColor;
-        private Dictionary<RenderingMode, VisualCache> providers;
+        private Dictionary<RenderingMode, IVisualProvider> providers;
 
         public Color DummyColor
         {
@@ -18,12 +18,19 @@ namespace Aegir.Rendering.Visual
             set { dummyVisualColor = value; }
         }
 
-        public VisualFactory(Dictionary<RenderingMode, VisualCache> providers)
+        public VisualFactory(Dictionary<RenderingMode, IVisualProvider> providers)
         {
             this.providers = providers;
             DummyColor = Color.FromRgb(255, 0, 0);
         }
-
+        public RenderItem GetRenderItem(RenderingMode mode, Visual3D visual)
+        {
+            if(providers.ContainsKey(mode))
+            {
+                return providers[mode].GetRenderItem(visual);
+            }
+            return null;
+        }
         public Visual3D GetVisual(RenderingMode mode, RenderItem item)
         {
             if (providers.ContainsKey(mode))
@@ -53,12 +60,10 @@ namespace Aegir.Rendering.Visual
 
         public static VisualFactory GetNewFactoryWithDefaultProviders()
         {
-            var providers = new Dictionary<RenderingMode, VisualCache>();
+            var providers = new Dictionary<RenderingMode, IVisualProvider>();
             //Add new default providers here
-            providers.Add(RenderingMode.Solid,
-                new VisualCache(new SolidMeshProvider()));
-            providers.Add(RenderingMode.Wireframe,
-                new VisualCache(new WireframeVisualProvider()));
+            providers.Add(RenderingMode.Solid,new SolidMeshProvider());
+            providers.Add(RenderingMode.Wireframe,new WireframeVisualProvider());
 
             return new VisualFactory(providers);
         }

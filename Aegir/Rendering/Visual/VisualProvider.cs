@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Windows.Media.Media3D;
 
 namespace Aegir.Rendering.Visual
@@ -10,6 +11,18 @@ namespace Aegir.Rendering.Visual
         public VisualProvider()
         {
             visualCache = new Dictionary<RenderItem, Visual3D>();
+        }
+
+        public RenderItem GetRenderItem(Visual3D visual)
+        {
+            foreach(KeyValuePair<RenderItem,Visual3D> entry in visualCache)
+            {
+                if(entry.Value == visual)
+                {
+                    return entry.Key;
+                }
+            }
+            return null;
         }
 
         public Visual3D GetVisual(RenderItem renderItem)

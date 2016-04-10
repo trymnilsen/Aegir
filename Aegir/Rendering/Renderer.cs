@@ -3,6 +3,7 @@ using Aegir.ViewModel.NodeProxy;
 using AegirCore.Behaviour.Mesh;
 using AegirCore.Behaviour.World;
 using AegirCore.Mesh;
+using AegirCore.Scene;
 using HelixToolkit.Wpf;
 using log4net;
 using System.Collections.Generic;
@@ -71,7 +72,20 @@ namespace Aegir.Rendering
                 }
             }
         }
+        public Node ResolveVisualToNode(HelixViewport3D viewport, Visual3D visual)
+        {
+            foreach(ViewportRenderer view in viewports)
+            {
+                RenderItem item = view.ResolveRenderItem(visual);
+                var node = item?.Transform?.Parent;
+                if (node != null)
+                {
+                    return node;
+                }
+            }
 
+            return null;
+        }
         //private Visual3D GetExistingVisualForNode(NodeViewModelProxy node)
         //{
         //    //Check if any of weak references in cache matches this node

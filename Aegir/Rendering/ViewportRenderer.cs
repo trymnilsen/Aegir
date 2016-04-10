@@ -50,7 +50,10 @@ namespace Aegir.Rendering
             listeners.Add(listener);
             viewport.Children.Add(visual);
         }
-
+        public RenderItem ResolveRenderItem(Visual3D visual)
+        {
+            return VisualFactory?.GetRenderItem(RenderMode, visual);
+        }
         public void AddDummy(TransformBehaviour transformBehaviour)
         {
             Visual3D dummyVisual = VisualFactory.GetDummyVisual();

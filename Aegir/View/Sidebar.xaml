@@ -41,7 +41,7 @@
                 <!--Selected item binding-->
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="SelectedItemChanged">
-                        <cmd:EventToCommand Command="{Binding SelectItemChanged}"
+                        <cmd:EventToCommand Command="{Binding SelectItemViewModelChangedCommand}"
                                             CommandParameter="{ Binding Path=SelectedItem, ElementName=ObjectTree}"></cmd:EventToCommand>
                     </i:EventTrigger>
                 </i:Interaction.Triggers>

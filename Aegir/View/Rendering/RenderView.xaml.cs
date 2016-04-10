@@ -1,13 +1,18 @@
 ﻿using Aegir.Rendering;
 using Aegir.ViewModel.NodeProxy;
+using HelixToolkit.Wpf;
 using log4net;
 using System;
+using System.Linq;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Media3D;
+using System.Windows.Input;
+using AegirCore.Scene;
 
 namespace Aegir.View.Rendering
 {
@@ -50,6 +55,22 @@ namespace Aegir.View.Rendering
                                         new PropertyMetadata(
                                             new PropertyChangedCallback(OnSceneGraphChanged)
                                         ));
+
+
+
+        public ICommand SceneNodeClickedCommand
+        {
+            get { return (ICommand)GetValue(SceneNodeClickedCommandProperty); }
+            set { SetValue(SceneNodeClickedCommandProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for MyProperty.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty SceneNodeClickedCommandProperty =
+            DependencyProperty.Register(nameof(SceneNodeClickedCommand), 
+                                        typeof(ICommand),
+                                        typeof(RenderView));
+
+
 
         public ViewportFocus ActiveViewport
         {
@@ -102,8 +123,8 @@ namespace Aegir.View.Rendering
             newScene.InvalidateChildren += OnInvalidateChildren;
             renderHandler.ChangeScene(newScene);
             RebuildVisualTree();
-        }
-
+        } 
+ 
         /// <summary>
         ///
         /// </summary>
@@ -154,6 +175,20 @@ namespace Aegir.View.Rendering
             rebuildTime.Stop();
             log.DebugFormat("Rebuild Visual Tree - END USED {0}ms",
                 rebuildTime.Elapsed.TotalMilliseconds);
+        }
+
+        private void Viewport_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            HelixViewport3D viewport = (HelixViewport3D)sender;
+            Viewport3DHelper.HitResult firstHit = viewport.Viewport
+                                                          .FindHits(e.GetPosition(viewport))
+                                                          .FirstOrDefault();
+
+            if (firstHit != null)
+            {
+                Node node = renderHandler.ResolveVisualToNode(viewport, firstHit.Visual);
+                SceneNodeClickedCommand.Execute(node);
+            }
         }
     }
 }

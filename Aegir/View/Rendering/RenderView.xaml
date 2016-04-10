@@ -119,7 +119,7 @@
                 <Style BasedOn="{StaticResource ViewMaximizeStyle}">
                 </Style>
             </Grid.Style>
-            <ht:HelixViewport3D x:Name="TopViewport" RotateGesture="Alt+RightClick" PanGesture="RightClick" IsHeadLightEnabled="False">
+            <ht:HelixViewport3D MouseUp="Viewport_MouseUp" x:Name="TopViewport" RotateGesture="Alt+RightClick" PanGesture="RightClick" IsHeadLightEnabled="False">
                 <ht:HelixViewport3D.Camera>
                     <OrthographicCamera Position="0,0,80.22" LookDirection="0,0,-80.22" UpDirection="0,1,0" Width="56" />
                 </ht:HelixViewport3D.Camera>
@@ -160,7 +160,7 @@
                     <Setter Property="Grid.Column" Value="1" />
                 </Style>
             </Grid.Style>
-            <ht:HelixViewport3D x:Name="PerspectiveViewport" IsRotationEnabled="True" ShowFrameRate="True" Camera="{ht:PerspectiveCamera 43.11,-74.67,49.78}">
+            <ht:HelixViewport3D MouseUp="Viewport_MouseUp" x:Name="PerspectiveViewport" IsRotationEnabled="True" ShowFrameRate="True" Camera="{ht:PerspectiveCamera 43.11,-74.67,49.78}">
                 <local:GridLines />
                 <!--<ht:MeshGeometryVisual3D>
                     <ht:MeshGeometryVisual3D.MeshGeometry>
@@ -203,7 +203,7 @@
                     <Setter Property="Grid.Row" Value="1" />
                 </Style>
             </Grid.Style>
-            <ht:HelixViewport3D x:Name="FrontViewport" RotateGesture="Alt+RightClick" PanGesture="RightClick">
+            <ht:HelixViewport3D MouseUp="Viewport_MouseUp" x:Name="FrontViewport" RotateGesture="Alt+RightClick" PanGesture="RightClick">
                 <ht:HelixViewport3D.Camera>
                     <OrthographicCamera Position="0,-80.22,0" LookDirection="0,80.22,0" UpDirection="0,0,1" Width="56" />
                 </ht:HelixViewport3D.Camera>
@@ -242,7 +242,7 @@
                     <Setter Property="Grid.Column" Value="1" />
                 </Style>
             </Grid.Style>
-            <ht:HelixViewport3D x:Name="RightViewport" RotateGesture="Alt+RightClick"  PanGesture="RightClick">
+            <ht:HelixViewport3D MouseUp="Viewport_MouseUp" x:Name="RightViewport" RotateGesture="Alt+RightClick"  PanGesture="RightClick">
                 <ht:HelixViewport3D.Camera>
                     <OrthographicCamera Position="80.22,0,0" LookDirection="-80.22,0,0" UpDirection="0,0,1" Width="56" />
                 </ht:HelixViewport3D.Camera>
