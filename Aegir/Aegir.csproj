@@ -177,6 +177,13 @@
     <Compile Include="Converter\KeyframeTimelinePositionConverter.cs" />
     <Compile Include="Converter\MatrixTransformConverter.cs" />
     <Compile Include="Converter\PlaybackButtonConverter.cs" />
+    <Compile Include="MapSearch\SearchErrorEventArgs.cs" />
+    <Compile Include="MapSearch\SearchProvider.cs" />
+    <Compile Include="MapSearch\SearchResult.cs" />
+    <Compile Include="Map\BitmapStore.cs" />
+    <Compile Include="Map\Tile.cs" />
+    <Compile Include="Map\TileGenerator.cs" />
+    <Compile Include="Map\TilePlane.cs" />
     <Compile Include="Messages\ObjectTree\SelectedNodeChanged.cs" />
     <Compile Include="Messages\Project\LoadProjectFile.cs" />
     <Compile Include="Messages\Project\ProjectActivated.cs" />
