@@ -8,6 +8,71 @@
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
+        <!--Progress Bar-->
+        <SolidColorBrush x:Key="ProgressBar.Progress" Color="#FF06B025"/>
+        <SolidColorBrush x:Key="ProgressBar.Background" Color="#FFE6E6E6"/>
+        <SolidColorBrush x:Key="ProgressBar.Border" Color="#FFBCBCBC"/>
+        <Style x:Key="MapViewportProgressBar" TargetType="{x:Type ProgressBar}">
+            <Setter Property="Foreground" Value="{StaticResource ProgressBar.Progress}"/>
+            <Setter Property="Background" Value="{StaticResource ProgressBar.Background}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource ProgressBar.Border}"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ProgressBar}">
+                        <Grid x:Name="TemplateRoot">
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Determinate"/>
+                                    <VisualState x:Name="Indeterminate">
+                                        <Storyboard RepeatBehavior="Forever">
+                                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)" Storyboard.TargetName="Animation">
+                                                <EasingDoubleKeyFrame KeyTime="0" Value="0.25"/>
+                                                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="0.25"/>
+                                                <EasingDoubleKeyFrame KeyTime="0:0:2" Value="0.25"/>
+                                            </DoubleAnimationUsingKeyFrames>
+                                            <PointAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransformOrigin)" Storyboard.TargetName="Animation">
+                                                <EasingPointKeyFrame KeyTime="0" Value="-0.5,0.5"/>
+                                                <EasingPointKeyFrame KeyTime="0:0:1" Value="0.5,0.5"/>
+                                                <EasingPointKeyFrame KeyTime="0:0:2" Value="1.5,0.5"/>
+                                            </PointAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}"/>
+                            <Rectangle x:Name="PART_Track"/>
+                            <Grid x:Name="PART_Indicator" ClipToBounds="true" HorizontalAlignment="Left">
+                                <Rectangle x:Name="Indicator" Fill="{TemplateBinding Foreground}"/>
+                                <Rectangle x:Name="Animation" Fill="{TemplateBinding Foreground}" RenderTransformOrigin="0.5,0.5">
+                                    <Rectangle.RenderTransform>
+                                        <TransformGroup>
+                                            <ScaleTransform/>
+                                            <SkewTransform/>
+                                            <RotateTransform/>
+                                            <TranslateTransform/>
+                                        </TransformGroup>
+                                    </Rectangle.RenderTransform>
+                                </Rectangle>
+                            </Grid>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="Orientation" Value="Vertical">
+                                <Setter Property="LayoutTransform" TargetName="TemplateRoot">
+                                    <Setter.Value>
+                                        <RotateTransform Angle="-90"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                            <Trigger Property="IsIndeterminate" Value="true">
+                                <Setter Property="Visibility" TargetName="Indicator" Value="Collapsed"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!--Vioewport-->
         <Style TargetType="ht:HelixViewport3D">
             <Setter Property="ShowViewCube" Value="False" />
             <Setter Property="ShowCoordinateSystem" Value="True" />
@@ -61,9 +126,9 @@
             <Style.Triggers>
                 <DataTrigger Binding="{Binding IsChecked}"  Value="True">
                     <Setter Property="Grid.Column" Value="0" />
-                    <Setter Property="Grid.ColumnSpan" Value="2" />
+                    <Setter Property="Grid.ColumnSpan" Value="3" />
                     <Setter Property="Grid.Row" Value="0" />
-                    <Setter Property="Grid.RowSpan" Value="2" />
+                    <Setter Property="Grid.RowSpan" Value="3" />
                     <Setter Property="Grid.ZIndex" Value="1" />
                 </DataTrigger>
             </Style.Triggers>
@@ -107,10 +172,12 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
+            <ColumnDefinition Width="4" />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition />
+            <RowDefinition Height="4" />
             <RowDefinition />
         </Grid.RowDefinitions>
 
@@ -119,7 +186,8 @@
                 <Style BasedOn="{StaticResource ViewMaximizeStyle}">
                 </Style>
             </Grid.Style>
-            <ht:HelixViewport3D MouseUp="Viewport_MouseUp" x:Name="TopViewport" RotateGesture="Alt+RightClick" PanGesture="RightClick" IsHeadLightEnabled="False">
+            <!--Viewport-->
+            <ht:HelixViewport3D MouseUp="Viewport_MouseUp"  x:Name="TopViewport" RotateGesture="Alt+RightClick" PanGesture="RightClick" IsHeadLightEnabled="False">
                 <ht:HelixViewport3D.Camera>
                     <OrthographicCamera Position="0,0,80.22" LookDirection="0,0,-80.22" UpDirection="0,1,0" Width="56" />
                 </ht:HelixViewport3D.Camera>
@@ -131,6 +199,7 @@
                 </ModelVisual3D>-->
                 <ht:DefaultLights></ht:DefaultLights>
             </ht:HelixViewport3D>
+            <!--Toggle Button-->
             <StackPanel Orientation="Horizontal">
                 <ToggleButton x:Name="TopLeftLabel" Content="Top" Style="{StaticResource ViewButtonStyle}">
                     <ToggleButton.ContextMenu>
@@ -157,7 +226,7 @@
         <Grid x:Name="TopRightView" DataContext="{Binding ElementName=TopRightLabel}">
             <Grid.Style>
                 <Style BasedOn="{StaticResource ViewMaximizeStyle}">
-                    <Setter Property="Grid.Column" Value="1" />
+                    <Setter Property="Grid.Column" Value="2" />
                 </Style>
             </Grid.Style>
             <ht:HelixViewport3D MouseUp="Viewport_MouseUp" x:Name="PerspectiveViewport" IsRotationEnabled="True" ShowFrameRate="True" Camera="{ht:PerspectiveCamera 43.11,-74.67,49.78}">
@@ -200,7 +269,7 @@
         <Grid x:Name="BottomLeftView" DataContext="{Binding ElementName=BottomLeftLabel}">
             <Grid.Style>
                 <Style BasedOn="{StaticResource ViewMaximizeStyle}">
-                    <Setter Property="Grid.Row" Value="1" />
+                    <Setter Property="Grid.Row" Value="2" />
                 </Style>
             </Grid.Style>
             <ht:HelixViewport3D MouseUp="Viewport_MouseUp" x:Name="FrontViewport" RotateGesture="Alt+RightClick" PanGesture="RightClick">
@@ -238,8 +307,8 @@
         <Grid x:Name="BottomRightView" DataContext="{Binding ElementName=BottomRightLabel}">
             <Grid.Style>
                 <Style BasedOn="{StaticResource ViewMaximizeStyle}">
-                    <Setter Property="Grid.Row" Value="1" />
-                    <Setter Property="Grid.Column" Value="1" />
+                    <Setter Property="Grid.Row" Value="2" />
+                    <Setter Property="Grid.Column" Value="2" />
                 </Style>
             </Grid.Style>
             <ht:HelixViewport3D MouseUp="Viewport_MouseUp" x:Name="RightViewport" RotateGesture="Alt+RightClick"  PanGesture="RightClick">
@@ -274,7 +343,7 @@
                 </ToggleButton.ContextMenu>
             </ToggleButton>
         </Grid>
-        <GridSplitter Grid.Column="0" Grid.RowSpan="2" Width="4" HorizontalAlignment="Right" VerticalAlignment="Stretch" />
-        <GridSplitter Grid.Row="0" Grid.ColumnSpan="2" Height="4" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" />
+        <GridSplitter Grid.Column="1" Grid.RowSpan="3" Width="4" HorizontalAlignment="Right" VerticalAlignment="Stretch" />
+        <GridSplitter Grid.Row="1" Grid.ColumnSpan="3" Height="4" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" />
     </Grid>
 </UserControl>

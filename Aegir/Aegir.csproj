@@ -181,6 +181,7 @@
     <Compile Include="MapSearch\SearchProvider.cs" />
     <Compile Include="MapSearch\SearchResult.cs" />
     <Compile Include="Map\BitmapStore.cs" />
+    <Compile Include="Map\MapGrid3D.cs" />
     <Compile Include="Map\Tile.cs" />
     <Compile Include="Map\TileGenerator.cs" />
     <Compile Include="Map\TilePlane.cs" />
@@ -196,6 +197,7 @@
     <Compile Include="Rendering\Renderer.cs" />
     <Compile Include="Rendering\RenderingMode.cs" />
     <Compile Include="Rendering\RenderItemListener.cs" />
+    <Compile Include="Rendering\Camera\ViewportCameraController.cs" />
     <Compile Include="Rendering\ViewportRenderer.cs" />
     <Compile Include="Rendering\Visual\IVisualProvider.cs" />
     <Compile Include="Rendering\Visual\SolidMeshProvider.cs" />

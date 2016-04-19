@@ -10,9 +10,9 @@
             <ItemsPanelTemplate>
                 <Grid>
                     <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*" />
                         <ColumnDefinition Width="1*" />
-                        <ColumnDefinition Width="1*" />
-                        <ColumnDefinition Width="100" />
+                        <ColumnDefinition Width="120" />
                         <ColumnDefinition Width="200" />
                     </Grid.ColumnDefinitions>
                 </Grid>
@@ -26,21 +26,7 @@
             </StackPanel>
         </StatusBarItem>
         <StatusBarItem Grid.Column="2">
-            <StackPanel Orientation="Horizontal">
-                <StackPanel.ToolTip>
-                    <TextBlock>Click To Open Overview</TextBlock>
-                </StackPanel.ToolTip>
-                <StackPanel.ContextMenu>
-                    <ContextMenu>
-                        <MenuItem Header="Show Outputs"></MenuItem>
-                        <MenuItem Header="Pause All"></MenuItem>
-                        <MenuItem Header="Un-Pause All" IsEnabled="False"></MenuItem>
-                        <MenuItem Header="Record"></MenuItem>
-                    </ContextMenu>
-                </StackPanel.ContextMenu>
-                <TextBlock Text="{Binding NumOfOutputs}" Margin="0 0 5 0"></TextBlock>
-                <TextBlock Text="Outputs"></TextBlock>
-            </StackPanel>
+            <ProgressBar Minimum="0" Width="100" Height="20" Maximum="100" Value="54"></ProgressBar>
         </StatusBarItem>
         <StatusBarItem Grid.Column="4">
             <TextBlock Text="06.10.2015 18:50:42"></TextBlock>

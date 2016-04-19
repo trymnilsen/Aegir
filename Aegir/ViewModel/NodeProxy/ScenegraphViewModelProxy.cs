@@ -94,8 +94,26 @@ namespace Aegir.ViewModel.NodeProxy
             {
                 if(nodeVM.NodeSource == node)
                 {
-                    SelectedItem = nodeVM;
+                    UpdateSelectedItem(nodeVM);
                     break;
+                }
+                else
+                {
+                    LookForChildrenNodeVM(nodeVM, node);
+                }
+            }
+        }
+        private void LookForChildrenNodeVM(NodeViewModelProxy nodeVM, Node node)
+        {
+            if (nodeVM.NodeSource == node)
+            {
+                UpdateSelectedItem(nodeVM);
+            }
+            else if(nodeVM.Children.Count>0)
+            {
+                foreach(NodeViewModelProxy nodeChild in nodeVM.Children)
+                {
+                    LookForChildrenNodeVM(nodeChild, node);
                 }
             }
         }

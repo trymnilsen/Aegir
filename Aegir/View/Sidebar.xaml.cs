@@ -20,6 +20,7 @@ namespace Aegir.View
         public Sidebar()
         {
             InitializeComponent();
+            
         }
 
         private void treeView_MouseDown(object sender, MouseButtonEventArgs e)
