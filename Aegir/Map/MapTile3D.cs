@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Aegir.Map
 {
-    class Tile
+    public class MapTile3D
     {
     }
 }

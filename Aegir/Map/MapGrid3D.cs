@@ -11,7 +11,14 @@ namespace Aegir.Map
 {
     public class MapGrid3D : DependencyObject
     {
+        public List<MapTile3D> Tiles { get; set; }
 
+        public int TileSize { get; set; }
+
+        public int MapZoomLevel { get; set; }
+        public int ViewZoomLevel { get; set; }
+
+        public Vector3D MapCenter { get; set; }
 
         public Camera MapCamera
         {
@@ -26,6 +33,16 @@ namespace Aegir.Map
         public MapGrid3D()
         {
              
+        }
+
+        public void CameraMoved()
+        {
+
+        }
+
+        private void RegenerateTiles()
+        {
+
         }
     }
 }
