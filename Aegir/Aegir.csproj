@@ -182,9 +182,9 @@
     <Compile Include="MapSearch\SearchResult.cs" />
     <Compile Include="Map\BitmapStore.cs" />
     <Compile Include="Map\MapGrid3D.cs" />
-    <Compile Include="Map\Tile.cs" />
-    <Compile Include="Map\TileGenerator.cs" />
-    <Compile Include="Map\TilePlane.cs" />
+    <Compile Include="Map\MapTile3D.cs" />
+    <Compile Include="Map\MapTileGenerator.cs" />
+    <Compile Include="Map\TileService.cs" />
     <Compile Include="Messages\ObjectTree\SelectedNodeChanged.cs" />
     <Compile Include="Messages\Project\LoadProjectFile.cs" />
     <Compile Include="Messages\Project\ProjectActivated.cs" />

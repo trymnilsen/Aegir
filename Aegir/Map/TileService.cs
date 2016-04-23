@@ -10,7 +10,7 @@ namespace Aegir.Map
 {
     /// <summary>Helper methods to retrieve information from openstreetmap.org</summary>
     /// <remarks>See http://wiki.openstreetmap.org/wiki/Slippy_map_tilenames for reference.</remarks>
-    public static class TileGenerator
+    public static class TileService
     {
         /// <summary>The maximum allowed zoom level.</summary>
         public const int MaxZoom = 18;

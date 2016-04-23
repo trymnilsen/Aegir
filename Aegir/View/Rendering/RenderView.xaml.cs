@@ -179,15 +179,19 @@ namespace Aegir.View.Rendering
 
         private void Viewport_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            HelixViewport3D viewport = (HelixViewport3D)sender;
-            Viewport3DHelper.HitResult firstHit = viewport.Viewport
-                                                          .FindHits(e.GetPosition(viewport))
-                                                          .FirstOrDefault();
-
-            if (firstHit != null)
+            if(e.ChangedButton == MouseButton.Left)
             {
-                Node node = renderHandler.ResolveVisualToNode(viewport, firstHit.Visual);
-                SceneNodeClickedCommand.Execute(node);
+                HelixViewport3D viewport = (HelixViewport3D)sender;
+                Viewport3DHelper.HitResult firstHit = viewport.Viewport
+                                                              .FindHits(e.GetPosition(viewport))
+                                                              .FirstOrDefault();
+
+                if (firstHit != null)
+                {
+                    Node node = renderHandler.ResolveVisualToNode(viewport, firstHit.Visual);
+                    SceneNodeClickedCommand.Execute(node);
+                }
+
             }
         }
     }
