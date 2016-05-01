@@ -1,6 +1,9 @@
-﻿using HelixToolkit.Wpf;
+﻿using Aegir.Util;
+using HelixToolkit.Wpf;
+using log4net;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +15,8 @@ namespace Aegir.Map
 {
     public class MapGrid3D : MeshVisual3D
     {
+        private static readonly ILog log = LogManager.GetLogger(typeof(MapGrid3D));
+        private const int GridSize = 5;
         private double snapInverseFactor;
         private int currentTileX;
         private int currentTileY;
@@ -20,12 +25,34 @@ namespace Aegir.Map
 
         public List<MapTile3D> Tiles { get; set; }
 
-        public int TileSize { get; set; }
+        private int tileSize;
 
-        public int MapZoomLevel { get; set; }
+        public int TileSize
+        {
+            get { return tileSize; }
+            set
+            {
+                if (value == 0)
+                {
+                    throw new Exception("Tilesize Cannot Be Zero");
+                }
+
+                tileSize = value;
+                snapInverseFactor = 1d / value;
+            }
+        }
+
+        private int mapZoom;
+
+        public int MapZoomLevel
+        {
+            get { return mapZoom; }
+            set { mapZoom = value; }
+        }
+
         public int ViewZoomLevel { get; set; }
 
-        public Vector3D MapCenter { get; set; }
+        public Point3D MapCenter { get; set; }
 
         public CameraController MapCamera
         {
@@ -52,7 +79,48 @@ namespace Aegir.Map
 
         public MapGrid3D() 
         {
+            Tiles = new List<MapTile3D>();
+            TileSize = 32;
             CompositionTarget.Rendering += CompositionTarget_Rendering;
+            InitGrid();
+        }
+        public void InitGrid()
+        {
+            int midNum = (int)Math.Ceiling(GridSize / 2d);
+            MapCenter = new Point3D(0d, 0d, 0d);
+            Random ran = new Random();
+
+            currentTileX = 0;
+            currentTileY = 0;
+            for (int x = 0; x < GridSize; x++)
+            {
+                for (int y = 0; y < GridSize; y++)
+                {
+                    int gridPosX = (x+1) - midNum;
+                    int gridPosY = (y+1) - midNum;
+
+                    MapTile3D tile = new MapTile3D();
+
+                    tile.Fill = new SolidColorBrush(Color.FromArgb(255, (byte)ran.Next(50, 255), (byte)ran.Next(50, 255), (byte)ran.Next(50, 255)));
+
+                    TranslateTransform3D position = new TranslateTransform3D();
+
+                    position.OffsetX = gridPosX  * TileSize;
+                    position.OffsetY = gridPosY * TileSize;
+
+
+                    tile.Transform = position;
+
+                    tile.Width = TileSize;
+                    tile.Length = TileSize;
+
+                    tile.TileX = gridPosX;
+                    tile.TileY = gridPosY;
+
+                    this.Children.Add(tile);
+                    Tiles.Add(tile);
+                }
+            }
         }
         private void CompositionTarget_Rendering(object sender, EventArgs e)
         {
@@ -61,10 +129,13 @@ namespace Aegir.Map
 
         private void DoCameraMove()
         {
+            
             if(MapCamera!=null)
             {
                 //Get camera distance from map
                 double cameraTargetDistanceSquared = 0;
+                Point3D position = MapCamera.CameraTarget;
+
                 if (MapCamera.CameraMode == CameraMode.Inspect)
                 {
                     double deltaX = MapCamera.CameraPosition.X - MapCamera.CameraTarget.X;
@@ -72,26 +143,154 @@ namespace Aegir.Map
                     double deltaZ = MapCamera.CameraPosition.Z - MapCamera.CameraTarget.Z;
 
                     cameraTargetDistanceSquared = deltaX * deltaX + deltaY * deltaY + deltaZ * deltaZ;
+
                 }
                 else if (MapCamera.CameraMode == CameraMode.WalkAround)
                 {
+                    position = new Point3D();
+                }
 
-                }
+                //Camera Calculations done, let's check them.
                 //Check if we need to zoom out map
-                if(cameraTargetDistanceSquared > upperZoomThreshold * upperZoomThreshold)
+                //if (cameraTargetDistanceSquared > upperZoomThreshold * upperZoomThreshold)
+                //{
+                //    MapZoomLevel += 1;
+                //}
+                //else if (cameraTargetDistanceSquared < lowerZoomThreshold * lowerZoomThreshold)
+                //{
+                //    MapZoomLevel -= 1;
+                //}
+
+                //No Zoom needed, but check if we are outside our current tile and need to add new ones
+                //This is done after zooming as zooming to a new level might increase size of current tile
+                //making us still inside the current tile with a new zoom level 
+
+                double cameraDeltaX = position.X - MapCenter.X;
+                double cameraDeltaY = position.Y - MapCenter.Y;
+
+                int tileX = (int)(cameraDeltaX * snapInverseFactor);
+                int tileY = (int)(cameraDeltaY * snapInverseFactor);
+
+                if(tileX != currentTileX || tileY != currentTileY)
                 {
-                    MapZoomLevel += 1;
-                }
-                else if(cameraTargetDistanceSquared < lowerZoomThreshold * lowerZoomThreshold)
-                {
-                    MapZoomLevel -= 1;
+                    int panDeltaX = ClampPan(tileX - currentTileX);
+                    int panDeltaY = ClampPan(tileY - currentTileY);
+
+                    log.DebugFormat("Panning Grid CameraTile (x/y) {0} / {1}  CurrentTile (x/y) {2} / {3} Delta (x/y) {4} / {5}", 
+                        tileX, tileY, 
+                        currentTileX, currentTileY,
+                        panDeltaX, panDeltaY);
+
+                    PanGrid(panDeltaX, panDeltaY);
+
                 }
             }
         }
-
-        private void RegenerateTiles()
+        /// <summary>
+        /// Pans the Grid Tiles the given amount (only supports one square for now)
+        /// </summary>
+        /// <param name="panAmountX"></param>
+        /// <param name="panAmountY"></param>
+        private void PanGrid(int panAmountX, int panAmountY)
         {
+            using (DebugUtil.StartScopeWatch("PanGrid", log))
+            {
+                if (panAmountX == 0 && panAmountY == 0)
+                {
+                    return;
+                }
 
+                //If positive move tiles from left edge to right edge
+                int xTileIndexToFind = GetXTileEdge(panAmountX);
+                int yTileIndexToFind = GetYTileEdge(panAmountY);
+
+                Random ran = new Random();
+
+                List<MapTile3D> tilesToMove = new List<MapTile3D>();
+                using (DebugUtil.StartScopeWatch("GetPanTiles", log))
+                {
+                    if (panAmountX != 0)
+                    {
+                        tilesToMove.AddRange(Tiles.Where(t => t.TileX == xTileIndexToFind));
+                    }
+                    if (panAmountY != 0)
+                    {
+                        tilesToMove.AddRange(Tiles.Where(t => t.TileY == yTileIndexToFind));
+                    }
+                }
+                using (DebugUtil.StartScopeWatch("ProcessTiles", log))
+                {
+                    foreach (MapTile3D tile in tilesToMove)
+                    {
+                        if(tile.TileX == xTileIndexToFind)
+                        {
+                            tile.TileX += GridSize * panAmountX;
+                        }
+                        if(tile.TileY == yTileIndexToFind)
+                        {
+                            tile.TileY += GridSize * panAmountY;
+                        }
+
+                        //Apply this as a transformation as well
+                        TranslateTransform3D transform = tile.Transform as TranslateTransform3D;
+
+                        if (transform != null)
+                        {
+                            transform.OffsetX = tile.TileX * TileSize;
+                            transform.OffsetY = tile.TileY * TileSize;
+                        }
+
+                       // tile.Fill = new SolidColorBrush(Color.FromArgb(255, (byte)ran.Next(50, 255), (byte)ran.Next(50, 255), (byte)ran.Next(50, 255)));
+                    }
+                }
+
+                currentTileX += panAmountX;
+                currentTileY += panAmountY;
+            }
         }
+
+        private int GetXTileEdge(int panAmount)
+        {
+            if (panAmount > 0)
+            {
+                //we need to find all tiles on left edge. Their index will be currentTileX - gridsize/2 (rounded down)
+                return currentTileX - GridSize / 2;
+            }
+            else if (panAmount < 0)
+            {
+                return currentTileX + GridSize / 2;
+            }
+
+            return 0;
+        }
+        
+        private int GetYTileEdge(int panAmount)
+        {
+            if (panAmount > 0)
+            {
+                //we need to find all tiles on left edge. Their index will be currentTileX - gridsize/2 (rounded down)
+                return currentTileY - GridSize / 2;
+            }
+            else if (panAmount < 0)
+            {
+                return currentTileY + GridSize / 2;
+            }
+
+            return 0;
+        }
+
+        private int ClampPan(int pan)
+        {
+            if(pan>1)
+            {
+                return 1;
+            }
+            if(pan<-1)
+            {
+                return -1;
+            }
+            return pan;
+        }
+
     }
 }
