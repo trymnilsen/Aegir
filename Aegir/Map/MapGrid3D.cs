@@ -17,7 +17,10 @@ namespace Aegir.Map
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(MapGrid3D));
         private const int GridSize = 5;
+        private const int ZoomSteps = 200;
+        private const double zoomInverseFactor = 1d / ZoomSteps;
         private double snapInverseFactor;
+        private double lastZoom = 0;
         private int currentTileX;
         private int currentTileY;
         private int upperZoomThreshold;
@@ -47,7 +50,19 @@ namespace Aegir.Map
         public int MapZoomLevel
         {
             get { return mapZoom; }
-            set { mapZoom = value; }
+            set
+            {
+                if(mapZoom != value)
+                {
+                    mapZoom = value;
+                    TileSize = Math.Max((18 - value) * (3 * 32), 32);
+
+                    Children.Clear();
+                    Tiles.Clear();
+                    InitGrid();
+                }
+
+            }
         }
 
         public int ViewZoomLevel { get; set; }
@@ -133,7 +148,7 @@ namespace Aegir.Map
             if(MapCamera!=null)
             {
                 //Get camera distance from map
-                double cameraTargetDistanceSquared = 0;
+                double cameraTargetDistance = 0;
                 Point3D position = MapCamera.CameraTarget;
 
                 if (MapCamera.CameraMode == CameraMode.Inspect)
@@ -142,24 +157,29 @@ namespace Aegir.Map
                     double deltaY = MapCamera.CameraPosition.Y - MapCamera.CameraTarget.Y;
                     double deltaZ = MapCamera.CameraPosition.Z - MapCamera.CameraTarget.Z;
 
-                    cameraTargetDistanceSquared = deltaX * deltaX + deltaY * deltaY + deltaZ * deltaZ;
+                    cameraTargetDistance = Math.Sqrt(deltaX * deltaX + deltaY * deltaY + deltaZ * deltaZ);
 
                 }
                 else if (MapCamera.CameraMode == CameraMode.WalkAround)
                 {
                     position = new Point3D();
                 }
+                if(lastZoom != cameraTargetDistance)
+                {
+                    log.DebugFormat("Camera Distance {0} ", cameraTargetDistance);
+
+                    int snappedCameraDistance = (int)Math.Floor((cameraTargetDistance - 100) * zoomInverseFactor) * 200 + 100;
+                    int zoomLevel = 18 - (int)Math.Floor(snappedCameraDistance * zoomInverseFactor) -1;
+
+                    MapZoomLevel = zoomLevel;
+
+                    log.DebugFormat("Zoom snapped distance/zoom level: {0} / {1}", snappedCameraDistance, zoomLevel);
+                }
+                lastZoom = cameraTargetDistance;
 
                 //Camera Calculations done, let's check them.
                 //Check if we need to zoom out map
-                //if (cameraTargetDistanceSquared > upperZoomThreshold * upperZoomThreshold)
-                //{
-                //    MapZoomLevel += 1;
-                //}
-                //else if (cameraTargetDistanceSquared < lowerZoomThreshold * lowerZoomThreshold)
-                //{
-                //    MapZoomLevel -= 1;
-                //}
+
 
                 //No Zoom needed, but check if we are outside our current tile and need to add new ones
                 //This is done after zooming as zooming to a new level might increase size of current tile

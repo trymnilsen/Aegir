@@ -64,9 +64,9 @@
             <Style.Triggers>
                 <DataTrigger Binding="{Binding IsChecked}"  Value="True">
                     <Setter Property="Grid.Column" Value="0" />
-                    <Setter Property="Grid.ColumnSpan" Value="3" />
+                    <Setter Property="Grid.ColumnSpan" Value="2" />
                     <Setter Property="Grid.Row" Value="0" />
-                    <Setter Property="Grid.RowSpan" Value="3" />
+                    <Setter Property="Grid.RowSpan" Value="2" />
                     <Setter Property="Grid.ZIndex" Value="1" />
                 </DataTrigger>
             </Style.Triggers>
@@ -112,12 +112,10 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
-            <ColumnDefinition Width="4" />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition />
-            <RowDefinition Height="4" />
             <RowDefinition />
         </Grid.RowDefinitions>
 
@@ -169,7 +167,7 @@
         <Grid x:Name="TopRightView" DataContext="{Binding ElementName=TopRightLabel}">
             <Grid.Style>
                 <Style BasedOn="{StaticResource ViewMaximizeStyle}">
-                    <Setter Property="Grid.Column" Value="2" />
+                    <Setter Property="Grid.Column" Value="1" />
                 </Style>
             </Grid.Style>
             <ht:HelixViewport3D MouseUp="Viewport_MouseUp" x:Name="PerspectiveViewport"
@@ -217,7 +215,7 @@
         <Grid x:Name="BottomLeftView" DataContext="{Binding ElementName=BottomLeftLabel}">
             <Grid.Style>
                 <Style BasedOn="{StaticResource ViewMaximizeStyle}">
-                    <Setter Property="Grid.Row" Value="2" />
+                    <Setter Property="Grid.Row" Value="1" />
                 </Style>
             </Grid.Style>
             <ht:HelixViewport3D MouseUp="Viewport_MouseUp" x:Name="FrontViewport" RotateGesture="Alt+RightClick" PanGesture="RightClick">
@@ -255,8 +253,8 @@
         <Grid x:Name="BottomRightView" DataContext="{Binding ElementName=BottomRightLabel}">
             <Grid.Style>
                 <Style BasedOn="{StaticResource ViewMaximizeStyle}">
-                    <Setter Property="Grid.Row" Value="2" />
-                    <Setter Property="Grid.Column" Value="2" />
+                    <Setter Property="Grid.Row" Value="1" />
+                    <Setter Property="Grid.Column" Value="1" />
                 </Style>
             </Grid.Style>
             <ht:HelixViewport3D MouseUp="Viewport_MouseUp" x:Name="RightViewport" RotateGesture="Alt+RightClick"  PanGesture="RightClick">
@@ -291,7 +289,7 @@
                 </ToggleButton.ContextMenu>
             </ToggleButton>
         </Grid>
-        <GridSplitter Grid.Column="1" Grid.RowSpan="3" Width="4" HorizontalAlignment="Right" VerticalAlignment="Stretch" />
-        <GridSplitter Grid.Row="1" Grid.ColumnSpan="3" Height="4" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" />
+        <GridSplitter Grid.Column="0" Grid.RowSpan="2" Width="4" HorizontalAlignment="Right" VerticalAlignment="Stretch" />
+        <GridSplitter Grid.Row="0" Grid.ColumnSpan="2" Height="4" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" />
     </Grid>
 </UserControl>
