@@ -54,12 +54,7 @@ namespace Aegir.Map
             {
                 if(mapZoom != value)
                 {
-                    mapZoom = value;
-                    TileSize = Math.Max((18 - value) * (3 * 32), 32);
-
-                    Children.Clear();
-                    Tiles.Clear();
-                    InitGrid();
+                    ZoomGrid(value);
                 }
 
             }
@@ -206,6 +201,16 @@ namespace Aegir.Map
                 }
             }
         }
+        private void ZoomGrid(int value)
+        {
+            mapZoom = value;
+
+            TileSize = (int)Math.Max(32 * Math.Pow(3,18-value), 32);
+            Children.Clear();
+            Tiles.Clear();
+            InitGrid();
+        }
+
         /// <summary>
         /// Pans the Grid Tiles the given amount (only supports one square for now)
         /// </summary>
