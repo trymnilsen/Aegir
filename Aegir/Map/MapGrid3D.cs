@@ -16,7 +16,7 @@ namespace Aegir.Map
     public class MapGrid3D : MeshVisual3D
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(MapGrid3D));
-        private const int GridSize = 5;
+        private const int GridSize = 7;
         private const int ZoomSteps = 200;
         private const double zoomInverseFactor = 1d / ZoomSteps;
         private double snapInverseFactor;
@@ -164,14 +164,16 @@ namespace Aegir.Map
                     log.DebugFormat("Camera Distance {0} ", cameraTargetDistance);
 
                     int snappedCameraDistance = (int)Math.Floor((cameraTargetDistance - 100) * zoomInverseFactor) * 200 + 100;
-                    double zoomFactor = cameraTargetDistance / 32d;
+                    double zoomFactor = cameraTargetDistance / 200d;
                     int SnappedZoomFactor = (int) Math.Ceiling(Math.Log(zoomFactor) / Math.Log(3d));
+
+                   
 
                     int zoomLevel = 18 - SnappedZoomFactor;
 
                     MapZoomLevel = zoomLevel;
 
-                    log.DebugFormat("Zoom snapped distance/zoom level: {0} / {1}", snappedCameraDistance, zoomLevel);
+                    log.DebugFormat("Zoom snapped distance/zoom level: {0} / {1}", cameraTargetDistance, SnappedZoomFactor);
                 }
                 lastZoom = cameraTargetDistance;
 
@@ -208,12 +210,15 @@ namespace Aegir.Map
         {
             mapZoom = value;
 
-            TileSize = (int)Math.Max(32 * Math.Pow(3,18-value), 32);
+            TileSize = GetTileSize(value);
             Children.Clear();
             Tiles.Clear();
             InitGrid();
         }
-
+        private int GetTileSize(int ZoomLevel)
+        {
+            return (int)Math.Max(32 * Math.Pow(3, 18 - ZoomLevel), 32);
+        }
         /// <summary>
         /// Pans the Grid Tiles the given amount (only supports one square for now)
         /// </summary>
