@@ -262,8 +262,8 @@
       <DependentUpon>StatusBar.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Timeline\CanvasCalculator.cs" />
-    <Compile Include="View\Timeline\KeyframeList.xaml.cs">
-      <DependentUpon>KeyframeList.xaml</DependentUpon>
+    <Compile Include="View\Timeline\TimelineConfig.xaml.cs">
+      <DependentUpon>TimelineConfig.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Timeline\TimelineHighlighter.xaml.cs">
       <DependentUpon>TimelineHighlighter.xaml</DependentUpon>
@@ -294,9 +294,6 @@
     </Compile>
     <Compile Include="Windows\StatisticsWindow.xaml.cs">
       <DependentUpon>StatisticsWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Windows\TimelineSettings.xaml.cs">
-      <DependentUpon>TimelineSettings.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\VesselSelector.xaml.cs">
       <DependentUpon>VesselSelector.xaml</DependentUpon>
@@ -364,7 +361,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\Timeline\KeyframeList.xaml">
+    <Page Include="View\Timeline\TimelineConfig.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -405,10 +402,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\StatisticsWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Windows\TimelineSettings.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

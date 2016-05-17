@@ -21,8 +21,6 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="20px" MinHeight="20px"></RowDefinition>
-            <!-- Toolbar -->
-            <RowDefinition Height="25px" MinHeight="25px"></RowDefinition>
             <!--Menu Strip-->
             <RowDefinition Height="1*" MinHeight="200px"></RowDefinition>
             <!--Console-->
@@ -33,10 +31,9 @@
         </Grid.RowDefinitions>
         <!--Menu Strip-->
         <views:Menu></views:Menu>
-        <views:Toolbar Grid.Row="1"></views:Toolbar>
         <!--~MenuStrip-->
         <!--Main Area-->
-        <Grid Grid.Row="2">
+        <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="280px"></ColumnDefinition>
                 <ColumnDefinition Width="1*"></ColumnDefinition>
@@ -72,9 +69,9 @@
                 </Style>
             </GridSplitter.Style>
         </GridSplitter>-->
-        <timelineView:Timeline Grid.Row="3"></timelineView:Timeline>
+        <timelineView:Timeline Grid.Row="2"></timelineView:Timeline>
         <!--StatusBar-->
-        <views:StatusBar Grid.Row="4"></views:StatusBar>
+        <views:StatusBar Grid.Row="3"></views:StatusBar>
         <!--~StatusBar-->
     </Grid>
 </Window>

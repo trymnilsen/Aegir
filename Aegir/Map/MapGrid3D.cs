@@ -167,9 +167,9 @@ namespace Aegir.Map
                     double zoomFactor = cameraTargetDistance / 200d;
                     int SnappedZoomFactor = (int) Math.Ceiling(Math.Log(zoomFactor) / Math.Log(3d));
 
-                   
 
-                    int zoomLevel = 18 - SnappedZoomFactor;
+
+                    int zoomLevel = 18 - Math.Max(0,SnappedZoomFactor);
 
                     MapZoomLevel = zoomLevel;
 

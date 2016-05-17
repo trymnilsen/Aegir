@@ -4,37 +4,104 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:Aegir.View.Timeline"
+             xmlns:conv="clr-namespace:Aegir.Converter"
              mc:Ignorable="d"
              d:DesignHeight="32" d:DesignWidth="300"
              SizeChanged="UserControl_SizeChanged">
+    <UserControl.Resources>
+        <conv:ColorToBrushConverter x:Key="ColorToBrushConv"></conv:ColorToBrushConverter>
+        <conv:KeyframeTimelinePositionConverter x:Key="KeyframePositionConv"></conv:KeyframeTimelinePositionConverter>
+        <!-- A data-template that defines the visuals for a a key -->
+        <DataTemplate DataType="{x:Type local:KeyframeListItem}">
 
-    <Grid Background="Transparent">
-        <Grid.ContextMenu>
-            <ContextMenu>
-                <MenuItem Header="Aft : Transform - X"></MenuItem>
-                <MenuItem Header="Aft : Transform - Y"></MenuItem>
-                <MenuItem Header="Aft : Transform - Z"></MenuItem>
-                <Separator></Separator>
-                <MenuItem Header="Delete Key">
+            <!--The Rectangle is embedded in the Grid so that we
+            can set the Margin. The margin is set so that the ListBox
+            item selection fits nicely around the Rectangle.-->
+
+            <Grid Margin="0,2,2,2">
+                <Rectangle Width="7" Height="14" Cursor="Hand" StrokeThickness="1"
+                    MouseDown="Keyframe_MouseDown"
+                    MouseUp="Keyframe_MouseUp"
+                    MouseMove="Keyframe_MouseMove">
+                    <Rectangle.Fill>
+                        <SolidColorBrush>
+                            <SolidColorBrush.Color>
+                                <Color R="204" G="48" B="9" A="255"></Color>
+                            </SolidColorBrush.Color>
+                        </SolidColorBrush>
+                    </Rectangle.Fill>
+                    <Rectangle.Stroke>
+                        <SolidColorBrush>
+                            <SolidColorBrush.Color>
+                                <Color R="60" G="14" B="2" A="255"></Color>
+                            </SolidColorBrush.Color>
+                        </SolidColorBrush>
+                    </Rectangle.Stroke>
+                </Rectangle>
+            </Grid>
+        </DataTemplate>
+    </UserControl.Resources>
+    <Grid>
+        <Grid Background="Transparent">
+            <Grid.ContextMenu>
+                <ContextMenu>
                     <MenuItem Header="Aft : Transform - X"></MenuItem>
                     <MenuItem Header="Aft : Transform - Y"></MenuItem>
                     <MenuItem Header="Aft : Transform - Z"></MenuItem>
                     <Separator></Separator>
-                    <MenuItem Header="All"></MenuItem>
-                </MenuItem>
-                <Separator></Separator>
-                <MenuItem Header="Filter">
-                    <MenuItem Header="All"></MenuItem>
-                    <MenuItem Header="Transform Keys"></MenuItem>
-                </MenuItem>
-                <Separator></Separator>
-                <MenuItem Header="Go to time"></MenuItem>
-            </ContextMenu>
-        </Grid.ContextMenu>
-        <!--Ruler Canvas-->
-        <Canvas SnapsToDevicePixels="True" Grid.Row="1"
-                Height="28px" VerticalAlignment="Top"
-                x:Name="KeyFrameTimeLineRuler">
-        </Canvas>
+                    <MenuItem Header="Delete Key">
+                        <MenuItem Header="Aft : Transform - X"></MenuItem>
+                        <MenuItem Header="Aft : Transform - Y"></MenuItem>
+                        <MenuItem Header="Aft : Transform - Z"></MenuItem>
+                        <Separator></Separator>
+                        <MenuItem Header="All"></MenuItem>
+                    </MenuItem>
+                    <Separator></Separator>
+                    <MenuItem Header="Filter">
+                        <MenuItem Header="All"></MenuItem>
+                        <MenuItem Header="Transform Keys"></MenuItem>
+                    </MenuItem>
+                    <Separator></Separator>
+                    <MenuItem Header="Go to time"></MenuItem>
+                </ContextMenu>
+            </Grid.ContextMenu>
+            <!--Ruler Canvas-->
+            <Canvas SnapsToDevicePixels="True" Grid.Row="1"
+                    Height="28px" VerticalAlignment="Top"
+                    x:Name="KeyFrameTimeLineRuler">
+            </Canvas>
+        </Grid>
+        <Grid Name="GridContainer" 
+              MouseDown="Control_MouseDown"
+              MouseUp="Control_MouseUp"
+              MouseMove="Control_MouseMove">
+            <!--This ListBox presents the keyframes.
+                The data-template that defines the visuals 
+                for each keyframe is in the resources section 
+                at the start of this file.-->
+            <ListBox x:Name="listBox" SelectionMode="Extended" Background="Transparent">
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <Canvas />
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="ListBoxItem" >
+                        <Setter Property="Canvas.Left" Value="{Binding TimelinePositionX}"/>
+                        <Setter Property="Canvas.Top" Value="2" />
+                    </Style>
+                </ListBox.ItemContainerStyle>
+            </ListBox>
+            <!-- This Canvas and Border are used as a very simple way 
+                    to render a drag selection rectangle. -->
+            <Canvas x:Name="dragSelectionCanvas" Visibility="Collapsed" >
+                <Border x:Name="dragSelectionBorder" 
+                        BorderBrush="Blue"
+                        BorderThickness="1"
+                        Background="LightBlue"
+                        CornerRadius="1"
+                        Opacity="0.5" />
+            </Canvas>
+        </Grid>
     </Grid>
 </UserControl>

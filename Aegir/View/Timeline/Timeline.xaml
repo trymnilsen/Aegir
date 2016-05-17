@@ -19,7 +19,7 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
-            <ColumnDefinition Width="245px" />
+            <ColumnDefinition Width="271px" />
         </Grid.ColumnDefinitions>
         <!--TimeLine-->
         <Grid>
@@ -56,8 +56,11 @@
                                 Background="#FFCDCDCD"
                                 TicksColor="#FF404040"
                                 CurrentTime="{Binding Time}"
-                                CurrentTimeHighlightColor="#332929D6"/>
-                    <local:KeyframeList Grid.Column="1" TimeRangeStart="{Binding TimelineStart}" TimeRangeEnd="{Binding TimelineEnd}" Keyframes="{Binding Keyframes}"/>
+                                CurrentTimeHighlightColor="#332929D6"
+                                TimeRangeStart="{Binding TimelineStart}" 
+                                TimeRangeEnd="{Binding TimelineEnd}" 
+                                Keyframes="{Binding Keyframes}"/>
+                    <!--<local:KeyframeList Grid.Column="1" TimeRangeStart="{Binding TimelineStart}" TimeRangeEnd="{Binding TimelineEnd}" Keyframes="{Binding Keyframes}"/>-->
                 </Grid>
             </Border>
         </Grid>
@@ -78,6 +81,7 @@
             </Grid.Resources>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="28px" />
+                <ColumnDefinition Width="28px" />
                 <ColumnDefinition Width="75px" />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
@@ -85,16 +89,23 @@
                 <RowDefinition />
                 <RowDefinition />
             </Grid.RowDefinitions>
-            <!--Zoom-->
+            <!--Pan-->
             <RepeatButton Delay="500" Style="{StaticResource IconRepeatButton}">
-                <fa:ImageAwesome Icon="SearchPlus"></fa:ImageAwesome>
+                <fa:ImageAwesome Icon="ArrowLeft"></fa:ImageAwesome>
             </RepeatButton>
             <RepeatButton Delay="500" Grid.Row="1" Style="{StaticResource IconRepeatButton}">
+                <fa:ImageAwesome Icon="ArrowRight"></fa:ImageAwesome>
+            </RepeatButton>
+            <!--Zoom-->
+            <RepeatButton Delay="500" Grid.Column="1" Style="{StaticResource IconRepeatButton}">
+                <fa:ImageAwesome Icon="SearchPlus"></fa:ImageAwesome>
+            </RepeatButton>
+            <RepeatButton Delay="500" Grid.Column="1" Grid.Row="1" Style="{StaticResource IconRepeatButton}">
                 <fa:ImageAwesome Icon="SearchMinus"></fa:ImageAwesome>
             </RepeatButton>
             <!--Key Buttons-->
-            <Button Content="Set Key" Grid.Column="1" Command="{Binding AddKeyframeCommand}"></Button>
-            <ToggleButton Content="Auto Key" Grid.Column="1" Grid.Row="1" x:Name="ToggleAutoKeyButton">
+            <Button Content="Set Key" Grid.Column="2" Command="{Binding AddKeyframeCommand}"></Button>
+            <ToggleButton Content="Auto Key" Grid.Column="2" Grid.Row="1" x:Name="ToggleAutoKeyButton">
                 <ToggleButton.Style>
                     <Style TargetType="ToggleButton">
                         <Style.Triggers>
@@ -106,7 +117,7 @@
                 </ToggleButton.Style>
             </ToggleButton>
             <!--Playback buttons-->
-            <StackPanel Orientation="Horizontal" Grid.Column="2">
+            <StackPanel Orientation="Horizontal" Grid.Column="3">
                 <Button Style="{StaticResource PlayBackButton}">
                     <fa:ImageAwesome Icon="FastBackward"></fa:ImageAwesome>
                 </Button>
@@ -123,9 +134,9 @@
                     <fa:ImageAwesome Icon="FastForward"></fa:ImageAwesome>
                 </Button>
             </StackPanel>
-            <StackPanel Grid.Column="2" Grid.Row="1" Orientation="Horizontal">
+            <StackPanel Grid.Column="3" Grid.Row="1" Orientation="Horizontal">
                 <xctk:IntegerUpDown Width="112px" Value="{Binding Time}" x:Name="TimeRangeStartField"></xctk:IntegerUpDown>
-                <Button Style="{StaticResource PlayBackButton}">
+                <Button Style="{StaticResource PlayBackButton}" Click="TimeConfig_Click">
                     <fa:ImageAwesome Icon="ListUl"></fa:ImageAwesome>
                 </Button>
             </StackPanel>

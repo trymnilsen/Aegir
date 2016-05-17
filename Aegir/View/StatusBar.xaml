@@ -10,26 +10,32 @@
             <ItemsPanelTemplate>
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="2*" />
                         <ColumnDefinition Width="1*" />
-                        <ColumnDefinition Width="120" />
-                        <ColumnDefinition Width="200" />
+                        <ColumnDefinition Width="1*" />
+                        <ColumnDefinition Width="240" />
+                        <ColumnDefinition Width="100" />
                     </Grid.ColumnDefinitions>
                 </Grid>
             </ItemsPanelTemplate>
         </StatusBar.ItemsPanel>
         <StatusBarItem>
-            <TextBlock Text="Replaying LOG XXXX-XX-XX.log" Margin="0 0 25 0"></TextBlock>
+            <TextBlock Text="Timeline (Start-End) 0-100" Margin="0 0 25 0"></TextBlock>
+        </StatusBarItem>
+        <StatusBarItem Grid.Column="1">
+            
         </StatusBarItem>
         <StatusBarItem Grid.Column="1">
             <StackPanel Orientation="Horizontal">
             </StackPanel>
         </StatusBarItem>
         <StatusBarItem Grid.Column="2">
-            <ProgressBar Minimum="0" Width="100" Height="20" Maximum="100" Value="54"></ProgressBar>
+            <StackPanel Orientation="Horizontal">
+                <ProgressBar Minimum="0" Width="100" Height="20" Maximum="100" Value="54"></ProgressBar>
+                <TextBlock Margin="10 0 0 0" Text="5/10 Tiles Downloaded"></TextBlock>
+            </StackPanel>
         </StatusBarItem>
         <StatusBarItem Grid.Column="4">
-            <TextBlock Text="06.10.2015 18:50:42"></TextBlock>
+            
         </StatusBarItem>
     </StatusBar>
 </UserControl>

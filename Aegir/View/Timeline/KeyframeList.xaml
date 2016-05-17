@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="Aegir.View.Timeline.KeyframeList"
+﻿<!--<UserControl x:Class="Aegir.View.Timeline.KeyframeList"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -11,12 +11,12 @@
     <UserControl.Resources>
         <conv:ColorToBrushConverter x:Key="ColorToBrushConv"></conv:ColorToBrushConverter>
         <conv:KeyframeTimelinePositionConverter x:Key="KeyframePositionConv"></conv:KeyframeTimelinePositionConverter>
-        <!-- A data-template that defines the visuals for a a key -->
+        --><!-- A data-template that defines the visuals for a a key --><!--
         <DataTemplate DataType="{x:Type local:KeyframeListItem}">
             
-         <!--The Rectangle is embedded in the Grid so that we
+         --><!--The Rectangle is embedded in the Grid so that we
             can set the Margin. The margin is set so that the ListBox
-            item selection fits nicely around the Rectangle.--> 
+            item selection fits nicely around the Rectangle.--><!-- 
         
             <Grid Margin="0,2,2,2">
                 <Rectangle Width="7" Height="14" Cursor="Hand" StrokeThickness="1"
@@ -45,10 +45,10 @@
           MouseDown="Control_MouseDown"
           MouseUp="Control_MouseUp"
           MouseMove="Control_MouseMove">
-        <!--This ListBox presents the keyframes.
+        --><!--This ListBox presents the keyframes.
             The data-template that defines the visuals 
             for each keyframe is in the resources section 
-            at the start of this file.-->
+            at the start of this file.--><!--
         <ListBox x:Name="listBox" SelectionMode="Extended" Background="Transparent">
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
@@ -62,8 +62,8 @@
                 </Style>
             </ListBox.ItemContainerStyle>
         </ListBox>
-        <!-- This Canvas and Border are used as a very simple way 
-                to render a drag selection rectangle. -->
+        --><!-- This Canvas and Border are used as a very simple way 
+                to render a drag selection rectangle. --><!--
         <Canvas x:Name="dragSelectionCanvas" Visibility="Collapsed" >
             <Border x:Name="dragSelectionBorder" 
                     BorderBrush="Blue"
@@ -73,4 +73,4 @@
                     Opacity="0.5" />
         </Canvas>
     </Grid>
-</UserControl>
+</UserControl>-->

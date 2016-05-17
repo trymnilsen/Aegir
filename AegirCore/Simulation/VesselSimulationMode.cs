@@ -5,6 +5,7 @@
         Replay,
         Simulate,
         Expression,
+        Timeline,
         Fixed
     }
 }

@@ -128,6 +128,30 @@
             <ht:HelixViewport3D MouseUp="Viewport_MouseUp"  x:Name="TopViewport" 
                                 RotateGesture="Alt+MiddleClick" 
                                 IsHeadLightEnabled="False">
+                <ht:HelixViewport3D.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Redo"></MenuItem>
+                        <MenuItem Header="Undo"></MenuItem>
+                        <Separator ></Separator>
+                        <MenuItem Header="Line"></MenuItem>
+                        <MenuItem Header="Rectangle"></MenuItem>
+                        <MenuItem Header="Circle"></MenuItem>
+                        <MenuItem Header="Polygon"></MenuItem>
+                        <Separator></Separator>
+                        <MenuItem Header="Translate"></MenuItem>
+                        <MenuItem Header="Rotate"></MenuItem>
+                        <MenuItem Header="Transform Space">
+                            <MenuItem Header="Local"></MenuItem>
+                            <MenuItem Header="World"></MenuItem>
+                        </MenuItem>
+                        <MenuItem Header="Transform Mode">
+                            <MenuItem Header="Immediate"></MenuItem>
+                            <MenuItem Header="On click"></MenuItem>
+                        </MenuItem>
+                        <MenuItem Header="Snap To Angle" IsCheckable="True"></MenuItem>
+                        <MenuItem Header="Snap To Grid" IsCheckable="True"></MenuItem>
+                    </ContextMenu>
+                </ht:HelixViewport3D.ContextMenu>
                 <ht:HelixViewport3D.Camera>
                     <OrthographicCamera Position="0,0,80.22" LookDirection="0,0,-80.22" UpDirection="0,1,0" Width="56" />
                 </ht:HelixViewport3D.Camera>
@@ -171,7 +195,12 @@
                 </Style>
             </Grid.Style>
             <ht:HelixViewport3D MouseUp="Viewport_MouseUp" x:Name="PerspectiveViewport"
-                                IsRotationEnabled="True" ShowFrameRate="True" Camera="{ht:PerspectiveCamera 43.11,-74.67,49.78}">
+                                IsRotationEnabled="True" 
+                                ShowFrameRate="True" 
+                                Camera="{ht:PerspectiveCamera 43.11,-74.67,49.78}">
+                <ht:HelixViewport3D.RotateGesture>
+                    <MouseGesture MouseAction="MiddleClick" Modifiers="Ctrl"></MouseGesture>
+                </ht:HelixViewport3D.RotateGesture>
                 <!--<local:GridLines />-->
                 <map:MapGrid3D TileGenerator="{StaticResource TileGenerator}" 
                                MapCamera="{Binding ElementName=PerspectiveViewport, Path=CameraController}">

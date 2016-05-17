@@ -1,4 +1,5 @@
-﻿using System.Windows.Controls;
+﻿using System.Windows;
+using System.Windows.Controls;
 
 namespace Aegir.View.Timeline
 {
@@ -10,6 +11,12 @@ namespace Aegir.View.Timeline
         public Timeline()
         {
             InitializeComponent();
+        }
+
+        private void TimeConfig_Click(object sender, RoutedEventArgs e)
+        {
+            TimelineConfig timeConfigWindow = new TimelineConfig();
+            timeConfigWindow.ShowDialog();
         }
     }
 }
