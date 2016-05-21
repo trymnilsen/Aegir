@@ -237,8 +237,6 @@ namespace Aegir.Map
                 int xTileIndexToFind = GetXTileEdge(panAmountX);
                 int yTileIndexToFind = GetYTileEdge(panAmountY);
 
-                Random ran = new Random();
-
                 List<MapTile3D> tilesToMove = new List<MapTile3D>();
                 using (DebugUtil.StartScopeWatch("GetPanTiles", log))
                 {
@@ -264,6 +262,12 @@ namespace Aegir.Map
                             tile.TileY += GridSize * panAmountY;
                         }
 
+                        //Send of a request to update the tile
+                        TileGenerator.LoadTileImageAsync(tile, 
+                                                         tile.TileX, 
+                                                         tile.TileY, 
+                                                         MapZoomLevel);
+
                         //Apply this as a transformation as well
                         TranslateTransform3D transform = tile.Transform as TranslateTransform3D;
 
@@ -272,8 +276,6 @@ namespace Aegir.Map
                             transform.OffsetX = tile.TileX * TileSize;
                             transform.OffsetY = tile.TileY * TileSize;
                         }
-
-                       // tile.Fill = new SolidColorBrush(Color.FromArgb(255, (byte)ran.Next(50, 255), (byte)ran.Next(50, 255), (byte)ran.Next(50, 255)));
                     }
                 }
 
