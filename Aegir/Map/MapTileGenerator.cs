@@ -12,7 +12,7 @@ namespace Aegir.Map
 
         public MapTileGenerator()
         {
-
+            TileService.CacheFolder = @"ImageCache";
         }
 
 

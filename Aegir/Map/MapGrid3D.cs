@@ -102,12 +102,13 @@ namespace Aegir.Map
 
             currentTileX = 0;
             currentTileY = 0;
+
             for (int x = 0; x < GridSize; x++)
             {
                 for (int y = 0; y < GridSize; y++)
                 {
-                    int gridPosX = (x+1) - midNum;
-                    int gridPosY = (y+1) - midNum;
+                    int gridPosX = ((x+1) - midNum);
+                    int gridPosY = ((y+1) - midNum);
 
                     MapTile3D tile = new MapTile3D();
 
@@ -129,6 +130,20 @@ namespace Aegir.Map
 
                     this.Children.Add(tile);
                     Tiles.Add(tile);
+
+                    if(TileGenerator!=null)
+                    {
+                        log.DebugFormat("Requesting Image for x/y/zoom {0} / {1} / {2}", tile.TileX, tile.TileY, mapZoom);
+                        TileGenerator.LoadTileImageAsync(tile,
+                                     tile.TileY,
+                                     tile.TileX,
+                                     MapZoomLevel);
+
+                    }
+                    else
+                    {
+                        log.Debug("Could not load image, TileGeneratorWas Null");
+                    }
                 }
             }
         }
@@ -264,8 +279,8 @@ namespace Aegir.Map
 
                         //Send of a request to update the tile
                         TileGenerator.LoadTileImageAsync(tile, 
-                                                         tile.TileX, 
                                                          tile.TileY, 
+                                                         tile.TileX, 
                                                          MapZoomLevel);
 
                         //Apply this as a transformation as well

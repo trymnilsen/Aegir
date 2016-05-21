@@ -56,7 +56,7 @@ namespace Aegir.Map
             get { return BitmapStore.UserAgent; }
             set { BitmapStore.UserAgent = value; }
         }
-
+        
         /// <summary>Returns a valid value for the specified zoom.</summary>
         /// <param name="zoom">The zoom level to validate.</param>
         /// <returns>A value in the range of 0 - MaxZoom inclusive.</returns>
@@ -134,6 +134,9 @@ namespace Aegir.Map
         /// </returns>
         internal static BitmapImage GetTileImage(int zoom, int x, int y)
         {
+            //For now we move the tiles a little
+            x += 138852;
+            y += 76245;
             if (string.IsNullOrEmpty(CacheFolder))
             {
                 throw new InvalidOperationException("Must set the CacheFolder before calling GetTileImage.");
@@ -142,10 +145,12 @@ namespace Aegir.Map
             double tileCount = Math.Pow(2, zoom) - 1;
             if (x < 0 || y < 0 || x > tileCount || y > tileCount) // Bounds check
             {
+                log4net.LogManager.GetLogger(typeof(TileService)).Debug("Request was outside of bounds");
                 return null;
             }
 
             Uri uri = new Uri(string.Format(CultureInfo.InvariantCulture, TileFormat, zoom, x, y));
+            log4net.LogManager.GetLogger(typeof(TileService)).DebugFormat("Fetching Image from URI: {0}", uri);
             return BitmapStore.GetImage(uri);
         }
 
