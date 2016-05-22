@@ -251,6 +251,7 @@
     </Compile>
     <Compile Include="View\PropertyEditor\CustomEditor\RelayCommandEditor.cs" />
     <Compile Include="View\Rendering\GridLines.cs" />
+    <Compile Include="View\Rendering\ManipulatorGizmo.cs" />
     <Compile Include="View\Rendering\RenderView.xaml.cs">
       <DependentUpon>RenderView.xaml</DependentUpon>
     </Compile>
