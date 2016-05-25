@@ -1,4 +1,5 @@
-﻿using log4net;
+﻿using Aegir.Windows;
+using log4net;
 using System.Windows;
 
 namespace Aegir
@@ -21,6 +22,7 @@ namespace Aegir
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             appShell.ShellLoaded();
+
         }
 
         private void Application_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)

@@ -125,7 +125,7 @@
                 </Style>
             </Grid.Style>
             <!--Viewport-->
-            <ht:HelixViewport3D MouseUp="Viewport_MouseUp"  x:Name="TopViewport" 
+            <ht:HelixViewport3D x:Name="TopViewport" 
                                 RotateGesture="Alt+MiddleClick" 
                                 IsHeadLightEnabled="False">
                 <ht:HelixViewport3D.ContextMenu>
@@ -156,7 +156,7 @@
                     <OrthographicCamera Position="0,0,80.22" LookDirection="0,0,-80.22" UpDirection="0,1,0" Width="56" />
                 </ht:HelixViewport3D.Camera>
                 <local:GridLines />
-                <!--<map:MapGrid3D TileGenerator="{StaticResource TileGenerator}" MapCamera="{Binding ElementName=TopViewport, Path=CameraController}"></map:MapGrid3D>-->
+                <map:MapGrid3D TileGenerator="{StaticResource TileGenerator}" MapCamera="{Binding ElementName=TopViewport, Path=CameraController}"></map:MapGrid3D>
                 <!--<ModelVisual3D>
                     <ModelVisual3D.Content>
                         <AmbientLight Color="#FFFFFF" />
@@ -194,7 +194,7 @@
                     <Setter Property="Grid.Column" Value="1" />
                 </Style>
             </Grid.Style>
-            <ht:HelixViewport3D MouseUp="Viewport_MouseUp" x:Name="PerspectiveViewport"
+            <ht:HelixViewport3D x:Name="PerspectiveViewport"
                                 IsRotationEnabled="True" 
                                 ShowFrameRate="True" 
                                 Camera="{ht:PerspectiveCamera 43.11,-74.67,49.78}">
@@ -204,7 +204,7 @@
                 <!--<local:GridLines />-->
                 <map:MapGrid3D TileGenerator="{StaticResource TileGenerator}" 
                                MapCamera="{Binding ElementName=PerspectiveViewport, Path=CameraController}">
-                    
+
                 </map:MapGrid3D>
                 <!--<ht:MeshGeometryVisual3D>
                     <ht:MeshGeometryVisual3D.MeshGeometry>

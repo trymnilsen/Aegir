@@ -82,12 +82,12 @@
       <HintPath>..\packages\GMap.NET.Presentation.1.7.1\lib\net40\GMap.NET.WindowsPresentation.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="HelixToolkit, Version=2015.1.691.0, Culture=neutral, PublicKeyToken=52aa3500039caf0d, processorArchitecture=MSIL">
-      <HintPath>..\packages\HelixToolkit.2015.1.691\lib\portable-net4+sl4+wp71+win8\HelixToolkit.dll</HintPath>
+    <Reference Include="HelixToolkit, Version=2015.1.715.0, Culture=neutral, PublicKeyToken=52aa3500039caf0d, processorArchitecture=MSIL">
+      <HintPath>..\packages\HelixToolkit.2015.1.715\lib\portable-net4+sl4+wp71+win8\HelixToolkit.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="HelixToolkit.Wpf, Version=2015.1.691.0, Culture=neutral, PublicKeyToken=52aa3500039caf0d, processorArchitecture=MSIL">
-      <HintPath>..\packages\HelixToolkit.Wpf.2015.1.691\lib\net45\HelixToolkit.Wpf.dll</HintPath>
+    <Reference Include="HelixToolkit.Wpf, Version=2015.1.715.0, Culture=neutral, PublicKeyToken=52aa3500039caf0d, processorArchitecture=MSIL">
+      <HintPath>..\packages\HelixToolkit.Wpf.2015.1.715\lib\net45\HelixToolkit.Wpf.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="log4net, Version=1.2.15.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
@@ -251,10 +251,12 @@
     </Compile>
     <Compile Include="View\PropertyEditor\CustomEditor\RelayCommandEditor.cs" />
     <Compile Include="View\Rendering\GridLines.cs" />
+    <Compile Include="View\Rendering\ITransformManipulatible.cs" />
     <Compile Include="View\Rendering\ManipulatorGizmo.cs" />
     <Compile Include="View\Rendering\RenderView.xaml.cs">
       <DependentUpon>RenderView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Rendering\TransformMode.cs" />
     <Compile Include="View\Rendering\ViewportFocus.cs" />
     <Compile Include="View\Sidebar.xaml.cs">
       <DependentUpon>Sidebar.xaml</DependentUpon>
@@ -295,6 +297,9 @@
     </Compile>
     <Compile Include="Windows\StatisticsWindow.xaml.cs">
       <DependentUpon>StatisticsWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Test.xaml.cs">
+      <DependentUpon>Test.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\VesselSelector.xaml.cs">
       <DependentUpon>VesselSelector.xaml</DependentUpon>
@@ -403,6 +408,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\StatisticsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Test.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

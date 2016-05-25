@@ -88,6 +88,11 @@ namespace Aegir.View.Rendering
                     new PropertyChangedCallback(OnViewportFocusChanged)
                 ));
 
+        private ManipulatorGizmo topGizmo;
+        private ManipulatorGizmo perspectiveGizmo;
+        private ManipulatorGizmo rightGizmo;
+        private ManipulatorGizmo frontGizmo;
+
         public RenderView()
         {
             InitializeComponent();
@@ -99,6 +104,12 @@ namespace Aegir.View.Rendering
             renderHandler.AddViewport(new ViewportRenderer(PerspectiveViewport));
             renderHandler.AddViewport(new ViewportRenderer(RightViewport));
             renderHandler.AddViewport(new ViewportRenderer(FrontViewport));
+
+            //Add Tools
+            topGizmo = new ManipulatorGizmo(TopViewport);
+            perspectiveGizmo = new ManipulatorGizmo(PerspectiveViewport);
+            rightGizmo = new ManipulatorGizmo(RightViewport);
+            frontGizmo = new ManipulatorGizmo(FrontViewport);
         }
 
         private void TopLeftView_IsKeyboardFocusWithinChanged(object sender, DependencyPropertyChangedEventArgs e)
