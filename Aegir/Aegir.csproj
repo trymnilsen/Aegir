@@ -192,6 +192,8 @@
     <Compile Include="Messages\Simulation\InvalidateEntities.cs" />
     <Compile Include="Messages\Timeline\ActiveTimelineChanged.cs" />
     <Compile Include="Rendering\IGeometryFactory.cs" />
+    <Compile Include="Rendering\ITransformableVisual.cs" />
+    <Compile Include="Rendering\IVisualResolver.cs" />
     <Compile Include="Rendering\RenderItem.cs" />
     <Compile Include="Rendering\NodeMeshListener.cs" />
     <Compile Include="Rendering\Renderer.cs" />
@@ -255,13 +257,13 @@
     </Compile>
     <Compile Include="View\PropertyEditor\CustomEditor\RelayCommandEditor.cs" />
     <Compile Include="View\Rendering\GridLines.cs" />
-    <Compile Include="View\Rendering\Tool\ITransformManipulatible.cs" />
     <Compile Include="View\Rendering\Tool\ManipulatorGizmo.cs" />
     <Compile Include="View\Rendering\Tool\ManipulatorGizmoTransformHandler.cs" />
     <Compile Include="View\Rendering\RenderView.xaml.cs">
       <DependentUpon>RenderView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Rendering\TransformMode.cs" />
+    <Compile Include="View\Rendering\SceneClickHandler.cs" />
     <Compile Include="View\Rendering\ViewportFocus.cs" />
     <Compile Include="View\Sidebar.xaml.cs">
       <DependentUpon>Sidebar.xaml</DependentUpon>
