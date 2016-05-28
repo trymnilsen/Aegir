@@ -198,6 +198,10 @@
     <Compile Include="Rendering\RenderingMode.cs" />
     <Compile Include="Rendering\RenderItemListener.cs" />
     <Compile Include="Rendering\Camera\ViewportCameraController.cs" />
+    <Compile Include="Rendering\Tool\EventableBindableRotateManipulator.cs" />
+    <Compile Include="Rendering\Tool\EventableBindableTranslateManipulator.cs" />
+    <Compile Include="Rendering\Tool\RotateFinishedEventArgs.cs" />
+    <Compile Include="Rendering\Tool\TranslateFinishedEventArgs.cs" />
     <Compile Include="Rendering\ViewportRenderer.cs" />
     <Compile Include="Rendering\Visual\IVisualProvider.cs" />
     <Compile Include="Rendering\Visual\SolidMeshProvider.cs" />
