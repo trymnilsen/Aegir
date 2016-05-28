@@ -93,7 +93,7 @@ namespace Aegir.View.Rendering
         private ManipulatorGizmo perspectiveGizmo;
         private ManipulatorGizmo rightGizmo;
         private ManipulatorGizmo frontGizmo;
-
+        private ManipulatorGizmoTransformHandler gizmoHandler;
         public RenderView()
         {
             InitializeComponent();
@@ -105,13 +105,14 @@ namespace Aegir.View.Rendering
             renderHandler.AddViewport(new ViewportRenderer(PerspectiveViewport));
             renderHandler.AddViewport(new ViewportRenderer(RightViewport));
             renderHandler.AddViewport(new ViewportRenderer(FrontViewport));
-            ManipulatorGizmoTransformHandler gizmoHandler = new ManipulatorGizmoTransformHandler();
+            gizmoHandler = new ManipulatorGizmoTransformHandler();
 
             //Add Tools
             topGizmo = new ManipulatorGizmo(TopViewport, gizmoHandler);
             perspectiveGizmo = new ManipulatorGizmo(PerspectiveViewport, gizmoHandler);
             rightGizmo = new ManipulatorGizmo(RightViewport, gizmoHandler);
             frontGizmo = new ManipulatorGizmo(FrontViewport, gizmoHandler);
+
         }
 
         private void TopLeftView_IsKeyboardFocusWithinChanged(object sender, DependencyPropertyChangedEventArgs e)
@@ -136,8 +137,21 @@ namespace Aegir.View.Rendering
             newScene.InvalidateChildren += OnInvalidateChildren;
             renderHandler.ChangeScene(newScene);
             RebuildVisualTree();
-        } 
- 
+            //Workaround for now
+            newScene.PropertyChanged += NewScene_PropertyChanged;
+        }
+
+        private void NewScene_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(ScenegraphViewModelProxy.SelectedItem))
+            {
+                if(Scene?.SelectedItem != null)
+                {
+                    gizmoHandler.TransformTarget = Scene.SelectedItem;
+                }
+            }
+        }
+
         /// <summary>
         ///
         /// </summary>

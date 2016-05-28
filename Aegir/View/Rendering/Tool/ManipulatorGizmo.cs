@@ -46,7 +46,7 @@ namespace Aegir.View.Rendering.Tool
 
         private void OnManipulationFinished(ManipulatorFinishedEventArgs args)
         {
-            throw new NotImplementedException();
+            Target.UpdateTransformTarget();
         }
 
         private void CreateTranslateManipulators()
