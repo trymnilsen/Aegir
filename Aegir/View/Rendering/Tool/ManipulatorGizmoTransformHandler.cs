@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Aegir.Rendering;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -40,6 +41,13 @@ namespace Aegir.View.Rendering.Tool
         {
             get { return gizmoPos; }
             set { gizmoPos = value; }
+        }
+        private ITransformableVisual transformTarget;
+
+        public ITransformableVisual TransformTarget
+        {
+            get { return transformTarget; }
+            set { transformTarget = value; }
         }
 
 

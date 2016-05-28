@@ -24,16 +24,15 @@ namespace Aegir.View.Rendering.Tool
         private EventableBindableRotateManipulator ZRotation;
 
         private CombinedManipulator translationManipulator;
-        private ManipulatorGizmoTransformHandler target;
 
         public TransformMode Mode { get; set; }
-        public ITransformManipulatible Target { get; set; }
+        public ManipulatorGizmoTransformHandler Target { get; set; }
         public HelixViewport3D Viewport { get; private set; }
 
         public ManipulatorGizmo(HelixViewport3D viewport, ManipulatorGizmoTransformHandler target)
         {
 
-            this.target = target;
+            Target = target;
             //target.Transform.Changed += Transform_Changed;
             CubeVisual3D cube = new CubeVisual3D();
             cube.Visible = false;

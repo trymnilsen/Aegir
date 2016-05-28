@@ -14,7 +14,7 @@ using System.Windows;
 
 namespace Aegir.ViewModel.NodeProxy
 {
-    public class NodeViewModelProxy : ViewModelBase
+    public class NodeViewModelProxy : ViewModelBase, ITransformableVisual
     {
         private int port;
         private int listener;
