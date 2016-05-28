@@ -1,4 +1,4 @@
-﻿using Aegir.View.Tool;
+﻿using Aegir.View.Rendering.Tool;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace Aegir.View.Rendering.Tool
 {
-    public delegate void TranslateFinishedHandler(ManipulatorFinishedEventArgs args);
+    public delegate void ManipulationFinishedHandler(ManipulatorFinishedEventArgs args);
     public interface IEventableManipulator
     {
-        event TranslateFinishedHandler TranslateFinished;
+        event ManipulationFinishedHandler ManipulationFinished;
     }
 }

@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Media3D;
 using System.Windows.Input;
 using AegirCore.Scene;
+using Aegir.View.Rendering.Tool;
 
 namespace Aegir.View.Rendering
 {
@@ -104,12 +105,13 @@ namespace Aegir.View.Rendering
             renderHandler.AddViewport(new ViewportRenderer(PerspectiveViewport));
             renderHandler.AddViewport(new ViewportRenderer(RightViewport));
             renderHandler.AddViewport(new ViewportRenderer(FrontViewport));
+            ManipulatorGizmoTransformHandler gizmoHandler = new ManipulatorGizmoTransformHandler();
 
             //Add Tools
-            topGizmo = new ManipulatorGizmo(TopViewport);
-            perspectiveGizmo = new ManipulatorGizmo(PerspectiveViewport);
-            rightGizmo = new ManipulatorGizmo(RightViewport);
-            frontGizmo = new ManipulatorGizmo(FrontViewport);
+            topGizmo = new ManipulatorGizmo(TopViewport, gizmoHandler);
+            perspectiveGizmo = new ManipulatorGizmo(PerspectiveViewport, gizmoHandler);
+            rightGizmo = new ManipulatorGizmo(RightViewport, gizmoHandler);
+            frontGizmo = new ManipulatorGizmo(FrontViewport, gizmoHandler);
         }
 
         private void TopLeftView_IsKeyboardFocusWithinChanged(object sender, DependencyPropertyChangedEventArgs e)

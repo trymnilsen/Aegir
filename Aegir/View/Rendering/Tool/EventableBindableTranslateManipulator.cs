@@ -1,4 +1,5 @@
-﻿using HelixToolkit.Wpf;
+﻿using Aegir.View.Rendering.Tool;
+using HelixToolkit.Wpf;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,9 +7,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace Aegir.View.Tool
+namespace Aegir.View.Rendering.Tool
 {
-    public class EventableBindableTranslateManipulator : BindableTranslateManipulator
+    public class EventableBindableTranslateManipulator : BindableTranslateManipulator, IEventableManipulator
     {
         protected override void OnMouseUp(MouseButtonEventArgs e)
         {
@@ -18,13 +19,13 @@ namespace Aegir.View.Tool
 
         private void TriggerTranslateFinished()
         {
-            TranslateFinishedHandler evt = TranslateFinished;
+            ManipulationFinishedHandler evt = ManipulationFinished;
             if (evt != null)
             {
-                TranslateFinished(new TranslateFinishedEventArgs());
+                evt(new ManipulatorFinishedEventArgs());
             }
         }
-        public event TranslateFinishedHandler TranslateFinished;
+        public event ManipulationFinishedHandler ManipulationFinished;
 
     }
 }
