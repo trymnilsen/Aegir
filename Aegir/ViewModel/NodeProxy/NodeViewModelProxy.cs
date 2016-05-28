@@ -11,6 +11,7 @@ using GalaSoft.MvvmLight.Command;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows;
+using System;
 
 namespace Aegir.ViewModel.NodeProxy
 {
@@ -261,6 +262,13 @@ namespace Aegir.ViewModel.NodeProxy
         public override string ToString()
         {
             return "NodeViewModelProxy For: " + nodeData.Name;
+        }
+
+        public void ApplyTransform(double translateValueX, double translateValueY, double translateValueZ)
+        {
+            WorldTranslateX = translateValueX;
+            WorldTranslateY = translateValueY;
+            WorldTranslateZ = translateValueZ;
         }
 
         //public void TriggerTransformChanged()
