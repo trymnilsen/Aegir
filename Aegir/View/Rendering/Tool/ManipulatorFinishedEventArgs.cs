@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Aegir.Rendering.Tool
+namespace Aegir.View.Tool
 {
-    public class RotateFinishedEventArgs
+    public class TranslateFinishedEventArgs
     {
     }
 }

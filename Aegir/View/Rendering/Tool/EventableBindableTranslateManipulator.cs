@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace Aegir.Rendering.Tool
+namespace Aegir.View.Tool
 {
     public class EventableBindableTranslateManipulator : BindableTranslateManipulator
     {
@@ -24,7 +24,6 @@ namespace Aegir.Rendering.Tool
                 TranslateFinished(new TranslateFinishedEventArgs());
             }
         }
-        public delegate void TranslateFinishedHandler(TranslateFinishedEventArgs args);
         public event TranslateFinishedHandler TranslateFinished;
 
     }
