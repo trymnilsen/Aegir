@@ -9,6 +9,7 @@ using System.Windows.Media;
 using System.Windows;
 using System.Windows.Media.Media3D;
 using System.Windows.Data;
+using Aegir.Util;
 
 namespace Aegir.View.Rendering.Tool
 {
@@ -34,23 +35,78 @@ namespace Aegir.View.Rendering.Tool
 
             Target = target;
             //target.Transform.Changed += Transform_Changed;
-            CubeVisual3D cube = new CubeVisual3D();
-            cube.Visible = false;
-            cube.Fill = new SolidColorBrush(Color.FromRgb(200, 0, 50));
-
-            viewport.Children.Add(cube);
-            translationManipulator = new CombinedManipulator();
-            Binding transformBinding = new Binding();
-            transformBinding.Source = cube;
-            transformBinding.Mode = BindingMode.TwoWay;
-            transformBinding.NotifyOnSourceUpdated = true;
-            transformBinding.NotifyOnTargetUpdated = true;
-            transformBinding.Path = new PropertyPath(nameof(CubeVisual3D.Transform));
-            BindingOperations.SetBinding(translationManipulator, CombinedManipulator.TargetTransformProperty, transformBinding);
-            //translationManipulator.TargetTransform = target.Transform;
             Viewport = viewport;
+            CreateRotationManipulators();
+            CreateTranslateManipulators();
 
-            viewport.Children.Add(translationManipulator);
+            XTranslator.ManipulationFinished += OnManipulationFinished;
+            YTranslator.ManipulationFinished += OnManipulationFinished;
+            ZTranslator.ManipulationFinished += OnManipulationFinished;
+        }
+
+        private void OnManipulationFinished(ManipulatorFinishedEventArgs args)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void CreateTranslateManipulators()
+        {
+            //X
+            XTranslator = new EventableBindableTranslateManipulator();
+            XTranslator.Direction = new Vector3D(1, 0, 0);
+            XTranslator.Length = 5;
+            XTranslator.Diameter = 1;
+            XTranslator.Color = Color.FromRgb(255, 0, 0);
+            BindingHelper.BindProperty(nameof(Target.TranslateValueX), 
+                Target, 
+                XTranslator, 
+                EventableBindableTranslateManipulator.ValueProperty);
+
+            BindingHelper.BindProperty(nameof(Target.GizmoPosition),
+                Target,
+                XTranslator,
+                EventableBindableTranslateManipulator.PositionProperty);
+
+            Viewport.Children.Add(XTranslator);
+
+            //Y
+            YTranslator = new EventableBindableTranslateManipulator();
+            YTranslator.Direction = new Vector3D(0, 1, 0);
+            YTranslator.Length = 5;
+            YTranslator.Diameter = 1;
+            YTranslator.Color = Color.FromRgb(0, 255, 0);
+            BindingHelper.BindProperty(nameof(Target.TranslateValueY),
+                Target,
+                YTranslator,
+                EventableBindableTranslateManipulator.ValueProperty);
+
+            BindingHelper.BindProperty(nameof(Target.GizmoPosition),
+                Target,
+                YTranslator,
+                EventableBindableTranslateManipulator.PositionProperty);
+
+            Viewport.Children.Add(YTranslator);
+            //Z
+            ZTranslator = new EventableBindableTranslateManipulator();
+            ZTranslator.Direction = new Vector3D(0, 0, 1);
+            ZTranslator.Length = 5;
+            ZTranslator.Diameter = 1;
+            ZTranslator.Color = Color.FromRgb(0, 0, 255);
+            BindingHelper.BindProperty(nameof(Target.TranslateValueZ),
+                Target,
+                ZTranslator,
+                EventableBindableTranslateManipulator.ValueProperty);
+
+            BindingHelper.BindProperty(nameof(Target.GizmoPosition),
+                Target,
+                ZTranslator,
+                EventableBindableTranslateManipulator.PositionProperty);
+
+            Viewport.Children.Add(ZTranslator);
+        }
+        private void CreateRotationManipulators()
+        {
+
         }
 
         private void Transform_Changed(object sender, EventArgs e)
