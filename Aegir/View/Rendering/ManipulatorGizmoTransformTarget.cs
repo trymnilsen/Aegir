@@ -7,9 +7,42 @@ using System.Windows.Media.Media3D;
 
 namespace Aegir.View.Rendering
 {
-    class ManipulatorGizmoTransformTarget
+    public class ManipulatorGizmoTransformTarget
     {
         public Transform3D Transform { get; set; }
+
+        private double translateValueX;
+        private double translateValueY;
+        private double translateValueZ;
+        private Point3D gizmoPos;
+
+        public double TranslateValueX
+        {
+            get { return translateValueX; }
+            set { translateValueX = value; }
+        }
+
+        public double TranslateValueY
+        {
+            get { return translateValueY; }
+            set { translateValueY = value; }
+        }
+
+
+        public double TranslateValueZ
+        {
+            get { return translateValueZ; }
+            set { translateValueZ = value; }
+        }
+
+
+        public Point3D GizmoPosition
+        {
+            get { return gizmoPos; }
+            set { gizmoPos = value; }
+        }
+
+
         public ManipulatorGizmoTransformTarget()
         {
 

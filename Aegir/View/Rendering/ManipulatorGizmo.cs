@@ -16,17 +16,16 @@ namespace Aegir.View.Rendering
     public class ManipulatorGizmo
     {
         private CombinedManipulator translationManipulator;
-        private ManipulatorGizmoTransformTarget target;
+        private ManipulatorGizmoTransformHandler target;
 
         public TransformMode Mode { get; set; }
         public ITransformManipulatible Target { get; set; }
         public HelixViewport3D Viewport { get; private set; }
 
-
-        public ManipulatorGizmo(HelixViewport3D viewport)
+        public ManipulatorGizmo(HelixViewport3D viewport, ManipulatorGizmoTransformHandler target)
         {
-            
-            target = new ManipulatorGizmoTransformTarget();
+
+            this.target = target;
             //target.Transform.Changed += Transform_Changed;
             CubeVisual3D cube = new CubeVisual3D();
             cube.Visible = false;
