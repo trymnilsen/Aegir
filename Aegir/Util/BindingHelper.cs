@@ -9,7 +9,7 @@ namespace Aegir.Util
         {
             Binding binding = new Binding();
             binding.Path = new PropertyPath(propertyName);
-            binding.Source = source;  // view model?
+            binding.Source = source; 
 
             BindingOperations.SetBinding(target, targetProperty, binding);
         }
