@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Aegir.View.Tool
 {
-    public class TranslateFinishedEventArgs
+    public class ManipulatorFinishedEventArgs
     {
     }
 }
