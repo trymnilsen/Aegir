@@ -12,18 +12,11 @@ using System.Windows.Data;
 
 namespace Aegir.View.Rendering
 {
-    public class TransformTarget
-    {
-        public Transform3D Transform { get; set; }
-        public TransformTarget()
-        {
-            
-        }
-    }
+
     public class ManipulatorGizmo
     {
         private CombinedManipulator translationManipulator;
-        private TransformTarget target;
+        private ManipulatorGizmoTransformTarget target;
 
         public TransformMode Mode { get; set; }
         public ITransformManipulatible Target { get; set; }
@@ -33,7 +26,7 @@ namespace Aegir.View.Rendering
         public ManipulatorGizmo(HelixViewport3D viewport)
         {
             
-            target = new TransformTarget();
+            target = new ManipulatorGizmoTransformTarget();
             //target.Transform.Changed += Transform_Changed;
             CubeVisual3D cube = new CubeVisual3D();
             cube.Visible = false;
