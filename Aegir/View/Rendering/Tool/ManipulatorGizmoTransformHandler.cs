@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media.Media3D;
 
-namespace Aegir.View.Rendering
+namespace Aegir.View.Rendering.Tool
 {
-    public class ManipulatorGizmoTransformTarget
+    public class ManipulatorGizmoTransformHandler
     {
         public Transform3D Transform { get; set; }
 
@@ -43,7 +43,7 @@ namespace Aegir.View.Rendering
         }
 
 
-        public ManipulatorGizmoTransformTarget()
+        public ManipulatorGizmoTransformHandler()
         {
 
         }

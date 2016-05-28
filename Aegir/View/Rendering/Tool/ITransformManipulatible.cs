@@ -1,4 +1,4 @@
-﻿namespace Aegir.View.Rendering
+﻿namespace Aegir.View.Rendering.Tool
 {
     public interface ITransformManipulatible
     {

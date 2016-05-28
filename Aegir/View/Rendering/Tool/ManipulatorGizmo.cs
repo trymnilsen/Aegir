@@ -9,9 +9,8 @@ using System.Windows.Media;
 using System.Windows;
 using System.Windows.Media.Media3D;
 using System.Windows.Data;
-using Aegir.View.Tool;
 
-namespace Aegir.View.Rendering
+namespace Aegir.View.Rendering.Tool
 {
 
     public class ManipulatorGizmo
@@ -19,6 +18,10 @@ namespace Aegir.View.Rendering
         private EventableBindableTranslateManipulator XTranslator;
         private EventableBindableTranslateManipulator YTranslator;
         private EventableBindableTranslateManipulator ZTranslator;
+
+        private EventableBindableRotateManipulator XRotation;
+        private EventableBindableRotateManipulator YRotation;
+        private EventableBindableRotateManipulator ZRotation;
 
         private CombinedManipulator translationManipulator;
         private ManipulatorGizmoTransformHandler target;
