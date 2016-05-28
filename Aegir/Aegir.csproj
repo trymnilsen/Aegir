@@ -198,10 +198,10 @@
     <Compile Include="Rendering\RenderingMode.cs" />
     <Compile Include="Rendering\RenderItemListener.cs" />
     <Compile Include="Rendering\Camera\ViewportCameraController.cs" />
-    <Compile Include="Rendering\Tool\EventableBindableRotateManipulator.cs" />
-    <Compile Include="Rendering\Tool\EventableBindableTranslateManipulator.cs" />
-    <Compile Include="Rendering\Tool\RotateFinishedEventArgs.cs" />
-    <Compile Include="Rendering\Tool\TranslateFinishedEventArgs.cs" />
+    <Compile Include="View\Rendering\Tool\EventableBindableRotateManipulator.cs" />
+    <Compile Include="View\Rendering\Tool\EventableBindableTranslateManipulator.cs" />
+    <Compile Include="View\Rendering\Tool\IEventableManipulator.cs" />
+    <Compile Include="View\Rendering\Tool\ManipulatorFinishedEventArgs.cs" />
     <Compile Include="Rendering\ViewportRenderer.cs" />
     <Compile Include="Rendering\Visual\IVisualProvider.cs" />
     <Compile Include="Rendering\Visual\SolidMeshProvider.cs" />
@@ -255,9 +255,9 @@
     </Compile>
     <Compile Include="View\PropertyEditor\CustomEditor\RelayCommandEditor.cs" />
     <Compile Include="View\Rendering\GridLines.cs" />
-    <Compile Include="View\Rendering\ITransformManipulatible.cs" />
-    <Compile Include="View\Rendering\ManipulatorGizmo.cs" />
-    <Compile Include="View\Rendering\ManipulatorGizmoTransformTarget.cs" />
+    <Compile Include="View\Rendering\Tool\ITransformManipulatible.cs" />
+    <Compile Include="View\Rendering\Tool\ManipulatorGizmo.cs" />
+    <Compile Include="View\Rendering\Tool\ManipulatorGizmoTransformHandler.cs" />
     <Compile Include="View\Rendering\RenderView.xaml.cs">
       <DependentUpon>RenderView.xaml</DependentUpon>
     </Compile>
