@@ -257,6 +257,7 @@
     <Compile Include="View\Rendering\GridLines.cs" />
     <Compile Include="View\Rendering\ITransformManipulatible.cs" />
     <Compile Include="View\Rendering\ManipulatorGizmo.cs" />
+    <Compile Include="View\Rendering\ManipulatorGizmoTransformTarget.cs" />
     <Compile Include="View\Rendering\RenderView.xaml.cs">
       <DependentUpon>RenderView.xaml</DependentUpon>
     </Compile>
