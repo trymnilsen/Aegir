@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Aegir.Rendering.Tool
 {
-    class RotateFinishedEventArgs
+    public class RotateFinishedEventArgs
     {
     }
 }
