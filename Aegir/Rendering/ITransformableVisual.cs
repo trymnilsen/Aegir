@@ -8,6 +8,9 @@ namespace Aegir.Rendering
 {
     public interface ITransformableVisual
     {
+        double X { get; }
+        double Y { get; }
+        double Z { get; }
         void ApplyTransform(double translateValueX, double translateValueY, double translateValueZ);
     }
 }

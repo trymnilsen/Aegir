@@ -195,6 +195,30 @@ namespace Aegir.ViewModel.NodeProxy
             set { visualFilePath = value; }
         }
 
+        public double X
+        {
+            get
+            {
+                return WorldTranslateX;
+            }
+        }
+
+        public double Y
+        {
+            get
+            {
+                return WorldTranslateY;
+            }
+        }
+
+        public double Z
+        {
+            get
+            {
+                return WorldTranslateZ;
+            }
+        }
+
         //public double WorldRotationYaw
         //{
         //    get { }

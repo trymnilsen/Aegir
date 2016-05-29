@@ -96,7 +96,15 @@ namespace Aegir.View.Rendering.Tool
         public ITransformableVisual TransformTarget
         {
             get { return transformTarget; }
-            set { transformTarget = value; }
+            set
+            {
+                transformTarget = value;
+                //Update gizmo position
+                TranslateValueX = transformTarget.X;
+                TranslateValueY = transformTarget.Y;
+                translateValueZ = transformTarget.Z;
+                RaisePropertyChanged("GizmoPosition");
+            }
         }
 
 
