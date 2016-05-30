@@ -115,6 +115,13 @@ namespace Aegir.View.Timeline
             set { SetValue(KeyframesProperty, value); }
         }
 
+
+        public double StepSize
+        {
+            get { return  (ActualWidth - 20) / (TimeRangeEnd - TimeRangeStart); }
+        }
+
+
         // Using a DependencyProperty as the backing store for Keyframes.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty KeyframesProperty =
             DependencyProperty.Register(nameof(Keyframes),
@@ -443,6 +450,13 @@ namespace Aegir.View.Timeline
             suppressTimeRangeUpdates = false;
             TimeRangeChanged();
         }
+        private void ResizeTimeLine(double dragDelta)
+        {
+            var dragScaled = (dragDelta / StepSize) * -1;
+            System.Diagnostics.Debug.WriteLine("Resize DragScaled: " + dragDelta);
+            TimeRangeEnd = prePanTimerangeEnd + (int)Math.Round(dragScaled); 
+
+        }
         /// <summary>
         /// Event raised when the mouse is pressed down on a keyframe.
         /// </summary>
@@ -686,6 +700,8 @@ namespace Aegir.View.Timeline
 
             if (e.ChangedButton == MouseButton.Middle)
             {
+                prePanTimerangeStart = TimeRangeStart;
+                prePanTimerangeEnd = TimeRangeEnd;
                 if(Keyboard.IsKeyDown(Key.LeftCtrl))
                 {
                     System.Diagnostics.Debug.WriteLine("Resize");
@@ -694,8 +710,6 @@ namespace Aegir.View.Timeline
                 else
                 {
                     currentMouseOperation = MouseOperation.Pan;
-                    prePanTimerangeStart = TimeRangeStart;
-                    prePanTimerangeEnd = TimeRangeEnd;
                     System.Diagnostics.Debug.WriteLine("Pan");
                 }
                 doMouseMovePrep = true;
@@ -813,9 +827,13 @@ namespace Aegir.View.Timeline
             {
                 Point curMouseDownPoint = e.GetPosition(GridContainer);
                 var dragDelta = curMouseDownPoint.X - origMouseDownPoint.X;
+
                 System.Diagnostics.Debug.WriteLine("Resize: " + dragDelta);
+                ResizeTimeLine(dragDelta);
             }
         }
+
+
 
         /// <summary>
         /// Initialize the rectangle used for drag selection.
