@@ -427,7 +427,7 @@ namespace Aegir.View.Timeline
         private double GetCanvasPosition(int time)
         {
             double stepSize = (ActualWidth - 20) / (TimeRangeEnd - TimeRangeStart);
-            double leftOffset = (TimeRangeStart * stepSize) + (stepSize * time + 2);
+            double leftOffset = stepSize * (time - TimeRangeStart) + 2;
             return leftOffset;
         }
         /// <summary>
@@ -964,7 +964,7 @@ namespace Aegir.View.Timeline
                 KeyFrameTimeLineRuler.Children.Add(currentTimeHighlighter);
             }
             double stepSize = (ActualWidth - 20) / (TimeRangeEnd - TimeRangeStart);
-            double leftOffset = stepSize * CurrentTime + 10;
+            double leftOffset = stepSize * (CurrentTime - TimeRangeStart) + 10;
             Canvas.SetLeft(currentTimeHighlighter, leftOffset - 4);
             Canvas.SetTop(currentTimeHighlighter, 0);
         }

@@ -120,6 +120,7 @@ namespace Aegir.ViewModel.Timeline
             get { return timelineStart; }
             set
             {
+                log.Debug("TimelineStart: " + value);
                 timelineStart = value;
                 RaisePropertyChanged();
             }
@@ -141,6 +142,7 @@ namespace Aegir.ViewModel.Timeline
             get { return timelineEnd; }
             set
             {
+                log.Debug("TimelineEnd: " + value);
                 timelineEnd = value;
                 RaisePropertyChanged();
             }

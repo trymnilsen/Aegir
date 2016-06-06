@@ -13,9 +13,9 @@ using System.Windows.Media.Media3D;
 
 namespace Aegir.Map
 {
-    public class MapGrid3D : MeshVisual3D
+    public class MapGridVisual : MeshVisual3D
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(MapGrid3D));
+        private static readonly ILog log = LogManager.GetLogger(typeof(MapGridVisual));
         private const int GridSize = 7;
         private const int ZoomSteps = 200;
         private const double zoomInverseFactor = 1d / ZoomSteps;
@@ -26,7 +26,7 @@ namespace Aegir.Map
         private int upperZoomThreshold;
         private int lowerZoomThreshold;
 
-        public List<MapTile3D> Tiles { get; set; }
+        public List<MapTileVisual> Tiles { get; set; }
 
         private int tileSize;
 
@@ -72,7 +72,7 @@ namespace Aegir.Map
 
         // Using a DependencyProperty as the backing store for MapCamera.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty MapCameraProperty =
-            DependencyProperty.Register(nameof(MapCamera), typeof(CameraController), typeof(MapGrid3D));
+            DependencyProperty.Register(nameof(MapCamera), typeof(CameraController), typeof(MapGridVisual));
 
 
 
@@ -84,12 +84,12 @@ namespace Aegir.Map
 
         // Using a DependencyProperty as the backing store for TileGenerator.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty TileGeneratorProperty =
-            DependencyProperty.Register(nameof(TileGenerator), typeof(MapTileGenerator), typeof(MapGrid3D));
+            DependencyProperty.Register(nameof(TileGenerator), typeof(MapTileGenerator), typeof(MapGridVisual));
 
 
-        public MapGrid3D() 
+        public MapGridVisual() 
         {
-            Tiles = new List<MapTile3D>();
+            Tiles = new List<MapTileVisual>();
             TileSize = 32;
             CompositionTarget.Rendering += CompositionTarget_Rendering;
             InitGrid();
@@ -110,7 +110,7 @@ namespace Aegir.Map
                     int gridPosX = ((x+1) - midNum);
                     int gridPosY = ((y+1) - midNum);
 
-                    MapTile3D tile = new MapTile3D();
+                    MapTileVisual tile = new MapTileVisual();
 
                     tile.Fill = new SolidColorBrush(Color.FromArgb(255, (byte)ran.Next(50, 255), (byte)ran.Next(50, 255), (byte)ran.Next(50, 255)));
 
@@ -252,7 +252,7 @@ namespace Aegir.Map
                 int xTileIndexToFind = GetXTileEdge(panAmountX);
                 int yTileIndexToFind = GetYTileEdge(panAmountY);
 
-                List<MapTile3D> tilesToMove = new List<MapTile3D>();
+                List<MapTileVisual> tilesToMove = new List<MapTileVisual>();
                 using (DebugUtil.StartScopeWatch("GetPanTiles", log))
                 {
                     if (panAmountX != 0)
@@ -266,7 +266,7 @@ namespace Aegir.Map
                 }
                 using (DebugUtil.StartScopeWatch("ProcessTiles", log))
                 {
-                    foreach (MapTile3D tile in tilesToMove)
+                    foreach (MapTileVisual tile in tilesToMove)
                     {
                         if(tile.TileX == xTileIndexToFind)
                         {

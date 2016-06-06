@@ -217,6 +217,10 @@ namespace Aegir.ViewModel.NodeProxy
             {
                 return new WorldViewModelProxy(n as World);
             }
+            if(n.GetType() == typeof(Geoid))
+            {
+                return new GeoidViewModelProxy(n as Geoid);
+            }
             return new NodeViewModelProxy(n);
         }
 

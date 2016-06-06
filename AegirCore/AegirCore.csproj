@@ -94,9 +94,11 @@
     <Compile Include="Behaviour\World\TransformBehaviour.cs" />
     <Compile Include="Datagram\DatagramService.cs" />
     <Compile Include="Datagram\IDatagramService.cs" />
+    <Compile Include="Entity\Geoid.cs" />
     <Compile Include="Entity\GNSSReceiver.cs" />
     <Compile Include="Entity\Map.cs" />
     <Compile Include="Entity\Vessel.cs" />
+    <Compile Include="IAppModule.cs" />
     <Compile Include="Keyframe\Interpolator\LinearVector3Interpolator.cs" />
     <Compile Include="Keyframe\IValueInterpolator.cs" />
     <Compile Include="Keyframe\KeyframePropertyInfo.cs" />
@@ -112,12 +114,14 @@
     <Compile Include="Keyframe\Test.cs" />
     <Compile Include="Keyframe\TimelineScopeMode.cs" />
     <Compile Include="Keyframe\ValueKeyframe.cs" />
+    <Compile Include="Mesh\Grid\Tile3D.cs" />
     <Compile Include="Mesh\Loader\MeshLoader.cs" />
     <Compile Include="Mesh\MeshData.cs" />
     <Compile Include="Mesh\Loader\IModelLoader.cs" />
     <Compile Include="Mesh\Loader\ObjModel.cs" />
     <Compile Include="Entity\World.cs" />
     <Compile Include="Entity\WaterSegment.cs" />
+    <Compile Include="Mesh\Grid\TileGrid3D.cs" />
     <Compile Include="Output\OutputData.cs" />
     <Compile Include="Output\OutputManager.cs" />
     <Compile Include="Persistence\Definition\Behaviour.cs" />
@@ -132,6 +136,7 @@
     <Compile Include="Project\ProjectData.cs" />
     <Compile Include="Project\Event\ProjectLoadEventArgs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Scene\IWorldScale.cs" />
     <Compile Include="Scene\Node.cs" />
     <Compile Include="Scene\SceneContext.cs" />
     <Compile Include="Scene\SceneGraph.cs" />

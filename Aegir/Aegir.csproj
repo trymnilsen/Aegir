@@ -181,10 +181,11 @@
     <Compile Include="MapSearch\SearchProvider.cs" />
     <Compile Include="MapSearch\SearchResult.cs" />
     <Compile Include="Map\BitmapStore.cs" />
-    <Compile Include="Map\MapGrid3D.cs" />
-    <Compile Include="Map\MapTile3D.cs" />
+    <Compile Include="Map\MapGridVisual.cs" />
+    <Compile Include="Map\MapTileVisual.cs" />
     <Compile Include="Map\MapTileGenerator.cs" />
     <Compile Include="Map\TileService.cs" />
+    <Compile Include="Map\ZoomableTileGrid3D.cs" />
     <Compile Include="Messages\ObjectTree\SelectedNodeChanged.cs" />
     <Compile Include="Messages\Project\LoadProjectFile.cs" />
     <Compile Include="Messages\Project\ProjectActivated.cs" />
@@ -200,6 +201,7 @@
     <Compile Include="Rendering\RenderingMode.cs" />
     <Compile Include="Rendering\RenderItemListener.cs" />
     <Compile Include="Rendering\Camera\ViewportCameraController.cs" />
+    <Compile Include="ViewModel\NodeProxy\GeoidViewModelProxy.cs" />
     <Compile Include="View\Rendering\Tool\EventableBindableRotateManipulator.cs" />
     <Compile Include="View\Rendering\Tool\EventableBindableTranslateManipulator.cs" />
     <Compile Include="View\Rendering\Tool\IEventableManipulator.cs" />
@@ -272,6 +274,8 @@
       <DependentUpon>StatusBar.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Timeline\CanvasCalculator.cs" />
+    <Compile Include="View\Timeline\Ticks\TimelineTickSegment.cs" />
+    <Compile Include="View\Timeline\Ticks\TimelineTickVisual.cs" />
     <Compile Include="View\Timeline\TimelineConfig.xaml.cs">
       <DependentUpon>TimelineConfig.xaml</DependentUpon>
     </Compile>

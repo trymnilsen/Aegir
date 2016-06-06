@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Aegir.Map
 {
-    public class MapTile3D : RectangleVisual3D
+    public class MapTileVisual : RectangleVisual3D
     {
         public int TileX { get; set; }
         public int TileY { get; set; }

@@ -23,6 +23,8 @@ namespace AegirCore.Project
             worldNode.Children.Add(vessel);
             newScene.RootNodes.Add(worldNode);
             newScene.RootNodes.Add(new Map());
+
+            newScene.RootNodes.Add(new Geoid());
             //scene.RootNodes.Add(new Water());
             VesselConfiguration conf = new VesselConfiguration();
 

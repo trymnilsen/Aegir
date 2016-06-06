@@ -16,7 +16,7 @@ namespace Aegir.Map
         }
 
 
-        public void LoadTileImageAsync(MapTile3D tile, int x, int y, int zoom)
+        public void LoadTileImageAsync(MapTileVisual tile, int x, int y, int zoom)
         {
             Task.Run(() =>
             {

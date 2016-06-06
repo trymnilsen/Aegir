@@ -9,7 +9,7 @@ namespace AegirCore.Scene
     public class SceneGraph
     {
         public ObservableCollection<Node> RootNodes { get; set; }
-
+        public IWorldScale Scale { get; private set; }
         public SceneGraph()
         {
             RootNodes = new ObservableCollection<Node>();
