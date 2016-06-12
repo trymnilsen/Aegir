@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AegirCore.Scene
+namespace AegirCore.Replay
 {
-    public interface IWorldScale
+    public class ReplayInput
     {
-         
+        private List<ReplayFile> Files;
     }
 }

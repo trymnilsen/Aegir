@@ -17,6 +17,7 @@
             <Setter Property="IsRotationEnabled" Value="False" />
             <Setter Property="EnableCurrentPosition" Value="true" />
             <Setter Property="PanGesture" Value="MiddleClick"/>
+            <Setter Property="IsChangeFieldOfViewEnabled" Value="False"/>
         </Style>
         <Style x:Key="NoButtonStyle" TargetType="{x:Type ToggleButton}">
             <Style.Setters>

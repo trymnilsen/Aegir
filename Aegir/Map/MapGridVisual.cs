@@ -133,7 +133,7 @@ namespace Aegir.Map
 
                     if(TileGenerator!=null)
                     {
-                        log.DebugFormat("Requesting Image for x/y/zoom {0} / {1} / {2}", tile.TileX, tile.TileY, mapZoom);
+                        //log.DebugFormat("Requesting Image for x/y/zoom {0} / {1} / {2}", tile.TileX, tile.TileY, mapZoom);
                         TileGenerator.LoadTileImageAsync(tile,
                                      tile.TileY,
                                      tile.TileX,
@@ -176,7 +176,7 @@ namespace Aegir.Map
                 }
                 if(lastZoom != cameraTargetDistance)
                 {
-                    log.DebugFormat("Camera Distance {0} ", cameraTargetDistance);
+                    //log.DebugFormat("Camera Distance {0} ", cameraTargetDistance);
 
                     int snappedCameraDistance = (int)Math.Floor((cameraTargetDistance - 100) * zoomInverseFactor) * 200 + 100;
                     double zoomFactor = cameraTargetDistance / 200d;
@@ -188,7 +188,7 @@ namespace Aegir.Map
 
                     MapZoomLevel = zoomLevel;
 
-                    log.DebugFormat("Zoom snapped distance/zoom level: {0} / {1}", cameraTargetDistance, SnappedZoomFactor);
+                    //log.DebugFormat("Zoom snapped distance/zoom level: {0} / {1}", cameraTargetDistance, SnappedZoomFactor);
                 }
                 lastZoom = cameraTargetDistance;
 

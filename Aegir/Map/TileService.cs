@@ -145,12 +145,12 @@ namespace Aegir.Map
             double tileCount = Math.Pow(2, zoom) - 1;
             if (x < 0 || y < 0 || x > tileCount || y > tileCount) // Bounds check
             {
-                log4net.LogManager.GetLogger(typeof(TileService)).Debug("Request was outside of bounds");
+                //log4net.LogManager.GetLogger(typeof(TileService)).Debug("Request was outside of bounds");
                 return null;
             }
 
             Uri uri = new Uri(string.Format(CultureInfo.InvariantCulture, TileFormat, zoom, x, y));
-            log4net.LogManager.GetLogger(typeof(TileService)).DebugFormat("Fetching Image from URI: {0}", uri);
+            //log4net.LogManager.GetLogger(typeof(TileService)).DebugFormat("Fetching Image from URI: {0}", uri);
             return BitmapStore.GetImage(uri);
         }
 
