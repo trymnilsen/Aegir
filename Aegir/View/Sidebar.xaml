@@ -99,6 +99,7 @@
                                 <Rectangle SnapsToDevicePixels="True" Width="10" Height="9" Fill="Orange"></Rectangle>
                             </Border>
                             <fa:ImageAwesome Foreground="{StaticResource BorderBrush}" SnapsToDevicePixels="True" Margin="0 0 5 0" Icon="Tag" Width="12" Height="12" />
+                            <fa:ImageAwesome Foreground="{StaticResource BorderBrush}" SnapsToDevicePixels="True" Margin="0 0 5 0" Icon="Rss" Width="12" Height="12" />
                             <TextBlock Text="{Binding Name}" Margin="0 0 10 0"></TextBlock>
                         </StackPanel>
                     </HierarchicalDataTemplate>
