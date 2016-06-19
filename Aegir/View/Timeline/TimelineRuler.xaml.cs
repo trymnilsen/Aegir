@@ -1036,6 +1036,150 @@ namespace Aegir.View.Timeline
             }
         }
 
+        private int start;
+
+        public int Start
+        {
+            get { return start; }
+            set
+            {
+                start = value;
+
+            }
+        }
+        private int end;
+
+        public int End
+        {
+            get { return end; }
+            set { end = value; }
+        }
+        private int current;
+
+        public int Current
+        {
+            get { return current; }
+            set { current = value; }
+        }
+
+        private int segmentRange;
+
+        public int SegmentRange
+        {
+            get { return segmentRange; }
+            set { segmentRange = value; }
+        }
+
+
+        private void UpdateTimeline()
+        {
+
+
+            int[] nums = new int[] { 1, 2, 5 };
+            double segmentRange = (100 / (this.ActualWidth / (End - Start)));
+
+            //Debug.WriteLine("Width:" + ActualWidth);
+            //Debug.WriteLine("SegmentRange: " + segmentRange);
+
+            double exp = Math.Floor(Math.Log10(segmentRange) + 1);
+            int firstDigit = GetFirstDigit((int)segmentRange);
+            int closestFirstDigit = 0;
+
+            for (int i = 0; i < nums.Length; i++)
+            {
+                if (nums[i] >= firstDigit)
+                {
+                    closestFirstDigit = nums[i];
+                    break;
+                }
+                closestFirstDigit = nums[i];
+            }
+
+            int finalNum = closestFirstDigit * (int)Math.Pow(10, exp - 1);
+            SegmentRange = finalNum;
+
+            //Debug.WriteLine("SegmentRange Rounded" + finalNum);
+            // double segmentRangeSnapped()
+        }
+        private void DoUpdate()
+        {
+            Stopwatch sw = Stopwatch.StartNew();
+            UpdateTimeline();
+            UpdateUI();
+            sw.Stop();
+            Debug.WriteLine(sw.Elapsed.TotalMilliseconds);
+
+        }
+        private int GetFirstDigit(int i)
+        {
+            if (i >= 100000000) i /= 100000000;
+            if (i >= 10000) i /= 10000;
+            if (i >= 100) i /= 100;
+            if (i >= 10) i /= 10;
+            return i;
+        }
+
+        private void UpdateUI()
+        {
+            this.TimelineCanvas.Children.Clear();
+            double numOfSegments = (End - Start) / SegmentRange;
+            double segmentWidth = ActualWidth / numOfSegments;
+
+            int numOfSubSegments = (int)segmentWidth / 20;
+            //make sure num of subsegments does not exceed the segment range
+            if (numOfSubSegments > SegmentRange)
+            {
+                numOfSubSegments = SegmentRange;
+            }
+
+            for (int i = 0, l = (int)Math.Floor(numOfSegments); i < l; i++)
+            {
+                Line line = new Line();
+                line.Stroke = new SolidColorBrush(Color.FromArgb(255, 255, 0, 0));
+                line.StrokeThickness = 2;
+
+                double segmentOffset = segmentWidth * i;
+
+                line.X1 = segmentOffset;
+                line.X2 = segmentOffset;
+                line.Y1 = 0;
+                line.Y2 = 20;
+
+                this.TimelineCanvas.Children.Add(line);
+
+                for (int j = 1; j < numOfSubSegments; j++)
+                {
+                    Line subLine = new Line();
+                    subLine.Stroke = new SolidColorBrush(Color.FromArgb(255, 0, 200, 0));
+                    subLine.StrokeThickness = 2;
+
+                    subLine.X1 = segmentOffset + ((segmentWidth / numOfSubSegments) * j);
+                    subLine.X2 = segmentOffset + ((segmentWidth / numOfSubSegments) * j);
+
+                    subLine.Y1 = 0;
+                    subLine.Y2 = 10;
+
+                    this.TimelineCanvas.Children.Add(subLine);
+                }
+                TextBlock txtBlock = new TextBlock();
+
+                txtBlock.Text = (SegmentRange * i + Start).ToString();
+
+                txtBlock.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
+
+                if (i != 0)
+                {
+                    Canvas.SetLeft(txtBlock, segmentWidth * i - txtBlock.DesiredSize.Width / 2);
+                }
+                Canvas.SetTop(txtBlock, 22);
+                this.TimelineCanvas.Children.Add(txtBlock);
+                //for(int j=0; j<0; j++)
+                //{
+
+                //}
+            }
+        }
+
         private void Grid_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             log.Debug("Mouse DOWN");
