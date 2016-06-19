@@ -108,6 +108,13 @@ namespace Aegir.View.Timeline
         private bool isDraggingKeyframe = false;
         private MouseOperation currentMouseOperation;
 
+        private int segmentRange;
+
+        public int SegmentRange
+        {
+            get { return segmentRange; }
+            set { segmentRange = value; }
+        }
 
         public ObservableCollection<KeyframeViewModel> Keyframes
         {
@@ -983,7 +990,8 @@ namespace Aegir.View.Timeline
             //KeyFrameTimeLineRuler.Background = ticksBrush;
             //Set Ruler Thickness
             int numOfSegments = (int)Math.Ceiling(range / 10d);
-            GenerateTickSegments(TimeRangeStart, TimeRangeEnd, numOfSegments, 10);
+            DoUpdate();
+            //GenerateTickSegments(TimeRangeStart,TimeRangeEnd,numOfSegments,10);
         }
 
         /// <summary>
@@ -992,10 +1000,10 @@ namespace Aegir.View.Timeline
         /// <param name="range">The size of franes in the timeline (I.E end-start)</param>
         /// <param name="numOfSegments">Number of segments to create in this range</param>
         /// <param name="numOfSegmentSteps">How many ticks in one segment</param>
-        private void GenerateTickSegments(int timeStart,int timeEnd, int numOfSegments, int numOfSegmentSteps)
+        private void GenerateTickSegments(int timeStart, int timeEnd, int numOfSegments, int numOfSegmentSteps)
         {
             double keyFrameTicksPadding = 10;
-            int range = (timeEnd - timeStart)+ 1;
+            int range = (timeEnd - timeStart) + 1;
             KeyFrameTimeLineRuler.Children.Clear();
             double stepSize = (ActualWidth - keyFrameTicksPadding * 2) / (range - 1);
             //if (range > 40)
@@ -1015,7 +1023,7 @@ namespace Aegir.View.Timeline
             Line[] tickLines = new Line[range];
             for (int i = 0; i < range; i++)
             {
-                double xOffset =  i * stepSize + keyFrameTicksPadding;
+                double xOffset = i * stepSize + keyFrameTicksPadding;
                 //Last tick of segment
                 Line tickLine = new Line();
                 tickLine.X1 = xOffset;
@@ -1036,47 +1044,15 @@ namespace Aegir.View.Timeline
             }
         }
 
-        private int start;
 
-        public int Start
-        {
-            get { return start; }
-            set
-            {
-                start = value;
-
-            }
-        }
-        private int end;
-
-        public int End
-        {
-            get { return end; }
-            set { end = value; }
-        }
-        private int current;
-
-        public int Current
-        {
-            get { return current; }
-            set { current = value; }
-        }
-
-        private int segmentRange;
-
-        public int SegmentRange
-        {
-            get { return segmentRange; }
-            set { segmentRange = value; }
-        }
 
 
         private void UpdateTimeline()
         {
-
-
+            double keyFrameTicksPadding = 10;
             int[] nums = new int[] { 1, 2, 5 };
-            double segmentRange = (100 / (this.ActualWidth / (End - Start)));
+            double timelineWidth = this.ActualWidth - keyFrameTicksPadding * 2;
+            double segmentRange = (100 / (timelineWidth / (TimeRangeEnd - TimeRangeStart)));
 
             //Debug.WriteLine("Width:" + ActualWidth);
             //Debug.WriteLine("SegmentRange: " + segmentRange);
@@ -1121,9 +1097,12 @@ namespace Aegir.View.Timeline
 
         private void UpdateUI()
         {
-            this.TimelineCanvas.Children.Clear();
-            double numOfSegments = (End - Start) / SegmentRange;
-            double segmentWidth = ActualWidth / numOfSegments;
+            KeyFrameTimeLineRuler.Children.Clear();
+
+            double keyFrameTicksPadding = 10;
+            double timelineWidth = this.ActualWidth - keyFrameTicksPadding * 2;
+            double numOfSegments = (TimeRangeEnd - TimeRangeStart) / SegmentRange;
+            double segmentWidth = timelineWidth / numOfSegments;
 
             int numOfSubSegments = (int)segmentWidth / 20;
             //make sure num of subsegments does not exceed the segment range
@@ -1143,9 +1122,9 @@ namespace Aegir.View.Timeline
                 line.X1 = segmentOffset;
                 line.X2 = segmentOffset;
                 line.Y1 = 0;
-                line.Y2 = 20;
+                line.Y2 = 15;
 
-                this.TimelineCanvas.Children.Add(line);
+                this.KeyFrameTimeLineRuler.Children.Add(line);
 
                 for (int j = 1; j < numOfSubSegments; j++)
                 {
@@ -1157,22 +1136,26 @@ namespace Aegir.View.Timeline
                     subLine.X2 = segmentOffset + ((segmentWidth / numOfSubSegments) * j);
 
                     subLine.Y1 = 0;
-                    subLine.Y2 = 10;
+                    subLine.Y2 = 8;
 
-                    this.TimelineCanvas.Children.Add(subLine);
+                    this.KeyFrameTimeLineRuler.Children.Add(subLine);
                 }
                 TextBlock txtBlock = new TextBlock();
 
-                txtBlock.Text = (SegmentRange * i + Start).ToString();
+                txtBlock.Text = (SegmentRange * i + TimeRangeStart).ToString();
 
                 txtBlock.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
 
-                if (i != 0)
+                if (i == 0)
                 {
-                    Canvas.SetLeft(txtBlock, segmentWidth * i - txtBlock.DesiredSize.Width / 2);
+                    Canvas.SetLeft(txtBlock, 10);
                 }
-                Canvas.SetTop(txtBlock, 22);
-                this.TimelineCanvas.Children.Add(txtBlock);
+                else
+                {
+                    Canvas.SetLeft(txtBlock, (segmentWidth * i - txtBlock.DesiredSize.Width / 2));
+                }
+                Canvas.SetTop(txtBlock, 15);
+                this.KeyFrameTimeLineRuler.Children.Add(txtBlock);
                 //for(int j=0; j<0; j++)
                 //{
 
