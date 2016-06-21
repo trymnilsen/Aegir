@@ -76,7 +76,7 @@ namespace AegirCore.Keyframe
             set
             {
                 nextKeyTime = value;
-                log.DebugFormat("Next frametime set to {0}", value);
+                //log.DebugFormat("Next frametime set to {0}", value);
                 //Seek(currentTime);
             }
         }
@@ -161,12 +161,20 @@ namespace AegirCore.Keyframe
 
             if(nextKeyTime!=currentKeyTime)
             {
-                log.DebugFormat("Seek, current time {0} next time {1}", currentKeyTime, nextKeyTime);
-                log.Debug("Seek started");
-                Stopwatch sw = Stopwatch.StartNew();
+                //log.DebugFormat("Seek, current time {0} next time {1}", currentKeyTime, nextKeyTime);
+                //log.Debug("Seek started");
+                //Stopwatch sw = Stopwatch.StartNew();
                 Seek(nextKeyTime);
-                sw.Stop();
-                log.DebugFormat("Seek used {0} ms", sw.Elapsed.TotalMilliseconds);
+                //sw.Stop();
+                //log.DebugFormat("Seek used {0} ms", sw.Elapsed.TotalMilliseconds);
+            }
+            else
+            {
+                if(PlaybackMode == PlaybackMode.PLAYING)
+                {
+                    Time++;
+                    Seek(Time);
+                }
             }
         }
 

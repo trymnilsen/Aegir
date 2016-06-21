@@ -82,7 +82,7 @@ namespace Aegir.ViewModel.Timeline
             set
             {
                 currentTimelinePosition = value;
-                log.DebugFormat("Time Updated to {0}", value);
+                //log.DebugFormat("Time Updated to {0}", value);
                 UpdateTime();
                 RaisePropertyChanged();
             }
@@ -120,7 +120,7 @@ namespace Aegir.ViewModel.Timeline
             get { return timelineStart; }
             set
             {
-                log.Debug("TimelineStart: " + value);
+                //log.Debug("TimelineStart: " + value);
                 timelineStart = value;
                 RaisePropertyChanged();
             }
@@ -142,7 +142,7 @@ namespace Aegir.ViewModel.Timeline
             get { return timelineEnd; }
             set
             {
-                log.Debug("TimelineEnd: " + value);
+                //log.Debug("TimelineEnd: " + value);
                 timelineEnd = value;
                 RaisePropertyChanged();
             }

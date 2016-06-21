@@ -50,6 +50,7 @@ namespace Aegir.View.Timeline
             Resize,
             Pan
         }
+        private readonly double keyFrameTicksPadding = 10;
         /// <summary>
         /// Access to logging
         /// </summary>
@@ -142,7 +143,7 @@ namespace Aegir.View.Timeline
             set
             {
                 SetValue(TimerangeStartProperty, value);
-                System.Diagnostics.Debug.WriteLine("Setting New Timerange Start " + value);
+                //System.Diagnostics.Debug.WriteLine("Setting New Timerange Start " + value);
                 if (!suppressTimeRangeUpdates)
                 {
                     TimeRangeChanged();
@@ -160,7 +161,7 @@ namespace Aegir.View.Timeline
             set
             {
                 SetValue(TimerangeEndProperty, value);
-                System.Diagnostics.Debug.WriteLine("Setting New Timerange End " + value);
+                //System.Diagnostics.Debug.WriteLine("Setting New Timerange End " + value);
                 if (!suppressTimeRangeUpdates)
                 {
                     TimeRangeChanged();
@@ -429,7 +430,7 @@ namespace Aegir.View.Timeline
             {
                 key.TimelinePositionX = GetCanvasPosition(key.Time) - 3;
             }
-            System.Diagnostics.Debug.WriteLine("InvalidatePositions");
+            //System.Diagnostics.Debug.WriteLine("InvalidatePositions");
         }
         private double GetCanvasPosition(int time)
         {
@@ -443,11 +444,11 @@ namespace Aegir.View.Timeline
         /// <param name="deltaPoints"></param>
         private void PanTimeLine(double deltaPoints)
         {
-            System.Diagnostics.Debug.WriteLine("DeltaPoints;" + deltaPoints);
-            double stepSize = (ActualWidth - 20) / (TimeRangeEnd - TimeRangeStart);
+            //System.Diagnostics.Debug.WriteLine("DeltaPoints;" + deltaPoints);
+            double stepSize = (ActualWidth - keyFrameTicksPadding * 2) / (TimeRangeEnd - TimeRangeStart);
             int numOfSteps = (int)Math.Floor(deltaPoints / stepSize);
             //System.Diagnostics.Debug.WriteLine("(int)Math.Floor(Math.Abs("+deltaPoints+)""
-            System.Diagnostics.Debug.WriteLine("Moving num of steps:" + numOfSteps);
+            //System.Diagnostics.Debug.WriteLine("Moving num of steps:" + numOfSteps);
             //Temporarly switch off updating, we will do this ourselves later
             suppressTimeRangeUpdates = true;
 
@@ -460,7 +461,7 @@ namespace Aegir.View.Timeline
         private void ResizeTimeLine(double dragDelta)
         {
             var dragScaled = (dragDelta / StepSize) * -1;
-            System.Diagnostics.Debug.WriteLine("Resize DragScaled: " + dragDelta);
+            //System.Diagnostics.Debug.WriteLine("Resize DragScaled: " + dragDelta);
             TimeRangeEnd = prePanTimerangeEnd + (int)Math.Round(dragScaled); 
 
         }
@@ -611,7 +612,7 @@ namespace Aegir.View.Timeline
                         else
                         {
                             Debug.WriteLine("Dont overwrite");
-                            double stepSize = (ActualWidth - 20) / (TimeRangeEnd - TimeRangeStart);
+                            double stepSize = (ActualWidth - keyFrameTicksPadding * 2) / (TimeRangeEnd - TimeRangeStart);
                             foreach (KeyframeListItem key in this.listBox.SelectedItems)
                             {
                                 key.TimelinePositionX = stepSize * currentOperationFramesDragged;
@@ -648,7 +649,7 @@ namespace Aegir.View.Timeline
                 origMouseDownPoint = curMouseDownPoint;
                 currentDeltaStepDistance += dragDelta.X;
 
-                double stepSize = (ActualWidth - 20) / (TimeRangeEnd - TimeRangeStart);
+                double stepSize = (ActualWidth - keyFrameTicksPadding * 2) / (TimeRangeEnd - TimeRangeStart);
 
                 if(Math.Abs(currentDeltaStepDistance)>=stepSize)
                 {
@@ -711,13 +712,13 @@ namespace Aegir.View.Timeline
                 prePanTimerangeEnd = TimeRangeEnd;
                 if(Keyboard.IsKeyDown(Key.LeftCtrl))
                 {
-                    System.Diagnostics.Debug.WriteLine("Resize");
+                    //System.Diagnostics.Debug.WriteLine("Resize");
                     currentMouseOperation = MouseOperation.Resize;
                 }
                 else
                 {
                     currentMouseOperation = MouseOperation.Pan;
-                    System.Diagnostics.Debug.WriteLine("Pan");
+                    //System.Diagnostics.Debug.WriteLine("Pan");
                 }
                 doMouseMovePrep = true;
             }
@@ -827,7 +828,7 @@ namespace Aegir.View.Timeline
             {
                 Point curMouseDownPoint = e.GetPosition(GridContainer);
                 var dragDelta = curMouseDownPoint.X - origMouseDownPoint.X;
-                System.Diagnostics.Debug.WriteLine("PAN: " + dragDelta);
+                //System.Diagnostics.Debug.WriteLine("PAN: " + dragDelta);
                 PanTimeLine(dragDelta);
             }
             else if (currentMouseOperation == MouseOperation.Resize)
@@ -835,7 +836,7 @@ namespace Aegir.View.Timeline
                 Point curMouseDownPoint = e.GetPosition(GridContainer);
                 var dragDelta = curMouseDownPoint.X - origMouseDownPoint.X;
 
-                System.Diagnostics.Debug.WriteLine("Resize: " + dragDelta);
+                //System.Diagnostics.Debug.WriteLine("Resize: " + dragDelta);
                 ResizeTimeLine(dragDelta);
             }
         }
@@ -970,8 +971,8 @@ namespace Aegir.View.Timeline
             {
                 KeyFrameTimeLineRuler.Children.Add(currentTimeHighlighter);
             }
-            double stepSize = (ActualWidth - 20) / (TimeRangeEnd - TimeRangeStart);
-            double leftOffset = stepSize * (CurrentTime - TimeRangeStart) + 10;
+            double stepSize = (ActualWidth - keyFrameTicksPadding * 2) / (TimeRangeEnd - TimeRangeStart);
+            double leftOffset = stepSize * (CurrentTime - TimeRangeStart) + keyFrameTicksPadding;
             Canvas.SetLeft(currentTimeHighlighter, leftOffset - 4);
             Canvas.SetTop(currentTimeHighlighter, 0);
         }
@@ -1002,7 +1003,7 @@ namespace Aegir.View.Timeline
         /// <param name="numOfSegmentSteps">How many ticks in one segment</param>
         private void GenerateTickSegments(int timeStart, int timeEnd, int numOfSegments, int numOfSegmentSteps)
         {
-            double keyFrameTicksPadding = 10;
+            
             int range = (timeEnd - timeStart) + 1;
             KeyFrameTimeLineRuler.Children.Clear();
             double stepSize = (ActualWidth - keyFrameTicksPadding * 2) / (range - 1);
@@ -1099,7 +1100,6 @@ namespace Aegir.View.Timeline
         {
             KeyFrameTimeLineRuler.Children.Clear();
 
-            double keyFrameTicksPadding = 10;
             double timelineWidth = this.ActualWidth - keyFrameTicksPadding * 2;
             double numOfSegments = (TimeRangeEnd - TimeRangeStart) / SegmentRange;
             double segmentWidth = timelineWidth / numOfSegments;
@@ -1114,10 +1114,10 @@ namespace Aegir.View.Timeline
             for (int i = 0, l = (int)Math.Floor(numOfSegments); i < l; i++)
             {
                 Line line = new Line();
-                line.Stroke = new SolidColorBrush(Color.FromArgb(255, 255, 0, 0));
-                line.StrokeThickness = 2;
+                line.Stroke = TicksColor;
+                line.StrokeThickness = 1;
 
-                double segmentOffset = segmentWidth * i;
+                double segmentOffset = segmentWidth * i + keyFrameTicksPadding;
 
                 line.X1 = segmentOffset;
                 line.X2 = segmentOffset;
@@ -1129,8 +1129,8 @@ namespace Aegir.View.Timeline
                 for (int j = 1; j < numOfSubSegments; j++)
                 {
                     Line subLine = new Line();
-                    subLine.Stroke = new SolidColorBrush(Color.FromArgb(255, 0, 200, 0));
-                    subLine.StrokeThickness = 2;
+                    subLine.Stroke = TicksColor;
+                    subLine.StrokeThickness = 1;
 
                     subLine.X1 = segmentOffset + ((segmentWidth / numOfSubSegments) * j);
                     subLine.X2 = segmentOffset + ((segmentWidth / numOfSubSegments) * j);
@@ -1152,7 +1152,7 @@ namespace Aegir.View.Timeline
                 }
                 else
                 {
-                    Canvas.SetLeft(txtBlock, (segmentWidth * i - txtBlock.DesiredSize.Width / 2));
+                    Canvas.SetLeft(txtBlock, (segmentOffset - txtBlock.DesiredSize.Width / 2));
                 }
                 Canvas.SetTop(txtBlock, 15);
                 this.KeyFrameTimeLineRuler.Children.Add(txtBlock);
@@ -1161,6 +1161,8 @@ namespace Aegir.View.Timeline
 
                 //}
             }
+
+            //Add End tick
         }
 
         private void Grid_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
