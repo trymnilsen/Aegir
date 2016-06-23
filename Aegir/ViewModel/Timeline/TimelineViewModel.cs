@@ -148,6 +148,38 @@ namespace Aegir.ViewModel.Timeline
             }
         }
 
+        public bool LoopPlayback
+        {
+            get
+            {
+                return engine.LoopPlayback;
+            }
+            set
+            {
+                engine.LoopPlayback = value;
+            }
+        }
+
+        public bool Reverse
+        {
+            get { return engine.ReverseOnEnd; }
+            set { engine.ReverseOnEnd = value; }
+        }
+
+        public int PlaybackStart
+        {
+            get { return engine.PlaybackStart; }
+            set { engine.PlaybackEnd = value; }
+        }
+
+
+        public int PlaybackEnd
+        {
+            get { return engine.PlaybackEnd; }
+            set { engine.PlaybackEnd = value; }
+        }
+
+
         /// <summary>
         /// Instantiates a new timeline viewmodel
         /// </summary>
@@ -208,6 +240,13 @@ namespace Aegir.ViewModel.Timeline
                             message?.Timeline.ToString());
             SetTimeLine(message.Timeline);
             engine = message.Engine;
+
+            engine.CurrentTimeChanged += Engine_CurrentTimeChanged;
+        }
+
+        private void Engine_CurrentTimeChanged(int newTime)
+        {
+            Time = newTime;
         }
 
         /// <summary>

@@ -69,6 +69,8 @@ namespace AegirCore.Keyframe
 
         private int currentKeyTime;
         private int nextKeyTime;
+        private int playbackEnd;
+        private int playbackStart;
 
         public int Time
         {
@@ -80,6 +82,42 @@ namespace AegirCore.Keyframe
                 //Seek(currentTime);
             }
         }
+
+        public int PlaybackStart
+        {
+            get { return playbackStart; }
+            set { playbackStart = value; }
+        }
+
+
+        public int PlaybackEnd
+        {
+            get { return playbackEnd; }
+            set { playbackEnd = value; }
+        }
+
+        private bool loopPlayback;
+
+        public bool LoopPlayback
+        {
+            get { return loopPlayback; }
+            set
+            {
+                loopPlayback = value;
+            }
+        }
+
+        private bool reversePlayOnEnd;
+
+        public bool ReverseOnEnd
+        {
+            get { return reversePlayOnEnd; }
+            set
+            {
+                reversePlayOnEnd = value;
+            }
+        }
+
 
 
         public KeyframeEngine()
@@ -170,22 +208,38 @@ namespace AegirCore.Keyframe
             }
             else
             {
-                if(PlaybackMode == PlaybackMode.PLAYING)
+                int framesToMove = NextFrame();
+                if(framesToMove != 0)
                 {
-                    Time++;
+                    Time += framesToMove;
                     Seek(Time);
                 }
             }
         }
-
-        public void NextFrame()
+        /// <summary>
+        /// Gets the next time based on current state of engine
+        /// </summary>
+        /// <returns>Amount of frames moved +1 for one forward, 0 for none, -1 for rewind</returns> 
+        public int NextFrame()
         {
-            Time++;
+            if(loopPlayback)
+            {
+                if(Time>PlaybackEnd)
+                {
+                    return playbackStart-PlaybackEnd;
+                }
+                else if(Time<PlaybackStart)
+                {
+                    return PlaybackEnd-PlaybackStart;
+                }
+            }
+            else if(Time>PlaybackEnd || Time<PlaybackStart)
+            {
+                return 0;
+            }
+            return 1;
         }
-        public void PreviousFrame()
-        {
-            Time--;
-        }
+        
         /// <summary>
         /// Captures the current values for a given node and creates a keyframe
         /// at the given time and with the captured values
@@ -304,6 +358,10 @@ namespace AegirCore.Keyframe
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         private IEnumerable<KeyframePropertyInfo> GetProperties()
         {
             switch(TimelineScope)
@@ -330,11 +388,22 @@ namespace AegirCore.Keyframe
             }
         }
 
+        private void TriggerCurrentTimeChanged(int newTime)
+        {
+            CurrentTimeChangedHandler timeChangedEvent = CurrentTimeChanged;
+            if(timeChangedEvent != null)
+            {
+                timeChangedEvent(currentKeyTime);
+            }
+        }
+
         public delegate void KeyframePlaymodeChangedHandler(PlaybackMode oldMode, PlaybackMode newMode);
+        public delegate void CurrentTimeChangedHandler(int newTime);
         /// <summary>
         /// Fires when the playmode has changed
         /// </summary>
         public event KeyframePlaymodeChangedHandler PlaymodeChanged;
+        public event CurrentTimeChangedHandler CurrentTimeChanged;
 
     }
 }
