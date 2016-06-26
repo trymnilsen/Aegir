@@ -1,5 +1,6 @@
 ﻿using Aegir.Messages.Project;
 using Microsoft.Win32;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace Aegir.View
@@ -46,6 +47,17 @@ namespace Aegir.View
             {
                 SaveProjectFile.Send(openFileDialog.FileName);
             }
+        }
+
+        /// <summary>
+        /// Will shutdown the current application.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void MenuItem_Quit_Click( object sender, System.Windows.RoutedEventArgs e )
+        {
+            //http://stackoverflow.com/a/2820377/394381
+            Application.Current.Shutdown();
         }
     }
 }

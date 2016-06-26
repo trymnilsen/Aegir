@@ -33,7 +33,7 @@
                 <Separator></Separator>
                 <MenuItem Header="Save Simulation" Click="MenuItem_Save_Click"></MenuItem>
                 <Separator></Separator>
-                <MenuItem Header="Quit"></MenuItem>
+                <MenuItem Header="Quit" Click="MenuItem_Quit_Click"></MenuItem>
             </MenuItem>
             <MenuItem Header="Edit">
                 <MenuItem Header="Undo" />
