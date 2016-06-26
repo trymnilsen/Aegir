@@ -1,4 +1,6 @@
-﻿using AegirCore.Keyframe;
+﻿using System;
+using System.Xml.Linq;
+using AegirCore.Keyframe;
 using AegirCore.Scene;
 using AegirType;
 
@@ -80,6 +82,16 @@ namespace AegirCore.Behaviour.World
         public override string ToString()
         {
             return "Transform";
+        }
+
+        public override XElement Serialize()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void Deserialize(XElement data)
+        {
+            throw new NotImplementedException();
         }
         //public void TriggerTransformChanged()
         //{

@@ -4,6 +4,7 @@ using AegirCore.Simulation;
 using AegirType;
 using System;
 using System.Diagnostics;
+using System.Xml.Linq;
 
 namespace AegirCore.Behaviour.Vessel
 {
@@ -69,6 +70,16 @@ namespace AegirCore.Behaviour.Vessel
             transform.Position = transform.Position + newMovement;
             transform.RotateHeading(newHeading);
             Heading = newHeading;
+        }
+
+        public override XElement Serialize()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void Deserialize(XElement data)
+        {
+            throw new NotImplementedException();
         }
     }
 }

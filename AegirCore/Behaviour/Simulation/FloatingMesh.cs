@@ -3,6 +3,8 @@ using AegirCore.Scene;
 using AegirCore.Simulation.Boyancy;
 using AegirCore.Simulation.Water;
 using System.IO;
+using System;
+using System.Xml.Linq;
 
 namespace AegirCore.Behaviour.Simulation
 {
@@ -27,11 +29,11 @@ namespace AegirCore.Behaviour.Simulation
             }
         }
 
-        public FloatingMesh(Node parentNode, WaterMesh waterMesh)
+        public FloatingMesh(Node parentNode)
             :base(parentNode)
         {
-            water = waterMesh;
-            mesh = new SimulationMesh(waterMesh);
+            //water = waterMesh;
+            //mesh = new SimulationMesh(waterMesh);
         }
 
         public string HullModelPath
@@ -73,6 +75,16 @@ namespace AegirCore.Behaviour.Simulation
             }
 
             IsHullModelValid = hullValid;
+        }
+
+        public override XElement Serialize()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void Deserialize(XElement data)
+        {
+            throw new NotImplementedException();
         }
     }
 }

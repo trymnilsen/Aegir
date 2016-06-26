@@ -2,6 +2,8 @@
 using AegirCore.Scene;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System;
+using System.Xml.Linq;
 
 namespace AegirCore.Behaviour.Mesh
 {
@@ -61,6 +63,17 @@ namespace AegirCore.Behaviour.Mesh
                 meshHandler(this, args);
             }
         }
+
+        public override XElement Serialize()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void Deserialize(XElement data)
+        {
+            throw new NotImplementedException();
+        }
+
         public delegate void MeshChangedHandler(MeshBehaviour source, MeshChangedArgs args);
         public event MeshChangedHandler MeshChanged;
     }

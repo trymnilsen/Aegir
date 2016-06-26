@@ -1,4 +1,6 @@
-﻿using AegirCore.Mesh;
+﻿using System;
+using System.Xml.Linq;
+using AegirCore.Mesh;
 using AegirCore.Mesh.Grid;
 using AegirCore.Scene;
 using AegirCore.Simulation.Water;
@@ -22,6 +24,16 @@ namespace AegirCore.Behaviour.Simulation
             WaterCell = new WaterCell();
             N = 16;
             M = 16;
+        }
+
+        public override XElement Serialize()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void Deserialize(XElement data)
+        {
+            throw new NotImplementedException();
         }
         //private MeshData CreateMesh()
         //{

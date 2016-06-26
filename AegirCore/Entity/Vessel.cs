@@ -36,7 +36,7 @@ namespace AegirCore.Entity
             VesselNavigationBehaviour navBehavour = new VesselNavigationBehaviour(this);
             this.AddComponent(navBehavour);
 
-            FloatingMesh mesh = new FloatingMesh(this,water);
+            FloatingMesh mesh = new FloatingMesh(this);
 
             this.AddComponent(mesh);
         }
