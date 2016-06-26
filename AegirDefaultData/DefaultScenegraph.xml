@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ScenegraphData>
+  <Nodes>
+    <Node Name="World" id="1">
+      <Children>
+        <Node Name="Vessel" id="2"></Node>
+      </Children>
+    </Node>
+    <Node Name="Map" id="3">
+      <Children>
+      </Children>
+    </Node>
+  </Nodes>
+</ScenegraphData>
