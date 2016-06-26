@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AegirCore.Persistence
+namespace AegirCore.Persistence.Data
 {
-    class ScenePersister
+    public class TimelineData
     {
+
     }
 }

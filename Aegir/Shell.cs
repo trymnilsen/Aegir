@@ -29,19 +29,21 @@ namespace Aegir
         }
 
         public void ShellLoaded()
-        {
-            ProjectData newProject = Context.Project.CreateNewProject();
-            Context.Project.OpenProject(newProject);
-            ActiveTimelineChanged.Send(Context.Engine.KeyframeEngine.Keyframes, Context.Engine.KeyframeEngine);
+       {
+
+            //ProjectData newProject = Context.Project.CreateNewProject();
+            //Context.Project.OpenProject(newProject);
+            //ActiveTimelineChanged.Send(Context.Engine.KeyframeEngine.Keyframes, Context.Engine.KeyframeEngine);
+            Context.SaveLoadHandler.LoadDefault();
         }
 
         private void OpenProject(LoadProjectFile message)
         {
-            Context.Project.OpenProject(message.FilePath);
+            Context.SaveLoadHandler.LoadState(message.FilePath);
         }
         private void SaveProject(SaveProjectFile message)
         {
-            Context.Project.SaveProject(message.FilePath);
+            Context.SaveLoadHandler.SaveState(message.FilePath);
         }
         private void OnProjectActivated(ProjectActivateEventArgs e)
         {
