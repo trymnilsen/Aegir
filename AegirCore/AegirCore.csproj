@@ -132,10 +132,13 @@
     <Compile Include="Persistence\Data\ScenegraphData.cs" />
     <Compile Include="Persistence\Data\TimelineData.cs" />
     <Compile Include="Persistence\IApplicationPersister.cs" />
+    <Compile Include="Persistence\PersistanceException.cs" />
     <Compile Include="Persistence\PersistenceHandler.cs" />
     <Compile Include="Persistence\Persisters\ProjectPersister.cs" />
     <Compile Include="Persistence\Persisters\ScenePersister.cs" />
     <Compile Include="Persistence\Persisters\TimelinePersister.cs" />
+    <Compile Include="Persistence\XElementSerializer.cs" />
+    <Compile Include="Persistence\XmlSerializerExtensionMethods.cs" />
     <Compile Include="Project\DefaultProject.cs" />
     <Compile Include="Project\Event\ProjectActivateEventArgs.cs" />
     <Compile Include="Project\ProjectContext.cs" />
