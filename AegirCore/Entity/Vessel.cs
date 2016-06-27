@@ -27,7 +27,7 @@ namespace AegirCore.Entity
             set { UpdateHullModel(value); }
         }
 
-        public Vessel(WaterMesh water)
+        public Vessel()
         {
             this.Name = "Vessel";
             MeshBehaviour RenderMesh = new MeshBehaviour(this);
@@ -36,9 +36,9 @@ namespace AegirCore.Entity
             VesselNavigationBehaviour navBehavour = new VesselNavigationBehaviour(this);
             this.AddComponent(navBehavour);
 
-            FloatingMesh mesh = new FloatingMesh(this);
+            //FloatingMesh mesh = new FloatingMesh(this);
 
-            this.AddComponent(mesh);
+            //this.AddComponent(mesh);
         }
         private void UpdateHullModel(MeshData data)
         {

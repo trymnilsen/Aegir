@@ -16,10 +16,10 @@ namespace AegirCore.Entity
             this.Removable = false;
             this.Nestable = false;
 
-            WaterSimulation waterBehaviour = new WaterSimulation(this);
+            //WaterSimulation waterBehaviour = new WaterSimulation(this);
             MeshBehaviour meshBehaviour = new MeshBehaviour(this);
 
-            this.AddComponent(waterBehaviour);
+            //this.AddComponent(waterBehaviour);
             //this.AddComponent(meshBehaviour);
 
             //meshBehaviour.Mesh = waterBehaviour.WaterCell

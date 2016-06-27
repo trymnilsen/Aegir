@@ -20,7 +20,7 @@ namespace Aegir.ViewModel.NodeProxy
         private static readonly ILog log = LogManager.GetLogger(typeof(VesselViewModelProxy));
 
         private VesselNavigationBehaviour navBehaviour;
-        private FloatingMesh floatMeshBehaviour;
+        //private FloatingMesh floatMeshBehaviour;
 
         [Category("Motion")]
         public double Heading
@@ -72,23 +72,23 @@ namespace Aegir.ViewModel.NodeProxy
             }
         }
 
-        [Category("Simulation")]
-        public float Mass
-        {
-            get { return floatMeshBehaviour.Mass; }
-            set { floatMeshBehaviour.Mass = value; }
-        }
+        //[Category("Simulation")]
+        //public float Mass
+        //{
+        //    get { return floatMeshBehaviour.Mass; }
+        //    set { floatMeshBehaviour.Mass = value; }
+        //}
 
-        [Category("Simulation")]
-        [DisplayName("Hull Model")]
-        public string VesselHull
-        {
-            get { return floatMeshBehaviour.HullModelPath; }
-            set
-            {
-                LoadHullModel(value);
-            }
-        }
+        //[Category("Simulation")]
+        //[DisplayName("Hull Model")]
+        //public string VesselHull
+        //{
+        //    get { return floatMeshBehaviour.HullModelPath; }
+        //    set
+        //    {
+        //        LoadHullModel(value);
+        //    }
+        //}
 
         private RenderingMode hullRendingMode;
 
@@ -134,7 +134,7 @@ namespace Aegir.ViewModel.NodeProxy
             : base(vessel)
         {
             navBehaviour = vessel.GetComponent<VesselNavigationBehaviour>();
-            floatMeshBehaviour = vessel.GetComponent<FloatingMesh>();
+            //floatMeshBehaviour = vessel.GetComponent<FloatingMesh>();
         }
 
         public override void Invalidate()
@@ -158,7 +158,7 @@ namespace Aegir.ViewModel.NodeProxy
                 }
                 MeshData mesh = meshLoader.LoadMeshAsync(path);
                 ((Vessel)nodeData).HullModel = mesh;
-                RaisePropertyChanged(nameof(VesselHull));
+                //RaisePropertyChanged(nameof(VesselHull));
             }
             catch (Exception e)
             {
