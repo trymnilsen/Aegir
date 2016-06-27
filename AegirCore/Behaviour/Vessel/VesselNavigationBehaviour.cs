@@ -1,4 +1,5 @@
 ﻿using AegirCore.Behaviour.World;
+using AegirCore.Persistence;
 using AegirCore.Scene;
 using AegirCore.Simulation;
 using AegirType;
@@ -74,12 +75,22 @@ namespace AegirCore.Behaviour.Vessel
 
         public override XElement Serialize()
         {
-            throw new NotImplementedException();
+            XElement element = new XElement(this.GetType().Name);
+            element.AddElement(nameof(Speed),Speed);
+            element.AddElement(nameof(RateOfTurn), RateOfTurn);
+            element.AddElement(nameof(Heading), Heading);
+            element.AddElement(nameof(SimulationMode), SimulationMode);
+
+            return element;
         }
 
         public override void Deserialize(XElement data)
         {
-            throw new NotImplementedException();
+            Speed = data.GetElementAs<double>(nameof(speed));
+            Heading = data.GetElementAs<double>(nameof(speed));
+            RateOfTurn = data.GetElementAs<double>(nameof(speed));
+            SimulationMode = data.GetElementAs<VesselSimulationMode>(nameof(SimulationMode));
+
         }
     }
 }

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Xml.Linq;
+using System.Xml.Serialization;
+using AegirCore.Persistence;
 using AegirCore.Keyframe;
 using AegirCore.Scene;
 using AegirType;
@@ -86,12 +88,33 @@ namespace AegirCore.Behaviour.World
 
         public override XElement Serialize()
         {
-            throw new NotImplementedException();
+            //We need to serialize both position and rotation so lets create a wrapper to keep them
+            XElement transformContainer = new XElement("Transform");
+            XElement positionElement = XElementSerializer.SerializeToXElement(position);
+            XElement rotationElement = XElementSerializer.SerializeToXElement(rotation);
+
+            transformContainer.Add(positionElement);
+            transformContainer.Add(rotationElement);
+
+            return transformContainer;
         }
 
         public override void Deserialize(XElement data)
         {
-            throw new NotImplementedException();
+            XElement positionElement = data.Element(position.GetType().Name);
+            XElement rotationElement = data.Element(rotation.GetType().Name);
+
+            if(positionElement == null)
+            {
+                throw new PersistanceException("Transform element of node does not have a position element");
+            }
+            if(rotationElement == null)
+            {
+                throw new PersistanceException("Transform element of node does not have a rotation element");
+            }
+
+            position = XElementSerializer.DeserializeFromXElement<Vector3>(positionElement);
+            rotation = XElementSerializer.DeserializeFromXElement<Quaternion>(rotationElement);
         }
         //public void TriggerTransformChanged()
         //{

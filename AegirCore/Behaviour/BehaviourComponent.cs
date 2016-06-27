@@ -2,6 +2,7 @@
 using AegirCore.Signals;
 using AegirCore.Simulation;
 using Newtonsoft.Json;
+using System.Collections.Generic;
 using System.Xml.Linq;
 using System.Xml.Serialization;
 

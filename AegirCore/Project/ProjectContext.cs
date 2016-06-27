@@ -13,7 +13,7 @@ namespace AegirCore.Project
 {
     public class ProjectContext
     {
-        private readonly ProjectPersister persistance;
+        //private readonly ProjectPersister persistance;
         private ProjectData activeProject;
 
         public ProjectData ActiveProject
@@ -34,7 +34,7 @@ namespace AegirCore.Project
 
         public ProjectContext()
         {
-            persistance = new ProjectPersister();
+            //persistance = new ProjectPersister();
         }
 
         /// <summary>

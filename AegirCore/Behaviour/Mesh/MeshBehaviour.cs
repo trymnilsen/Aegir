@@ -66,12 +66,12 @@ namespace AegirCore.Behaviour.Mesh
 
         public override XElement Serialize()
         {
-            throw new NotImplementedException();
+            return new XElement(GetType().Name) { Value = "NA" };
         }
 
         public override void Deserialize(XElement data)
         {
-            throw new NotImplementedException();
+            //Nothing yet
         }
 
         public delegate void MeshChangedHandler(MeshBehaviour source, MeshChangedArgs args);
