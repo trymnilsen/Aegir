@@ -23,9 +23,9 @@
                 <DataGridTextColumn Header="Listeners" IsReadOnly="True" Binding="{Binding Listeners}"></DataGridTextColumn>
                 <DataGridCheckBoxColumn Header="Active"></DataGridCheckBoxColumn>
             </DataGrid.Columns>
-            <mock:OutputData Name="Aft" Port="24" Listeners="2"></mock:OutputData>
+            <!--<mock:OutputData Name="Aft" Port="24" Listeners="2"></mock:OutputData>
             <mock:OutputData Name="Fore" Port="25" Listeners="2"></mock:OutputData>
-            <mock:OutputData Name="Roll" Port="26" Listeners="2"></mock:OutputData>
+            <mock:OutputData Name="Roll" Port="26" Listeners="2"></mock:OutputData>-->
         </DataGrid>
         <!--Controll Buttons-->
         <StackPanel Grid.Row="1" Orientation="Horizontal">
