@@ -4,7 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AegirCore.Persistence.Data
+namespace AegirCore.Persistence.Persisters
 {
-
+    public class AssetPersister
+    {
+    }
 }

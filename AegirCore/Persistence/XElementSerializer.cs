@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 using System.Xml.Linq;
+using System.Xml.Serialization;
 
 namespace AegirCore.Persistence
 {
@@ -11,7 +13,22 @@ namespace AegirCore.Persistence
     {
         public static XElement SerializeToXElement(object obj)
         {
-            throw new NotImplementedException();
+            XmlSerializer serializer = new XmlSerializer(obj.GetType());
+            XElement element = new XElement(obj.GetType().Name);
+            StringBuilder sb = new StringBuilder();
+
+            XmlWriterSettings settings = new XmlWriterSettings();
+            settings.OmitXmlDeclaration = true;
+            settings.ConformanceLevel = ConformanceLevel.Auto;
+            XmlSerializerNamespaces ns = new XmlSerializerNamespaces();
+
+            //Add an empty namespace and empty value
+            ns.Add("", "");
+            using (XmlWriter xwriter = XmlWriter.Create(sb, settings))
+            {
+                serializer.Serialize(xwriter, obj,ns);
+            }
+            return XElement.Parse(sb.ToString());
         }
         public static T DeserializeFromXElement<T>(XElement element)
         {

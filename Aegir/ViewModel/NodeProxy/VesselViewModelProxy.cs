@@ -1,5 +1,4 @@
 ﻿using Aegir.Rendering;
-using AegirCore.Behaviour.Simulation;
 using AegirCore.Behaviour.Vessel;
 using AegirCore.Entity;
 using AegirCore.Mesh;
