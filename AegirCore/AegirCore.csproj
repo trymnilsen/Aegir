@@ -89,6 +89,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationContext.cs" />
+    <Compile Include="Asset\AssetCache.cs" />
+    <Compile Include="Asset\AssetReference.cs" />
+    <Compile Include="Asset\AssetSource.cs" />
+    <Compile Include="Asset\EmbeddedAssetSource.cs" />
+    <Compile Include="Asset\EmbeddedResource.cs" />
+    <Compile Include="Asset\FileAssetSource.cs" />
     <Compile Include="Behaviour\BehaviourComponent.cs" />
     <Compile Include="Behaviour\Mesh\MeshChangeAction.cs" />
     <Compile Include="Behaviour\Mesh\MeshChangedArgs.cs" />
@@ -104,6 +110,7 @@
     <Compile Include="Entity\Map.cs" />
     <Compile Include="Entity\Vessel.cs" />
     <Compile Include="IAppModule.cs" />
+    <Compile Include="Keyframe\Interpolator\LinearQuaternionInterpolator.cs" />
     <Compile Include="Keyframe\Interpolator\LinearVector3Interpolator.cs" />
     <Compile Include="Keyframe\IValueInterpolator.cs" />
     <Compile Include="Keyframe\KeyframePropertyInfo.cs" />
@@ -150,6 +157,7 @@
     <Compile Include="Replay\ReplayFile.cs" />
     <Compile Include="Replay\ReplayInput.cs" />
     <Compile Include="Scene\IWorldScale.cs" />
+    <Compile Include="Scene\MercatorScale.cs" />
     <Compile Include="Scene\Node.cs" />
     <Compile Include="Scene\SceneContext.cs" />
     <Compile Include="Scene\SceneGraph.cs" />

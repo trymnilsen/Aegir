@@ -219,6 +219,7 @@
     <Compile Include="Rendering\Camera\ViewportCameraController.cs" />
     <Compile Include="ViewModel\NodeProxy\GeoidViewModelProxy.cs" />
     <Compile Include="View\Rendering\Tool\EventableBindableRotateManipulator.cs" />
+    <Compile Include="View\Rendering\Tool\EventableBindableScaleManipulator.cs" />
     <Compile Include="View\Rendering\Tool\EventableBindableTranslateManipulator.cs" />
     <Compile Include="View\Rendering\Tool\IEventableManipulator.cs" />
     <Compile Include="View\Rendering\Tool\ManipulatorFinishedEventArgs.cs" />
@@ -280,6 +281,7 @@
     <Compile Include="View\Rendering\RenderView.xaml.cs">
       <DependentUpon>RenderView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Rendering\Tool\TransformMode.cs" />
     <Compile Include="View\Rendering\TransformMode.cs" />
     <Compile Include="View\Rendering\SceneClickHandler.cs" />
     <Compile Include="View\Rendering\ViewportFocus.cs" />
