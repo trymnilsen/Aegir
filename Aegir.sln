@@ -23,7 +23,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ViewTools", "ViewTools\View
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ViewPropertyGrid", "ViewPropertyGrid\ViewPropertyGrid.csproj", "{4151F55A-E041-49B5-BA96-BCBE07EDFA78}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AegirPresets", "AegirDefaultData\AegirPresets.csproj", "{82462DF5-86EB-4F74-82F5-73CEC9A4BA74}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AegirPresets", "AegirPresets\AegirPresets.csproj", "{82462DF5-86EB-4F74-82F5-73CEC9A4BA74}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
