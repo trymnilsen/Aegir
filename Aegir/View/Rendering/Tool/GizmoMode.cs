@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Aegir.View.Rendering.Tool
 {
-    public enum TransformMode
+    public enum GizmoMode
     {
         None,
         Translate,
