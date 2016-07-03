@@ -30,7 +30,7 @@ namespace AegirCore.Persistence
             }
             return XElement.Parse(sb.ToString());
         }
-        public static T DeserializeFromXElement<T>(XElement element)
+        public static T DeserializeFromXElement<T>(XElement  element)
         {
             throw new NotImplementedException();
         }
