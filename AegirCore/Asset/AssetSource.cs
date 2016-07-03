@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace AegirCore.Asset
 {
-    class AssetSource
+    public class AssetSource
     {
+        public Uri SourcePath { get; protected set; }
     }
 }

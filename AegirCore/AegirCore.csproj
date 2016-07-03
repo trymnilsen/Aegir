@@ -95,6 +95,9 @@
     <Compile Include="Asset\EmbeddedAssetSource.cs" />
     <Compile Include="Asset\EmbeddedResource.cs" />
     <Compile Include="Asset\FileAssetSource.cs" />
+    <Compile Include="Asset\MeshDataAssetReference.cs" />
+    <Compile Include="Asset\ReplayAssetReference.cs" />
+    <Compile Include="Asset\TimelineAssetReference.cs" />
     <Compile Include="Behaviour\BehaviourComponent.cs" />
     <Compile Include="Behaviour\Mesh\MeshChangeAction.cs" />
     <Compile Include="Behaviour\Mesh\MeshChangedArgs.cs" />
@@ -199,7 +202,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AegirDefaultData\AegirPresets.csproj">
+    <ProjectReference Include="..\AegirPresets\AegirPresets.csproj">
       <Project>{82462df5-86eb-4f74-82f5-73cec9a4ba74}</Project>
       <Name>AegirPresets</Name>
     </ProjectReference>
