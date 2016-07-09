@@ -9,48 +9,50 @@ namespace AegirCoreTest
     [TestClass]
     public class KeyframeTimelineTest
     {
-        //[TestMethod]
-        //public void TestGetPastAnyGivesSameClosestKey()
-        //{
-        //    KeyframeTimeline testCollection = GetTestCollection();
-        //    Tuple<int, int> closest = testCollection.GetClosest(120);
+        /// <summary>
+        /// Asserts that the last keyframe of the timeline is returned
+        /// when requested timeline position is greater than the position of the
+        /// last keyframe
+        /// </summary>
+        [TestMethod]
+        public void GetClosestReturnsLastKeyframe()
+        {
+            int keyPos = 10;
+            int getAtPos = keyPos + 5;
+            KeyframeTimeline testCollection = new KeyframeTimeline();
+            KeyframePropertyInfo testProperty = new KeyframePropertyInfo(null, PropertyType.Executable);
+            Node testNode = new Node();
+            //Add some keys
+            testCollection.AddKeyframe(new ValueKeyframe(testProperty, null, null), keyPos, testNode);
+            testCollection.AddKeyframe(new ValueKeyframe(testProperty, null, null), keyPos-2, testNode);
+            testCollection.AddKeyframe(new ValueKeyframe(testProperty, null, null), keyPos-4, testNode);
+            Tuple<int, int> closest = testCollection.GetClosestKeys(testProperty, getAtPos);
 
-        //    Assert.AreEqual(64, closest.Item1);
-        //    Assert.AreEqual(64, closest.Item2);
-        //}
-        //[TestMethod]
-        //public void TestGetBeforeAnyGivesSameClosestKey()
-        //{
-        //    KeyframeTimeline testCollection = GetTestCollection();
-        //    Tuple<int, int> closest = testCollection.GetClosest(2);
+            Assert.AreEqual(keyPos, closest.Item1);
+            Assert.AreEqual(keyPos, closest.Item2);
+        }
+        /// <summary>
+        /// Asserts that the first keyframe of the timeline is returned
+        /// when requested timeline position is less than the position of the
+        /// first keyframe
+        /// </summary>
+        [TestMethod]
+        public void GetClosestReturnsFirstKeyframe()
+        {
+            int keyPos = 10;
+            int getAtPos = keyPos - 5;
+            KeyframeTimeline testCollection = new KeyframeTimeline();
+            KeyframePropertyInfo testProperty = new KeyframePropertyInfo(null, PropertyType.Executable);
+            Node testNode = new Node();
+            //Add some keys
+            testCollection.AddKeyframe(new ValueKeyframe(testProperty, null, null), keyPos, testNode);
+            testCollection.AddKeyframe(new ValueKeyframe(testProperty, null, null), keyPos + 2, testNode);
+            testCollection.AddKeyframe(new ValueKeyframe(testProperty, null, null), keyPos + 4, testNode);
+            Tuple<int, int> closest = testCollection.GetClosestKeys(testProperty, getAtPos);
 
-        //    Assert.AreEqual(3, closest.Item1);
-        //    Assert.AreEqual(3, closest.Item2);
-        //}
-        //[TestMethod]
-        //public void TestGetInBetweenGivesBeforeAndAfter()
-        //{
-        //    KeyframeTimeline testCollection = GetTestCollection();
-        //    Tuple<int, int> closest = testCollection.GetClosest(27);
+            Assert.AreEqual(keyPos, closest.Item1);
+            Assert.AreEqual(keyPos, closest.Item2);
+        }
 
-        //    Assert.AreEqual(20, closest.Item1);
-        //    Assert.AreEqual(47, closest.Item2);
-        //}
-
-        //private KeyframeTimeline GetTestCollection()
-        //{
-        //    Node node = new Node();
-        //    //all nodes has transform behavior, lets use that for animation
-
-
-
-        //    testCollection.AddItem(3, "foo");
-        //    testCollection.AddItem(8, "bar");
-        //    testCollection.AddItem(20, "faz");
-        //    testCollection.AddItem(47, "baz");
-        //    testCollection.AddItem(64, "foobar");
-
-        //    return testCollection;
-        //}
     }
 }
