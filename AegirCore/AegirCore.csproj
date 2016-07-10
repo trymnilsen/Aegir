@@ -90,9 +90,9 @@
   <ItemGroup>
     <Compile Include="ApplicationContext.cs" />
     <Compile Include="Asset\AssetCache.cs" />
+    <Compile Include="Asset\AssetNotFoundException.cs" />
     <Compile Include="Asset\AssetReference.cs" />
     <Compile Include="Asset\MeshDataAssetReference.cs" />
-    <Compile Include="Asset\ReplayAssetReference.cs" />
     <Compile Include="Asset\UriLoader.cs" />
     <Compile Include="Behaviour\BehaviourComponent.cs" />
     <Compile Include="Behaviour\Mesh\MeshChangeAction.cs" />
