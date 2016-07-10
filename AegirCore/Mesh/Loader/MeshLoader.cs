@@ -9,26 +9,21 @@ namespace AegirCore.Mesh.Loader
 {
     public class MeshLoader
     {
-
-        public MeshData LoadMeshAsync(string path)
+        /// <summary>
+        /// Load a mesh from a stream
+        /// </summary>
+        /// <param name="stream"></param>
+        /// <returns></returns>
+        public MeshData LoadMesh(StreamReader dataStream)
         {
-            FileInfo file = new FileInfo(path);
-            if (!file.Exists)
+            if(dataStream == null)
             {
-                throw new FileNotFoundException("Meshload could not find the file: " + path);
+                throw new ArgumentNullException(nameof(dataStream));
             }
             
-            string ext = file.Extension.ToLower();
-            switch(ext)
-            {
-                case ".obj":
-                    ObjModel objLoader = new ObjModel();
-                    objLoader.LoadObj(path);
-                    return objLoader.GetMesh();
-
-                default:
-                    throw new InvalidDataException("Cannot load model type "+ext);
-            }
+            ObjModel objLoader = new ObjModel();
+            objLoader.LoadObj(dataStream);
+            return objLoader.GetMesh();
 
         }
     }

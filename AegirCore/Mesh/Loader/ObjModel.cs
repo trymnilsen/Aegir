@@ -44,15 +44,12 @@ namespace AegirCore.Mesh.Loader
         /// Parse and load an OBJ file into memory.  Will consume memory
         /// at aproximately 120% the size of the file.
         /// </summary>
-        /// <param name="path">path to obj file on disk</param>
-        /// <param name="linesProcessedCallback">callback for status updates</param>
-        public void LoadObj(string path)
+        /// <param name="dataStream">stream of the text for the obj data we want to load</param>
+        public void LoadObj(StreamReader dataStream)
         {
-            var input = File.ReadLines(path);
-
-            foreach (string line in input)
-            {
-                processLine(line);
+            while(!dataStream.EndOfStream)
+            { 
+                processLine(dataStream.ReadLine());
             }
 
             ExpandTextureVertices();

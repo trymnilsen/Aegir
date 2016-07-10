@@ -155,8 +155,8 @@ namespace Aegir.ViewModel.NodeProxy
                 {
                     return;
                 }
-                MeshData mesh = meshLoader.LoadMeshAsync(path);
-                ((Vessel)nodeData).HullModel = mesh;
+                //MeshData mesh = meshLoader.LoadMeshAsync(path);
+                //((Vessel)nodeData).HullModel = mesh;
                 //RaisePropertyChanged(nameof(VesselHull));
             }
             catch (Exception e)

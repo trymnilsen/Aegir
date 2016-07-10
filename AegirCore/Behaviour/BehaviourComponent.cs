@@ -31,9 +31,11 @@ namespace AegirCore.Behaviour
 
         public virtual void Update(SimulationTime time)
         {
+
         }
         public virtual void Init()
         {
+
         }
         public abstract XElement Serialize();
         public abstract void Deserialize(XElement data);

@@ -8,6 +8,10 @@ namespace AegirCore.Scene
 {
     public interface IWorldScale
     {
-         
+        /// <summary>
+        /// Returns the distance in the scene resembling a Meter
+        /// </summary>
+        double GetSceneMeter();
+
     }
 }

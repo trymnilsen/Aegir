@@ -518,6 +518,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\AegirAssets\AegirAssets.csproj">
+      <Project>{c502bbcc-c75e-4d36-981a-4df1e9ee13d6}</Project>
+      <Name>AegirAssets</Name>
+    </ProjectReference>
     <ProjectReference Include="..\AegirCore\AegirCore.csproj">
       <Project>{46062537-69cf-4e4b-bea5-0337499d2af9}</Project>
       <Name>AegirCore</Name>
@@ -553,6 +557,10 @@
     <None Include="Splash.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
