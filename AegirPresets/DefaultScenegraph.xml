@@ -18,7 +18,29 @@
             </Quaternion>
           </Transform>
         </Components>
-        <Children/>
+        <Children>
+          <Node Name="Vessel">
+            <Components>
+              <Transform>
+                <Vector3>
+                  <X>0</X>
+                  <Y>0</Y>
+                  <Z>0</Z>
+                </Vector3>
+                <Quaternion>
+                  <X>0</X>
+                  <Y>0</Y>
+                  <Z>0</Z>
+                  <W>0</W>
+                </Quaternion>
+              </Transform>
+            </Components>
+            <MeshRender>
+              <MeshDataReference>mesh://file/Mesh/hull.obj</MeshDataReference>
+            </MeshRender>
+            <Children />
+          </Node>
+        </Children>
       </Node>
       <Node Name="Map">
         <Components>

@@ -11,10 +11,11 @@ namespace AegirCore.Asset
 {
     public class MeshDataAssetReference : AssetReference<MeshData>
     {
-        public override Uri GetAssetId()
+        public MeshDataAssetReference(Uri uri) : base(uri)
         {
-            throw new NotImplementedException();
+
         }
+
         public override void Load(StreamReader stream)
         {
             MeshLoader loader = new MeshLoader();

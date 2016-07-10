@@ -54,12 +54,13 @@ namespace AegirCore.Asset
                 switch (path.Scheme)
                 {
                     case MeshScheme:
-                        var meshRef = new MeshDataAssetReference();
+                        var meshRef = new MeshDataAssetReference(path);
                         meshRef.Load(stream);
                         return meshRef as T;
                     default:
                         break;
                 }
+
             }
             return null;
         }

@@ -91,13 +91,8 @@
     <Compile Include="ApplicationContext.cs" />
     <Compile Include="Asset\AssetCache.cs" />
     <Compile Include="Asset\AssetReference.cs" />
-    <Compile Include="Asset\AssetSource.cs" />
-    <Compile Include="Asset\EmbeddedAssetSource.cs" />
-    <Compile Include="Asset\EmbeddedResource.cs" />
-    <Compile Include="Asset\FileAssetSource.cs" />
     <Compile Include="Asset\MeshDataAssetReference.cs" />
     <Compile Include="Asset\ReplayAssetReference.cs" />
-    <Compile Include="Asset\TimelineAssetReference.cs" />
     <Compile Include="Asset\UriLoader.cs" />
     <Compile Include="Behaviour\BehaviourComponent.cs" />
     <Compile Include="Behaviour\Mesh\MeshChangeAction.cs" />

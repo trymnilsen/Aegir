@@ -10,8 +10,18 @@ namespace AegirCore.Asset
 {
     public abstract class AssetReference
     {
-        public AssetSource Source { get; protected set; }
-        public abstract Uri GetAssetId();
+        private Uri uri;
+        public AssetReference(Uri uri)
+        {
+            this.uri = uri;
+        }
+        public Uri AssetUri
+        {
+            get
+            {
+                return uri;
+            }
+        }
         public abstract void Load(StreamReader stream);
     }
     public abstract class AssetReference<T> : AssetReference
@@ -27,6 +37,7 @@ namespace AegirCore.Asset
                 DataUpdated?.Invoke();
             }
         }
+        public AssetReference(Uri uri) : base(uri) {}
 
         public delegate void DataChangedHandler();
         public event DataChangedHandler DataUpdated;
