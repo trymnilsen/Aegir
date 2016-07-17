@@ -49,8 +49,8 @@ namespace AegirCore.Behaviour.Mesh
             }
         }
 
-        public MeshBehaviour(Node parentNode)
-            :base(parentNode)
+        public MeshBehaviour()
+            :base()
         {
            
         }

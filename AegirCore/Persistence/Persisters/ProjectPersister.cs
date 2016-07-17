@@ -10,35 +10,35 @@ using System.Xml.Linq;
 
 namespace AegirCore.Persistence.Persisters
 {
-    public class ProjectPersister : IApplicationPersister
-    {
-        private readonly ScenePersister ScenePersistance;
-        private readonly TimelinePersister TimelinePersistance;
+    //public class ProjectPersister : IApplicationPersister
+    //{
+    //    private readonly ScenePersister ScenePersistance;
+    //    private readonly TimelinePersister TimelinePersistance;
 
-        public ProjectPersister()
-        {
-            ScenePersistance = new ScenePersister();
-            TimelinePersistance = new TimelinePersister();
-        }
+    //    public ProjectPersister()
+    //    {
+    //        ScenePersistance = new ScenePersister();
+    //        TimelinePersistance = new TimelinePersister();
+    //    }
 
-        public ProjectData LoadProject(StreamReader loadStream)
-        {
-            return null;
-        }
+    //    public ProjectData LoadProject(StreamReader loadStream)
+    //    {
+    //        return null;
+    //    }
 
-        public void Load(XElement data)
-        {
-            throw new NotImplementedException();
-        }
+    //    public void Load(XElement data)
+    //    {
+    //        throw new NotImplementedException();
+    //    }
 
-        XElement IApplicationPersister.Save()
-        {
-            throw new NotImplementedException();
-        }
+    //    XElement IApplicationPersister.Save()
+    //    {
+    //        throw new NotImplementedException();
+    //    }
 
-        public void LoadDefault()
-        {
-            throw new NotImplementedException();
-        }
-    }
+    //    public void LoadDefault()
+    //    {
+    //        throw new NotImplementedException();
+    //    }
+    //}
 }

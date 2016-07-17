@@ -17,7 +17,7 @@ namespace AegirCore.Entity
             this.Nestable = false;
 
             //WaterSimulation waterBehaviour = new WaterSimulation(this);
-            MeshBehaviour meshBehaviour = new MeshBehaviour(this);
+            MeshBehaviour meshBehaviour = new MeshBehaviour();
 
             //this.AddComponent(waterBehaviour);
             //this.AddComponent(meshBehaviour);

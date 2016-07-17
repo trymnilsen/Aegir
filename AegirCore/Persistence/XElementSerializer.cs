@@ -32,7 +32,8 @@ namespace AegirCore.Persistence
         }
         public static T DeserializeFromXElement<T>(XElement  element)
         {
-            throw new NotImplementedException();
+            var serializer = new XmlSerializer(typeof(T));
+            return (T)serializer.Deserialize(element.CreateReader());
         }
         public static void AddElement(this XElement parent, string name, object value)
         {

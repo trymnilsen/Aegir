@@ -38,7 +38,9 @@ namespace AegirCore
                 var scenePersister = new ScenePersister();
                 scenePersister.Graph = scene;
                 persisthandler.AddPersister(scenePersister);
-                persisthandler.SaveState("testout.xml");
+
+                SaveLoadHandler = persisthandler;
+                //persisthandler.SaveState("testout.xml");
 
             }
             catch(Exception e)
@@ -47,15 +49,8 @@ namespace AegirCore
             }
 
             Engine = new SimulationEngine();
-            SaveLoadHandler = new PersistenceHandler();
             //Attach project events
         }
 
-        private void SetUpPersistanceHandler()
-        {
-            SaveLoadHandler.AddPersister(new TimelinePersister());
-            SaveLoadHandler.AddPersister(new ScenePersister());
-            SaveLoadHandler.AddPersister(new ProjectPersister());
-        }
     }
 }

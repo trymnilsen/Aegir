@@ -30,7 +30,7 @@ namespace AegirCore.Entity
         public Vessel()
         {
             this.Name = "Vessel";
-            MeshBehaviour RenderMesh = new MeshBehaviour(this);
+            MeshBehaviour RenderMesh = new MeshBehaviour();
             this.AddComponent(RenderMesh);
 
             VesselNavigationBehaviour navBehavour = new VesselNavigationBehaviour(this);

@@ -4,7 +4,7 @@
     <RootNodes>
       <Node Name="World">
         <Components>
-          <Transform>
+          <TransformBehaviour>
             <Vector3>
               <X>0</X>
               <Y>0</Y>
@@ -16,12 +16,12 @@
               <Z>0</Z>
               <W>0</W>
             </Quaternion>
-          </Transform>
+          </TransformBehaviour>
         </Components>
         <Children>
           <Node Name="Vessel">
             <Components>
-              <Transform>
+              <TransformBehaviour>
                 <Vector3>
                   <X>0</X>
                   <Y>0</Y>
@@ -33,18 +33,18 @@
                   <Z>0</Z>
                   <W>0</W>
                 </Quaternion>
-              </Transform>
+              </TransformBehaviour>
             </Components>
-            <MeshRender>
+            <MeshBehaviour>
               <MeshDataReference>mesh://file/Mesh/hull.obj</MeshDataReference>
-            </MeshRender>
+            </MeshBehaviour>
             <Children />
           </Node>
         </Children>
       </Node>
       <Node Name="Map">
         <Components>
-          <Transform>
+          <TransformBehaviour>
             <Vector3>
               <X>0</X>
               <Y>0</Y>
@@ -56,11 +56,10 @@
               <Z>0</Z>
               <W>0</W>
             </Quaternion>
-          </Transform>
+          </TransformBehaviour>
         </Components>
         <Children />
       </Node>
     </RootNodes>
   </ScenePersister>
-  <TimelinePersister></TimelinePersister>
 </root>

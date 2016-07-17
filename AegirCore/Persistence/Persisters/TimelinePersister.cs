@@ -8,21 +8,21 @@ using System.Xml.Linq;
 
 namespace AegirCore.Persistence.Persisters
 {
-    public class TimelinePersister : IApplicationPersister
-    {
-        public void Load(XElement data)
-        {
-            throw new NotImplementedException();
-        }
+    //public class TimelinePersister : IApplicationPersister
+    //{
+    //    public void Load(XElement data)
+    //    {
+    //        throw new NotImplementedException();
+    //    }
 
-        public void LoadDefault()
-        {
-            throw new NotImplementedException();
-        }
+    //    public void LoadDefault()
+    //    {
+    //        throw new NotImplementedException();
+    //    }
 
-        public XElement Save()
-        {
-            throw new NotImplementedException();
-        }
-    }
+    //    public XElement Save()
+    //    {
+    //        throw new NotImplementedException();
+    //    }
+    //}
 }

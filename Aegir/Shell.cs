@@ -5,6 +5,8 @@ using AegirCore;
 using AegirCore.Project;
 using AegirCore.Project.Event;
 using GalaSoft.MvvmLight.Messaging;
+using System;
+using System.Windows;
 
 namespace Aegir
 {
@@ -34,7 +36,14 @@ namespace Aegir
             //ProjectData newProject = Context.Project.CreateNewProject();
             //Context.Project.OpenProject(newProject);
             //ActiveTimelineChanged.Send(Context.Engine.KeyframeEngine.Keyframes, Context.Engine.KeyframeEngine);
-            Context.SaveLoadHandler.LoadDefault();
+            try
+            {
+                Context.SaveLoadHandler.LoadDefault();
+            }
+            catch(Exception e)
+            {
+                MessageBox.Show("Error Occured while setting up default project:\n" + e.Message + "\n\n" + e.StackTrace);
+            }
         }
 
         private void OpenProject(LoadProjectFile message)

@@ -34,8 +34,7 @@ namespace AegirCore.Behaviour.World
             }
         }
 
-        public TransformBehaviour(Node parentNode)
-            :base(parentNode)
+        public TransformBehaviour()
         {
             position = new Vector3();
             Rotation = new Quaternion();
@@ -89,7 +88,7 @@ namespace AegirCore.Behaviour.World
         public override XElement Serialize()
         {
             //We need to serialize both position and rotation so lets create a wrapper to keep them
-            XElement transformContainer = new XElement("Transform");
+            XElement transformContainer = new XElement(GetType().Name);
             XElement positionElement = XElementSerializer.SerializeToXElement(position);
             XElement rotationElement = XElementSerializer.SerializeToXElement(rotation);
 

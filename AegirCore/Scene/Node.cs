@@ -33,8 +33,6 @@ namespace AegirCore.Scene
             Children = new ObservableCollection<Node>();
             Components = new ObservableCollection<BehaviourComponent>();
             internalRouter = new SignalRouter();
-            //Add some components
-            Components.Add(new TransformBehaviour(this));
         }
 
         public virtual void Update(SimulationTime time)

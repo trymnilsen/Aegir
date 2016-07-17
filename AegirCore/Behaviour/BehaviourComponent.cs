@@ -2,6 +2,7 @@
 using AegirCore.Signals;
 using AegirCore.Simulation;
 using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Xml.Linq;
 using System.Xml.Serialization;
@@ -10,15 +11,24 @@ namespace AegirCore.Behaviour
 {
     public abstract class BehaviourComponent
     {
-        public Node Parent { get; private set; }
+        private Node parent;
+        public Node Parent
+        {
+            get { return parent; }
+            set
+            {
+                if(parent!=null && parent!=value)
+                {
+                    throw new InvalidOperationException("Cannot re-assign parent");
+                }
+
+                parent = value;
+            }
+        }
         public SignalRouter internalRouter { get; set; }
         public SignalRouter globalRouter { get; set; }
         public string Name { get; set; }
 
-        public BehaviourComponent(Node parentNode)
-        {
-            Parent = parentNode;
-        }
         public BehaviourComponent()
         {
 

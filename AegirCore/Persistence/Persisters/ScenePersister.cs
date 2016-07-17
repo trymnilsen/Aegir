@@ -1,8 +1,11 @@
 ﻿using AegirCore.Behaviour;
 using AegirCore.Scene;
+using AegirPresets;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
@@ -10,31 +13,97 @@ using System.Xml.Linq;
 
 namespace AegirCore.Persistence.Persisters
 {
-    public class ScenePersister : IApplicationPersister
+    /// <summary>
+    /// Handles serializing and deserializing of the scene to an XElement
+    /// </summary>
+    public class ScenePersister : DefaultApplicationPersister
     {
 
-        public SceneGraph Graph { get; set; }
-        public void Load(XElement data)
+        public ScenePersister()
+            :base("DefaultScenegraph.xml")
         {
-            
+            GetHashCode();
         }
 
-        public void LoadDefault()
+        private SceneGraph graph;
+        /// <summary>
+        /// The scenegraph to serialize
+        /// </summary>
+        public SceneGraph Graph
         {
-
+            get { return graph; }
+            set { graph = value; }
         }
 
-        public XElement Save()
+
+
+        public override void Load(IEnumerable<XElement> data)
+        {
+            IEnumerable<XElement> elements = data.Elements();
+            foreach(XElement element in elements)
+            {
+                Node rootNode = DeserializeSceneNode(element);
+                Graph.RootNodes.Add(rootNode);
+            }
+
+
+        }
+        /// <summary>
+        /// Serializes the current SceneGraph to an XElement
+        /// </summary>
+        /// <returns></returns>
+        public override XElement Save()
         {
             XElement nodes = new XElement(nameof(Graph.RootNodes));
             foreach(Node node in Graph.RootNodes)
             {
-                nodes.Add(SerializeNode(node));
+                nodes.Add(SerializeSceneNodes(node));
             }
             return nodes;
         }
+        /// <summary>
+        /// Deserializes a given XElement into its Node
+        /// </summary>
+        /// <param name="element"></param>
+        /// <returns></returns>
+        private Node DeserializeSceneNode(XElement element)
+        {
+            Node node = new Node();
+            node.Name = element.Attribute("Name")?.Value;
 
-        private XElement SerializeNode(Node node)
+            IEnumerable<XElement> behaviours = element.Element("Components")?.Elements();
+            if(behaviours!=null)
+            {
+                foreach(XElement behaviourElement in behaviours)
+                {
+                    BehaviourComponent behaviour =
+                        BehaviourFactory.CreateWithName(behaviourElement.Name.LocalName);
+
+                    behaviour.Parent = node;
+                    behaviour.Deserialize(behaviourElement);
+                    node.Components.Add(behaviour);
+                }
+            }
+
+            IEnumerable<XElement> children = element.Element("Children")?.Elements();
+            if(children!=null)
+            {
+                foreach(XElement childElement in children)
+                {
+                    Node childNode = DeserializeSceneNode(childElement);
+                    node.Children.Add(childNode);
+                }
+            }
+
+            return node;
+        }
+        /// <summary>
+        /// Serializes a Node, It's children (recursive) as well as call's each nodes behaviour serialize method
+        /// in a SceneGraph to a XElement object
+        /// </summary>
+        /// <param name="node">The Node to serialize</param>
+        /// <returns>The Serialized XElement</returns>
+        private XElement SerializeSceneNodes(Node node)
         {
             XElement nodeElement = new XElement(typeof(Node).Name);
 
@@ -48,7 +117,7 @@ namespace AegirCore.Persistence.Persisters
             }
             foreach(Node child in node.Children)
             {
-                children.Add(SerializeNode(child));
+                children.Add(SerializeSceneNodes(child));
             }
 
             nodeElement.Add(behaviours);

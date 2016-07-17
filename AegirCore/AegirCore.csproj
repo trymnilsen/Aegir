@@ -95,6 +95,7 @@
     <Compile Include="Asset\MeshDataAssetReference.cs" />
     <Compile Include="Asset\UriLoader.cs" />
     <Compile Include="Behaviour\BehaviourComponent.cs" />
+    <Compile Include="Behaviour\BehaviourFactory.cs" />
     <Compile Include="Behaviour\Mesh\MeshChangeAction.cs" />
     <Compile Include="Behaviour\Mesh\MeshChangedArgs.cs" />
     <Compile Include="Behaviour\Mesh\MeshBehaviour.cs" />
@@ -137,6 +138,7 @@
     <Compile Include="Output\OutputManager.cs" />
     <Compile Include="Persistence\Data\ScenegraphData.cs" />
     <Compile Include="Persistence\Data\TimelineData.cs" />
+    <Compile Include="Persistence\DefaultApplicationPersister.cs" />
     <Compile Include="Persistence\IApplicationPersister.cs" />
     <Compile Include="Persistence\PersistanceException.cs" />
     <Compile Include="Persistence\PersistenceHandler.cs" />

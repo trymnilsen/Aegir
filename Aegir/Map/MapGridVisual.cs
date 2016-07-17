@@ -188,7 +188,7 @@ namespace Aegir.Map
 
                     MapZoomLevel = zoomLevel;
 
-                    //log.DebugFormat("Zoom snapped distance/zoom level: {0} / {1}", cameraTargetDistance, SnappedZoomFactor);
+                    log.DebugFormat("Zoom snapped distance/zoom level: {0} / {1}", cameraTargetDistance, SnappedZoomFactor);
                 }
                 lastZoom = cameraTargetDistance;
 
