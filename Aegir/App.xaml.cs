@@ -1,4 +1,6 @@
-﻿using Aegir.Windows;
+﻿using Aegir.ViewModel;
+using Aegir.Windows;
+using GalaSoft.MvvmLight.Ioc;
 using log4net;
 using System.Windows;
 
@@ -15,7 +17,6 @@ namespace Aegir
         public App()
         {
             log.Debug("Starting Application");
-            var foo = new ViewModel.ViewModelLocator();
             appShell = new Shell();
         }
 
@@ -28,6 +29,18 @@ namespace Aegir
         private void Application_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
         {
             log.FatalFormat("Fatal Error Occured in Application: \n{0}", e.Exception);
+        }
+
+        private void SetupViewModels()
+        {
+
+            SimpleIoc.Default.Register<StatusBarViewModel>(true);
+            SimpleIoc.Default.Register<PropertiesViewModel>(true);
+            SimpleIoc.Default.Register<MenuStripViewModel>(true);
+            SimpleIoc.Default.Register<PlaybackViewModel>(true);
+            SimpleIoc.Default.Register<MapViewModel>(true);
+            SimpleIoc.Default.Register<ScenegraphViewModelProxy>(true);
+            SimpleIoc.Default.Register<TimelineViewModel>(true);
         }
     }
 }

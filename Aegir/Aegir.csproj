@@ -208,6 +208,8 @@
     <Compile Include="Messages\Project\SaveProjectFile.cs" />
     <Compile Include="Messages\Simulation\InvalidateEntities.cs" />
     <Compile Include="Messages\Timeline\ActiveTimelineChanged.cs" />
+    <Compile Include="Mvvm\ObservableObject.cs" />
+    <Compile Include="Mvvm\ViewModelBase.cs" />
     <Compile Include="Rendering\IGeometryFactory.cs" />
     <Compile Include="Rendering\ITransformableVisual.cs" />
     <Compile Include="Rendering\IVisualResolver.cs" />

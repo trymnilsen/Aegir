@@ -7,20 +7,6 @@ namespace Aegir.ViewModel
 {
     public class ViewModelLocator
     {
-        static ViewModelLocator()
-        {
-            //#if DEBUG
-            //    if (DesignerProperties.GetIsInDesignMode(new DependencyObject())) return;
-            //#endif
-
-            SimpleIoc.Default.Register<StatusBarViewModel>(true);
-            SimpleIoc.Default.Register<PropertiesViewModel>(true);
-            SimpleIoc.Default.Register<MenuStripViewModel>(true);
-            SimpleIoc.Default.Register<PlaybackViewModel>(true);
-            SimpleIoc.Default.Register<MapViewModel>(true);
-            SimpleIoc.Default.Register<ScenegraphViewModelProxy>(true);
-            SimpleIoc.Default.Register<TimelineViewModel>(true);
-        }
 
         public TimelineViewModel TimelineVM
         {

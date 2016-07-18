@@ -1,4 +1,5 @@
-﻿using AegirCore.Persistence;
+﻿using AegirCore.Messenger;
+using AegirCore.Persistence;
 using AegirCore.Persistence.Data;
 using AegirCore.Persistence.Persisters;
 using AegirCore.Project;
@@ -13,7 +14,7 @@ namespace AegirCore
         public SimulationEngine Engine { get; private set; }
         public ProjectContext Project { get; private set; }
         public PersistenceHandler SaveLoadHandler { get; private set; }
-
+        public MessageHub MessageHub { get; private set; }
         public ApplicationContext()
         {
             Project = new ProjectContext();
@@ -39,6 +40,7 @@ namespace AegirCore
                 scenePersister.Graph = scene;
                 persisthandler.AddPersister(scenePersister);
 
+                MessageHub = new MessageHub();
                 SaveLoadHandler = persisthandler;
                 //persisthandler.SaveState("testout.xml");
 

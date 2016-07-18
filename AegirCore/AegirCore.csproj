@@ -134,6 +134,10 @@
     <Compile Include="Entity\World.cs" />
     <Compile Include="Entity\WaterSegment.cs" />
     <Compile Include="Mesh\Grid\TileGrid3D.cs" />
+    <Compile Include="Messages\ScenegraphChanged.cs" />
+    <Compile Include="Messenger\MessageHub.cs" />
+    <Compile Include="Messenger\MessageSubscription.cs" />
+    <Compile Include="Messenger\MessageSubscriptionToken.cs" />
     <Compile Include="Output\OutputData.cs" />
     <Compile Include="Output\OutputManager.cs" />
     <Compile Include="Persistence\Data\ScenegraphData.cs" />
