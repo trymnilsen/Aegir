@@ -26,6 +26,9 @@ namespace AegirCore
             //Set up Engine
             Engine = new SimulationEngine(Scene);
         }
-
+        public void Init()
+        {
+            SaveLoadHandler.LoadDefault();
+        }
     }
 }

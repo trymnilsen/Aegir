@@ -233,7 +233,6 @@
     <Compile Include="Rendering\Visual\VisualFactory.cs" />
     <Compile Include="Rendering\Visual\VisualProvider.cs" />
     <Compile Include="Rendering\Visual\WireframeVisualProvider.cs" />
-    <Compile Include="Shell.cs" />
     <Compile Include="Util\BindingHelper.cs" />
     <Compile Include="Util\DebugUtil.cs" />
     <Compile Include="ViewModel\ContextMenuViewModel.cs" />

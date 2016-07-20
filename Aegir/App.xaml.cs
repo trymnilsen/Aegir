@@ -3,6 +3,7 @@ using Aegir.ViewModel.NodeProxy;
 using Aegir.ViewModel.Properties;
 using Aegir.ViewModel.Timeline;
 using Aegir.Windows;
+using AegirCore;
 using GalaSoft.MvvmLight.Ioc;
 using log4net;
 using System.Windows;
@@ -15,17 +16,17 @@ namespace Aegir
     public partial class App : Application
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(App));
-        private Shell appShell;
+        private ApplicationContext application;
 
         public App()
         {
             log.Debug("Starting Application");
-            appShell = new Shell();
+            application = new ApplicationContext();
         }
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-            appShell.ShellLoaded();
+            application.Init();
 
         }
 
@@ -39,37 +40,37 @@ namespace Aegir
 
             SimpleIoc.Default.Register<StatusBarViewModel>(
                 () => {
-                    return new StatusBarViewModel() { Messenger = appShell.Context.MessageHub };
+                    return new StatusBarViewModel() { Messenger = application.MessageHub };
                 }
             , true);
             SimpleIoc.Default.Register<PropertiesViewModel>(
                 () => {
-                    return new PropertiesViewModel() { Messenger = appShell.Context.MessageHub };
+                    return new PropertiesViewModel() { Messenger = application.MessageHub };
                 }
             , true);
             SimpleIoc.Default.Register<MenuStripViewModel>(
                 () => {
-                    return new MenuStripViewModel() { Messenger = appShell.Context.MessageHub };
+                    return new MenuStripViewModel() { Messenger = application.MessageHub };
                 }
             , true);
             SimpleIoc.Default.Register<PlaybackViewModel>(
                 () => {
-                    return new PlaybackViewModel() { Messenger = appShell.Context.MessageHub };
+                    return new PlaybackViewModel() { Messenger = application.MessageHub };
                 }
             , true);
             SimpleIoc.Default.Register<MapViewModel>(
                 () => {
-                    return new MapViewModel() { Messenger = appShell.Context.MessageHub };
+                    return new MapViewModel() { Messenger = application.MessageHub };
                 }
             , true);
             SimpleIoc.Default.Register<ScenegraphViewModelProxy>(
                 () => {
-                    return new ScenegraphViewModelProxy() { Messenger = appShell.Context.MessageHub };
+                    return new ScenegraphViewModelProxy() { Messenger = application.MessageHub };
                 }
             , true);
             SimpleIoc.Default.Register<TimelineViewModel>(
                 () => {
-                    return new TimelineViewModel() { Messenger = appShell.Context.MessageHub };
+                    return new TimelineViewModel() { Messenger = application.MessageHub };
                 }
             , true);
         }
