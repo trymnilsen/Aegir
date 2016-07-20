@@ -3,16 +3,18 @@ using Aegir.Messages.Project;
 using Aegir.Messages.Simulation;
 using Aegir.Util;
 using AegirCore.Entity;
+using AegirCore.Messages;
 using AegirCore.Scene;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using TinyMessenger;
 
 namespace Aegir.ViewModel.NodeProxy
 {
-    public class ScenegraphViewModelProxy : ViewModelBase
+    public class ScenegraphViewModelProxy : Mvvm.ViewModelBase
     {
         private const double NotifyPropertyUpdateRate = 333d;
         private DateTime lastNotifyProxyProperty;
@@ -63,22 +65,29 @@ namespace Aegir.ViewModel.NodeProxy
         /// <summary>
         /// Creates a new Scenegraph View Model
         /// </summary>
-        public ScenegraphViewModelProxy()
+        public ScenegraphViewModelProxy(ITinyMessengerHub messenger)
+            :base(messenger)
         {
             SelectItemViewModelChangedCommand = new RelayCommand<NodeViewModelProxy>(c => SelectedItem = c);
             RemoveItemCommand = new RelayCommand<NodeViewModelProxy>(RemoveItem);
             MoveItemCommand = new RelayCommand<NodeViewModelProxy>(MoveTo);
             SelectRawNodeChangedCommand = new RelayCommand<Node>(SetRawNodeAsSelectedItem);
 
-            MessengerInstance.Register<ProjectActivated>(this, ProjectChanged);
-            MessengerInstance.Register<InvalidateEntities>(this, OnInvalidateEntitiesMessage);
-            MessengerInstance.Register<ProjectActivated>(this, OnProjectActivated);
+            messenger.Subscribe<ScenegraphChanged>(OnScenegraphChanged);
+
+            //MessengerInstance.Register<ProjectActivated>(this, ProjectChanged);
+            //MessengerInstance.Register<InvalidateEntities>(this, OnInvalidateEntitiesMessage);
+            //MessengerInstance.Register<ProjectActivated>(this, OnProjectActivated);
 
             Items = new ObservableCollection<NodeViewModelProxy>();
             lastNotifyProxyProperty = DateTime.Now;
         }
 
-
+        private void OnScenegraphChanged(ScenegraphChanged message)
+        {
+            sceneSource = message.Content;
+            RebuildScenegraphNodes(sceneSource.RootNodes);
+        }
         /// <summary>
         /// Updates the currently active selected item in the graph
         /// </summary>

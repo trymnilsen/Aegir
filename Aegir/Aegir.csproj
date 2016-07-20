@@ -536,6 +536,10 @@
       <Project>{317d2c75-d643-47a2-ad18-071dabbe0e5d}</Project>
       <Name>AegirNetwork</Name>
     </ProjectReference>
+    <ProjectReference Include="..\TinyMessenger\TinyMessenger.csproj">
+      <Project>{175f52e0-a092-489d-a7d0-99c44b70e913}</Project>
+      <Name>TinyMessenger</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="File\" />

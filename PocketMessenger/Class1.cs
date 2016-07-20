@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AegirCore.Messenger
+namespace PocketMessenger
 {
-    class MessageSubscription
+    public class Class1
     {
     }
 }

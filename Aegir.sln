@@ -27,6 +27,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AegirPresets", "AegirPreset
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AegirAssets", "AegirAssets\AegirAssets.csproj", "{C502BBCC-C75E-4D36-981A-4DF1E9EE13D6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TinyMessenger", "TinyMessenger\TinyMessenger.csproj", "{175F52E0-A092-489D-A7D0-99C44B70E913}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -181,6 +183,18 @@ Global
 		{C502BBCC-C75E-4D36-981A-4DF1E9EE13D6}.Release|x64.Build.0 = Release|Any CPU
 		{C502BBCC-C75E-4D36-981A-4DF1E9EE13D6}.Release|x86.ActiveCfg = Release|Any CPU
 		{C502BBCC-C75E-4D36-981A-4DF1E9EE13D6}.Release|x86.Build.0 = Release|Any CPU
+		{175F52E0-A092-489D-A7D0-99C44B70E913}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{175F52E0-A092-489D-A7D0-99C44B70E913}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{175F52E0-A092-489D-A7D0-99C44B70E913}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{175F52E0-A092-489D-A7D0-99C44B70E913}.Debug|x64.Build.0 = Debug|Any CPU
+		{175F52E0-A092-489D-A7D0-99C44B70E913}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{175F52E0-A092-489D-A7D0-99C44B70E913}.Debug|x86.Build.0 = Debug|Any CPU
+		{175F52E0-A092-489D-A7D0-99C44B70E913}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{175F52E0-A092-489D-A7D0-99C44B70E913}.Release|Any CPU.Build.0 = Release|Any CPU
+		{175F52E0-A092-489D-A7D0-99C44B70E913}.Release|x64.ActiveCfg = Release|Any CPU
+		{175F52E0-A092-489D-A7D0-99C44B70E913}.Release|x64.Build.0 = Release|Any CPU
+		{175F52E0-A092-489D-A7D0-99C44B70E913}.Release|x86.ActiveCfg = Release|Any CPU
+		{175F52E0-A092-489D-A7D0-99C44B70E913}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

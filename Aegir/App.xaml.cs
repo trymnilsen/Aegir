@@ -1,4 +1,7 @@
 ﻿using Aegir.ViewModel;
+using Aegir.ViewModel.NodeProxy;
+using Aegir.ViewModel.Properties;
+using Aegir.ViewModel.Timeline;
 using Aegir.Windows;
 using GalaSoft.MvvmLight.Ioc;
 using log4net;
