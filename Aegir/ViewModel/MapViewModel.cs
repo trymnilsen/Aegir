@@ -1,4 +1,4 @@
-﻿using GalaSoft.MvvmLight;
+﻿using Aegir.Mvvm;
 using GalaSoft.MvvmLight.CommandWpf;
 
 namespace Aegir.ViewModel
@@ -17,7 +17,7 @@ namespace Aegir.ViewModel
                 if (value != showAll)
                 {
                     showAll = value;
-                    RaisePropertyChanged("ShowAllWaypoints");
+                    RaisePropertyChanged();
                 }
             }
         }

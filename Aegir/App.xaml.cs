@@ -37,13 +37,41 @@ namespace Aegir
         private void SetupViewModels()
         {
 
-            SimpleIoc.Default.Register<StatusBarViewModel>(true);
-            SimpleIoc.Default.Register<PropertiesViewModel>(true);
-            SimpleIoc.Default.Register<MenuStripViewModel>(true);
-            SimpleIoc.Default.Register<PlaybackViewModel>(true);
-            SimpleIoc.Default.Register<MapViewModel>(true);
-            SimpleIoc.Default.Register<ScenegraphViewModelProxy>(true);
-            SimpleIoc.Default.Register<TimelineViewModel>(true);
+            SimpleIoc.Default.Register<StatusBarViewModel>(
+                () => {
+                    return new StatusBarViewModel() { Messenger = appShell.Context.MessageHub };
+                }
+            , true);
+            SimpleIoc.Default.Register<PropertiesViewModel>(
+                () => {
+                    return new PropertiesViewModel() { Messenger = appShell.Context.MessageHub };
+                }
+            , true);
+            SimpleIoc.Default.Register<MenuStripViewModel>(
+                () => {
+                    return new MenuStripViewModel() { Messenger = appShell.Context.MessageHub };
+                }
+            , true);
+            SimpleIoc.Default.Register<PlaybackViewModel>(
+                () => {
+                    return new PlaybackViewModel() { Messenger = appShell.Context.MessageHub };
+                }
+            , true);
+            SimpleIoc.Default.Register<MapViewModel>(
+                () => {
+                    return new MapViewModel() { Messenger = appShell.Context.MessageHub };
+                }
+            , true);
+            SimpleIoc.Default.Register<ScenegraphViewModelProxy>(
+                () => {
+                    return new ScenegraphViewModelProxy() { Messenger = appShell.Context.MessageHub };
+                }
+            , true);
+            SimpleIoc.Default.Register<TimelineViewModel>(
+                () => {
+                    return new TimelineViewModel() { Messenger = appShell.Context.MessageHub };
+                }
+            , true);
         }
     }
 }

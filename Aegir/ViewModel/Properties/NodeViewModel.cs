@@ -1,5 +1,5 @@
-﻿using AegirCore.Scene;
-using GalaSoft.MvvmLight;
+﻿using Aegir.Mvvm;
+using AegirCore.Scene;
 
 namespace Aegir.ViewModel.Properties
 {

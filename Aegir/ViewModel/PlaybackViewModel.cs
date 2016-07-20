@@ -1,6 +1,6 @@
-﻿using Aegir.Util;
+﻿using Aegir.Mvvm;
+using Aegir.Util;
 using AegirCore.Keyframe;
-using GalaSoft.MvvmLight;
 
 namespace Aegir.ViewModel
 {
@@ -17,7 +17,7 @@ namespace Aegir.ViewModel
                 {
                     playMode = value;
                     DebugUtil.LogWithLocation("Setting Playmode to: " + value);
-                    RaisePropertyChanged("PlayMode");
+                    RaisePropertyChanged();
                 }
             }
         }

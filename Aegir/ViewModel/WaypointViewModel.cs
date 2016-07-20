@@ -1,4 +1,5 @@
-﻿using GalaSoft.MvvmLight;
+﻿
+using Aegir.Mvvm;
 using GalaSoft.MvvmLight.Command;
 
 namespace Aegir.ViewModel

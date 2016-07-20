@@ -1,4 +1,5 @@
-﻿using GalaSoft.MvvmLight;
+﻿
+using Aegir.Mvvm;
 
 namespace Aegir.ViewModel
 {
@@ -12,7 +13,7 @@ namespace Aegir.ViewModel
             private set
             {
                 shipName = value;
-                RaisePropertyChanged("ShipName");
+                RaisePropertyChanged();
             }
         }
 
@@ -26,7 +27,7 @@ namespace Aegir.ViewModel
                 if (value != numOfOutputs)
                 {
                     numOfOutputs = value;
-                    RaisePropertyChanged("NumOfOutputs");
+                    RaisePropertyChanged();
                 }
             }
         }

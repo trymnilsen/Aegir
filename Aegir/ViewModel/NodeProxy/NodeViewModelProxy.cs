@@ -6,12 +6,13 @@ using AegirCore.Behaviour.World;
 using AegirCore.Scene;
 using AegirNetwork;
 using AegirType;
-using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows;
 using System;
+using Aegir.Mvvm;
+using TinyMessenger;
 
 namespace Aegir.ViewModel.NodeProxy
 {

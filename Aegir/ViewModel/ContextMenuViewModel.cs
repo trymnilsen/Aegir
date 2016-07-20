@@ -1,4 +1,4 @@
-﻿using GalaSoft.MvvmLight;
+﻿using Aegir.Mvvm;
 using System.Windows.Input;
 
 namespace Aegir.ViewModel

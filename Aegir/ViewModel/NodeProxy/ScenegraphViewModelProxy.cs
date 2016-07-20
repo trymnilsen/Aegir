@@ -1,11 +1,11 @@
 ﻿using Aegir.Messages.ObjectTree;
 using Aegir.Messages.Project;
 using Aegir.Messages.Simulation;
+using Aegir.Mvvm;
 using Aegir.Util;
 using AegirCore.Entity;
 using AegirCore.Messages;
 using AegirCore.Scene;
-using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using System;
 using System.Collections.Generic;
@@ -14,7 +14,7 @@ using TinyMessenger;
 
 namespace Aegir.ViewModel.NodeProxy
 {
-    public class ScenegraphViewModelProxy : Mvvm.ViewModelBase
+    public class ScenegraphViewModelProxy : ViewModelBase
     {
         private const double NotifyPropertyUpdateRate = 333d;
         private DateTime lastNotifyProxyProperty;
@@ -65,15 +65,14 @@ namespace Aegir.ViewModel.NodeProxy
         /// <summary>
         /// Creates a new Scenegraph View Model
         /// </summary>
-        public ScenegraphViewModelProxy(ITinyMessengerHub messenger)
-            :base(messenger)
+        public ScenegraphViewModelProxy()
         {
             SelectItemViewModelChangedCommand = new RelayCommand<NodeViewModelProxy>(c => SelectedItem = c);
             RemoveItemCommand = new RelayCommand<NodeViewModelProxy>(RemoveItem);
             MoveItemCommand = new RelayCommand<NodeViewModelProxy>(MoveTo);
             SelectRawNodeChangedCommand = new RelayCommand<Node>(SetRawNodeAsSelectedItem);
 
-            messenger.Subscribe<ScenegraphChanged>(OnScenegraphChanged);
+            Messenger.Subscribe<ScenegraphChanged>(OnScenegraphChanged);
 
             //MessengerInstance.Register<ProjectActivated>(this, ProjectChanged);
             //MessengerInstance.Register<InvalidateEntities>(this, OnInvalidateEntitiesMessage);

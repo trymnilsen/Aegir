@@ -1,6 +1,6 @@
 ﻿using Aegir.Messages.ObjectTree;
+using Aegir.Mvvm;
 using Aegir.ViewModel.NodeProxy;
-using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Messaging;
 
 namespace Aegir.ViewModel.Properties
@@ -24,7 +24,7 @@ namespace Aegir.ViewModel.Properties
 
         public PropertiesViewModel()
         {
-            Messenger.Default.Register<SelectedNodeChanged>(this, OnSelectedNodeChange);
+            //Messenger.Subscribe<SelectedNodeChanged>(OnSelectedNodeChange);
         }
 
         private void OnSelectedNodeChange(SelectedNodeChanged message)

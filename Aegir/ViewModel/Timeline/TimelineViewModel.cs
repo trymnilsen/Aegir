@@ -1,8 +1,8 @@
 ﻿using Aegir.Messages.ObjectTree;
 using Aegir.Messages.Timeline;
+using Aegir.Mvvm;
 using AegirCore.Keyframe;
 using AegirCore.Scene;
-using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using log4net;
 using System.Collections.ObjectModel;
@@ -187,8 +187,8 @@ namespace Aegir.ViewModel.Timeline
         {
             TimelineStart = 0;
             TimelineEnd = 100;
-            MessengerInstance.Register<SelectedNodeChanged>(this, ActiveNodeChanged);
-            MessengerInstance.Register<ActiveTimelineChanged>(this, TimelineChanged);
+            //MessengerInstance.Register<SelectedNodeChanged>(this, ActiveNodeChanged);
+            //MessengerInstance.Register<ActiveTimelineChanged>(this, TimelineChanged);
             AddKeyframeCommand = new RelayCommand(CaptureKeyframes, CanCaptureKeyframes);
             Keyframes = new ObservableCollection<KeyframeViewModel>();
             playPauseCommand = new RelayCommand(TogglePlayPauseState);

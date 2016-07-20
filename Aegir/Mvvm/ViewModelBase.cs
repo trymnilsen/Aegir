@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GalaSoft.MvvmLight.Ioc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,10 +10,28 @@ namespace Aegir.Mvvm
 {
     public class ViewModelBase : ObservableObject
     {
-        public ITinyMessengerHub Messenger { get; private set; }
-        public ViewModelBase(ITinyMessengerHub messenger)
+        private ITinyMessengerHub messengerHub;
+
+        public ITinyMessengerHub Messenger
         {
-            Messenger = messenger;
+            get
+            {
+                if(messengerHub==null)
+                {
+                    messengerHub = 
+                        SimpleIoc.Default.GetInstance<ITinyMessengerHub>();
+                }
+                return messengerHub;
+            }
+            set
+            {
+                messengerHub = value;
+            }
+        }
+
+        public ViewModelBase()
+        {
+            
         }
     }
 }
