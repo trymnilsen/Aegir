@@ -3,7 +3,6 @@ using AegirCore.Scene;
 using log4net;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.Composition;
 using System.Threading;
 
 namespace AegirCore.Simulation
@@ -11,7 +10,6 @@ namespace AegirCore.Simulation
     /// <summary>
     /// Wrapps the functionality for simulating the entities in our simulated world
     /// </summary>
-    [Export(typeof(SimulationEngine))]
     public class SimulationEngine : IDisposable
     {
 
@@ -88,24 +86,16 @@ namespace AegirCore.Simulation
         /// <summary>
         /// Constructs a new engine instance
         /// </summary>
-        /// <param name="updatesPerSecond">The ideal updates per second wanted</param>
-        public SimulationEngine()
+        /// <param name="scene">Scenegraph to use for simulations</param>
+        public SimulationEngine(SceneGraph scene)
         {
+            this.scene = scene;
             this.simTime = new SimulationTime();
             this.simulateStepTimer = new Timer(new TimerCallback(DoSimulation), null, Timeout.Infinite, targetDeltaTime);
             updatesPerSecond = 30;
             targetDeltaTime = 1000 / updatesPerSecond;
             lastDeltaTime = targetDeltaTime;
             this.keyframeExecutor = new KeyframeEngine();
-        }
-
-        /// <summary>
-        /// Change the current scenegraph used by the simulation
-        /// </summary>
-        /// <param name="scene">new scene to use</param>
-        public void ChangeScenegraph(SceneGraph scene)
-        {
-            this.scene = scene;
         }
 
         /// <summary>
