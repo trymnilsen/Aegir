@@ -7,6 +7,8 @@ using AegirCore;
 using GalaSoft.MvvmLight.Ioc;
 using log4net;
 using System.Windows;
+using System.Windows.Threading;
+using TinyMessenger;
 
 namespace Aegir
 {
@@ -22,6 +24,8 @@ namespace Aegir
         {
             log.Debug("Starting Application");
             application = new ApplicationContext();
+            SetupViewModels();
+            //SimpleIoc.Default.Register<TinyMessengerHub>(() => { return application.MessageHub; });
         }
 
         private void Application_Startup(object sender, StartupEventArgs e)
@@ -30,7 +34,7 @@ namespace Aegir
 
         }
 
-        private void Application_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
+        private void Application_DispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
             log.FatalFormat("Fatal Error Occured in Application: \n{0}", e.Exception);
         }
@@ -65,7 +69,7 @@ namespace Aegir
             , true);
             SimpleIoc.Default.Register<ScenegraphViewModelProxy>(
                 () => {
-                    return new ScenegraphViewModelProxy() { Messenger = application.MessageHub };
+                    return new ScenegraphViewModelProxy(application.MessageHub as TinyMessengerHub);
                 }
             , true);
             SimpleIoc.Default.Register<TimelineViewModel>(

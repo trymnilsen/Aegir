@@ -1,4 +1,5 @@
-﻿using AegirCore.Persistence;
+﻿using AegirCore.Messages;
+using AegirCore.Persistence;
 using AegirCore.Persistence.Data;
 using AegirCore.Persistence.Persisters;
 using AegirCore.Project;
@@ -18,6 +19,7 @@ namespace AegirCore
         public SceneGraph Scene { get; private set; }
         public ApplicationContext()
         {
+            MessageHub = new TinyMessengerHub();
             Scene = new SceneGraph();
 
             SaveLoadHandler = new PersistenceHandler();
@@ -29,6 +31,9 @@ namespace AegirCore
         public void Init()
         {
             SaveLoadHandler.LoadDefault();
+
+            //Call changed scenegraph
+            MessageHub.Publish<ScenegraphChanged>(new ScenegraphChanged(Scene, this));
         }
     }
 }

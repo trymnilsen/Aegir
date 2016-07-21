@@ -65,13 +65,13 @@ namespace Aegir.ViewModel.NodeProxy
         /// <summary>
         /// Creates a new Scenegraph View Model
         /// </summary>
-        public ScenegraphViewModelProxy()
+        public ScenegraphViewModelProxy(TinyMessengerHub messenger)
         {
             SelectItemViewModelChangedCommand = new RelayCommand<NodeViewModelProxy>(c => SelectedItem = c);
             RemoveItemCommand = new RelayCommand<NodeViewModelProxy>(RemoveItem);
             MoveItemCommand = new RelayCommand<NodeViewModelProxy>(MoveTo);
             SelectRawNodeChangedCommand = new RelayCommand<Node>(SetRawNodeAsSelectedItem);
-
+            Messenger = messenger;
             Messenger.Subscribe<ScenegraphChanged>(OnScenegraphChanged);
 
             //MessengerInstance.Register<ProjectActivated>(this, ProjectChanged);

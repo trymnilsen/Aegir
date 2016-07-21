@@ -47,6 +47,8 @@ namespace AegirCore.Persistence.Persisters
             }
 
 
+
+
         }
         /// <summary>
         /// Serializes the current SceneGraph to an XElement

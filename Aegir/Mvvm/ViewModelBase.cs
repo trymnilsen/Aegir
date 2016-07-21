@@ -16,11 +16,6 @@ namespace Aegir.Mvvm
         {
             get
             {
-                if(messengerHub==null)
-                {
-                    messengerHub = 
-                        SimpleIoc.Default.GetInstance<ITinyMessengerHub>();
-                }
                 return messengerHub;
             }
             set
