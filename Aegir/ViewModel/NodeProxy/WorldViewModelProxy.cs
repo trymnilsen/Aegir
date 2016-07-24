@@ -30,8 +30,8 @@ namespace Aegir.ViewModel.NodeProxy
             }
         }
 
-        public WorldViewModelProxy(World world)
-            : base(world)
+        public WorldViewModelProxy(World world, IScenegraphAddRemoveHandler addRemoveHandler)
+            : base(world, addRemoveHandler)
         {
             this.world = world;
         }

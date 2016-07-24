@@ -1,4 +1,5 @@
-﻿using AegirCore.Mesh;
+﻿using AegirCore.Asset;
+using AegirCore.Mesh;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,11 +10,11 @@ namespace AegirCore.Behaviour.Mesh
 {
     public class MeshChangedArgs
     {
-        public MeshData Old { get; private set; }
-        public MeshData New { get; private set; }
+        public MeshDataAssetReference Old { get; private set; }
+        public MeshDataAssetReference New { get; private set; }
         public MeshChangeAction Action { get; private set; }
     
-        public MeshChangedArgs(MeshData oldMesh, MeshData newMesh, MeshChangeAction action)
+        public MeshChangedArgs(MeshDataAssetReference oldMesh, MeshDataAssetReference newMesh, MeshChangeAction action)
         {
             Old = oldMesh;
             New = newMesh;

@@ -220,6 +220,8 @@
     <Compile Include="Rendering\RenderItemListener.cs" />
     <Compile Include="Rendering\Camera\ViewportCameraController.cs" />
     <Compile Include="ViewModel\NodeProxy\GeoidViewModelProxy.cs" />
+    <Compile Include="ViewModel\NodeProxy\IScenegraphAddRemoveHandler.cs" />
+    <Compile Include="ViewModel\NodeProxy\NodeTypeStringConstants.cs" />
     <Compile Include="View\Rendering\Tool\EventableBindableRotateManipulator.cs" />
     <Compile Include="View\Rendering\Tool\EventableBindableScaleManipulator.cs" />
     <Compile Include="View\Rendering\Tool\EventableBindableTranslateManipulator.cs" />

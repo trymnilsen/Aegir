@@ -13,6 +13,7 @@ using System.Windows;
 using System;
 using Aegir.Mvvm;
 using TinyMessenger;
+using System.Diagnostics;
 
 namespace Aegir.ViewModel.NodeProxy
 {
@@ -219,7 +220,9 @@ namespace Aegir.ViewModel.NodeProxy
                 return WorldTranslateZ;
             }
         }
-
+        public RelayCommand RemoveNodeCommand { get; set; }
+        public RelayCommand<string> AddNodeCommand { get; set; }
+        public IScenegraphAddRemoveHandler AddRemoveHandler { get; set; }
         //public double WorldRotationYaw
         //{
         //    get { }
@@ -228,14 +231,17 @@ namespace Aegir.ViewModel.NodeProxy
         /// Creates a new proxy node
         /// </summary>
         /// <param name="nodeData">The node to proxy</param>
-        public NodeViewModelProxy(Node nodeData)
+        public NodeViewModelProxy(Node nodeData, IScenegraphAddRemoveHandler addRemoveHandler)
         {
+            this.AddRemoveHandler = addRemoveHandler;
             this.nodeData = nodeData;
             this.children = new List<NodeViewModelProxy>();
             //All nodes should have a transform behaviour
             transform = nodeData.GetComponent<TransformBehaviour>();
 
             ShowOutputCommand = new RelayCommand(ShowOutput);
+            AddNodeCommand = new RelayCommand<string>(AddNode);
+            RemoveNodeCommand = new RelayCommand(DoRemoveNode);
         }
 
         public T GetNodeComponent<T>()
@@ -243,7 +249,16 @@ namespace Aegir.ViewModel.NodeProxy
         {
             return nodeData.GetComponent<T>();
         }
-
+        private void DoRemoveNode()
+        {
+            AddRemoveHandler?.Remove(this);
+            Debug.WriteLine("Removing node");
+        }
+        private void AddNode(string type)
+        {
+            AddRemoveHandler?.Add(type);
+            Debug.WriteLine("Adding Node: " + type);
+        }
         private void ShowOutput()
         {
             if (outputWindow != null)

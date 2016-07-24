@@ -34,10 +34,10 @@
                   <W>0</W>
                 </Quaternion>
               </TransformBehaviour>
+              <MeshBehaviour>
+                <MeshDataReference>mesh://file/Mesh/hull.obj</MeshDataReference>
+              </MeshBehaviour>
             </Components>
-            <MeshBehaviour>
-              <MeshDataReference>mesh://file/Mesh/hull.obj</MeshDataReference>
-            </MeshBehaviour>
             <Children />
           </Node>
         </Children>

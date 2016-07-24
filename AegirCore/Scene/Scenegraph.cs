@@ -3,6 +3,7 @@ using System.Xml.Serialization;
 using System.Xml;
 using System;
 using AegirCore.Behaviour;
+using TinyMessenger;
 
 namespace AegirCore.Scene
 {
@@ -11,6 +12,8 @@ namespace AegirCore.Scene
     {
         public ObservableCollection<Node> RootNodes { get; set; }
         public IWorldScale Scale { get; private set; }
+        public ITinyMessengerHub Messenger { get; private set; }
+           
         public SceneGraph()
         {
             RootNodes = new ObservableCollection<Node>();
@@ -21,6 +24,10 @@ namespace AegirCore.Scene
             {
                 InitNode(rootNode);
             }
+        }
+        public void AddNode(Node nodeToAdd, Node parentNode = null)
+        {
+
         }
         private void InitNode(Node node)
         {
@@ -33,6 +40,8 @@ namespace AegirCore.Scene
                 InitNode(child);
             }
         }
+
+
 
         public delegate void GraphChangedHandler();
         public event GraphChangedHandler GraphChanged;

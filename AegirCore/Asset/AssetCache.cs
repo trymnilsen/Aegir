@@ -11,6 +11,21 @@ namespace AegirCore.Asset
 {
     public class AssetCache
     {
+        private static AssetCache instance;
+
+        public static AssetCache DefaultInstance
+        {
+            get { return instance; }
+            set
+            {
+                if(instance != null)
+                {
+                    throw new InvalidOperationException("Cannot set Instance once it has been set");
+                }
+                instance = value;
+            }
+        }
+
         //Uri-Schemes
         public const string MeshScheme = "mesh";
         //Uri-Types
@@ -89,13 +104,17 @@ namespace AegirCore.Asset
         }
         private static StreamReader ReadFromFile(Uri uri)
         {
-            if(!File.Exists(uri.AbsolutePath))
+            //Get path 
+            //1. (with filepath slashes replaced with windows slashes)
+            //2. Remove leading slash
+            string relPath = uri.AbsolutePath.Replace('/','\\').Substring(1);
+            if(!File.Exists(relPath))
             {
-                string fullFilePath = Environment.CurrentDirectory + uri.AbsolutePath;
+                string fullFilePath = Environment.CurrentDirectory + relPath;
                 throw new AssetNotFoundException(
-                    $"Asset with Uri '{uri}' was not found, full path '{fullFilePath}'");
+                    $"Asset with Uri '{uri}' was not found, full path '{fullFilePath}', relative path '{relPath}'");
             }
-            StreamReader reader = new StreamReader(uri.AbsolutePath);
+            StreamReader reader = new StreamReader(relPath);
             return reader;
         }
         private static StreamReader ReadFromAssembly(Uri uri)

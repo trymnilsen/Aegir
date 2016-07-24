@@ -42,13 +42,13 @@ namespace AegirCore.Entity
         }
         private void UpdateHullModel(MeshData data)
         {
-            if (data == hullModel) return;
+            //if (data == hullModel) return;
 
-            MeshBehaviour renderBehaviour = GetComponent<MeshBehaviour>();
-            if(renderBehaviour != null)
-            {
-                renderBehaviour.Mesh = data;
-            }
+            //MeshBehaviour renderBehaviour = GetComponent<MeshBehaviour>();
+            //if(renderBehaviour != null)
+            //{
+            //    renderBehaviour.Mesh = data;
+            //}
         }
     }
 }

@@ -14,7 +14,7 @@ using TinyMessenger;
 
 namespace Aegir.ViewModel.NodeProxy
 {
-    public class ScenegraphViewModelProxy : ViewModelBase
+    public class ScenegraphViewModelProxy : ViewModelBase, IScenegraphAddRemoveHandler
     {
         private const double NotifyPropertyUpdateRate = 333d;
         private DateTime lastNotifyProxyProperty;
@@ -219,17 +219,17 @@ namespace Aegir.ViewModel.NodeProxy
         {
             if (n.GetType() == typeof(Vessel))
             {
-                return new VesselViewModelProxy(n as Vessel);
+                return new VesselViewModelProxy(n as Vessel, this);
             }
             if (n.GetType() == typeof(World))
             {
-                return new WorldViewModelProxy(n as World);
+                return new WorldViewModelProxy(n as World, this);
             }
             if(n.GetType() == typeof(Geoid))
             {
-                return new GeoidViewModelProxy(n as Geoid);
+                return new GeoidViewModelProxy(n as Geoid, this);
             }
-            return new NodeViewModelProxy(n);
+            return new NodeViewModelProxy(n, this);
         }
 
         /// <summary>
@@ -254,6 +254,16 @@ namespace Aegir.ViewModel.NodeProxy
             {
                 ChangeEvent();
             }
+        }
+
+        public void Remove(NodeViewModelProxy node)
+        {
+            
+        }
+
+        public void Add(string type)
+        {
+            
         }
 
         public delegate void InvalidateChildrenHandler();

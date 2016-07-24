@@ -182,11 +182,11 @@ namespace Aegir.Rendering
                     break;
 
                 case MeshChangeAction.Remove:
-                    RemoveMesh(eventArgs.Old);
+                    //RemoveMesh(eventArgs.Old);
                     break;
 
                 case MeshChangeAction.Change:
-                    ChangeMesh(source, eventArgs.Old);
+                    ChangeMesh(source, eventArgs.Old.Data);
                     break;
 
                 default:
@@ -207,7 +207,7 @@ namespace Aegir.Rendering
 
             if (transform != null)
             {
-                RenderItem newMeshItem = new RenderItem(meshFactory, mesh.Mesh, transform);
+                RenderItem newMeshItem = new RenderItem(meshFactory, mesh.Mesh.Data, transform);
                 AddToViewports(newMeshItem);
             }
             else

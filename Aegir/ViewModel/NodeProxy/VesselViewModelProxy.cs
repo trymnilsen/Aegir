@@ -129,8 +129,8 @@ namespace Aegir.ViewModel.NodeProxy
             set { lerpMode = value; }
         }
 
-        public VesselViewModelProxy(Vessel vessel)
-            : base(vessel)
+        public VesselViewModelProxy(Vessel vessel, IScenegraphAddRemoveHandler addRemoveHandler)
+            : base(vessel, addRemoveHandler)
         {
             navBehaviour = vessel.GetComponent<VesselNavigationBehaviour>();
             //floatMeshBehaviour = vessel.GetComponent<FloatingMesh>();

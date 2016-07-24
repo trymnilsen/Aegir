@@ -20,7 +20,7 @@ namespace Aegir.ViewModel.NodeProxy
             set { geoidHeightOffset = value; }
         }
 
-        public GeoidViewModelProxy(Geoid geoid) : base(geoid)
+        public GeoidViewModelProxy(Geoid geoid, IScenegraphAddRemoveHandler removeHandler) : base(geoid, removeHandler)
         {
 
         }
