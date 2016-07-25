@@ -90,8 +90,7 @@ namespace Aegir.View.Rendering
                 ));
 
         private ManipulatorGizmo topGizmo;
-        //private ManipulatorGizmo perspectiveGizmo;
-        private ManipulatorGizmo perspectiveGizmo2;
+        private ManipulatorGizmo perspectiveGizmo;
         private ManipulatorGizmo rightGizmo;
         private ManipulatorGizmo frontGizmo;
         private ManipulatorGizmoTransformHandler gizmoHandler;
@@ -109,9 +108,15 @@ namespace Aegir.View.Rendering
             gizmoHandler = new ManipulatorGizmoTransformHandler();
 
             //Add Tools
+            //Gizmos are added to their relating overlay viewport
+            //As we have no way of turning on of Z-depth testing we work around
+            //by adding the gizmos to the overlay.. A workaround for making the
+            //work around work is needed when it comes to mouse events
+            //See "PerspectiveViewport_MouseDown" below 
+            //Perhaps this is another reason to switch to SharpDX (Having it all
+            //in the same viewport and not doing Z-tests in shader)?
             topGizmo = new ManipulatorGizmo(TopViewport, gizmoHandler);
-            //perspectiveGizmo = new ManipulatorGizmo(PerspectiveViewport, gizmoHandler);
-            perspectiveGizmo2 = new ManipulatorGizmo(PerspectiveOverlay, gizmoHandler);
+            perspectiveGizmo = new ManipulatorGizmo(PerspectiveOverlay, gizmoHandler);
             rightGizmo = new ManipulatorGizmo(RightViewport, gizmoHandler);
             frontGizmo = new ManipulatorGizmo(FrontViewport, gizmoHandler);
 
@@ -223,7 +228,21 @@ namespace Aegir.View.Rendering
 
             }
         }
-
+        /// <summary>
+        /// We listen for mouse events on the viewport
+        /// 
+        /// We get the mouseevents for the perspective (not overlay) viewport
+        /// But since they have the same size the events are also usable for the overlay
+        /// We check if our 2d X/Y mouse coords are hitting the manipulators in that
+        /// viewport and if they are we forward the mousevent to them, allowing them to
+        /// get mouseevents despite of the hittest being set to false
+        /// 
+        /// This enables us to both use the manipulators with the mouse in the overlay
+        /// as well as having mouseevents in the perspective viewport for selecting,
+        /// paning, rotating the camera etc..
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void PerspectiveViewport_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.ChangedButton == MouseButton.Left)
