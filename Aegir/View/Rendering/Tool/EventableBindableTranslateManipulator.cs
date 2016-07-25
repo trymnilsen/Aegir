@@ -11,12 +11,20 @@ namespace Aegir.View.Rendering.Tool
 {
     public class EventableBindableTranslateManipulator : BindableTranslateManipulator, IEventableManipulator
     {
+        public EventableBindableTranslateManipulator()
+        {
+
+        }
         protected override void OnMouseUp(MouseButtonEventArgs e)
         {
             base.OnMouseUp(e);
             TriggerTranslateFinished();
         }
 
+        public void RaiseMouseDown(MouseButtonEventArgs e)
+        {
+            OnMouseDown(e);
+        }
         private void TriggerTranslateFinished()
         {
             ManipulationFinishedHandler evt = ManipulationFinished;

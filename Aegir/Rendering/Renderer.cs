@@ -107,6 +107,11 @@ namespace Aegir.Rendering
             if (renderBehaviour != null)
             {
                 renderBehaviour.MeshChanged += RenderBehaviour_MeshChanged;
+                //If we already have a mesh, add it to the viewport
+                if(renderBehaviour?.Mesh?.Data != null)
+                {
+                    AddMesh(renderBehaviour);
+                }
             }
             else
             {

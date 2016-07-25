@@ -73,7 +73,7 @@ namespace Aegir.ViewModel.NodeProxy
             SelectRawNodeChangedCommand = new RelayCommand<Node>(SetRawNodeAsSelectedItem);
             Messenger = messenger;
             Messenger.Subscribe<ScenegraphChanged>(OnScenegraphChanged);
-
+            Messenger.Subscribe<InvalidateEntity>(OnInvalidateEntitiesMessage);
             //MessengerInstance.Register<ProjectActivated>(this, ProjectChanged);
             //MessengerInstance.Register<InvalidateEntities>(this, OnInvalidateEntitiesMessage);
             //MessengerInstance.Register<ProjectActivated>(this, OnProjectActivated);
@@ -82,10 +82,25 @@ namespace Aegir.ViewModel.NodeProxy
             lastNotifyProxyProperty = DateTime.Now;
         }
 
+        private void OnInvalidateEntitiesMessage(InvalidateEntity node)
+        {
+            DateTime now = DateTime.Now;
+            double timeDifference = (now - lastNotifyProxyProperty).TotalMilliseconds;
+            if (timeDifference > NotifyPropertyUpdateRate)
+            {
+                lastNotifyProxyProperty = now;
+                foreach (NodeViewModelProxy nodeProxy in Items)
+                {
+                    nodeProxy.Invalidate();
+                }
+            }
+            TriggerInvalidateChildren();
+        }
+
         private void OnScenegraphChanged(ScenegraphChanged message)
         {
             sceneSource = message.Content;
-            RebuildScenegraphNodes(sceneSource.RootNodes);
+            SceneSource_GraphChanged();
         }
         /// <summary>
         /// Updates the currently active selected item in the graph
@@ -146,17 +161,7 @@ namespace Aegir.ViewModel.NodeProxy
         /// <param name="message"></param>
         public void OnInvalidateEntitiesMessage(InvalidateEntities message)
         {
-            DateTime now = DateTime.Now;
-            double timeDifference = (now - lastNotifyProxyProperty).TotalMilliseconds;
-            if (timeDifference > NotifyPropertyUpdateRate)
-            {
-                lastNotifyProxyProperty = now;
-                foreach (NodeViewModelProxy nodeProxy in Items)
-                {
-                    nodeProxy.Invalidate();
-                }
-            }
-            TriggerInvalidateChildren();
+
         }
 
         /// <summary>

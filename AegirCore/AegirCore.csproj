@@ -134,6 +134,7 @@
     <Compile Include="Entity\World.cs" />
     <Compile Include="Entity\WaterSegment.cs" />
     <Compile Include="Mesh\Grid\TileGrid3D.cs" />
+    <Compile Include="Messages\InvalidateEntity.cs" />
     <Compile Include="Messages\ScenegraphChanged.cs" />
     <Compile Include="Output\OutputData.cs" />
     <Compile Include="Output\OutputManager.cs" />

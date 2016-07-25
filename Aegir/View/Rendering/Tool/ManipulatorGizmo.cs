@@ -10,6 +10,7 @@ using System.Windows;
 using System.Windows.Media.Media3D;
 using System.Windows.Data;
 using Aegir.Util;
+using System.Windows.Input;
 
 namespace Aegir.View.Rendering.Tool
 {
@@ -112,6 +113,11 @@ namespace Aegir.View.Rendering.Tool
         private void Transform_Changed(object sender, EventArgs e)
         {
             System.Diagnostics.Debug.WriteLine("Transform Changed");
+        }
+
+        internal void MouseDown(MouseButtonEventArgs e)
+        {
+            XTranslator.RaiseMouseDown(e);
         }
     }
 }

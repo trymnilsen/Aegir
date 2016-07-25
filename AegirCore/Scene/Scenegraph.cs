@@ -12,7 +12,7 @@ namespace AegirCore.Scene
     {
         public ObservableCollection<Node> RootNodes { get; set; }
         public IWorldScale Scale { get; private set; }
-        public ITinyMessengerHub Messenger { get; private set; }
+        public ITinyMessengerHub Messenger { get; set; }
            
         public SceneGraph()
         {
@@ -24,6 +24,8 @@ namespace AegirCore.Scene
             {
                 InitNode(rootNode);
             }
+
+            GraphInitialized?.Invoke();
         }
         public void AddNode(Node nodeToAdd, Node parentNode = null)
         {
@@ -45,5 +47,6 @@ namespace AegirCore.Scene
 
         public delegate void GraphChangedHandler();
         public event GraphChangedHandler GraphChanged;
+        public event GraphChangedHandler GraphInitialized;
     }
 }

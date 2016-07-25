@@ -24,19 +24,27 @@ namespace AegirCore
             AssetCache.DefaultInstance = new AssetCache();
             MessageHub = new TinyMessengerHub();
             Scene = new SceneGraph();
-
+            Scene.Messenger = MessageHub;
             SaveLoadHandler = new PersistenceHandler();
             //Adding specific persisters
             SaveLoadHandler.AddPersister(new ScenePersister() { Graph = Scene });
             //Set up Engine
             Engine = new SimulationEngine(Scene);
+            Engine.Messenger = MessageHub;
         }
         public void Init()
         {
+            Scene.Init();
+
             SaveLoadHandler.LoadDefault();
 
             //Call changed scenegraph
             MessageHub.Publish<ScenegraphChanged>(new ScenegraphChanged(Scene, this));
+
+            if(!Engine.IsStarted)
+            {
+                Engine.Start();
+            }
 
             //Init the scenegraph
 

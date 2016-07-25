@@ -1,9 +1,11 @@
 ﻿using AegirCore.Keyframe;
+using AegirCore.Messages;
 using AegirCore.Scene;
 using log4net;
 using System;
 using System.Collections.Generic;
 using System.Threading;
+using TinyMessenger;
 
 namespace AegirCore.Simulation
 {
@@ -44,7 +46,7 @@ namespace AegirCore.Simulation
         private SceneGraph scene;
 
         private KeyframeEngine keyframeExecutor;
-
+        public ITinyMessengerHub Messenger { get; set; }
         public KeyframeEngine KeyframeEngine
         {
             get { return keyframeExecutor; }
@@ -216,6 +218,7 @@ namespace AegirCore.Simulation
             {
                 stepFinishedEvent();
             }
+            Messenger?.Publish<InvalidateEntity>(new InvalidateEntity(this, null));
         }
 
         public delegate void SimulationStepFinishedHandler();

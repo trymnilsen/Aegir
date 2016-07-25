@@ -90,7 +90,8 @@ namespace Aegir.View.Rendering
                 ));
 
         private ManipulatorGizmo topGizmo;
-        private ManipulatorGizmo perspectiveGizmo;
+        //private ManipulatorGizmo perspectiveGizmo;
+        private ManipulatorGizmo perspectiveGizmo2;
         private ManipulatorGizmo rightGizmo;
         private ManipulatorGizmo frontGizmo;
         private ManipulatorGizmoTransformHandler gizmoHandler;
@@ -109,7 +110,8 @@ namespace Aegir.View.Rendering
 
             //Add Tools
             topGizmo = new ManipulatorGizmo(TopViewport, gizmoHandler);
-            perspectiveGizmo = new ManipulatorGizmo(PerspectiveViewport, gizmoHandler);
+            //perspectiveGizmo = new ManipulatorGizmo(PerspectiveViewport, gizmoHandler);
+            perspectiveGizmo2 = new ManipulatorGizmo(PerspectiveOverlay, gizmoHandler);
             rightGizmo = new ManipulatorGizmo(RightViewport, gizmoHandler);
             frontGizmo = new ManipulatorGizmo(FrontViewport, gizmoHandler);
 
@@ -217,6 +219,27 @@ namespace Aegir.View.Rendering
                 {
                     Node node = renderHandler.ResolveVisualToNode(viewport, firstHit.Visual);
                     SceneNodeClickedCommand.Execute(node);
+                }
+
+            }
+        }
+
+        private void PerspectiveViewport_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+            {
+                HelixViewport3D viewport = PerspectiveOverlay;
+                Viewport3DHelper.HitResult firstHit = viewport.Viewport
+                                                              .FindHits(e.GetPosition(viewport))
+                                                              .FirstOrDefault();
+
+                if (firstHit != null)
+                {
+                    var element = firstHit.Visual as EventableBindableTranslateManipulator;
+                    if(element!=null)
+                    {
+                        element.RaiseMouseDown(e);
+                    }
                 }
 
             }

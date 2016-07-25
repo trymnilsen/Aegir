@@ -165,6 +165,8 @@
                 </ModelVisual3D>-->
                 <ht:DefaultLights></ht:DefaultLights>
             </ht:HelixViewport3D>
+            <!--ZDepthWorkaroundFixViewPort-->
+
             <!--Toggle Button-->
             <StackPanel Orientation="Horizontal">
                 <ToggleButton x:Name="TopLeftLabel" Content="Top" Style="{StaticResource ViewButtonStyle}">
@@ -198,6 +200,7 @@
             <ht:HelixViewport3D x:Name="PerspectiveViewport"
                                 IsRotationEnabled="True" 
                                 ShowFrameRate="True" 
+                                MouseDown="PerspectiveViewport_MouseDown"
                                 Camera="{ht:PerspectiveCamera 43.11,-74.67,49.78}">
                 <ht:HelixViewport3D.RotateGesture>
                     <MouseGesture MouseAction="MiddleClick" Modifiers="Ctrl"></MouseGesture>
@@ -222,6 +225,20 @@
                 </ModelVisual3D>-->
                 <ht:DefaultLights></ht:DefaultLights>
             </ht:HelixViewport3D>
+            <local:SynchedHelixViewport3D x:Name="PerspectiveOverlay" 
+                                IsRotationEnabled="False"
+                                IsPanEnabled="False"
+                                IsHitTestVisible="False"
+                                Background="{x:Null}"
+                                IsMoveEnabled="False"
+                                          
+                                IsZoomEnabled="False"
+                                IsTouchZoomEnabled="False"
+                                IsHeadLightEnabled="False" 
+                                ViewportCamera="{Binding ElementName=PerspectiveViewport, Path=Camera}"
+                                >
+                <ht:DefaultLights></ht:DefaultLights>
+            </local:SynchedHelixViewport3D>
             <ToggleButton x:Name="TopRightLabel" Content="Perspective" Style="{StaticResource ViewButtonStyle}">
                 <ToggleButton.ContextMenu>
                     <ContextMenu>

@@ -219,6 +219,7 @@
     <Compile Include="Rendering\RenderingMode.cs" />
     <Compile Include="Rendering\RenderItemListener.cs" />
     <Compile Include="Rendering\Camera\ViewportCameraController.cs" />
+    <Compile Include="View\Rendering\SynchedHelixViewport3D.cs" />
     <Compile Include="ViewModel\NodeProxy\GeoidViewModelProxy.cs" />
     <Compile Include="ViewModel\NodeProxy\IScenegraphAddRemoveHandler.cs" />
     <Compile Include="ViewModel\NodeProxy\NodeTypeStringConstants.cs" />
