@@ -139,8 +139,10 @@
                         <MenuItem Header="Circle"></MenuItem>
                         <MenuItem Header="Polygon"></MenuItem>
                         <Separator></Separator>
-                        <MenuItem Header="Translate"></MenuItem>
-                        <MenuItem Header="Rotate"></MenuItem>
+                        <MenuItem Header="Translate" Click="MenuItem_Click"></MenuItem>
+                        <MenuItem Header="Rotate" Click="MenuItem_Click_1"></MenuItem>
+                        <MenuItem Header="None" Click="MenuItem_Click_2"></MenuItem>
+                        <Separator></Separator>
                         <MenuItem Header="Transform Space">
                             <MenuItem Header="Local"></MenuItem>
                             <MenuItem Header="World"></MenuItem>

@@ -263,5 +263,21 @@ namespace Aegir.View.Rendering
 
             }
         }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            gizmoHandler.GizmoMode = GizmoMode.Translate;
+            
+        }
+
+        private void MenuItem_Click_1(object sender, RoutedEventArgs e)
+        {
+            gizmoHandler.GizmoMode = GizmoMode.Rotate;
+        }
+
+        private void MenuItem_Click_2(object sender, RoutedEventArgs e)
+        {
+            gizmoHandler.GizmoMode = GizmoMode.None;
+        }
     }
 }

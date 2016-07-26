@@ -286,7 +286,7 @@
       <DependentUpon>RenderView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Rendering\Tool\GizmoMode.cs" />
-    <Compile Include="View\Rendering\TransformMode.cs" />
+    <Compile Include="View\Rendering\TransformDelayMode.cs" />
     <Compile Include="View\Rendering\SceneClickHandler.cs" />
     <Compile Include="View\Rendering\ViewportFocus.cs" />
     <Compile Include="View\Sidebar.xaml.cs">

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Aegir.View.Rendering
 {
-    public enum TransformMode
+    public enum TransformDelayMode
     {
         Immediate,
         Delayed
