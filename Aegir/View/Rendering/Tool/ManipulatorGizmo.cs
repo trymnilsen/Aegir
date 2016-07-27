@@ -129,8 +129,9 @@ namespace Aegir.View.Rendering.Tool
             //X
             XRotation = new EventableBindableRotateManipulator();
             XRotation.Axis = new Vector3D(1, 0, 0);
-            XRotation.Diameter = 20;
-            XRotation.InnerDiameter = 15;
+            XRotation.Diameter = 21;
+            XRotation.InnerDiameter = 16;
+            XRotation.Length = 2;
             XRotation.Color = Color.FromRgb(255, 0, 0);
             BindingHelper.BindProperty(nameof(Target.RotationX),
                 Target,
@@ -145,8 +146,9 @@ namespace Aegir.View.Rendering.Tool
             //Y
             YRotation = new EventableBindableRotateManipulator();
             YRotation.Axis = new Vector3D(0, 1, 0);
-            YRotation.Diameter = 20;
-            YRotation.InnerDiameter = 15;
+            YRotation.Diameter = 19;
+            YRotation.InnerDiameter = 14;
+            YRotation.Length = 2;
             YRotation.Color = Color.FromRgb(0, 255, 0);
             BindingHelper.BindProperty(nameof(Target.RotationY),
                 Target,
@@ -162,6 +164,7 @@ namespace Aegir.View.Rendering.Tool
             ZRotation = new EventableBindableRotateManipulator();
             ZRotation.Axis = new Vector3D(0, 0, 1);
             ZRotation.Diameter = 20;
+            ZRotation.Length = 2;
             ZRotation.InnerDiameter = 15;
             ZRotation.Color = Color.FromRgb(0, 0, 255);
             BindingHelper.BindProperty(nameof(Target.RotationZ),

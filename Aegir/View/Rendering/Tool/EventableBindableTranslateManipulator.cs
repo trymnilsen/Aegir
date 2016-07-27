@@ -9,7 +9,7 @@ using System.Windows.Input;
 
 namespace Aegir.View.Rendering.Tool
 {
-    public class EventableBindableTranslateManipulator : BindableTranslateManipulator, IEventableManipulator
+    public class EventableBindableTranslateManipulator : BindableTranslateManipulator, IEventableManipulator, IMouseDownManipulator
     {
         public EventableBindableTranslateManipulator()
         {

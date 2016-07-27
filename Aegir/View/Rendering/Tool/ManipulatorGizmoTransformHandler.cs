@@ -158,7 +158,7 @@ namespace Aegir.View.Rendering.Tool
             get
             {
                 var quaternionFromRot = AegirType.Quaternion
-                                            .CreateFromYawPitchRoll((float)RotationX * (float)Math.PI/180f, (float)RotationY * (float)Math.PI / 180f, (float)RotationZ * (float)Math.PI / 180f);
+                                            .CreateFromYawPitchRoll((float)RotationY * (float)Math.PI / 180f, (float)RotationX * (float)Math.PI / 180f, (float)RotationZ * (float)Math.PI / 180f);
                 Quaternion q = new Quaternion(quaternionFromRot.X, quaternionFromRot.Y, quaternionFromRot.Z, quaternionFromRot.W);
                 QuaternionRotation3D qRot = new QuaternionRotation3D(q);
                 return new RotateTransform3D(qRot);

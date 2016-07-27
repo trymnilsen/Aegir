@@ -254,7 +254,7 @@ namespace Aegir.View.Rendering
 
                 if (firstHit != null)
                 {
-                    var element = firstHit.Visual as EventableBindableTranslateManipulator;
+                    var element = firstHit.Visual as IMouseDownManipulator;
                     if(element!=null)
                     {
                         element.RaiseMouseDown(e);

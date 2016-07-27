@@ -82,14 +82,6 @@
       <HintPath>..\packages\GMap.NET.Presentation.1.7.1\lib\net40\GMap.NET.WindowsPresentation.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="HelixToolkit, Version=2015.1.715.0, Culture=neutral, PublicKeyToken=52aa3500039caf0d, processorArchitecture=MSIL">
-      <HintPath>..\packages\HelixToolkit.2015.1.715\lib\portable-net4+sl4+wp71+win8\HelixToolkit.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="HelixToolkit.Wpf, Version=2015.1.715.0, Culture=neutral, PublicKeyToken=52aa3500039caf0d, processorArchitecture=MSIL">
-      <HintPath>..\packages\HelixToolkit.Wpf.2015.1.715\lib\net45\HelixToolkit.Wpf.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="log4net, Version=1.2.15.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <HintPath>..\packages\log4net.2.0.5\lib\net45-full\log4net.dll</HintPath>
       <Private>True</Private>
@@ -227,6 +219,7 @@
     <Compile Include="View\Rendering\Tool\EventableBindableScaleManipulator.cs" />
     <Compile Include="View\Rendering\Tool\EventableBindableTranslateManipulator.cs" />
     <Compile Include="View\Rendering\Tool\IEventableManipulator.cs" />
+    <Compile Include="View\Rendering\Tool\IMouseDownManipulator.cs" />
     <Compile Include="View\Rendering\Tool\ManipulatorFinishedEventArgs.cs" />
     <Compile Include="Rendering\ViewportRenderer.cs" />
     <Compile Include="Rendering\Visual\IVisualProvider.cs" />
@@ -537,6 +530,14 @@
     <ProjectReference Include="..\AegirNetwork\AegirNetwork.csproj">
       <Project>{317d2c75-d643-47a2-ad18-071dabbe0e5d}</Project>
       <Name>AegirNetwork</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HelixToolkit.Wpf\HelixToolkit.Wpf.csproj">
+      <Project>{3f3b4548-a9db-4874-86f7-e7c4fec8a351}</Project>
+      <Name>HelixToolkit.Wpf</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HelixToolkit\HelixToolkit.csproj">
+      <Project>{7c0e987e-cc34-4b19-ba6b-b381aeabb530}</Project>
+      <Name>HelixToolkit</Name>
     </ProjectReference>
     <ProjectReference Include="..\TinyMessenger\TinyMessenger.csproj">
       <Project>{175f52e0-a092-489d-a7d0-99c44b70e913}</Project>
