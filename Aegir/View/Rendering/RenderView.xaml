@@ -203,6 +203,7 @@
                                 IsRotationEnabled="True" 
                                 ShowFrameRate="True" 
                                 MouseDown="PerspectiveViewport_MouseDown"
+                                MouseUp="PerspectiveViewport_MouseUp"
                                 Camera="{ht:PerspectiveCamera 43.11,-74.67,49.78}">
                 <ht:HelixViewport3D.RotateGesture>
                     <MouseGesture MouseAction="MiddleClick" Modifiers="Ctrl"></MouseGesture>
@@ -212,7 +213,7 @@
                                MapCamera="{Binding ElementName=PerspectiveViewport, Path=CameraController}">
 
                 </map:MapGridVisual>
-                <!--<ht:MeshGeometryVisual3D>
+                <!--<ht:MeshGeomerytVisual3D>
                     <ht:MeshGeometryVisual3D.MeshGeometry>
                         <MeshGeometry3D x:Name="meshMain"
                                 Positions="0 0 0  1 0 0  0 1 0  1 1 0  0 0 1  1 0 1  0 1 1  1 1 1"

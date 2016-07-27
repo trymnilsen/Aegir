@@ -33,6 +33,12 @@ namespace Aegir.View.Rendering.Tool
                 evt(new ManipulatorFinishedEventArgs());
             }
         }
+
+        public void RaiseMouseUp(MouseButtonEventArgs e)
+        {
+            OnMouseUp(e);
+        }
+
         public event ManipulationFinishedHandler ManipulationFinished;
 
     }

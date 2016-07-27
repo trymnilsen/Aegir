@@ -279,5 +279,26 @@ namespace Aegir.View.Rendering
         {
             gizmoHandler.GizmoMode = GizmoMode.None;
         }
+
+        private void PerspectiveViewport_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+            {
+                HelixViewport3D viewport = PerspectiveOverlay;
+                Viewport3DHelper.HitResult firstHit = viewport.Viewport
+                                                              .FindHits(e.GetPosition(viewport))
+                                                              .FirstOrDefault();
+
+                if (firstHit != null)
+                {
+                    var element = firstHit.Visual as IMouseDownManipulator;
+                    if (element != null)
+                    {
+                        element.RaiseMouseUp(e);
+                    }
+                }
+
+            }
+        }
     }
 }
