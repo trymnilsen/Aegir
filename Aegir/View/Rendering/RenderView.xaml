@@ -199,15 +199,10 @@
                     <Setter Property="Grid.Column" Value="1" />
                 </Style>
             </Grid.Style>
-            <ht:HelixViewport3D x:Name="PerspectiveViewport"
+            <local:SynchedHelixViewport3D x:Name="PerspectiveViewport"
                                 IsRotationEnabled="True" 
-                                ShowFrameRate="True" 
-                                MouseDown="PerspectiveViewport_MouseDown"
-                                MouseUp="PerspectiveViewport_MouseUp"
-                                Camera="{ht:PerspectiveCamera 43.11,-74.67,49.78}">
-                <ht:HelixViewport3D.RotateGesture>
-                    <MouseGesture MouseAction="MiddleClick" Modifiers="Ctrl"></MouseGesture>
-                </ht:HelixViewport3D.RotateGesture>
+                                ViewportCamera="{Binding ElementName=PerspectiveOverlay, Path=Camera}">
+
                 <!--<local:GridLines />-->
                 <map:MapGridVisual TileGenerator="{StaticResource TileGenerator}" 
                                MapCamera="{Binding ElementName=PerspectiveViewport, Path=CameraController}">
@@ -227,21 +222,17 @@
                     </ModelVisual3D.Content>
                 </ModelVisual3D>-->
                 <ht:DefaultLights></ht:DefaultLights>
-            </ht:HelixViewport3D>
-            <local:SynchedHelixViewport3D x:Name="PerspectiveOverlay" 
-                                IsRotationEnabled="False"
-                                IsPanEnabled="False"
-                                IsHitTestVisible="False"
+            </local:SynchedHelixViewport3D>
+            <ht:HelixViewport3D x:Name="PerspectiveOverlay" 
                                 Background="{x:Null}"
-                                IsMoveEnabled="False"
-                                          
-                                IsZoomEnabled="False"
-                                IsTouchZoomEnabled="False"
-                                IsHeadLightEnabled="False" 
-                                ViewportCamera="{Binding ElementName=PerspectiveViewport, Path=Camera}"
+                                IsHeadLightEnabled="False"
+                                IsRotationEnabled="True"
                                 >
                 <ht:DefaultLights></ht:DefaultLights>
-            </local:SynchedHelixViewport3D>
+                <ht:HelixViewport3D.RotateGesture>
+                    <MouseGesture MouseAction="MiddleClick" Modifiers="Ctrl"></MouseGesture>
+                </ht:HelixViewport3D.RotateGesture>
+            </ht:HelixViewport3D>
             <ToggleButton x:Name="TopRightLabel" Content="Perspective" Style="{StaticResource ViewButtonStyle}">
                 <ToggleButton.ContextMenu>
                     <ContextMenu>
