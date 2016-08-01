@@ -6,13 +6,14 @@ using System.Threading.Tasks;
 
 namespace AegirCore.Scene
 {
-    public class MercatorScale : IWorldScale
+    public class OSMWorldScale : IWorldScale
     {
+        private readonly double sceneEdge = Math.Pow(2, 18);
         public double SceneEdgeX
         {
             get
             {
-                throw new NotImplementedException();
+                return sceneEdge;
             }
         }
 
@@ -20,7 +21,7 @@ namespace AegirCore.Scene
         {
             get
             {
-                throw new NotImplementedException();
+                return sceneEdge;
             }
         }
 
@@ -28,18 +29,18 @@ namespace AegirCore.Scene
         {
             get
             {
-                throw new NotImplementedException();
+                return 6378137 / sceneEdge;
             }
         }
 
-        public double NormalizeX(double X)
+        public double NormalizeX(double x)
         {
-            throw new NotImplementedException();
+            return x / sceneEdge;
         }
 
-        public double NormalizeY(double Y)
+        public double NormalizeY(double y)
         {
-            throw new NotImplementedException();
+            return y / sceneEdge;
         }
     }
 }

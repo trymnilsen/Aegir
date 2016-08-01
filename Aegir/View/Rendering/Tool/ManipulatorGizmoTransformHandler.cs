@@ -102,7 +102,8 @@ namespace Aegir.View.Rendering.Tool
                 {
                     rotationX = value;
                     RaisePropertyChanged();
-                    if(mode==TransformDelayMode.Immediate)
+                    RaisePropertyChanged(nameof(RotateTransform));
+                    if (mode==TransformDelayMode.Immediate)
                     {
                         UpdateTransformTarget();
                     }
@@ -144,6 +145,7 @@ namespace Aegir.View.Rendering.Tool
                 {
                     rotationZ = value;
                     RaisePropertyChanged();
+                    RaisePropertyChanged(nameof(RotateTransform));
                     if (mode == TransformDelayMode.Immediate)
                     {
                         UpdateTransformTarget();
@@ -157,8 +159,10 @@ namespace Aegir.View.Rendering.Tool
         {
             get
             {
+                
                 var quaternionFromRot = AegirType.Quaternion
                                             .CreateFromYawPitchRoll((float)RotationY * (float)Math.PI / 180f, (float)RotationX * (float)Math.PI / 180f, (float)RotationZ * (float)Math.PI / 180f);
+
                 Quaternion q = new Quaternion(quaternionFromRot.X, quaternionFromRot.Y, quaternionFromRot.Z, quaternionFromRot.W);
                 QuaternionRotation3D qRot = new QuaternionRotation3D(q);
                 return new RotateTransform3D(qRot);

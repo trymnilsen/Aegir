@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AegirCore.Scene;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -19,7 +20,7 @@ namespace Aegir.Map
         internal const double TileSize = 256;
 
         private const string TileFormat = @"http://tile.openstreetmap.org/{0}/{1}/{2}.png";
-
+        private static OSMWorldScale worldScale = new OSMWorldScale();
         /// <summary>Occurs when the number of downloads changes.</summary>
         public static event EventHandler DownloadCountChanged
         {
@@ -135,21 +136,29 @@ namespace Aegir.Map
         internal static BitmapImage GetTileImage(int zoom, int x, int y)
         {
             //For now we move the tiles a little
-            x += 138852;
-            y += 76245;
+
             if (string.IsNullOrEmpty(CacheFolder))
             {
                 throw new InvalidOperationException("Must set the CacheFolder before calling GetTileImage.");
             }
+            double xOffset = worldScale.NormalizeX(138852d);
+            double yOffset = worldScale.NormalizeY(76245d);
+            double inverseZoom = 18 - zoom;
+            double xNormalized = worldScale.NormalizeX(x * Math.Pow(2,inverseZoom)) + xOffset;
+            double yNormalized = worldScale.NormalizeY(y * Math.Pow(2,inverseZoom)) + yOffset;
 
             double tileCount = Math.Pow(2, zoom) - 1;
-            if (x < 0 || y < 0 || x > tileCount || y > tileCount) // Bounds check
+
+
+            int tilex = (int)Math.Floor(tileCount * xNormalized);
+            int tiley = (int)Math.Floor(tileCount * yNormalized);
+            if (tilex < 0 || tiley < 0 || tilex > tileCount || tiley > tileCount) // Bounds check
             {
-                //log4net.LogManager.GetLogger(typeof(TileService)).Debug("Request was outside of bounds");
+                log4net.LogManager.GetLogger(typeof(TileService)).DebugFormat("Request was outside of bounds zoom: {0} x: {1} y:{2} maxtile:{3}",zoom,x,y,tileCount);
                 return null;
             }
 
-            Uri uri = new Uri(string.Format(CultureInfo.InvariantCulture, TileFormat, zoom, x, y));
+            Uri uri = new Uri(string.Format(CultureInfo.InvariantCulture, TileFormat, zoom, tilex, tiley));
             //log4net.LogManager.GetLogger(typeof(TileService)).DebugFormat("Fetching Image from URI: {0}", uri);
             return BitmapStore.GetImage(uri);
         }

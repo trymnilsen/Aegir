@@ -138,10 +138,10 @@ namespace Aegir.View.Rendering.Tool
                 XRotation,
                 EventableBindableRotateManipulator.ValueProperty);
 
-            BindingHelper.BindProperty(nameof(Target.GizmoPosition),
+            BindingHelper.BindProperty(nameof(Target.RotateTransform),
                 Target,
                 XRotation,
-                EventableBindableRotateManipulator.PositionProperty);
+                EventableBindableRotateManipulator.TransformProperty);
 
             //Y
             YRotation = new EventableBindableRotateManipulator();

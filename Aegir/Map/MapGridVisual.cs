@@ -16,7 +16,7 @@ namespace Aegir.Map
     public class MapGridVisual : MeshVisual3D
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(MapGridVisual));
-        private const int GridSize = 7;
+        private const int GridSize = 3;
         private const int ZoomSteps = 200;
         private const double zoomInverseFactor = 1d / ZoomSteps;
         private double snapInverseFactor;
@@ -127,6 +127,7 @@ namespace Aegir.Map
 
                     tile.TileX = gridPosX;
                     tile.TileY = gridPosY;
+                    tile.TileZoom = MapZoomLevel;
 
                     this.Children.Add(tile);
                     Tiles.Add(tile);
@@ -144,6 +145,7 @@ namespace Aegir.Map
                     {
                         log.Debug("Could not load image, TileGeneratorWas Null");
                     }
+                    tile.UpdateDebugLabels();
                 }
             }
         }
@@ -291,6 +293,8 @@ namespace Aegir.Map
                             transform.OffsetX = tile.TileX * TileSize;
                             transform.OffsetY = tile.TileY * TileSize;
                         }
+
+                        tile.UpdateDebugLabels();
                     }
                 }
 

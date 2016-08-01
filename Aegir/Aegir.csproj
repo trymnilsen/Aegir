@@ -179,6 +179,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Controls.cs" />
+    <Compile Include="CustomControl\HeaderedSeparator.cs" />
     <Compile Include="Converter\ColorToBrushConverter.cs" />
     <Compile Include="Converter\DivideByConverter.cs" />
     <Compile Include="Converter\EnumToBoolConverter.cs" />
@@ -211,6 +212,12 @@
     <Compile Include="Rendering\RenderingMode.cs" />
     <Compile Include="Rendering\RenderItemListener.cs" />
     <Compile Include="Rendering\Camera\ViewportCameraController.cs" />
+    <Compile Include="View\Rendering\Menu\ClickableMenuItem.cs" />
+    <Compile Include="View\Rendering\Menu\MenuList.cs" />
+    <Compile Include="View\Rendering\Menu\MenuListItem.cs" />
+    <Compile Include="View\Rendering\Menu\SceneContextMenu.cs" />
+    <Compile Include="View\Rendering\Menu\SeperatorMenuItem.cs" />
+    <Compile Include="View\Rendering\Menu\SubMenuItem.cs" />
     <Compile Include="View\Rendering\SynchedHelixViewport3D.cs" />
     <Compile Include="ViewModel\NodeProxy\GeoidViewModelProxy.cs" />
     <Compile Include="ViewModel\NodeProxy\IScenegraphAddRemoveHandler.cs" />
@@ -332,6 +339,14 @@
     <Compile Include="Windows\VesselSetup.xaml.cs">
       <DependentUpon>VesselSetup.xaml</DependentUpon>
     </Compile>
+    <Page Include="CustomControl\CustomControlResources.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CustomControl\HeaderedSeparator.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

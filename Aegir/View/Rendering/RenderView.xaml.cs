@@ -14,6 +14,7 @@ using System.Windows.Media.Media3D;
 using System.Windows.Input;
 using AegirCore.Scene;
 using Aegir.View.Rendering.Tool;
+using Aegir.View.Rendering.Menu;
 
 namespace Aegir.View.Rendering
 {
@@ -23,6 +24,7 @@ namespace Aegir.View.Rendering
     public partial class RenderView : UserControl
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(RenderView));
+        private MenuList menuSource;
 
         public Dictionary<string, Model3D> assetCache;
         public List<NodeMeshListener> meshTransforms;
@@ -298,6 +300,38 @@ namespace Aegir.View.Rendering
                     }
                 }
 
+            }
+        }
+
+        private void SceneContextMenuOpening(object sender, ContextMenuEventArgs e)
+        {
+            if(menuSource !=null)
+            {
+                menuSource.SetNoContextTarget();
+            }
+        }
+
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            var menuListResource = Resources["MenuListSource"];
+            menuSource = menuListResource as MenuList;
+
+            menuSource.MenuOptionClicked += ContextMenuItemClicked;
+        }
+
+        private void ContextMenuItemClicked(string option)
+        {
+            switch(option)
+            {
+                case "Translate":
+                    gizmoHandler.GizmoMode = GizmoMode.Translate;
+                    break;
+                case "Rotate":
+                    gizmoHandler.GizmoMode = GizmoMode.Rotate;
+                    break;
+                default:
+                    gizmoHandler.GizmoMode = GizmoMode.None;
+                    break;
             }
         }
     }
