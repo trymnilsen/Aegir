@@ -16,7 +16,7 @@ namespace Aegir.Map
     public class MapGridVisual : MeshVisual3D
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(MapGridVisual));
-        private const int GridSize = 3;
+        private const int GridSize = 4;
         private const int ZoomSteps = 200;
         private const double zoomInverseFactor = 1d / ZoomSteps;
         private double snapInverseFactor;
@@ -29,6 +29,8 @@ namespace Aegir.Map
         public List<MapTileVisual> Tiles { get; set; }
 
         private int tileSize;
+
+        private GridMode gridMode;
 
         public int TileSize
         {
@@ -89,6 +91,14 @@ namespace Aegir.Map
 
         public MapGridVisual() 
         {
+            if(GridSize % 2 == 0)
+            {
+                gridMode = GridMode.Even;
+            }
+            else
+            {
+                gridMode = GridMode.Odd;
+            }
             Tiles = new List<MapTileVisual>();
             TileSize = 32;
             CompositionTarget.Rendering += CompositionTarget_Rendering;
@@ -182,13 +192,16 @@ namespace Aegir.Map
 
                     int snappedCameraDistance = (int)Math.Floor((cameraTargetDistance - 100) * zoomInverseFactor) * 200 + 100;
                     double zoomFactor = cameraTargetDistance / 200d;
-                    int SnappedZoomFactor = (int) Math.Ceiling(Math.Log(zoomFactor) / Math.Log(3d));
+                    int baseNum = (gridMode == GridMode.Even ? 2 : 3);
+                    int SnappedZoomFactor = (int) Math.Ceiling(Math.Log(zoomFactor) / Math.Log((double)baseNum));
 
+                   
 
-
-                    int zoomLevel = 18 - Math.Max(0,SnappedZoomFactor);
-
-                    MapZoomLevel = zoomLevel;
+                    int zoomLevel = 18 - Math.Max(0,Math.Min(9,SnappedZoomFactor));
+                    if(zoomLevel != MapZoomLevel)
+                    {
+                        MapZoomLevel = zoomLevel;
+                    }
 
                     log.DebugFormat("Zoom snapped distance/zoom level: {0} / {1}", cameraTargetDistance, SnappedZoomFactor);
                 }
@@ -234,7 +247,8 @@ namespace Aegir.Map
         }
         private int GetTileSize(int ZoomLevel)
         {
-            return (int)Math.Max(32 * Math.Pow(3, 18 - ZoomLevel), 32);
+            int baseNum = (gridMode == GridMode.Even ? 2 : 3);
+            return (int)Math.Max(32 * Math.Pow(baseNum, 18 - ZoomLevel), 32);
         }
         /// <summary>
         /// Pans the Grid Tiles the given amount (only supports one square for now)

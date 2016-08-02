@@ -190,6 +190,7 @@
     <Compile Include="MapSearch\SearchProvider.cs" />
     <Compile Include="MapSearch\SearchResult.cs" />
     <Compile Include="Map\BitmapStore.cs" />
+    <Compile Include="Map\GridMode.cs" />
     <Compile Include="Map\MapGridVisual.cs" />
     <Compile Include="Map\MapTileVisual.cs" />
     <Compile Include="Map\MapTileGenerator.cs" />
