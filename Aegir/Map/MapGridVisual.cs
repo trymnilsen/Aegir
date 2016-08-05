@@ -126,8 +126,8 @@ namespace Aegir.Map
 
                     TranslateTransform3D position = new TranslateTransform3D();
 
-                    position.OffsetX = gridPosX  * TileSize;
-                    position.OffsetY = gridPosY * TileSize;
+                    position.OffsetX = (gridPosX  * TileSize) - TileSize / 2;
+                    position.OffsetY = (gridPosY * TileSize) - TileSize / 2;
 
 
                     tile.Transform = position;

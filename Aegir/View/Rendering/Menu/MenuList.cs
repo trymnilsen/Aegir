@@ -1,4 +1,5 @@
-﻿using Aegir.ViewModel.NodeProxy;
+﻿using Aegir.Map;
+using Aegir.ViewModel.NodeProxy;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -44,7 +45,9 @@ namespace Aegir.View.Rendering.Menu
                     new ClickableMenuItem("Local",()=> {DW("TransformLocal"); }),
                     new ClickableMenuItem("World",()=> {DW("TransformWorld"); })
                 }),
-                new SeperatorMenuItem("Transform")
+                new SeperatorMenuItem("Transform"),
+                new ClickableMenuItem("Debug Labels", ()=> { MapTileVisual.IsDebugEnabled = !MapTileVisual.IsDebugEnabled; })
+                
             };
             noContextItems = new MenuListItem[]
             {

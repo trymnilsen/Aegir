@@ -19,6 +19,18 @@ namespace Aegir.Map
         private int tileSize;
         private static readonly OSMWorldScale scale = new OSMWorldScale();
 
+        private static bool debugEnabled;
+
+        public static bool IsDebugEnabled
+        {
+            get { return debugEnabled; }
+            set
+            {
+                debugEnabled = value;
+                DebugChanged?.Invoke(null, EventArgs.Empty);
+            }
+        }
+
         private int tileZoom;
 
         public int TileZoom
@@ -53,8 +65,29 @@ namespace Aegir.Map
             set { tileX = value; }
         }
 
+        public MapTileVisual()
+        {
+            MapTileVisual.DebugChanged += MapTileVisual_DebugChanged;
+        }
+
+        private void MapTileVisual_DebugChanged(object sender, EventArgs e)
+        {
+            if(IsDebugEnabled)
+            {
+                UpdateDebugLabels();
+            }
+            else
+            {
+                this.Children.Clear();
+            }
+        }
+
         public void UpdateDebugLabels()
         {
+            if(!IsDebugEnabled)
+            {
+                return;
+            }
             double n = Math.Pow(2, TileZoom);
             double inverseZoom = 18 - tileZoom;
             double newTileX = TileX * Math.Pow(2,inverseZoom);
@@ -117,5 +150,6 @@ namespace Aegir.Map
         {
             return "MapTile3D (x/y): " + TileX + "/" + TileY;
         }
+        public static event EventHandler DebugChanged;
     }
 }
