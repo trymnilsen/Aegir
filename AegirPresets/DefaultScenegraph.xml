@@ -24,7 +24,7 @@
               <TransformBehaviour>
                 <Vector3>
                   <X>0</X>
-                  <Y>0</Y>
+                  <Y>200</Y>
                   <Z>0</Z>
                 </Vector3>
                 <Quaternion>
