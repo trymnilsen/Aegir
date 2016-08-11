@@ -92,8 +92,8 @@ namespace Aegir.Map
             double inverseZoom = 18 - tileZoom;
             double newTileX = TileX * Math.Pow(2,inverseZoom);
             double newTileY = tileY * Math.Pow(2,inverseZoom);
-            double NormalizedX = (scale.NormalizeX(newTileX) + scale.NormalizeX(138852d));
-            double NormalizedY = (scale.NormalizeY(newTileY) + scale.NormalizeY(76245d));
+            double NormalizedX = (scale.NormalizeX(newTileX) + scale.NormalizeX(TileService.xTileOffset));
+            double NormalizedY = (scale.NormalizeY(newTileY) + scale.NormalizeY(TileService.yTileOffset));
             double osmTileXPreFloor = NormalizedX * n;
             double osmTileYPreFloor = NormalizedY * n;
 
@@ -102,7 +102,7 @@ namespace Aegir.Map
             //Clear any previous
             this.Children.Clear();
             //Generate a unique tile color
-            Random r = new Random();
+            Random r = new Random(Guid.NewGuid().GetHashCode());
             Color color = Color.FromArgb(100, (byte)r.Next(255), (byte)r.Next(255), (byte)r.Next(255));
             //Create a small border for tile
             double borderSize = Width * 0.05; // 5%
@@ -137,7 +137,7 @@ namespace Aegir.Map
             BillboardTextVisual3D tilenumBilboard = new BillboardTextVisual3D();
             tilenumBilboard.Position = new Point3D(0, 0, 4 + inverseZoom);
             tilenumBilboard.Background = Brushes.LightSalmon;
-            tilenumBilboard.Text = $"TXY: {TileX}/{TileY} OSMXY: {osmTileX}/{osmTileY}\n OSMPFXY: {osmTileXPreFloor}/{osmTileYPreFloor}";
+            tilenumBilboard.Text = $"TXY: {TileX}/{TileY} NTXY: {newTileX}/{newTileY} \n OSMTXY: {osmTileXPreFloor}/{osmTileYPreFloor} \n OSMFTXY: {osmTileX}/{osmTileY}";
 
 
             Children.Add(LeftEdge);

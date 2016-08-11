@@ -42,5 +42,10 @@ namespace AegirCore.Scene
         {
             return y / sceneEdge;
         }
+
+        public double GetOSMTileNumFromMapTileNum(double x, double zoom)
+        {
+            return 0;
+        }
     }
 }

@@ -122,6 +122,8 @@ namespace Aegir.View.Rendering
             rightGizmo = new ManipulatorGizmo(RightViewport, gizmoHandler);
             frontGizmo = new ManipulatorGizmo(FrontViewport, gizmoHandler);
 
+            
+
         }
 
         private void TopLeftView_IsKeyboardFocusWithinChanged(object sender, DependencyPropertyChangedEventArgs e)
@@ -317,6 +319,7 @@ namespace Aegir.View.Rendering
             menuSource = menuListResource as MenuList;
 
             menuSource.MenuOptionClicked += ContextMenuItemClicked;
+            TopMap.InitGrid();
         }
 
         private void ContextMenuItemClicked(string option)
@@ -328,6 +331,21 @@ namespace Aegir.View.Rendering
                     break;
                 case "Rotate":
                     gizmoHandler.GizmoMode = GizmoMode.Rotate;
+                    break;
+                case "MapZoomOut":
+                    if(TopMap.MapZoomLevel>5)
+                    {
+                        TopMap.MapZoomLevel -= 1;
+                    }
+                    break;
+                case "MapZoomIn":
+                    if(TopMap.MapZoomLevel<18)
+                    {
+                        TopMap.MapZoomLevel += 1;
+                    }
+                    break;
+                case "MapTranslateOffset":
+                    TopMap.TranslateOnZoom = !TopMap.TranslateOnZoom;
                     break;
                 default:
                     gizmoHandler.GizmoMode = GizmoMode.None;

@@ -46,8 +46,13 @@ namespace Aegir.View.Rendering.Menu
                     new ClickableMenuItem("World",()=> {DW("TransformWorld"); })
                 }),
                 new SeperatorMenuItem("Transform"),
-                new ClickableMenuItem("Debug Labels", ()=> { MapTileVisual.IsDebugEnabled = !MapTileVisual.IsDebugEnabled; })
-                
+                new SubMenuItem("Debug", new MenuListItem[]
+                {
+                    new ClickableMenuItem("Debug Labels", ()=> { MapTileVisual.IsDebugEnabled = !MapTileVisual.IsDebugEnabled; }),
+                    new ClickableMenuItem("MapZoomOut", ()=> {DW("MapZoomOut"); }),
+                    new ClickableMenuItem("MapZoomIn", ()=> {DW("MapZoomIn"); }),
+                    new ClickableMenuItem("MapTranslateOffset", ()=> {DW("MapTranslateOffset"); })
+                })
             };
             noContextItems = new MenuListItem[]
             {

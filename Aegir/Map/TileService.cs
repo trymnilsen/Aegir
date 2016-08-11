@@ -15,7 +15,8 @@ namespace Aegir.Map
     {
         /// <summary>The maximum allowed zoom level.</summary>
         public const int MaxZoom = 18;
-
+        public const int xTileOffset = 138853;
+        public const int yTileOffset = 76243;
         /// <summary>The size of a tile in pixels.</summary>
         internal const double TileSize = 256;
 
@@ -141,8 +142,8 @@ namespace Aegir.Map
             {
                 throw new InvalidOperationException("Must set the CacheFolder before calling GetTileImage.");
             }
-            double xOffset = worldScale.NormalizeX(138852d);
-            double yOffset = worldScale.NormalizeY(76245d);
+            double xOffset = worldScale.NormalizeX(xTileOffset);
+            double yOffset = worldScale.NormalizeY(yTileOffset);
             double inverseZoom = 18 - zoom;
             double xNormalized = worldScale.NormalizeX(x * Math.Pow(2,inverseZoom)) + xOffset;
             double yNormalized = worldScale.NormalizeY(y * Math.Pow(2,inverseZoom)) + yOffset;

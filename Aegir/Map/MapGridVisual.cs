@@ -1,4 +1,5 @@
 ﻿using Aegir.Util;
+using AegirCore.Scene;
 using HelixToolkit.Wpf;
 using log4net;
 using System;
@@ -56,6 +57,7 @@ namespace Aegir.Map
             {
                 if(mapZoom != value)
                 {
+                    log.Debug($"Zoom Changed, new value {value}");
                     ZoomGrid(value);
                 }
 
@@ -84,6 +86,19 @@ namespace Aegir.Map
             set { SetValue(TileGeneratorProperty, value); }
         }
 
+        private bool translateOnZoom;
+
+        public bool TranslateOnZoom
+        {
+            get { return translateOnZoom; }
+            set
+            {
+                translateOnZoom = value;
+                log.Debug($"TranslateONZoomChanged to {value}");
+            }
+        }
+
+
         // Using a DependencyProperty as the backing store for TileGenerator.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty TileGeneratorProperty =
             DependencyProperty.Register(nameof(TileGenerator), typeof(MapTileGenerator), typeof(MapGridVisual));
@@ -101,8 +116,8 @@ namespace Aegir.Map
             }
             Tiles = new List<MapTileVisual>();
             TileSize = 32;
+            mapZoom = 18;
             CompositionTarget.Rendering += CompositionTarget_Rendering;
-            InitGrid();
         }
         public void InitGrid()
         {
@@ -113,6 +128,40 @@ namespace Aegir.Map
             currentTileX = 0;
             currentTileY = 0;
 
+            OSMWorldScale scale = new OSMWorldScale();
+
+            double mapCenterNormalizedX = scale.NormalizeX(TileService.xTileOffset);
+            double mapCenterNormalizedY = scale.NormalizeY(TileService.yTileOffset);
+
+            double maxTiles = Math.Pow(2, mapZoom);
+            double tileNumX = mapCenterNormalizedX * maxTiles;
+            double tileNumY = mapCenterNormalizedY * maxTiles;
+
+            //X and y are flipped
+            double fracX = tileNumY - Math.Floor(tileNumY);
+            double fracY = tileNumX - Math.Floor(tileNumX);
+
+            
+            if(fracX >= 0.5)
+            {
+                fracX -= 1;
+            }
+
+            if(fracY > 0.5)
+            {
+                fracY -= 1;
+            }
+
+            double tileTranslateX = TileSize * fracX;
+            double tileTranslateY = TileSize * fracY;
+
+            BoundingBoxWireFrameVisual3D box = new BoundingBoxWireFrameVisual3D();
+            box.Color = Colors.Yellow;
+            double bSize = 1 * TileSize / 32;
+            box.Thickness = 1;
+            box.BoundingBox = new Rect3D(tileTranslateX - bSize/2, tileTranslateY - bSize/2, 0, bSize, bSize, bSize);
+            this.Children.Add(box);
+
             for (int x = 0; x < GridSize; x++)
             {
                 for (int y = 0; y < GridSize; y++)
@@ -122,12 +171,17 @@ namespace Aegir.Map
 
                     MapTileVisual tile = new MapTileVisual();
 
-                    tile.Fill = new SolidColorBrush(Color.FromArgb(255, (byte)ran.Next(50, 255), (byte)ran.Next(50, 255), (byte)ran.Next(50, 255)));
+                    tile.Fill = new SolidColorBrush(Color.FromArgb(255, (byte)ran.Next(30, 255), (byte)ran.Next(32, 255), (byte)ran.Next(28, 255)));
 
                     TranslateTransform3D position = new TranslateTransform3D();
 
-                    position.OffsetX = (gridPosX  * TileSize) - TileSize / 2;
-                    position.OffsetY = (gridPosY * TileSize) - TileSize / 2;
+                    position.OffsetX = (gridPosX  * TileSize) - (TileSize / 2);
+                    position.OffsetY = (gridPosY * TileSize) - (TileSize / 2);
+                    if(TranslateOnZoom)
+                    {
+                        position.OffsetX -= tileTranslateX;
+                        position.OffsetY -= tileTranslateY;
+                    }
 
 
                     tile.Transform = position;
@@ -167,7 +221,7 @@ namespace Aegir.Map
         private void DoCameraMove()
         {
             
-            if(MapCamera!=null)
+            if(MapCamera!=null && false)
             {
                 //Get camera distance from map
                 double cameraTargetDistance = 0;
@@ -198,7 +252,7 @@ namespace Aegir.Map
                    
 
                     int zoomLevel = 18 - Math.Max(0,Math.Min(9,SnappedZoomFactor));
-                    if(zoomLevel != MapZoomLevel)
+                    if(zoomLevel != MapZoomLevel && false)
                     {
                         MapZoomLevel = zoomLevel;
                     }
