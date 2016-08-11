@@ -17,7 +17,7 @@ namespace Aegir.Map
     public class MapGridVisual : MeshVisual3D
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(MapGridVisual));
-        private const int GridSize = 4;
+        private const int GridSize = 6;
         private const int ZoomSteps = 200;
         private const double zoomInverseFactor = 1d / ZoomSteps;
         private double snapInverseFactor;
@@ -117,6 +117,7 @@ namespace Aegir.Map
             Tiles = new List<MapTileVisual>();
             TileSize = 32;
             mapZoom = 18;
+            translateOnZoom = true;
             CompositionTarget.Rendering += CompositionTarget_Rendering;
         }
         public void InitGrid()
@@ -151,7 +152,11 @@ namespace Aegir.Map
             {
                 fracY -= 1;
             }
-
+            //Quick hack for now
+            if(mapZoom == 12 || mapZoom == 15)
+            {
+                fracX -= 1;
+            }
             double tileTranslateX = TileSize * fracX;
             double tileTranslateY = TileSize * fracY;
 
@@ -175,8 +180,8 @@ namespace Aegir.Map
 
                     TranslateTransform3D position = new TranslateTransform3D();
 
-                    position.OffsetX = (gridPosX  * TileSize) - (TileSize / 2);
-                    position.OffsetY = (gridPosY * TileSize) - (TileSize / 2);
+                    position.OffsetX = (gridPosX  * TileSize) - TileSize / 2;
+                    position.OffsetY = (gridPosY * TileSize) - TileSize / 2;
                     if(TranslateOnZoom)
                     {
                         position.OffsetX -= tileTranslateX;
@@ -221,7 +226,7 @@ namespace Aegir.Map
         private void DoCameraMove()
         {
             
-            if(MapCamera!=null && false)
+            if(MapCamera!=null)
             {
                 //Get camera distance from map
                 double cameraTargetDistance = 0;
@@ -252,7 +257,7 @@ namespace Aegir.Map
                    
 
                     int zoomLevel = 18 - Math.Max(0,Math.Min(9,SnappedZoomFactor));
-                    if(zoomLevel != MapZoomLevel && false)
+                    if(zoomLevel != MapZoomLevel)
                     {
                         MapZoomLevel = zoomLevel;
                     }
