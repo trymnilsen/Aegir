@@ -117,10 +117,9 @@ namespace Aegir.View.Rendering
             //See "PerspectiveViewport_MouseDown" below 
             //Perhaps this is another reason to switch to SharpDX (Having it all
             //in the same viewport and not doing Z-tests in shader)?
-            topGizmo = new ManipulatorGizmo(TopViewport, gizmoHandler);
-            perspectiveGizmo = new ManipulatorGizmo(PerspectiveOverlay, gizmoHandler);
-            rightGizmo = new ManipulatorGizmo(RightViewport, gizmoHandler);
-            frontGizmo = new ManipulatorGizmo(FrontViewport, gizmoHandler);
+
+            //rightGizmo = new ManipulatorGizmo(RightViewport, gizmoHandler);
+            //frontGizmo = new ManipulatorGizmo(FrontViewport, gizmoHandler);
 
             
 
@@ -320,6 +319,9 @@ namespace Aegir.View.Rendering
 
             menuSource.MenuOptionClicked += ContextMenuItemClicked;
             TopMap.InitGrid();
+
+            //topGizmo = new ManipulatorGizmo(TopViewport, gizmoHandler);
+            perspectiveGizmo = new ManipulatorGizmo(PerspectiveOverlay, gizmoHandler);
         }
 
         private void ContextMenuItemClicked(string option)

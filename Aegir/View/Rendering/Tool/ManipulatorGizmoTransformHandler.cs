@@ -27,7 +27,7 @@ namespace Aegir.View.Rendering.Tool
         private double rotationX;
         private double rotationY;
         private double rotationZ;
-
+        private Quaternion rotation;
         /// <summary>
         /// Intended X Position of the manipulator
         /// Will updated target transform if TransformDelayMode is set to immediate
@@ -40,11 +40,6 @@ namespace Aegir.View.Rendering.Tool
                 if(value!=translateValueX)
                 {
                     translateValueX = value;
-                    RaisePropertyChanged();
-                    if (mode == TransformDelayMode.Immediate)
-                    {
-                        UpdateTransformTarget();
-                    }
                 }
             }
         }
@@ -60,11 +55,6 @@ namespace Aegir.View.Rendering.Tool
                 if(value!=translateValueY)
                 {
                     translateValueY = value;
-                    RaisePropertyChanged();
-                    if (mode == TransformDelayMode.Immediate)
-                    {
-                        UpdateTransformTarget();
-                    }
                 }
             }
         }
@@ -81,11 +71,6 @@ namespace Aegir.View.Rendering.Tool
                 if(value!=translateValueZ)
                 {
                     translateValueZ = value;
-                    RaisePropertyChanged();
-                    if(mode == TransformDelayMode.Immediate)
-                    {
-                        UpdateTransformTarget();
-                    }
                 }
             }
         }
@@ -101,12 +86,6 @@ namespace Aegir.View.Rendering.Tool
                 if(rotationX != value)
                 {
                     rotationX = value;
-                    RaisePropertyChanged();
-                    RaisePropertyChanged(nameof(RotateTransform));
-                    if (mode==TransformDelayMode.Immediate)
-                    {
-                        UpdateTransformTarget();
-                    }
                 }
             }
         }
@@ -123,12 +102,6 @@ namespace Aegir.View.Rendering.Tool
                 {
                     rotationY = value;
                     Debug.WriteLine("YRot:" + value);
-                    RaisePropertyChanged();
-                    RaisePropertyChanged(nameof(RotateTransform));
-                    if (mode == TransformDelayMode.Immediate)
-                    {
-                        UpdateTransformTarget();
-                    }
                 }
             }
         }
@@ -144,12 +117,6 @@ namespace Aegir.View.Rendering.Tool
                 if (rotationZ != value)
                 {
                     rotationZ = value;
-                    RaisePropertyChanged();
-                    RaisePropertyChanged(nameof(RotateTransform));
-                    if (mode == TransformDelayMode.Immediate)
-                    {
-                        UpdateTransformTarget();
-                    }
                 }
             }
         }
@@ -159,18 +126,12 @@ namespace Aegir.View.Rendering.Tool
         {
             get
             {
-                
-                var quaternionFromRot = AegirType.Quaternion
-                                            .CreateFromYawPitchRoll((float)RotationY * (float)Math.PI / 180f, (float)RotationX * (float)Math.PI / 180f, (float)RotationZ * (float)Math.PI / 180f);
-
-                Quaternion q = new Quaternion(quaternionFromRot.X, quaternionFromRot.Y, quaternionFromRot.Z, quaternionFromRot.W);
-                QuaternionRotation3D qRot = new QuaternionRotation3D(q);
+                QuaternionRotation3D qRot = new QuaternionRotation3D(rotation);
                 return new RotateTransform3D(qRot);
             }
             set
             {
                 rotateTransform = value;
-                RaisePropertyChanged();
             }
         }
 
@@ -226,16 +187,21 @@ namespace Aegir.View.Rendering.Tool
 
         public ManipulatorGizmoTransformHandler()
         {
-
+            rotation = Quaternion.Identity;
         }
         public void UpdateTransformTarget()
         {
             if (transformTarget != null)
             {
-                transformTarget.ApplyTransform(translateValueX, translateValueY, translateValueZ);
+
             }
         }
         public delegate void GizmoModeChangedHandler(GizmoMode mode);
         public event GizmoModeChangedHandler GizmoModeChanged;
+
+        public void UpdateTransform(Transform3D targetTransform)
+        {
+            transformTarget.ApplyTransform(targetTransform);
+        }
     }
 }

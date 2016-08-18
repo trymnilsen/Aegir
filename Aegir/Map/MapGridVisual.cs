@@ -118,6 +118,7 @@ namespace Aegir.Map
             TileSize = 32;
             mapZoom = 18;
             translateOnZoom = true;
+            
             CompositionTarget.Rendering += CompositionTarget_Rendering;
         }
         public void InitGrid()

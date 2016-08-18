@@ -217,6 +217,8 @@
                 <ht:HelixViewport3D.ContextMenu>
                     <menu:SceneContextMenu MenuItems="{StaticResource MenuListSource}"></menu:SceneContextMenu>
                 </ht:HelixViewport3D.ContextMenu>
+                <!--<ht:CubeVisual3D x:Name="cube1" Transform="{ht:Translate 4,0,2}" Fill="Gold"/>
+                <ht:CombinedManipulator TargetTransform="{Binding Transform, ElementName=cube1}"/>-->
                 <ht:DefaultLights></ht:DefaultLights>
                 <ht:HelixViewport3D.RotateGesture>
                     <MouseGesture MouseAction="MiddleClick" 

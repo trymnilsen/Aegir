@@ -14,6 +14,8 @@ using System;
 using Aegir.Mvvm;
 using TinyMessenger;
 using System.Diagnostics;
+using System.Windows.Media.Media3D;
+using HelixToolkit.Wpf;
 
 namespace Aegir.ViewModel.NodeProxy
 {
@@ -179,7 +181,7 @@ namespace Aegir.ViewModel.NodeProxy
         }
 
         [Browsable(false)]
-        public Quaternion Rotation
+        public AegirType.Quaternion Rotation
         {
             get { return transform.Rotation; }
         }
@@ -304,11 +306,9 @@ namespace Aegir.ViewModel.NodeProxy
             return "NodeViewModelProxy For: " + nodeData.Name;
         }
 
-        public void ApplyTransform(double translateValueX, double translateValueY, double translateValueZ)
+        public void ApplyTransform(Transform3D targetTransform)
         {
-            WorldTranslateX = translateValueX;
-            WorldTranslateY = translateValueY;
-            WorldTranslateZ = translateValueZ;
+
         }
 
         //public void TriggerTransformChanged()

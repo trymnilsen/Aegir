@@ -9,7 +9,9 @@ namespace Aegir.Util
         {
             Binding binding = new Binding();
             binding.Path = new PropertyPath(propertyName);
-            binding.Source = source; 
+            binding.Source = source;
+            binding.Mode = BindingMode.TwoWay;
+            binding.NotifyOnSourceUpdated = true;
 
             BindingOperations.SetBinding(target, targetProperty, binding);
         }

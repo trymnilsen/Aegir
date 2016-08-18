@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media.Media3D;
 
 namespace Aegir.Rendering
 {
@@ -11,6 +12,6 @@ namespace Aegir.Rendering
         double X { get; }
         double Y { get; }
         double Z { get; }
-        void ApplyTransform(double translateValueX, double translateValueY, double translateValueZ);
+        void ApplyTransform(Transform3D targetTransform);
     }
 }
