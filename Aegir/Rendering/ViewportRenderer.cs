@@ -1,4 +1,5 @@
 ﻿using Aegir.Rendering.Visual;
+using Aegir.View.Rendering.Tool;
 using AegirCore.Behaviour.World;
 using HelixToolkit.Wpf;
 using log4net;
@@ -14,7 +15,7 @@ namespace Aegir.Rendering
         private List<RenderItemListener> listeners;
 
         private VisualFactory visualFactory;
-
+        private ManipulatorGizmo sceneManipulator;
         public VisualFactory VisualFactory
         {
             get

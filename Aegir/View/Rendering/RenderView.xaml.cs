@@ -186,6 +186,7 @@ namespace Aegir.View.Rendering
         private void OnInvalidateChildren()
         {
             renderHandler.Invalidate();
+            gizmoHandler.InvalidateTargetTransform();
         }
 
         /// <summary>

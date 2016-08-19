@@ -17,140 +17,11 @@ namespace Aegir.View.Rendering.Tool
     /// Responsible for Holding transform values as well as updating the transform target
     /// the gizmo is supposed to manipulate
     /// </summary>
-    public class ManipulatorGizmoTransformHandler : ObservableObject
+    public class ManipulatorGizmoTransformHandler
     {
-        //Backing stores for our properties
-        private double translateValueX;
-        private double translateValueY;
-        private double translateValueZ;
-        private Point3D gizmoPos;
-        private double rotationX;
-        private double rotationY;
-        private double rotationZ;
-        private Quaternion rotation;
-        /// <summary>
-        /// Intended X Position of the manipulator
-        /// Will updated target transform if TransformDelayMode is set to immediate
-        /// </summary>
-        public double TranslateValueX
-        {
-            get { return translateValueX; }
-            set
-            {
-                if(value!=translateValueX)
-                {
-                    translateValueX = value;
-                }
-            }
-        }
-        /// <summary>
-        /// Intended Y Position of the manipulator
-        /// Will updated target transform if TransformDelayMode is set to immediate
-        /// </summary>
-        public double TranslateValueY
-        {
-            get { return translateValueY; }
-            set
-            {
-                if(value!=translateValueY)
-                {
-                    translateValueY = value;
-                }
-            }
-        }
-
-        /// <summary>
-        /// Intended Z Position of the manipulator
-        /// Will updated target transform if TransformDelayMode is set to immediate
-        /// </summary>
-        public double TranslateValueZ
-        {
-            get { return translateValueZ; }
-            set
-            {
-                if(value!=translateValueZ)
-                {
-                    translateValueZ = value;
-                }
-            }
-        }
-        /// <summary>
-        /// Intended X Rotation of the manipulator
-        /// Will updated target transform if TransformDelayMode is set to immediate
-        /// </summary>
-        public double RotationX
-        {
-            get { return rotationX; }
-            set
-            {
-                if(rotationX != value)
-                {
-                    rotationX = value;
-                }
-            }
-        }
-        /// <summary>
-        /// Intended Y Rotation of the manipulator
-        /// Will updated target transform if TransformDelayMode is set to immediate
-        /// </summary>
-        public double RotationY
-        {
-            get { return rotationY; }
-            set
-            {
-                if (rotationY != value)
-                {
-                    rotationY = value;
-                    Debug.WriteLine("YRot:" + value);
-                }
-            }
-        }
-        /// <summary>
-        /// Intended Z Rotation of the manipulator
-        /// Will updated target transform if TransformDelayMode is set to immediate
-        /// </summary>
-        public double RotationZ
-        {
-            get { return rotationZ; }
-            set
-            {
-                if (rotationZ != value)
-                {
-                    rotationZ = value;
-                }
-            }
-        }
-        private Transform3D rotateTransform;
-
-        public Transform3D RotateTransform
-        {
-            get
-            {
-                QuaternionRotation3D qRot = new QuaternionRotation3D(rotation);
-                return new RotateTransform3D(qRot);
-            }
-            set
-            {
-                rotateTransform = value;
-            }
-        }
-
-
-        public Point3D GizmoPosition
-        {
-            get { return new Point3D(TranslateValueX, TranslateValueY, TranslateValueZ); }
-            set
-            {
-                if(value!=gizmoPos)
-                {
-                    gizmoPos = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
         private ITransformableVisual transformTarget;
-
         private GizmoMode gizmoMode;
+        private TransformDelayMode mode;
 
         public GizmoMode GizmoMode
         {
@@ -162,7 +33,6 @@ namespace Aegir.View.Rendering.Tool
             }
         }
 
-        private TransformDelayMode mode;
 
         public TransformDelayMode TransformMode
         {
@@ -176,32 +46,24 @@ namespace Aegir.View.Rendering.Tool
             set
             {
                 transformTarget = value;
-                //Update gizmo position
-                TranslateValueX = transformTarget.X;
-                TranslateValueY = transformTarget.Y;
-                translateValueZ = transformTarget.Z;
-                RaisePropertyChanged(nameof(GizmoPosition));
+                
             }
         }
 
-
-        public ManipulatorGizmoTransformHandler()
-        {
-            rotation = Quaternion.Identity;
-        }
-        public void UpdateTransformTarget()
-        {
-            if (transformTarget != null)
-            {
-
-            }
-        }
-        public delegate void GizmoModeChangedHandler(GizmoMode mode);
-        public event GizmoModeChangedHandler GizmoModeChanged;
 
         public void UpdateTransform(Transform3D targetTransform)
         {
             transformTarget.ApplyTransform(targetTransform);
+        }
+        public delegate void GizmoModeChangedHandler(GizmoMode mode);
+        public event GizmoModeChangedHandler GizmoModeChanged;
+
+        public delegate void TargetTransformChangedHandler(Point3D position, Quaternion rotation);
+        public event TargetTransformChangedHandler TargetTransformChanged;
+
+        public void InvalidateTargetTransform()
+        {
+            TargetTransformChanged?.Invoke(TransformTarget.Position, TransformTarget.Rotation);
         }
     }
 }

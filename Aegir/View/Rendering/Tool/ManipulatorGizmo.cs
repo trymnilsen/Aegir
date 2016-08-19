@@ -42,16 +42,48 @@ namespace Aegir.View.Rendering.Tool
             }
         }
 
-        public ManipulatorGizmoTransformHandler Target { get; set; }
+        private ManipulatorGizmoTransformHandler transformHandler;
+
+        public ManipulatorGizmoTransformHandler TransformTarget
+        {
+            get { return transformHandler; }
+            set
+            {
+                if(transformHandler != null)
+                {
+                    transformHandler.TargetTransformChanged -= TargetTransformChanged;
+                }
+                transformHandler = value;
+                transformHandler.TargetTransformChanged += TargetTransformChanged;
+            }
+        }
+
+        private void TargetTransformChanged(Point3D position, Quaternion rotation)
+        {
+            MatrixTransform3D matrixTransform = new MatrixTransform3D();
+            Matrix3D matrix = new Matrix3D();
+            matrix.Rotate(rotation);
+            matrix.Translate(new Vector3D(position.X,position.Y,position.Z));
+
+            matrixTransform.Matrix = matrix;
+            matrixTransform.Freeze();
+
+            dummyVisual.Dispatcher.InvokeAsync(() =>
+            {
+                dummyVisual.Transform = matrixTransform;
+            });
+        }
+
         public HelixViewport3D Viewport { get; private set; }
 
         public ManipulatorGizmo(HelixViewport3D viewport, ManipulatorGizmoTransformHandler target)
         {
             manipulatorVisual = new ManipulatorGizmoVisual();
-            Target = target;
+            manipulatorVisual.Diameter = 10;
+            TransformTarget = target;
             //target.Transform.Changed += Transform_Changed;
             Viewport = viewport;
-            Target.GizmoModeChanged += ModeChanged;
+            TransformTarget.GizmoModeChanged += ModeChanged;
             viewport.Children.Add(manipulatorVisual);
             dummyVisual = new CubeVisual3D();
             dummyVisual.Fill = new SolidColorBrush(Colors.Gold);
@@ -106,7 +138,7 @@ namespace Aegir.View.Rendering.Tool
 
         private void OnManipulationFinished(ManipulatorFinishedEventArgs args)
         {
-            Target.UpdateTransformTarget();
+            //Target.UpdateTransformTarget();
         }
         
     }

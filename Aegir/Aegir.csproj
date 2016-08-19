@@ -213,6 +213,7 @@
     <Compile Include="Rendering\RenderingMode.cs" />
     <Compile Include="Rendering\RenderItemListener.cs" />
     <Compile Include="Rendering\Camera\ViewportCameraController.cs" />
+    <Compile Include="Rendering\Transform\Transform3DExtensions.cs" />
     <Compile Include="View\Rendering\Menu\ClickableMenuItem.cs" />
     <Compile Include="View\Rendering\Menu\MenuList.cs" />
     <Compile Include="View\Rendering\Menu\MenuListItem.cs" />

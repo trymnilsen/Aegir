@@ -5,7 +5,6 @@ using AegirCore.Behaviour;
 using AegirCore.Behaviour.World;
 using AegirCore.Scene;
 using AegirNetwork;
-using AegirType;
 using GalaSoft.MvvmLight.Command;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,6 +15,7 @@ using TinyMessenger;
 using System.Diagnostics;
 using System.Windows.Media.Media3D;
 using HelixToolkit.Wpf;
+using Aegir.Rendering.Transform;
 
 namespace Aegir.ViewModel.NodeProxy
 {
@@ -181,12 +181,6 @@ namespace Aegir.ViewModel.NodeProxy
         }
 
         [Browsable(false)]
-        public AegirType.Quaternion Rotation
-        {
-            get { return transform.Rotation; }
-        }
-
-        [Browsable(false)]
         public bool HasVisual
         {
             get { return (visualFilePath != null && visualFilePath.Length != 0); }
@@ -202,7 +196,7 @@ namespace Aegir.ViewModel.NodeProxy
         public double X
         {
             get
-            {
+            { 
                 return WorldTranslateX;
             }
         }
@@ -225,6 +219,23 @@ namespace Aegir.ViewModel.NodeProxy
         public RelayCommand RemoveNodeCommand { get; set; }
         public RelayCommand<string> AddNodeCommand { get; set; }
         public IScenegraphAddRemoveHandler AddRemoveHandler { get; set; }
+
+        public Point3D Position
+        {
+            get
+            {
+                return new Point3D(transform.Position.X, transform.Position.Y, transform.Position.Z);
+            }
+        }
+
+        public Quaternion Rotation
+        {
+            get
+            {
+                return new Quaternion(transform.Rotation.X, transform.Rotation.Y, transform.Rotation.Z, transform.Rotation.W);
+            }
+        }
+
         //public double WorldRotationYaw
         //{
         //    get { }
@@ -308,7 +319,10 @@ namespace Aegir.ViewModel.NodeProxy
 
         public void ApplyTransform(Transform3D targetTransform)
         {
-
+            Quaternion rotation = targetTransform.ToQuaternion();
+            Point3D position = targetTransform.ToPoint3D();
+            transform.Position = position.ToAegirTypeVector();
+            transform.Rotation = rotation.ToAegirTypeQuaternion();
         }
 
         //public void TriggerTransformChanged()

@@ -14,6 +14,7 @@ namespace Aegir.View.Rendering.Tool
 {
     public class ManipulatorGizmoVisual : ModelVisual3D
     {
+        private ManipulatorGizmoTransformHandler transformHandler;
         /// <summary>
         /// Identifies the <see cref="CanRotateX"/> dependency property.
         /// </summary>
@@ -296,7 +297,6 @@ namespace Aegir.View.Rendering.Tool
                 this.SetValue(TargetTransformProperty, value);
             }
         }
-        private ManipulatorGizmoTransformHandler transformHandler;
 
         public ManipulatorGizmoTransformHandler TransformHandler
         {   
@@ -313,16 +313,22 @@ namespace Aegir.View.Rendering.Tool
             this.translateXManipulator = new TranslateManipulator
             {
                 Direction = new Vector3D(1, 0, 0),
+                Length = 10,
+                Diameter = 2,
                 Color = Colors.Red
             };
             this.translateYManipulator = new TranslateManipulator
             {
                 Direction = new Vector3D(0, 1, 0),
+                Length = 10,
+                Diameter = 2,
                 Color = Colors.Green
             };
             this.translateZManipulator = new TranslateManipulator
             {
                 Direction = new Vector3D(0, 0, 1),
+                Length=10,
+                Diameter=2,
                 Color = Colors.Blue
             };
             this.rotateXManipulator = new RotateManipulator { Axis = new Vector3D(1, 0, 0), Color = Colors.Red };
@@ -335,20 +341,32 @@ namespace Aegir.View.Rendering.Tool
                 this.translateXManipulator,
                 Manipulator.TargetTransformProperty,
                 new Binding("TargetTransform") { Source = this });
+
             BindingOperations.SetBinding(
                 this.translateYManipulator,
                 Manipulator.TargetTransformProperty,
                 new Binding("TargetTransform") { Source = this });
+
             BindingOperations.SetBinding(
                 this.translateZManipulator,
                 Manipulator.TargetTransformProperty,
                 new Binding("TargetTransform") { Source = this });
+
             BindingOperations.SetBinding(
-                this.rotateXManipulator, RotateManipulator.DiameterProperty, new Binding("Diameter") { Source = this });
+                this.rotateXManipulator, 
+                RotateManipulator.DiameterProperty, 
+                new Binding(nameof(Diameter)) { Source = this });
+
             BindingOperations.SetBinding(
-                this.rotateYManipulator, RotateManipulator.DiameterProperty, new Binding("Diameter") { Source = this });
+                this.rotateYManipulator, 
+                RotateManipulator.DiameterProperty, 
+                new Binding(nameof(Diameter)) { Source = this });
+
             BindingOperations.SetBinding(
-                this.rotateZManipulator, RotateManipulator.DiameterProperty, new Binding("Diameter") { Source = this });
+                this.rotateZManipulator, 
+                RotateManipulator.DiameterProperty, 
+                new Binding(nameof(Diameter)) { Source = this });
+
             BindingOperations.SetBinding(
                 this.rotateXManipulator,
                 Manipulator.TargetTransformProperty,
