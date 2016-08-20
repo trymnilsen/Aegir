@@ -313,27 +313,27 @@ namespace Aegir.View.Rendering.Tool
             this.translateXManipulator = new TranslateManipulator
             {
                 Direction = new Vector3D(1, 0, 0),
-                Length = 10,
-                Diameter = 2,
+                Length = 40,
+                Diameter = 4,
                 Color = Colors.Red
             };
             this.translateYManipulator = new TranslateManipulator
             {
                 Direction = new Vector3D(0, 1, 0),
-                Length = 10,
-                Diameter = 2,
+                Length = 40,
+                Diameter = 4,
                 Color = Colors.Green
             };
             this.translateZManipulator = new TranslateManipulator
             {
                 Direction = new Vector3D(0, 0, 1),
-                Length=10,
-                Diameter=2,
+                Length= 40,
+                Diameter=4,
                 Color = Colors.Blue
             };
-            this.rotateXManipulator = new RotateManipulator { Axis = new Vector3D(1, 0, 0), Color = Colors.Red };
-            this.rotateYManipulator = new RotateManipulator { Axis = new Vector3D(0, 1, 0), Color = Colors.Green };
-            this.rotateZManipulator = new RotateManipulator { Axis = new Vector3D(0, 0, 1), Color = Colors.Blue };
+            this.rotateXManipulator = new RotateManipulator { InnerDiameter = 25, Diameter = 35, Axis = new Vector3D(1, 0, 0), Color = Colors.Red };
+            this.rotateYManipulator = new RotateManipulator { InnerDiameter = 25, Diameter = 35, Axis = new Vector3D(0, 1, 0), Color = Colors.Green };
+            this.rotateZManipulator = new RotateManipulator { InnerDiameter = 25, Diameter = 35, Axis = new Vector3D(0, 0, 1), Color = Colors.Blue };
 
             BindingOperations.SetBinding(this, TransformProperty, new Binding("TargetTransform") { Source = this });
 

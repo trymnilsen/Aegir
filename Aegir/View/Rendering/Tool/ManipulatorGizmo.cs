@@ -79,7 +79,7 @@ namespace Aegir.View.Rendering.Tool
         public ManipulatorGizmo(HelixViewport3D viewport, ManipulatorGizmoTransformHandler target)
         {
             manipulatorVisual = new ManipulatorGizmoVisual();
-            manipulatorVisual.Diameter = 10;
+            manipulatorVisual.Diameter = 35;
             TransformTarget = target;
             //target.Transform.Changed += Transform_Changed;
             Viewport = viewport;

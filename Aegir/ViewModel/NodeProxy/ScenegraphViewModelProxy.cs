@@ -88,11 +88,7 @@ namespace Aegir.ViewModel.NodeProxy
             double timeDifference = (now - lastNotifyProxyProperty).TotalMilliseconds;
             if (timeDifference > NotifyPropertyUpdateRate)
             {
-                lastNotifyProxyProperty = now;
-                foreach (NodeViewModelProxy nodeProxy in Items)
-                {
-                    nodeProxy.Invalidate();
-                }
+                selectedItem?.Invalidate();
             }
             TriggerInvalidateChildren();
         }
@@ -108,7 +104,7 @@ namespace Aegir.ViewModel.NodeProxy
         /// <param name="newItem"></param>
         public void UpdateSelectedItem(NodeViewModelProxy newItem)
         {
-            SelectedNodeChanged.Send(newItem);
+            Messenger.Publish<SelectedNodeChanged>(new SelectedNodeChanged(this, newItem));
         }
         private void SetRawNodeAsSelectedItem(Node node)
         {

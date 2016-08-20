@@ -182,6 +182,7 @@
             </Grid.Style>
             <local:SynchedHelixViewport3D x:Name="PerspectiveViewport"
                                 IsRotationEnabled="True" 
+                                          Background="#9F9F9F"
                                 ViewportCamera="{
                                     Binding ElementName=PerspectiveOverlay, 
                                     Path=Camera}">
@@ -213,6 +214,7 @@
                                 IsHeadLightEnabled="False"
                                 IsRotationEnabled="True"
                                 ContextMenuOpening="SceneContextMenuOpening"
+                                
                                 >
                 <ht:HelixViewport3D.ContextMenu>
                     <menu:SceneContextMenu MenuItems="{StaticResource MenuListSource}"></menu:SceneContextMenu>

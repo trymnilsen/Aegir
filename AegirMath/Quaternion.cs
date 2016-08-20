@@ -522,6 +522,19 @@ namespace AegirType
             return X.GetHashCode() + Y.GetHashCode() + Z.GetHashCode() + W.GetHashCode();
         }
 
+        public static double GetXAngle(Quaternion q)
+        {
+            return Math.Atan2(2 * q.Y * q.W - 2 * q.X * q.Z, 1 - 2 * q.Y * q.Y - 2 * q.Z * q.Z);
+        }
+        public static double GetYAngle(Quaternion q)
+        {
+            return Math.Atan2(2 * q.X * q.W - 2 * q.Y * q.Z, 1 - 2 * q.X * q.X - 2 * q.Z * q.Z);
+        }
+        public static double GetZAngle(Quaternion q)
+        {
+            return Math.Asin(2 * q.X * q.Y + 2 * q.Z * q.W);
+        }
+
         /// <summary>
         /// Returns the inverse quaternion which represents the opposite rotation.
         /// </summary>

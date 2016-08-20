@@ -1,20 +1,13 @@
 ﻿using Aegir.ViewModel.NodeProxy;
 using GalaSoft.MvvmLight.Messaging;
+using TinyMessenger;
 
 namespace Aegir.Messages.ObjectTree
 {
-    public class SelectedNodeChanged
+    public class SelectedNodeChanged : GenericTinyMessage<NodeViewModelProxy>
     {
-        public NodeViewModelProxy SelectedNode { get; set; }
+        public SelectedNodeChanged(object sender, NodeViewModelProxy content)
+            : base(sender, content) { }
 
-        private SelectedNodeChanged(NodeViewModelProxy selectedNode)
-        {
-            this.SelectedNode = selectedNode;
-        }
-
-        public static void Send(NodeViewModelProxy selectedNode)
-        {
-            Messenger.Default.Send<SelectedNodeChanged>(new SelectedNodeChanged(selectedNode));
-        }
     }
 }

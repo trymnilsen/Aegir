@@ -53,7 +53,7 @@ namespace Aegir.View.Rendering.Tool
 
         public void UpdateTransform(Transform3D targetTransform)
         {
-            transformTarget.ApplyTransform(targetTransform);
+            transformTarget?.ApplyTransform(targetTransform);
         }
         public delegate void GizmoModeChangedHandler(GizmoMode mode);
         public event GizmoModeChangedHandler GizmoModeChanged;
@@ -63,7 +63,10 @@ namespace Aegir.View.Rendering.Tool
 
         public void InvalidateTargetTransform()
         {
-            TargetTransformChanged?.Invoke(TransformTarget.Position, TransformTarget.Rotation);
+            if (TransformTarget != null)
+            {
+                TargetTransformChanged?.Invoke(TransformTarget.Position, TransformTarget.Rotation);
+            }
         }
     }
 }

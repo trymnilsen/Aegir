@@ -74,7 +74,7 @@ namespace Aegir
             , true);
             SimpleIoc.Default.Register<TimelineViewModel>(
                 () => {
-                    return new TimelineViewModel() { Messenger = application.MessageHub };
+                    return new TimelineViewModel(application.MessageHub, application.Engine.KeyframeEngine);
                 }
             , true);
         }

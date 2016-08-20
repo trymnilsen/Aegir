@@ -84,6 +84,51 @@ namespace Aegir.ViewModel.NodeProxy
                 RaisePropertyChanged();
             }
         }
+        [DisplayName("Roll")]
+        [Category("World Transformation")]
+        public double Roll
+        {
+            get
+            {
+                return Math.Round(AegirType.Angle.ToDegrees(AegirType.Quaternion.GetYAngle(transform.Rotation)),3);
+            }
+            set
+            {
+                double currentPitch = AegirType.Quaternion.GetXAngle(transform.Rotation);
+                double currentYaw = AegirType.Quaternion.GetZAngle(transform.Rotation);
+
+                transform.SetOrientation(currentYaw, currentPitch, AegirType.Angle.ToRadians(value));
+            }
+        }
+        [DisplayName("Yaw")]
+        [Category("World Transformation")]
+        public double Yaw
+        {
+            get
+            {
+                return Math.Round(AegirType.Angle.ToDegrees(AegirType.Quaternion.GetZAngle(transform.Rotation)),3);
+            }
+            set
+            {
+                double currentPitch = AegirType.Quaternion.GetXAngle(transform.Rotation);
+                double currentRoll = AegirType.Quaternion.GetYAngle(transform.Rotation);
+
+                transform.SetOrientation(AegirType.Angle.ToRadians(value), currentPitch, currentRoll);
+            }
+        }
+        [DisplayName("Pitch")]
+        [Category("World Transformation")]
+        public double Pitch
+        {
+            get { return Math.Round(AegirType.Angle.ToDegrees(AegirType.Quaternion.GetXAngle(transform.Rotation)),3); }
+            set
+            {
+                double currentYaw = AegirType.Quaternion.GetZAngle(transform.Rotation);
+                double currentRoll = AegirType.Quaternion.GetYAngle(transform.Rotation);
+
+                transform.SetOrientation(currentYaw, AegirType.Angle.ToRadians(value), currentRoll);
+            }
+        }
 
         [DisplayName("Is Enabled")]
         [Category("Simulation")]
@@ -305,11 +350,9 @@ namespace Aegir.ViewModel.NodeProxy
             RaisePropertyChanged(nameof(WorldTranslateX));
             RaisePropertyChanged(nameof(WorldTranslateY));
             RaisePropertyChanged(nameof(WorldTranslateZ));
-
-            foreach (NodeViewModelProxy child in Children)
-            {
-                child.Invalidate();
-            }
+            RaisePropertyChanged(nameof(Roll));
+            RaisePropertyChanged(nameof(Pitch));
+            RaisePropertyChanged(nameof(Yaw));
         }
 
         public override string ToString()

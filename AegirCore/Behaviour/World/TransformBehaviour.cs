@@ -24,7 +24,7 @@ namespace AegirCore.Behaviour.World
                 position = value;
             }
         }
-
+        [KeyframeProperty]
         public Quaternion Rotation
         {
             get { return rotation; }
@@ -78,6 +78,10 @@ namespace AegirCore.Behaviour.World
         public void RotateHeading(double newHeading)
         {
             Rotation = Quaternion.CreateFromAxisAngle(new Vector3(0, 0, 1), (float)newHeading);
+        }
+        public void SetOrientation(double yaw, double pitch, double roll)
+        {
+            Rotation = Quaternion.CreateFromYawPitchRoll((float)yaw, (float)pitch, (float)roll);
         }
 
         public override string ToString()

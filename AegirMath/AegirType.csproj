@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Angle.cs" />
     <Compile Include="BoundingBox.cs" />
     <Compile Include="BoundingFrustrum.cs" />
     <Compile Include="BoundingSphere.cs" />

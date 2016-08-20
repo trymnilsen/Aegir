@@ -158,7 +158,7 @@ namespace AegirCore.Simulation
         /// <param name="state">Needed to conform to timercall back delegate, not used</param>
         private void DoSimulation(object state)
         {
-            if (Monitor.TryEnter(lockObject, 33))
+            if (Monitor.TryEnter(lockObject, targetDeltaTime / 2))
             {
                 try
                 {

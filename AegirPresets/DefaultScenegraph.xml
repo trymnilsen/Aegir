@@ -24,7 +24,7 @@
               <TransformBehaviour>
                 <Vector3>
                   <X>0</X>
-                  <Y>200</Y>
+                  <Y>0</Y>
                   <Z>0</Z>
                 </Vector3>
                 <Quaternion>
@@ -35,7 +35,7 @@
                 </Quaternion>
               </TransformBehaviour>
               <MeshBehaviour>
-                <MeshDataReference>mesh://file/Mesh/hull.obj</MeshDataReference>
+                <MeshDataReference>mesh://file/Mesh/ship.obj</MeshDataReference>
               </MeshBehaviour>
             </Components>
             <Children />

@@ -130,6 +130,7 @@ namespace AegirCore.Keyframe
             interpolatorCache = new Dictionary<Type, IValueInterpolator>();
 
             interpolatorCache.Add(typeof(Vector3), new LinearVector3Interpolator());
+            interpolatorCache.Add(typeof(Quaternion), new LinearQuaternionInterpolator());
         }
         /// <summary>
         /// Change the playbackmode of the keyframe engine

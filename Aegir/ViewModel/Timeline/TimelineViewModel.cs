@@ -7,6 +7,7 @@ using GalaSoft.MvvmLight.Command;
 using log4net;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using TinyMessenger;
 
 namespace Aegir.ViewModel.Timeline
 {
@@ -31,8 +32,6 @@ namespace Aegir.ViewModel.Timeline
         /// the currently used active node
         /// </summary>
         private Node activeNode;
-
-        private KeyframeEngine engine;
 
         private int timelineStart;
         private int timelineEnd;
@@ -92,9 +91,9 @@ namespace Aegir.ViewModel.Timeline
         {
             get
             {
-                if (engine != null)
+                if (Engine != null)
                 {
-                    return engine.PlaybackMode;
+                    return Engine.PlaybackMode;
                 }
                 else
                 {
@@ -103,10 +102,10 @@ namespace Aegir.ViewModel.Timeline
             }
             set
             {
-                if (engine != null)
+                if (Engine != null)
                 {
                     log.DebugFormat("Setting keyframe engine playmode to {0}", value);
-                    engine.PlaybackMode = value;
+                    Engine.PlaybackMode = value;
                     RaisePropertyChanged();
                 }
             }
@@ -152,43 +151,50 @@ namespace Aegir.ViewModel.Timeline
         {
             get
             {
-                return engine.LoopPlayback;
+                return Engine.LoopPlayback;
             }
             set
             {
-                engine.LoopPlayback = value;
+                Engine.LoopPlayback = value;
             }
         }
 
         public bool Reverse
         {
-            get { return engine.ReverseOnEnd; }
-            set { engine.ReverseOnEnd = value; }
+            get { return Engine.ReverseOnEnd; }
+            set { Engine.ReverseOnEnd = value; }
         }
 
         public int PlaybackStart
         {
-            get { return engine.PlaybackStart; }
-            set { engine.PlaybackEnd = value; }
+            get { return Engine.PlaybackStart; }
+            set { Engine.PlaybackEnd = value; }
         }
 
 
         public int PlaybackEnd
         {
-            get { return engine.PlaybackEnd; }
-            set { engine.PlaybackEnd = value; }
+            get { return Engine.PlaybackEnd; }
+            set { Engine.PlaybackEnd = value; }
         }
 
+        public KeyframeEngine Engine { get; private set; }
 
         /// <summary>
         /// Instantiates a new timeline viewmodel
         /// </summary>
-        public TimelineViewModel()
+        public TimelineViewModel(ITinyMessengerHub messenger, KeyframeEngine engine)
         {
             TimelineStart = 0;
             TimelineEnd = 100;
+            Messenger = messenger;
+            //Set up engine
+            Engine = engine;
+            Engine.CurrentTimeChanged += Engine_CurrentTimeChanged;
+            SetTimeLine(Engine.Keyframes);
             //MessengerInstance.Register<SelectedNodeChanged>(this, ActiveNodeChanged);
             //MessengerInstance.Register<ActiveTimelineChanged>(this, TimelineChanged);
+            Messenger.Subscribe<SelectedNodeChanged>(ActiveNodeChanged);
             AddKeyframeCommand = new RelayCommand(CaptureKeyframes, CanCaptureKeyframes);
             Keyframes = new ObservableCollection<KeyframeViewModel>();
             playPauseCommand = new RelayCommand(TogglePlayPauseState);
@@ -208,7 +214,7 @@ namespace Aegir.ViewModel.Timeline
 
         private void UpdateTime()
         {
-            engine.Time = Time;
+            Engine.Time = Time;
         }
 
         /// <summary>
@@ -219,7 +225,7 @@ namespace Aegir.ViewModel.Timeline
             log.DebugFormat("SetKeyframe at frame {0} on {1}",
                             Time, activeNode?.Name);
             Stopwatch sw = Stopwatch.StartNew();
-            engine.CaptureAndAddToTimeline(activeNode, Time);
+            Engine.CaptureAndAddToTimeline(activeNode, Time);
             sw.Stop();
             log.DebugFormat("SetKeyframe finished, used {0} ms",
                             sw.Elapsed.TotalMilliseconds);
@@ -239,9 +245,9 @@ namespace Aegir.ViewModel.Timeline
             log.DebugFormat("ActiveTimelineChanged Received, Timeline changed to {0}",
                             message?.Timeline.ToString());
             SetTimeLine(message.Timeline);
-            engine = message.Engine;
+            Engine = message.Engine;
 
-            engine.CurrentTimeChanged += Engine_CurrentTimeChanged;
+
         }
 
         private void Engine_CurrentTimeChanged(int newTime)
@@ -256,7 +262,7 @@ namespace Aegir.ViewModel.Timeline
         /// <param name="message"></param>
         private void ActiveNodeChanged(SelectedNodeChanged message)
         {
-            activeNode = message.SelectedNode.NodeSource;
+            activeNode = message.Content.NodeSource;
             log.DebugFormat("SelectedNodeChanged Received, ActiveNode Changed to {0}",
                             activeNode?.Name);
             AddKeyframeCommand.RaiseCanExecuteChanged();

@@ -29,7 +29,7 @@ namespace Aegir.ViewModel.Properties
 
         private void OnSelectedNodeChange(SelectedNodeChanged message)
         {
-            SelectedNode = message.SelectedNode;
+            SelectedNode = message.Content;
         }
     }
 }
