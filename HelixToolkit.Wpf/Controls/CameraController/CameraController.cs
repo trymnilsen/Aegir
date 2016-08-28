@@ -411,6 +411,8 @@ namespace HelixToolkit.Wpf
         /// </summary>
         private double zoomSpeed;
 
+        public static Point3D RotateOrigin = new Point3D();
+
         /// <summary>
         /// Initializes static members of the <see cref="CameraController" /> class.
         /// </summary>

@@ -9,6 +9,7 @@ using log4net;
 using System.Collections.Generic;
 using System.Windows.Media;
 using System.Windows.Media.Media3D;
+using System;
 
 namespace Aegir.Rendering
 {
@@ -251,6 +252,12 @@ namespace Aegir.Rendering
 
         private void ReleaseCurrentScene()
         {
+        }
+
+        internal void CameraFollow(NodeViewModelProxy selectedItem)
+        {
+            TransformBehaviour transform = selectedItem.GetNodeComponent<TransformBehaviour>();
+            viewports[1].FollowTransform = transform;
         }
     }
 }

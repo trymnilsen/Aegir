@@ -231,6 +231,7 @@ namespace HelixToolkit.Wpf
         /// </param>
         public void RotateTurntable(Vector delta, Point3D rotateAround)
         {
+            rotateAround = CameraController.RotateOrigin;
             Vector3D relativeTarget = rotateAround - this.CameraTarget;
             Vector3D relativePosition = rotateAround - this.CameraPosition;
 
@@ -264,10 +265,12 @@ namespace HelixToolkit.Wpf
             Point3D newTarget = rotateAround - newRelativeTarget;
             Point3D newPosition = rotateAround - newRelativePosition;
 
-            this.CameraLookDirection = newTarget - newPosition;
+            Vector3D diff = newRelativePosition - relativePosition;
+
+            this.CameraLookDirection = rotateAround - newPosition;
             if (CameraMode == CameraMode.Inspect)
             {
-                this.CameraPosition = newPosition;
+                this.CameraPosition -= diff;
             }
 
             this.CameraUpDirection = newUpDirection;
@@ -275,7 +278,7 @@ namespace HelixToolkit.Wpf
 
         /// <summary>
         /// Occurs when the manipulation is started.
-        /// </summary>
+        /// </summary><
         /// <param name="e">The <see cref="ManipulationEventArgs"/> instance containing the event data.</param>
         public override void Started(ManipulationEventArgs e)
         {

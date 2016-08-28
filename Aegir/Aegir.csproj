@@ -204,6 +204,11 @@
     <Compile Include="Messages\Timeline\ActiveTimelineChanged.cs" />
     <Compile Include="Mvvm\ObservableObject.cs" />
     <Compile Include="Mvvm\ViewModelBase.cs" />
+    <Compile Include="Rendering\Camera\FrontCamera.cs" />
+    <Compile Include="Rendering\Camera\ICameraMode.cs" />
+    <Compile Include="Rendering\Camera\LeftCamera.cs" />
+    <Compile Include="Rendering\Camera\PerspectiveCamera.cs" />
+    <Compile Include="Rendering\Camera\TopCamera.cs" />
     <Compile Include="Rendering\IGeometryFactory.cs" />
     <Compile Include="Rendering\ITransformableVisual.cs" />
     <Compile Include="Rendering\IVisualResolver.cs" />
@@ -220,6 +225,9 @@
     <Compile Include="View\Rendering\Menu\SceneContextMenu.cs" />
     <Compile Include="View\Rendering\Menu\SeperatorMenuItem.cs" />
     <Compile Include="View\Rendering\Menu\SubMenuItem.cs" />
+    <Compile Include="View\Rendering\RenderViewportView.xaml.cs">
+      <DependentUpon>RenderViewportView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Rendering\SynchedHelixViewport3D.cs" />
     <Compile Include="ViewModel\NodeProxy\GeoidViewModelProxy.cs" />
     <Compile Include="ViewModel\NodeProxy\IScenegraphAddRemoveHandler.cs" />
@@ -395,6 +403,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Rendering\RenderView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Rendering\RenderViewportView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

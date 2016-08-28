@@ -244,7 +244,7 @@
                             <MenuItem IsCheckable="True" Header="Wireframe"></MenuItem>
                         </MenuItem>
                         <MenuItem Header="Center On Selected"></MenuItem>
-                        <MenuItem IsCheckable="True" Header="Follow Selected"></MenuItem>
+                        <MenuItem IsCheckable="True" Header="Follow Selected" Click="MenuItem_Click_3"></MenuItem>
                     </ContextMenu>
                 </ToggleButton.ContextMenu>
             </ToggleButton>
