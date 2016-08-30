@@ -78,7 +78,7 @@ namespace AegirCore.Keyframe
             set
             {
                 nextKeyTime = value;
-                //log.DebugFormat("Next frametime set to {0}", value);
+                log.DebugFormat("Next frametime set to {0}", value);
                 //Seek(currentTime);
             }
         }
@@ -180,65 +180,28 @@ namespace AegirCore.Keyframe
         /// <param name="subTime"></param>
         public void Step()
         {
-            //is it time for advancing one key time?
-            //if((nextKeyTime-currentKeyTime) == 0)
-            //{
-            //    switch(PlaybackMode)
-            //    {
-            //        case PlaybackMode.PLAYING:
-            //            NextFrame();
-            //            break;
-            //        case PlaybackMode.REWIND:
-            //            PreviousFrame();
-            //            break;
-            //        case PlaybackMode.PAUSED:
-            //        default:
-            //            return;//Paused should should not trigger a seek and recalc of keys
-            //    }
-            //}
-            //For now only update if next key time is different from current
+            //If we are at the same key time as last, advance by one
+            if(nextKeyTime==currentKeyTime && PlaybackMode == PlaybackMode.PLAYING)
+            {
+                nextKeyTime = NextFrame();
+            }
 
-            if(nextKeyTime!=currentKeyTime)
-            {
-                //log.DebugFormat("Seek, current time {0} next time {1}", currentKeyTime, nextKeyTime);
-                //log.Debug("Seek started");
-                //Stopwatch sw = Stopwatch.StartNew();
-                Seek(nextKeyTime);
-                //sw.Stop();
-                //log.DebugFormat("Seek used {0} ms", sw.Elapsed.TotalMilliseconds);
-            }
-            else
-            {
-                int framesToMove = NextFrame();
-                if(framesToMove != 0)
-                {
-                    Time += framesToMove;
-                    Seek(Time);
-                }
-            }
+            Seek(nextKeyTime);
+            currentKeyTime = nextKeyTime;
         }
         /// <summary>
         /// Gets the next time based on current state of engine
         /// </summary>
-        /// <returns>Amount of frames moved +1 for one forward, 0 for none, -1 for rewind</returns> 
+        /// <returns>The numerical number of the next step</returns> 
         public int NextFrame()
         {
-            if(loopPlayback)
+            //bounds check
+            if (Time > PlaybackEnd && loopPlayback)
             {
-                if(Time>PlaybackEnd)
-                {
-                    return playbackStart-PlaybackEnd;
-                }
-                else if(Time<PlaybackStart)
-                {
-                    return PlaybackEnd-PlaybackStart;
-                }
+                return PlaybackStart;
             }
-            else if(Time>PlaybackEnd || Time<PlaybackStart)
-            {
-                return 0;
-            }
-            return 1;
+
+            return currentKeyTime + 1;
         }
         
         /// <summary>

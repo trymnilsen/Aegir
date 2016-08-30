@@ -2,9 +2,11 @@
 using Aegir.Messages.Timeline;
 using Aegir.Mvvm;
 using AegirCore.Keyframe;
+using AegirCore.Messages;
 using AegirCore.Scene;
 using GalaSoft.MvvmLight.Command;
 using log4net;
+using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using TinyMessenger;
@@ -126,6 +128,7 @@ namespace Aegir.ViewModel.Timeline
         }
 
         private RelayCommand playPauseCommand;
+        private DateTime lastNotifyProxyProperty;
 
         public RelayCommand PlayPauseCommand
         {
@@ -179,12 +182,14 @@ namespace Aegir.ViewModel.Timeline
         }
 
         public KeyframeEngine Engine { get; private set; }
+        public double NotifyPropertyUpdateRate { get; private set; }
 
         /// <summary>
         /// Instantiates a new timeline viewmodel
         /// </summary>
         public TimelineViewModel(ITinyMessengerHub messenger, KeyframeEngine engine)
         {
+            NotifyPropertyUpdateRate = 50;
             TimelineStart = 0;
             TimelineEnd = 100;
             Messenger = messenger;
@@ -195,9 +200,22 @@ namespace Aegir.ViewModel.Timeline
             //MessengerInstance.Register<SelectedNodeChanged>(this, ActiveNodeChanged);
             //MessengerInstance.Register<ActiveTimelineChanged>(this, TimelineChanged);
             Messenger.Subscribe<SelectedNodeChanged>(ActiveNodeChanged);
+            Messenger.Subscribe<InvalidateEntity>(OnInvalidateEntitiesMessage);
             AddKeyframeCommand = new RelayCommand(CaptureKeyframes, CanCaptureKeyframes);
             Keyframes = new ObservableCollection<KeyframeViewModel>();
             playPauseCommand = new RelayCommand(TogglePlayPauseState);
+        }
+
+        private void OnInvalidateEntitiesMessage(InvalidateEntity node)
+        {
+            DateTime now = DateTime.Now;
+            double timeDifference = (now - lastNotifyProxyProperty).TotalMilliseconds;
+            if (timeDifference > NotifyPropertyUpdateRate || true)
+            {
+                currentTimelinePosition = Engine.Time;
+                RaisePropertyChanged("Time");
+                lastNotifyProxyProperty = now;
+            }
         }
 
         private void TogglePlayPauseState()
