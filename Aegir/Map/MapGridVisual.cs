@@ -258,10 +258,10 @@ namespace Aegir.Map
                    
 
                     int zoomLevel = 18 - Math.Max(0,Math.Min(9,SnappedZoomFactor));
-                    //if(zoomLevel != MapZoomLevel)
-                    //{
-                    //    MapZoomLevel = zoomLevel;
-                    //}
+                    if (zoomLevel != MapZoomLevel)
+                    {
+                        MapZoomLevel = zoomLevel;
+                    }
 
                     log.DebugFormat("Zoom snapped distance/zoom level: {0} / {1}", cameraTargetDistance, SnappedZoomFactor);
                 }
