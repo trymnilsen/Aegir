@@ -204,6 +204,12 @@
     <Compile Include="Messages\Timeline\ActiveTimelineChanged.cs" />
     <Compile Include="Mvvm\ObservableObject.cs" />
     <Compile Include="Mvvm\ViewModelBase.cs" />
+    <Compile Include="PropertyGrid\CategoryContainer.cs" />
+    <Compile Include="PropertyGrid\CustomEditorAttribute.cs" />
+    <Compile Include="PropertyGrid\IPropertyProvider.cs" />
+    <Compile Include="PropertyGrid\PropertyContainer.cs" />
+    <Compile Include="PropertyGrid\PropertyGrid.cs" />
+    <Compile Include="PropertyGrid\RefreshPropertyListOnPropertyChangeAttribute.cs" />
     <Compile Include="Rendering\Camera\FrontCamera.cs" />
     <Compile Include="Rendering\Camera\ICameraMode.cs" />
     <Compile Include="Rendering\Camera\LeftCamera.cs" />
@@ -576,7 +582,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="File\" />
-    <Folder Include="PropertyGrid\" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="aegiricon.ico" />
