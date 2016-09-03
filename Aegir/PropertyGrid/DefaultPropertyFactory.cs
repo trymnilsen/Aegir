@@ -8,7 +8,18 @@ namespace Aegir.PropertyGrid
 {
     public static class DefaultPropertyFactory 
     {
-        public static InspectablePropertyMetadata[] GetProperties(object obj)
+        public static InspectableProperty[] GetProperties(object obj)
+        {
+            if(obj is IPropertyInfoProvider)
+            {
+                return (obj as IPropertyInfoProvider)?.GetProperties();
+            }
+            else
+            {
+                return null;
+            }
+        }
+        public static InspectablePropertyMetadata GetPropertyMetadata(InspectableProperty property)
         {
 
         }

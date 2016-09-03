@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace Aegir.PropertyGrid
 {
-    public interface IPropertyProvider
+    public interface IPropertyInfoProvider
     {
-        PropertyInfo[] GetProperties();
+        InspectableProperty[] GetProperties();
     }
 }

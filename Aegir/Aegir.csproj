@@ -206,7 +206,10 @@
     <Compile Include="Mvvm\ViewModelBase.cs" />
     <Compile Include="PropertyGrid\CategoryContainer.cs" />
     <Compile Include="PropertyGrid\CustomEditorAttribute.cs" />
-    <Compile Include="PropertyGrid\IPropertyProvider.cs" />
+    <Compile Include="PropertyGrid\DefaultPropertyFactory.cs" />
+    <Compile Include="PropertyGrid\InspectableProperty.cs" />
+    <Compile Include="PropertyGrid\InspectablePropertyMetadata.cs" />
+    <Compile Include="PropertyGrid\IPropertyInfoProvider.cs" />
     <Compile Include="PropertyGrid\PropertyContainer.cs" />
     <Compile Include="PropertyGrid\PropertyGrid.cs" />
     <Compile Include="PropertyGrid\RefreshPropertyListOnPropertyChangeAttribute.cs" />

@@ -12,6 +12,11 @@ namespace Aegir.PropertyGrid
 {
     public class PropertyGrid : Grid
     {
+        /// <summary>
+        /// We keep track of the objects we are currently listing to so we
+        /// can unsub from the later
+        /// </summary>
+        private Dictionary<int,WeakReference<INotifyPropertyChanged>> eventPublishers;
         private HashSet<string> requiresListReload;
         private InspectablePropertyMetadata[] currentProperties;
         // Using a DependencyProperty as the backing store for SelectedObject.  This enables animation, styling, binding, etc...
@@ -30,45 +35,74 @@ namespace Aegir.PropertyGrid
         public PropertyGrid()
         {
             requiresListReload = new HashSet<string>();
+            eventPublishers = new Dictionary<int,WeakReference<INotifyPropertyChanged>>();
         }
         private void UpdatePropertyGridTarget(object oldObject, object newObject)
         {
-
+            Cleanup();
+            ClearGridUI();
             if(newObject != null)
             {
                 //Get all properties from the factory
                 //This will read the propertyinfo and create our own
                 //convienient format (that is also cached)
-                InspectablePropertyMetadata[] properties = 
-                    DefaultPropertyFactory.GetProperties(newObject);
+                InspectableProperty[] properties = GetProperties(newObject);
 
-                //If object is able to change we need to check if it has
-                //layout change requirements and listen for changes in general
-                if(newObject is INotifyPropertyChanged)
+                foreach(InspectableProperty property in properties)
                 {
-                    foreach(var property in properties.Where(x=>x.UpdateLayoutOnValueChange))
+                    InspectablePropertyMetadata propertiyMetadata = 
+                        DefaultPropertyFactory.GetPropertyMetadata(property);
+
+                    if(property.Target is INotifyPropertyChanged)
                     {
-                        requiresListReload.Add(property.Name);
+                        var target = property.Target as INotifyPropertyChanged;
+                        if(!eventPublishers.ContainsKey(target.GetHashCode()))
+                        {
+                            eventPublishers.Add(target.GetHashCode(), new WeakReference<INotifyPropertyChanged>(target));
+                        }
+                        target.PropertyChanged += TargetObject_PropertyChanged;
                     }
-                    //We need to listen for propertychanged events to know if we need
-                    //to reload list of properties
-                    (newObject as INotifyPropertyChanged).PropertyChanged += TargetObject_PropertyChanged;
+
+                    AddProperty(property, propertiyMetadata);
                 }
 
-                RecreatePropertyUI();
             }
             else
             {
-                ResetPropertyGrid();
+                SetEmptyGridUi();
             }
         }
 
-        private void RecreatePropertyUI()
+        private void ClearGridUI()
         {
             throw new NotImplementedException();
         }
 
-        private void ResetPropertyGrid()
+        private void SetEmptyGridUi()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void Cleanup()
+        {
+            //Remove all events
+            foreach(var eventPub in eventPublishers.Values)
+            {
+                INotifyPropertyChanged pubInstance;
+                if(eventPub.TryGetTarget(out pubInstance))
+                {
+                    pubInstance.PropertyChanged -= TargetObject_PropertyChanged;
+                }
+            }
+            eventPublishers.Clear();
+        }
+
+        private void AddProperty(InspectableProperty property, InspectablePropertyMetadata propertiyMetadata)
+        {
+            throw new NotImplementedException();
+        }
+
+        private InspectableProperty[] GetProperties(object newObject)
         {
             throw new NotImplementedException();
         }
@@ -77,13 +111,13 @@ namespace Aegir.PropertyGrid
         {
             if(requiresListReload.Contains(e.PropertyName))
             {
-                InspectablePropertyMetadata[] properties =
-                    DefaultPropertyFactory.GetProperties(SelectedObject);
-
 
             }
         }
         private void RemoveProperty(InspectablePropertyMetadata property)
+        {
+
+        }
         private void CleanupPreviousSelected(object oldObject)
         {
             throw new NotImplementedException();
