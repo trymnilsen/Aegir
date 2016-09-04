@@ -211,7 +211,9 @@
     <Compile Include="PropertyGrid\InspectablePropertyMetadata.cs" />
     <Compile Include="PropertyGrid\IPropertyInfoProvider.cs" />
     <Compile Include="PropertyGrid\PropertyContainer.cs" />
-    <Compile Include="PropertyGrid\PropertyGrid.cs" />
+    <Compile Include="PropertyGrid\PropertyGrid.xaml.cs">
+      <DependentUpon>PropertyGrid.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PropertyGrid\RefreshPropertyListOnPropertyChangeAttribute.cs" />
     <Compile Include="Rendering\Camera\FrontCamera.cs" />
     <Compile Include="Rendering\Camera\ICameraMode.cs" />
@@ -379,6 +381,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="PropertyGrid\PropertyGrid.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\ComponentEditor.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

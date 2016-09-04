@@ -21,7 +21,7 @@ namespace Aegir.PropertyGrid
         }
         public static InspectablePropertyMetadata GetPropertyMetadata(InspectableProperty property)
         {
-
+            
         }
     }
 }
