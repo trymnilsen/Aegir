@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Aegir.PropertyGrid
 {
-    public class RefreshPropertyListOnPropertyChangeAttribute : Attribute
+    public class UpdatePropListOnPropChangeAttribute : Attribute
     {
     }
 }

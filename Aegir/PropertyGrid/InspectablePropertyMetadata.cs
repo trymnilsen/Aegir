@@ -19,5 +19,12 @@ namespace Aegir.PropertyGrid
                 return ReflectionInfo.Name;
             }
         }
+
+        public InspectablePropertyMetadata(bool updateLayoutOnPropChange, string category, PropertyInfo propInfo)
+        {
+            UpdateLayoutOnValueChange = updateLayoutOnPropChange;
+            Category = category;
+            ReflectionInfo = propInfo;
+        }
     }
 }

@@ -21,6 +21,7 @@ namespace Aegir.PropertyGrid
     /// </summary>
     public partial class PropertyGrid : UserControl
     {
+        public const string NoCategoryName = "Misc";
         /// <summary>
         /// We keep track of the objects we are currently listing to so we
         /// can unsub from the later
@@ -84,7 +85,7 @@ namespace Aegir.PropertyGrid
                 //Get all properties from the factory
                 //This will read the propertyinfo and create our own
                 //convienient format (that is also cached)
-                InspectableProperty[] properties = GetProperties(newObject);
+                InspectableProperty[] properties = DefaultPropertyFactory.GetProperties(newObject);
 
                 foreach (InspectableProperty property in properties)
                 {
@@ -115,14 +116,14 @@ namespace Aegir.PropertyGrid
         /// </summary>
         private void ClearGridUI()
         {
-            throw new NotImplementedException();
+            this.CategoryPanel.Children.Clear();
         }
         /// <summary>
         /// Sets the state of the propertygrid to a "No selected object"
         /// </summary>
         private void SetEmptyGridUi()
         {
-            throw new NotImplementedException();
+            
         }
         /// <summary>
         /// Cleans up the grid, removing events etc
@@ -142,10 +143,6 @@ namespace Aegir.PropertyGrid
         }
 
 
-        private InspectableProperty[] GetProperties(object newObject)
-        {
-            throw new NotImplementedException();
-        }
         /// <summary>
         /// Callback for when a property on the object(s) we are editing changes
         /// via the INotifyPropertyChanged event
@@ -159,13 +156,7 @@ namespace Aegir.PropertyGrid
 
             }
         }
-        /// <summary>
-        /// Clears any property editing UI elements from the grid
-        /// </summary>
-        private void ClearPropertyGrid()
-        {
 
-        }
         /// <summary>
         /// Callback for the selected object dependency property changed
         /// Triggers the UpdatePropertyGridTarget of the propertygrid view
@@ -186,7 +177,8 @@ namespace Aegir.PropertyGrid
         {
             //Get the category of the property
             CategoryContainer container = GetCategory(propertyMetadata);
-
+            PropertyContainer propContainer = new PropertyContainer(propertyMetadata.Name);
+            container.AddProperty(propContainer);
         }
         /// <summary>
         /// Removes a property from the UI
@@ -204,6 +196,7 @@ namespace Aegir.PropertyGrid
             }
 
             CategoryContainer newCategory = new CategoryContainer();
+            categoryViews.Add(metaData.Category, newCategory);
             newCategory.Header = metaData.Category;
 
             CategoryPanel.Children.Add(newCategory);

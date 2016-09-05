@@ -9,12 +9,22 @@ namespace Aegir.PropertyGrid
 {
     public class PropertyContainer : Grid
     {
+
+        private TextBlock textLabel;
+
         public PropertyContainer(string propertyName)
         {
             //Add three columns
             ColumnDefinitions.Add(new ColumnDefinition());
             ColumnDefinitions.Add(new ColumnDefinition());
             ColumnDefinitions.Add(new ColumnDefinition());
+
+            textLabel = new TextBlock();
+            textLabel.Text = propertyName;
+
+            Grid.SetColumn(textLabel, 1);
+
+            this.Children.Add(textLabel);
         }
     }
 }
