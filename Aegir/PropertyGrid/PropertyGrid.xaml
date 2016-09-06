@@ -27,18 +27,17 @@
                                Height="12"
                                SnapsToDevicePixels="True"
                                Stroke="Black" Margin="4"></Rectangle>
-
                     <Path x:Name="Sign"
                       Grid.Column="0"
-                      Data="M 0,4 H 8 M 4,0 V 8 Z"
+                      Data="M 0,3 H 6 M 3,0 V 6 Z"
                       Stroke="Black"
-                      Width="8"
-                      Height="8"
+                      Width="6"
+                      Height="6"
                       StrokeThickness="1"
+                          RenderOptions.EdgeMode="Aliased"
                       HorizontalAlignment="Center"
                       VerticalAlignment="Center"
                       RenderTransformOrigin="0.5,0.5"
-                          SnapsToDevicePixels="True"
                       />
                     <ContentPresenter x:Name="HeaderContent"
                                   Grid.Column="1"
@@ -51,7 +50,7 @@
                 <!--Change the sign to minus when toggled-->
                 <Trigger Property="IsChecked"
                          Value="True">
-                    <Setter Property="Data" TargetName="Sign" Value="M 0,5 H 10 Z"/>
+                    <Setter Property="Data" TargetName="Sign" Value="M 0,3 H 6 Z"/>
                 </Trigger>
 
                 <!-- MouseOver, Pressed behaviours-->
@@ -60,18 +59,9 @@
                     <Setter Property="Stroke"
                                     Value="#FF3C7FB1"
                                     TargetName="Circle"/>
-                    <Setter Property="Stroke"
-                                    Value="#222"
-                                    TargetName="Sign"/>
                 </Trigger>
                 <Trigger Property="IsPressed"
                                  Value="true">
-                    <Setter Property="Stroke"
-                                    Value="#FF526C7B"
-                                    TargetName="Circle"/>
-                    <Setter Property="StrokeThickness"
-                                    Value="1.5"
-                                    TargetName="Circle"/>
                     <Setter Property="Stroke"
                                     Value="#FF003366"
                                     TargetName="Sign"/>
@@ -115,6 +105,7 @@
         <ScrollViewer Grid.Row="0" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Auto">
             <StackPanel x:Name="CategoryPanel" SnapsToDevicePixels="True">
                 <!--<Expander Header="Fooooobar"></Expander>-->
+                <local:CategoryContainer></local:CategoryContainer>
             </StackPanel>
         </ScrollViewer>
         <Border Grid.Row="1">
