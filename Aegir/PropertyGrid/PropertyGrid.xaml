@@ -6,14 +6,115 @@
              xmlns:local="clr-namespace:Aegir.PropertyGrid"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <ControlTemplate x:Key="SimpleExpanderButtonTemp" TargetType="{x:Type ToggleButton}">
+            <Border x:Name="ExpanderButtonBorder"
+                    Background="LightGray"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    Padding="{TemplateBinding Padding}"
+                    >
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Rectangle Fill="Transparent"
+                               Grid.ColumnSpan="2"/>
+                    <Rectangle Grid.Column="0"
+                               Name="Circle"
+                               Width="12" 
+                               Height="12"
+                               SnapsToDevicePixels="True"
+                               Stroke="Black" Margin="4"></Rectangle>
+
+                    <Path x:Name="Sign"
+                      Grid.Column="0"
+                      Data="M 0,4 H 8 M 4,0 V 8 Z"
+                      Stroke="Black"
+                      Width="8"
+                      Height="8"
+                      StrokeThickness="1"
+                      HorizontalAlignment="Center"
+                      VerticalAlignment="Center"
+                      RenderTransformOrigin="0.5,0.5"
+                          SnapsToDevicePixels="True"
+                      />
+                    <ContentPresenter x:Name="HeaderContent"
+                                  Grid.Column="1"
+                                  TextBlock.FontWeight="Bold"
+                                  Margin="4,1,0,0"
+                                  ContentSource="Content"/>
+                </Grid>
+            </Border>
+            <ControlTemplate.Triggers>
+                <!--Change the sign to minus when toggled-->
+                <Trigger Property="IsChecked"
+                         Value="True">
+                    <Setter Property="Data" TargetName="Sign" Value="M 0,5 H 10 Z"/>
+                </Trigger>
+
+                <!-- MouseOver, Pressed behaviours-->
+                <Trigger Property="IsMouseOver"
+                                 Value="true">
+                    <Setter Property="Stroke"
+                                    Value="#FF3C7FB1"
+                                    TargetName="Circle"/>
+                    <Setter Property="Stroke"
+                                    Value="#222"
+                                    TargetName="Sign"/>
+                </Trigger>
+                <Trigger Property="IsPressed"
+                                 Value="true">
+                    <Setter Property="Stroke"
+                                    Value="#FF526C7B"
+                                    TargetName="Circle"/>
+                    <Setter Property="StrokeThickness"
+                                    Value="1.5"
+                                    TargetName="Circle"/>
+                    <Setter Property="Stroke"
+                                    Value="#FF003366"
+                                    TargetName="Sign"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+        <Style TargetType="{x:Type local:CategoryContainer}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <!-- Simple Expander Template-->
+                    <ControlTemplate TargetType="{x:Type local:CategoryContainer}">
+                        <DockPanel>
+                            <ToggleButton x:Name="ExpanderButton" 
+                              DockPanel.Dock="Top"
+                              Template="{StaticResource SimpleExpanderButtonTemp}"
+                              Content="{TemplateBinding Header}"
+                              IsChecked="{Binding Path=IsExpanded, RelativeSource={RelativeSource TemplatedParent}}"
+                              OverridesDefaultStyle="True"
+                              Padding="1.5,0">
+                            </ToggleButton>
+                            <ContentPresenter x:Name="ExpanderContent"
+                                  Grid.Row="1" 
+                                  Visibility="Collapsed"
+                                  DockPanel.Dock="Bottom"/>
+                        </DockPanel>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsExpanded" Value="True">
+                                <Setter TargetName="ExpanderContent" Property="Visibility" Value="Visible"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition></RowDefinition>
             <RowDefinition Height="100"></RowDefinition>
         </Grid.RowDefinitions>
         <ScrollViewer Grid.Row="0" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Auto">
-            <StackPanel x:Name="CategoryPanel">
-                
+            <StackPanel x:Name="CategoryPanel" SnapsToDevicePixels="True">
+                <!--<Expander Header="Fooooobar"></Expander>-->
             </StackPanel>
         </ScrollViewer>
         <Border Grid.Row="1">
