@@ -23,16 +23,16 @@
                                Grid.ColumnSpan="2"/>
                     <Rectangle Grid.Column="0"
                                Name="Circle"
-                               Width="12" 
-                               Height="12"
+                               Width="11" 
+                               Height="11"
                                SnapsToDevicePixels="True"
                                Stroke="Black" Margin="4"></Rectangle>
                     <Path x:Name="Sign"
                       Grid.Column="0"
-                      Data="M 0,3 H 6 M 3,0 V 6 Z"
+                      Data="M 0,4 H 7 M 4,0 V 7 Z"
                       Stroke="Black"
-                      Width="6"
-                      Height="6"
+                      Width="7"
+                      Height="7"
                       StrokeThickness="1"
                           RenderOptions.EdgeMode="Aliased"
                       HorizontalAlignment="Center"
@@ -50,7 +50,7 @@
                 <!--Change the sign to minus when toggled-->
                 <Trigger Property="IsChecked"
                          Value="True">
-                    <Setter Property="Data" TargetName="Sign" Value="M 0,3 H 6 Z"/>
+                    <Setter Property="Data" TargetName="Sign" Value="M 0,4 H 7 Z"/>
                 </Trigger>
 
                 <!-- MouseOver, Pressed behaviours-->
