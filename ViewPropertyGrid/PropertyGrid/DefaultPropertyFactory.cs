@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
 
-namespace Aegir.PropertyGrid
+namespace ViewPropertyGrid.PropertyGrid
 {
     public static class DefaultPropertyFactory 
     {

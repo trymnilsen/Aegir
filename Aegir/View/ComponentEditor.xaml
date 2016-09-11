@@ -6,11 +6,13 @@
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              xmlns:ctrl="clr-namespace:System.Windows.Controls"
              xmlns:pgc="clr-namespace:Aegir.PropertyGrid"
+             xmlns:pt="http://propertytools.org/wpf"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid DataContext="{Binding ScenegraphVM, Source={StaticResource VMLocator}}">
-        <!--<xctk:PropertyGrid SelectedObject="{Binding SelectedItem}" ShowSortOptions="False" ShowDescriptionByTooltip="True"  ShowPreview="False" ShowSummary="False" ShowSearchBox="False" ShowTitle="False"></xctk:PropertyGrid>-->
+        <!--<xctk:PropertyGrid SelectedObject="{Binding SelectedItem}" ShowSortOptions="False" ShowDescriptionByTooltip="True"  ShowPreview="False" ShowSearchBox="False"></xctk:PropertyGrid>-->
         <!--<ctrl:WpfPropertyGrid SelectedObject="{Binding SelectedItem}" ToolbarVisible="False"></ctrl:WpfPropertyGrid>-->
         <pgc:PropertyGrid SelectedObject="{Binding SelectedItem}"></pgc:PropertyGrid>
+        <!--<pt:PropertyGrid SelectedObject="{Binding SelectedItem}" TabVisibility="VisibleIfMoreThanOne"></pt:PropertyGrid>-->
     </Grid>
 </UserControl>

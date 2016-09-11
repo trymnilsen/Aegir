@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Aegir.PropertyGrid
+namespace ViewPropertyGrid.PropertyGrid
 {
-    [AttributeUsage(AttributeTargets.Property)]
-    public class CustomEditorAttribute : Attribute
+    public class UpdatePropListOnPropChangeAttribute : Attribute
     {
     }
 }

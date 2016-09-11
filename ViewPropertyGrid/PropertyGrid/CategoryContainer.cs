@@ -4,8 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using System.Windows.Media;
 
-namespace Aegir.PropertyGrid
+namespace ViewPropertyGrid.PropertyGrid
 {
     public class CategoryContainer : Expander
     {
@@ -15,6 +16,7 @@ namespace Aegir.PropertyGrid
         {
             internalPanel = new StackPanel();
             this.Content = internalPanel;
+            this.IsExpanded = true;
         }
 
         public void AddProperty(PropertyContainer property)

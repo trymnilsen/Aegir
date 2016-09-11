@@ -2,6 +2,7 @@
 using System.Activities.Presentation.Model;
 using System.Activities.Presentation.View;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Reflection;
 using System.Windows.Data;
 
@@ -29,6 +30,7 @@ namespace System.Windows.Controls
         private Border HelpText;
         private GridSplitter Splitter;
         private double HelpTextHeight = 60;
+        
 
         #endregion Private fields
 
@@ -77,6 +79,8 @@ namespace System.Windows.Controls
             get { return (PropertySort)GetValue(PropertySortProperty); }
             set { SetValue(PropertySortProperty, value); }
         }
+
+        public static int SelectedTargetINotifyChanged { get; private set; }
 
         #endregion Public properties
 
@@ -135,7 +139,8 @@ namespace System.Windows.Controls
                 pg.SelectionTypeLabel.Text = string.Empty;
             }
             else
-            {
+            { 
+
                 var context = new EditingContext();
                 var mtm = new ModelTreeManager(context);
                 mtm.Load(e.NewValue);
@@ -147,6 +152,8 @@ namespace System.Windows.Controls
 
             pg.ChangeHelpText(string.Empty, string.Empty);
         }
+
+
 
         private static void SelectedObjectsPropertyChanged(DependencyObject source, DependencyPropertyChangedEventArgs e)
         {
@@ -317,7 +324,7 @@ namespace System.Windows.Controls
                 Reflection.BindingFlags.DeclaredOnly).Invoke(inspector, new object[0]) as Control;
             inspectorType.GetEvent("GotFocus").AddEventHandler(this,
                 Delegate.CreateDelegate(typeof(RoutedEventHandler), this, "GotFocusHandler", false));
-
+            
             this.SelectionTypeLabel.Text = string.Empty;
             this.SelectionTypeLabel.Visibility = Windows.Visibility.Collapsed;
         }
@@ -325,7 +332,10 @@ namespace System.Windows.Controls
         /// <summary>Updates the PropertyGrid's properties</summary>
         public void RefreshPropertyList()
         {
-            RefreshMethod.Invoke(Designer.PropertyInspectorView, new object[] { false });
+            this.Dispatcher.Invoke(() =>
+            {
+                RefreshMethod.Invoke(Designer.PropertyInspectorView, new object[] { false });
+            });
         }
 
         /// <summary>Traps the change of focused property and updates the help text</summary>

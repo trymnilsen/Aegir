@@ -14,7 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Aegir.PropertyGrid
+namespace ViewPropertyGrid.PropertyGrid
 {
     /// <summary>
     /// Interaction logic for PropertyGrid.xaml
