@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              xmlns:ctrl="clr-namespace:System.Windows.Controls"
-             xmlns:pgc="clr-namespace:Aegir.PropertyGrid"
+             xmlns:pgc="clr-namespace:ViewPropertyGrid.PropertyGrid;assembly=ViewPropertyGrid"
              xmlns:pt="http://propertytools.org/wpf"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">

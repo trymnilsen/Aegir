@@ -581,6 +581,10 @@
       <Project>{175f52e0-a092-489d-a7d0-99c44b70e913}</Project>
       <Name>TinyMessenger</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ViewPropertyGrid\ViewPropertyGrid.csproj">
+      <Project>{4151f55a-e041-49b5-ba96-bcbe07edfa78}</Project>
+      <Name>ViewPropertyGrid</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="File\" />

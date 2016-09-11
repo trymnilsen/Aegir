@@ -3,13 +3,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Aegir.PropertyGrid"
+             xmlns:local="clr-namespace:ViewPropertyGrid.PropertyGrid"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
+        <SolidColorBrush x:Key="AccentColor" Color="#F0F0F0"></SolidColorBrush>
         <ControlTemplate x:Key="SimpleExpanderButtonTemp" TargetType="{x:Type ToggleButton}">
             <Border x:Name="ExpanderButtonBorder"
-                    Background="LightGray"
+                    Background="{StaticResource AccentColor}"
                     BorderBrush="{TemplateBinding BorderBrush}"
                     BorderThickness="{TemplateBinding BorderThickness}"
                     Padding="{TemplateBinding Padding}"
@@ -69,6 +70,27 @@
             </ControlTemplate.Triggers>
         </ControlTemplate>
         <Style TargetType="{x:Type local:CategoryContainer}">
+            <Style.Resources>
+                <Style TargetType="{x:Type local:PropertyContainer}">
+                    <Style.Resources>
+                        <Style TargetType="Border">
+                            <Style.Setters>
+                                <Setter Value="0 0 1 1" Property="BorderThickness"></Setter>
+                                <Setter Property="BorderBrush" Value="{StaticResource AccentColor}"></Setter>
+                                <Setter Property="Padding" Value="3 0"></Setter>
+                            </Style.Setters>
+                        </Style>
+                    </Style.Resources>
+                    <Style.Setters>
+                        <Setter Property="Margin" Value="12 0 0 0"></Setter>
+                        <Setter Property="Background" Value="White"></Setter>
+                    </Style.Setters>
+                </Style>
+                <Style TargetType="StackPanel">
+                    <Setter Property="Grid.IsSharedSizeScope" Value="True"></Setter>
+                    <Setter Property="Background" Value="{StaticResource AccentColor}"></Setter>
+                </Style>
+            </Style.Resources>
             <Setter Property="Template">
                 <Setter.Value>
                     <!-- Simple Expander Template-->

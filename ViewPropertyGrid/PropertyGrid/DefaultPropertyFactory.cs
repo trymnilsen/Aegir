@@ -19,10 +19,20 @@ namespace ViewPropertyGrid.PropertyGrid
             }
             else
             {
-                return obj.GetType().GetProperties().Select<PropertyInfo, InspectableProperty>((x) =>
-                 {
-                     return new InspectableProperty(obj, x);
-                 }).ToArray();
+                var properties = obj.GetType().GetProperties();
+                List<InspectableProperty> finalProperties = new List<InspectableProperty>();
+                foreach(PropertyInfo property in properties)
+                {
+                    //Check for browsable attribute
+                    if(property.GetCustomAttribute<BrowsableAttribute>()?.Browsable == false)
+                    {
+                        continue;
+                    }
+
+                    finalProperties.Add(new InspectableProperty(obj, property));
+                }
+
+                return finalProperties.ToArray();
             }
         }
         public static InspectablePropertyMetadata GetPropertyMetadata(InspectableProperty property)

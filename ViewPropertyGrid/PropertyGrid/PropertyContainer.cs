@@ -16,41 +16,53 @@ namespace ViewPropertyGrid.PropertyGrid
 
         private TextBlock textLabel;
         private Grid valuecontent;
+        private Border keyWrapper;
+        private Border valueWrapper;
+        private string propertyName;
         public PropertyContainer(string propertyName)
         {
+            this.propertyName = propertyName;
             //Add three columns
-            ColumnDefinitions.Add(new ColumnDefinition() { SharedSizeGroup = "PropGridColumn" });
-            ColumnDefinitions.Add(new ColumnDefinition());
+            ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(150) });
+            ColumnDefinitions.Add(new ColumnDefinition()
+                {
+                    Width=GridLength.Auto,
+                    SharedSizeGroup = "PropGridColumn"
+                });
+
+
+            //Create wrappers
+            keyWrapper = new Border() { Name = "keywrapper" };
+            valueWrapper = new Border() { Name = "valuewrapper" };
+            
+            Grid.SetColumn(keyWrapper, 0);
+            Grid.SetColumn(valueWrapper, 1);
+
+            this.Children.Add(keyWrapper);
+            this.Children.Add(valueWrapper);
 
             textLabel = new TextBlock();
             textLabel.Text = propertyName;
-            textLabel.Margin = new Thickness(0, 0, 0, 0);
-            Grid.SetColumn(textLabel, 0);
-            textLabel.Background = new SolidColorBrush(Colors.White);
-
-            this.Children.Add(textLabel);
             valuecontent = new Grid();
-            valuecontent.Margin = new Thickness(1, 0, 0, 0);
-            valuecontent.Background = new SolidColorBrush(Colors.White);
-            Grid.SetColumn(valuecontent, 1);
 
-            this.Children.Add(valuecontent);
+            keyWrapper.Child = textLabel;
+            valueWrapper.Child = valuecontent;
+
             this.Focusable = true;
-            this.Margin = new System.Windows.Thickness(12,0,1,0);
 
         }
 
         protected override void OnGotKeyboardFocus(KeyboardFocusChangedEventArgs e)
         {
-            Debug.WriteLine("Got keyboard focus"+ textLabel.Text);
+            Debug.WriteLine("Got keyboard focus"+ propertyName);
         }
         protected override void OnGotFocus(RoutedEventArgs e)
         {
-            Debug.WriteLine("Got focus: " + textLabel.Text);
+            Debug.WriteLine("Got focus: " + propertyName);
         }
         protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
         {
-            Debug.WriteLine("Mouse down: " + textLabel.Text);
+            Debug.WriteLine("Mouse down: " + propertyName);
         }
     }
 }
