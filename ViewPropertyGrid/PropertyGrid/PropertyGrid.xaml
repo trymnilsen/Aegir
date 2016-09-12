@@ -79,12 +79,15 @@
                                 <Setter Property="BorderBrush" Value="{StaticResource AccentColor}"></Setter>
                                 <Setter Property="Padding" Value="3 0"></Setter>
                             </Style.Setters>
+
                         </Style>
                     </Style.Resources>
+
                     <Style.Setters>
                         <Setter Property="Margin" Value="12 0 0 0"></Setter>
-                        <Setter Property="Background" Value="White"></Setter>
+                        <!--<Setter Property="Background" Value="White"></Setter>-->
                     </Style.Setters>
+
                 </Style>
                 <Style TargetType="StackPanel">
                     <Setter Property="Grid.IsSharedSizeScope" Value="True"></Setter>
@@ -120,25 +123,11 @@
         </Style>
     </UserControl.Resources>
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition></RowDefinition>
-            <RowDefinition Height="100"></RowDefinition>
-        </Grid.RowDefinitions>
-        <ScrollViewer Grid.Row="0" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Auto">
-            <StackPanel x:Name="CategoryPanel" SnapsToDevicePixels="True">
+        <ScrollViewer Grid.Row="0" Focusable="False" PreviewGotKeyboardFocus="ScrollViewer_PreviewGotKeyboardFocus" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Auto">
+            <StackPanel x:Name="CategoryPanel" SnapsToDevicePixels="True" KeyboardNavigation.DirectionalNavigation="Cycle" KeyboardNavigation.TabNavigation="Cycle">
                 <!--<Expander Header="Fooooobar"></Expander>-->
                 <local:CategoryContainer></local:CategoryContainer>
             </StackPanel>
         </ScrollViewer>
-        <Border Grid.Row="1">
-            <GroupBox>
-                <GroupBox.Header>
-                    <HeaderedContentControl>
-                        <TextBlock Text="Item selected"></TextBlock>
-                    </HeaderedContentControl>
-                </GroupBox.Header>
-                <TextBlock TextWrapping="Wrap" Text="Some description of the selected item here yayayda some more text foobar. This is the place of the description of the selected."></TextBlock>
-            </GroupBox>
-        </Border>
     </Grid>
 </UserControl>

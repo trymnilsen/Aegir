@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -202,6 +203,12 @@ namespace ViewPropertyGrid.PropertyGrid
             CategoryPanel.Children.Add(newCategory);
 
             return newCategory;
+        }
+
+        private void ScrollViewer_PreviewGotKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
+        {
+            (e.NewFocus as FrameworkElement)?.BringIntoView();
+            Debug.WriteLine("Keyboard Focus" + e.NewFocus.ToString());
         }
     }
 }

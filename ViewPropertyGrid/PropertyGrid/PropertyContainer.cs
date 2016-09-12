@@ -32,8 +32,9 @@ namespace ViewPropertyGrid.PropertyGrid
 
 
             //Create wrappers
-            keyWrapper = new Border() { Name = "keywrapper" };
-            valueWrapper = new Border() { Name = "valuewrapper" };
+            keyWrapper = new Border() { Name = "keywrapper", Background = new SolidColorBrush(Colors.White) };
+            valueWrapper = new Border() { Name = "valuewrapper", Background = new SolidColorBrush(Colors.White) };
+            
             
             Grid.SetColumn(keyWrapper, 0);
             Grid.SetColumn(valueWrapper, 1);
@@ -54,15 +55,33 @@ namespace ViewPropertyGrid.PropertyGrid
 
         protected override void OnGotKeyboardFocus(KeyboardFocusChangedEventArgs e)
         {
-            Debug.WriteLine("Got keyboard focus"+ propertyName);
+            this.keyWrapper.Background = new SolidColorBrush(Colors.LightBlue);
+            Debug.WriteLine("GotKeyboardFocus: " + propertyName);
         }
         protected override void OnGotFocus(RoutedEventArgs e)
         {
-            Debug.WriteLine("Got focus: " + propertyName);
+            this.keyWrapper.Background = new SolidColorBrush(Colors.LightBlue);
+            Debug.WriteLine("GotFocus: "+propertyName);
+        }
+        protected override void OnLostFocus(RoutedEventArgs e)
+        {
+            this.keyWrapper.Background = new SolidColorBrush(Colors.White);
+            Debug.WriteLine("Lost Focus " + propertyName);
+        }
+        protected override void OnPreviewLostKeyboardFocus(KeyboardFocusChangedEventArgs e)
+        {
+
+            //base.OnPreviewLostKeyboardFocus(e);
         }
         protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
         {
-            Debug.WriteLine("Mouse down: " + propertyName);
+            //DependencyObject focusScope = FocusManager.GetFocusScope(this);
+            //FocusManager.SetFocusedElement(focusScope, this);
+            this.Focus();
+        }
+        public override string ToString()
+        {
+            return "PropContainer: " + propertyName;
         }
     }
 }
