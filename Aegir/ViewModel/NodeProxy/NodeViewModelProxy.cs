@@ -191,10 +191,10 @@ namespace Aegir.ViewModel.NodeProxy
             get { return datagrams; }
             set { datagrams = value; }
         }
-
-        [Category("Network")]
-        [DisplayName("Show Output")]
-        [Editor(typeof(RelayCommandEditor), typeof(RelayCommandEditor))]
+        [Browsable(false)]
+        //[Category("Network")]
+        //[DisplayName("Show Output")]
+        //[Editor(typeof(RelayCommandEditor), typeof(RelayCommandEditor))]
         public RelayCommand ShowOutputCommand
         {
             get { return showCommand; }

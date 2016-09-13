@@ -49,9 +49,13 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Converter\DoubleToStringConverter.cs" />
+    <Compile Include="Converter\IntToStringConverter.cs" />
     <Compile Include="PropertyGrid\CategoryContainer.cs" />
+    <Compile Include="PropertyGrid\ControlFactory.cs" />
     <Compile Include="PropertyGrid\CustomEditorAttribute.cs" />
     <Compile Include="PropertyGrid\DefaultPropertyFactory.cs" />
+    <Compile Include="PropertyGrid\IControlProvider.cs" />
     <Compile Include="PropertyGrid\InspectableProperty.cs" />
     <Compile Include="PropertyGrid\InspectablePropertyMetadata.cs" />
     <Compile Include="PropertyGrid\IPropertyInfoProvider.cs" />
@@ -59,6 +63,7 @@
     <Compile Include="PropertyGrid\PropertyGrid.xaml.cs">
       <DependentUpon>PropertyGrid.xaml</DependentUpon>
     </Compile>
+    <Compile Include="PropertyGrid\Provider\TextboxProvider.cs" />
     <Compile Include="PropertyGrid\RefreshPropertyListOnPropertyChangeAttribute.cs" />
     <Page Include="PropertyGrid\PropertyGrid.xaml">
       <Generator>MSBuild:Compile</Generator>

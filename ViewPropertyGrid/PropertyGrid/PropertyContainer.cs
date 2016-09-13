@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
 
@@ -19,17 +20,16 @@ namespace ViewPropertyGrid.PropertyGrid
         private Border keyWrapper;
         private Border valueWrapper;
         private string propertyName;
-        public PropertyContainer(string propertyName)
+        public PropertyContainer(string propertyName, FrameworkElement valueControl)
         {
             this.propertyName = propertyName;
             //Add three columns
-            ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(150) });
+            ColumnDefinitions.Add(new ColumnDefinition() {  });
             ColumnDefinitions.Add(new ColumnDefinition()
                 {
-                    Width=GridLength.Auto,
+                    Width = new GridLength(150),
                     SharedSizeGroup = "PropGridColumn"
                 });
-
 
             //Create wrappers
             keyWrapper = new Border() { Name = "keywrapper", Background = new SolidColorBrush(Colors.White) };
@@ -43,11 +43,11 @@ namespace ViewPropertyGrid.PropertyGrid
             this.Children.Add(valueWrapper);
 
             textLabel = new TextBlock();
+            textLabel.TextTrimming = TextTrimming.CharacterEllipsis;
             textLabel.Text = propertyName;
-            valuecontent = new Grid();
 
             keyWrapper.Child = textLabel;
-            valueWrapper.Child = valuecontent;
+            valueWrapper.Child = valueControl;
 
             this.Focusable = true;
 

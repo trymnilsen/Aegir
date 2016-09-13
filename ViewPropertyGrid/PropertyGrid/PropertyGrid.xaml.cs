@@ -23,6 +23,7 @@ namespace ViewPropertyGrid.PropertyGrid
     public partial class PropertyGrid : UserControl
     {
         public const string NoCategoryName = "Misc";
+        private ControlFactory controlFactory;
         /// <summary>
         /// We keep track of the objects we are currently listing to so we
         /// can unsub from the later
@@ -63,6 +64,7 @@ namespace ViewPropertyGrid.PropertyGrid
             categoryViews = new Dictionary<string, CategoryContainer>();
             requiresListReload = new HashSet<string>();
             eventPublishers = new Dictionary<int, WeakReference<INotifyPropertyChanged>>();
+            controlFactory = new ControlFactory();
             InitializeComponent();
         }
         /// <summary>
@@ -178,7 +180,16 @@ namespace ViewPropertyGrid.PropertyGrid
         {
             //Get the category of the property
             CategoryContainer container = GetCategory(propertyMetadata);
-            PropertyContainer propContainer = new PropertyContainer(propertyMetadata.Name);
+            FrameworkElement valueControl;
+            if (propertyMetadata.HasCustomControl)
+            {
+                valueControl = propertyMetadata.CustomControlFactory.GetControl(property);
+            }
+            else
+            {
+                valueControl = controlFactory.GetControl(property);
+            }
+            PropertyContainer propContainer = new PropertyContainer(propertyMetadata.Name, valueControl);
             container.AddProperty(propContainer);
         }
         /// <summary>

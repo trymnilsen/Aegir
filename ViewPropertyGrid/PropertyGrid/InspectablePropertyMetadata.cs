@@ -20,6 +20,9 @@ namespace ViewPropertyGrid.PropertyGrid
             }
         }
 
+        public IControlProvider CustomControlFactory { get; set; }
+        public bool HasCustomControl { get; internal set; }
+
         public InspectablePropertyMetadata(bool updateLayoutOnPropChange, string category, PropertyInfo propInfo)
         {
             UpdateLayoutOnValueChange = updateLayoutOnPropChange;

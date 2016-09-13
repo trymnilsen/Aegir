@@ -123,7 +123,7 @@
         </Style>
     </UserControl.Resources>
     <Grid>
-        <ScrollViewer Grid.Row="0" Focusable="False" PreviewGotKeyboardFocus="ScrollViewer_PreviewGotKeyboardFocus" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Auto">
+        <ScrollViewer Grid.Row="0" Focusable="False" PreviewGotKeyboardFocus="ScrollViewer_PreviewGotKeyboardFocus" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
             <StackPanel x:Name="CategoryPanel" SnapsToDevicePixels="True" KeyboardNavigation.DirectionalNavigation="Cycle" KeyboardNavigation.TabNavigation="Cycle">
                 <!--<Expander Header="Fooooobar"></Expander>-->
                 <local:CategoryContainer></local:CategoryContainer>
