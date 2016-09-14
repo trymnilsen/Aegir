@@ -74,16 +74,23 @@
                 <Style TargetType="{x:Type local:PropertyContainer}">
                     <Style.Resources>
                         <Style TargetType="Border">
+                            <Style.Resources>
+                                <Style TargetType="TextBlock">
+                                    <Style.Setters>
+                                        <Setter Value="5 3" Property="Padding"></Setter>
+                                    </Style.Setters>
+                                </Style>
+                            </Style.Resources>
                             <Style.Setters>
                                 <Setter Value="0 0 1 1" Property="BorderThickness"></Setter>
                                 <Setter Property="BorderBrush" Value="{StaticResource AccentColor}"></Setter>
-                                <Setter Property="Padding" Value="3 0"></Setter>
                             </Style.Setters>
-
+                            
                         </Style>
                     </Style.Resources>
 
                     <Style.Setters>
+                        <Setter Property="Height" Value="24"></Setter>
                         <Setter Property="Margin" Value="12 0 0 0"></Setter>
                         <!--<Setter Property="Background" Value="White"></Setter>-->
                     </Style.Setters>

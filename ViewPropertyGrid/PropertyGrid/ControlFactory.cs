@@ -13,45 +13,48 @@ namespace ViewPropertyGrid.PropertyGrid
 {
     public class ControlFactory
     {
-        private Dictionary<Type, IControlProvider> ControlDefinitions;
+        private Dictionary<Type, IControlProvider> ControlProviders;
 
         public ControlFactory()
         {
-            ControlDefinitions = new Dictionary<Type, IControlProvider>();
+            ControlProviders = new Dictionary<Type, IControlProvider>();
             RegisterDefaultProviders();
         }
         private void RegisterDefaultProviders()
         {
-            this.ControlDefinitions.Add(typeof(int), new TextboxProvider());
-            this.ControlDefinitions.Add(typeof(string), new TextboxProvider());
-            this.ControlDefinitions.Add(typeof(double), new TextboxProvider());
+            this.ControlProviders.Add(typeof(int), new TextboxProvider());
+            this.ControlProviders.Add(typeof(string), new TextboxProvider());
+            this.ControlProviders.Add(typeof(double), new TextboxProvider());
         }
         public void RegisterControl<T>(IControlProvider control)
         {
             Type controlType = typeof(T);
-            ControlDefinitions.Add(controlType, control);
+            ControlProviders.Add(controlType, control);
         }
 
-        public FrameworkElement GetControl(InspectableProperty property)
+        public ValueControl GetControl(InspectableProperty property)
         {
-            bool hasNoCustomProvider = !ControlDefinitions.ContainsKey(property.ReflectionData.PropertyType);
-            bool isReadOnly = !property.ReflectionData.CanWrite;
-            if (isReadOnly || hasNoCustomProvider)
+            string propName = property.ReflectionData.Name;
+            Type propType = property.ReflectionData.PropertyType;
+
+            if (!property.ReflectionData.CanWrite || 
+                !ControlProviders.ContainsKey(propType))
             {
-                return CreateDisabledTextBlock(property);
+                return new ValueControl(CreateDisabledTextBlock(property.ReflectionData.Name,
+                                               property.Target));
             }
             else
             {
-                return ControlDefinitions[property.ReflectionData.PropertyType].GetControl(property);
+                return ControlProviders[propType].GetControl(property);
             }
         }
 
-        private TextBlock CreateDisabledTextBlock(InspectableProperty property)
+        public TextBlock CreateDisabledTextBlock(string name, object target)
         {
             TextBlock control = new TextBlock();
             Binding binding = new Binding();
-            binding.Source = property.Target;
-            binding.Path = new PropertyPath(property.ReflectionData.Name);
+            binding.Source = target;
+            binding.Path = new PropertyPath(name);
             binding.Mode = BindingMode.OneWay;
 
             BindingOperations.SetBinding(control, TextBlock.TextProperty, binding);

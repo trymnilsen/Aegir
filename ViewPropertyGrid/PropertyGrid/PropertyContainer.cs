@@ -15,14 +15,24 @@ namespace ViewPropertyGrid.PropertyGrid
     public class PropertyContainer : Grid
     {
 
+        private readonly SolidColorBrush bgColor = new SolidColorBrush(Colors.White);
+        private readonly SolidColorBrush bgHighlightColor = new SolidColorBrush(Colors.LightBlue);
+
         private TextBlock textLabel;
-        private Grid valuecontent;
+        private FrameworkElement activeElement;
+        private FrameworkElement inactiveElement;
         private Border keyWrapper;
         private Border valueWrapper;
         private string propertyName;
         public PropertyContainer(string propertyName, FrameworkElement valueControl)
+            :this(propertyName,valueControl,null) { }
+
+        public PropertyContainer(string propertyName, FrameworkElement valueControl, FrameworkElement inactiveElement)
         {
             this.propertyName = propertyName;
+            this.activeElement = valueControl;
+            this.inactiveElement = inactiveElement;
+
             //Add three columns
             ColumnDefinitions.Add(new ColumnDefinition() {  });
             ColumnDefinitions.Add(new ColumnDefinition()
@@ -47,7 +57,15 @@ namespace ViewPropertyGrid.PropertyGrid
             textLabel.Text = propertyName;
 
             keyWrapper.Child = textLabel;
-            valueWrapper.Child = valueControl;
+
+            if(inactiveElement==null)
+            {
+                valueWrapper.Child = valueControl;
+            }
+            else
+            {
+                valueWrapper.Child = inactiveElement;
+            }
 
             this.Focusable = true;
 
@@ -55,17 +73,17 @@ namespace ViewPropertyGrid.PropertyGrid
 
         protected override void OnGotKeyboardFocus(KeyboardFocusChangedEventArgs e)
         {
-            this.keyWrapper.Background = new SolidColorBrush(Colors.LightBlue);
+            this.keyWrapper.Background = bgHighlightColor;
             Debug.WriteLine("GotKeyboardFocus: " + propertyName);
         }
         protected override void OnGotFocus(RoutedEventArgs e)
         {
-            this.keyWrapper.Background = new SolidColorBrush(Colors.LightBlue);
+            this.keyWrapper.Background = bgHighlightColor;
             Debug.WriteLine("GotFocus: "+propertyName);
         }
         protected override void OnLostFocus(RoutedEventArgs e)
         {
-            this.keyWrapper.Background = new SolidColorBrush(Colors.White);
+            this.keyWrapper.Background = bgColor;
             Debug.WriteLine("Lost Focus " + propertyName);
         }
         protected override void OnPreviewLostKeyboardFocus(KeyboardFocusChangedEventArgs e)
@@ -78,6 +96,25 @@ namespace ViewPropertyGrid.PropertyGrid
             //DependencyObject focusScope = FocusManager.GetFocusScope(this);
             //FocusManager.SetFocusedElement(focusScope, this);
             this.Focus();
+        }
+        protected override void OnMouseEnter(MouseEventArgs e)
+        {
+            if(inactiveElement != null)
+            {
+                valueWrapper.Child = activeElement;
+            }
+            this.keyWrapper.Background = bgHighlightColor;
+            base.OnMouseEnter(e);
+        }
+
+        protected override void OnMouseLeave(MouseEventArgs e)
+        {
+            if (inactiveElement != null)
+            {
+                valueWrapper.Child = inactiveElement;
+            }
+            this.keyWrapper.Background = bgColor;
+            base.OnMouseLeave(e);
         }
         public override string ToString()
         {

@@ -12,10 +12,11 @@ namespace ViewPropertyGrid.PropertyGrid.Provider
 {
     public class TextboxProvider : IControlProvider
     {
-        public FrameworkElement GetControl(InspectableProperty property)
+        public ValueControl GetControl(InspectableProperty property)
         {
             TextBox control = new TextBox();
             Binding binding = new Binding();
+            control.Padding = new Thickness(2, 2, 2, 2);
             binding.Source = property.Target;
             binding.Path = new PropertyPath(property.ReflectionData.Name);
             binding.Mode = BindingMode.TwoWay;
@@ -31,10 +32,11 @@ namespace ViewPropertyGrid.PropertyGrid.Provider
                     binding.Converter = new IntToStringConverter();
                 }
             }
-            
+
+            //Set the binding
             BindingOperations.SetBinding(control, TextBox.TextProperty, binding);
 
-            return control;
+            return new ValueControl(control,EditingBehaviour.OnFocus);
         }
     }
 }

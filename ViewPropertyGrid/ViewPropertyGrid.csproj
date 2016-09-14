@@ -55,6 +55,7 @@
     <Compile Include="PropertyGrid\ControlFactory.cs" />
     <Compile Include="PropertyGrid\CustomEditorAttribute.cs" />
     <Compile Include="PropertyGrid\DefaultPropertyFactory.cs" />
+    <Compile Include="PropertyGrid\EditingBehaviour.cs" />
     <Compile Include="PropertyGrid\IControlProvider.cs" />
     <Compile Include="PropertyGrid\InspectableProperty.cs" />
     <Compile Include="PropertyGrid\InspectablePropertyMetadata.cs" />
@@ -65,6 +66,7 @@
     </Compile>
     <Compile Include="PropertyGrid\Provider\TextboxProvider.cs" />
     <Compile Include="PropertyGrid\RefreshPropertyListOnPropertyChangeAttribute.cs" />
+    <Compile Include="PropertyGrid\ValueControl.cs" />
     <Page Include="PropertyGrid\PropertyGrid.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

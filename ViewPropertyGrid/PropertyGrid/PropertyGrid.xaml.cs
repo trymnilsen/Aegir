@@ -180,7 +180,10 @@ namespace ViewPropertyGrid.PropertyGrid
         {
             //Get the category of the property
             CategoryContainer container = GetCategory(propertyMetadata);
-            FrameworkElement valueControl;
+            ValueControl valueControl;
+            PropertyContainer propContainer;
+           
+            //Check if the property has a custom control
             if (propertyMetadata.HasCustomControl)
             {
                 valueControl = propertyMetadata.CustomControlFactory.GetControl(property);
@@ -189,7 +192,16 @@ namespace ViewPropertyGrid.PropertyGrid
             {
                 valueControl = controlFactory.GetControl(property);
             }
-            PropertyContainer propContainer = new PropertyContainer(propertyMetadata.Name, valueControl);
+            //If the edit mode is set to on focus, create a textblock for when its not
+            if(valueControl.EditBehaviour == EditingBehaviour.OnFocus)
+            {
+                TextBlock unfocusElement = controlFactory.CreateDisabledTextBlock(propertyMetadata.Name, property.Target);
+                propContainer = new PropertyContainer(propertyMetadata.Name, valueControl.Control, unfocusElement);
+            }
+            else
+            {
+                propContainer = new PropertyContainer(propertyMetadata.Name, valueControl.Control);
+            }
             container.AddProperty(propContainer);
         }
         /// <summary>

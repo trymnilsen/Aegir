@@ -5,6 +5,6 @@ namespace ViewPropertyGrid.PropertyGrid
 {
     public interface IControlProvider
     {
-        FrameworkElement GetControl(InspectableProperty property);
+        ValueControl GetControl(InspectableProperty property);
     }
 }
