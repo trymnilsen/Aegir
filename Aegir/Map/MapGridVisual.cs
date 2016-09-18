@@ -17,7 +17,7 @@ namespace Aegir.Map
     public class MapGridVisual : MeshVisual3D
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(MapGridVisual));
-        private const int GridSize = 6;
+        private const int GridSize = 10;
         private const int ZoomSteps = 200;
         private const double zoomInverseFactor = 1d / ZoomSteps;
         private double snapInverseFactor;
@@ -158,8 +158,11 @@ namespace Aegir.Map
             {
                 fracX -= 1;
             }
-            double tileTranslateX = TileSize * fracX;
-            double tileTranslateY = TileSize * fracY;
+            double tileTranslateX = scale.GetTileXTranslateFix(mapCenterNormalizedY, mapZoom, TileSize);//TileSize * fracX;
+            double tileTranslateY = scale.GetTileYTranslateFix(mapCenterNormalizedX, mapZoom, TileSize); //TileSize * fracY;
+
+            //double fooTest2 =
+            //double fooTest2 = scale.GetTileXTranslateFix(mapCenterNormalizedX, mapZoom, TileSize);
 
             BoundingBoxWireFrameVisual3D box = new BoundingBoxWireFrameVisual3D();
             box.Color = Colors.Yellow;
@@ -342,6 +345,14 @@ namespace Aegir.Map
                 }
                 using (DebugUtil.StartScopeWatch("ProcessTiles", log))
                 {
+                    OSMWorldScale scale = new OSMWorldScale();
+
+                    double mapCenterNormalizedX = scale.NormalizeX(TileService.xTileOffset);
+                    double mapCenterNormalizedY = scale.NormalizeY(TileService.yTileOffset);
+
+                    double tileTranslateX = scale.GetTileXTranslateFix(mapCenterNormalizedY, mapZoom, TileSize);//TileSize * fracX;
+                    double tileTranslateY = scale.GetTileYTranslateFix(mapCenterNormalizedX, mapZoom, TileSize); //TileSize * fracY;
+
                     foreach (MapTileVisual tile in tilesToMove)
                     {
                         if(tile.TileX == xTileIndexToFind)
@@ -364,8 +375,8 @@ namespace Aegir.Map
 
                         if (transform != null)
                         {
-                            transform.OffsetX = (tile.TileX * TileSize) - TileSize / 2;
-                            transform.OffsetY = (tile.TileY * TileSize) - TileSize / 2;
+                            transform.OffsetX = ((tile.TileX * TileSize) - TileSize / 2 ) - tileTranslateX;
+                            transform.OffsetY = ((tile.TileY * TileSize) - TileSize / 2) - tileTranslateY;
                         }
 
                         tile.UpdateDebugLabels();

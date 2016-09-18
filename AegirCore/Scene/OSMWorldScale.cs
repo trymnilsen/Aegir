@@ -47,5 +47,42 @@ namespace AegirCore.Scene
         {
             return 0;
         }
+        public double GetTileXTranslateFix(double mapOffset, int zoom, int tileSize)
+        {
+
+            double maxTiles = Math.Pow(2, zoom);
+            //X and y are flipped, so we use the Y component to get X for now
+            //until we have fixed the fact that our map is rotated 90* wrong
+            double tileNum = mapOffset * maxTiles;
+
+
+            double fracX = tileNum - Math.Floor(tileNum);
+
+            if (fracX >= 0.5)
+            {
+                fracX -= 1;
+            }
+            //Quick hack for now
+            if (zoom == 12 || zoom == 15)
+            {
+                fracX -= 1;
+            }
+            return tileSize * fracX;
+        }
+        public double GetTileYTranslateFix(double mapOffset, int zoom, int tileSize)
+        {
+            double maxTiles = Math.Pow(2, zoom);
+            double tileNum = mapOffset * maxTiles;
+            //X and y are flipped, so we use the Y component to get X for now
+            //until we have fixed the fact that our map is rotated 90* wrong
+            double fracY = tileNum - Math.Floor(tileNum);
+
+            if (fracY > 0.5)
+            {
+                fracY -= 1;
+            }
+
+            return tileSize * fracY;
+        }
     }
 }
