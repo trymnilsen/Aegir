@@ -8,12 +8,13 @@ using System.Windows.Media;
 
 namespace ViewPropertyGrid.PropertyGrid
 {
-    public class CategoryContainer : Expander
+    public class CategoryContainer : Expander, IDisposable
     {
         private StackPanel internalPanel;
 
         public CategoryContainer()
         {
+
             internalPanel = new StackPanel();
             this.Content = internalPanel;
             this.IsExpanded = true;
@@ -22,6 +23,11 @@ namespace ViewPropertyGrid.PropertyGrid
         public void AddProperty(PropertyContainer property)
         {
             this.internalPanel.Children.Add(property);
+        }
+
+        public void Dispose()
+        {
+            this.internalPanel.Children.Clear();
         }
     }
 }

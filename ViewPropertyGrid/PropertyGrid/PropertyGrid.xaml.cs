@@ -83,6 +83,7 @@ namespace ViewPropertyGrid.PropertyGrid
         {
             Cleanup();
             ClearGridUI();
+            ResetCategories();
             if (newObject != null)
             {
                 //Get all properties from the factory
@@ -114,6 +115,16 @@ namespace ViewPropertyGrid.PropertyGrid
                 SetEmptyGridUi();
             }
         }
+
+        private void ResetCategories()
+        {
+            foreach(var category in categoryViews)
+            {
+                category.Value.Dispose();
+            }
+            categoryViews.Clear();
+        }
+
         /// <summary>
         /// Clears the UI of properties
         /// </summary>

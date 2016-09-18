@@ -54,6 +54,7 @@ namespace ViewPropertyGrid.PropertyGrid
 
             textLabel = new TextBlock();
             textLabel.TextTrimming = TextTrimming.CharacterEllipsis;
+            textLabel.ToolTip = propertyName;
             textLabel.Text = propertyName;
 
             keyWrapper.Child = textLabel;
