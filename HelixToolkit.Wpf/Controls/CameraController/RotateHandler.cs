@@ -231,8 +231,7 @@ namespace HelixToolkit.Wpf
         /// </param>
         public void RotateTurntable(Vector delta, Point3D rotateAround)
         {
-            rotateAround = CameraController.RotateOrigin;
-            Vector3D relativeTarget = rotateAround - this.CameraTarget;
+            //rotateAround = this.CameraTarget;
             Vector3D relativePosition = rotateAround - this.CameraPosition;
 
             Vector3D up = this.ModelUpDirection;
@@ -259,10 +258,8 @@ namespace HelixToolkit.Wpf
 
             Vector3D newUpDirection = m.Transform(this.CameraUpDirection);
 
-            Vector3D newRelativeTarget = m.Transform(relativeTarget);
             Vector3D newRelativePosition = m.Transform(relativePosition);
 
-            Point3D newTarget = rotateAround - newRelativeTarget;
             Point3D newPosition = rotateAround - newRelativePosition;
 
             Vector3D diff = newRelativePosition - relativePosition;

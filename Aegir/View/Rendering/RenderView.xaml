@@ -211,6 +211,7 @@
             </local:SynchedHelixViewport3D>
             <ht:HelixViewport3D x:Name="PerspectiveOverlay" 
                                 Background="{x:Null}"
+                                ShowFrameRate="True"
                                 IsHeadLightEnabled="False"
                                 IsRotationEnabled="True"
                                 ContextMenuOpening="SceneContextMenuOpening"
