@@ -46,6 +46,11 @@ namespace Aegir.View.Rendering.Menu
                     new ClickableMenuItem("World",()=> {DW("TransformWorld"); })
                 }),
                 new SeperatorMenuItem("Transform"),
+                new SubMenuItem("Camera", new MenuListItem[]
+                {
+                    new ClickableMenuItem("Inspect",()=> {DW("CameraInspect"); }),
+                    new ClickableMenuItem("Follow", ()=> {DW("CameraFollow"); }),
+                }),
                 new SubMenuItem("Debug", new MenuListItem[]
                 {
                     new ClickableMenuItem("Debug Labels", ()=> { MapTileVisual.IsDebugEnabled = !MapTileVisual.IsDebugEnabled; }),
