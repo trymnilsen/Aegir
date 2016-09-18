@@ -185,8 +185,10 @@ namespace AegirCore.Keyframe
             {
                 nextKeyTime = NextFrame();
             }
-
-            Seek(nextKeyTime);
+            if(nextKeyTime!=currentKeyTime)
+            {
+                Seek(nextKeyTime);
+            }
             currentKeyTime = nextKeyTime;
         }
         /// <summary>

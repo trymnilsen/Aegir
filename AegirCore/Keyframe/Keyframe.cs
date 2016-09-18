@@ -12,7 +12,7 @@ namespace AegirCore.Keyframe
     /// Baseclass for all keyframes, exposes the property keyframed as well the 
     /// object instance containing the given property to be keyframed
     /// </summary>
-    public abstract class Keyframe
+    public abstract class Keyframe : TimelineItem
     {
 
         /// <summary>
