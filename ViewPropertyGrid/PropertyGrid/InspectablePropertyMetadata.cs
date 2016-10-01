@@ -9,6 +9,7 @@ namespace ViewPropertyGrid.PropertyGrid
 {
     public class InspectablePropertyMetadata
     {
+        public string DisplayName { get; set; }
         public bool UpdateLayoutOnValueChange { get; private set; }
         public PropertyInfo ReflectionInfo { get; private set; }
         public string Category { get; private set; }
@@ -16,7 +17,14 @@ namespace ViewPropertyGrid.PropertyGrid
         {
             get
             {
-                return ReflectionInfo.Name;
+                if(DisplayName != null)
+                {
+                    return DisplayName;
+                }
+                else
+                {
+                    return ReflectionInfo.Name;
+                }
             }
         }
 

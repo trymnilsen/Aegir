@@ -16,251 +16,35 @@ using System.Diagnostics;
 using System.Windows.Media.Media3D;
 using HelixToolkit.Wpf;
 using Aegir.Rendering.Transform;
+using ViewPropertyGrid.PropertyGrid;
+using System.Collections.ObjectModel;
 
 namespace Aegir.ViewModel.NodeProxy
 {
-    public class NodeViewModelProxy : ViewModelBase, ITransformableVisual
+    public class NodeViewModelProxy : ViewModelBase, ITransformableVisual, IPropertyInfoProvider
     {
-        private int port;
-        private int listener;
-        private bool isOutputting;
-        private int latency;
-        private List<string> datagrams;
-        private RelayCommand showCommand;
-        private NetworkProtocolType networkType;
-        private OutputStreamWindow outputWindow;
-        private RenderingMode renderingMode;
         protected Node nodeData;
-        private string visualFilePath;
-        private bool overideRenderingMode;
+
         private TransformBehaviour transform;
         private List<NodeViewModelProxy> children;
+        private List<BehaviourViewModelProxy> componentProxies;
 
-        [Browsable(false)]
         public List<NodeViewModelProxy> Children
         {
             get { return children; }
             set { children = value; }
         }
 
-        [Browsable(false)]
         public Node NodeSource
         {
             get { return nodeData; }
         }
-
-        [DisplayName("X")]
-        [Category("World Transformation")]
-        public double WorldTranslateX
-        {
-            get { return transform.Position.X; }
-            set
-            {
-                transform.SetX(value);
-                RaisePropertyChanged();
-            }
-        }
-
-        [DisplayName("Y")]
-        [Category("World Transformation")]
-        public double WorldTranslateY
-        {
-            get { return transform.Position.Y; }
-            set
-            {
-                transform.SetY(value);
-                RaisePropertyChanged();
-            }
-        }
-
-        [DisplayName("Z")]
-        [Category("World Transformation")]
-        public double WorldTranslateZ
-        {
-            get { return transform.Position.Z; }
-            set
-            {
-                transform.SetZ(value);
-                RaisePropertyChanged();
-            }
-        }
-        [DisplayName("Roll")]
-        [Category("World Transformation")]
-        public double Roll
-        {
-            get
-            {
-                return Math.Round(AegirType.Angle.ToDegrees(AegirType.Quaternion.GetYAngle(transform.Rotation)),3);
-            }
-            set
-            {
-                double currentPitch = AegirType.Quaternion.GetXAngle(transform.Rotation);
-                double currentYaw = AegirType.Quaternion.GetZAngle(transform.Rotation);
-
-                transform.SetOrientation(currentYaw, currentPitch, AegirType.Angle.ToRadians(value));
-            }
-        }
-        [DisplayName("Yaw")]
-        [Category("World Transformation")]
-        public double Yaw
-        {
-            get
-            {
-                return Math.Round(AegirType.Angle.ToDegrees(AegirType.Quaternion.GetZAngle(transform.Rotation)),3);
-            }
-            set
-            {
-                double currentPitch = AegirType.Quaternion.GetXAngle(transform.Rotation);
-                double currentRoll = AegirType.Quaternion.GetYAngle(transform.Rotation);
-
-                transform.SetOrientation(AegirType.Angle.ToRadians(value), currentPitch, currentRoll);
-            }
-        }
-        [DisplayName("Pitch")]
-        [Category("World Transformation")]
-        public double Pitch
-        {
-            get { return Math.Round(AegirType.Angle.ToDegrees(AegirType.Quaternion.GetXAngle(transform.Rotation)),3); }
-            set
-            {
-                double currentYaw = AegirType.Quaternion.GetZAngle(transform.Rotation);
-                double currentRoll = AegirType.Quaternion.GetYAngle(transform.Rotation);
-
-                transform.SetOrientation(currentYaw, AegirType.Angle.ToRadians(value), currentRoll);
-            }
-        }
-
-        [DisplayName("Is Enabled")]
-        [Category("Simulation")]
-        public bool IsEnabled
-        {
-            get { return nodeData.IsEnabled; }
-            set
-            {
-                nodeData.IsEnabled = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [Category("General")]
         public string Name
         {
             get { return nodeData.Name; }
-            set
-            {
-                nodeData.Name = value;
-                RaisePropertyChanged();
-            }
+            set { nodeData.Name = value; }
         }
 
-        [Category("Network")]
-        public int Port
-        {
-            get { return port; }
-            set { port = value; }
-        }
-
-        [Category("Network")]
-        public int Latency
-        {
-            get { return latency; }
-            set { latency = value; }
-        }
-
-        [ReadOnly(true)]
-        [DisplayName("Listeners")]
-        [Category("Network")]
-        public int Listeners
-        {
-            get { return listener; }
-            set { listener = value; }
-        }
-
-        [DisplayName("Send Output")]
-        [Category("Network")]
-        public bool IsOutputting
-        {
-            get { return isOutputting; }
-            set { isOutputting = value; }
-        }
-
-        [DisplayName("Nmea Datagrams")]
-        [Category("Network")]
-        public List<string> NmeaDataGrams
-        {
-            get { return datagrams; }
-            set { datagrams = value; }
-        }
-        [Browsable(false)]
-        //[Category("Network")]
-        //[DisplayName("Show Output")]
-        //[Editor(typeof(RelayCommandEditor), typeof(RelayCommandEditor))]
-        public RelayCommand ShowOutputCommand
-        {
-            get { return showCommand; }
-            private set { showCommand = value; }
-        }
-
-        [Category("Network")]
-        [DisplayName("Network Protocol Type")]
-        public NetworkProtocolType NetworkType
-        {
-            get { return networkType; }
-            set { networkType = value; }
-        }
-
-        [Category("Rendering")]
-        [DisplayName("Rendering Mode")]
-        public RenderingMode RenderMode
-        {
-            get { return renderingMode; }
-            set { renderingMode = value; }
-        }
-
-        [Category("Rendering")]
-        [DisplayName("Override Mode")]
-        public bool OverrideRenderingMode
-        {
-            get { return overideRenderingMode; }
-            set { overideRenderingMode = value; }
-        }
-
-        [Browsable(false)]
-        public bool HasVisual
-        {
-            get { return (visualFilePath != null && visualFilePath.Length != 0); }
-        }
-
-        [Browsable(false)]
-        public string VisualFilePath
-        {
-            get { return visualFilePath; }
-            set { visualFilePath = value; }
-        }
-
-        public double X
-        {
-            get
-            { 
-                return WorldTranslateX;
-            }
-        }
-
-        public double Y
-        {
-            get
-            {
-                return WorldTranslateY;
-            }
-        }
-
-        public double Z
-        {
-            get
-            {
-                return WorldTranslateZ;
-            }
-        }
         public RelayCommand RemoveNodeCommand { get; set; }
         public RelayCommand<string> AddNodeCommand { get; set; }
         public IScenegraphAddRemoveHandler AddRemoveHandler { get; set; }
@@ -281,10 +65,6 @@ namespace Aegir.ViewModel.NodeProxy
             }
         }
 
-        //public double WorldRotationYaw
-        //{
-        //    get { }
-        //}
         /// <summary>
         /// Creates a new proxy node
         /// </summary>
@@ -297,9 +77,19 @@ namespace Aegir.ViewModel.NodeProxy
             //All nodes should have a transform behaviour
             transform = nodeData.GetComponent<TransformBehaviour>();
 
-            ShowOutputCommand = new RelayCommand(ShowOutput);
             AddNodeCommand = new RelayCommand<string>(AddNode);
             RemoveNodeCommand = new RelayCommand(DoRemoveNode);
+
+            CreateBehaviourProxies(nodeData.Components);
+        }
+
+        private void CreateBehaviourProxies(IEnumerable<BehaviourComponent> behaviourComponents)
+        {
+            foreach(BehaviourComponent component in behaviourComponents)
+            {
+                BehaviourViewModelProxy vm = BehaviourViewModelFactory.GetViewModelProxy(component);
+                componentProxies.Add(vm);
+            }
         }
 
         public T GetNodeComponent<T>()
@@ -317,43 +107,6 @@ namespace Aegir.ViewModel.NodeProxy
             AddRemoveHandler?.Add(type);
             Debug.WriteLine("Adding Node: " + type);
         }
-        private void ShowOutput()
-        {
-            if (outputWindow != null)
-            {
-                if (outputWindow.WindowState == WindowState.Minimized)
-                {
-                    outputWindow.WindowState = WindowState.Normal;
-                }
-
-                outputWindow.Activate();
-                outputWindow.Topmost = true;  // important
-                outputWindow.Topmost = false; // important
-                outputWindow.Focus();         // important
-            }
-            else
-            {
-                outputWindow = new OutputStreamWindow();
-                outputWindow.Closed += (sender, e) =>
-                {
-                    outputWindow = null;
-                };
-                outputWindow.Show();
-            }
-        }
-
-        /// <summary>
-        /// Invalidates the state of the viewmodel, making the view reload it
-        /// </summary>
-        public virtual void Invalidate()
-        {
-            RaisePropertyChanged(nameof(WorldTranslateX));
-            RaisePropertyChanged(nameof(WorldTranslateY));
-            RaisePropertyChanged(nameof(WorldTranslateZ));
-            RaisePropertyChanged(nameof(Roll));
-            RaisePropertyChanged(nameof(Pitch));
-            RaisePropertyChanged(nameof(Yaw));
-        }
 
         public override string ToString()
         {
@@ -366,6 +119,21 @@ namespace Aegir.ViewModel.NodeProxy
             Point3D position = targetTransform.ToPoint3D();
             transform.Position = position.ToAegirTypeVector();
             transform.Rotation = rotation.ToAegirTypeQuaternion();
+        }
+
+        internal void Invalidate()
+        {
+            
+        }
+
+        public InspectableProperty[] GetProperties()
+        {
+            List<InspectableProperty> properties = new List<InspectableProperty>();
+            foreach(BehaviourViewModelProxy behaviour in componentProxies)
+            {
+                properties.AddRange(behaviour.GetProperties());
+            }
+            return properties.ToArray();
         }
 
         //public void TriggerTransformChanged()

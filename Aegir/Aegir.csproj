@@ -227,6 +227,17 @@
     <Compile Include="Rendering\RenderItemListener.cs" />
     <Compile Include="Rendering\Camera\ViewportCameraController.cs" />
     <Compile Include="Rendering\Transform\Transform3DExtensions.cs" />
+    <Compile Include="Util\ReflectionUtils.cs" />
+    <Compile Include="Util\Type.cs" />
+    <Compile Include="ViewModel\NodeProxy\BehaviourViewModelFactory.cs" />
+    <Compile Include="ViewModel\NodeProxy\NodeTypeStringConstants.cs" />
+    <Compile Include="ViewModel\NodeProxy\ScenegraphViewModelProxy.cs" />
+    <Compile Include="ViewModel\NodeProxy\TypedBehaviourViewModelProxy.cs" />
+    <Compile Include="ViewModel\NodeProxy\IScenegraphAddRemoveHandler.cs" />
+    <Compile Include="ViewModel\NodeProxy\ProxyForBehaviour.cs" />
+    <Compile Include="ViewModel\NodeProxy\BehaviourViewModelProxy.cs" />
+    <Compile Include="ViewModel\NodeProxy\World\TransformViewModelProxy.cs" />
+    <Compile Include="ViewModel\NodeProxy\Vessel\VesselDynamicsViewModelProxy.cs" />
     <Compile Include="View\Rendering\Menu\ClickableMenuItem.cs" />
     <Compile Include="View\Rendering\Menu\MenuList.cs" />
     <Compile Include="View\Rendering\Menu\MenuListItem.cs" />
@@ -237,9 +248,6 @@
       <DependentUpon>RenderViewportView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Rendering\SynchedHelixViewport3D.cs" />
-    <Compile Include="ViewModel\NodeProxy\GeoidViewModelProxy.cs" />
-    <Compile Include="ViewModel\NodeProxy\IScenegraphAddRemoveHandler.cs" />
-    <Compile Include="ViewModel\NodeProxy\NodeTypeStringConstants.cs" />
     <Compile Include="View\Rendering\Tool\EventableBindableRotateManipulator.cs" />
     <Compile Include="View\Rendering\Tool\EventableBindableScaleManipulator.cs" />
     <Compile Include="View\Rendering\Tool\EventableBindableTranslateManipulator.cs" />
@@ -260,9 +268,6 @@
     <Compile Include="ViewModel\MapViewModel.cs" />
     <Compile Include="ViewModel\MenuStripViewModel.cs" />
     <Compile Include="ViewModel\NodeProxy\NodeViewModelProxy.cs" />
-    <Compile Include="ViewModel\NodeProxy\ScenegraphViewModelProxy.cs" />
-    <Compile Include="ViewModel\NodeProxy\VesselViewModelProxy.cs" />
-    <Compile Include="ViewModel\NodeProxy\WorldViewModelProxy.cs" />
     <Compile Include="ViewModel\OutputViewModel.cs" />
     <Compile Include="ViewModel\PlaybackViewModel.cs" />
     <Compile Include="ViewModel\Properties\NodeViewModel.cs" />

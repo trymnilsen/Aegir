@@ -319,7 +319,7 @@ namespace Aegir.View.Rendering
             menuSource = menuListResource as MenuList;
 
             menuSource.MenuOptionClicked += ContextMenuItemClicked;
-            TopMap.InitGrid();
+            //TopMap.InitGrid();
 
             //topGizmo = new ManipulatorGizmo(TopViewport, gizmoHandler);
             perspectiveGizmo = new ManipulatorGizmo(PerspectiveOverlay, gizmoHandler);

@@ -9,7 +9,7 @@ using System.Xml.Linq;
 
 namespace AegirCore.Behaviour.Vessel
 {
-    public class VesselNavigationBehaviour : BehaviourComponent
+    public class VesselDynamicsBehaviour : BehaviourComponent
     {
         private double speed;
         private double rateOfTurn;
@@ -40,7 +40,7 @@ namespace AegirCore.Behaviour.Vessel
             get { return rateOfTurn; }
             set { rateOfTurn = value; }
         }
-        public VesselNavigationBehaviour(Node parentNode)
+        public VesselDynamicsBehaviour(Node parentNode)
             :base()
         {
 

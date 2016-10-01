@@ -101,7 +101,7 @@
     <Compile Include="Behaviour\Mesh\MeshBehaviour.cs" />
     <Compile Include="Behaviour\Simulation\FloatingMesh.cs" />
     <Compile Include="Behaviour\Simulation\WaterSimulation.cs" />
-    <Compile Include="Behaviour\Vessel\VesselNavigationBehaviour.cs" />
+    <Compile Include="Behaviour\Vessel\VesselDynamicsBehaviour.cs" />
     <Compile Include="Behaviour\World\TransformBehaviour.cs" />
     <Compile Include="Datagram\DatagramService.cs" />
     <Compile Include="Datagram\IDatagramService.cs" />

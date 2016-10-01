@@ -109,9 +109,9 @@ namespace Aegir.ViewModel.NodeProxy
         private void SetRawNodeAsSelectedItem(Node node)
         {
             //look through view models
-            foreach(NodeViewModelProxy nodeVM in Items)
+            foreach (NodeViewModelProxy nodeVM in Items)
             {
-                if(nodeVM.NodeSource == node)
+                if (nodeVM.NodeSource == node)
                 {
                     UpdateSelectedItem(nodeVM);
                     break;
@@ -128,9 +128,9 @@ namespace Aegir.ViewModel.NodeProxy
             {
                 UpdateSelectedItem(nodeVM);
             }
-            else if(nodeVM.Children.Count>0)
+            else if (nodeVM.Children.Count > 0)
             {
-                foreach(NodeViewModelProxy nodeChild in nodeVM.Children)
+                foreach (NodeViewModelProxy nodeChild in nodeVM.Children)
                 {
                     LookForChildrenNodeVM(nodeChild, node);
                 }
@@ -195,7 +195,7 @@ namespace Aegir.ViewModel.NodeProxy
             Items.Clear();
             foreach (Node n in nodes)
             {
-                NodeViewModelProxy nodeProxy = CreateProxy(n);
+                NodeViewModelProxy nodeProxy = new NodeViewModelProxy(n, this);
                 Items.Add(nodeProxy);
                 PopulateNodeChildren(nodeProxy, n);
             }
@@ -205,32 +205,10 @@ namespace Aegir.ViewModel.NodeProxy
         {
             foreach (Node n in node.Children)
             {
-                NodeViewModelProxy childrenProxy = CreateProxy(n);
+                NodeViewModelProxy childrenProxy = new NodeViewModelProxy(n,this);
                 proxy.Children.Add(childrenProxy);
                 PopulateNodeChildren(childrenProxy, n);
             }
-        }
-
-        /// <summary>
-        /// Creates the correct proxy base on our node
-        /// </summary>
-        /// <param name="n"></param>
-        /// <returns></returns>
-        public NodeViewModelProxy CreateProxy(Node n)
-        {
-            if (n.GetType() == typeof(Vessel))
-            {
-                return new VesselViewModelProxy(n as Vessel, this);
-            }
-            if (n.GetType() == typeof(World))
-            {
-                return new WorldViewModelProxy(n as World, this);
-            }
-            if(n.GetType() == typeof(Geoid))
-            {
-                return new GeoidViewModelProxy(n as Geoid, this);
-            }
-            return new NodeViewModelProxy(n, this);
         }
 
         /// <summary>
@@ -259,12 +237,12 @@ namespace Aegir.ViewModel.NodeProxy
 
         public void Remove(NodeViewModelProxy node)
         {
-            
+
         }
 
         public void Add(string type)
         {
-            
+
         }
 
         public delegate void InvalidateChildrenHandler();

@@ -55,7 +55,7 @@ namespace ViewPropertyGrid.PropertyGrid
 
             //If the property has a category attribute, use this
             CategoryAttribute categoryAttribute = attributes
-                .FirstOrDefault(x => x.GetType() == typeof(CategoryAttribute)) 
+                .FirstOrDefault(x => x is CategoryAttribute) 
                     as CategoryAttribute;
 
             //Set category name to the default
@@ -66,8 +66,11 @@ namespace ViewPropertyGrid.PropertyGrid
             {
                 categoryName = categoryAttribute.Category;
             }
+            //Get DisplayName if any
+            string displayName = (attributes.FirstOrDefault(x => x is DisplayNameAttribute) as DisplayNameAttribute)?.DisplayName;
 
             var metaData = new InspectablePropertyMetadata(updateLayout, categoryName, property.ReflectionData);
+            metaData.DisplayName = displayName;
             return metaData;
 
         }

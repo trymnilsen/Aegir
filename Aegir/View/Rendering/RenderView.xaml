@@ -137,7 +137,7 @@
                     <menu:SceneContextMenu MenuItems="{StaticResource MenuListSource}"></menu:SceneContextMenu>
                 </ht:HelixViewport3D.ContextMenu>
                 <ht:HelixViewport3D.Camera>
-                    <OrthographicCamera Position="0,0,80.22" LookDirection="0,0,-80.22" UpDirection="0,1,0" Width="56" />
+                    <OrthographicCamera Position="0,0,200.22" LookDirection="0,0,-200.22" UpDirection="0,1,0" Width="56" />
                 </ht:HelixViewport3D.Camera>
                 <!--<local:GridLines />-->
                 <map:MapGridVisual x:Name="TopMap" TileGenerator="{StaticResource TileGenerator}" MapCamera="{Binding ElementName=TopViewport, Path=CameraController}"></map:MapGridVisual>
@@ -182,7 +182,7 @@
             </Grid.Style>
             <local:SynchedHelixViewport3D x:Name="PerspectiveViewport"
                                 IsRotationEnabled="True" 
-                                          Background="#9F9F9F"
+                                Background="#9F9F9F"
                                 ViewportCamera="{
                                     Binding ElementName=PerspectiveOverlay, 
                                     Path=Camera}">
