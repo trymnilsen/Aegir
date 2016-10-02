@@ -86,9 +86,9 @@ namespace AegirCore.Behaviour.Vessel
 
         public override void Deserialize(XElement data)
         {
-            Speed = data.GetElementAs<double>(nameof(speed));
-            Heading = data.GetElementAs<double>(nameof(speed));
-            RateOfTurn = data.GetElementAs<double>(nameof(speed));
+            Speed = data.GetElementAs<double>(nameof(Speed));
+            Heading = data.GetElementAs<double>(nameof(Heading));
+            RateOfTurn = data.GetElementAs<double>(nameof(RateOfTurn));
             SimulationMode = data.GetElementAs<VesselSimulationMode>(nameof(SimulationMode));
 
         }

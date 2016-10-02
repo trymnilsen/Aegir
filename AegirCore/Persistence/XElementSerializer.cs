@@ -48,6 +48,9 @@ namespace AegirCore.Persistence
             {
                 throw new PersistanceException($"Expected element {name} not found under parent element {element.Name}");
             }
+            if (typeof(T).IsEnum)
+                return (T)Enum.Parse(typeof(T), namedElement.Value);
+
             return (T)Convert.ChangeType(namedElement.Value, typeof(T));
         }
     }

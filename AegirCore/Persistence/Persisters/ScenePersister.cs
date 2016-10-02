@@ -79,9 +79,8 @@ namespace AegirCore.Persistence.Persisters
                 foreach(XElement behaviourElement in behaviours)
                 {
                     BehaviourComponent behaviour =
-                        BehaviourFactory.CreateWithName(behaviourElement.Name.LocalName);
+                        BehaviourFactory.CreateWithName(behaviourElement.Name.LocalName, node);
 
-                    behaviour.Parent = node;
                     behaviour.Deserialize(behaviourElement);
                     node.Components.Add(behaviour);
                 }

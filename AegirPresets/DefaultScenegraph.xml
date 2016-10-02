@@ -34,6 +34,13 @@
                   <W>0</W>
                 </Quaternion>
               </TransformBehaviour>
+              <VesselDynamicsBehaviour>
+                <Speed>0</Speed>
+                <Heading>0</Heading>
+                <RateOfTurn>0</RateOfTurn>
+                <Heading></Heading>
+                <SimulationMode>Replay</SimulationMode>
+              </VesselDynamicsBehaviour>
               <MeshBehaviour>
                 <MeshDataReference>mesh://file/Mesh/ship.obj</MeshDataReference>
               </MeshBehaviour>
