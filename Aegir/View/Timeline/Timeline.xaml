@@ -5,7 +5,6 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:Aegir.View.Timeline"
              xmlns:fa="http://schemas.fontawesome.io/icons/"
-             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              mc:Ignorable="d"
              d:DesignHeight="50" d:DesignWidth="800"
              DataContext="{Binding TimelineVM, Source={StaticResource VMLocator}}">
@@ -135,7 +134,7 @@
                 </Button>
             </StackPanel>
             <StackPanel Grid.Column="3" Grid.Row="1" Orientation="Horizontal">
-                <xctk:IntegerUpDown Width="112px" Value="{Binding Time}" x:Name="TimeRangeStartField"></xctk:IntegerUpDown>
+                <TextBox Width="112px" Text="{Binding Time}" x:Name="TimeRangeStartField"></TextBox>
                 <Button Style="{StaticResource PlayBackButton}" Click="TimeConfig_Click">
                     <fa:ImageAwesome Icon="ListUl"></fa:ImageAwesome>
                 </Button>

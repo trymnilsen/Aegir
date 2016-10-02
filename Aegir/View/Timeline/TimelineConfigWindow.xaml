@@ -29,9 +29,9 @@
                         <RowDefinition />
                     </Grid.RowDefinitions>
                     <TextBlock Text="Start: " Grid.Column="0"></TextBlock>
-                    <xctk:IntegerUpDown Width="60" Height="20"  Grid.Column="1" Value="{Binding TimelineViewStart}"></xctk:IntegerUpDown>
+                    <TextBox Width="60" Height="20"  Grid.Column="1" Text="{Binding TimelineViewStart}"></TextBox>
                     <TextBlock Text="End: " Grid.Column="0" Grid.Row="1"></TextBlock>
-                    <xctk:IntegerUpDown Width="60" Height="20"  Grid.Column="1" Grid.Row="1" Value="{Binding TimelineViewEnd}"></xctk:IntegerUpDown>
+                    <TextBox Width="60" Height="20"  Grid.Column="1" Grid.Row="1" Text="{Binding TimelineViewEnd}"></TextBox>
                 </Grid>
             </GroupBox>
             <GroupBox Header="Playback" Grid.Column="1" Grid.RowSpan="2">
@@ -47,9 +47,9 @@
                         <RowDefinition />
                     </Grid.RowDefinitions>
                     <TextBlock Text="Start: " Margin="2" Grid.Column="0"></TextBlock>
-                    <xctk:IntegerUpDown Height="20" Margin="2" Width="60" Grid.Column="1" Value="{Binding PlaybackStart}"></xctk:IntegerUpDown>
+                    <TextBox Height="20" Margin="2" Width="60" Grid.Column="1" Text="{Binding PlaybackStart}"></TextBox>
                     <TextBlock Text="End: " Margin="2" Grid.Column="0" Grid.Row="1"></TextBlock>
-                    <xctk:IntegerUpDown Width="60" Margin="2" Height="20"  Grid.Column="1" Grid.Row="1" Value="{Binding PlaybackEnd}"></xctk:IntegerUpDown>
+                    <TextBox Width="60" Margin="2" Height="20"  Grid.Column="1" Grid.Row="1" Text="{Binding PlaybackEnd}"></TextBox>
                     <TextBlock Text="Loop" Margin="2" Grid.Row="2"></TextBlock>
                     <CheckBox IsChecked="{Binding Loop}" Margin="3 5" Grid.Column="1" Grid.Row="2"></CheckBox>
                     <TextBlock Text="Reverse" Grid.Row="3" Margin="2"></TextBlock>
@@ -68,7 +68,7 @@
                         <RowDefinition />
                     </Grid.RowDefinitions>
                     <TextBlock Text="Ticks: "  Margin="2" Grid.Column="0"></TextBlock>
-                    <xctk:IntegerUpDown Width="60" Height="20" Margin="2" Grid.Column="1" Value="30" IsEnabled="False"></xctk:IntegerUpDown>
+                    <TextBlock Width="60" Height="20" Margin="2" Grid.Column="1" Text="30" IsEnabled="False"></TextBlock>
                     
                 </Grid>
             </GroupBox>
