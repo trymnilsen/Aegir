@@ -74,6 +74,7 @@ namespace Aegir.ViewModel.NodeProxy
             this.AddRemoveHandler = addRemoveHandler;
             this.nodeData = nodeData;
             this.children = new List<NodeViewModelProxy>();
+            this.componentProxies = new List<BehaviourViewModelProxy>();
             //All nodes should have a transform behaviour
             transform = nodeData.GetComponent<TransformBehaviour>();
 
@@ -88,7 +89,10 @@ namespace Aegir.ViewModel.NodeProxy
             foreach(BehaviourComponent component in behaviourComponents)
             {
                 BehaviourViewModelProxy vm = BehaviourViewModelFactory.GetViewModelProxy(component);
-                componentProxies.Add(vm);
+                if(vm!=null)
+                {
+                    componentProxies.Add(vm);
+                }
             }
         }
 

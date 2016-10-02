@@ -340,7 +340,7 @@ namespace Aegir.View.Rendering
                     {
                         TopMap.MapZoomLevel -= 1;
                     }
-                    break;
+                    break; 
                 case "MapZoomIn":
                     if(TopMap.MapZoomLevel<18)
                     {

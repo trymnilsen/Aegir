@@ -54,7 +54,7 @@ namespace Aegir.ViewModel.NodeProxy
                 //Check that the target is a correct subtype
                 //First get the data out of the attribute, we assume only one
                 Type vmTargetType = vmType.Attributes.FirstOrDefault()?.TargetBehaviourType;
-                if(vmTargetType == null || vmTargetType.IsSubclassOf(typeof(BehaviourComponent)))
+                if(vmTargetType == null || !vmTargetType.IsSubclassOf(typeof(BehaviourComponent)))
                 {
                     //No it was not, jump to next
                     continue;
@@ -76,8 +76,8 @@ namespace Aegir.ViewModel.NodeProxy
                     //Create a new instance of this ViewModel 
                     //the only constructor parameter is the source behaviour this 
                     //viewmodel is wrapping
-                   
-                    BehaviourViewModelProxy vm = Activator.CreateInstance(vmType, behaviour) as BehaviourViewModelProxy;
+                    object instance = Activator.CreateInstance(vmType, behaviour);
+                    BehaviourViewModelProxy vm = instance as BehaviourViewModelProxy;
                     return vm;
                 }
             }
