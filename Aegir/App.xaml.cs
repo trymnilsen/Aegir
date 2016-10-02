@@ -6,9 +6,12 @@ using Aegir.Windows;
 using AegirCore;
 using GalaSoft.MvvmLight.Ioc;
 using log4net;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Threading;
 using TinyMessenger;
+using System.Windows.Navigation;
+using Aegir.Util;
 
 namespace Aegir
 {
@@ -19,9 +22,10 @@ namespace Aegir
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(App));
         private ApplicationContext application;
-
+        public static Stopwatch stopwatch;
         public App()
         {
+            stopwatch = Stopwatch.StartNew();
             log.Debug("Starting Application");
             application = new ApplicationContext();
             SetupViewModels();
@@ -31,7 +35,6 @@ namespace Aegir
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             application.Init();
-
         }
 
         private void Application_DispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)

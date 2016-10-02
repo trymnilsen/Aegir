@@ -1,4 +1,5 @@
 ﻿using Aegir.Messages.Project;
+using Aegir.Util;
 using Microsoft.Win32;
 using System.Windows;
 
@@ -12,6 +13,13 @@ namespace Aegir
         public MainWindow()
         {
             InitializeComponent();
+            Loaded += MainWindow_Loaded;
+        }
+
+        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            App.stopwatch.Stop();
+            DebugUtil.LogWithLocation($"Startup time {App.stopwatch.Elapsed.TotalMilliseconds} ms");
         }
 
         private void FileOpenClick(object sender, RoutedEventArgs e)
