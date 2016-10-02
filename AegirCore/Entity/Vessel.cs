@@ -10,45 +10,45 @@ using System;
 
 namespace AegirCore.Entity
 {
-    public class Vessel : Node
-    {
-        private MeshData vesselModel;
-        private MeshData hullModel;
+    //public class Vessel : Node
+    //{
+    //    private MeshData vesselModel;
+    //    private MeshData hullModel;
 
-        public MeshData VesselModel
-        {
-            get { return vesselModel; }
-            set { vesselModel = value; }
-        }
+    //    public MeshData VesselModel
+    //    {
+    //        get { return vesselModel; }
+    //        set { vesselModel = value; }
+    //    }
 
-        public MeshData HullModel
-        {
-            get { return hullModel; }
-            set { UpdateHullModel(value); }
-        }
+    //    public MeshData HullModel
+    //    {
+    //        get { return hullModel; }
+    //        set { UpdateHullModel(value); }
+    //    }
 
-        public Vessel()
-        {
-            this.Name = "Vessel";
-            MeshBehaviour RenderMesh = new MeshBehaviour();
-            this.AddComponent(RenderMesh);
+    //    public Vessel()
+    //    {
+    //        this.Name = "Vessel";
+    //        MeshBehaviour RenderMesh = new MeshBehaviour();
+    //        this.AddComponent(RenderMesh);
 
-            VesselDynamicsBehaviour navBehavour = new VesselDynamicsBehaviour(this);
-            this.AddComponent(navBehavour);
+    //        VesselDynamicsBehaviour navBehavour = new VesselDynamicsBehaviour(this);
+    //        this.AddComponent(navBehavour);
 
-            //FloatingMesh mesh = new FloatingMesh(this);
+    //        //FloatingMesh mesh = new FloatingMesh(this);
 
-            //this.AddComponent(mesh);
-        }
-        private void UpdateHullModel(MeshData data)
-        {
-            //if (data == hullModel) return;
+    //        //this.AddComponent(mesh);
+    //    }
+    //    private void UpdateHullModel(MeshData data)
+    //    {
+    //        //if (data == hullModel) return;
 
-            //MeshBehaviour renderBehaviour = GetComponent<MeshBehaviour>();
-            //if(renderBehaviour != null)
-            //{
-            //    renderBehaviour.Mesh = data;
-            //}
-        }
-    }
+    //        //MeshBehaviour renderBehaviour = GetComponent<MeshBehaviour>();
+    //        //if(renderBehaviour != null)
+    //        //{
+    //        //    renderBehaviour.Mesh = data;
+    //        //}
+    //    }
+    //}
 }

@@ -5,24 +5,24 @@ using AegirCore.Simulation;
 
 namespace AegirCore.Entity
 {
-    public class World : Node
-    {
-        public WaterSimulationMode SimulationMode { get; set; }
+    //public class World : Node
+    //{
+    //    public WaterSimulationMode SimulationMode { get; set; }
 
-        public WaterSegment[,] WaterSegments { get; set; }
-        public World()
-        {
-            this.Name = "World";
-            this.Removable = false;
-            this.Nestable = false;
+    //    public WaterSegment[,] WaterSegments { get; set; }
+    //    public World()
+    //    {
+    //        this.Name = "World";
+    //        this.Removable = false;
+    //        this.Nestable = false;
 
-            //WaterSimulation waterBehaviour = new WaterSimulation(this);
-            MeshBehaviour meshBehaviour = new MeshBehaviour();
+    //        //WaterSimulation waterBehaviour = new WaterSimulation(this);
+    //        MeshBehaviour meshBehaviour = new MeshBehaviour();
 
-            //this.AddComponent(waterBehaviour);
-            //this.AddComponent(meshBehaviour);
+    //        //this.AddComponent(waterBehaviour);
+    //        //this.AddComponent(meshBehaviour);
 
-            //meshBehaviour.Mesh = waterBehaviour.WaterCell
-        }
-    }
+    //        //meshBehaviour.Mesh = waterBehaviour.WaterCell
+    //    }
+    //}
 }
