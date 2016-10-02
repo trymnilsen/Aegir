@@ -2,7 +2,7 @@
 {
     public interface IScenegraphAddRemoveHandler
     {
-        void Remove(NodeViewModelProxy nodeViewModelProxy);
+        void Remove(NodeViewModel nodeViewModelProxy);
         void Add(string type);
     }
 }

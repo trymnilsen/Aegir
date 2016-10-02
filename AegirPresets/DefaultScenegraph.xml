@@ -4,7 +4,7 @@
     <RootNodes>
       <Node Name="World">
         <Components>
-          <TransformBehaviour>
+          <Transform>
             <Vector3>
               <X>0</X>
               <Y>0</Y>
@@ -16,12 +16,15 @@
               <Z>0</Z>
               <W>0</W>
             </Quaternion>
-          </TransformBehaviour>
+          </Transform>
+          <WorldSettings></WorldSettings>
+          <WeatherSimulation></WeatherSimulation>
+          <WaterSimulation></WaterSimulation>
         </Components>
         <Children>
           <Node Name="Vessel">
             <Components>
-              <TransformBehaviour>
+              <Transform>
                 <Vector3>
                   <X>0</X>
                   <Y>0</Y>
@@ -33,7 +36,7 @@
                   <Z>0</Z>
                   <W>0</W>
                 </Quaternion>
-              </TransformBehaviour>
+              </Transform>
               <VesselDynamicsBehaviour>
                 <Speed>0</Speed>
                 <Heading>0</Heading>
@@ -51,7 +54,7 @@
       </Node>
       <Node Name="Map">
         <Components>
-          <TransformBehaviour>
+          <Transform>
             <Vector3>
               <X>0</X>
               <Y>0</Y>
@@ -63,9 +66,26 @@
               <Z>0</Z>
               <W>0</W>
             </Quaternion>
-          </TransformBehaviour>
+          </Transform>
         </Components>
         <Children />
+      </Node>
+      <Node Name="Grid">
+        <Components>
+          <Transform>
+            <Vector3>
+              <X>0</X>
+              <Y>0</Y>
+              <Z>0</Z>
+            </Vector3>
+            <Quaternion>
+              <X>0</X>
+              <Y>0</Y>
+              <Z>0</Z>
+              <W>0</W>
+            </Quaternion>
+          </Transform>
+        </Components>
       </Node>
     </RootNodes>
   </ScenePersister>

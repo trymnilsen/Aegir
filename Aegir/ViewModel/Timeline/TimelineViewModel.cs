@@ -1,6 +1,7 @@
 ﻿using Aegir.Messages.ObjectTree;
 using Aegir.Messages.Timeline;
 using Aegir.Mvvm;
+using Aegir.View.Timeline;
 using AegirCore.Keyframe;
 using AegirCore.Messages;
 using AegirCore.Scene;
@@ -129,6 +130,7 @@ namespace Aegir.ViewModel.Timeline
 
         private RelayCommand playPauseCommand;
         private DateTime lastNotifyProxyProperty;
+        private KeyframeListItem selectedKey;
 
         public RelayCommand PlayPauseCommand
         {
@@ -181,6 +183,19 @@ namespace Aegir.ViewModel.Timeline
             set { Engine.PlaybackEnd = value; }
         }
 
+        public KeyframeListItem SelectedKey
+        {
+            get { return selectedKey; }
+            set
+            {
+                if(selectedKey!=value)
+                {
+                    selectedKey = value;
+                    //RaisePropertyChanged();
+                    Debug.WriteLine($"Selected Key Changed {SelectedKey?.Time}");
+                }
+            }
+        }
         public KeyframeEngine Engine { get; private set; }
         public double NotifyPropertyUpdateRate { get; private set; }
 

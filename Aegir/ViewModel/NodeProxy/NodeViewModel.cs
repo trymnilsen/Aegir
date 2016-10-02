@@ -15,21 +15,20 @@ using TinyMessenger;
 using System.Diagnostics;
 using System.Windows.Media.Media3D;
 using HelixToolkit.Wpf;
-using Aegir.Rendering.Transform;
 using ViewPropertyGrid.PropertyGrid;
 using System.Collections.ObjectModel;
 
 namespace Aegir.ViewModel.NodeProxy
 {
-    public class NodeViewModelProxy : ViewModelBase, ITransformableVisual, IPropertyInfoProvider
+    public class NodeViewModel : ViewModelBase, ITransformableVisual, IPropertyInfoProvider
     {
         protected Node nodeData;
 
-        private TransformBehaviour transform;
-        private List<NodeViewModelProxy> children;
-        private List<BehaviourViewModelProxy> componentProxies;
+        private Transform transform;
+        private List<NodeViewModel> children;
+        private List<BehaviourViewModel> componentProxies;
 
-        public List<NodeViewModelProxy> Children
+        public List<NodeViewModel> Children
         {
             get { return children; }
             set { children = value; }
@@ -69,14 +68,14 @@ namespace Aegir.ViewModel.NodeProxy
         /// Creates a new proxy node
         /// </summary>
         /// <param name="nodeData">The node to proxy</param>
-        public NodeViewModelProxy(Node nodeData, IScenegraphAddRemoveHandler addRemoveHandler)
+        public NodeViewModel(Node nodeData, IScenegraphAddRemoveHandler addRemoveHandler)
         {
             this.AddRemoveHandler = addRemoveHandler;
             this.nodeData = nodeData;
-            this.children = new List<NodeViewModelProxy>();
-            this.componentProxies = new List<BehaviourViewModelProxy>();
+            this.children = new List<NodeViewModel>();
+            this.componentProxies = new List<BehaviourViewModel>();
             //All nodes should have a transform behaviour
-            transform = nodeData.GetComponent<TransformBehaviour>();
+            transform = nodeData.GetComponent<Transform>();
 
             AddNodeCommand = new RelayCommand<string>(AddNode);
             RemoveNodeCommand = new RelayCommand(DoRemoveNode);
@@ -88,7 +87,7 @@ namespace Aegir.ViewModel.NodeProxy
         {
             foreach(BehaviourComponent component in behaviourComponents)
             {
-                BehaviourViewModelProxy vm = BehaviourViewModelFactory.GetViewModelProxy(component);
+                BehaviourViewModel vm = BehaviourViewModelFactory.GetViewModelProxy(component);
                 if(vm!=null)
                 {
                     componentProxies.Add(vm);
@@ -133,7 +132,7 @@ namespace Aegir.ViewModel.NodeProxy
         public InspectableProperty[] GetProperties()
         {
             List<InspectableProperty> properties = new List<InspectableProperty>();
-            foreach(BehaviourViewModelProxy behaviour in componentProxies)
+            foreach(BehaviourViewModel behaviour in componentProxies)
             {
                 properties.AddRange(behaviour.GetProperties());
             }

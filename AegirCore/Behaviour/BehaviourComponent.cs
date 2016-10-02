@@ -41,5 +41,6 @@ namespace AegirCore.Behaviour
         }
         public abstract XElement Serialize();
         public abstract void Deserialize(XElement data);
+
     }
 }

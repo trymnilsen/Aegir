@@ -1,5 +1,4 @@
 ﻿using Aegir.ViewModel.NodeProxy;
-using Aegir.ViewModel.Properties;
 using Aegir.ViewModel.Timeline;
 using GalaSoft.MvvmLight.Ioc;
 
@@ -53,24 +52,13 @@ namespace Aegir.ViewModel
         }
 
         /// <summary>
-        /// Gets the properties viewmodel
-        /// </summary>
-        public PropertiesViewModel PropertiesVM
-        {
-            get
-            {
-                return SimpleIoc.Default.GetInstance<PropertiesViewModel>();
-            }
-        }
-
-        /// <summary>
         /// Helper method for getting the objecttreeviewmodel
         /// </summary>
-        public ScenegraphViewModelProxy ScenegraphVM
+        public ScenegraphViewModel ScenegraphVM
         {
             get
             {
-                return SimpleIoc.Default.GetInstance<ScenegraphViewModelProxy>();
+                return SimpleIoc.Default.GetInstance<ScenegraphViewModel>();
             }
         }
 

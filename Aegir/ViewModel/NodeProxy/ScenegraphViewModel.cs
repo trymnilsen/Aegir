@@ -14,7 +14,7 @@ using TinyMessenger;
 
 namespace Aegir.ViewModel.NodeProxy
 {
-    public class ScenegraphViewModelProxy : ViewModelBase, IScenegraphAddRemoveHandler
+    public class ScenegraphViewModel : ViewModelBase, IScenegraphAddRemoveHandler
     {
         private const double NotifyPropertyUpdateRate = 333d;
         private DateTime lastNotifyProxyProperty;
@@ -24,31 +24,31 @@ namespace Aegir.ViewModel.NodeProxy
         /// </summary>
         private SceneGraph sceneSource;
 
-        private NodeViewModelProxy selectedItem;
+        private NodeViewModel selectedItem;
 
         /// <summary>
         /// Command to be executed when selected item has changed
         /// </summary>
-        public RelayCommand<NodeViewModelProxy> SelectItemViewModelChangedCommand { get; private set; }
+        public RelayCommand<NodeViewModel> SelectItemViewModelChangedCommand { get; private set; }
 
         public RelayCommand<Node> SelectRawNodeChangedCommand { get; private set; }
 
         /// <summary>
         /// Command to be executed when an item is wanted to be removed from the graph
         /// </summary>
-        public RelayCommand<NodeViewModelProxy> RemoveItemCommand { get; private set; }
+        public RelayCommand<NodeViewModel> RemoveItemCommand { get; private set; }
 
         /// <summary>
         /// Command to be executed when an item is wanted to be moved
         /// </summary>
-        public RelayCommand<NodeViewModelProxy> MoveItemCommand { get; private set; }
+        public RelayCommand<NodeViewModel> MoveItemCommand { get; private set; }
 
         /// <summary>
         /// A Graph of node viewmodel proxies composed from our scene source
         /// </summary>
-        public ObservableCollection<NodeViewModelProxy> Items { get; set; }
+        public ObservableCollection<NodeViewModel> Items { get; set; }
 
-        public NodeViewModelProxy SelectedItem
+        public NodeViewModel SelectedItem
         {
             get { return selectedItem; }
             set
@@ -65,11 +65,11 @@ namespace Aegir.ViewModel.NodeProxy
         /// <summary>
         /// Creates a new Scenegraph View Model
         /// </summary>
-        public ScenegraphViewModelProxy(TinyMessengerHub messenger)
+        public ScenegraphViewModel(TinyMessengerHub messenger)
         {
-            SelectItemViewModelChangedCommand = new RelayCommand<NodeViewModelProxy>(c => SelectedItem = c);
-            RemoveItemCommand = new RelayCommand<NodeViewModelProxy>(RemoveItem);
-            MoveItemCommand = new RelayCommand<NodeViewModelProxy>(MoveTo);
+            SelectItemViewModelChangedCommand = new RelayCommand<NodeViewModel>(c => SelectedItem = c);
+            RemoveItemCommand = new RelayCommand<NodeViewModel>(RemoveItem);
+            MoveItemCommand = new RelayCommand<NodeViewModel>(MoveTo);
             SelectRawNodeChangedCommand = new RelayCommand<Node>(SetRawNodeAsSelectedItem);
             Messenger = messenger;
             Messenger.Subscribe<ScenegraphChanged>(OnScenegraphChanged);
@@ -78,7 +78,7 @@ namespace Aegir.ViewModel.NodeProxy
             //MessengerInstance.Register<InvalidateEntities>(this, OnInvalidateEntitiesMessage);
             //MessengerInstance.Register<ProjectActivated>(this, OnProjectActivated);
 
-            Items = new ObservableCollection<NodeViewModelProxy>();
+            Items = new ObservableCollection<NodeViewModel>();
             lastNotifyProxyProperty = DateTime.Now;
         }
 
@@ -102,14 +102,14 @@ namespace Aegir.ViewModel.NodeProxy
         /// Updates the currently active selected item in the graph
         /// </summary>
         /// <param name="newItem"></param>
-        public void UpdateSelectedItem(NodeViewModelProxy newItem)
+        public void UpdateSelectedItem(NodeViewModel newItem)
         {
             Messenger.Publish<SelectedNodeChanged>(new SelectedNodeChanged(this, newItem));
         }
         private void SetRawNodeAsSelectedItem(Node node)
         {
             //look through view models
-            foreach (NodeViewModelProxy nodeVM in Items)
+            foreach (NodeViewModel nodeVM in Items)
             {
                 if (nodeVM.NodeSource == node)
                 {
@@ -122,7 +122,7 @@ namespace Aegir.ViewModel.NodeProxy
                 }
             }
         }
-        private void LookForChildrenNodeVM(NodeViewModelProxy nodeVM, Node node)
+        private void LookForChildrenNodeVM(NodeViewModel nodeVM, Node node)
         {
             if (nodeVM.NodeSource == node)
             {
@@ -130,7 +130,7 @@ namespace Aegir.ViewModel.NodeProxy
             }
             else if (nodeVM.Children.Count > 0)
             {
-                foreach (NodeViewModelProxy nodeChild in nodeVM.Children)
+                foreach (NodeViewModel nodeChild in nodeVM.Children)
                 {
                     LookForChildrenNodeVM(nodeChild, node);
                 }
@@ -141,12 +141,12 @@ namespace Aegir.ViewModel.NodeProxy
             RebuildScenegraphNodes(projectMessage.Project.Scene.RootNodes);
         }
 
-        private void RemoveItem(NodeViewModelProxy item)
+        private void RemoveItem(NodeViewModel item)
         {
             DebugUtil.LogWithLocation("Removing Item" + item);
         }
 
-        private void MoveTo(NodeViewModelProxy item)
+        private void MoveTo(NodeViewModel item)
         {
             DebugUtil.LogWithLocation("Moving Item" + item);
         }
@@ -195,17 +195,17 @@ namespace Aegir.ViewModel.NodeProxy
             Items.Clear();
             foreach (Node n in nodes)
             {
-                NodeViewModelProxy nodeProxy = new NodeViewModelProxy(n, this);
+                NodeViewModel nodeProxy = new NodeViewModel(n, this);
                 Items.Add(nodeProxy);
                 PopulateNodeChildren(nodeProxy, n);
             }
         }
 
-        private void PopulateNodeChildren(NodeViewModelProxy proxy, Node node)
+        private void PopulateNodeChildren(NodeViewModel proxy, Node node)
         {
             foreach (Node n in node.Children)
             {
-                NodeViewModelProxy childrenProxy = new NodeViewModelProxy(n,this);
+                NodeViewModel childrenProxy = new NodeViewModel(n,this);
                 proxy.Children.Add(childrenProxy);
                 PopulateNodeChildren(childrenProxy, n);
             }
@@ -235,7 +235,7 @@ namespace Aegir.ViewModel.NodeProxy
             }
         }
 
-        public void Remove(NodeViewModelProxy node)
+        public void Remove(NodeViewModel node)
         {
 
         }

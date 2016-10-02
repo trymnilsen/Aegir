@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace Aegir.ViewModel.NodeProxy
 {
-    public class ProxyForBehaviourAttribute : Attribute
+    public class ViewModelForBehaviourAttribute : Attribute
     {
         public Type TargetBehaviourType { get; private set; }
-        public ProxyForBehaviourAttribute(Type targetBehaviourType)
+        public ViewModelForBehaviourAttribute(Type targetBehaviourType)
         {
             TargetBehaviourType = targetBehaviourType;
         }

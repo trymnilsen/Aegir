@@ -18,14 +18,14 @@ namespace Aegir.Rendering
 
         private VisualFactory visualFactory;
         private ManipulatorGizmo sceneManipulator;
-        private TransformBehaviour followTransform;
+        private AegirCore.Behaviour.World.Transform followTransform;
 
         private Vector3D CameraPositionOffset;
         private Vector3D CameraTargetOffset;
         public static Point3D followTransformPoint = new Point3D();
 
 
-        public TransformBehaviour FollowTransform
+        public Transform FollowTransform
         {
             get { return followTransform; }
             set
@@ -67,7 +67,7 @@ namespace Aegir.Rendering
 
         }
 
-        public void AddVisual(Visual3D visual, TransformBehaviour transform)
+        public void AddVisual(Visual3D visual, AegirCore.Behaviour.World.Transform transform)
         {
             RenderItemListener listener = new RenderItemListener(visual, transform);
             listeners.Add(listener);
@@ -77,7 +77,7 @@ namespace Aegir.Rendering
         {
             return VisualFactory?.GetRenderItem(RenderMode, visual);
         }
-        public void AddDummy(TransformBehaviour transformBehaviour)
+        public void AddDummy(AegirCore.Behaviour.World.Transform transformBehaviour)
         {
             Visual3D dummyVisual = VisualFactory.GetDummyVisual();
             AddVisual(dummyVisual, transformBehaviour);
@@ -96,7 +96,7 @@ namespace Aegir.Rendering
             }
         }
 
-        public void CalculateFollowCameraOffset(TransformBehaviour followTransform)
+        public void CalculateFollowCameraOffset(AegirCore.Behaviour.World.Transform followTransform)
         {
             viewport.Dispatcher.Invoke(() =>
             {

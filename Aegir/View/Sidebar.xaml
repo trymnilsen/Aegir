@@ -102,7 +102,7 @@
                             <Color R="112" G="112" B="112" A="255"></Color>
                         </SolidColorBrush.Color>
                     </SolidColorBrush>
-                    <HierarchicalDataTemplate DataType="{x:Type model:NodeViewModelProxy}"
+                    <HierarchicalDataTemplate DataType="{x:Type model:NodeViewModel}"
                                               ItemsSource="{Binding Children}">
                         <StackPanel Orientation="Horizontal">
                             <StackPanel.ContextMenu>

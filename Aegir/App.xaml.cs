@@ -1,6 +1,5 @@
 ﻿using Aegir.ViewModel;
 using Aegir.ViewModel.NodeProxy;
-using Aegir.ViewModel.Properties;
 using Aegir.ViewModel.Timeline;
 using Aegir.Windows;
 using AegirCore;
@@ -50,11 +49,6 @@ namespace Aegir
                     return new StatusBarViewModel() { Messenger = application.MessageHub };
                 }
             , true);
-            SimpleIoc.Default.Register<PropertiesViewModel>(
-                () => {
-                    return new PropertiesViewModel() { Messenger = application.MessageHub };
-                }
-            , true);
             SimpleIoc.Default.Register<MenuStripViewModel>(
                 () => {
                     return new MenuStripViewModel() { Messenger = application.MessageHub };
@@ -70,9 +64,9 @@ namespace Aegir
                     return new MapViewModel() { Messenger = application.MessageHub };
                 }
             , true);
-            SimpleIoc.Default.Register<ScenegraphViewModelProxy>(
+            SimpleIoc.Default.Register<ScenegraphViewModel>(
                 () => {
-                    return new ScenegraphViewModelProxy(application.MessageHub as TinyMessengerHub);
+                    return new ScenegraphViewModel(application.MessageHub as TinyMessengerHub);
                 }
             , true);
             SimpleIoc.Default.Register<TimelineViewModel>(

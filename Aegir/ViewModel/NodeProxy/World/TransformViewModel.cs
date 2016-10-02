@@ -9,29 +9,34 @@ using System.ComponentModel;
 
 namespace Aegir.ViewModel.NodeProxy.Vessel
 {
-    [ProxyForBehaviourAttribute(typeof(TransformBehaviour))]
-    public class TransformViewModelProxy : TypedBehaviourViewModelProxy<TransformBehaviour>
+    [ViewModelForBehaviourAttribute(typeof(Transform))]
+    public class TransformViewModel : TypedBehaviourViewModel<Transform>
     {
-        [Category("Transform")]
         public double X
         {
             get { return Component.Position.X; }
             set { Component.SetX(value); }
         }
-        [Category("Transform")]
         public double Y
         {
             get { return Component.Position.Y; }
             set { Component.SetY(value); }
         }
-        [Category("Transform")]
         public double Z
         {
             get { return Component.Position.Z; }
             set { Component.SetZ(value); }
         }
 
-        public TransformViewModelProxy(TransformBehaviour source) 
+        public override string Name
+        {
+            get
+            {
+                return "Transform";
+            }
+        }
+
+        public TransformViewModel(Transform source) 
             : base(source)
         {
 

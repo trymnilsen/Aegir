@@ -16,7 +16,7 @@ namespace Aegir.Rendering
     public class Renderer
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(Renderer));
-        private ScenegraphViewModelProxy scene;
+        private ScenegraphViewModel scene;
         private List<ViewportRenderer> viewports;
         private IGeometryFactory meshFactory;
         private List<RenderItem> renderItems;
@@ -44,7 +44,7 @@ namespace Aegir.Rendering
             DummyColor = Color.FromRgb(255, 0, 0);
         }
 
-        public void ChangeScene(ScenegraphViewModelProxy scene)
+        public void ChangeScene(ScenegraphViewModel scene)
         {
             if (scene != null)
             {
@@ -67,7 +67,7 @@ namespace Aegir.Rendering
             }
             if (scene != null)
             {
-                foreach (NodeViewModelProxy node in scene.Items)
+                foreach (NodeViewModel node in scene.Items)
                 {
                     RenderNode(node);
                 }
@@ -95,9 +95,9 @@ namespace Aegir.Rendering
         //        NodeViewModelProxy nodeCacheE
         //    }
         //}
-        private void RenderNode(NodeViewModelProxy node)
+        private void RenderNode(NodeViewModel node)
         {
-            foreach (NodeViewModelProxy child in node.Children)
+            foreach (NodeViewModel child in node.Children)
             {
                 RenderNode(child);
             }
@@ -118,7 +118,7 @@ namespace Aegir.Rendering
             {
                 //No meshdata, lets show a dummy
                 Visual3D dummyVisual = GetDummyVisual();
-                var transformBehaviour = node.GetNodeComponent<TransformBehaviour>();
+                var transformBehaviour = node.GetNodeComponent<AegirCore.Behaviour.World.Transform>();
 
                 AddDummyToViewports(transformBehaviour);
             }
@@ -154,7 +154,7 @@ namespace Aegir.Rendering
             ////Add to each viewpoer
         }
 
-        private void AddDummyToViewports(TransformBehaviour transformBehaviour)
+        private void AddDummyToViewports(AegirCore.Behaviour.World.Transform transformBehaviour)
         {
             foreach (ViewportRenderer viewport in viewports)
             {
@@ -171,7 +171,7 @@ namespace Aegir.Rendering
             }
         }
 
-        private void AddToViewports(Visual3D visual, TransformBehaviour transform)
+        private void AddToViewports(Visual3D visual, AegirCore.Behaviour.World.Transform transform)
         {
             foreach (ViewportRenderer viewport in viewports)
             {
@@ -208,8 +208,8 @@ namespace Aegir.Rendering
 
         private void AddMesh(MeshBehaviour mesh)
         {
-            TransformBehaviour transform =
-                mesh.Parent.GetComponent<TransformBehaviour>();
+            AegirCore.Behaviour.World.Transform transform =
+                mesh.Parent.GetComponent<AegirCore.Behaviour.World.Transform>();
 
             if (transform != null)
             {
@@ -254,9 +254,9 @@ namespace Aegir.Rendering
         {
         }
 
-        internal void CameraFollow(NodeViewModelProxy selectedItem)
+        internal void CameraFollow(NodeViewModel selectedItem)
         {
-            TransformBehaviour transform = selectedItem.GetNodeComponent<TransformBehaviour>();
+            AegirCore.Behaviour.World.Transform transform = selectedItem.GetNodeComponent<AegirCore.Behaviour.World.Transform>();
             viewports[1].FollowTransform = transform;
         }
     }

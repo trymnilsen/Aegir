@@ -11,6 +11,9 @@ namespace ViewPropertyGrid.PropertyGrid
     public static class DefaultPropertyFactory 
     {
         private static Dictionary<PropertyInfo, InspectablePropertyMetadata> metadataCache = new Dictionary<PropertyInfo, InspectablePropertyMetadata>();
+
+        public static bool UseTargetToStringOnNoCategory { get; private set; } = true;
+
         public static InspectableProperty[] GetProperties(object obj)
         {
             if(obj is IPropertyInfoProvider)
@@ -65,6 +68,11 @@ namespace ViewPropertyGrid.PropertyGrid
             if(categoryAttribute != null)
             {
                 categoryName = categoryAttribute.Category;
+            }
+            //If there is no category, should we use Target toString as category or the default
+            else if(UseTargetToStringOnNoCategory)
+            {
+                categoryName = property.Target.ToString();
             }
             //Get DisplayName if any
             string displayName = (attributes.FirstOrDefault(x => x is DisplayNameAttribute) as DisplayNameAttribute)?.DisplayName;

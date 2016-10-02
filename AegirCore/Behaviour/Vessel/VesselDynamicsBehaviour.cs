@@ -14,7 +14,7 @@ namespace AegirCore.Behaviour.Vessel
         private double speed;
         private double rateOfTurn;
         private double heading;
-        private TransformBehaviour transform;
+        private Transform transform;
         private VesselSimulationMode simMode;
 
         public VesselSimulationMode SimulationMode
@@ -58,7 +58,7 @@ namespace AegirCore.Behaviour.Vessel
         {
             if (transform == null)
             {
-                transform = GetComponent<TransformBehaviour>();
+                transform = GetComponent<Transform>();
             }
             //Rate of turn is in degrees minutes, let's convert it to radians per update
             double rotRads = rateOfTurn * (Math.PI / 180);

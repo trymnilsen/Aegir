@@ -83,7 +83,7 @@ namespace Aegir.View.Rendering.Menu
             Debug.WriteLine(content+" not yet implemented");
             MenuOptionClicked?.Invoke(content);
         }
-        public void SetContextMouseTarget(NodeViewModelProxy target)
+        public void SetContextMouseTarget(NodeViewModel target)
         {
             List<MenuListItem> items = new List<MenuListItem>();
             items.AddRange(defaultItems);

@@ -36,9 +36,9 @@ namespace Aegir.View.Rendering
             set { SetValue(ModelNotLoadedColorProperty, value); }
         }
 
-        public ScenegraphViewModelProxy Scene
+        public ScenegraphViewModel Scene
         {
-            get { return (ScenegraphViewModelProxy)GetValue(SceneProperty); }
+            get { return (ScenegraphViewModel)GetValue(SceneProperty); }
             set
             {
                 SetValue(SceneProperty, value);
@@ -53,7 +53,7 @@ namespace Aegir.View.Rendering
 
         public static readonly DependencyProperty SceneProperty =
             DependencyProperty.Register("Scene",
-                                        typeof(ScenegraphViewModelProxy),
+                                        typeof(ScenegraphViewModel),
                                         typeof(RenderView),
                                         new PropertyMetadata(
                                             new PropertyChangedCallback(OnSceneGraphChanged)
@@ -130,7 +130,7 @@ namespace Aegir.View.Rendering
             log.Debug("TopLeftViewGot Focus");
         }
 
-        public void OnSceneGraphInstanceChanged(ScenegraphViewModelProxy newScene, ScenegraphViewModelProxy oldScene)
+        public void OnSceneGraphInstanceChanged(ScenegraphViewModel newScene, ScenegraphViewModel oldScene)
         {
             log.Debug("Scene Instance changed");
             //unlisten old
@@ -153,7 +153,7 @@ namespace Aegir.View.Rendering
 
         private void NewScene_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(ScenegraphViewModelProxy.SelectedItem))
+            if (e.PropertyName == nameof(ScenegraphViewModel.SelectedItem))
             {
                 if(Scene?.SelectedItem != null)
                 {
@@ -171,8 +171,8 @@ namespace Aegir.View.Rendering
         {
             log.Debug("ScenegraphDP Callback triggered");
             RenderView view = d as RenderView;
-            ScenegraphViewModelProxy newScene = e.NewValue as ScenegraphViewModelProxy;
-            ScenegraphViewModelProxy oldScene = e.OldValue as ScenegraphViewModelProxy;
+            ScenegraphViewModel newScene = e.NewValue as ScenegraphViewModel;
+            ScenegraphViewModel oldScene = e.OldValue as ScenegraphViewModel;
             if (newScene != null)
             {
                 view.OnSceneGraphInstanceChanged(newScene, oldScene);

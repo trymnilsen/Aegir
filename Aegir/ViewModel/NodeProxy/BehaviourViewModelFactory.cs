@@ -36,17 +36,17 @@ namespace Aegir.ViewModel.NodeProxy
                 // Partition on the type list initially.
                 from t in assembly.GetTypes()
                 //Get attributes
-                let attributes = t.GetCustomAttributes(typeof(ProxyForBehaviourAttribute), false)
+                let attributes = t.GetCustomAttributes(typeof(ViewModelForBehaviourAttribute), false)
                 //Query where
                 where attributes != null && attributes.Length > 0
                 //Select the results into a anonomous type
-                select new { Type = t, Attributes = attributes.Cast<ProxyForBehaviourAttribute>() };
+                select new { Type = t, Attributes = attributes.Cast<ViewModelForBehaviourAttribute>() };
 
             foreach(var vmType in viewModelTypes)
             {
                 //Do some extra checks
                 //Check that the type of the object holding the attribute is a subclass of vmproxy
-                if(!ReflectionUtils.IsSubclassOfRawGeneric(typeof(TypedBehaviourViewModelProxy<>), vmType.Type))
+                if(!ReflectionUtils.IsSubclassOfRawGeneric(typeof(TypedBehaviourViewModel<>), vmType.Type))
                 {
                     //No it was not, jump to next
                     continue;
@@ -65,7 +65,7 @@ namespace Aegir.ViewModel.NodeProxy
             }
         }
 
-        public static BehaviourViewModelProxy GetViewModelProxy(BehaviourComponent behaviour)
+        public static BehaviourViewModel GetViewModelProxy(BehaviourComponent behaviour)
         {
             try
             {
@@ -77,7 +77,7 @@ namespace Aegir.ViewModel.NodeProxy
                     //the only constructor parameter is the source behaviour this 
                     //viewmodel is wrapping
                     object instance = Activator.CreateInstance(vmType, behaviour);
-                    BehaviourViewModelProxy vm = instance as BehaviourViewModelProxy;
+                    BehaviourViewModel vm = instance as BehaviourViewModel;
                     return vm;
                 }
             }

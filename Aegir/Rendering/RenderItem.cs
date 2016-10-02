@@ -26,9 +26,9 @@ namespace Aegir.Rendering
             }
         }
 
-        public TransformBehaviour Transform { get; private set; }
+        public Transform Transform { get; private set; }
 
-        public RenderItem(IGeometryFactory geometryFactory, MeshData meshData, TransformBehaviour transform)
+        public RenderItem(IGeometryFactory geometryFactory, MeshData meshData, AegirCore.Behaviour.World.Transform transform)
         {
             this.geometryFactory = geometryFactory;
             this.IsGeometryDirty = true;

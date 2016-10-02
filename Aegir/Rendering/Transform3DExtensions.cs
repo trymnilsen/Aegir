@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media.Media3D;
 
-namespace Aegir.Rendering.Transform
+namespace Aegir.Rendering
 {
     public static class Media3DExtensions
     {

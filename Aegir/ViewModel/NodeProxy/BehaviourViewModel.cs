@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Aegir.Mvvm;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -8,11 +9,12 @@ using ViewPropertyGrid.PropertyGrid;
 
 namespace Aegir.ViewModel.NodeProxy
 {
-    public abstract class BehaviourViewModelProxy
+    public abstract class BehaviourViewModel : ViewModelBase
     {
+        public abstract string Name { get; }
         public InspectableProperty[] GetProperties()
         {
-            PropertyInfo[] properties = this.GetType().GetProperties();
+            PropertyInfo[] properties = this.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly);
             List<InspectableProperty> inspectables = new List<InspectableProperty>();
             foreach (PropertyInfo property in properties)
             {
@@ -22,6 +24,10 @@ namespace Aegir.ViewModel.NodeProxy
 
             return inspectables.ToArray();
 
+        }
+        public override string ToString()
+        {
+            return string.IsNullOrWhiteSpace(Name) ? GetType().Name : Name;
         }
     }
 }

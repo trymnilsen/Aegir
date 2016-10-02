@@ -80,9 +80,11 @@ namespace AegirCore.Persistence.Persisters
                 {
                     BehaviourComponent behaviour =
                         BehaviourFactory.CreateWithName(behaviourElement.Name.LocalName, node);
-
-                    behaviour.Deserialize(behaviourElement);
-                    node.Components.Add(behaviour);
+                    if(behaviour != null)
+                    {
+                        behaviour.Deserialize(behaviourElement);
+                        node.Components.Add(behaviour);
+                    }
                 }
             }
 

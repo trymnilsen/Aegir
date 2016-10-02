@@ -8,9 +8,9 @@ namespace Aegir.Rendering
     {
         public Visual3D Visual { get; private set; }
 
-        public TransformBehaviour Item { get; private set; }
+        public Transform Item { get; private set; }
 
-        public RenderItemListener(Visual3D visual, TransformBehaviour item)
+        public RenderItemListener(Visual3D visual, AegirCore.Behaviour.World.Transform item)
         {
             this.Visual = visual;
             this.Item = item;
@@ -30,7 +30,7 @@ namespace Aegir.Rendering
             throw new NotImplementedException();
         }
 
-        private Transform3D GetVisualTransformation(TransformBehaviour transform)
+        private Transform3D GetVisualTransformation(AegirCore.Behaviour.World.Transform transform)
         {
             MatrixTransform3D matrixTransform = new MatrixTransform3D();
             Matrix3D matrix = new Matrix3D();

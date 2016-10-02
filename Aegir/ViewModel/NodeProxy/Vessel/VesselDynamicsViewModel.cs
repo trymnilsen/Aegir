@@ -9,8 +9,8 @@ using System.ComponentModel;
 
 namespace Aegir.ViewModel.NodeProxy.Vessel
 {
-    [ProxyForBehaviourAttribute(typeof(VesselDynamicsBehaviour))]
-    public class VesselDynamicsViewModelProxy : TypedBehaviourViewModelProxy<VesselDynamicsBehaviour>
+    [ViewModelForBehaviourAttribute(typeof(VesselDynamicsBehaviour))]
+    public class VesselDynamicsViewModel : TypedBehaviourViewModel<VesselDynamicsBehaviour>
     {
 
         public double Speed
@@ -32,7 +32,15 @@ namespace Aegir.ViewModel.NodeProxy.Vessel
             set { Component.RateOfTurn = value; }
         }
 
-        public VesselDynamicsViewModelProxy(VesselDynamicsBehaviour component) : base(component)
+        public override string Name
+        {
+            get
+            {
+                return "Vessel Dynamics";
+            }
+        }
+
+        public VesselDynamicsViewModel(VesselDynamicsBehaviour component) : base(component)
         {
         }
     }

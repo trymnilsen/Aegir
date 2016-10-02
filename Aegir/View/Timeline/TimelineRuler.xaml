@@ -79,7 +79,10 @@
                 The data-template that defines the visuals 
                 for each keyframe is in the resources section 
                 at the start of this file.-->
-            <ListBox x:Name="listBox" SelectionMode="Extended" Background="Transparent">
+            <ListBox x:Name="listBox" 
+                     SelectionMode="Extended" 
+                     Background="Transparent"
+                     SelectedItem="{Binding TimelineVM.SelectedKey, Source={StaticResource VMLocator}}">
                 <ListBox.ItemsPanel>
                     <ItemsPanelTemplate>
                         <Canvas />

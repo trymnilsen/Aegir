@@ -8,7 +8,7 @@ using AegirType;
 
 namespace AegirCore.Behaviour.World
 {
-    public class TransformBehaviour : BehaviourComponent
+    public class Transform : BehaviourComponent
     {
         private Vector3 position;
         private Quaternion rotation;
@@ -34,7 +34,7 @@ namespace AegirCore.Behaviour.World
             }
         }
 
-        public TransformBehaviour(Node parent)
+        public Transform(Node parent)
             : base(parent)
         {
             position = new Vector3();

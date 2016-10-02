@@ -15,7 +15,7 @@ using System.Windows.Shapes;
 
 namespace Aegir.View.Timeline
 {
-    internal class KeyframeListItem : ObservableObject
+    public class KeyframeListItem : ObservableObject
     {
         public int Time { get; private set; }
         public KeyframeViewModel KeyVM { get; private set; }
