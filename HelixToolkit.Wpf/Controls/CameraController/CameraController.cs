@@ -411,6 +411,9 @@ namespace HelixToolkit.Wpf
         /// </summary>
         private double zoomSpeed;
 
+        /// <summary>
+        /// 
+        /// </summary>
         public static Point3D RotateOrigin = new Point3D();
 
         /// <summary>

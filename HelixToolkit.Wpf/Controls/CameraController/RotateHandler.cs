@@ -275,7 +275,7 @@ namespace HelixToolkit.Wpf
 
         /// <summary>
         /// Occurs when the manipulation is started.
-        /// </summary><
+        /// </summary>
         /// <param name="e">The <see cref="ManipulationEventArgs"/> instance containing the event data.</param>
         public override void Started(ManipulationEventArgs e)
         {
