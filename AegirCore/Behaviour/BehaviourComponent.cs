@@ -15,23 +15,15 @@ namespace AegirCore.Behaviour
         public Node Parent
         {
             get { return parent; }
-            set
-            {
-                if(parent!=null && parent!=value)
-                {
-                    throw new InvalidOperationException("Cannot re-assign parent");
-                }
-
-                parent = value;
-            }
+            protected set { parent = value; }
         }
         public SignalRouter internalRouter { get; set; }
         public SignalRouter globalRouter { get; set; }
         public string Name { get; set; }
 
-        public BehaviourComponent()
+        public BehaviourComponent(Node parent)
         {
-
+            this.Parent = parent;
         }
         public T GetComponent<T>()
             where T : BehaviourComponent

@@ -34,7 +34,8 @@ namespace AegirCore.Behaviour.World
             }
         }
 
-        public TransformBehaviour()
+        public TransformBehaviour(Node parent)
+            : base(parent)
         {
             position = new Vector3();
             Rotation = new Quaternion();
