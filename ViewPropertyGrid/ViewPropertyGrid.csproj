@@ -85,7 +85,9 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Converter\BoolToStringConverter.cs" />
     <Compile Include="Converter\DoubleToStringConverter.cs" />
+    <Compile Include="Converter\EnumToStringConverter.cs" />
     <Compile Include="Converter\IntToStringConverter.cs" />
     <Compile Include="PropertyGrid\CategoryContainer.cs" />
     <Compile Include="PropertyGrid\ControlFactory.cs" />
@@ -100,6 +102,7 @@
     <Compile Include="PropertyGrid\PropertyGrid.xaml.cs">
       <DependentUpon>PropertyGrid.xaml</DependentUpon>
     </Compile>
+    <Compile Include="PropertyGrid\Provider\ComboBoxProvider.cs" />
     <Compile Include="PropertyGrid\Provider\TextboxProvider.cs" />
     <Compile Include="PropertyGrid\RefreshPropertyListOnPropertyChangeAttribute.cs" />
     <Compile Include="PropertyGrid\ValueControl.cs" />

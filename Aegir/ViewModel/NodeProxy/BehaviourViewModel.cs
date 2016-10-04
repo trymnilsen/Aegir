@@ -11,7 +11,11 @@ namespace Aegir.ViewModel.NodeProxy
 {
     public abstract class BehaviourViewModel : ViewModelBase
     {
-        public abstract string Name { get; }
+        public string Name { get; private set; }
+        public BehaviourViewModel(string name)
+        {
+            Name = name;
+        }
         public InspectableProperty[] GetProperties()
         {
             PropertyInfo[] properties = this.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly);

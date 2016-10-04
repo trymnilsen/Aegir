@@ -16,15 +16,8 @@ namespace Aegir.ViewModel.NodeProxy.Simulation
         [DisplayName("Simulation Mode")]
         public string SimulationMode { get; set; } = "FFT";
 
-        public override string Name
-        {
-            get
-            {
-                return "Water Simulation";
-            }
-        }
-
-        public WaterSimulationViewModel(WaterSimulation component) : base(component)
+        public WaterSimulationViewModel(WaterSimulation component) 
+            : base(component, "Water Simulation")
         {
 
         }

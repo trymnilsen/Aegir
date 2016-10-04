@@ -22,15 +22,8 @@ namespace Aegir.ViewModel.NodeProxy.World
         [DisplayName("Sun Altitude")]
         public double SunAltitude { get; set; } = 16;
 
-        public override string Name
-        {
-            get
-            {
-                return "World Settings";
-            }
-        }
-
-        public WorldSettingsViewModel(WorldSettings component) : base(component)
+        public WorldSettingsViewModel(WorldSettings component) 
+            : base(component, "World Settings")
         {
 
         }

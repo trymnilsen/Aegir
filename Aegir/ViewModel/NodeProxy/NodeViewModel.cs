@@ -27,6 +27,7 @@ namespace Aegir.ViewModel.NodeProxy
         private Transform transform;
         private List<NodeViewModel> children;
         private List<BehaviourViewModel> componentProxies;
+        private bool isEnabled;
 
         public List<NodeViewModel> Children
         {
@@ -38,10 +39,33 @@ namespace Aegir.ViewModel.NodeProxy
         {
             get { return nodeData; }
         }
+        [DisplayName("Name")]
+        [Category("General")]
         public string Name
         {
             get { return nodeData.Name; }
-            set { nodeData.Name = value; }
+            set
+            {
+                if(value!=nodeData.Name)
+                {
+                    nodeData.Name = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+        [DisplayName("Is Enabled")]
+        [Category("General")]
+        public bool IsEnabled
+        {
+            get { return isEnabled; }
+            set
+            {
+                if(isEnabled!=value)
+                {
+                   isEnabled = value;
+                   RaisePropertyChanged();
+                }
+            }
         }
 
         public RelayCommand RemoveNodeCommand { get; set; }
@@ -132,10 +156,16 @@ namespace Aegir.ViewModel.NodeProxy
         public InspectableProperty[] GetProperties()
         {
             List<InspectableProperty> properties = new List<InspectableProperty>();
+
+            //Add Node properties
+            properties.Add(new InspectableProperty(this, GetType().GetProperty(nameof(Name))));
+            properties.Add(new InspectableProperty(this, GetType().GetProperty(nameof(IsEnabled))));
+
             foreach(BehaviourViewModel behaviour in componentProxies)
             {
                 properties.AddRange(behaviour.GetProperties());
             }
+
             return properties.ToArray();
         }
 

@@ -28,16 +28,8 @@ namespace Aegir.ViewModel.NodeProxy.Vessel
             set { Component.SetZ(value); }
         }
 
-        public override string Name
-        {
-            get
-            {
-                return "Transform";
-            }
-        }
-
         public TransformViewModel(Transform source) 
-            : base(source)
+            : base(source, "Transform")
         {
 
         }

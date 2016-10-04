@@ -206,7 +206,7 @@ namespace ViewPropertyGrid.PropertyGrid
             //If the edit mode is set to on focus, create a textblock for when its not
             if(valueControl.EditBehaviour == EditingBehaviour.OnFocus)
             {
-                TextBlock unfocusElement = controlFactory.CreateDisabledTextBlock(propertyMetadata.Name, property.Target);
+                TextBlock unfocusElement = controlFactory.CreateUnFocusedTextBlock(property.ReflectionData.Name, property.Target);
                 propContainer = new PropertyContainer(propertyMetadata.Name, valueControl.Control, unfocusElement);
             }
             else

@@ -16,15 +16,8 @@ namespace Aegir.ViewModel.NodeProxy.Simulation
         [DisplayName("Wind")]
         public double WindMagnitude { get; set; } = 5;
 
-        public override string Name
-        {
-            get
-            {
-                return "Weather";
-            }
-        }
-
-        public WeatherSimulationViewModel(WeatherSimulation component) : base(component)
+        public WeatherSimulationViewModel(WeatherSimulation component) 
+            : base(component, "Weather")
         {
         }
     }

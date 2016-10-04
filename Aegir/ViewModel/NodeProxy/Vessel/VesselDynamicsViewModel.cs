@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using AegirCore.Behaviour;
 using AegirCore.Behaviour.Vessel;
 using System.ComponentModel;
+using AegirCore.Simulation;
 
 namespace Aegir.ViewModel.NodeProxy.Vessel
 {
@@ -31,16 +32,24 @@ namespace Aegir.ViewModel.NodeProxy.Vessel
             get { return Component.RateOfTurn; }
             set { Component.RateOfTurn = value; }
         }
+        public string ReadOnlyTest { get; } = "foooo";
 
-        public override string Name
+
+        private VesselSimulationMode simMode;
+        public VesselSimulationMode SimulationMode
         {
-            get
+            get { return simMode; }
+            set
             {
-                return "Vessel Dynamics";
+                if (simMode != value)
+                {
+                    simMode = value;
+                    RaisePropertyChanged();
+                }
             }
         }
-
-        public VesselDynamicsViewModel(VesselDynamicsBehaviour component) : base(component)
+        public VesselDynamicsViewModel(VesselDynamicsBehaviour component) 
+            : base(component, "Vessel Dynamics")
         {
         }
     }
