@@ -17,10 +17,15 @@ using System.Windows.Media.Media3D;
 using HelixToolkit.Wpf;
 using ViewPropertyGrid.PropertyGrid;
 using System.Collections.ObjectModel;
+using PropertyTools;
 
 namespace Aegir.ViewModel.NodeProxy
 {
-    public class NodeViewModel : ViewModelBase, ITransformableVisual, IPropertyInfoProvider
+    public class NodeViewModel : ViewModelBase, 
+                                ITransformableVisual, 
+                                IPropertyInfoProvider, 
+                                IDragSource,
+                                IDropTarget
     {
         protected Node nodeData;
 
@@ -88,6 +93,14 @@ namespace Aegir.ViewModel.NodeProxy
             }
         }
 
+        public bool IsDraggable
+        {
+            get
+            {
+                return true;
+            }
+        }
+
         /// <summary>
         /// Creates a new proxy node
         /// </summary>
@@ -150,7 +163,10 @@ namespace Aegir.ViewModel.NodeProxy
 
         internal void Invalidate()
         {
-            
+            foreach(BehaviourViewModel behaviourVM in componentProxies)
+            {
+                behaviourVM.Invalidate();
+            }
         }
 
         public InspectableProperty[] GetProperties()
@@ -167,6 +183,21 @@ namespace Aegir.ViewModel.NodeProxy
             }
 
             return properties.ToArray();
+        }
+
+        public void Detach()
+        {
+            
+        }
+
+        public bool CanDrop(IDragSource node, DropPosition dropPosition, DragDropEffect effect)
+        {
+            return true;
+        }
+
+        public void Drop(IEnumerable<IDragSource> items, DropPosition dropPosition, DragDropEffect effect, PropertyTools.DragDropKeyStates initialKeyStates)
+        {
+            
         }
 
         //public void TriggerTransformChanged()

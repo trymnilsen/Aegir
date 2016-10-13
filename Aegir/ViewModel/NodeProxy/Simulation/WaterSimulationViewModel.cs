@@ -21,5 +21,10 @@ namespace Aegir.ViewModel.NodeProxy.Simulation
         {
 
         }
+
+        internal override void Invalidate()
+        {
+            
+        }
     }
 }

@@ -33,5 +33,12 @@ namespace Aegir.ViewModel.NodeProxy.Vessel
         {
 
         }
+
+        internal override void Invalidate()
+        {
+            RaisePropertyChanged(nameof(X));
+            RaisePropertyChanged(nameof(Y));
+            RaisePropertyChanged(nameof(Z));
+        }
     }
 }

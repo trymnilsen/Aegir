@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:xctools="http://schemas.xceed.com/wpf/xaml/toolkit"
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              xmlns:cmd="http://www.galasoft.ch/mvvmlight"
              xmlns:views="clr-namespace:Aegir.View"
@@ -56,94 +55,8 @@
               Background="LightGray"
               ShowsPreview="True"
               Height="5"></GridSplitter>
-        <Border Grid.Row="3" 
-                DataContext="{Binding ScenegraphVM, 
-                                      Source={StaticResource VMLocator}}">
-            <Border.ContextMenu>
-                <ContextMenu>
-                    <MenuItem Header="Add GNSS Receiver"/>
-                    <MenuItem Header="Add Motion Sensor"/>
-            
-                </ContextMenu>
-            </Border.ContextMenu>
-            <TreeView x:Name="ObjectTree" 
-                      ItemsSource="{Binding Items}" 
-                      AllowDrop="True" Padding="0 5">
-                <!--Treeview Drag event-->
-                <!--<TreeView.ItemContainerStyle>
-                    <Style TargetType="{x:Type TreeViewItem}">
-                        -->
-                <!-- We have to select the item which is right-clicked on -->
-                <!--<EventSetter Event="TreeViewItem.PreviewMouseRightButtonDown" 
-                                 Handler="TreeViewItem_PreviewMouseRightButtonDown" />-->
-                <!--<EventSetter Event="TreeViewItem.DragOver" 
-                                 Handler="treeView_DragOver" />-->
-                <!--
-                        <EventSetter Event="TreeViewItem.MouseDown" 
-                                     Handler="treeView_MouseDown" />
-                        <EventSetter Event="TreeViewItem.Drop" 
-                                     Handler="treeView_Drop" />
-                        <EventSetter Event="TreeViewItem.MouseMove" 
-                                     Handler="treeView_MouseMove" />
-                    </Style>
-                </TreeView.ItemContainerStyle>-->
-                <!--Selected item binding-->
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="SelectedItemChanged">
-                        <cmd:EventToCommand Command="{Binding SelectItemViewModelChangedCommand}"
-                                            CommandParameter="{ Binding Path=SelectedItem, 
-                                                                        ElementName=ObjectTree}"/>
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
-                <!--Template for each treeview item-->
-                <TreeView.Resources>
-                    <SolidColorBrush x:Key="BorderBrush">
-                        <SolidColorBrush.Color>
-                            <Color R="112" G="112" B="112" A="255"></Color>
-                        </SolidColorBrush.Color>
-                    </SolidColorBrush>
-                    <HierarchicalDataTemplate DataType="{x:Type model:NodeViewModel}"
-                                              ItemsSource="{Binding Children}">
-                        <StackPanel Orientation="Horizontal">
-                            <StackPanel.ContextMenu>
-                                <ContextMenu>
-                                    <MenuItem Header="Add GNSS Receiver" 
-                                              Command="{Binding AddNodeCommand}" 
-                                              CommandParameter="{x:Static model:NodeTypeStringConstants.GNSSReceiver}"/>
-                                    <MenuItem Header="Add Vessel" 
-                                              Command="{Binding AddNodeCommand}" 
-                                              CommandParameter="{x:Static model:NodeTypeStringConstants.Vessel}"/>
-                                    <Separator></Separator>
-                                    <MenuItem Header="Remove" Command="{Binding RemoveNodeCommand}"></MenuItem>
-                                </ContextMenu>
-                            </StackPanel.ContextMenu>
-                            <CheckBox IsChecked="{Binding IsEnabled}" 
-                                      Margin="0 0 5 0"></CheckBox>
-                            <Border Background="White" 
-                                    SnapsToDevicePixels="True" 
-                                    BorderThickness="1" 
-                                    BorderBrush="{StaticResource BorderBrush}"
-                                    Padding="1" Width="14" 
-                                    Height="13" Margin="0 -1 5 0">
-                                <Rectangle SnapsToDevicePixels="True"
-                                           Width="10"
-                                           Height="9" 
-                                           Fill="Orange"></Rectangle>
-                            </Border>
-                            <fa:ImageAwesome Foreground="{StaticResource BorderBrush}" 
-                                             SnapsToDevicePixels="True" 
-                                             Margin="0 0 5 0" Icon="Tag"
-                                             Width="12" Height="12" />
-                            <fa:ImageAwesome Foreground="{StaticResource BorderBrush}"
-                                             SnapsToDevicePixels="True" 
-                                             Margin="0 0 5 0" Icon="Rss" 
-                                             Width="12" Height="12" />
-                            <TextBlock Text="{Binding Name}" Margin="0 0 10 0"></TextBlock>
-                        </StackPanel>
-                    </HierarchicalDataTemplate>
-                </TreeView.Resources>
-                <!--~Template for each treeview item-->
-            </TreeView>
+        <Border Grid.Row="3" >
+            <views:ScenegraphTree></views:ScenegraphTree>
         </Border>
         <Border Grid.Row="4" Background="#FFE8E8E8">
             <TextBlock Text=" :: Properties" FontWeight="DemiBold"></TextBlock>

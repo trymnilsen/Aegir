@@ -20,5 +20,10 @@ namespace Aegir.ViewModel.NodeProxy.Simulation
             : base(component, "Weather")
         {
         }
+
+        internal override void Invalidate()
+        {
+            
+        }
     }
 }

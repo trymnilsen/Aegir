@@ -48,7 +48,82 @@
                 <MeshDataReference>mesh://file/Mesh/ship.obj</MeshDataReference>
               </MeshBehaviour>
             </Components>
-            <Children />
+            <Children>
+              <!--GNSS-->
+              <Node Name="Fore GNSS">
+                <Components>
+                  <Transform>
+                    <Vector3>
+                      <X>0</X>
+                      <Y>0</Y>
+                      <Z>0</Z>
+                    </Vector3>
+                    <Quaternion>
+                      <X>0</X>
+                      <Y>0</Y>
+                      <Z>0</Z>
+                      <W>0</W>
+                    </Quaternion>
+                  </Transform>
+                </Components>
+                <Children />
+              </Node>
+              <Node Name="Aft GNSS">
+                <Components>
+                  <Transform>
+                    <Vector3>
+                      <X>0</X>
+                      <Y>0</Y>
+                      <Z>0</Z>
+                    </Vector3>
+                    <Quaternion>
+                      <X>0</X>
+                      <Y>0</Y>
+                      <Z>0</Z>
+                      <W>0</W>
+                    </Quaternion>
+                  </Transform>
+                </Components>
+                <Children />
+              </Node>
+              <Node Name="Third GNSS">
+                <Components>
+                  <Transform>
+                    <Vector3>
+                      <X>0</X>
+                      <Y>0</Y>
+                      <Z>0</Z>
+                    </Vector3>
+                    <Quaternion>
+                      <X>0</X>
+                      <Y>0</Y>
+                      <Z>0</Z>
+                      <W>0</W>
+                    </Quaternion>
+                  </Transform>
+                </Components>
+                <Children />
+              </Node>
+              <!--~GNSS-->
+              <Node Name="Gyro">
+                <Components>
+                  <Transform>
+                    <Vector3>
+                      <X>0</X>
+                      <Y>0</Y>
+                      <Z>0</Z>
+                    </Vector3>
+                    <Quaternion>
+                      <X>0</X>
+                      <Y>0</Y>
+                      <Z>0</Z>
+                      <W>0</W>
+                    </Quaternion>
+                  </Transform>
+                </Components>
+                <Children />
+              </Node>
+            </Children>
           </Node>
         </Children>
       </Node>

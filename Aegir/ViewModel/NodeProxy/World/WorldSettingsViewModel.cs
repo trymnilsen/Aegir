@@ -27,5 +27,10 @@ namespace Aegir.ViewModel.NodeProxy.World
         {
 
         }
+
+        internal override void Invalidate()
+        {
+            
+        }
     }
 }

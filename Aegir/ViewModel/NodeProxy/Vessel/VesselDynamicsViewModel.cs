@@ -52,5 +52,10 @@ namespace Aegir.ViewModel.NodeProxy.Vessel
             : base(component, "Vessel Dynamics")
         {
         }
+
+        internal override void Invalidate()
+        {
+           
+        }
     }
 }

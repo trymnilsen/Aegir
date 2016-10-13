@@ -33,5 +33,7 @@ namespace Aegir.ViewModel.NodeProxy
         {
             return string.IsNullOrWhiteSpace(Name) ? GetType().Name : Name;
         }
+
+        internal abstract void Invalidate();
     }
 }
