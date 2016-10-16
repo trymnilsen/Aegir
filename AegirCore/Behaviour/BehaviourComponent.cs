@@ -35,6 +35,14 @@ namespace AegirCore.Behaviour
         {
 
         }
+        public virtual void PreUpdate(SimulationTime time)
+        {
+
+        }
+        public virtual void PostUpdate(SimulationTime time)
+        {
+
+        }
         public virtual void Init()
         {
 

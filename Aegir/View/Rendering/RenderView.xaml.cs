@@ -91,10 +91,7 @@ namespace Aegir.View.Rendering
                     new PropertyChangedCallback(OnViewportFocusChanged)
                 ));
 
-        private ManipulatorGizmo topGizmo;
         private ManipulatorGizmo perspectiveGizmo;
-        private ManipulatorGizmo rightGizmo;
-        private ManipulatorGizmo frontGizmo;
         private ManipulatorGizmoTransformHandler gizmoHandler;
         public RenderView()
         {
@@ -103,10 +100,7 @@ namespace Aegir.View.Rendering
             meshTransforms = new List<NodeMeshListener>();
             renderHandler = new Renderer();
 
-            renderHandler.AddViewport(new ViewportRenderer(TopViewport));
             renderHandler.AddViewport(new ViewportRenderer(PerspectiveViewport));
-            renderHandler.AddViewport(new ViewportRenderer(RightViewport));
-            renderHandler.AddViewport(new ViewportRenderer(FrontViewport));
             gizmoHandler = new ManipulatorGizmoTransformHandler();
 
             //Add Tools
@@ -336,19 +330,10 @@ namespace Aegir.View.Rendering
                     gizmoHandler.GizmoMode = GizmoMode.Rotate;
                     break;
                 case "MapZoomOut":
-                    if(TopMap.MapZoomLevel>5)
-                    {
-                        TopMap.MapZoomLevel -= 1;
-                    }
                     break; 
                 case "MapZoomIn":
-                    if(TopMap.MapZoomLevel<18)
-                    {
-                        TopMap.MapZoomLevel += 1;
-                    }
                     break;
                 case "MapTranslateOffset":
-                    TopMap.TranslateOnZoom = !TopMap.TranslateOnZoom;
                     break;
                 default:
                     gizmoHandler.GizmoMode = GizmoMode.None;

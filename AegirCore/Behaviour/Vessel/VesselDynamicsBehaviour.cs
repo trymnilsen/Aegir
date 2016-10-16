@@ -65,10 +65,10 @@ namespace AegirCore.Behaviour.Vessel
             double stepRot = rotRads / (60 * time.TrueUpdatePerSecond);
             double newHeading = Heading + stepRot;
             Vector3 newMovement = new Vector3((float)Math.Cos(newHeading + Math.PI / 2) * (float)Speed, (float)Math.Sin(newHeading + Math.PI / 2) * (float)Speed, 0);
-            Vector3 transformPos = transform.Position;
+            Vector3 transformPos = transform.LocalPosition;
             Vector3 newPosition = transformPos + newMovement;
             Debug.WriteLine("Speed: " + Speed + " New Pos:" + newPosition.X + " / " + newPosition.Y);
-            transform.Position = transform.Position + newMovement;
+            transform.LocalPosition = transform.LocalPosition + newMovement;
             transform.RotateHeading(newHeading);
             Heading = newHeading;
         }

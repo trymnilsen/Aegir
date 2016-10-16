@@ -1,5 +1,4 @@
 ﻿using AegirCore.Behaviour.Simulation;
-using AegirCore.Entity;
 using AegirCore.Project.Event;
 using AegirCore.Scene;
 using AegirCore.Vessel;

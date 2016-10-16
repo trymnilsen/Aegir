@@ -238,9 +238,9 @@ namespace Aegir.Rendering
 
         public void Invalidate()
         {
-            foreach (ViewportRenderer viewport in viewports)
+            for (int i = 0; i < viewports.Count; i++)
             {
-                viewport.InvalidateVisuals();
+                viewports[i].InvalidateVisuals();
             }
         }
 

@@ -19,9 +19,12 @@ namespace Aegir.Rendering
         public void Invalidate()
         {
             Transform3D transformation = GetVisualTransformation(Item);
-            Visual.Dispatcher.InvokeAsync(() =>
+            Visual.Dispatcher.Invoke(() =>
             {
-                Visual.Transform = transformation;
+                if(Visual.Transform != transformation)
+                {
+                    Visual.Transform = transformation;
+                }
             });
         }
 
@@ -34,9 +37,9 @@ namespace Aegir.Rendering
         {
             MatrixTransform3D matrixTransform = new MatrixTransform3D();
             Matrix3D matrix = new Matrix3D();
-            Quaternion q = new Quaternion(transform.Rotation.X, transform.Rotation.Y, transform.Rotation.Z, transform.Rotation.W);
+            Quaternion q = new Quaternion(transform.WorldRotation.X, transform.WorldRotation.Y, transform.WorldRotation.Z, transform.WorldRotation.W);
             matrix.Rotate(q);
-            matrix.Translate(new Vector3D(transform.Position.X, transform.Position.Y, transform.Position.Z));
+            matrix.Translate(new Vector3D(transform.WorldPosition.X, transform.WorldPosition.Y, transform.WorldPosition.Z));
 
             matrixTransform.Matrix = matrix;
             matrixTransform.Freeze();

@@ -31,7 +31,7 @@ namespace Aegir.Rendering
             set
             {
                 followTransform = value;
-                followTransformPoint = new Point3D(value.Position.X,value.Position.Y,value.Position.Z);
+                followTransformPoint = new Point3D(value.LocalPosition.X,value.LocalPosition.Y,value.LocalPosition.Z);
             }
         }
 
@@ -85,14 +85,14 @@ namespace Aegir.Rendering
 
         public void InvalidateVisuals()
         {
-            foreach (RenderItemListener listener in listeners)
+            for (int i = 0; i < listeners.Count; i++)
             {
-                listener.Invalidate();
+                listeners[i].Invalidate();
             }
 
             if (FollowTransform != null)
             {
-                CameraController.RotateOrigin = new Point3D(followTransform.Position.X, followTransform.Position.Y, followTransform.Position.Z);
+                CameraController.RotateOrigin = new Point3D(followTransform.LocalPosition.X, followTransform.LocalPosition.Y, followTransform.LocalPosition.Z);
             }
         }
 
@@ -101,13 +101,13 @@ namespace Aegir.Rendering
             viewport.Dispatcher.Invoke(() =>
             {
                 this.followTransform = followTransform;
-                AegirType.Vector3 fp = followTransform.Position;
+                AegirType.Vector3 fp = followTransform.LocalPosition;
                 CameraPositionOffset = new Vector3D(fp.X, fp.Y, fp.Z) - (Vector3D)viewport.CameraController.CameraPosition;
             });
         }
         private void DoCameraFollow()
         {
-            AegirType.Vector3 fp = followTransform.Position;
+            AegirType.Vector3 fp = followTransform.LocalPosition;
             viewport.Dispatcher.Invoke(() =>
             {
                 viewport.CameraController.CameraPosition = CameraPositionOffset + new Point3D(fp.X, fp.Y, fp.Z);

@@ -64,13 +64,15 @@ namespace AegirCore.Persistence.Persisters
             return nodes;
         }
         /// <summary>
-        /// Deserializes a given XElement into its Node
+        /// Deserializes a given XElement into a Node, with the optional parent
         /// </summary>
-        /// <param name="element"></param>
-        /// <returns></returns>
-        private Node DeserializeSceneNode(XElement element)
+        /// <param name="element">The xml element to derserialize into a node</param>
+        /// <param name="parent">The parent of the node if any</param>
+        /// <remarks>The method uses recursion to deserialize any children</remarks>
+        /// <returns>The Deserialized version of the node provided in the XElement</returns>
+        private Node DeserializeSceneNode(XElement element, Node parent = null)
         {
-            Node node = new Node();
+            Node node = new Node(parent);
             node.Name = element.Attribute("Name")?.Value;
 
             IEnumerable<XElement> behaviours = element.Element("Components")?.Elements();
@@ -93,7 +95,7 @@ namespace AegirCore.Persistence.Persisters
             {
                 foreach(XElement childElement in children)
                 {
-                    Node childNode = DeserializeSceneNode(childElement);
+                    Node childNode = DeserializeSceneNode(childElement, node);
                     node.Children.Add(childNode);
                 }
             }

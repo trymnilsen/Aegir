@@ -10,23 +10,40 @@ namespace AegirCore.Scene
 {
     public class Node
     {
+        private Transform transform;
         private SignalRouter internalRouter;
+        private ObservableCollection<BehaviourComponent> components;
         public string Name { get; set; }
 
         [DisplayName("Is Enabled")]
-        public bool IsEnabled { get; set; }
+        public bool IsEnabled { get; set; } = true;
 
-        [Browsable(false)]
-        public bool Nestable { get; set; }
-
-        [Browsable(false)]
-        public bool Removable { get; set; }
+        public Node Parent { get; private set; }
 
         [Browsable(false)]
         public ObservableCollection<Node> Children { get; private set; }
 
         [Browsable(false)]
-        public ObservableCollection<BehaviourComponent> Components { get; private set; }
+        public ObservableCollection<BehaviourComponent> Components
+        {
+            get { return components; }
+            private set { components = value; }
+        }
+
+        /// <summary>
+        /// Retrive a cached reference to the Transform behaviour of this node
+        /// </summary>
+        public Transform Transform
+        {
+            get
+            {
+                if(transform == null)
+                {
+                    transform = GetComponent<Transform>();
+                }
+                return transform;
+            }
+        }
 
         public Node()
         {
@@ -34,12 +51,31 @@ namespace AegirCore.Scene
             Components = new ObservableCollection<BehaviourComponent>();
             internalRouter = new SignalRouter();
         }
-
-        public virtual void Update(SimulationTime time)
+        public Node(Node parent)
+            :this()
         {
-            foreach (BehaviourComponent c in Components)
+            Parent = parent;
+        }
+
+        public void PreUpdate(SimulationTime time)
+        {
+            for (int i = 0; i < Components.Count; i++)
             {
-                c.Update(time);
+                components[i].PreUpdate(time);
+            }
+        }
+        public void PostUpdate(SimulationTime time)
+        {
+            for (int i = 0; i < Components.Count; i++)
+            {
+                components[i].PostUpdate(time);
+            }
+        }
+        public void Update(SimulationTime time)
+        {
+            for (int i = 0; i < Components.Count; i++)
+            {
+                components[i].Update(time);
             }
         }
 

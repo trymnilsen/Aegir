@@ -5,97 +5,130 @@ using AegirCore.Persistence;
 using AegirCore.Keyframe;
 using AegirCore.Scene;
 using AegirType;
+using AegirCore.Simulation;
 
 namespace AegirCore.Behaviour.World
 {
     public class Transform : BehaviourComponent
     {
-        private Vector3 position;
-        private Quaternion rotation;
+        private Vector3 localPosition;
+        private Quaternion localRotation;
+        private Vector3 worldPosition;
+        private Quaternion worldRotation;
 
         public bool Notify { get; set; }
 
         [KeyframeProperty]
-        public Vector3 Position
+        public Vector3 LocalPosition
         {
-            get { return position; }
+            get { return localPosition; }
             set
             {
-                position = value;
+                localPosition = value;
             }
         }
         [KeyframeProperty]
-        public Quaternion Rotation
+        public Quaternion LocalRotation
         {
-            get { return rotation; }
+            get { return localRotation; }
             set
             {
-                rotation = value;
+                localRotation = value;
+            }
+        }
+        public Vector3 WorldPosition
+        {
+            get
+            {
+                return worldPosition;
+            }
+        }
+        public Quaternion WorldRotation
+        {
+            get
+            {
+                return worldRotation;
             }
         }
 
         public Transform(Node parent)
             : base(parent)
         {
-            position = new Vector3();
-            Rotation = new Quaternion();
+            localPosition = new Vector3();
+            LocalRotation = new Quaternion();
         }
 
         public void SetX(double x)
         {
-            position.X = (float)x;
+            localPosition.X = (float)x;
         }
 
         public void SetY(double y)
         {
-            position.Y = (float)y;
+            localPosition.Y = (float)y;
         }
 
         public void SetZ(double z)
         {
-            position.Z = (float)z;
+            localPosition.Z = (float)z;
         }
 
         public void Translate(Vector3 vector)
         {
-            Position = Position + vector;
+            LocalPosition = LocalPosition + vector;
         }
 
         public void TranslateX(double amount)
         {
-            Position = Position + new Vector3((float)amount, 0, 0);
+            LocalPosition = LocalPosition + new Vector3((float)amount, 0, 0);
         }
 
         public void TranslateY(double amount)
         {
-            Position = Position + new Vector3(0, (float)amount, 0);
+            LocalPosition = LocalPosition + new Vector3(0, (float)amount, 0);
         }
 
         public void TranslateZ(double amount)
         {
-            Position = Position + new Vector3(0, 0, (float)amount);
+            LocalPosition = LocalPosition + new Vector3(0, 0, (float)amount);
         }
 
         public void RotateHeading(double newHeading)
         {
-            Rotation = Quaternion.CreateFromAxisAngle(new Vector3(0, 0, 1), (float)newHeading);
+            LocalRotation = Quaternion.CreateFromAxisAngle(new Vector3(0, 0, 1), (float)newHeading);
         }
         public void SetOrientation(double yaw, double pitch, double roll)
         {
-            Rotation = Quaternion.CreateFromYawPitchRoll((float)yaw, (float)pitch, (float)roll);
+            LocalRotation = Quaternion.CreateFromYawPitchRoll((float)yaw, (float)pitch, (float)roll);
         }
 
         public override string ToString()
         {
             return "Transform";
         }
+        public override void PreUpdate(SimulationTime time)
+        {
+            Transform parentTransform = Parent?.Parent?.Transform;
+            if(parentTransform != null)
+            {
+                this.worldPosition = parentTransform.WorldPosition + localPosition;
+                this.worldRotation = parentTransform.WorldRotation * localRotation;
+            }
+            else
+            {
+                //For root nodes we do not have a parent, therefore we treat the local space as our world space
+                this.worldPosition = localPosition;
+                this.worldRotation = localRotation;
+            }
+            base.Update(time);
+        }
 
         public override XElement Serialize()
         {
             //We need to serialize both position and rotation so lets create a wrapper to keep them
             XElement transformContainer = new XElement(GetType().Name);
-            XElement positionElement = XElementSerializer.SerializeToXElement(position);
-            XElement rotationElement = XElementSerializer.SerializeToXElement(rotation);
+            XElement positionElement = XElementSerializer.SerializeToXElement(localPosition);
+            XElement rotationElement = XElementSerializer.SerializeToXElement(localRotation);
 
             transformContainer.Add(positionElement);
             transformContainer.Add(rotationElement);
@@ -105,8 +138,8 @@ namespace AegirCore.Behaviour.World
 
         public override void Deserialize(XElement data)
         {
-            XElement positionElement = data.Element(position.GetType().Name);
-            XElement rotationElement = data.Element(rotation.GetType().Name);
+            XElement positionElement = data.Element(localPosition.GetType().Name);
+            XElement rotationElement = data.Element(localRotation.GetType().Name);
 
             if(positionElement == null)
             {
@@ -117,8 +150,8 @@ namespace AegirCore.Behaviour.World
                 throw new PersistanceException("Transform element of node does not have a rotation element");
             }
 
-            position = XElementSerializer.DeserializeFromXElement<Vector3>(positionElement);
-            rotation = XElementSerializer.DeserializeFromXElement<Quaternion>(rotationElement);
+            localPosition = XElementSerializer.DeserializeFromXElement<Vector3>(positionElement);
+            localRotation = XElementSerializer.DeserializeFromXElement<Quaternion>(rotationElement);
         }
         //public void TriggerTransformChanged()
         //{

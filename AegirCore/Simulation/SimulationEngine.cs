@@ -165,12 +165,14 @@ namespace AegirCore.Simulation
                     // Do work
                     if (scene != null)
                     {
-                        IEnumerable<Node> rootNodes = scene.RootNodes;
+                        IList<Node> rootNodes = scene.RootNodes;
                         simTime.FrameStart();
                         //Do keyframing
                         KeyframeEngine.Step();
                         //Update behaviours
+                        PreUpdateScenegraphChildren(rootNodes);
                         UpdateScenegraphChildren(rootNodes);
+                        PostUpdateScenegraphChildren(rootNodes);
                         simTime.FrameEnd();
                         //Calculate timing
                         //Debug.WriteLine("DeltaTime:" + simTime.DeltaTime);
@@ -184,15 +186,33 @@ namespace AegirCore.Simulation
                 }
             }
         }
-
+        /// <summary>
+        /// Recursively PreUpdates all the Nodes and their children
+        /// </summary>
+        /// <param name="nodes"></param>
+        private void PreUpdateScenegraphChildren(IList<Node> nodes)
+        {
+            for (int i = 0; i < nodes.Count; i++)
+            {
+                Node n = nodes[i];
+                if (n.IsEnabled)
+                {
+                    //Update Child
+                    n.PreUpdate(simTime);
+                }
+                //Then update it's children
+                PreUpdateScenegraphChildren(n.Children);
+            }
+        }
         /// <summary>
         /// Recursively update all the Nodes and their children
         /// </summary>
         /// <param name="nodes"></param>
-        private void UpdateScenegraphChildren(IEnumerable<Node> nodes)
+        private void UpdateScenegraphChildren(IList<Node> nodes)
         {
-            foreach (Node n in nodes)
+            for (int i = 0; i < nodes.Count; i++)
             {
+                Node n = nodes[i];
                 if (n.IsEnabled)
                 {
                     //Update Child
@@ -200,6 +220,24 @@ namespace AegirCore.Simulation
                 }
                 //Then update it's children
                 UpdateScenegraphChildren(n.Children);
+            }
+        }
+        /// <summary>
+        /// Recursively PostUpdates all the Nodes and their children
+        /// </summary>
+        /// <param name="nodes"></param>
+        private void PostUpdateScenegraphChildren(IList<Node> nodes)
+        {
+            for (int i = 0; i < nodes.Count; i++)
+            {
+                Node n = nodes[i];
+                if (n.IsEnabled)
+                {
+                    //Update Child
+                    n.PostUpdate(simTime);
+                }
+                //Then update it's children
+                PostUpdateScenegraphChildren(n.Children);
             }
         }
 
@@ -210,16 +248,7 @@ namespace AegirCore.Simulation
 
         public void TriggerStepFinished()
         {
-            SimulationStepFinishedHandler stepFinishedEvent = StepFinished;
-            if (stepFinishedEvent != null)
-            {
-                stepFinishedEvent();
-            }
             Messenger?.Publish<InvalidateEntity>(new InvalidateEntity(this, null));
         }
-
-        public delegate void SimulationStepFinishedHandler();
-
-        public event SimulationStepFinishedHandler StepFinished;
     }
 }

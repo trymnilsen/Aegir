@@ -3,7 +3,6 @@ using Aegir.Messages.Project;
 using Aegir.Messages.Simulation;
 using Aegir.Mvvm;
 using Aegir.Util;
-using AegirCore.Entity;
 using AegirCore.Messages;
 using AegirCore.Scene;
 using GalaSoft.MvvmLight.Command;

@@ -32,7 +32,6 @@ namespace Aegir.ViewModel.NodeProxy
         private Transform transform;
         private List<NodeViewModel> children;
         private List<BehaviourViewModel> componentProxies;
-        private bool isEnabled;
 
         public List<NodeViewModel> Children
         {
@@ -62,12 +61,12 @@ namespace Aegir.ViewModel.NodeProxy
         [Category("General")]
         public bool IsEnabled
         {
-            get { return isEnabled; }
+            get { return nodeData.IsEnabled; }
             set
             {
-                if(isEnabled!=value)
+                if(nodeData.IsEnabled!=value)
                 {
-                   isEnabled = value;
+                    nodeData.IsEnabled = value;
                    RaisePropertyChanged();
                 }
             }
@@ -81,7 +80,7 @@ namespace Aegir.ViewModel.NodeProxy
         {
             get
             {
-                return new Point3D(transform.Position.X, transform.Position.Y, transform.Position.Z);
+                return new Point3D(transform.LocalPosition.X, transform.LocalPosition.Y, transform.LocalPosition.Z);
             }
         }
 
@@ -89,7 +88,7 @@ namespace Aegir.ViewModel.NodeProxy
         {
             get
             {
-                return new Quaternion(transform.Rotation.X, transform.Rotation.Y, transform.Rotation.Z, transform.Rotation.W);
+                return new Quaternion(transform.LocalRotation.X, transform.LocalRotation.Y, transform.LocalRotation.Z, transform.LocalRotation.W);
             }
         }
 
@@ -157,8 +156,8 @@ namespace Aegir.ViewModel.NodeProxy
         {
             Quaternion rotation = targetTransform.ToQuaternion();
             Point3D position = targetTransform.ToPoint3D();
-            transform.Position = position.ToAegirTypeVector();
-            transform.Rotation = rotation.ToAegirTypeQuaternion();
+            transform.LocalPosition = position.ToAegirTypeVector();
+            transform.LocalRotation = rotation.ToAegirTypeQuaternion();
         }
 
         internal void Invalidate()

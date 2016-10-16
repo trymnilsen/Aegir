@@ -14,17 +14,17 @@ namespace Aegir.ViewModel.NodeProxy.Vessel
     {
         public double X
         {
-            get { return Component.Position.X; }
+            get { return Component.LocalPosition.X; }
             set { Component.SetX(value); }
         }
         public double Y
         {
-            get { return Component.Position.Y; }
+            get { return Component.LocalPosition.Y; }
             set { Component.SetY(value); }
         }
         public double Z
         {
-            get { return Component.Position.Z; }
+            get { return Component.LocalPosition.Z; }
             set { Component.SetZ(value); }
         }
 

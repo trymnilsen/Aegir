@@ -121,7 +121,7 @@ namespace Aegir.Map
             translateOnZoom = true;
             
             CompositionTarget.Rendering += CompositionTarget_Rendering;
-            Application.Current.MainWindow.Loaded += MainWindow_Loaded;
+            //Application.Current.MainWindow.Loaded += MainWindow_Loaded;
             InitGrid();
         }
 

@@ -143,10 +143,6 @@
     <Compile Include="Behaviour\World\WorldSettings.cs" />
     <Compile Include="Datagram\DatagramService.cs" />
     <Compile Include="Datagram\IDatagramService.cs" />
-    <Compile Include="Entity\Geoid.cs" />
-    <Compile Include="Entity\GNSSReceiver.cs" />
-    <Compile Include="Entity\Map.cs" />
-    <Compile Include="Entity\Vessel.cs" />
     <Compile Include="IAppModule.cs" />
     <Compile Include="Keyframe\Interpolator\LinearQuaternionInterpolator.cs" />
     <Compile Include="Keyframe\Interpolator\LinearVector3Interpolator.cs" />
@@ -171,8 +167,6 @@
     <Compile Include="Mesh\MeshData.cs" />
     <Compile Include="Mesh\Loader\IModelLoader.cs" />
     <Compile Include="Mesh\Loader\ObjModel.cs" />
-    <Compile Include="Entity\World.cs" />
-    <Compile Include="Entity\WaterSegment.cs" />
     <Compile Include="Mesh\Grid\TileGrid3D.cs" />
     <Compile Include="Messages\InvalidateEntity.cs" />
     <Compile Include="Messages\ScenegraphChanged.cs" />
