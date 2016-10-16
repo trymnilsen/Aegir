@@ -4,6 +4,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:conv="clr-namespace:Aegir.Converter"
              mc:Ignorable="d"
              d:DesignHeight="25" d:DesignWidth="755">
     <StatusBar Grid.Row="2" DataContext="{Binding StatusBarVM, Source={StaticResource VMLocator}}">
@@ -31,8 +32,14 @@
         </StatusBarItem>
         <StatusBarItem Grid.Column="1">
             <StackPanel Orientation="Horizontal">
+                <StackPanel.Resources>
+                    <conv:ObjectToNameConverter x:Key="ObjToName"></conv:ObjectToNameConverter>
+                </StackPanel.Resources>
                 <fa:ImageAwesome Width="16px" Icon="ObjectGroup" Margin="0 0 10 0"></fa:ImageAwesome>
-                <TextBlock Text="Selected: Vessel"></TextBlock>
+                <TextBlock Text="Selected:" Margin="0 0 6 0"></TextBlock>
+                <TextBlock Text="{Binding SelectionVM.SelectedObject, 
+                                          Source={StaticResource VMLocator}, 
+                                          Converter={StaticResource ObjToName}}"></TextBlock>
             </StackPanel>
         </StatusBarItem>
         <StatusBarItem Grid.Column="2">

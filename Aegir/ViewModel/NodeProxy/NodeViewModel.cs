@@ -25,7 +25,8 @@ namespace Aegir.ViewModel.NodeProxy
                                 ITransformableVisual, 
                                 IPropertyInfoProvider, 
                                 IDragSource,
-                                IDropTarget
+                                IDropTarget,
+                                INameable
     {
         protected Node nodeData;
 

@@ -151,6 +151,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Controls.cs" />
+    <Compile Include="Converter\ObjectToNameConverter.cs" />
     <Compile Include="CustomControl\HeaderedSeparator.cs" />
     <Compile Include="Converter\ColorToBrushConverter.cs" />
     <Compile Include="Converter\DivideByConverter.cs" />
@@ -193,6 +194,7 @@
     <Compile Include="Rendering\Transform3DExtensions.cs" />
     <Compile Include="Util\ReflectionUtils.cs" />
     <Compile Include="Util\Type.cs" />
+    <Compile Include="ViewModel\INameable.cs" />
     <Compile Include="ViewModel\NodeProxy\BehaviourViewModelFactory.cs" />
     <Compile Include="ViewModel\NodeProxy\NodeTypeStringConstants.cs" />
     <Compile Include="ViewModel\NodeProxy\ScenegraphViewModel.cs" />

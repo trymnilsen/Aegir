@@ -1,4 +1,5 @@
-﻿using Aegir.ViewModel.Timeline;
+﻿using Aegir.ViewModel;
+using Aegir.ViewModel.Timeline;
 using GalaSoft.MvvmLight;
 using log4net;
 using System;
@@ -15,7 +16,7 @@ using System.Windows.Shapes;
 
 namespace Aegir.View.Timeline
 {
-    public class KeyframeListItem : ObservableObject
+    public class KeyframeListItem : ObservableObject, INameable
     {
         public int Time { get; private set; }
         public KeyframeViewModel KeyVM { get; private set; }
@@ -29,6 +30,14 @@ namespace Aegir.View.Timeline
             {
                 xpos = value;
                 RaisePropertyChanged();
+            }
+        }
+
+        public string Name
+        {
+            get
+            {
+                return $"Keyframe({Time})";
             }
         }
 
