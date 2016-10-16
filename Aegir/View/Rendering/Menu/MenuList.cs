@@ -1,5 +1,6 @@
 ﻿using Aegir.Map;
 using Aegir.ViewModel.NodeProxy;
+using Aegir.Windows;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -7,6 +8,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using TinyMessenger;
 
 namespace Aegir.View.Rendering.Menu
@@ -23,49 +25,31 @@ namespace Aegir.View.Rendering.Menu
 
             defaultItems = new MenuListItem[]
             {
-                new ClickableMenuItem("Undo", ()=> { DW("undo"); }),
-                new ClickableMenuItem("Redo", ()=> { DW("Redo"); }),
-                new SeperatorMenuItem("Undo/Redo"),
                 new ClickableMenuItem("Translate", ()=> { DW("Translate"); }),
                 new ClickableMenuItem("Rotate", ()=> { DW("Rotate"); }),
                 new ClickableMenuItem("None", ()=> { DW("None"); }),
-                new SeperatorMenuItem("Gizmo"),
-                new SubMenuItem("Snap", new MenuListItem[]
-                {
-                    new ClickableMenuItem("Snap to Angle",()=> {DW("SnapAngle"); }),
-                    new ClickableMenuItem("Snap to Grid", ()=> {DW("SnapGrid"); }),
-                }),
-                new SubMenuItem("Transform Delay", new MenuListItem[]
-                {
-                    new ClickableMenuItem("Immidiately",()=> {DW("Immidiately"); }),
-                    new ClickableMenuItem("On Stop", ()=> {DW("OnStop"); }),
-                }),
-                new SubMenuItem("TransformSpace", new MenuListItem[] 
-                {
-                    new ClickableMenuItem("Local",()=> {DW("TransformLocal"); }),
-                    new ClickableMenuItem("World",()=> {DW("TransformWorld"); })
-                }),
+                new ClickableMenuItem("Snap To Angle", ()=> {DW("SnapToAngle"); }, true),
+                new ClickableMenuItem("Snap To Position", ()=> {DW("Snap To Position"); },true),
+                new ClickableMenuItem("Snap Preferences..", ()=> { OpenSnapPreferences(); }),
                 new SeperatorMenuItem("Transform"),
-                new SubMenuItem("Camera", new MenuListItem[]
-                {
-                    new ClickableMenuItem("Inspect",()=> {DW("CameraInspect"); }),
-                    new ClickableMenuItem("Follow", ()=> {DW("CameraFollow"); }),
-                }),
                 new SubMenuItem("Debug", new MenuListItem[]
                 {
                     new ClickableMenuItem("Debug Labels", ()=> { MapTileVisual.IsDebugEnabled = !MapTileVisual.IsDebugEnabled; }),
                     new ClickableMenuItem("MapZoomOut", ()=> {DW("MapZoomOut"); }),
                     new ClickableMenuItem("MapZoomIn", ()=> {DW("MapZoomIn"); }),
                     new ClickableMenuItem("MapTranslateOffset", ()=> {DW("MapTranslateOffset"); })
-                })
+                }),
+                new SeperatorMenuItem("Debug"),
             };
             noContextItems = new MenuListItem[]
             {
                 new ClickableMenuItem("Line",()=> {DW("Line"); }),
-                new ClickableMenuItem("Rectangle",()=> {DW("Rectangle"); }),
-                new ClickableMenuItem("Circle",()=> {DW("Circle"); }),
+                new ClickableMenuItem("Point",()=> {DW("Rectangle"); }),
                 new ClickableMenuItem("Polygon",()=> {DW("Polygon"); }),
-                new SeperatorMenuItem("Create Shape")
+                new SeperatorMenuItem("Create Shape"),
+                new ClickableMenuItem("Antenna",()=> {DW("Antenna"); }),
+                new ClickableMenuItem("Gyro",()=> {DW("Gyro"); }),
+                new SeperatorMenuItem("Create Sensor"),
             };
             contextItems = new MenuListItem[]
             {
@@ -74,6 +58,15 @@ namespace Aegir.View.Rendering.Menu
                 new ClickableMenuItem("Camera Follow",()=> {DW("CameraFollow"); })
             };
         }
+
+
+        private void OpenSnapPreferences()
+        {
+            SnapSettings snapPrefWindow = new SnapSettings();
+            snapPrefWindow.Owner = Application.Current.MainWindow;
+            snapPrefWindow.ShowDialog();
+        }
+
         /// <summary>
         /// Debug util method for writing to the debug stream
         /// </summary>

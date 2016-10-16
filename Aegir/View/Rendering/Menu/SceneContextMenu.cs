@@ -50,7 +50,8 @@ namespace Aegir.View.Rendering.Menu
                 {
                     MenuItem menuItem = new MenuItem();
                     menuItem.Header = item.Header;
-                    menuItem.Command = (item as ClickableMenuItem)?.ClickCommand;
+                    menuItem.Command = (item as ClickableMenuItem).ClickCommand;
+                    menuItem.IsCheckable = (item as ClickableMenuItem).Toggle;
                     parent.Items.Add(menuItem);
                 }
                 else if(item is SeperatorMenuItem)

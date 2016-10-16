@@ -1,0 +1,58 @@
+﻿<Window x:Class="Aegir.Windows.SnapSettings"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Aegir.Windows"
+        mc:Ignorable="d"
+        Title="Snap Preferences" Height="150" Width="300" ResizeMode="NoResize" WindowStartupLocation="CenterOwner">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="35"></RowDefinition>
+        </Grid.RowDefinitions>
+        <GroupBox Header="Snap Preferences">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100"></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <TextBlock Text="Angular Snap: " VerticalAlignment="Center" Margin="2"></TextBlock>
+                <TextBlock Text="Position Snap: " Grid.Row="1" VerticalAlignment="Center" Margin="2"></TextBlock>
+                <ComboBox Grid.Column="1" Margin="2">
+                    <ComboBoxItem>1 Degrees</ComboBoxItem>
+                    <ComboBoxItem>2 Degrees</ComboBoxItem>
+                    <ComboBoxItem>5 Degrees</ComboBoxItem>
+                    <ComboBoxItem>10 Degrees</ComboBoxItem>
+                    <ComboBoxItem>20 Degrees</ComboBoxItem>
+                    <ComboBoxItem>30 Degrees</ComboBoxItem>
+                    <ComboBoxItem>45 Degrees</ComboBoxItem>
+                    <ComboBoxItem>90 Degrees</ComboBoxItem>
+                </ComboBox>
+                <ComboBox Grid.Row="1" Grid.Column="1" Margin="2">
+                    <ComboBoxItem>1 Meter</ComboBoxItem>
+                    <ComboBoxItem>2 Meter</ComboBoxItem>
+                    <ComboBoxItem>5 Meter</ComboBoxItem>
+                    <ComboBoxItem>10 Meter</ComboBoxItem>
+                    <ComboBoxItem>20 Meter</ComboBoxItem>
+                    <ComboBoxItem>50 Meter</ComboBoxItem>
+                    <ComboBoxItem>100 Meter</ComboBoxItem>
+                </ComboBox>
+            </Grid>
+        </GroupBox>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition Width="160"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <StackPanel Orientation="Horizontal" Grid.Column="1" Margin="5">
+                <Button Content="Ok" Padding="25 0" Margin="5 0" IsDefault="True"></Button>
+                <Button Content="Cancel" Padding="15 0" IsCancel="True"></Button>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>

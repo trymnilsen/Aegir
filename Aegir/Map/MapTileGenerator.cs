@@ -33,6 +33,7 @@ namespace Aegir.Map
                         tile.Fill = imageBrush;
                     });
                 }
+                
             });
 
         }
