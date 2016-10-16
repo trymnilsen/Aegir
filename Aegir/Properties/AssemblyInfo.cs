@@ -7,11 +7,11 @@ using System.Windows;
 // associated with an assembly.
 [assembly: log4net.Config.XmlConfigurator(Watch = true)]
 [assembly: AssemblyTitle("Aegir")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Vessel Simulator")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("Aegir")]
-[assembly: AssemblyCopyright("Copyright ©  2015")]
+[assembly: AssemblyCopyright("Copyright ©  2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

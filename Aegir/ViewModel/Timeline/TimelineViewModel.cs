@@ -1,4 +1,5 @@
 ﻿using Aegir.Messages.ObjectTree;
+using Aegir.Messages.Selection;
 using Aegir.Messages.Timeline;
 using Aegir.Mvvm;
 using Aegir.View.Timeline;
@@ -191,11 +192,11 @@ namespace Aegir.ViewModel.Timeline
                 if(selectedKey!=value)
                 {
                     selectedKey = value;
-                    //RaisePropertyChanged();
-                    Debug.WriteLine($"Selected Key Changed {SelectedKey?.Time}");
+                    UpdateSelectedKey(value);
                 }
             }
         }
+
         public KeyframeEngine Engine { get; private set; }
         public double NotifyPropertyUpdateRate { get; private set; }
 
@@ -219,6 +220,13 @@ namespace Aegir.ViewModel.Timeline
             AddKeyframeCommand = new RelayCommand(CaptureKeyframes, CanCaptureKeyframes);
             Keyframes = new ObservableCollection<KeyframeViewModel>();
             playPauseCommand = new RelayCommand(TogglePlayPauseState);
+        }
+
+        private void UpdateSelectedKey(KeyframeListItem value)
+        {
+            //RaisePropertyChanged();
+            Debug.WriteLine($"Selected Key Changed {SelectedKey?.Time}");
+            Messenger.Publish<SelectionChanged>(new SelectionChanged(this, value));
         }
 
         private void OnInvalidateEntitiesMessage(InvalidateEntity node)

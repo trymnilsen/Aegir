@@ -105,19 +105,10 @@
                           Style="{StaticResource ViewButtonStyle}">
         <ToggleButton.ContextMenu>
             <ContextMenu>
-                <MenuItem Header="Camera">
                     <MenuItem Header="Perspective"></MenuItem>
                     <MenuItem Header="Top"></MenuItem>
-                    <MenuItem Header="Right"></MenuItem>
-                    <MenuItem Header="Left"></MenuItem>
-                </MenuItem>
-                <MenuItem Header="Rendering Mode">
-                    <MenuItem IsCheckable="True" Header="Same as global"></MenuItem>
-                    <MenuItem IsCheckable="True" Header="Solid"></MenuItem>
-                    <MenuItem IsCheckable="True" Header="Wireframe"></MenuItem>
-                </MenuItem>
-                <MenuItem Header="Center On Selected"></MenuItem>
-                <MenuItem IsCheckable="True" Header="Follow Selected" Click="MenuItem_Click_3"></MenuItem>
+                    <MenuItem Header="X/Z (Side)"></MenuItem>
+                    <MenuItem Header="Y/Z (Front)"></MenuItem>
             </ContextMenu>
         </ToggleButton.ContextMenu>
     </ToggleButton>

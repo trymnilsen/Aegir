@@ -39,7 +39,7 @@ namespace ViewPropertyGrid.PropertyGrid
             string propName = property.ReflectionData.Name;
             Type propType = property.ReflectionData.PropertyType;
 
-            if (!property.ReflectionData.CanWrite)
+            if (!property.ReflectionData.CanWrite || property.ReflectionData.GetSetMethod() == null)
             {
                 return new ValueControl(CreateDisabledTextBlock(property.ReflectionData.Name,
                                                property.Target));

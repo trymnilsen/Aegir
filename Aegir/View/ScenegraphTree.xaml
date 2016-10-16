@@ -20,12 +20,9 @@
                 <StackPanel Orientation="Horizontal">
                     <StackPanel.ContextMenu>
                         <ContextMenu>
-                            <MenuItem Header="Add GNSS Receiver" 
-                                              Command="{Binding AddNodeCommand}" 
-                                              CommandParameter="{x:Static model:NodeTypeStringConstants.GNSSReceiver}"/>
-                            <MenuItem Header="Add Vessel" 
-                                              Command="{Binding AddNodeCommand}" 
-                                              CommandParameter="{x:Static model:NodeTypeStringConstants.Vessel}"/>
+                            <Separator></Separator>
+                            <MenuItem Header="Center on"></MenuItem>
+                            <MenuItem Header="Follow on"></MenuItem>
                             <Separator></Separator>
                             <MenuItem Header="Remove" Command="{Binding RemoveNodeCommand}"></MenuItem>
                         </ContextMenu>

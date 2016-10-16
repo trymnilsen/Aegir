@@ -1,5 +1,6 @@
 ﻿using Aegir.Messages.Project;
 using Microsoft.Win32;
+using PropertyTools.Wpf;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -58,6 +59,15 @@ namespace Aegir.View
         {
             //http://stackoverflow.com/a/2820377/394381
             Application.Current.Shutdown();
+        }
+
+        private void MenuItem_About_Click(object sender, RoutedEventArgs e)
+        {
+            var dlg = new AboutDialog(Application.Current.MainWindow);
+            dlg.Title = "About Aegir";
+            dlg.UpdateStatus = "";
+
+            dlg.ShowDialog();
         }
     }
 }

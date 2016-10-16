@@ -36,17 +36,12 @@
                 <MenuItem Header="Quit" Click="MenuItem_Quit_Click"></MenuItem>
             </MenuItem>
             <MenuItem Header="Edit">
-                <MenuItem Header="Undo" />
-                <MenuItem Header="Redo" />
-                <Separator></Separator>
                 <MenuItem Header="Delete" />
-                <MenuItem Header="Clone" />
                 <Separator></Separator>
                 <MenuItem Header="Translate" />
                 <MenuItem Header="Rotate" />
-                <MenuItem Header="Transform.." />
                 <Separator></Separator>
-                <MenuItem Header="Preferences.." />
+                <MenuItem Header="Preferences.." IsEnabled="False" />
             </MenuItem>
             <MenuItem Header="Create">
                 <MenuItem Header="Sensor">
@@ -54,72 +49,11 @@
                     <MenuItem Header="Motion"></MenuItem>
                 </MenuItem>
                 <MenuItem Header="Fixed Point"></MenuItem>
-                <MenuItem Header="Vessel"></MenuItem>
                 <Separator></Separator>
                 <MenuItem Header="Line"></MenuItem>
                 <MenuItem Header="Polygon"></MenuItem>
             </MenuItem>
-            <MenuItem Header="View">
-                <MenuItem Header="Scene">
-                    <MenuItem Header="Info">
-                        <MenuItem IsCheckable="True" Header="ShowCoordinateSystem" />
-                        <MenuItem IsCheckable="True" Header="ShowViewCube" />
-                        <MenuItem IsCheckable="True" Header="ShowCameraInfo" />
-                        <MenuItem IsCheckable="True" Header="ShowTriangleCountInfo" />
-                        <MenuItem IsCheckable="True" Header="ShowFieldOfView" />
-                        <MenuItem IsCheckable="True" Header="ShowFrameRate" />
-                        <MenuItem IsCheckable="True" Header="ShowCameraTarget" />
-                    </MenuItem>
-                    <MenuItem>
-                        <MenuItem Header="Helpers">
-                        </MenuItem>
-                    </MenuItem>
-                </MenuItem>
-                <MenuItem Header="Map Provider">
-                    <MenuItem Header="Google Maps" IsEnabled="False"></MenuItem>
-                    <MenuItem Header="Google Satellite map" IsEnabled="False"></MenuItem>
-                    <MenuItem Header="Open Street Maps" IsEnabled="False"></MenuItem>
-                    <MenuItem Header="OpenSeaMap/OpenStreetmap Hybrid" IsEnabled="False"></MenuItem>
-                </MenuItem>
-                <MenuItem Header="Camera">
-                    <MenuItem IsCheckable="True" Header="Orthographic" />
-                    <MenuItem Header="NearPlaneDistance">
-                        <TextBox Text="1"></TextBox>
-                    </MenuItem>
-                    <MenuItem Header="FarPlaneDistance">
-                        <TextBox Text="5"></TextBox>
-                    </MenuItem>
-                    <MenuItem IsCheckable="True" Header="RotateAroundMouseDownPoint" />
-                    <MenuItem IsCheckable="True" Header="ZoomAroundMouseDownPoint" />
-                    <MenuItem IsCheckable="True" Header="InfiniteSpin" />
-                    <MenuItem IsCheckable="True" Header="IsInertiaEnabled" />
-                    <MenuItem IsCheckable="True" Header="IsPanEnabled" />
-                    <MenuItem IsCheckable="True" Header="IsMoveEnabled" />
-                    <MenuItem IsCheckable="True" Header="IsRotationEnabled" />
-                    <MenuItem IsCheckable="True" Header="IsZoomEnabled" />
-                    <MenuItem IsCheckable="True" Header="IsChangeFovEnabled" />
-                    <MenuItem Header="RotationSensitivity">
-                        <StackPanel Orientation="Horizontal">
-                            <Slider Value="3.1" Minimum="0.1" Maximum="5" Width="200" />
-                            <TextBlock Text="3.1" />
-                        </StackPanel>
-                    </MenuItem>
-                    <MenuItem Header="ZoomSensitivity">
-                        <StackPanel Orientation="Horizontal">
-                            <Slider Value="2.7" Minimum="0.1" Maximum="5" Width="200" />
-                            <TextBlock Text="2.7" />
-                        </StackPanel>
-                    </MenuItem>
-                </MenuItem>
-
-                <!--<MenuItem Header="Mode">
-                    <MenuItem Header="Visualize"></MenuItem>
-                    <MenuItem Header="Planning"></MenuItem>
-                    <MenuItem Header="Navigate"></MenuItem>
-                    <MenuItem Header="Chart"></MenuItem>
-                </MenuItem>
-                <MenuItem IsCheckable="True" Header="Overlay Seamap"></MenuItem>-->
-            </MenuItem>
+            
             <MenuItem Header="Settings">
                 <MenuItem Header="Logging Level">
                     <MenuItem Header="Debug"></MenuItem>
@@ -128,7 +62,7 @@
                 </MenuItem>
             </MenuItem>
             <MenuItem Header="Help">
-                <MenuItem Header="About"></MenuItem>
+                <MenuItem Header="About" Click="MenuItem_About_Click"></MenuItem>
             </MenuItem>
         </Menu>
         <!--~MenuStrip-->

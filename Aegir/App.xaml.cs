@@ -74,6 +74,11 @@ namespace Aegir
                     return new TimelineViewModel(application.MessageHub, application.Engine.KeyframeEngine);
                 }
             , true);
+            SimpleIoc.Default.Register<SelectionViewModel>(
+                () =>
+                {
+                    return new SelectionViewModel(application.MessageHub);
+                },true);
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Aegir.Messages.ObjectTree;
 using Aegir.Messages.Project;
+using Aegir.Messages.Selection;
 using Aegir.Messages.Simulation;
 using Aegir.Mvvm;
 using Aegir.Util;
@@ -104,6 +105,7 @@ namespace Aegir.ViewModel.NodeProxy
         public void UpdateSelectedItem(NodeViewModel newItem)
         {
             Messenger.Publish<SelectedNodeChanged>(new SelectedNodeChanged(this, newItem));
+            Messenger.Publish<SelectionChanged>(new SelectionChanged(this, newItem));
         }
         private void SetRawNodeAsSelectedItem(Node node)
         {

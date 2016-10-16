@@ -23,6 +23,23 @@
                     MouseDown="Keyframe_MouseDown"
                     MouseUp="Keyframe_MouseUp"
                     MouseMove="Keyframe_MouseMove">
+                    <Rectangle.InputBindings>
+                        <KeyBinding Command="{Binding DeleteKeyframe}" Key="Delete"></KeyBinding>
+                    </Rectangle.InputBindings>
+                    <Rectangle.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Aft : Transform - X"></MenuItem>
+                            <MenuItem Header="Aft : Transform - Y"></MenuItem>
+                            <MenuItem Header="Aft : Transform - Z"></MenuItem>
+                            <Separator></Separator>
+                            <MenuItem Header="Delete Key">
+                                <MenuItem Header="Aft : Transform - X"></MenuItem>
+                                <MenuItem Header="Aft : Transform - Y"></MenuItem>
+                                <MenuItem Header="Aft : Transform - Z"></MenuItem>
+                            </MenuItem>
+                            <MenuItem Header="Delete"></MenuItem>
+                        </ContextMenu>
+                    </Rectangle.ContextMenu>
                     <Rectangle.Fill>
                         <SolidColorBrush>
                             <SolidColorBrush.Color>
@@ -45,17 +62,7 @@
         <Grid Background="Transparent">
             <Grid.ContextMenu>
                 <ContextMenu>
-                    <MenuItem Header="Aft : Transform - X"></MenuItem>
-                    <MenuItem Header="Aft : Transform - Y"></MenuItem>
-                    <MenuItem Header="Aft : Transform - Z"></MenuItem>
-                    <Separator></Separator>
-                    <MenuItem Header="Delete Key">
-                        <MenuItem Header="Aft : Transform - X"></MenuItem>
-                        <MenuItem Header="Aft : Transform - Y"></MenuItem>
-                        <MenuItem Header="Aft : Transform - Z"></MenuItem>
-                        <Separator></Separator>
-                        <MenuItem Header="All"></MenuItem>
-                    </MenuItem>
+                    
                     <Separator></Separator>
                     <MenuItem Header="Filter">
                         <MenuItem Header="All"></MenuItem>
