@@ -12,63 +12,30 @@
              d:DesignHeight="400" d:DesignWidth="300">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="20px" MinHeight="20"></RowDefinition>
-            <RowDefinition Height="1*" MinHeight="100"></RowDefinition>
             <RowDefinition Height="25px" MinHeight="20"></RowDefinition>
             <RowDefinition Height="1*" MinHeight="100"></RowDefinition>
             <RowDefinition Height="25px" MinHeight="20"></RowDefinition>
             <RowDefinition Height="2*" MinHeight="100"></RowDefinition>
         </Grid.RowDefinitions>
         <Border Grid.Row="0" Background="#FFE8E8E8">
-            <TextBlock Text=" :: Assets" FontWeight="DemiBold"></TextBlock>
-        </Border>
-        <TreeView Grid.Row="1">
-            <TreeViewItem Header="Mesh">
-                <TreeViewItem Header="Quay"></TreeViewItem>
-                <TreeViewItem Header="Bouy"></TreeViewItem>
-                <TreeViewItem Header="VesselHull"></TreeViewItem>
-                <TreeViewItem Header="VesselVisual"></TreeViewItem>
-            </TreeViewItem>
-            <TreeViewItem Header="Timeline">
-                <TreeViewItem Header="Crashing into quay"></TreeViewItem>
-                <TreeViewItem Header="Rotate 180 degrees"></TreeViewItem>
-            </TreeViewItem>
-            <TreeViewItem Header="Replay">
-                <TreeViewItem Header="28-04-2016.log"></TreeViewItem>
-                <TreeViewItem Header="29-04-2016.log"></TreeViewItem>
-                <TreeViewItem Header="30-04-2016.log"></TreeViewItem>
-                <TreeViewItem Header="31-04-2016.log"></TreeViewItem>
-            </TreeViewItem>
-            <TreeViewItem Header="Prefab">
-                <TreeViewItem Header="Ship with 2 Receivers"></TreeViewItem>
-                <TreeViewItem Header="Ship with 3 Receivers"></TreeViewItem>
-            </TreeViewItem>
-        </TreeView>
-        <Border Grid.Row="2" Background="#FFE8E8E8">
             <TextBlock Text=" :: Scenegraph" 
                        FontWeight="DemiBold"></TextBlock>
         </Border>
-        <GridSplitter Grid.Row="2"
-              HorizontalAlignment="Stretch"
-              VerticalAlignment="Bottom"
-              ResizeBehavior="PreviousAndNext"
-              Background="LightGray"
-              ShowsPreview="True"
-              Height="5"></GridSplitter>
-        <Border Grid.Row="3" >
+        <Border Grid.Row="1" >
             <views:ScenegraphTree></views:ScenegraphTree>
         </Border>
-        <Border Grid.Row="4" Background="#FFE8E8E8">
-            <TextBlock Text=" :: Properties" FontWeight="DemiBold"></TextBlock>
-        </Border>
-        <GridSplitter Grid.Row="4"
+        <GridSplitter Grid.Row="1"
               HorizontalAlignment="Stretch"
               VerticalAlignment="Bottom"
               Background="LightGray"
               ShowsPreview="True"
               ResizeBehavior="PreviousAndNext"
               Height="5"></GridSplitter>
-        <Border Grid.Row="5">
+        <Border Grid.Row="2" Background="#FFE8E8E8">
+            <TextBlock Text=" :: Properties" FontWeight="DemiBold"></TextBlock>
+        </Border>
+
+        <Border Grid.Row="3">
             <views:ComponentEditor></views:ComponentEditor>
         </Border>
     </Grid>

@@ -113,7 +113,8 @@ namespace Aegir.View.Rendering.Tool
 
         private void ResetManipulatorMode()
         {
-            throw new NotImplementedException();
+            SetRotateMode(false);
+            SetTranslateMode(false);
         }
 
         private void SetRotateMode(bool active)
