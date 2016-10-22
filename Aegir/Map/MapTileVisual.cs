@@ -68,6 +68,7 @@ namespace Aegir.Map
         public MapTileVisual()
         {
             MapTileVisual.DebugChanged += MapTileVisual_DebugChanged;
+            LengthDirection = new Vector3D(0, 1, 0);
         }
 
         private void MapTileVisual_DebugChanged(object sender, EventArgs e)
@@ -137,7 +138,7 @@ namespace Aegir.Map
             BillboardTextVisual3D tilenumBilboard = new BillboardTextVisual3D();
             tilenumBilboard.Position = new Point3D(0, 0, 4 + inverseZoom);
             tilenumBilboard.Background = Brushes.LightSalmon;
-            tilenumBilboard.Text = $"TXY: {TileX}/{TileY} NTXY: {newTileX}/{newTileY} \n OSMTXY: {osmTileXPreFloor}/{osmTileYPreFloor} \n OSMFTXY: {osmTileX}/{osmTileY}";
+            tilenumBilboard.Text = $"TXY: {TileX}/{TileY} NTXY: {newTileX}/{newTileY} \n OSMTXY: {osmTileXPreFloor}/{osmTileYPreFloor} \n OSMFTXY: {osmTileX-1}/{osmTileY}";
 
 
             Children.Add(LeftEdge);

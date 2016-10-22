@@ -207,7 +207,7 @@ namespace Aegir.Map
                     tile.Width = TileSize;
                     tile.Length = TileSize;
 
-                    tile.TileX = gridPosX;
+                    tile.TileX = gridPosX * -1;
                     tile.TileY = gridPosY;
                     tile.TileZoom = MapZoomLevel;
 
@@ -218,8 +218,8 @@ namespace Aegir.Map
                     {
                         //log.DebugFormat("Requesting Image for x/y/zoom {0} / {1} / {2}", tile.TileX, tile.TileY, mapZoom);
                         TileGenerator.LoadTileImageAsync(tile,
-                                     tile.TileY,
                                      tile.TileX,
+                                     tile.TileY,
                                      MapZoomLevel);
 
                     }
