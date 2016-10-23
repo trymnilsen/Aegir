@@ -10,7 +10,7 @@ using System.Windows.Media.Media3D;
 
 namespace Aegir.Map
 {
-    public class MapTileVisual : RectangleVisual3D
+    public class MapTileVisual : RectangleVisual3D, IDisposable
     {
         private int tileY;
         private int tileX;
@@ -32,12 +32,15 @@ namespace Aegir.Map
         }
 
         private int tileZoom;
+        private ImageBrush currentBrush;
 
         public int TileZoom
         {
             get { return tileZoom; }
             set { tileZoom = value; }
         }
+
+
 
         /// <summary>
         /// Size of this tile
@@ -136,7 +139,7 @@ namespace Aegir.Map
             BottomEdge.Fill = new SolidColorBrush(color);
             //Create text billboard for x / y values
             BillboardTextVisual3D tilenumBilboard = new BillboardTextVisual3D();
-            tilenumBilboard.Position = new Point3D(0, 0, 4 + inverseZoom);
+            tilenumBilboard.Position = new Point3D(0, 0, 8 + inverseZoom * 4);
             tilenumBilboard.Background = Brushes.LightSalmon;
             tilenumBilboard.Text = $"TXY: {TileX}/{TileY} NTXY: {newTileX}/{newTileY} \n OSMTXY: {osmTileXPreFloor}/{osmTileYPreFloor} \n OSMFTXY: {osmTileX-1}/{osmTileY}";
 
@@ -151,6 +154,12 @@ namespace Aegir.Map
         {
             return "MapTile3D (x/y): " + TileX + "/" + TileY;
         }
+
+        public void Dispose()
+        {
+            MapTileVisual.DebugChanged -= MapTileVisual_DebugChanged;
+        }
+
         public static event EventHandler DebugChanged;
     }
 }

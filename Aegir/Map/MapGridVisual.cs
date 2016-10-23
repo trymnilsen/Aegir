@@ -118,7 +118,7 @@ namespace Aegir.Map
             Tiles = new List<MapTileVisual>();
             TileSize = 32;
             mapZoom = 18;
-            translateOnZoom = true;
+            translateOnZoom = false;
             
             CompositionTarget.Rendering += CompositionTarget_Rendering;
             //Application.Current.MainWindow.Loaded += MainWindow_Loaded;
@@ -149,8 +149,8 @@ namespace Aegir.Map
             double tileNumY = mapCenterNormalizedY * maxTiles;
 
             //X and y are flipped
-            double fracX = tileNumY - Math.Floor(tileNumY);
-            double fracY = tileNumX - Math.Floor(tileNumX);
+            double fracX = tileNumX - Math.Floor(tileNumX);
+            double fracY = tileNumY - Math.Floor(tileNumY);
 
             
             if(fracX >= 0.5)
@@ -167,8 +167,8 @@ namespace Aegir.Map
             {
                 fracX -= 1;
             }
-            double tileTranslateX = scale.GetTileXTranslateFix(mapCenterNormalizedY, mapZoom, TileSize);//TileSize * fracX;
-            double tileTranslateY = scale.GetTileYTranslateFix(mapCenterNormalizedX, mapZoom, TileSize); //TileSize * fracY;
+            double tileTranslateX = scale.GetTileXTranslateFix(mapCenterNormalizedX, mapZoom, TileSize);//TileSize * fracX;
+            double tileTranslateY = scale.GetTileYTranslateFix(mapCenterNormalizedY, mapZoom, TileSize); //TileSize * fracY;
 
             //double fooTest2 =
             //double fooTest2 = scale.GetTileXTranslateFix(mapCenterNormalizedX, mapZoom, TileSize);
@@ -315,6 +315,11 @@ namespace Aegir.Map
 
             TileSize = GetTileSize(value);
             Children.Clear();
+            foreach(MapTileVisual tile in Tiles)
+            {
+                tile.Fill = null;
+                tile.Dispose();
+            }
             Tiles.Clear();
             InitGrid();
         }
@@ -360,8 +365,8 @@ namespace Aegir.Map
                     double mapCenterNormalizedX = scale.NormalizeX(TileService.xTileOffset);
                     double mapCenterNormalizedY = scale.NormalizeY(TileService.yTileOffset);
 
-                    double tileTranslateX = scale.GetTileXTranslateFix(mapCenterNormalizedY, mapZoom, TileSize);//TileSize * fracX;
-                    double tileTranslateY = scale.GetTileYTranslateFix(mapCenterNormalizedX, mapZoom, TileSize); //TileSize * fracY;
+                    double tileTranslateX = scale.GetTileXTranslateFix(mapCenterNormalizedX, mapZoom, TileSize);//TileSize * fracX;
+                    double tileTranslateY = scale.GetTileYTranslateFix(mapCenterNormalizedY, mapZoom, TileSize); //TileSize * fracY;
 
                     foreach (MapTileVisual tile in tilesToMove)
                     {
