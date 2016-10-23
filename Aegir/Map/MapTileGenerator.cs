@@ -27,7 +27,7 @@ namespace Aegir.Map
                 imageBrush.ImageSource = image;
                 imageBrush.Freeze();
 
-                var foo = ImageWpfToGDI(image);
+                //var foo = ImageWpfToGDI(image);
 
                 if (image != null && imageBrush != null) // We've already set the Source to null before calling this method.
                 {
@@ -41,15 +41,15 @@ namespace Aegir.Map
 
         }
 
-        private System.Drawing.Image ImageWpfToGDI(ImageSource image)
-        {
-            MemoryStream ms = new MemoryStream();
-            var encoder = new System.Windows.Media.Imaging.BmpBitmapEncoder();
-            encoder.Frames.Add(System.Windows.Media.Imaging.BitmapFrame.Create(image as System.Windows.Media.Imaging.BitmapSource));
-            encoder.Save(ms);
-            ms.Flush();
-            return System.Drawing.Image.FromStream(ms);
-        }
+        //private System.Drawing.Image ImageWpfToGDI(ImageSource image)
+        //{
+        //    MemoryStream ms = new MemoryStream();
+        //    var encoder = new System.Windows.Media.Imaging.BmpBitmapEncoder();
+        //    encoder.Frames.Add(System.Windows.Media.Imaging.BitmapFrame.Create(image as System.Windows.Media.Imaging.BitmapSource));
+        //    encoder.Save(ms);
+        //    ms.Flush();
+        //    return System.Drawing.Image.FromStream(ms);
+        //}
 
     }
 }

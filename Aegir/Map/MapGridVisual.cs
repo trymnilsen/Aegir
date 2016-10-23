@@ -152,23 +152,26 @@ namespace Aegir.Map
             double fracX = tileNumX - Math.Floor(tileNumX);
             double fracY = tileNumY - Math.Floor(tileNumY);
 
-            
-            if(fracX >= 0.5)
+            double posFracX = fracX;
+            double posFracY = fracY;
+
+            if (posFracX <= 0.5)
             {
-                fracX -= 1;
+                posFracX += 1;
             }
 
-            if(fracY > 0.5)
+            if (posFracY > 0.5)
             {
-                fracY -= 1;
+                posFracY -= 1;
             }
-            //Quick hack for now
-            if(mapZoom == 12 || mapZoom == 15)
-            {
-                fracX -= 1;
-            }
+
+
             double tileTranslateX = scale.GetTileXTranslateFix(mapCenterNormalizedX, mapZoom, TileSize);//TileSize * fracX;
             double tileTranslateY = scale.GetTileYTranslateFix(mapCenterNormalizedY, mapZoom, TileSize); //TileSize * fracY;
+
+            Debug.WriteLine($"TranslateFixes: {tileTranslateX} / {tileTranslateY} TileSize {TileSize}");
+            Debug.WriteLine($"TranslateFixesWOLessTHanFixes: {TileSize * fracX} / {TileSize * fracY}");
+            Debug.WriteLine($"TranslateFixesPositive: {posFracX} / {posFracY}");
 
             //double fooTest2 =
             //double fooTest2 = scale.GetTileXTranslateFix(mapCenterNormalizedX, mapZoom, TileSize);
@@ -177,8 +180,17 @@ namespace Aegir.Map
             box.Color = Colors.Yellow;
             double bSize = 1 * TileSize / 32;
             box.Thickness = 1;
-            box.BoundingBox = new Rect3D(tileTranslateX - bSize/2, tileTranslateY - bSize/2, 0, bSize, bSize, bSize);
+            box.BoundingBox = new Rect3D((tileTranslateX) - bSize / 2, tileTranslateY - bSize/2, 0, bSize, bSize, bSize);
             this.Children.Add(box);
+
+
+
+            BoundingBoxWireFrameVisual3D box2 = new BoundingBoxWireFrameVisual3D();
+            box2.Color = Colors.LimeGreen;
+            double b2Size = 1 * TileSize / 32;
+            box2.Thickness = 1;
+            box2.BoundingBox = new Rect3D((posFracX * TileSize * -1) - b2Size / 2, (posFracY *TileSize *-1) - b2Size / 2, 0, b2Size, b2Size, b2Size);
+            this.Children.Add(box2);
 
             for (int x = 0; x < GridSize; x++)
             {
