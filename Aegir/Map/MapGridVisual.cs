@@ -160,7 +160,11 @@ namespace Aegir.Map
                 posFracX += 1;
             }
 
-            if (posFracY > 0.5)
+            if (posFracY >= 0.5)
+            {
+                posFracY -= 1;
+            }
+            if(mapZoom == 15 || mapZoom == 12)
             {
                 posFracY -= 1;
             }
@@ -189,7 +193,7 @@ namespace Aegir.Map
             box2.Color = Colors.LimeGreen;
             double b2Size = 1 * TileSize / 32;
             box2.Thickness = 1;
-            box2.BoundingBox = new Rect3D((posFracX * TileSize * -1) - b2Size / 2, (posFracY *TileSize *-1) - b2Size / 2, 0, b2Size, b2Size, b2Size);
+            box2.BoundingBox = new Rect3D((posFracX * TileSize * -1) - b2Size / 2, (posFracY *TileSize ) - b2Size / 2, 0, b2Size, b2Size, b2Size);
             this.Children.Add(box2);
 
             for (int x = 0; x < GridSize; x++)
