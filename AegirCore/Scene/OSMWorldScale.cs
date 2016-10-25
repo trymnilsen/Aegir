@@ -57,16 +57,11 @@ namespace AegirCore.Scene
 
             double fracX = tileNum - Math.Floor(tileNum);
 
-            if (fracX > 0.5)
+            if (fracX <= 0.5)
             {
-                fracX -= 1;
+                fracX += 1;
             }
-            //Quick hack for now
-            if (zoom == 12 || zoom == 15)
-            {
-                fracX -= 1;
-            }
-            return tileSize * fracX;
+            return tileSize * fracX * - 1;
         }
         public double GetTileYTranslateFix(double mapOffset, int zoom, int tileSize)
         {
@@ -75,6 +70,10 @@ namespace AegirCore.Scene
             double fracY = tileNum - Math.Floor(tileNum);
 
             if (fracY >= 0.5)
+            {
+                fracY -= 1;
+            }
+            if (zoom == 15 || zoom == 12)
             {
                 fracY -= 1;
             }

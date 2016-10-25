@@ -118,7 +118,7 @@ namespace Aegir.Map
             Tiles = new List<MapTileVisual>();
             TileSize = 32;
             mapZoom = 18;
-            translateOnZoom = false;
+            translateOnZoom = true;
             
             CompositionTarget.Rendering += CompositionTarget_Rendering;
             //Application.Current.MainWindow.Loaded += MainWindow_Loaded;
@@ -307,7 +307,7 @@ namespace Aegir.Map
                 double cameraDeltaX = position.X - MapCenter.X;
                 double cameraDeltaY = position.Y - MapCenter.Y;
 
-                int tileX = (int)(cameraDeltaX * snapInverseFactor);
+                int tileX = ((int)(cameraDeltaX * snapInverseFactor)) *-1;
                 int tileY = (int)(cameraDeltaY * snapInverseFactor);
 
                 if(tileX != currentTileX || tileY != currentTileY)
@@ -395,22 +395,22 @@ namespace Aegir.Map
                             tile.TileY += GridSize * panAmountY;
                         }
 
-                        //Send of a request to update the tile
-                        TileGenerator.LoadTileImageAsync(tile, 
-                                                         tile.TileY, 
-                                                         tile.TileX, 
-                                                         MapZoomLevel);
 
                         //Apply this as a transformation as well
                         TranslateTransform3D transform = tile.Transform as TranslateTransform3D;
 
                         if (transform != null)
                         {
-                            transform.OffsetX = ((tile.TileX * TileSize) - TileSize / 2 ) - tileTranslateX;
+                            transform.OffsetX = ((tile.TileX * TileSize * -1) - TileSize / 2 ) - tileTranslateX;
                             transform.OffsetY = ((tile.TileY * TileSize) - TileSize / 2) - tileTranslateY;
                         }
 
                         tile.UpdateDebugLabels();
+                        ////Send of a request to update the tile
+                        TileGenerator.LoadTileImageAsync(tile,
+                                                         tile.TileX,
+                                                         tile.TileY,
+                                                         MapZoomLevel);
                     }
                 }
 
@@ -436,12 +436,12 @@ namespace Aegir.Map
         
         private int GetYTileEdge(int panAmount)
         {
-            if (panAmount > 0)
+            if (panAmount < 0)
             {
                 //we need to find all tiles on left edge. Their index will be currentTileX - gridsize/2 (rounded down)
                 return currentTileY - GridSize / 2;
             }
-            else if (panAmount < 0)
+            else if (panAmount > 0)
             {
                 return currentTileY + GridSize / 2;
             }
