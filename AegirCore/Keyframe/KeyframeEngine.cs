@@ -258,6 +258,12 @@ namespace AegirCore.Keyframe
                 }
             }
         }
+
+        public bool CanCaptureNode(Node activeNode)
+        {
+            return true;
+        }
+
         private void SeekValueKeyframe(KeyframePropertyInfo property, int time)
         {
             //Get closest keys

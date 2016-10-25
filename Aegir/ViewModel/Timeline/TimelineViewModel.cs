@@ -274,7 +274,7 @@ namespace Aegir.ViewModel.Timeline
 
         private bool CanCaptureKeyframes()
         {
-            return (activeNode != null);
+            return activeNode != null && Engine.CanCaptureNode(activeNode);
         }
 
         /// <summary>
@@ -306,6 +306,7 @@ namespace Aegir.ViewModel.Timeline
             activeNode = message.Content.NodeSource;
             log.DebugFormat("SelectedNodeChanged Received, ActiveNode Changed to {0}",
                             activeNode?.Name);
+
             AddKeyframeCommand.RaiseCanExecuteChanged();
             //ResetTimeline(TimelineStart,TimelineEnd);
         }
