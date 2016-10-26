@@ -156,7 +156,6 @@ namespace Aegir.ViewModel.Timeline
 
         public KeyframeViewModel(Keyframe key, int time, TimelineViewModel timelineViewModel)
         {
-
             Time = time;
             this.key = key;
             this.timelineViewModel = timelineViewModel;

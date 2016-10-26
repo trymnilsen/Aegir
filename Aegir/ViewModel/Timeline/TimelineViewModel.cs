@@ -141,7 +141,7 @@ namespace Aegir.ViewModel.Timeline
 
         internal void RemoveKey(Keyframe key)
         {
-            
+            Engine.Keyframes.RemoveKey(key);
         }
 
         /// <summary>

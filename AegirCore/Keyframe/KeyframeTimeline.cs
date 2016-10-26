@@ -111,6 +111,12 @@ namespace AegirCore.Keyframe
                 return null;
             }
         }
+
+        public void RemoveKey(Keyframe key)
+        {
+            
+        }
+
         /// <summary>
         /// Returns keyframes between the interval
         /// </summary>

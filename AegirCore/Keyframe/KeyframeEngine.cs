@@ -140,6 +140,12 @@ namespace AegirCore.Keyframe
         {
 
         }
+
+        public void RemoveKey(Keyframe keyframe, Keyframe key)
+        {
+            throw new NotImplementedException();
+        }
+
         /// <summary>
         /// Sets the current time on timeline for the engine and transforms
         /// values to this value as well
