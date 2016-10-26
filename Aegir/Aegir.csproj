@@ -289,6 +289,7 @@
       <DependentUpon>StatusBar.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Timeline\CanvasCalculator.cs" />
+    <Compile Include="View\Timeline\CanvasPositionConverter.cs" />
     <Compile Include="View\Timeline\Ticks\TimelineTickSegment.cs" />
     <Compile Include="View\Timeline\Ticks\TimelineTickVisual.cs" />
     <Compile Include="View\Timeline\TimelineConfig.cs" />

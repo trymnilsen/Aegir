@@ -8,6 +8,11 @@ namespace Aegir.View.Timeline
 {
     public static class CanvasCalculator
     {
-        
+        public static double GetCanvasOffset(double width, int timeRangeStart, int timeRangeEnd, int time)
+        {
+            double stepSize = (width - 20) / (timeRangeEnd - timeRangeStart);
+            double leftOffset = stepSize * (time - timeRangeStart) + 2;
+            return leftOffset;
+        }
     }
 }

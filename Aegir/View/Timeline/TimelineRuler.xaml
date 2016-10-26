@@ -5,14 +5,15 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:Aegir.View.Timeline"
              xmlns:conv="clr-namespace:Aegir.Converter"
+             xmlns:vm="clr-namespace:Aegir.ViewModel.Timeline"
              mc:Ignorable="d"
              d:DesignHeight="32" d:DesignWidth="300"
              SizeChanged="UserControl_SizeChanged">
     <UserControl.Resources>
         <conv:ColorToBrushConverter x:Key="ColorToBrushConv"></conv:ColorToBrushConverter>
-        <conv:KeyframeTimelinePositionConverter x:Key="KeyframePositionConv"></conv:KeyframeTimelinePositionConverter>
+        <local:CanvasPositionConverter x:Key="KeyframePositionConv"></local:CanvasPositionConverter>
         <!-- A data-template that defines the visuals for a a key -->
-        <DataTemplate DataType="{x:Type local:KeyframeListItem}">
+        <DataTemplate DataType="{x:Type vm:KeyframeViewModel}">
 
             <!--The Rectangle is embedded in the Grid so that we
             can set the Margin. The margin is set so that the ListBox
@@ -97,7 +98,16 @@
                 </ListBox.ItemsPanel>
                 <ListBox.ItemContainerStyle>
                     <Style TargetType="ListBoxItem" >
-                        <Setter Property="Canvas.Left" Value="{Binding TimelinePositionX}"/>
+                        <Setter Property="Canvas.Left">
+                            <Setter.Value>
+                                <MultiBinding Converter="{StaticResource KeyframePositionConv}">
+                                    <Binding Path="ActualWidth" ElementName="listBox"></Binding>
+                                    <Binding Path="TimeRangeStart" RelativeSource="{RelativeSource AncestorType={x:Type local:TimelineRuler}}"></Binding>
+                                    <Binding Path="TimeRangeEnd" RelativeSource="{RelativeSource AncestorType={x:Type local:TimelineRuler}}"></Binding>
+                                    <Binding Path="Time"></Binding>
+                                </MultiBinding>
+                            </Setter.Value>
+                        </Setter>
                         <Setter Property="Canvas.Top" Value="2" />
                     </Style>
                 </ListBox.ItemContainerStyle>

@@ -1,5 +1,7 @@
 ﻿using Aegir.Mvvm;
+using GalaSoft.MvvmLight.Command;
 using System.ComponentModel;
+using AegirCore.Keyframe;
 
 namespace Aegir.ViewModel.Timeline
 {
@@ -7,6 +9,17 @@ namespace Aegir.ViewModel.Timeline
     {
 
         private int time;
+        private bool isEnabled;
+        private double posX;
+        private double posY;
+        private double posZ;
+        private double pitch;
+        private double yaw;
+        private TimelineViewModel timelineViewModel;
+        private double roll;
+        private string targetName;
+
+
         [Category("Keyframe")]
         public int Time
         {
@@ -21,8 +34,6 @@ namespace Aegir.ViewModel.Timeline
             }
         }
 
-
-        private bool isEnabled;
         [DisplayName("Is Enabled")]
         [Category("Keyframe")]
         public bool IsEnabled
@@ -38,8 +49,6 @@ namespace Aegir.ViewModel.Timeline
             }
         }
 
-
-        private string targetName;
         [DisplayName("Target")]
         [Category("Keyframe")]
         public string TargetName
@@ -55,8 +64,6 @@ namespace Aegir.ViewModel.Timeline
             }
         }
 
-
-        private double posX;
         [Category("Transform")]
         [DisplayName("Y")]
         public double PosX
@@ -71,9 +78,6 @@ namespace Aegir.ViewModel.Timeline
                 }
             }
         }
-
-
-        private double posY;
 
         [DisplayName("Y")]
         [Category("Transform")]
@@ -90,8 +94,6 @@ namespace Aegir.ViewModel.Timeline
             }
         }
 
-
-        private double posZ;
         [DisplayName("Z")]
         [Category("Transform")]
         public double PosZ
@@ -107,8 +109,6 @@ namespace Aegir.ViewModel.Timeline
             }
         }
 
-
-        private double roll;
         [DisplayName("Roll")]
         [Category("Transform")]
         public double Roll
@@ -124,7 +124,6 @@ namespace Aegir.ViewModel.Timeline
             }
         }
 
-        private double pitch;
         [DisplayName("Pitch")]
         [Category("Transform")]
         public double Pitch
@@ -139,7 +138,6 @@ namespace Aegir.ViewModel.Timeline
                 }
             }
         }
-        private double yaw;
         [Category("Transform")]
         [DisplayName("Yaw")]
         public double Yaw
@@ -154,6 +152,12 @@ namespace Aegir.ViewModel.Timeline
                 }
             }
         }
+        public RelayCommand DeleteKeyframe { get; set; }
 
+        public KeyframeViewModel(int time, TimelineViewModel timelineViewModel)
+        {
+            Time = time;
+            this.timelineViewModel = timelineViewModel;
+        }
     }
 }

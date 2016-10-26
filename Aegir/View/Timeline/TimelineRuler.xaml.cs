@@ -69,7 +69,7 @@ namespace Aegir.View.Timeline
         /// </summary>
         private Rectangle currentTimeHighlighter;
 
-        private ObservableCollection<KeyframeListItem> keyItems;
+        private ObservableCollection<KeyframeViewModel> keyItems;
         private bool suppressTimeRangeUpdates = false;
         /// <summary>
         /// The total distance dragged in the current drag operation
@@ -310,7 +310,7 @@ namespace Aegir.View.Timeline
         {
             InitializeComponent();
 
-            keyItems = new ObservableCollection<KeyframeListItem>();
+            keyItems = new ObservableCollection<KeyframeViewModel>();
             listBox.ItemsSource = keyItems;
         }
 
@@ -422,30 +422,24 @@ namespace Aegir.View.Timeline
         }
         private void AddKeyframes(KeyframeViewModel keyVM)
         {
-            KeyframeListItem key = new KeyframeListItem(keyVM);
-            double position = GetCanvasPosition(keyVM.Time);
-            key.TimelinePositionX = position-3;
-
-            keyItems.Add(key);
+            keyItems.Add(keyVM);
         }
         private void RemoveKeyframes(KeyframeViewModel keyVM)
         {
             
         }
 
-        private void InvalidatePositions()
-        {
-            foreach(KeyframeListItem key in keyItems)
-            {
-                key.TimelinePositionX = GetCanvasPosition(key.Time) - 3;
-            }
-            //System.Diagnostics.Debug.WriteLine("InvalidatePositions");
-        }
+        //private void InvalidatePositions()
+        //{
+        //    foreach(KeyframeListItem key in keyItems)
+        //    {
+        //        key.TimelinePositionX = GetCanvasPosition(key.Time) - 3;
+        //    }
+        //    //System.Diagnostics.Debug.WriteLine("InvalidatePositions");
+        //}
         private double GetCanvasPosition(int time)
         {
-            double stepSize = (ActualWidth - 20) / (TimeRangeEnd - TimeRangeStart);
-            double leftOffset = stepSize * (time - TimeRangeStart) + 2;
-            return leftOffset;
+            return CanvasCalculator.GetCanvasOffset(ActualWidth, TimeRangeStart, TimeRangeEnd, time);
         }
         /// <summary>
         /// Pans the timeline with the given amount of deltapoints from the mouse
@@ -931,9 +925,10 @@ namespace Aegir.View.Timeline
             //
             // Find and select all the list box items.
             //
-            foreach (KeyframeListItem key in keyItems)
+            foreach (KeyframeViewModel key in keyItems)
             {
-                Rect itemRect = new Rect(key.TimelinePositionX, 2, 8, 20);
+                double KeyPosition = CanvasCalculator.GetCanvasOffset(ActualWidth, TimeRangeStart, TimeRangeEnd, key.Time);
+                Rect itemRect = new Rect(KeyPosition, 2, 8, 20);
                 if (dragRect.Contains(itemRect))
                 {
                     listBox.SelectedItems.Add(key);
@@ -959,7 +954,7 @@ namespace Aegir.View.Timeline
 
             InvalidateTimeline();
             InvalidateCurrentTimeHighlight();
-            InvalidatePositions();
+            //InvalidatePositions();
         }
 
         /// <summary>

@@ -351,9 +351,7 @@ namespace Aegir.ViewModel.Timeline
 
         private void Timeline_KeyframeAdded(Node node, int time, Keyframe key)
         {
-            KeyframeViewModel keyVM = new KeyframeViewModel();
-            keyVM.Time = time;
-
+            KeyframeViewModel keyVM = new KeyframeViewModel(time, this);
             Keyframes.Add(keyVM);
         }
     }
