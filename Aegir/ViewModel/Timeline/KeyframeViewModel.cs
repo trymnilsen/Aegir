@@ -18,7 +18,7 @@ namespace Aegir.ViewModel.Timeline
         private TimelineViewModel timelineViewModel;
         private double roll;
         private string targetName;
-
+        private Keyframe key;
 
         [Category("Keyframe")]
         public int Time
@@ -154,10 +154,17 @@ namespace Aegir.ViewModel.Timeline
         }
         public RelayCommand DeleteKeyframe { get; set; }
 
-        public KeyframeViewModel(int time, TimelineViewModel timelineViewModel)
+        public KeyframeViewModel(Keyframe key, int time, TimelineViewModel timelineViewModel)
         {
+
             Time = time;
+            this.key = key;
             this.timelineViewModel = timelineViewModel;
+            DeleteKeyframe = new RelayCommand(DoDeleteKeyframe);
+        }
+        private void DoDeleteKeyframe()
+        {
+            timelineViewModel.RemoveKey(key);
         }
     }
 }

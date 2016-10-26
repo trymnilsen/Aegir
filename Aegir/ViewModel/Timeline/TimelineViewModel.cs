@@ -139,6 +139,11 @@ namespace Aegir.ViewModel.Timeline
             set { playPauseCommand = value; }
         }
 
+        internal void RemoveKey(Keyframe key)
+        {
+            
+        }
+
         /// <summary>
         /// Where our timeline ends
         /// </summary>
