@@ -47,6 +47,5 @@ namespace HelixToolkit.Wpf
         /// A rainbow brush with 12 stripes.
         /// </summary>
         public static LinearGradientBrush RainbowStripes = BrushHelper.CreateSteppedGradientBrush(Rainbow, 12);
-
     }
 }

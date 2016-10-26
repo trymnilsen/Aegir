@@ -24,17 +24,20 @@ namespace ViewPropertyGrid.PropertyGrid
     {
         public const string NoCategoryName = "Misc";
         private ControlFactory controlFactory;
+
         /// <summary>
         /// We keep track of the objects we are currently listing to so we
         /// can unsub from the later
         /// </summary>
         private Dictionary<int, WeakReference<INotifyPropertyChanged>> eventPublishers;
+
         /// <summary>
         /// Name of properties which would yield a reload
         /// </summary>
         private HashSet<string> requiresListReload;
 
         private Dictionary<string, CategoryContainer> categoryViews;
+
         /// <summary>
         /// The current properties we are able to edit and is shown in the UI
         /// </summary>
@@ -43,7 +46,6 @@ namespace ViewPropertyGrid.PropertyGrid
         // Using a DependencyProperty as the backing store for SelectedObject.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty SelectedObjectProperty =
             DependencyProperty.Register(nameof(SelectedObject), typeof(object), typeof(PropertyGrid), new PropertyMetadata(SelectedObjectChanged));
-
 
         /// <summary>
         /// The object that is editable in the grid
@@ -56,6 +58,7 @@ namespace ViewPropertyGrid.PropertyGrid
                 SetValue(SelectedObjectProperty, value);
             }
         }
+
         /// <summary>
         /// Creates an inits a new Propertygrid
         /// </summary>
@@ -67,6 +70,7 @@ namespace ViewPropertyGrid.PropertyGrid
             controlFactory = new ControlFactory();
             InitializeComponent();
         }
+
         /// <summary>
         /// Disposes the propertygrid
         /// </summary>
@@ -74,6 +78,7 @@ namespace ViewPropertyGrid.PropertyGrid
         {
             Cleanup();
         }
+
         /// <summary>
         /// Update the Grid with a new target
         /// </summary>
@@ -108,7 +113,6 @@ namespace ViewPropertyGrid.PropertyGrid
 
                     AddProperty(property, propertiyMetadata);
                 }
-
             }
             else
             {
@@ -118,7 +122,7 @@ namespace ViewPropertyGrid.PropertyGrid
 
         private void ResetCategories()
         {
-            foreach(var category in categoryViews)
+            foreach (var category in categoryViews)
             {
                 category.Value.Dispose();
             }
@@ -132,13 +136,14 @@ namespace ViewPropertyGrid.PropertyGrid
         {
             this.CategoryPanel.Children.Clear();
         }
+
         /// <summary>
         /// Sets the state of the propertygrid to a "No selected object"
         /// </summary>
         private void SetEmptyGridUi()
         {
-            
         }
+
         /// <summary>
         /// Cleans up the grid, removing events etc
         /// </summary>
@@ -156,7 +161,6 @@ namespace ViewPropertyGrid.PropertyGrid
             eventPublishers.Clear();
         }
 
-
         /// <summary>
         /// Callback for when a property on the object(s) we are editing changes
         /// via the INotifyPropertyChanged event
@@ -167,7 +171,6 @@ namespace ViewPropertyGrid.PropertyGrid
         {
             if (requiresListReload.Contains(e.PropertyName))
             {
-
             }
         }
 
@@ -182,6 +185,7 @@ namespace ViewPropertyGrid.PropertyGrid
             PropertyGrid view = d as PropertyGrid;
             view?.UpdatePropertyGridTarget(e.OldValue, e.NewValue);
         }
+
         /// <summary>
         /// Adds a property to the UI
         /// </summary>
@@ -193,7 +197,7 @@ namespace ViewPropertyGrid.PropertyGrid
             CategoryContainer container = GetCategory(propertyMetadata);
             ValueControl valueControl;
             PropertyContainer propContainer;
-           
+
             //Check if the property has a custom control
             if (propertyMetadata.HasCustomControl)
             {
@@ -204,7 +208,7 @@ namespace ViewPropertyGrid.PropertyGrid
                 valueControl = controlFactory.GetControl(property);
             }
             //If the edit mode is set to on focus, create a textblock for when its not
-            if(valueControl.EditBehaviour == EditingBehaviour.OnFocus)
+            if (valueControl.EditBehaviour == EditingBehaviour.OnFocus)
             {
                 TextBlock unfocusElement = controlFactory.CreateUnFocusedTextBlock(property.ReflectionData.Name, property.Target);
                 propContainer = new PropertyContainer(propertyMetadata.Name, valueControl.Control, unfocusElement);
@@ -215,14 +219,15 @@ namespace ViewPropertyGrid.PropertyGrid
             }
             container.AddProperty(propContainer);
         }
+
         /// <summary>
         /// Removes a property from the UI
         /// </summary>
         /// <param name="property"></param>
         private void RemoveProperty(InspectablePropertyMetadata property)
         {
-
         }
+
         private CategoryContainer GetCategory(InspectablePropertyMetadata metaData)
         {
             if (categoryViews.ContainsKey(metaData.Category))

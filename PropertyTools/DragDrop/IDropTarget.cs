@@ -22,27 +22,27 @@ namespace PropertyTools
         /// No modifier keys or mouse buttons are pressed.
         /// </summary>
         None = 0,
-        
+
         /// <summary>
         /// The left mouse button is pressed.
         /// </summary>
         LeftMouseButton = 1,
-        
+
         /// <summary>
         /// The right mouse button is pressed.
         /// </summary>
         RightMouseButton = 2,
-        
+
         /// <summary>
         /// The shift key is pressed.
         /// </summary>
         ShiftKey = 4,
-        
+
         /// <summary>
         /// The control key is pressed.
         /// </summary>
         ControlKey = 8,
-        
+
         /// <summary>
         /// The middle mouse button is pressed.
         /// </summary>
@@ -68,12 +68,12 @@ namespace PropertyTools
         /// The data is copied to the drop target.
         /// </summary>
         Copy = 1,
-        
+
         /// <summary>
         /// The data from the drag source is moved to the drop target.
         /// </summary>
         Move = 2,
-        
+
         /// <summary>
         /// The data from the drag source is linked to the drop target.
         /// </summary>

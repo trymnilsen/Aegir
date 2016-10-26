@@ -9,6 +9,7 @@ namespace AegirCore.Scene
     public class OSMWorldScale : IWorldScale
     {
         private readonly double sceneEdge = Math.Pow(2, 18);
+
         public double SceneEdgeX
         {
             get
@@ -47,13 +48,12 @@ namespace AegirCore.Scene
         {
             return 0;
         }
+
         public double GetTileXTranslateFix(double mapOffset, int zoom, int tileSize)
         {
-
             double maxTiles = Math.Pow(2, zoom);
 
             double tileNum = mapOffset * maxTiles;
-
 
             double fracX = tileNum - Math.Floor(tileNum);
 
@@ -61,8 +61,9 @@ namespace AegirCore.Scene
             {
                 fracX += 1;
             }
-            return tileSize * fracX * - 1;
+            return tileSize * fracX * -1;
         }
+
         public double GetTileYTranslateFix(double mapOffset, int zoom, int tileSize)
         {
             double maxTiles = Math.Pow(2, zoom);

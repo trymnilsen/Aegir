@@ -41,20 +41,20 @@
     <Style x:Key="TabHeaderErrorsStyle">
         <Style.Triggers>
             <DataTrigger Binding="{Binding HasErrors}" Value="True">
-                <Setter Property="TextBlock.Foreground" Value="Red"/>
+                <Setter Property="TextBlock.Foreground" Value="Red" />
             </DataTrigger>
         </Style.Triggers>
     </Style>
-    
+
     <DataTemplate x:Key="TabHeaderTemplate" DataType="local:Tab">
         <StackPanel Orientation="Horizontal">
-            <local:Bitmap Source="{Binding Icon}" Margin="0 0 4 0" Visibility="{Binding Icon, Converter={StaticResource NullToVisibilityConverter}}"/>
-            <TextBlock Text="{Binding Header}" Style="{StaticResource TabHeaderErrorsStyle}"/>
+            <local:Bitmap Source="{Binding Icon}" Margin="0 0 4 0" Visibility="{Binding Icon, Converter={StaticResource NullToVisibilityConverter}}" />
+            <TextBlock Text="{Binding Header}" Style="{StaticResource TabHeaderErrorsStyle}" />
         </StackPanel>
     </DataTemplate>
 
     <Style TargetType="{x:Type local:PropertyGrid}">
-        <Setter Property="Focusable" Value="False"/>
+        <Setter Property="Focusable" Value="False" />
         <Setter Property="ValidationErrorStyle" Value="{StaticResource ErrorInToolTipStyle}" />
         <Setter Property="ValidationErrorTemplate" Value="{StaticResource ValidationErrorTemplate}" />
         <Setter Property="CategoryControlTemplate" Value="{StaticResource CategoryControlTemplate}" />
@@ -66,8 +66,8 @@
                     <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}"
                   BorderThickness="{TemplateBinding BorderThickness}">
                         <Grid>
-                            <TabControl x:Name="PART_Tabs" SelectedIndex="{Binding Path=SelectedTabIndex, RelativeSource={RelativeSource TemplatedParent}}" 
-                          TabStripPlacement="{TemplateBinding TabStripPlacement}" Focusable="false" AutomationProperties.AutomationId="Tabs"/>
+                            <TabControl x:Name="PART_Tabs" SelectedIndex="{Binding Path=SelectedTabIndex, RelativeSource={RelativeSource TemplatedParent}}"
+                          TabStripPlacement="{TemplateBinding TabStripPlacement}" Focusable="false" AutomationProperties.AutomationId="Tabs" />
                             <ScrollViewer x:Name="PART_ScrollViewer" VerticalScrollBarVisibility="Auto" Focusable="false" AutomationProperties.AutomationId="ScrollViewer">
                                 <StackPanel x:Name="PART_Panel" />
                             </ScrollViewer>

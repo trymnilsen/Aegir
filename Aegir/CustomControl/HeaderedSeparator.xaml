@@ -9,12 +9,12 @@
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="20px" />
                             <ColumnDefinition Width="100px" />
-                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
                         <TextBlock Text="::"></TextBlock>
-                        <TextBlock Width="100" Grid.Column="1" 
-                        VerticalAlignment="Center" Margin="5 0" 
-                        Text="{TemplateBinding Header}"/>
+                        <TextBlock Width="100" Grid.Column="1"
+                        VerticalAlignment="Center" Margin="5 0"
+                        Text="{TemplateBinding Header}" />
                         <Separator Grid.Column="2" HorizontalContentAlignment="Stretch" />
                     </Grid>
                 </ControlTemplate>

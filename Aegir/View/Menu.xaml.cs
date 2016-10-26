@@ -55,7 +55,7 @@ namespace Aegir.View
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void MenuItem_Quit_Click( object sender, System.Windows.RoutedEventArgs e )
+        private void MenuItem_Quit_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             //http://stackoverflow.com/a/2820377/394381
             Application.Current.Shutdown();

@@ -101,6 +101,7 @@ namespace HelixToolkit.Wpf
                 case Key.Left:
                     this.HorizontalOffset -= 0.001f;
                     break;
+
                 case Key.Right:
                     this.HorizontalOffset += 0.001f;
                     break;
@@ -140,6 +141,5 @@ namespace HelixToolkit.Wpf
         {
             // RightView.Margin=new Thickness(HorizontalOffset,0,-HorizontalOffset,0);
         }
-
     }
 }

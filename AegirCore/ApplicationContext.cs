@@ -18,6 +18,7 @@ namespace AegirCore
         public PersistenceHandler SaveLoadHandler { get; private set; }
         public ITinyMessengerHub MessageHub { get; private set; }
         public SceneGraph Scene { get; private set; }
+
         public ApplicationContext()
         {
             //Setting up asset cache
@@ -32,6 +33,7 @@ namespace AegirCore
             Engine = new SimulationEngine(Scene);
             Engine.Messenger = MessageHub;
         }
+
         public void Init()
         {
             Scene.Init();
@@ -41,13 +43,12 @@ namespace AegirCore
             //Call changed scenegraph
             MessageHub.Publish<ScenegraphChanged>(new ScenegraphChanged(Scene, this));
 
-            if(!Engine.IsStarted)
+            if (!Engine.IsStarted)
             {
                 Engine.Start();
             }
 
             //Init the scenegraph
-
         }
     }
 }

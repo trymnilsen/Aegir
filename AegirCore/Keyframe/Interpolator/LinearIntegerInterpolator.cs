@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AegirCore.Keyframe.Interpolator
 {
-    class LinearIntegerInterpolator
+    internal class LinearIntegerInterpolator
     {
     }
 }

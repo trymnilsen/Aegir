@@ -12,11 +12,13 @@ namespace AegirCore.Behaviour
     public abstract class BehaviourComponent
     {
         private Node parent;
+
         public Node Parent
         {
             get { return parent; }
             protected set { parent = value; }
         }
+
         public SignalRouter internalRouter { get; set; }
         public SignalRouter globalRouter { get; set; }
         public string Name { get; set; }
@@ -25,6 +27,7 @@ namespace AegirCore.Behaviour
         {
             this.Parent = parent;
         }
+
         public T GetComponent<T>()
             where T : BehaviourComponent
         {
@@ -33,22 +36,22 @@ namespace AegirCore.Behaviour
 
         public virtual void Update(SimulationTime time)
         {
-
         }
+
         public virtual void PreUpdate(SimulationTime time)
         {
-
         }
+
         public virtual void PostUpdate(SimulationTime time)
         {
-
         }
+
         public virtual void Init()
         {
-
         }
-        public abstract XElement Serialize();
-        public abstract void Deserialize(XElement data);
 
+        public abstract XElement Serialize();
+
+        public abstract void Deserialize(XElement data);
     }
 }

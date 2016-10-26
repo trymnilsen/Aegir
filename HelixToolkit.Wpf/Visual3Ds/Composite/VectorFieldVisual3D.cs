@@ -100,21 +100,21 @@ namespace HelixToolkit.Wpf
                 var p = this.Positions[i];
                 var d = this.Directions[i];
                 var headModel = new GeometryModel3D
-                    {
-                        Geometry = this.head,
-                        Material = mat,
-                        Transform = CreateHeadTransform(p + d, d)
-                    };
+                {
+                    Geometry = this.head,
+                    Material = mat,
+                    Transform = CreateHeadTransform(p + d, d)
+                };
                 c.Children.Add(headModel);
 
                 var u = d;
                 u.Normalize();
                 var bodyModel = new GeometryModel3D
-                    {
-                        Geometry = this.body,
-                        Material = mat,
-                        Transform = CreateBodyTransform(p, u * (1.0 - l / d.Length))
-                    };
+                {
+                    Geometry = this.body,
+                    Material = mat,
+                    Transform = CreateBodyTransform(p, u * (1.0 - l / d.Length))
+                };
                 c.Children.Add(bodyModel);
             }
 
@@ -192,6 +192,5 @@ namespace HelixToolkit.Wpf
             this.body = bodyBuilder.ToMesh();
             this.body.Freeze();
         }
-
     }
 }

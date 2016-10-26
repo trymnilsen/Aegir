@@ -1,5 +1,5 @@
-﻿using AegirCore.Simulation.Boyancy;
-using AegirCore.Helper;
+﻿using AegirCore.Helper;
+using AegirCore.Simulation.Boyancy;
 using AegirType;
 using System;
 using System.Collections.Generic;

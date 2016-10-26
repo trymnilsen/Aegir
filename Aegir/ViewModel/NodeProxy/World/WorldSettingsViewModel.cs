@@ -17,20 +17,20 @@ namespace Aegir.ViewModel.NodeProxy.World
         public double Hour { get; set; } = 09;
         public double Minute { get; set; } = 17;
         public double Second { get; set; } = 43;
+
         [DisplayName("Sun Azimuth")]
         public double SunAzimuth { get; set; } = 232;
+
         [DisplayName("Sun Altitude")]
         public double SunAltitude { get; set; } = 16;
 
-        public WorldSettingsViewModel(WorldSettings component) 
+        public WorldSettingsViewModel(WorldSettings component)
             : base(component, "World Settings")
         {
-
         }
 
         internal override void Invalidate()
         {
-            
         }
     }
 }

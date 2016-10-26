@@ -98,6 +98,7 @@ namespace Aegir.ViewModel.NodeProxy
             sceneSource = message.Content;
             SceneSource_GraphChanged();
         }
+
         /// <summary>
         /// Updates the currently active selected item in the graph
         /// </summary>
@@ -107,6 +108,7 @@ namespace Aegir.ViewModel.NodeProxy
             Messenger.Publish<SelectedNodeChanged>(new SelectedNodeChanged(this, newItem));
             Messenger.Publish<SelectionChanged>(new SelectionChanged(this, newItem));
         }
+
         private void SetRawNodeAsSelectedItem(Node node)
         {
             //look through view models
@@ -123,6 +125,7 @@ namespace Aegir.ViewModel.NodeProxy
                 }
             }
         }
+
         private void LookForChildrenNodeVM(NodeViewModel nodeVM, Node node)
         {
             if (nodeVM.NodeSource == node)
@@ -137,6 +140,7 @@ namespace Aegir.ViewModel.NodeProxy
                 }
             }
         }
+
         private void ProjectChanged(ProjectActivated projectMessage)
         {
             RebuildScenegraphNodes(projectMessage.Project.Scene.RootNodes);
@@ -158,7 +162,6 @@ namespace Aegir.ViewModel.NodeProxy
         /// <param name="message"></param>
         public void OnInvalidateEntitiesMessage(InvalidateEntities message)
         {
-
         }
 
         /// <summary>
@@ -206,7 +209,7 @@ namespace Aegir.ViewModel.NodeProxy
         {
             foreach (Node n in node.Children)
             {
-                NodeViewModel childrenProxy = new NodeViewModel(n,this);
+                NodeViewModel childrenProxy = new NodeViewModel(n, this);
                 proxy.Children.Add(childrenProxy);
                 PopulateNodeChildren(childrenProxy, n);
             }
@@ -238,12 +241,10 @@ namespace Aegir.ViewModel.NodeProxy
 
         public void Remove(NodeViewModel node)
         {
-
         }
 
         public void Add(string type)
         {
-
         }
 
         public delegate void InvalidateChildrenHandler();

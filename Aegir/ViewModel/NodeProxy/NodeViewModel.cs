@@ -1,4 +1,5 @@
-﻿using Aegir.Rendering;
+﻿using Aegir.Mvvm;
+using Aegir.Rendering;
 using Aegir.View.PropertyEditor.CustomEditor;
 using Aegir.Windows;
 using AegirCore.Behaviour;
@@ -6,24 +7,23 @@ using AegirCore.Behaviour.World;
 using AegirCore.Scene;
 using AegirNetwork;
 using GalaSoft.MvvmLight.Command;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Windows;
-using System;
-using Aegir.Mvvm;
-using TinyMessenger;
-using System.Diagnostics;
-using System.Windows.Media.Media3D;
 using HelixToolkit.Wpf;
-using ViewPropertyGrid.PropertyGrid;
-using System.Collections.ObjectModel;
 using PropertyTools;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Windows;
+using System.Windows.Media.Media3D;
+using TinyMessenger;
+using ViewPropertyGrid.PropertyGrid;
 
 namespace Aegir.ViewModel.NodeProxy
 {
-    public class NodeViewModel : ViewModelBase, 
-                                ITransformableVisual, 
-                                IPropertyInfoProvider, 
+    public class NodeViewModel : ViewModelBase,
+                                ITransformableVisual,
+                                IPropertyInfoProvider,
                                 IDragSource,
                                 IDropTarget,
                                 INameable
@@ -44,6 +44,7 @@ namespace Aegir.ViewModel.NodeProxy
         {
             get { return nodeData; }
         }
+
         [DisplayName("Name")]
         [Category("General")]
         public string Name
@@ -51,13 +52,14 @@ namespace Aegir.ViewModel.NodeProxy
             get { return nodeData.Name; }
             set
             {
-                if(value!=nodeData.Name)
+                if (value != nodeData.Name)
                 {
                     nodeData.Name = value;
                     RaisePropertyChanged();
                 }
             }
         }
+
         [DisplayName("Is Enabled")]
         [Category("General")]
         public bool IsEnabled
@@ -65,10 +67,10 @@ namespace Aegir.ViewModel.NodeProxy
             get { return nodeData.IsEnabled; }
             set
             {
-                if(nodeData.IsEnabled!=value)
+                if (nodeData.IsEnabled != value)
                 {
                     nodeData.IsEnabled = value;
-                   RaisePropertyChanged();
+                    RaisePropertyChanged();
                 }
             }
         }
@@ -122,10 +124,10 @@ namespace Aegir.ViewModel.NodeProxy
 
         private void CreateBehaviourProxies(IEnumerable<BehaviourComponent> behaviourComponents)
         {
-            foreach(BehaviourComponent component in behaviourComponents)
+            foreach (BehaviourComponent component in behaviourComponents)
             {
                 BehaviourViewModel vm = BehaviourViewModelFactory.GetViewModelProxy(component);
-                if(vm!=null)
+                if (vm != null)
                 {
                     componentProxies.Add(vm);
                 }
@@ -137,11 +139,13 @@ namespace Aegir.ViewModel.NodeProxy
         {
             return nodeData.GetComponent<T>();
         }
+
         private void DoRemoveNode()
         {
             AddRemoveHandler?.Remove(this);
             Debug.WriteLine("Removing node");
         }
+
         private void AddNode(string type)
         {
             AddRemoveHandler?.Add(type);
@@ -163,7 +167,7 @@ namespace Aegir.ViewModel.NodeProxy
 
         internal void Invalidate()
         {
-            foreach(BehaviourViewModel behaviourVM in componentProxies)
+            foreach (BehaviourViewModel behaviourVM in componentProxies)
             {
                 behaviourVM.Invalidate();
             }
@@ -177,7 +181,7 @@ namespace Aegir.ViewModel.NodeProxy
             properties.Add(new InspectableProperty(this, GetType().GetProperty(nameof(Name))));
             properties.Add(new InspectableProperty(this, GetType().GetProperty(nameof(IsEnabled))));
 
-            foreach(BehaviourViewModel behaviour in componentProxies)
+            foreach (BehaviourViewModel behaviour in componentProxies)
             {
                 properties.AddRange(behaviour.GetProperties());
             }
@@ -187,7 +191,6 @@ namespace Aegir.ViewModel.NodeProxy
 
         public void Detach()
         {
-            
         }
 
         public bool CanDrop(IDragSource node, DropPosition dropPosition, DragDropEffect effect)
@@ -197,7 +200,6 @@ namespace Aegir.ViewModel.NodeProxy
 
         public void Drop(IEnumerable<IDragSource> items, DropPosition dropPosition, DragDropEffect effect, PropertyTools.DragDropKeyStates initialKeyStates)
         {
-            
         }
 
         //public void TriggerTransformChanged()

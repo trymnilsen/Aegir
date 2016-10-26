@@ -13,11 +13,12 @@ namespace ViewPropertyGrid.PropertyGrid
         public bool UpdateLayoutOnValueChange { get; private set; }
         public PropertyInfo ReflectionInfo { get; private set; }
         public string Category { get; private set; }
+
         public string Name
         {
             get
             {
-                if(DisplayName != null)
+                if (DisplayName != null)
                 {
                     return DisplayName;
                 }

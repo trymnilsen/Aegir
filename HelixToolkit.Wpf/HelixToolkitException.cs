@@ -30,6 +30,5 @@ namespace HelixToolkit.Wpf
             : base(string.Format(formatString, args))
         {
         }
-
     }
 }

@@ -1,4 +1,5 @@
-﻿using Aegir.ViewModel;
+﻿using Aegir.Util;
+using Aegir.ViewModel;
 using Aegir.ViewModel.NodeProxy;
 using Aegir.ViewModel.Timeline;
 using Aegir.Windows;
@@ -7,10 +8,9 @@ using GalaSoft.MvvmLight.Ioc;
 using log4net;
 using System.Diagnostics;
 using System.Windows;
+using System.Windows.Navigation;
 using System.Windows.Threading;
 using TinyMessenger;
-using System.Windows.Navigation;
-using Aegir.Util;
 
 namespace Aegir
 {
@@ -22,6 +22,7 @@ namespace Aegir
         private static readonly ILog log = LogManager.GetLogger(typeof(App));
         private ApplicationContext application;
         public static Stopwatch stopwatch;
+
         public App()
         {
             stopwatch = Stopwatch.StartNew();
@@ -43,34 +44,39 @@ namespace Aegir
 
         private void SetupViewModels()
         {
-
             SimpleIoc.Default.Register<StatusBarViewModel>(
-                () => {
+                () =>
+                {
                     return new StatusBarViewModel() { Messenger = application.MessageHub };
                 }
             , true);
             SimpleIoc.Default.Register<MenuStripViewModel>(
-                () => {
+                () =>
+                {
                     return new MenuStripViewModel() { Messenger = application.MessageHub };
                 }
             , true);
             SimpleIoc.Default.Register<PlaybackViewModel>(
-                () => {
+                () =>
+                {
                     return new PlaybackViewModel() { Messenger = application.MessageHub };
                 }
             , true);
             SimpleIoc.Default.Register<MapViewModel>(
-                () => {
+                () =>
+                {
                     return new MapViewModel() { Messenger = application.MessageHub };
                 }
             , true);
             SimpleIoc.Default.Register<ScenegraphViewModel>(
-                () => {
+                () =>
+                {
                     return new ScenegraphViewModel(application.MessageHub as TinyMessengerHub);
                 }
             , true);
             SimpleIoc.Default.Register<TimelineViewModel>(
-                () => {
+                () =>
+                {
                     return new TimelineViewModel(application.MessageHub, application.Engine.KeyframeEngine);
                 }
             , true);
@@ -78,7 +84,7 @@ namespace Aegir
                 () =>
                 {
                     return new SelectionViewModel(application.MessageHub);
-                },true);
+                }, true);
         }
     }
 }

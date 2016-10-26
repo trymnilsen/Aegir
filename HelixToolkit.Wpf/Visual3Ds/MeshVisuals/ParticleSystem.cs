@@ -30,7 +30,6 @@ namespace HelixToolkit.Wpf
         /// </summary>
         public static readonly DependencyProperty TextureProperty = DependencyPropertyEx.Register<Brush, ParticleSystem>("Texture", null, (s, e) => s.TextureChanged());
 
-
         /// <summary>
         /// Identifies the <see cref="LifeTime"/> dependency property.
         /// </summary>
@@ -70,7 +69,6 @@ namespace HelixToolkit.Wpf
         /// Identifies the <see cref="AccelerationSpreading"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty AccelerationSpreadingProperty = DependencyPropertyEx.Register<double, ParticleSystem>("AccelerationSpreading", 10d);
-
 
         /// <summary>
         /// Identifies the <see cref="EmitRate"/> dependency property.
@@ -461,13 +459,13 @@ namespace HelixToolkit.Wpf
             var speed = this.StartVelocity + (this.StartVelocityRandomness * (r.NextDouble() - 0.5));
 
             var particle = new Particle
-                        {
-                            Position = position,
-                            Size = this.StartSize,
-                            Age = 0,
-                            Rotation = 0,
-                            Velocity = speed * startDirection
-                        };
+            {
+                Position = position,
+                Size = this.StartSize,
+                Age = 0,
+                Rotation = 0,
+                Velocity = speed * startDirection
+            };
 
             // Replace or add to particle list
             int index = this.particles.FindIndex(p => p == null);

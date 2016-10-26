@@ -21,13 +21,13 @@ namespace ViewPropertyGrid.PropertyGrid.Provider
             binding.Path = new PropertyPath(property.ReflectionData.Name);
             binding.Mode = BindingMode.TwoWay;
             binding.UpdateSourceTrigger = UpdateSourceTrigger.LostFocus;
-            if(property.ReflectionData.PropertyType != typeof(string))
+            if (property.ReflectionData.PropertyType != typeof(string))
             {
-                if(property.ReflectionData.PropertyType == typeof(double))
+                if (property.ReflectionData.PropertyType == typeof(double))
                 {
                     binding.Converter = new DoubleToStringConverter();
                 }
-                else if(property.ReflectionData.PropertyType == typeof(int))
+                else if (property.ReflectionData.PropertyType == typeof(int))
                 {
                     binding.Converter = new IntToStringConverter();
                 }
@@ -36,7 +36,7 @@ namespace ViewPropertyGrid.PropertyGrid.Provider
             //Set the binding
             BindingOperations.SetBinding(control, TextBox.TextProperty, binding);
 
-            return new ValueControl(control,EditingBehaviour.OnFocus);
+            return new ValueControl(control, EditingBehaviour.OnFocus);
         }
     }
 }

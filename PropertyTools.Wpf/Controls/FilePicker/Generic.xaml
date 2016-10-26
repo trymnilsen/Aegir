@@ -1,6 +1,6 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:local="clr-namespace:PropertyTools.Wpf">
-    <local:NullToVisibilityConverter x:Key="NullToVisibilityConverter" NullVisibility="Collapsed"/>
+    <local:NullToVisibilityConverter x:Key="NullToVisibilityConverter" NullVisibility="Collapsed" />
 
     <Style TargetType="{x:Type local:FilePicker}">
         <Setter Property="MinWidth" Value="30" />
@@ -15,24 +15,21 @@
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
                         <TextBox Text="{Binding FilePath, RelativeSource={RelativeSource TemplatedParent}}" IsEnabled="{Binding IsInputEnabled, RelativeSource={RelativeSource TemplatedParent}}" />
-                        <Button Grid.Column="1" MinWidth="40" Margin="4 0 0 0" 
-                                Visibility="{TemplateBinding BrowseButtonContent, Converter={StaticResource NullToVisibilityConverter}}" 
-                                Content="{TemplateBinding BrowseButtonContent}" 
-                                ToolTip="{TemplateBinding BrowseButtonToolTip}" 
-                                Command="{Binding BrowseCommand,RelativeSource={RelativeSource TemplatedParent}}" 
-                                />
-                        <Button Grid.Column="2" MinWidth="40" Margin="4 0 0 0" 
-                                Visibility="{TemplateBinding ExploreButtonContent, Converter={StaticResource NullToVisibilityConverter}}" 
-                                Content="{TemplateBinding ExploreButtonContent}" 
+                        <Button Grid.Column="1" MinWidth="40" Margin="4 0 0 0"
+                                Visibility="{TemplateBinding BrowseButtonContent, Converter={StaticResource NullToVisibilityConverter}}"
+                                Content="{TemplateBinding BrowseButtonContent}"
+                                ToolTip="{TemplateBinding BrowseButtonToolTip}"
+                                Command="{Binding BrowseCommand,RelativeSource={RelativeSource TemplatedParent}}" />
+                        <Button Grid.Column="2" MinWidth="40" Margin="4 0 0 0"
+                                Visibility="{TemplateBinding ExploreButtonContent, Converter={StaticResource NullToVisibilityConverter}}"
+                                Content="{TemplateBinding ExploreButtonContent}"
                                 ToolTip="{TemplateBinding ExploreButtonToolTip}" ToolTipService.ShowOnDisabled="True"
-                                Command="{Binding ExploreCommand,RelativeSource={RelativeSource TemplatedParent}}" 
-                                />
-                        <Button Grid.Column="3" MinWidth="40" Margin="4 0 0 0" 
-                                Visibility="{TemplateBinding OpenButtonContent, Converter={StaticResource NullToVisibilityConverter}}" 
-                                Content="{TemplateBinding OpenButtonContent}" 
+                                Command="{Binding ExploreCommand,RelativeSource={RelativeSource TemplatedParent}}" />
+                        <Button Grid.Column="3" MinWidth="40" Margin="4 0 0 0"
+                                Visibility="{TemplateBinding OpenButtonContent, Converter={StaticResource NullToVisibilityConverter}}"
+                                Content="{TemplateBinding OpenButtonContent}"
                                 ToolTip="{TemplateBinding OpenButtonToolTip}" ToolTipService.ShowOnDisabled="True"
-                                Command="{Binding OpenCommand,RelativeSource={RelativeSource TemplatedParent}}" 
-                                />
+                                Command="{Binding OpenCommand,RelativeSource={RelativeSource TemplatedParent}}" />
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>
@@ -50,18 +47,18 @@
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
-                        <TextBox 
+                        <TextBox
                             Text="{Binding Directory, RelativeSource={RelativeSource TemplatedParent}}" />
-                        <Button Grid.Column="1" MinWidth="40" Margin="4 0 0 0" 
-                                Visibility="{TemplateBinding BrowseButtonContent, Converter={StaticResource NullToVisibilityConverter}}" 
-                                Content="{TemplateBinding BrowseButtonContent}" 
-                                ToolTip="{TemplateBinding BrowseButtonToolTip}" 
+                        <Button Grid.Column="1" MinWidth="40" Margin="4 0 0 0"
+                                Visibility="{TemplateBinding BrowseButtonContent, Converter={StaticResource NullToVisibilityConverter}}"
+                                Content="{TemplateBinding BrowseButtonContent}"
+                                ToolTip="{TemplateBinding BrowseButtonToolTip}"
                                 Command="{Binding BrowseCommand,RelativeSource={RelativeSource TemplatedParent}}" />
                         <Button Grid.Column="2" MinWidth="40" Margin="4 0 0 0"
-                                Visibility="{TemplateBinding ExploreButtonContent, Converter={StaticResource NullToVisibilityConverter}}" 
-                                Content="{TemplateBinding ExploreButtonContent}" 
+                                Visibility="{TemplateBinding ExploreButtonContent, Converter={StaticResource NullToVisibilityConverter}}"
+                                Content="{TemplateBinding ExploreButtonContent}"
                                 ToolTip="{TemplateBinding ExploreButtonToolTip}" ToolTipService.ShowOnDisabled="True"
-                                Command="{Binding ExploreCommand,RelativeSource={RelativeSource TemplatedParent}}"  />
+                                Command="{Binding ExploreCommand,RelativeSource={RelativeSource TemplatedParent}}" />
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>

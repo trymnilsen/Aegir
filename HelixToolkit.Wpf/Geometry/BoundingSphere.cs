@@ -119,10 +119,10 @@ namespace HelixToolkit.Wpf
         public static BoundingSphere CreateFromRect3D(Rect3D rect)
         {
             return new BoundingSphere
-                {
-                    Center = new Point3D(rect.X + (rect.SizeX * 0.5), rect.Y + (rect.SizeY * 0.5), rect.Z + (rect.SizeZ * 0.5)),
-                    Radius = 0.5 * Math.Sqrt((rect.SizeX * rect.SizeX) + (rect.SizeY * rect.SizeY) + (rect.SizeZ * rect.SizeZ))
-                };
+            {
+                Center = new Point3D(rect.X + (rect.SizeX * 0.5), rect.Y + (rect.SizeY * 0.5), rect.Z + (rect.SizeZ * 0.5)),
+                Radius = 0.5 * Math.Sqrt((rect.SizeX * rect.SizeX) + (rect.SizeY * rect.SizeY) + (rect.SizeZ * rect.SizeZ))
+            };
         }
 
         /// <summary>

@@ -373,16 +373,16 @@ namespace HelixToolkit.Wpf
             rtb.Render(panel);
             rtb.Freeze();
             var ib = new ImageBrush(rtb)
-                         {
-                             Stretch = Stretch.Fill,
-                             ViewboxUnits = BrushMappingMode.RelativeToBoundingBox,
-                             Viewbox = new Rect(0, 0, 1, 1),
-                             ViewportUnits = BrushMappingMode.Absolute,
-                             Viewport = new Rect(0, 0, 1, 1),
-                             TileMode = TileMode.None,
-                             AlignmentX = AlignmentX.Left,
-                             AlignmentY = AlignmentY.Top
-                         };
+            {
+                Stretch = Stretch.Fill,
+                ViewboxUnits = BrushMappingMode.RelativeToBoundingBox,
+                Viewbox = new Rect(0, 0, 1, 1),
+                ViewportUnits = BrushMappingMode.Absolute,
+                Viewport = new Rect(0, 0, 1, 1),
+                TileMode = TileMode.None,
+                AlignmentX = AlignmentX.Left,
+                AlignmentY = AlignmentY.Top
+            };
 
             if (background != null && !background.Equals(Brushes.Transparent))
             {
@@ -443,12 +443,12 @@ namespace HelixToolkit.Wpf
         private FrameworkElement CreateElement(string text)
         {
             var textBlock = new TextBlock(new Run(text))
-                                {
-                                    Foreground = this.Foreground,
-                                    Background = this.Background,
-                                    FontWeight = this.FontWeight,
-                                    Padding = this.Padding
-                                };
+            {
+                Foreground = this.Foreground,
+                Background = this.Background,
+                FontWeight = this.FontWeight,
+                Padding = this.Padding
+            };
 
             if (this.FontFamily != null)
             {
@@ -463,11 +463,11 @@ namespace HelixToolkit.Wpf
             if (this.BorderBrush != null)
             {
                 return new Border
-                           {
-                               BorderBrush = this.BorderBrush,
-                               BorderThickness = this.BorderThickness,
-                               Child = textBlock
-                           };
+                {
+                    BorderBrush = this.BorderBrush,
+                    BorderThickness = this.BorderThickness,
+                    Child = textBlock
+                };
             }
 
             return textBlock;

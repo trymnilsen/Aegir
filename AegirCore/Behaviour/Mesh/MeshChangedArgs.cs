@@ -13,7 +13,7 @@ namespace AegirCore.Behaviour.Mesh
         public MeshDataAssetReference Old { get; private set; }
         public MeshDataAssetReference New { get; private set; }
         public MeshChangeAction Action { get; private set; }
-    
+
         public MeshChangedArgs(MeshDataAssetReference oldMesh, MeshDataAssetReference newMesh, MeshChangeAction action)
         {
             Old = oldMesh;

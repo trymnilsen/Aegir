@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AegirCore.Signals.Simulation
 {
-    class FloatingMeshCalculated
+    internal class FloatingMeshCalculated
     {
     }
 }

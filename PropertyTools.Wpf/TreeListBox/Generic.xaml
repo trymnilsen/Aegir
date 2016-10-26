@@ -26,7 +26,7 @@
                                             <ToggleButton x:Name="Expander" Style="{StaticResource ExpandCollapseToggleStyle}" IsChecked="{Binding IsExpanded, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}" />
                                             <ContentPresenter Grid.Column="1">
                                                 <ContentPresenter.InputBindings>
-                                                    <MouseBinding Gesture="LeftDoubleClick" Command="{Binding ToggleExpandCommand, RelativeSource={RelativeSource TemplatedParent}}"/>
+                                                    <MouseBinding Gesture="LeftDoubleClick" Command="{Binding ToggleExpandCommand, RelativeSource={RelativeSource TemplatedParent}}" />
                                                 </ContentPresenter.InputBindings>
                                             </ContentPresenter>
                                         </Grid>

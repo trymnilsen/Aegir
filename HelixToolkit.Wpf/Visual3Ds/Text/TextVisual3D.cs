@@ -450,12 +450,12 @@ namespace HelixToolkit.Wpf
 
             // First we need a textblock containing the text of our label
             var textBlock = new TextBlock(new Run(this.Text))
-                                {
-                                    Foreground = this.Foreground,
-                                    Background = this.Background,
-                                    FontWeight = this.FontWeight,
-                                    Padding = this.Padding
-                                };
+            {
+                Foreground = this.Foreground,
+                Background = this.Background,
+                FontWeight = this.FontWeight,
+                Padding = this.Padding
+            };
             if (this.FontFamily != null)
             {
                 textBlock.FontFamily = this.FontFamily;
@@ -468,11 +468,11 @@ namespace HelixToolkit.Wpf
             var element = this.BorderBrush != null
                               ? (FrameworkElement)
                                 new Border
-                                    {
-                                        BorderBrush = this.BorderBrush,
-                                        BorderThickness = this.BorderThickness,
-                                        Child = textBlock
-                                    }
+                                {
+                                    BorderBrush = this.BorderBrush,
+                                    BorderThickness = this.BorderThickness,
+                                    Child = textBlock
+                                }
                               : textBlock;
 
             element.Measure(new Size(1000, 1000));

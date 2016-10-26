@@ -386,6 +386,7 @@ namespace PropertyTools.Wpf
 
                     e.Handled = true;
                     break;
+
                 case Key.Right:
                     if (control)
                     {

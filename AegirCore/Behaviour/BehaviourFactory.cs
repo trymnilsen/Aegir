@@ -15,12 +15,12 @@ namespace AegirCore.Behaviour
             try
             {
                 Type behaviourType = Assembly.GetExecutingAssembly().ExportedTypes.FirstOrDefault(x => x.Name == name);
-                if(behaviourType!=null && behaviourType.IsSubclassOf(typeof(BehaviourComponent)))
+                if (behaviourType != null && behaviourType.IsSubclassOf(typeof(BehaviourComponent)))
                 {
                     return Activator.CreateInstance(behaviourType, parent) as BehaviourComponent;
                 }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 throw new ArgumentException($"An error occured while creating the requested behaviour: {name}", e);
             }

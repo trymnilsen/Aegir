@@ -19,7 +19,7 @@ namespace AegirCore.Keyframe
         public Action ActionToExecute { get; private set; }
 
         public EventKeyframe(KeyframePropertyInfo property, object target,
-                        Action action) : base(property,target)
+                        Action action) : base(property, target)
         {
             ActionToExecute = action;
         }

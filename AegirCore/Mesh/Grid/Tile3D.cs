@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AegirCore.Mesh.Grid
 {
-    class Tile3D
+    internal class Tile3D
     {
     }
 }

@@ -8,7 +8,6 @@ namespace Aegir.MapSearch
 {
     public class SearchResult
     {
-
         /// <summary>Gets the formatted name of the search result.</summary>
         public string Name { get; private set; }
 
@@ -20,6 +19,7 @@ namespace Aegir.MapSearch
 
         /// <summary>Gets the longitude coordinate of the center of the search result.</summary>
         public double Longitude { get; private set; }
+
         /// <summary>Initializes a new instance of the SearchResult class.</summary>
         /// <param name="index">The index of the returned search result.</param>
         public SearchResult(int index, string name, double latitude, double longitude)

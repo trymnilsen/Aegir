@@ -21,7 +21,7 @@ namespace Aegir.Rendering
             Transform3D transformation = GetVisualTransformation(Item);
             Visual.Dispatcher.Invoke(() =>
             {
-                if(Visual.Transform != transformation)
+                if (Visual.Transform != transformation)
                 {
                     Visual.Transform = transformation;
                 }

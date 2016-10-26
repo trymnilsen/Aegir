@@ -24,7 +24,6 @@ namespace Aegir
 
         private void FileOpenClick(object sender, RoutedEventArgs e)
         {
-
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)

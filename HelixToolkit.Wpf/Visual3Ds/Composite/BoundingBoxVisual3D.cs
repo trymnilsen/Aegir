@@ -188,6 +188,5 @@ namespace HelixToolkit.Wpf
             fv.EndEdit();
             this.Children.Add(fv);
         }
-
     }
 }

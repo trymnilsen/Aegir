@@ -25,7 +25,6 @@ namespace Aegir.View.Rendering.Menu
             }
         }
 
-
         public SceneContextMenu()
         {
             Debug.WriteLine("Fooo CONTEXT MENU");
@@ -44,9 +43,9 @@ namespace Aegir.View.Rendering.Menu
 
         private void RebuildMenuItems(IEnumerable<MenuListItem> items, ItemsControl parent)
         {
-            foreach(MenuListItem item in items)
+            foreach (MenuListItem item in items)
             {
-                if(item is ClickableMenuItem)
+                if (item is ClickableMenuItem)
                 {
                     MenuItem menuItem = new MenuItem();
                     menuItem.Header = item.Header;
@@ -54,13 +53,13 @@ namespace Aegir.View.Rendering.Menu
                     menuItem.IsCheckable = (item as ClickableMenuItem).Toggle;
                     parent.Items.Add(menuItem);
                 }
-                else if(item is SeperatorMenuItem)
+                else if (item is SeperatorMenuItem)
                 {
                     HeaderedSeparator menuItem = new HeaderedSeparator();
                     menuItem.Header = menuItem.Header;
                     parent.Items.Add(menuItem);
                 }
-                else if(item is SubMenuItem)
+                else if (item is SubMenuItem)
                 {
                     SubMenuItem subMenuItem = item as SubMenuItem;
                     MenuItem menuItem = new MenuItem();

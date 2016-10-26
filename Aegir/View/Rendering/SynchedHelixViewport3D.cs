@@ -11,7 +11,6 @@ namespace Aegir.View.Rendering
 {
     public class SynchedHelixViewport3D : HelixViewport3D
     {
-
         public WpfCamera ViewportCamera
         {
             get { return (WpfCamera)GetValue(ViewportCameraProperty); }
@@ -24,16 +23,14 @@ namespace Aegir.View.Rendering
 
         public static void ViewportCameraChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            if(d is SynchedHelixViewport3D)
+            if (d is SynchedHelixViewport3D)
             {
                 SynchedHelixViewport3D depObject = d as SynchedHelixViewport3D;
-                if(e.NewValue is WpfCamera)
+                if (e.NewValue is WpfCamera)
                 {
                     depObject.Viewport.Camera = e.NewValue as WpfCamera;
                 }
-
             }
         }
-
     }
 }

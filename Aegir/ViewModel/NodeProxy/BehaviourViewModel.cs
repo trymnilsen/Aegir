@@ -12,10 +12,12 @@ namespace Aegir.ViewModel.NodeProxy
     public abstract class BehaviourViewModel : ViewModelBase
     {
         public string Name { get; private set; }
+
         public BehaviourViewModel(string name)
         {
             Name = name;
         }
+
         public InspectableProperty[] GetProperties()
         {
             PropertyInfo[] properties = this.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly);
@@ -27,8 +29,8 @@ namespace Aegir.ViewModel.NodeProxy
             }
 
             return inspectables.ToArray();
-
         }
+
         public override string ToString()
         {
             return string.IsNullOrWhiteSpace(Name) ? GetType().Name : Name;

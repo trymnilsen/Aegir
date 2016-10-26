@@ -23,14 +23,16 @@ namespace Aegir.Rendering.Visual
             this.providers = providers;
             DummyColor = Color.FromRgb(255, 0, 0);
         }
+
         public RenderItem GetRenderItem(RenderingMode mode, Visual3D visual)
         {
-            if(providers.ContainsKey(mode))
+            if (providers.ContainsKey(mode))
             {
                 return providers[mode].GetRenderItem(visual);
             }
             return null;
         }
+
         public Visual3D GetVisual(RenderingMode mode, RenderItem item)
         {
             if (providers.ContainsKey(mode))
@@ -62,8 +64,8 @@ namespace Aegir.Rendering.Visual
         {
             var providers = new Dictionary<RenderingMode, IVisualProvider>();
             //Add new default providers here
-            providers.Add(RenderingMode.Solid,new SolidMeshProvider());
-            providers.Add(RenderingMode.Wireframe,new WireframeVisualProvider());
+            providers.Add(RenderingMode.Solid, new SolidMeshProvider());
+            providers.Add(RenderingMode.Wireframe, new WireframeVisualProvider());
 
             return new VisualFactory(providers);
         }

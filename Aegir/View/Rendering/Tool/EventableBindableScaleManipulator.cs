@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Aegir.View.Rendering.Tool
 {
-    class EventableBindableScaleManipulator
+    internal class EventableBindableScaleManipulator
     {
     }
 }

@@ -26,6 +26,6 @@ namespace PropertyTools.Wpf
         /// Gets or sets the cell template used when editing the cell.
         /// </summary>
         /// <value>A data template that contains edit controls.</value>
-        public DataTemplate CellEditingTemplate { get; set; }        
+        public DataTemplate CellEditingTemplate { get; set; }
     }
 }

@@ -335,7 +335,6 @@ namespace HelixToolkit.Wpf
                 c.Satisfy(this, iteration);
             }
         }
-
     }
 
     /// <summary>
@@ -353,7 +352,6 @@ namespace HelixToolkit.Wpf
         /// The iteration.
         /// </param>
         public abstract void Satisfy(VerletIntegrator vs, int iteration);
-
     }
 
     /// <summary>
@@ -424,7 +422,6 @@ namespace HelixToolkit.Wpf
                 vs.Positions0[this.Index] = vs.Positions[this.Index];
             }
         }
-
     }
 
     /// <summary>
@@ -520,7 +517,6 @@ namespace HelixToolkit.Wpf
                 vs.Positions[i].Z = 0;
             }
         }
-
     }
 
     /// <summary>
@@ -610,6 +606,5 @@ namespace HelixToolkit.Wpf
                 }
             }
         }
-
     }
 }

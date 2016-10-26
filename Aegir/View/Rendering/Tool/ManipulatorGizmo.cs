@@ -1,20 +1,19 @@
-﻿using System;
+﻿using Aegir.Util;
+using HelixToolkit;
+using HelixToolkit.Wpf;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using HelixToolkit;
-using HelixToolkit.Wpf;
-using System.Windows.Media;
 using System.Windows;
-using System.Windows.Media.Media3D;
 using System.Windows.Data;
-using Aegir.Util;
 using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Media3D;
 
 namespace Aegir.View.Rendering.Tool
 {
-
     public class ManipulatorGizmo
     {
         private ManipulatorGizmoVisual manipulatorVisual;
@@ -32,7 +31,6 @@ namespace Aegir.View.Rendering.Tool
             }
         }
 
-
         public TransformDelayMode DelayMode
         {
             get { return delayMode; }
@@ -49,7 +47,7 @@ namespace Aegir.View.Rendering.Tool
             get { return transformHandler; }
             set
             {
-                if(transformHandler != null)
+                if (transformHandler != null)
                 {
                     transformHandler.TargetTransformChanged -= TargetTransformChanged;
                 }
@@ -63,7 +61,7 @@ namespace Aegir.View.Rendering.Tool
             MatrixTransform3D matrixTransform = new MatrixTransform3D();
             Matrix3D matrix = new Matrix3D();
             matrix.Rotate(rotation);
-            matrix.Translate(new Vector3D(position.X,position.Y,position.Z));
+            matrix.Translate(new Vector3D(position.X, position.Y, position.Z));
 
             matrixTransform.Matrix = matrix;
             matrixTransform.Freeze();
@@ -95,16 +93,18 @@ namespace Aegir.View.Rendering.Tool
 
         private void ModeChanged(GizmoMode mode)
         {
-            switch(mode)
+            switch (mode)
             {
                 case GizmoMode.Translate:
                     SetTranslateMode(true);
                     SetRotateMode(false);
                     break;
+
                 case GizmoMode.Rotate:
                     SetRotateMode(true);
                     SetTranslateMode(false);
                     break;
+
                 default:
                     ResetManipulatorMode();
                     break;
@@ -129,7 +129,6 @@ namespace Aegir.View.Rendering.Tool
             manipulatorVisual.CanTranslateX = active;
             manipulatorVisual.CanTranslateY = active;
             manipulatorVisual.CanTranslateZ = active;
-      
         }
 
         private void RescaleGizmos()
@@ -141,6 +140,5 @@ namespace Aegir.View.Rendering.Tool
         {
             //Target.UpdateTransformTarget();
         }
-        
     }
 }

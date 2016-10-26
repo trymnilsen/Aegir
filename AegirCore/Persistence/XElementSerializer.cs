@@ -26,25 +26,28 @@ namespace AegirCore.Persistence
             ns.Add("", "");
             using (XmlWriter xwriter = XmlWriter.Create(sb, settings))
             {
-                serializer.Serialize(xwriter, obj,ns);
+                serializer.Serialize(xwriter, obj, ns);
             }
             return XElement.Parse(sb.ToString());
         }
-        public static T DeserializeFromXElement<T>(XElement  element)
+
+        public static T DeserializeFromXElement<T>(XElement element)
         {
             var serializer = new XmlSerializer(typeof(T));
             return (T)serializer.Deserialize(element.CreateReader());
         }
+
         public static void AddElement(this XElement parent, string name, object value)
         {
             XElement element = new XElement(name);
             element.SetValue(value);
             parent.Add(element);
         }
+
         public static T GetElementAs<T>(this XElement element, string name)
         {
             XElement namedElement = element.Element(name);
-            if(namedElement == null)
+            if (namedElement == null)
             {
                 throw new PersistanceException($"Expected element {name} not found under parent element {element.Name}");
             }

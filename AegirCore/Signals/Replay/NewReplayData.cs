@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AegirCore.Signals.Replay
 {
-    class NewReplayData
+    internal class NewReplayData
     {
     }
 }

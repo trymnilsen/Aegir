@@ -23,6 +23,7 @@ namespace AegirCore.Keyframe
             propertiesMappedKeyframes = new Dictionary<KeyframePropertyInfo, SortedList<int, Keyframe>>();
             nodeMappedPropertyInfo = new Dictionary<Node, List<KeyframePropertyInfo>>();
         }
+
         /// <summary>
         /// Adds the keyframe to the timeline
         /// </summary>
@@ -32,14 +33,14 @@ namespace AegirCore.Keyframe
         public void AddKeyframe(Keyframe key, int time, Node node)
         {
             //Check if we have any entry for this property info
-            if(!propertiesMappedKeyframes.ContainsKey(key.Property))
+            if (!propertiesMappedKeyframes.ContainsKey(key.Property))
             {
                 propertiesMappedKeyframes.Add(key.Property, new SortedList<int, Keyframe>());
             }
             propertiesMappedKeyframes[key.Property].Add(time, key);
 
             //lastly add a nodeMappedProperty entry
-            if(!nodeMappedPropertyInfo.ContainsKey(node))
+            if (!nodeMappedPropertyInfo.ContainsKey(node))
             {
                 nodeMappedPropertyInfo.Add(node, new List<KeyframePropertyInfo>());
             }
@@ -57,16 +58,17 @@ namespace AegirCore.Keyframe
         /// <returns></returns>
         public Keyframe GetAtTime(int time, KeyframePropertyInfo property)
         {
-            if(!propertiesMappedKeyframes.ContainsKey(property))
+            if (!propertiesMappedKeyframes.ContainsKey(property))
             {
                 return null;
             }
-            if(!propertiesMappedKeyframes[property].ContainsKey(time))
+            if (!propertiesMappedKeyframes[property].ContainsKey(time))
             {
                 return null;
             }
             return propertiesMappedKeyframes[property][time];
         }
+
         /// <summary>
         /// Checks if the given node has any keyframes on the timeline
         /// </summary>
@@ -75,18 +77,19 @@ namespace AegirCore.Keyframe
         public bool NodeHasAnyKeyframes(Node node)
         {
             //If there is no node,there is no way we can have any keyframes
-            if(!nodeMappedPropertyInfo.ContainsKey(node))
+            if (!nodeMappedPropertyInfo.ContainsKey(node))
             {
                 return false;
             }
             //We can have an entry but no keyframes
-            if(nodeMappedPropertyInfo[node].Count==0)
+            if (nodeMappedPropertyInfo[node].Count == 0)
             {
                 return false;
             }
 
             return true;
         }
+
         /// <summary>
         /// Returns all Properties currently keyframed
         /// </summary>
@@ -95,6 +98,7 @@ namespace AegirCore.Keyframe
         {
             return propertiesMappedKeyframes.Keys;
         }
+
         /// <summary>
         /// Returns all properties registered for the given node
         /// </summary>
@@ -102,7 +106,7 @@ namespace AegirCore.Keyframe
         /// <returns></returns>
         public IReadOnlyCollection<KeyframePropertyInfo> GetAllPropertiesForNode(Node node)
         {
-            if(nodeMappedPropertyInfo.ContainsKey(node))
+            if (nodeMappedPropertyInfo.ContainsKey(node))
             {
                 return nodeMappedPropertyInfo[node];
             }
@@ -114,7 +118,6 @@ namespace AegirCore.Keyframe
 
         public void RemoveKey(Keyframe key)
         {
-            
         }
 
         /// <summary>
@@ -123,10 +126,11 @@ namespace AegirCore.Keyframe
         /// <param name="start">start of interval</param>
         /// <param name="end">end of interval</param>
         /// <returns></returns>
-        public IReadOnlyDictionary<KeyframePropertyInfo, IReadOnlyDictionary<int,Keyframe>> GetKeyframeBetween(int start, int end)
+        public IReadOnlyDictionary<KeyframePropertyInfo, IReadOnlyDictionary<int, Keyframe>> GetKeyframeBetween(int start, int end)
         {
             return null;
         }
+
         /// <summary>
         /// Raise the keyframe added event
         /// </summary>
@@ -136,7 +140,7 @@ namespace AegirCore.Keyframe
         private void RaiseKeyframeAdded(Node node, int time, Keyframe key)
         {
             KeyframeAddedHandler evt = KeyframeAdded;
-            if(evt != null)
+            if (evt != null)
             {
                 KeyframeAdded(node, time, key);
             }
@@ -146,6 +150,7 @@ namespace AegirCore.Keyframe
         {
             return base.ToString();
         }
+
         /// <summary>
         /// Retrieves the closest keys for the given time and property
         /// </summary>
@@ -191,6 +196,7 @@ namespace AegirCore.Keyframe
 
             return new Tuple<int, int>(firstKey, lastKey);
         }
+
         /// <summary>
         /// Helper method for doing a binary search of the lower bound time
         /// </summary>
@@ -214,10 +220,10 @@ namespace AegirCore.Keyframe
         }
 
         public delegate void KeyframeAddedHandler(Node node, int time, Keyframe key);
+
         /// <summary>
         /// Raised when a keyframe is added to the timeline
         /// </summary>
         public event KeyframeAddedHandler KeyframeAdded;
-
     }
 }

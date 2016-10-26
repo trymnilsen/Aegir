@@ -135,14 +135,14 @@ namespace HelixToolkit.Wpf
                     // TODO: make a square with the thickness as side length
                     p00.X -= dz * p00.W;
                     p00.Y -= dz * p00.W;
-                    
+
                     p01.X -= dz * p01.W;
                     p01.Y += dz * p01.W;
-                    
+
                     p10.X += dz * p10.W;
                     p10.Y -= dz * p10.W;
-                    
-                    p11.X += dz * p11.W;                    
+
+                    p11.X += dz * p11.W;
                     p11.Y += dz * p11.W;
                 }
                 else
@@ -152,7 +152,7 @@ namespace HelixToolkit.Wpf
                     // the normal (dx,dy)
                     var dx = -ly * m;
                     var dy = lx * m;
-                    
+
                     // segment start points
                     p00.X += dx * p00.W;
                     p00.Y += dy * p00.W;

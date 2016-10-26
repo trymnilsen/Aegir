@@ -32,8 +32,10 @@ namespace PropertyTools
             {
                 case ExpressionType.MemberAccess:
                     return ((MemberExpression)expression).Member.Name;
+
                 case ExpressionType.Call:
                     return ((MethodCallExpression)expression).Method.Name;
+
                 case ExpressionType.Convert:
                     var memberExpression = ((UnaryExpression)expression).Operand as MemberExpression;
                     if (memberExpression != null)

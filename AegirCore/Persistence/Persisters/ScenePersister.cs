@@ -18,14 +18,14 @@ namespace AegirCore.Persistence.Persisters
     /// </summary>
     public class ScenePersister : DefaultApplicationPersister
     {
-
         public ScenePersister()
-            :base("DefaultScenegraph.xml")
+            : base("DefaultScenegraph.xml")
         {
             GetHashCode();
         }
 
         private SceneGraph graph;
+
         /// <summary>
         /// The scenegraph to serialize
         /// </summary>
@@ -35,21 +35,16 @@ namespace AegirCore.Persistence.Persisters
             set { graph = value; }
         }
 
-
-
         public override void Load(IEnumerable<XElement> data)
         {
             IEnumerable<XElement> elements = data.Elements();
-            foreach(XElement element in elements)
+            foreach (XElement element in elements)
             {
                 Node rootNode = DeserializeSceneNode(element);
                 Graph.RootNodes.Add(rootNode);
             }
-
-
-
-
         }
+
         /// <summary>
         /// Serializes the current SceneGraph to an XElement
         /// </summary>
@@ -57,12 +52,13 @@ namespace AegirCore.Persistence.Persisters
         public override XElement Save()
         {
             XElement nodes = new XElement(nameof(Graph.RootNodes));
-            foreach(Node node in Graph.RootNodes)
+            foreach (Node node in Graph.RootNodes)
             {
                 nodes.Add(SerializeSceneNodes(node));
             }
             return nodes;
         }
+
         /// <summary>
         /// Deserializes a given XElement into a Node, with the optional parent
         /// </summary>
@@ -76,13 +72,13 @@ namespace AegirCore.Persistence.Persisters
             node.Name = element.Attribute("Name")?.Value;
 
             IEnumerable<XElement> behaviours = element.Element("Components")?.Elements();
-            if(behaviours!=null)
+            if (behaviours != null)
             {
-                foreach(XElement behaviourElement in behaviours)
+                foreach (XElement behaviourElement in behaviours)
                 {
                     BehaviourComponent behaviour =
                         BehaviourFactory.CreateWithName(behaviourElement.Name.LocalName, node);
-                    if(behaviour != null)
+                    if (behaviour != null)
                     {
                         behaviour.Deserialize(behaviourElement);
                         node.Components.Add(behaviour);
@@ -91,9 +87,9 @@ namespace AegirCore.Persistence.Persisters
             }
 
             IEnumerable<XElement> children = element.Element("Children")?.Elements();
-            if(children!=null)
+            if (children != null)
             {
-                foreach(XElement childElement in children)
+                foreach (XElement childElement in children)
                 {
                     Node childNode = DeserializeSceneNode(childElement, node);
                     node.Children.Add(childNode);
@@ -102,6 +98,7 @@ namespace AegirCore.Persistence.Persisters
 
             return node;
         }
+
         /// <summary>
         /// Serializes a Node, It's children (recursive) as well as call's each nodes behaviour serialize method
         /// in a SceneGraph to a XElement object
@@ -116,11 +113,11 @@ namespace AegirCore.Persistence.Persisters
 
             XElement behaviours = new XElement(nameof(node.Components));
             XElement children = new XElement(nameof(node.Children));
-            foreach(BehaviourComponent component in node.Components)
+            foreach (BehaviourComponent component in node.Components)
             {
                 behaviours.Add(component.Serialize());
             }
-            foreach(Node child in node.Children)
+            foreach (Node child in node.Children)
             {
                 children.Add(SerializeSceneNodes(child));
             }

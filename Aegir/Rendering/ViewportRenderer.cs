@@ -4,9 +4,9 @@ using Aegir.View.Rendering.Tool;
 using AegirCore.Behaviour.World;
 using HelixToolkit.Wpf;
 using log4net;
+using System;
 using System.Collections.Generic;
 using System.Windows.Media.Media3D;
-using System;
 
 namespace Aegir.Rendering
 {
@@ -24,14 +24,13 @@ namespace Aegir.Rendering
         private Vector3D CameraTargetOffset;
         public static Point3D followTransformPoint = new Point3D();
 
-
         public Transform FollowTransform
         {
             get { return followTransform; }
             set
             {
                 followTransform = value;
-                followTransformPoint = new Point3D(value.LocalPosition.X,value.LocalPosition.Y,value.LocalPosition.Z);
+                followTransformPoint = new Point3D(value.LocalPosition.X, value.LocalPosition.Y, value.LocalPosition.Z);
             }
         }
 
@@ -60,11 +59,9 @@ namespace Aegir.Rendering
         {
             RenderMode = RenderingMode.Solid;
             this.viewport = viewport;
-            
+
             this.visualFactory = VisualFactory;
             listeners = new List<RenderItemListener>();
-
-
         }
 
         public void AddVisual(Visual3D visual, AegirCore.Behaviour.World.Transform transform)
@@ -73,10 +70,12 @@ namespace Aegir.Rendering
             listeners.Add(listener);
             viewport.Children.Add(visual);
         }
+
         public RenderItem ResolveRenderItem(Visual3D visual)
         {
             return VisualFactory?.GetRenderItem(RenderMode, visual);
         }
+
         public void AddDummy(AegirCore.Behaviour.World.Transform transformBehaviour)
         {
             Visual3D dummyVisual = VisualFactory.GetDummyVisual();
@@ -105,6 +104,7 @@ namespace Aegir.Rendering
                 CameraPositionOffset = new Vector3D(fp.X, fp.Y, fp.Z) - (Vector3D)viewport.CameraController.CameraPosition;
             });
         }
+
         private void DoCameraFollow()
         {
             AegirType.Vector3 fp = followTransform.LocalPosition;

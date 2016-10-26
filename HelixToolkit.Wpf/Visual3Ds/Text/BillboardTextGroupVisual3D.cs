@@ -514,12 +514,12 @@ namespace HelixToolkit.Wpf
         private FrameworkElement CreateElement(string text)
         {
             var textBlock = new TextBlock(new Run(text))
-                                {
-                                    Foreground = this.Foreground,
-                                    Background = this.Background,
-                                    FontWeight = this.FontWeight,
-                                    Padding = this.Padding
-                                };
+            {
+                Foreground = this.Foreground,
+                Background = this.Background,
+                FontWeight = this.FontWeight,
+                Padding = this.Padding
+            };
 
             if (this.FontFamily != null)
             {
@@ -534,11 +534,11 @@ namespace HelixToolkit.Wpf
             if (this.BorderBrush != null)
             {
                 return new Border
-                           {
-                               BorderBrush = this.BorderBrush,
-                               BorderThickness = this.BorderThickness,
-                               Child = textBlock
-                           };
+                {
+                    BorderBrush = this.BorderBrush,
+                    BorderThickness = this.BorderThickness,
+                    Child = textBlock
+                };
             }
 
             return textBlock;
@@ -603,21 +603,21 @@ namespace HelixToolkit.Wpf
                 triangleIndices.Freeze();
 
                 var g = new MeshGeometry3D
-                            {
-                                TriangleIndices = triangleIndices,
-                                TextureCoordinates = textureCoordinates,
-                                Positions = this.builder.GetPositions(billboards, this.Offset)
-                            };
+                {
+                    TriangleIndices = triangleIndices,
+                    TextureCoordinates = textureCoordinates,
+                    Positions = this.builder.GetPositions(billboards, this.Offset)
+                };
                 group.Children.Add(new GeometryModel3D(g, material));
                 this.meshes.Add(g, billboards);
 
                 if (this.Offset.Length > 0)
                 {
                     var pinGeometry = new MeshGeometry3D
-                                          {
-                                              TriangleIndices = triangleIndices,
-                                              Positions = this.builder.GetPinPositions(billboards, this.Offset, this.PinWidth)
-                                          };
+                    {
+                        TriangleIndices = triangleIndices,
+                        Positions = this.builder.GetPinPositions(billboards, this.Offset, this.PinWidth)
+                    };
                     group.Children.Add(new GeometryModel3D(pinGeometry, pinMaterial));
                     this.pinMeshes.Add(pinGeometry, billboards);
                 }

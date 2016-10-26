@@ -41,6 +41,5 @@ namespace HelixToolkit.Wpf
                 zip.Write(input, 0, input.Length);
             }
         }
-
     }
 }

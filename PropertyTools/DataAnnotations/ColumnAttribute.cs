@@ -23,6 +23,7 @@ namespace PropertyTools.DataAnnotations
         /// </summary>
         private readonly object typeId;
 #endif
+
         /// <summary>
         /// Initializes a new instance of the <see cref="ColumnAttribute" /> class.
         /// </summary>

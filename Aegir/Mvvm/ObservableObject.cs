@@ -14,6 +14,7 @@ namespace Aegir.Mvvm
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(memberName));
         }
+
         public event PropertyChangedEventHandler PropertyChanged;
     }
 }

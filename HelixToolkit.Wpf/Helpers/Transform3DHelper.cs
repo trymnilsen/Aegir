@@ -42,6 +42,5 @@ namespace HelixToolkit.Wpf
             g.Children.Add(t2);
             return g;
         }
-
     }
 }

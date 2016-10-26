@@ -8,6 +8,5 @@ namespace Aegir.Messages.ObjectTree
     {
         public SelectedNodeChanged(object sender, NodeViewModel content)
             : base(sender, content) { }
-
     }
 }

@@ -215,6 +215,7 @@ namespace HelixToolkit.Wpf
                     var mid = new Point3D(
                         bounds.X + bounds.SizeX * 0.5, bounds.Y + bounds.SizeY * 0.5, bounds.Z + bounds.SizeZ * 0.5);
                     return (mid - cameraPos).LengthSquared;
+
                 case SortingMethod.BoundingBoxCorners:
                     double d = double.MaxValue;
                     d = Math.Min(d, cameraPos.DistanceTo(new Point3D(bounds.X, bounds.Y, bounds.Z)));
@@ -232,6 +233,7 @@ namespace HelixToolkit.Wpf
                     d = Math.Min(
                         d, cameraPos.DistanceTo(new Point3D(bounds.X, bounds.Y + bounds.SizeY, bounds.Z + bounds.SizeZ)));
                     return d;
+
                 default:
                     var boundingSphere = BoundingSphere.CreateFromRect3D(bounds);
                     return boundingSphere.DistanceFrom(cameraPos);
@@ -327,6 +329,5 @@ namespace HelixToolkit.Wpf
                 this.Children.Add(c);
             }
         }
-
     }
 }

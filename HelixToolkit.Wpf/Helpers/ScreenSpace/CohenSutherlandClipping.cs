@@ -231,6 +231,5 @@ namespace HelixToolkit.Wpf
 
             return code;
         }
-
     }
 }

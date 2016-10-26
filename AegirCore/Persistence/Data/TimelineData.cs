@@ -6,5 +6,4 @@ using System.Threading.Tasks;
 
 namespace AegirCore.Persistence.Data
 {
-
 }

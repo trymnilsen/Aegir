@@ -33,6 +33,5 @@ namespace Aegir.ViewModel
                 RaisePropertyChanged();
             }
         }
-
     }
 }

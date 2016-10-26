@@ -9,6 +9,7 @@
 
 namespace PropertyTools.Wpf
 {
+    using PropertyTools.DataAnnotations;
     using System;
     using System.Collections;
     using System.Collections.Generic;
@@ -19,9 +20,6 @@ namespace PropertyTools.Wpf
     using System.Windows.Data;
     using System.Windows.Input;
     using System.Windows.Media;
-
-    using PropertyTools.DataAnnotations;
-
     using HorizontalAlignment = PropertyTools.DataAnnotations.HorizontalAlignment;
 
     /// <summary>
@@ -567,15 +565,15 @@ namespace PropertyTools.Wpf
             }
 
             var binding = new Binding(this.PropertyName)
-                {
-                    Mode = bindingMode,
-                    Converter = applyConverter ? this.Converter : null,
-                    ConverterParameter = this.ConverterParameter,
-                    StringFormat = formatString,
-                    UpdateSourceTrigger = trigger,
-                    ValidatesOnDataErrors = true,
-                    ValidatesOnExceptions = true
-                };
+            {
+                Mode = bindingMode,
+                Converter = applyConverter ? this.Converter : null,
+                ConverterParameter = this.ConverterParameter,
+                StringFormat = formatString,
+                UpdateSourceTrigger = trigger,
+                ValidatesOnDataErrors = true,
+                ValidatesOnExceptions = true
+            };
             if (this.ConverterCulture != null)
             {
                 binding.ConverterCulture = this.ConverterCulture;

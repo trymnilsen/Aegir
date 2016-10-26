@@ -197,6 +197,5 @@ namespace HelixToolkit.Wpf
                 points.Add(pt);
             }
         }
-
     }
 }

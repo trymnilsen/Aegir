@@ -92,6 +92,5 @@ namespace HelixToolkit.Wpf
             // r.Texture = new MapTexture(@"D:\tmp\CraterLake.png") { Left = r.Left, Right = r.Right, Top = r.Top, Bottom = r.Bottom };
             this.visualChild.Content = r.CreateModel(2);
         }
-
     }
 }

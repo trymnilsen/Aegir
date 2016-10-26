@@ -1,20 +1,20 @@
 ﻿using Aegir.Rendering;
+using Aegir.View.Rendering.Menu;
+using Aegir.View.Rendering.Tool;
 using Aegir.ViewModel.NodeProxy;
+using AegirCore.Scene;
 using HelixToolkit.Wpf;
 using log4net;
 using System;
-using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Media3D;
-using System.Windows.Input;
-using AegirCore.Scene;
-using Aegir.View.Rendering.Tool;
-using Aegir.View.Rendering.Menu;
 
 namespace Aegir.View.Rendering
 {
@@ -59,8 +59,6 @@ namespace Aegir.View.Rendering
                                             new PropertyChangedCallback(OnSceneGraphChanged)
                                         ));
 
-
-
         public ICommand SceneNodeClickedCommand
         {
             get { return (ICommand)GetValue(SceneNodeClickedCommandProperty); }
@@ -69,11 +67,9 @@ namespace Aegir.View.Rendering
 
         // Using a DependencyProperty as the backing store for MyProperty.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty SceneNodeClickedCommandProperty =
-            DependencyProperty.Register(nameof(SceneNodeClickedCommand), 
+            DependencyProperty.Register(nameof(SceneNodeClickedCommand),
                                         typeof(ICommand),
                                         typeof(RenderView));
-
-
 
         public ViewportFocus ActiveViewport
         {
@@ -93,6 +89,7 @@ namespace Aegir.View.Rendering
 
         private ManipulatorGizmo perspectiveGizmo;
         private ManipulatorGizmoTransformHandler gizmoHandler;
+
         public RenderView()
         {
             InitializeComponent();
@@ -108,15 +105,12 @@ namespace Aegir.View.Rendering
             //As we have no way of turning on of Z-depth testing we work around
             //by adding the gizmos to the overlay.. A workaround for making the
             //work around work is needed when it comes to mouse events
-            //See "PerspectiveViewport_MouseDown" below 
+            //See "PerspectiveViewport_MouseDown" below
             //Perhaps this is another reason to switch to SharpDX (Having it all
             //in the same viewport and not doing Z-tests in shader)?
 
             //rightGizmo = new ManipulatorGizmo(RightViewport, gizmoHandler);
             //frontGizmo = new ManipulatorGizmo(FrontViewport, gizmoHandler);
-
-            
-
         }
 
         private void TopLeftView_IsKeyboardFocusWithinChanged(object sender, DependencyPropertyChangedEventArgs e)
@@ -149,7 +143,7 @@ namespace Aegir.View.Rendering
         {
             if (e.PropertyName == nameof(ScenegraphViewModel.SelectedItem))
             {
-                if(Scene?.SelectedItem != null)
+                if (Scene?.SelectedItem != null)
                 {
                     gizmoHandler.TransformTarget = Scene.SelectedItem;
                 }
@@ -211,7 +205,7 @@ namespace Aegir.View.Rendering
 
         private void Viewport_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            if(e.ChangedButton == MouseButton.Left)
+            if (e.ChangedButton == MouseButton.Left)
             {
                 HelixViewport3D viewport = (HelixViewport3D)sender;
                 Viewport3DHelper.HitResult firstHit = viewport.Viewport
@@ -223,18 +217,18 @@ namespace Aegir.View.Rendering
                     Node node = renderHandler.ResolveVisualToNode(viewport, firstHit.Visual);
                     SceneNodeClickedCommand.Execute(node);
                 }
-
             }
         }
+
         /// <summary>
         /// We listen for mouse events on the viewport
-        /// 
+        ///
         /// We get the mouseevents for the perspective (not overlay) viewport
         /// But since they have the same size the events are also usable for the overlay
         /// We check if our 2d X/Y mouse coords are hitting the manipulators in that
         /// viewport and if they are we forward the mousevent to them, allowing them to
         /// get mouseevents despite of the hittest being set to false
-        /// 
+        ///
         /// This enables us to both use the manipulators with the mouse in the overlay
         /// as well as having mouseevents in the perspective viewport for selecting,
         /// paning, rotating the camera etc..
@@ -253,19 +247,17 @@ namespace Aegir.View.Rendering
                 if (firstHit != null)
                 {
                     var element = firstHit.Visual as IMouseDownManipulator;
-                    if(element!=null)
+                    if (element != null)
                     {
                         element.RaiseMouseDown(e);
                     }
                 }
-
             }
         }
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
             gizmoHandler.GizmoMode = GizmoMode.Translate;
-            
         }
 
         private void MenuItem_Click_1(object sender, RoutedEventArgs e)
@@ -295,13 +287,12 @@ namespace Aegir.View.Rendering
                         element.RaiseMouseUp(e);
                     }
                 }
-
             }
         }
 
         private void SceneContextMenuOpening(object sender, ContextMenuEventArgs e)
         {
-            if(menuSource !=null)
+            if (menuSource != null)
             {
                 menuSource.SetNoContextTarget();
             }
@@ -321,20 +312,25 @@ namespace Aegir.View.Rendering
 
         private void ContextMenuItemClicked(string option)
         {
-            switch(option)
+            switch (option)
             {
                 case "Translate":
                     gizmoHandler.GizmoMode = GizmoMode.Translate;
                     break;
+
                 case "Rotate":
                     gizmoHandler.GizmoMode = GizmoMode.Rotate;
                     break;
+
                 case "MapZoomOut":
-                    break; 
+                    break;
+
                 case "MapZoomIn":
                     break;
+
                 case "MapTranslateOffset":
                     break;
+
                 default:
                     gizmoHandler.GizmoMode = GizmoMode.None;
                     break;

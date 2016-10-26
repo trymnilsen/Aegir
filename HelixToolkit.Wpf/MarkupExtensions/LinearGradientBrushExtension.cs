@@ -72,6 +72,5 @@ namespace HelixToolkit.Wpf
         {
             return this.brush;
         }
-
     }
 }

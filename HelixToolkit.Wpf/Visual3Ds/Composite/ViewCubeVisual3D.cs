@@ -395,13 +395,13 @@ namespace HelixToolkit.Wpf
             var grid = new Grid { Width = 20, Height = 20, Background = b };
             grid.Children.Add(
                 new TextBlock
-                    {
-                        Text = text,
-                        VerticalAlignment = VerticalAlignment.Center,
-                        HorizontalAlignment = HorizontalAlignment.Center,
-                        FontSize = 15,
-                        Foreground = Brushes.White
-                    });
+                {
+                    Text = text,
+                    VerticalAlignment = VerticalAlignment.Center,
+                    HorizontalAlignment = HorizontalAlignment.Center,
+                    FontSize = 15,
+                    Foreground = Brushes.White
+                });
             grid.Arrange(new Rect(new Point(0, 0), new Size(20, 20)));
 
             var bmp = new RenderTargetBitmap((int)grid.Width, (int)grid.Height, 96, 96, PixelFormats.Default);

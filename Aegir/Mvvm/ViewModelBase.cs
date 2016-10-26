@@ -26,7 +26,6 @@ namespace Aegir.Mvvm
 
         public ViewModelBase()
         {
-            
         }
     }
 }

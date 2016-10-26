@@ -9,6 +9,7 @@
 
 namespace PropertyTools.Wpf
 {
+    using PropertyTools.DataAnnotations;
     using System;
     using System.Collections;
     using System.Collections.Generic;
@@ -18,8 +19,6 @@ namespace PropertyTools.Wpf
     using System.Linq;
     using System.Windows;
     using System.Windows.Data;
-
-    using PropertyTools.DataAnnotations;
 
     /// <summary>
     /// Provides a property item factory for the <see cref="PropertyGrid" /> control.
@@ -471,6 +470,7 @@ namespace PropertyTools.Wpf
                     case DataType.MultilineText:
                         pi.AcceptsReturn = true;
                         break;
+
                     case DataType.Password:
                         pi.IsPassword = true;
                         break;

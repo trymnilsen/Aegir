@@ -50,19 +50,26 @@ namespace HelixToolkit.Wpf
                 case ".png":
                 case ".jpg":
                     return new BitmapExporter();
+
                 case ".obj":
                 case ".objz":
                     return new ObjExporter();
+
                 case ".xaml":
                     return new XamlExporter();
+
                 case ".xml":
                     return new KerkytheaExporter();
+
                 case ".x3d":
                     return new X3DExporter();
+
                 case ".dae":
                     return new ColladaExporter();
+
                 case ".stl":
                     return new StlExporter();
+
                 default:
                     throw new InvalidOperationException("File format not supported.");
             }

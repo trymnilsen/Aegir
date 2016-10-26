@@ -15,8 +15,8 @@
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
+                <RowDefinition />
+                <RowDefinition />
             </Grid.RowDefinitions>
             <GroupBox Header="Timeline View" Grid.Column="0">
                 <Grid>
@@ -54,7 +54,6 @@
                     <CheckBox IsChecked="{Binding Loop}" Margin="3 5" Grid.Column="1" Grid.Row="2"></CheckBox>
                     <TextBlock Text="Reverse" Grid.Row="3" Margin="2"></TextBlock>
                     <CheckBox IsChecked="{Binding Reverse}" Margin="3 5" Grid.Column="1" Grid.Row="3"></CheckBox>
-
                 </Grid>
             </GroupBox>
             <GroupBox Header="Simulation" Grid.Column="0" Grid.Row="1">
@@ -69,7 +68,6 @@
                     </Grid.RowDefinitions>
                     <TextBlock Text="Ticks: "  Margin="2" Grid.Column="0"></TextBlock>
                     <TextBlock Width="60" Height="20" Margin="2" Grid.Column="1" Text="30" IsEnabled="False"></TextBlock>
-                    
                 </Grid>
             </GroupBox>
         </Grid>

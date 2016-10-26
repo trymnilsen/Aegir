@@ -118,11 +118,11 @@ namespace HelixToolkit.Wpf
                     foreach (var mesh in this.Meshes)
                     {
                         var gm = new GeometryModel3D
-                                     {
-                                         Geometry = mesh.ToMesh(),
-                                         Material = this.Materials[i],
-                                         BackMaterial = this.Materials[i]
-                                     };
+                        {
+                            Geometry = mesh.ToMesh(),
+                            Material = this.Materials[i],
+                            BackMaterial = this.Materials[i]
+                        };
                         if (this.Freeze)
                         {
                             gm.Freeze();
@@ -302,7 +302,7 @@ namespace HelixToolkit.Wpf
         /// The stream reader.
         /// </param>
         /// <param name="normal">
-        /// The normal. 
+        /// The normal.
         /// </param>
         private void ReadFacet(StreamReader reader, string normal)
         {
@@ -472,9 +472,11 @@ namespace HelixToolkit.Wpf
                     case "solid":
                         this.Header = values.Trim();
                         break;
+
                     case "facet":
                         this.ReadFacet(reader, values);
                         break;
+
                     case "endsolid":
                         break;
                 }
@@ -504,7 +506,7 @@ namespace HelixToolkit.Wpf
             }
 
             var reader = new BinaryReader(stream);
-            this.Header = System.Text.Encoding.ASCII.GetString(reader.ReadBytes(80)).Trim(); 
+            this.Header = System.Text.Encoding.ASCII.GetString(reader.ReadBytes(80)).Trim();
             uint numberTriangles = ReadUInt32(reader);
 
             if (length - 84 != numberTriangles * 50)

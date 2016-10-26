@@ -1,11 +1,11 @@
-﻿using AegirCore.Mesh;
+﻿using AegirCore.Asset;
+using AegirCore.Mesh;
 using AegirCore.Scene;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System;
-using System.Xml.Linq;
-using AegirCore.Asset;
 using System.Diagnostics;
+using System.Xml.Linq;
 
 namespace AegirCore.Behaviour.Mesh
 {
@@ -21,7 +21,7 @@ namespace AegirCore.Behaviour.Mesh
             get { return mesh; }
             set
             {
-                if(value!=mesh)
+                if (value != mesh)
                 {
                     ChangeMesh(mesh, value);
                     mesh = value;
@@ -30,9 +30,8 @@ namespace AegirCore.Behaviour.Mesh
         }
 
         public MeshBehaviour(Node parentNode)
-            :base(parentNode)
+            : base(parentNode)
         {
-           
         }
 
         public override XElement Serialize()
@@ -48,11 +47,11 @@ namespace AegirCore.Behaviour.Mesh
             var meshRef = AssetCache.DefaultInstance.Load<MeshDataAssetReference>(assetUri);
             Mesh = meshRef;
         }
+
         private void ChangeMesh(MeshDataAssetReference oldMesh, MeshDataAssetReference newMesh)
         {
-
             MeshChangeAction action;
-            //If mesh is null but value is an instance, 
+            //If mesh is null but value is an instance,
             //we assume we are setting a new mesh
             if (oldMesh == null && newMesh is MeshDataAssetReference)
             {
@@ -64,7 +63,7 @@ namespace AegirCore.Behaviour.Mesh
             {
                 action = MeshChangeAction.Remove;
             }
-            //If none of the above applies we assume its a 
+            //If none of the above applies we assume its a
             //change from one to another
             else
             {
@@ -75,6 +74,7 @@ namespace AegirCore.Behaviour.Mesh
         }
 
         public delegate void MeshChangedHandler(MeshBehaviour source, MeshChangedArgs args);
+
         public event MeshChangedHandler MeshChanged;
     }
 }

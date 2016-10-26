@@ -56,12 +56,11 @@ namespace Aegir.Map
             get { return mapZoom; }
             set
             {
-                if(mapZoom != value)
+                if (mapZoom != value)
                 {
                     log.Debug($"Zoom Changed, new value {value}");
                     ZoomGrid(value);
                 }
-
             }
         }
 
@@ -78,8 +77,6 @@ namespace Aegir.Map
         // Using a DependencyProperty as the backing store for MapCamera.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty MapCameraProperty =
             DependencyProperty.Register(nameof(MapCamera), typeof(CameraController), typeof(MapGridVisual));
-
-
 
         public MapTileGenerator TileGenerator
         {
@@ -99,15 +96,13 @@ namespace Aegir.Map
             }
         }
 
-
         // Using a DependencyProperty as the backing store for TileGenerator.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty TileGeneratorProperty =
             DependencyProperty.Register(nameof(TileGenerator), typeof(MapTileGenerator), typeof(MapGridVisual));
 
-
-        public MapGridVisual() 
+        public MapGridVisual()
         {
-            if(GridSize % 2 == 0)
+            if (GridSize % 2 == 0)
             {
                 gridMode = GridMode.Even;
             }
@@ -119,7 +114,7 @@ namespace Aegir.Map
             TileSize = 32;
             mapZoom = 18;
             translateOnZoom = true;
-            
+
             CompositionTarget.Rendering += CompositionTarget_Rendering;
             //Application.Current.MainWindow.Loaded += MainWindow_Loaded;
             InitGrid();
@@ -164,11 +159,10 @@ namespace Aegir.Map
             {
                 posFracY -= 1;
             }
-            if(mapZoom == 15 || mapZoom == 12)
+            if (mapZoom == 15 || mapZoom == 12)
             {
                 posFracY -= 1;
             }
-
 
             double tileTranslateX = scale.GetTileXTranslateFix(mapCenterNormalizedX, mapZoom, TileSize);//TileSize * fracX;
             double tileTranslateY = scale.GetTileYTranslateFix(mapCenterNormalizedY, mapZoom, TileSize); //TileSize * fracY;
@@ -184,24 +178,22 @@ namespace Aegir.Map
             box.Color = Colors.Yellow;
             double bSize = 1 * TileSize / 32;
             box.Thickness = 1;
-            box.BoundingBox = new Rect3D((tileTranslateX) - bSize / 2, tileTranslateY - bSize/2, 0, bSize, bSize, bSize);
+            box.BoundingBox = new Rect3D((tileTranslateX) - bSize / 2, tileTranslateY - bSize / 2, 0, bSize, bSize, bSize);
             this.Children.Add(box);
-
-
 
             BoundingBoxWireFrameVisual3D box2 = new BoundingBoxWireFrameVisual3D();
             box2.Color = Colors.LimeGreen;
             double b2Size = 1 * TileSize / 32;
             box2.Thickness = 1;
-            box2.BoundingBox = new Rect3D((posFracX * TileSize * -1) - b2Size / 2, (posFracY *TileSize ) - b2Size / 2, 0, b2Size, b2Size, b2Size);
+            box2.BoundingBox = new Rect3D((posFracX * TileSize * -1) - b2Size / 2, (posFracY * TileSize) - b2Size / 2, 0, b2Size, b2Size, b2Size);
             this.Children.Add(box2);
 
             for (int x = 0; x < GridSize; x++)
             {
                 for (int y = 0; y < GridSize; y++)
                 {
-                    int gridPosX = ((x+1) - midNum);
-                    int gridPosY = ((y+1) - midNum);
+                    int gridPosX = ((x + 1) - midNum);
+                    int gridPosY = ((y + 1) - midNum);
 
                     MapTileVisual tile = new MapTileVisual();
 
@@ -209,14 +201,13 @@ namespace Aegir.Map
 
                     TranslateTransform3D position = new TranslateTransform3D();
 
-                    position.OffsetX = (gridPosX  * TileSize) - TileSize / 2;
+                    position.OffsetX = (gridPosX * TileSize) - TileSize / 2;
                     position.OffsetY = (gridPosY * TileSize) - TileSize / 2;
-                    if(TranslateOnZoom)
+                    if (TranslateOnZoom)
                     {
                         position.OffsetX -= tileTranslateX;
                         position.OffsetY -= tileTranslateY;
                     }
-
 
                     tile.Transform = position;
 
@@ -230,14 +221,13 @@ namespace Aegir.Map
                     this.Children.Add(tile);
                     Tiles.Add(tile);
 
-                    if(TileGenerator!=null)
+                    if (TileGenerator != null)
                     {
                         //log.DebugFormat("Requesting Image for x/y/zoom {0} / {1} / {2}", tile.TileX, tile.TileY, mapZoom);
                         TileGenerator.LoadTileImageAsync(tile,
                                      tile.TileX,
                                      tile.TileY,
                                      MapZoomLevel);
-
                     }
                     else
                     {
@@ -255,8 +245,7 @@ namespace Aegir.Map
 
         private void DoCameraMove()
         {
-            
-            if(MapCamera!=null)
+            if (MapCamera != null)
             {
                 //Get camera distance from map
                 double cameraTargetDistance = 0;
@@ -269,24 +258,21 @@ namespace Aegir.Map
                     double deltaZ = MapCamera.CameraPosition.Z - MapCamera.CameraTarget.Z;
 
                     cameraTargetDistance = Math.Sqrt(deltaX * deltaX + deltaY * deltaY + deltaZ * deltaZ);
-
                 }
                 else if (MapCamera.CameraMode == CameraMode.WalkAround)
                 {
                     position = new Point3D();
                 }
-                if(lastZoom != cameraTargetDistance)
+                if (lastZoom != cameraTargetDistance)
                 {
                     //log.DebugFormat("Camera Distance {0} ", cameraTargetDistance);
 
                     int snappedCameraDistance = (int)Math.Floor((cameraTargetDistance - 100) * zoomInverseFactor) * 200 + 100;
                     double zoomFactor = cameraTargetDistance / 200d;
                     int baseNum = (gridMode == GridMode.Even ? 2 : 3);
-                    int SnappedZoomFactor = (int) Math.Ceiling(Math.Log(zoomFactor) / Math.Log((double)baseNum));
+                    int SnappedZoomFactor = (int)Math.Ceiling(Math.Log(zoomFactor) / Math.Log((double)baseNum));
 
-                   
-
-                    int zoomLevel = 18 - Math.Max(0,Math.Min(9,SnappedZoomFactor));
+                    int zoomLevel = 18 - Math.Max(0, Math.Min(9, SnappedZoomFactor));
                     if (zoomLevel != MapZoomLevel)
                     {
                         MapZoomLevel = zoomLevel;
@@ -299,39 +285,38 @@ namespace Aegir.Map
                 //Camera Calculations done, let's check them.
                 //Check if we need to zoom out map
 
-
                 //No Zoom needed, but check if we are outside our current tile and need to add new ones
                 //This is done after zooming as zooming to a new level might increase size of current tile
-                //making us still inside the current tile with a new zoom level 
+                //making us still inside the current tile with a new zoom level
 
                 double cameraDeltaX = position.X - MapCenter.X;
                 double cameraDeltaY = position.Y - MapCenter.Y;
 
-                int tileX = ((int)(cameraDeltaX * snapInverseFactor)) *-1;
+                int tileX = ((int)(cameraDeltaX * snapInverseFactor)) * -1;
                 int tileY = (int)(cameraDeltaY * snapInverseFactor);
 
-                if(tileX != currentTileX || tileY != currentTileY)
+                if (tileX != currentTileX || tileY != currentTileY)
                 {
                     int panDeltaX = ClampPan(tileX - currentTileX);
                     int panDeltaY = ClampPan(tileY - currentTileY);
 
-                    log.DebugFormat("Panning Grid CameraTile (x/y) {0} / {1}  CurrentTile (x/y) {2} / {3} Delta (x/y) {4} / {5}", 
-                        tileX, tileY, 
+                    log.DebugFormat("Panning Grid CameraTile (x/y) {0} / {1}  CurrentTile (x/y) {2} / {3} Delta (x/y) {4} / {5}",
+                        tileX, tileY,
                         currentTileX, currentTileY,
                         panDeltaX, panDeltaY);
 
                     PanGrid(panDeltaX, panDeltaY);
-
                 }
             }
         }
+
         private void ZoomGrid(int value)
         {
             mapZoom = value;
 
             TileSize = GetTileSize(value);
             Children.Clear();
-            foreach(MapTileVisual tile in Tiles)
+            foreach (MapTileVisual tile in Tiles)
             {
                 tile.Fill = null;
                 tile.Dispose();
@@ -339,11 +324,13 @@ namespace Aegir.Map
             Tiles.Clear();
             InitGrid();
         }
+
         private int GetTileSize(int ZoomLevel)
         {
             int baseNum = (gridMode == GridMode.Even ? 2 : 3);
             return (int)Math.Max(32 * Math.Pow(baseNum, 18 - ZoomLevel), 32);
         }
+
         /// <summary>
         /// Pans the Grid Tiles the given amount (only supports one square for now)
         /// </summary>
@@ -386,22 +373,21 @@ namespace Aegir.Map
 
                     foreach (MapTileVisual tile in tilesToMove)
                     {
-                        if(tile.TileX == xTileIndexToFind)
+                        if (tile.TileX == xTileIndexToFind)
                         {
                             tile.TileX += GridSize * panAmountX;
                         }
-                        if(tile.TileY == yTileIndexToFind)
+                        if (tile.TileY == yTileIndexToFind)
                         {
                             tile.TileY += GridSize * panAmountY;
                         }
-
 
                         //Apply this as a transformation as well
                         TranslateTransform3D transform = tile.Transform as TranslateTransform3D;
 
                         if (transform != null)
                         {
-                            transform.OffsetX = ((tile.TileX * TileSize * -1) - TileSize / 2 ) - tileTranslateX;
+                            transform.OffsetX = ((tile.TileX * TileSize * -1) - TileSize / 2) - tileTranslateX;
                             transform.OffsetY = ((tile.TileY * TileSize) - TileSize / 2) - tileTranslateY;
                         }
 
@@ -433,7 +419,7 @@ namespace Aegir.Map
 
             return 0;
         }
-        
+
         private int GetYTileEdge(int panAmount)
         {
             if (panAmount < 0)
@@ -451,16 +437,15 @@ namespace Aegir.Map
 
         private int ClampPan(int pan)
         {
-            if(pan>1)
+            if (pan > 1)
             {
                 return 1;
             }
-            if(pan<-1)
+            if (pan < -1)
             {
                 return -1;
             }
             return pan;
         }
-
     }
 }

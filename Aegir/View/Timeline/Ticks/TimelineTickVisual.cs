@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Aegir.View.Timeline.Ticks
 {
-    class TimelineTickVisual
+    internal class TimelineTickVisual
     {
     }
 }

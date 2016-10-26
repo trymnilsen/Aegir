@@ -79,6 +79,5 @@ namespace HelixToolkit.Wpf
 
             return MaterialHelper.CreateImageMaterial(this.path, this.Opacity, this.UriKind);
         }
-
     }
 }

@@ -9,6 +9,7 @@
 
 namespace PropertyTools.Wpf
 {
+    using PropertyTools.DataAnnotations;
     using System;
     using System.Collections;
     using System.Collections.Generic;
@@ -26,8 +27,6 @@ namespace PropertyTools.Wpf
     using System.Windows.Markup;
     using System.Windows.Media;
     using System.Windows.Threading;
-
-    using PropertyTools.DataAnnotations;
 
     /// <summary>
     /// Displays enumerable data in a customizable grid.
@@ -203,7 +202,6 @@ namespace PropertyTools.Wpf
             typeof(ICellDefinitionFactory),
             typeof(DataGrid),
             new UIPropertyMetadata(new CellDefinitionFactory()));
-
 
         /// <summary>
         /// Identifies the <see cref="CurrentCell"/> dependency property.
@@ -2293,6 +2291,7 @@ namespace PropertyTools.Wpf
                     }
 
                     break;
+
                 case Key.Down:
                     if (row < this.Rows - 1 || (this.CanInsertRows && this.EasyInsert))
                     {
@@ -2310,6 +2309,7 @@ namespace PropertyTools.Wpf
                     }
 
                     break;
+
                 case Key.Left:
                     if (column > 0)
                     {
@@ -2327,6 +2327,7 @@ namespace PropertyTools.Wpf
                     }
 
                     break;
+
                 case Key.Right:
                     if (column < this.Columns - 1 || (this.CanInsertColumns && this.EasyInsert))
                     {
@@ -2344,21 +2345,25 @@ namespace PropertyTools.Wpf
                     }
 
                     break;
+
                 case Key.End:
 
                     // Flag that the next key should be handled differently
                     this.endPressed = true;
                     e.Handled = true;
                     return;
+
                 case Key.Home:
                     column = 0;
                     row = 0;
                     break;
+
                 case Key.Back:
                 case Key.Delete:
                     this.Delete();
                     e.Handled = true;
                     return;
+
                 case Key.F2:
                     if (this.ShowTextBoxEditControl())
                     {
@@ -2366,6 +2371,7 @@ namespace PropertyTools.Wpf
                     }
 
                     return;
+
                 case Key.F4:
                     if (this.OpenComboBoxControl())
                     {
@@ -2373,6 +2379,7 @@ namespace PropertyTools.Wpf
                     }
 
                     return;
+
                 case Key.Space:
                     if (this.ToggleCheck())
                     {
@@ -2380,6 +2387,7 @@ namespace PropertyTools.Wpf
                     }
 
                     return;
+
                 case Key.A:
                     if (control)
                     {
@@ -2388,6 +2396,7 @@ namespace PropertyTools.Wpf
                     }
 
                     return;
+
                 case Key.C:
                     if (control && alt)
                     {
@@ -2396,6 +2405,7 @@ namespace PropertyTools.Wpf
                     }
 
                     return;
+
                 default:
                     return;
             }
@@ -3825,6 +3835,7 @@ namespace PropertyTools.Wpf
                     }
 
                     break;
+
                 case Key.Right:
                     if (textEditor.CaretIndex == textEditor.Text.Length && !isEverythingSelected)
                     {
@@ -3834,12 +3845,14 @@ namespace PropertyTools.Wpf
                     }
 
                     break;
+
                 case Key.Down:
                 case Key.Up:
                     this.EndTextEdit();
                     this.OnKeyDown(e);
                     e.Handled = true;
                     break;
+
                 case Key.Enter:
                     this.EndTextEdit();
                     if (this.InputDirection == InputDirection.Vertical)
@@ -3853,6 +3866,7 @@ namespace PropertyTools.Wpf
 
                     e.Handled = true;
                     break;
+
                 case Key.Escape:
                     this.EndTextEdit(false);
                     e.Handled = true;

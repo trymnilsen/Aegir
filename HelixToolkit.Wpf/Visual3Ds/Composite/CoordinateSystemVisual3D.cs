@@ -179,6 +179,5 @@ namespace HelixToolkit.Wpf
 
             this.Children.Add(new CubeVisual3D { SideLength = d, Fill = Brushes.Black });
         }
-
     }
 }

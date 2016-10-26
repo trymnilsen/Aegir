@@ -54,9 +54,9 @@ namespace HelixToolkit.Wpf
             string text, Brush textColor, bool isDoubleSided, double height, Point3D center, Vector3D textDirection, Vector3D updirection)
         {
             return new ModelVisual3D
-                {
-                    Content = CreateTextLabelModel3D(text, textColor, isDoubleSided, height, center, textDirection, updirection)
-                };
+            {
+                Content = CreateTextLabelModel3D(text, textColor, isDoubleSided, height, center, textDirection, updirection)
+            };
         }
 
         /// <summary>
@@ -143,6 +143,5 @@ namespace HelixToolkit.Wpf
             // And that's all.  Return the result.
             return new GeometryModel3D(mg, mat);
         }
-
     }
 }

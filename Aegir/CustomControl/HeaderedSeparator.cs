@@ -21,7 +21,7 @@ namespace Aegir.CustomControl
             DependencyProperty.Register(
             nameof(Header),
             typeof(string),
-            typeof(HeaderedSeparator),new PropertyMetadata("N/A"));
+            typeof(HeaderedSeparator), new PropertyMetadata("N/A"));
 
         public string Header
         {

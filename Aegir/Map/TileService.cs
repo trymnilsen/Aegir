@@ -15,13 +15,16 @@ namespace Aegir.Map
     {
         /// <summary>The maximum allowed zoom level.</summary>
         public const int MaxZoom = 18;
+
         public const int xTileOffset = 138853;
         public const int yTileOffset = 76243;
+
         /// <summary>The size of a tile in pixels.</summary>
         internal const double TileSize = 256;
 
         private const string TileFormat = @"http://tile.openstreetmap.org/{0}/{1}/{2}.png";
         private static OSMWorldScale worldScale = new OSMWorldScale();
+
         /// <summary>Occurs when the number of downloads changes.</summary>
         public static event EventHandler DownloadCountChanged
         {
@@ -58,7 +61,7 @@ namespace Aegir.Map
             get { return BitmapStore.UserAgent; }
             set { BitmapStore.UserAgent = value; }
         }
-        
+
         /// <summary>Returns a valid value for the specified zoom.</summary>
         /// <param name="zoom">The zoom level to validate.</param>
         /// <returns>A value in the range of 0 - MaxZoom inclusive.</returns>
@@ -145,17 +148,16 @@ namespace Aegir.Map
             double xOffset = worldScale.NormalizeX(xTileOffset);
             double yOffset = worldScale.NormalizeY(yTileOffset);
             double inverseZoom = 18 - zoom;
-            double xNormalized = worldScale.NormalizeX(x * Math.Pow(2,inverseZoom)) + xOffset;
-            double yNormalized = worldScale.NormalizeY(y * Math.Pow(2,inverseZoom)) + yOffset;
+            double xNormalized = worldScale.NormalizeX(x * Math.Pow(2, inverseZoom)) + xOffset;
+            double yNormalized = worldScale.NormalizeY(y * Math.Pow(2, inverseZoom)) + yOffset;
 
             double tileCount = Math.Pow(2, zoom) - 1;
-
 
             int tilex = (int)Math.Floor(tileCount * xNormalized);
             int tiley = (int)Math.Floor(tileCount * yNormalized);
             if (tilex < 0 || tiley < 0 || tilex > tileCount || tiley > tileCount) // Bounds check
             {
-                log4net.LogManager.GetLogger(typeof(TileService)).DebugFormat("Request was outside of bounds zoom: {0} x: {1} y:{2} maxtile:{3}",zoom,x,y,tileCount);
+                log4net.LogManager.GetLogger(typeof(TileService)).DebugFormat("Request was outside of bounds zoom: {0} x: {1} y:{2} maxtile:{3}", zoom, x, y, tileCount);
                 return null;
             }
 
@@ -185,5 +187,4 @@ namespace Aegir.Map
             return value;
         }
     }
-
 }

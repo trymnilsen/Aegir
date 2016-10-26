@@ -10,6 +10,7 @@ namespace Aegir.View.Rendering.Tool
     public interface IMouseDownManipulator
     {
         void RaiseMouseDown(MouseButtonEventArgs e);
+
         void RaiseMouseUp(MouseButtonEventArgs e);
     }
 }

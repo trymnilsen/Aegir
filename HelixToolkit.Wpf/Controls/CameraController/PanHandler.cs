@@ -150,6 +150,5 @@ namespace HelixToolkit.Wpf
             var speed = (this.LastPoint - this.MouseDownPoint) * (40.0 / elapsedTime);
             this.Controller.AddPanForce(speed.X, speed.Y);
         }
-
     }
 }

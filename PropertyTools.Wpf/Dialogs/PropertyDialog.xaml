@@ -6,20 +6,20 @@
         SizeToContent="WidthAndHeight" WindowStyle="SingleBorderWindow" WindowState="Normal"
         WindowStartupLocation="CenterOwner" FocusManager.FocusedElement="{Binding ElementName=PropertyGrid1}"
         ShowInTaskbar="False">
-  <Window.Resources>
-    <Style TargetType="Button">
-      <Setter Property="Width" Value="72" />
-      <Setter Property="Margin" Value="8,0,0,0" />
-    </Style>
-  </Window.Resources>
-  <DockPanel>
-    <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right" Margin="8">
-      <Button Name="OkButton" IsDefault="True" Click="OkButtonClick" Content="OK" />
-      <Button Name="CancelButton" IsCancel="True" Click="CancelButtonClick" Content="Cancel" />
-      <Button Name="ApplyButton" Click="ApplyButtonClick" Content="Apply" />
-      <Button Name="CloseButton" Click="CloseButtonClick" Content="Close" />
-      <Button Name="HelpButton" Click="HelpButtonClick" Content="Help" />
-    </StackPanel>
-    <pt:PropertyGrid x:Name="PropertyGrid1" SelectedObject="{Binding}" Margin="8" />
-  </DockPanel>
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Width" Value="72" />
+            <Setter Property="Margin" Value="8,0,0,0" />
+        </Style>
+    </Window.Resources>
+    <DockPanel>
+        <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right" Margin="8">
+            <Button Name="OkButton" IsDefault="True" Click="OkButtonClick" Content="OK" />
+            <Button Name="CancelButton" IsCancel="True" Click="CancelButtonClick" Content="Cancel" />
+            <Button Name="ApplyButton" Click="ApplyButtonClick" Content="Apply" />
+            <Button Name="CloseButton" Click="CloseButtonClick" Content="Close" />
+            <Button Name="HelpButton" Click="HelpButtonClick" Content="Help" />
+        </StackPanel>
+        <pt:PropertyGrid x:Name="PropertyGrid1" SelectedObject="{Binding}" Margin="8" />
+    </DockPanel>
 </Window>

@@ -1,5 +1,4 @@
-﻿
-using Aegir.Mvvm;
+﻿using Aegir.Mvvm;
 
 namespace Aegir.ViewModel
 {

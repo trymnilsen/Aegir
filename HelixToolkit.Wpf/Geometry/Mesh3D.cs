@@ -127,11 +127,11 @@ namespace HelixToolkit.Wpf
         public object Clone()
         {
             return new Mesh3D
-                {
-                    Vertices = new List<Point3D>(this.Vertices),
-                    Faces = new List<int[]>(this.Faces),
-                    Edges = new List<int[]>(this.Edges)
-                };
+            {
+                Vertices = new List<Point3D>(this.Vertices),
+                Faces = new List<int[]>(this.Faces),
+                Edges = new List<int[]>(this.Edges)
+            };
         }
 
         /// <summary>

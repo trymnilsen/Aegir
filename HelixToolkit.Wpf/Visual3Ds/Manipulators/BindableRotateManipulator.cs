@@ -214,11 +214,11 @@ namespace HelixToolkit.Wpf
 
                 var v = this.lastPoint - this.Position;
                 var u = currentPoint - this.Position;
-                if(v.Length!=0)
+                if (v.Length != 0)
                 {
                     v.Normalize();
                 }
-                if(u.Length!=0)
+                if (u.Length != 0)
                 {
                     u.Normalize();
                 }

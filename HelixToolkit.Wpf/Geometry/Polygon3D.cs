@@ -65,7 +65,7 @@ namespace HelixToolkit.Wpf
         //// http://en.wikipedia.org/wiki/Monotone_polygon
         //// http://www.codeproject.com/KB/recipes/hgrd.aspx LGPL
         //// http://www.springerlink.com/content/g805787811vr1v9v/
-        
+
         /// <summary>
         /// Flattens this polygon.
         /// </summary>

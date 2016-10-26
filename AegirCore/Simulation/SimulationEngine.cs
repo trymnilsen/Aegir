@@ -14,9 +14,9 @@ namespace AegirCore.Simulation
     /// </summary>
     public class SimulationEngine : IDisposable
     {
-
         private object lockObject = new object();
         private static readonly ILog log = LogManager.GetLogger(typeof(SimulationEngine));
+
         /// <summary>
         /// Target time for each simulation step, anything below this is ok
         /// </summary>
@@ -47,6 +47,7 @@ namespace AegirCore.Simulation
 
         private KeyframeEngine keyframeExecutor;
         public ITinyMessengerHub Messenger { get; set; }
+
         public KeyframeEngine KeyframeEngine
         {
             get { return keyframeExecutor; }
@@ -72,6 +73,7 @@ namespace AegirCore.Simulation
             get { return isStarted; }
             set { isStarted = value; }
         }
+
         private int updatesPerSecond;
 
         public int UpdatesPerSecond
@@ -83,7 +85,6 @@ namespace AegirCore.Simulation
                 UpdateTargetUpdatesPerSecond();
             }
         }
-
 
         /// <summary>
         /// Constructs a new engine instance
@@ -126,7 +127,6 @@ namespace AegirCore.Simulation
         /// </summary>
         public void Start()
         {
-
             isStarted = true;
             this.simTime.AppStart();
             int updatesPerMsTarget = 1000 / updatesPerSecond;
@@ -147,11 +147,12 @@ namespace AegirCore.Simulation
         public void Resume()
         {
         }
+
         private void UpdateTargetUpdatesPerSecond()
         {
-
             //simulateStepTimer.Change(0, targetDeltaTime);
         }
+
         /// <summary>
         /// Runs one step of simulation. This is called by the Thread Timer
         /// </summary>
@@ -186,6 +187,7 @@ namespace AegirCore.Simulation
                 }
             }
         }
+
         /// <summary>
         /// Recursively PreUpdates all the Nodes and their children
         /// </summary>
@@ -204,6 +206,7 @@ namespace AegirCore.Simulation
                 PreUpdateScenegraphChildren(n.Children);
             }
         }
+
         /// <summary>
         /// Recursively update all the Nodes and their children
         /// </summary>
@@ -222,6 +225,7 @@ namespace AegirCore.Simulation
                 UpdateScenegraphChildren(n.Children);
             }
         }
+
         /// <summary>
         /// Recursively PostUpdates all the Nodes and their children
         /// </summary>

@@ -15,6 +15,7 @@ namespace Aegir.View.Rendering.Tool
     public class ManipulatorGizmoVisual : ModelVisual3D
     {
         private ManipulatorGizmoTransformHandler transformHandler;
+
         /// <summary>
         /// Identifies the <see cref="CanRotateX"/> dependency property.
         /// </summary>
@@ -67,7 +68,6 @@ namespace Aegir.View.Rendering.Tool
                 typeof(ManipulatorGizmoVisual),
                 new FrameworkPropertyMetadata(
                     Transform3D.Identity, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, TransformChangedCallback));
-
 
         /// <summary>
         /// The rotate x manipulator.
@@ -299,11 +299,10 @@ namespace Aegir.View.Rendering.Tool
         }
 
         public ManipulatorGizmoTransformHandler TransformHandler
-        {   
+        {
             get { return transformHandler; }
             set { transformHandler = value; }
         }
-
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ManipulatorGizmoVisual" /> class.
@@ -327,8 +326,8 @@ namespace Aegir.View.Rendering.Tool
             this.translateZManipulator = new TranslateManipulator
             {
                 Direction = new Vector3D(0, 0, 1),
-                Length= 40,
-                Diameter=4,
+                Length = 40,
+                Diameter = 4,
                 Color = Colors.Blue
             };
             this.rotateXManipulator = new RotateManipulator { InnerDiameter = 25, Diameter = 35, Axis = new Vector3D(1, 0, 0), Color = Colors.Red };
@@ -353,18 +352,18 @@ namespace Aegir.View.Rendering.Tool
                 new Binding("TargetTransform") { Source = this });
 
             BindingOperations.SetBinding(
-                this.rotateXManipulator, 
-                RotateManipulator.DiameterProperty, 
+                this.rotateXManipulator,
+                RotateManipulator.DiameterProperty,
                 new Binding(nameof(Diameter)) { Source = this });
 
             BindingOperations.SetBinding(
-                this.rotateYManipulator, 
-                RotateManipulator.DiameterProperty, 
+                this.rotateYManipulator,
+                RotateManipulator.DiameterProperty,
                 new Binding(nameof(Diameter)) { Source = this });
 
             BindingOperations.SetBinding(
-                this.rotateZManipulator, 
-                RotateManipulator.DiameterProperty, 
+                this.rotateZManipulator,
+                RotateManipulator.DiameterProperty,
                 new Binding(nameof(Diameter)) { Source = this });
 
             BindingOperations.SetBinding(
@@ -382,6 +381,7 @@ namespace Aegir.View.Rendering.Tool
 
             this.UpdateChildren();
         }
+
         /// <summary>
         /// Binds this manipulator to a given Visual3D.
         /// </summary>
@@ -443,11 +443,12 @@ namespace Aegir.View.Rendering.Tool
         private static void TransformChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var instance = d as ManipulatorGizmoVisual;
-            if(instance != null)
+            if (instance != null)
             {
                 instance?.TransformHandler.UpdateTransform(instance.TargetTransform);
             }
         }
+
         /// <summary>
         /// Handles changes in properties related to the child visuals.
         /// </summary>

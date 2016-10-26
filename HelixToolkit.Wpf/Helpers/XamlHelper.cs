@@ -67,6 +67,5 @@ namespace HelixToolkit.Wpf
 
             return sb.ToString();
         }
-
     }
 }

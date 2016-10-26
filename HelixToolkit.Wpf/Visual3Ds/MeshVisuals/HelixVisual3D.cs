@@ -44,7 +44,6 @@ namespace HelixToolkit.Wpf
             }
         }
 
-
         /// <summary>
         /// Identifies the <see cref="Origin"/> dependency property.
         /// </summary>

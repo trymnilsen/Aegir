@@ -106,6 +106,5 @@ namespace HelixToolkit.Wpf
         {
             return new PerspectiveCamera(this.Position, this.LookDirection, this.UpDirection, this.FieldOfView);
         }
-
     }
 }

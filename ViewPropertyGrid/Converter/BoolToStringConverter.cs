@@ -13,7 +13,7 @@ namespace ViewPropertyGrid.Converter
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             bool boolValue = (bool)value;
-            if(boolValue)
+            if (boolValue)
             {
                 return "True";
             }

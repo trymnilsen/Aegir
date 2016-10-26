@@ -48,7 +48,7 @@ namespace PropertyTools.Wpf
         /// <returns>
         /// The <see cref="object" />.
         /// </returns>
-        public override object GetItem(DataGrid owner,  CellRef cell)
+        public override object GetItem(DataGrid owner, CellRef cell)
         {
             var list = owner.ItemsSource;
             var rowIndex = cell.Row;
@@ -80,7 +80,7 @@ namespace PropertyTools.Wpf
         /// <returns>
         /// Returns <c>true</c> if insertion is successful, <c>false</c> otherwise.
         /// </returns>
-        public override bool InsertItem(DataGrid owner,  int index)
+        public override bool InsertItem(DataGrid owner, int index)
         {
             var list = owner.ItemsSource;
             if (list == null)

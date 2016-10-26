@@ -32,6 +32,5 @@ namespace HelixToolkit.Wpf
         /// </summary>
         /// <value>The current position.</value>
         public Point CurrentPosition { get; private set; }
-
     }
 }

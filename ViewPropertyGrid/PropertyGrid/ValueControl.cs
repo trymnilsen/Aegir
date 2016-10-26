@@ -12,6 +12,7 @@ namespace ViewPropertyGrid.PropertyGrid
     {
         public FrameworkElement Control { get; private set; }
         public EditingBehaviour EditBehaviour { get; private set; }
+
         public ValueControl(FrameworkElement control, EditingBehaviour behaviour = EditingBehaviour.AlwaysVisible)
         {
             Control = control;

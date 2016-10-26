@@ -246,6 +246,7 @@ namespace HelixToolkit.Wpf
 
                         newGeometry = intersectedGeometry;
                         break;
+
                     case CuttingOperation.Subtract:
                         var builder = new MeshBuilder(originalMeshGeometry.Normals.Any(), originalMeshGeometry.TextureCoordinates.Any());
 

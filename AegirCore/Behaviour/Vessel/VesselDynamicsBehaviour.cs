@@ -40,11 +40,12 @@ namespace AegirCore.Behaviour.Vessel
             get { return rateOfTurn; }
             set { rateOfTurn = value; }
         }
-        public VesselDynamicsBehaviour(Node parentNode)
-            :base(parentNode)
-        {
 
+        public VesselDynamicsBehaviour(Node parentNode)
+            : base(parentNode)
+        {
         }
+
         public override void Update(SimulationTime time)
         {
             if (simMode == VesselSimulationMode.Simulate)
@@ -76,7 +77,7 @@ namespace AegirCore.Behaviour.Vessel
         public override XElement Serialize()
         {
             XElement element = new XElement(this.GetType().Name);
-            element.AddElement(nameof(Speed),Speed);
+            element.AddElement(nameof(Speed), Speed);
             element.AddElement(nameof(RateOfTurn), RateOfTurn);
             element.AddElement(nameof(Heading), Heading);
             element.AddElement(nameof(SimulationMode), SimulationMode);
@@ -90,7 +91,6 @@ namespace AegirCore.Behaviour.Vessel
             Heading = data.GetElementAs<double>(nameof(Heading));
             RateOfTurn = data.GetElementAs<double>(nameof(RateOfTurn));
             SimulationMode = data.GetElementAs<VesselSimulationMode>(nameof(SimulationMode));
-
         }
     }
 }

@@ -166,6 +166,5 @@ namespace HelixToolkit.Wpf
         {
             ((LightSetup)d).OnShowLightsChanged();
         }
-
     }
 }

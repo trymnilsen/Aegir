@@ -46,7 +46,6 @@ namespace HelixToolkit.Wpf
             typeof(InterlacedEffect),
             new UIPropertyMetadata(true, EvenLeftChanged));
 
-
         /// <summary>
         /// Identifies the <see cref="RightInput"/> dependency property.
         /// </summary>

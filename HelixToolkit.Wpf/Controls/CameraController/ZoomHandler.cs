@@ -71,6 +71,7 @@ namespace HelixToolkit.Wpf
                 case CameraMode.Inspect:
                     this.ChangeCameraDistance(delta, zoomAround);
                     break;
+
                 case CameraMode.WalkAround:
                     this.CameraPosition -= this.CameraLookDirection * delta;
                     break;

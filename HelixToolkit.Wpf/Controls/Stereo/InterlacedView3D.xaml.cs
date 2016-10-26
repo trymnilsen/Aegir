@@ -15,7 +15,7 @@ namespace HelixToolkit.Wpf
     using System.Windows.Markup;
     using System.Windows.Threading;
 
-    // TODO: used 
+    // TODO: used
     /// <summary>
     /// An interlaced viewer control.
     /// </summary>
@@ -51,7 +51,6 @@ namespace HelixToolkit.Wpf
             dt.Tick += (s, e) => this.UpdateEvenLeft();
             dt.Start();
         }
-
 
         /// <summary>
         /// Gets or sets the horizontal offset.
@@ -113,6 +112,7 @@ namespace HelixToolkit.Wpf
                 case Key.Left:
                     this.HorizontalOffset -= 0.001f;
                     break;
+
                 case Key.Right:
                     this.HorizontalOffset += 0.001f;
                     break;
@@ -152,6 +152,5 @@ namespace HelixToolkit.Wpf
         {
             // RightView.Margin=new Thickness(HorizontalOffset,0,-HorizontalOffset,0);
         }
-
     }
 }

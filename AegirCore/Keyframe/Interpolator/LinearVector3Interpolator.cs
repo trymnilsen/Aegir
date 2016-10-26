@@ -11,7 +11,7 @@ namespace AegirCore.Keyframe.Interpolator
     {
         public object InterpolateBetween(object fromValue, object toValue, double t)
         {
-            if(fromValue is Vector3 && toValue is Vector3)
+            if (fromValue is Vector3 && toValue is Vector3)
             {
                 Vector3 from = (Vector3)fromValue;
                 Vector3 to = (Vector3)toValue;

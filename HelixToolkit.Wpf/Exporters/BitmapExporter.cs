@@ -86,12 +86,15 @@ namespace HelixToolkit.Wpf
                 case OutputFormat.Jpg:
                     encoder = new JpegBitmapEncoder();
                     break;
+
                 case OutputFormat.Bmp:
                     encoder = new BmpBitmapEncoder();
                     break;
+
                 case OutputFormat.Png:
                     encoder = new PngBitmapEncoder();
                     break;
+
                 default:
                     throw new InvalidOperationException("Not supported file format.");
             }

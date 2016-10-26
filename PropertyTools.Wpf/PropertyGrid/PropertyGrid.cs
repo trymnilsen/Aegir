@@ -9,6 +9,7 @@
 
 namespace PropertyTools.Wpf
 {
+    using PropertyTools.DataAnnotations;
     using System;
     using System.Collections;
     using System.Collections.Generic;
@@ -22,9 +23,6 @@ namespace PropertyTools.Wpf
     using System.Windows.Data;
     using System.Windows.Input;
     using System.Windows.Media;
-
-    using PropertyTools.DataAnnotations;
-
     using HorizontalAlignment = System.Windows.HorizontalAlignment;
 
     /// <summary>
@@ -85,7 +83,7 @@ namespace PropertyTools.Wpf
         VisibleIfMoreThanOne,
 
         /// <summary>
-        /// The tab strip is collapsed. The contents of the tab pages will be stacked vertically in the control. 
+        /// The tab strip is collapsed. The contents of the tab pages will be stacked vertically in the control.
         /// </summary>
         Collapsed
     }
@@ -216,8 +214,8 @@ namespace PropertyTools.Wpf
         /// </summary>
         public static readonly DependencyProperty PropertyItemFactoryProperty =
             DependencyProperty.Register(
-                "PropertyItemFactory", 
-                typeof(IPropertyItemFactory), 
+                "PropertyItemFactory",
+                typeof(IPropertyItemFactory),
                 typeof(PropertyGrid),
                 new UIPropertyMetadata(new DefaultPropertyItemFactory()));
 
@@ -1236,9 +1234,11 @@ namespace PropertyTools.Wpf
                 case CategoryControlType.GroupBox:
                     groupContentControl = new GroupBox { Margin = new Thickness(0, 4, 0, 4) };
                     break;
+
                 case CategoryControlType.Expander:
                     groupContentControl = new Expander { IsExpanded = index == 0 };
                     break;
+
                 case CategoryControlType.Template:
                     groupContentControl = new HeaderedContentControl
                     {

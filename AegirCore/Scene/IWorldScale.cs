@@ -12,10 +12,12 @@ namespace AegirCore.Scene
         /// Returns the distance in the scene resembling a Meter
         /// </summary>
         double SceneMeter { get; }
+
         double SceneEdgeX { get; }
         double SceneEdgeY { get; }
 
         double NormalizeX(double X);
+
         double NormalizeY(double Y);
     }
 }

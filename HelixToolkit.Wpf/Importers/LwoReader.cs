@@ -90,6 +90,7 @@ namespace HelixToolkit.Wpf
                 {
                     case "LWOB":
                         break;
+
                     case "LWO2":
                         throw new FileFormatException("LWO2 is not yet supported.");
                     default:
@@ -106,9 +107,11 @@ namespace HelixToolkit.Wpf
                         case "PNTS":
                             this.ReadPoints(reader, size);
                             break;
+
                         case "SRFS":
                             this.ReadSurface(reader, size);
                             break;
+
                         case "POLS":
                             this.ReadPolygons(reader, size);
                             break;
@@ -143,11 +146,11 @@ namespace HelixToolkit.Wpf
                     foreach (var mesh in this.Meshes)
                     {
                         var gm = new GeometryModel3D
-                                     {
-                                         Geometry = mesh.ToMesh(),
-                                         Material = this.Materials[index],
-                                         BackMaterial = this.Materials[index]
-                                     };
+                        {
+                            Geometry = mesh.ToMesh(),
+                            Material = this.Materials[index],
+                            BackMaterial = this.Materials[index]
+                        };
                         if (this.Freeze)
                         {
                             gm.Freeze();

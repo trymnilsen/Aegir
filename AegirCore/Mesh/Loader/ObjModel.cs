@@ -47,22 +47,23 @@ namespace AegirCore.Mesh.Loader
         /// <param name="dataStream">stream of the text for the obj data we want to load</param>
         public void LoadObj(StreamReader dataStream)
         {
-            while(!dataStream.EndOfStream)
-            { 
+            while (!dataStream.EndOfStream)
+            {
                 processLine(dataStream.ReadLine());
             }
 
             ExpandTextureVertices();
         }
+
         public MeshData GetMesh()
         {
-            return new MeshData(Faces.ToArray(),Vertices.ToArray(), VertexNomals.ToArray(), TextureCoords.ToArray());
-
+            return new MeshData(Faces.ToArray(), Vertices.ToArray(), VertexNomals.ToArray(), TextureCoords.ToArray());
         }
+
         private void ExpandTextureVertices()
         {
             if (facesTextureCoords.Count != 0)
-            { 
+            {
                 foreach (int index in facesTextureCoords)
                 {
                     Vector3 vector = textureIndices[index];
@@ -77,8 +78,8 @@ namespace AegirCore.Mesh.Loader
                     TextureCoords.Add(new Vector3(1, 1, 0));
                 }
             }
-
         }
+
         /// <summary>
         /// Parses and loads a line from an OBJ file.
         /// Currently only supports V and F
@@ -116,6 +117,7 @@ namespace AegirCore.Mesh.Loader
                 }
             }
         }
+
         private Vector3 LoadFromVectorFromStringArray(string[] data)
         {
             Vector3 v = new Vector3();
@@ -159,13 +161,13 @@ namespace AegirCore.Mesh.Loader
                 //    if (!success) throw new ArgumentException("Could not parse normal parameter as int");
                 //    vertexIndexList[i] = nIndex - 1;
                 //}
-                if(parts.Length>=2)
+                if (parts.Length >= 2)
                 {
                     int tIndex;
                     success = int.TryParse(parts[1], out tIndex);
-                    if(success)
+                    if (success)
                     {
-                        facesTextureCoords.Add(tIndex-1);
+                        facesTextureCoords.Add(tIndex - 1);
                     }
                 }
                 //Load Vertex data
@@ -176,6 +178,5 @@ namespace AegirCore.Mesh.Loader
             }
             Faces.AddRange(vertexIndexList);
         }
-
     }
 }

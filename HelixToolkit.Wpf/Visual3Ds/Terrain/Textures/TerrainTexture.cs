@@ -49,6 +49,5 @@ namespace HelixToolkit.Wpf
         public virtual void Calculate(TerrainModel model, MeshGeometry3D mesh)
         {
         }
-
     }
 }

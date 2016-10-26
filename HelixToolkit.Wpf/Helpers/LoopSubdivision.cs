@@ -143,10 +143,10 @@ namespace HelixToolkit.Wpf
         public MeshGeometry3D ToMeshGeometry3D()
         {
             return new MeshGeometry3D
-                {
-                    Positions = new Point3DCollection(this.Positions),
-                    TriangleIndices = new Int32Collection(this.triangleIndices)
-                };
+            {
+                Positions = new Point3DCollection(this.Positions),
+                TriangleIndices = new Int32Collection(this.triangleIndices)
+            };
         }
 
         /// <summary>

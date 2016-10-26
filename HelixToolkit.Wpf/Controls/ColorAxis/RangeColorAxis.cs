@@ -222,6 +222,7 @@ namespace HelixToolkit.Wpf
                             this.ColorArea.Left - this.TickLength - this.TextMargin - tb.DesiredSize.Width,
                             y - (tb.DesiredSize.Height / 2));
                         break;
+
                     default:
                         p0 = new Point(this.ColorArea.Left, y);
                         p1 = new Point(this.ColorArea.Right + this.TickLength, y);
@@ -231,15 +232,15 @@ namespace HelixToolkit.Wpf
                 }
 
                 var l = new System.Windows.Shapes.Line
-                            {
-                                X1 = p0.X,
-                                X2 = p1.X,
-                                Y1 = p0.Y,
-                                Y2 = p1.Y,
-                                Stroke = this.Foreground,
-                                StrokeThickness = 1,
-                                SnapsToDevicePixels = true
-                            };
+                {
+                    X1 = p0.X,
+                    X2 = p1.X,
+                    Y1 = p0.Y,
+                    Y2 = p1.Y,
+                    Stroke = this.Foreground,
+                    StrokeThickness = 1,
+                    SnapsToDevicePixels = true
+                };
                 this.Canvas.Children.Add(l);
 
                 double h = tb.DesiredSize.Height * 0.7;

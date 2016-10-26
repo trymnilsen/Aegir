@@ -28,7 +28,7 @@ namespace HelixToolkit.Wpf
         public KeyGestureExtension(string gesture)
         {
             var kgc = new KeyGestureConverter();
-            this.gesture=kgc.ConvertFromString(gesture) as KeyGesture;
+            this.gesture = kgc.ConvertFromString(gesture) as KeyGesture;
         }
 
         private KeyGesture gesture;

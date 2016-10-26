@@ -45,16 +45,22 @@ namespace PropertyTools.Wpf
             {
                 case "R":
                     return c.R;
+
                 case "G":
                     return c.G;
+
                 case "B":
                     return c.B;
+
                 case "A":
                     return c.A;
+
                 case "H":
                     return (int)(hsv[0] * 360);
+
                 case "S":
                     return (int)(hsv[1] * 100);
+
                 case "V":
                     return (int)(hsv[2] * 100);
             }

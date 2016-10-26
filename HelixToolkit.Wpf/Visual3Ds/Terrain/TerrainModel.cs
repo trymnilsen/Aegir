@@ -172,6 +172,7 @@ namespace HelixToolkit.Wpf
                 case ".btz":
                     this.ReadZippedFile(source);
                     break;
+
                 case ".bt":
                     this.ReadTerrainFile(source);
                     break;
@@ -277,6 +278,5 @@ namespace HelixToolkit.Wpf
                 this.ReadTerrainFile(deflateStream);
             }
         }
-
     }
 }

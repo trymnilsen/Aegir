@@ -21,11 +21,10 @@ namespace Aegir.View.Timeline
     public partial class TimelineConfigWindow : Window
     {
         public TimelineConfigWindow(TimelineConfig config)
-        { 
+        {
             InitializeComponent();
             DataContext = config;
         }
-
 
         private void Ok_Click(object sender, RoutedEventArgs e)
         {
@@ -34,16 +33,15 @@ namespace Aegir.View.Timeline
 
         private void Cancel_Click(object sender, RoutedEventArgs e)
         {
-
         }
 
         private void Window_Closing(object sender, CancelEventArgs e)
         {
             TimelineConfig config = DataContext as TimelineConfig;
-            if(config!=null)
+            if (config != null)
             {
                 string errorMessage = "";
-                if(!config.Validate(out errorMessage))
+                if (!config.Validate(out errorMessage))
                 {
                     MessageBox.Show(errorMessage);
                     e.Cancel = true;

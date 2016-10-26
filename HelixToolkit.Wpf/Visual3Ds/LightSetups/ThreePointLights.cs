@@ -403,6 +403,5 @@ namespace HelixToolkit.Wpf
             var ri = (byte)Math.Round(i / this.KeyToRimLightRatio);
             lightGroup.Children.Add(new PointLight(Color.FromRgb(ri, ri, ri), this.Target - rimLightDirection));
         }
-
     }
 }

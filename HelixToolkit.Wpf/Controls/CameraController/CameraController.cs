@@ -412,7 +412,7 @@ namespace HelixToolkit.Wpf
         private double zoomSpeed;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static Point3D RotateOrigin = new Point3D();
 
@@ -2168,14 +2168,17 @@ namespace HelixToolkit.Wpf
                         this.AddRotateForce(-1 * f * this.LeftRightRotationSensitivity, 0);
                         e.Handled = true;
                         break;
+
                     case Key.Right:
                         this.AddRotateForce(1 * f * this.LeftRightRotationSensitivity, 0);
                         e.Handled = true;
                         break;
+
                     case Key.Up:
                         this.AddRotateForce(0, -1 * f * this.UpDownRotationSensitivity);
                         e.Handled = true;
                         break;
+
                     case Key.Down:
                         this.AddRotateForce(0, 1 * f * this.UpDownRotationSensitivity);
                         e.Handled = true;
@@ -2190,14 +2193,17 @@ namespace HelixToolkit.Wpf
                         this.AddPanForce(-5 * f * this.LeftRightPanSensitivity, 0);
                         e.Handled = true;
                         break;
+
                     case Key.Right:
                         this.AddPanForce(5 * f * this.LeftRightPanSensitivity, 0);
                         e.Handled = true;
                         break;
+
                     case Key.Up:
                         this.AddPanForce(0, -5 * f * this.UpDownPanSensitivity);
                         e.Handled = true;
                         break;
+
                     case Key.Down:
                         this.AddPanForce(0, 5 * f * this.UpDownPanSensitivity);
                         e.Handled = true;
@@ -2211,10 +2217,12 @@ namespace HelixToolkit.Wpf
                     this.AddZoomForce(-0.1 * f * this.PageUpDownZoomSensitivity);
                     e.Handled = true;
                     break;
+
                 case Key.PageDown:
                     this.AddZoomForce(0.1 * f * this.PageUpDownZoomSensitivity);
                     e.Handled = true;
                     break;
+
                 case Key.Back:
                     if (this.RestoreCameraSetting())
                     {
@@ -2229,18 +2237,23 @@ namespace HelixToolkit.Wpf
                 case Key.W:
                     this.AddMoveForce(0, 0, 0.1 * f * this.MoveSensitivity);
                     break;
+
                 case Key.A:
                     this.AddMoveForce(-0.1 * f * this.LeftRightPanSensitivity, 0, 0);
                     break;
+
                 case Key.S:
                     this.AddMoveForce(0, 0, -0.1 * f * this.MoveSensitivity);
                     break;
+
                 case Key.D:
                     this.AddMoveForce(0.1 * f * this.LeftRightPanSensitivity, 0, 0);
                     break;
+
                 case Key.Z:
                     this.AddMoveForce(0, -0.1 * f * this.LeftRightPanSensitivity, 0);
                     break;
+
                 case Key.Q:
                     this.AddMoveForce(0, 0.1 * f * this.LeftRightPanSensitivity, 0);
                     break;

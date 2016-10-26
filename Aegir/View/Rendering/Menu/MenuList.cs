@@ -22,7 +22,6 @@ namespace Aegir.View.Rendering.Menu
 
         public MenuList()
         {
-
             defaultItems = new MenuListItem[]
             {
                 new ClickableMenuItem("Translate", ()=> { DW("Translate"); }),
@@ -59,7 +58,6 @@ namespace Aegir.View.Rendering.Menu
             };
         }
 
-
         private void OpenSnapPreferences()
         {
             SnapSettings snapPrefWindow = new SnapSettings();
@@ -73,9 +71,10 @@ namespace Aegir.View.Rendering.Menu
         /// <param name="content"></param>
         private void DW(string content)
         {
-            Debug.WriteLine(content+" not yet implemented");
+            Debug.WriteLine(content + " not yet implemented");
             MenuOptionClicked?.Invoke(content);
         }
+
         public void SetContextMouseTarget(NodeViewModel target)
         {
             List<MenuListItem> items = new List<MenuListItem>();
@@ -84,6 +83,7 @@ namespace Aegir.View.Rendering.Menu
             items.Add(new SeperatorMenuItem(target.Name));
             MenuChanged?.Invoke(items);
         }
+
         public void SetNoContextTarget()
         {
             List<MenuListItem> items = new List<MenuListItem>();
@@ -91,9 +91,13 @@ namespace Aegir.View.Rendering.Menu
             items.AddRange(noContextItems);
             MenuChanged?.Invoke(items);
         }
+
         public delegate void MenuOptionClickedHandler(string option);
+
         public event MenuOptionClickedHandler MenuOptionClicked;
+
         public delegate void MenuChangedHandler(IEnumerable<MenuListItem> items);
+
         public event MenuChangedHandler MenuChanged;
     }
 }

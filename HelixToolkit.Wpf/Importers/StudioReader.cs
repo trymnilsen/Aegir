@@ -55,12 +55,14 @@ namespace HelixToolkit.Wpf
 
             // Main Chunks
             EDIT3DS = 0x3D3D, // this is the start of the editor config
+
             KEYF3DS = 0xB000, // this is the start of the keyframer config
             VERSION = 0x0002,
             MESHVERSION = 0x3D3E,
 
             // sub defines of EDIT3DS
             EDIT_MATERIAL = 0xAFFF,
+
             EDIT_CONFIG1 = 0x0100,
             EDIT_CONFIG2 = 0x3E3D,
             EDIT_VIEW_P1 = 0x7012,
@@ -87,6 +89,7 @@ namespace HelixToolkit.Wpf
 
             // sub defines of EDIT_MATERIAL
             MAT_NAME01 = 0xA000,
+
             MAT_LUMINANCE = 0xA010,
             MAT_DIFFUSE = 0xA020,
             MAT_SPECULAR = 0xA030,
@@ -96,6 +99,7 @@ namespace HelixToolkit.Wpf
 
             // sub defines of EDIT_OBJECT
             OBJ_TRIMESH = 0x4100,
+
             OBJ_LIGHT = 0x4600,
             OBJ_CAMERA = 0x4700,
             OBJ_UNKNWN01 = 0x4010,
@@ -103,15 +107,18 @@ namespace HelixToolkit.Wpf
 
             // sub defines of OBJ_CAMERA
             CAM_UNKNWN01 = 0x4710,
+
             CAM_UNKNWN02 = 0x4720,
 
             // sub defines of OBJ_LIGHT
             LIT_OFF = 0x4620,
+
             LIT_SPOT = 0x4610,
             LIT_UNKNWN01 = 0x465A,
 
             // sub defines of OBJ_TRIMESH
             TRI_VERTEXL = 0x4110,
+
             TRI_FACEL2 = 0x4111,
             TRI_FACEL1 = 0x4120,
             TRI_FACEMAT = 0x4130,
@@ -122,6 +129,7 @@ namespace HelixToolkit.Wpf
 
             // sub defs of KEYF3DS
             KEYF_UNKNWN01 = 0xB009,
+
             KEYF_UNKNWN02 = 0xB00A,
             KEYF_FRAMES = 0xB008,
             KEYF_OBJDES = 0xB002,
@@ -130,11 +138,13 @@ namespace HelixToolkit.Wpf
 
             // these define the different color chunk types
             COL_RGB = 0x0010,
+
             COL_TRU = 0x0011, // RGB24
             COL_UNK = 0x0013,
 
             // defines for viewport chunks
             TOP = 0x0001,
+
             BOTTOM = 0x0002,
             LEFT = 0x0003,
             RIGHT = 0x0004,
@@ -194,9 +204,11 @@ namespace HelixToolkit.Wpf
                         case ChunkID.EDIT_MATERIAL:
                             this.ReadMaterial(reader, size);
                             break;
+
                         case ChunkID.EDIT_OBJECT:
                             this.ReadObject(reader, size);
                             break;
+
                         case ChunkID.EDIT3DS:
                         case ChunkID.OBJ_CAMERA:
                         case ChunkID.OBJ_LIGHT:
@@ -529,10 +541,10 @@ namespace HelixToolkit.Wpf
                             {
                                 var img = new BitmapImage(new Uri(path, UriKind.Relative));
                                 var textureBrush = new ImageBrush(img)
-                                                       {
-                                                           ViewportUnits = BrushMappingMode.Absolute,
-                                                           TileMode = TileMode.Tile
-                                                       };
+                                {
+                                    ViewportUnits = BrushMappingMode.Absolute,
+                                    TileMode = TileMode.Tile
+                                };
                                 mg.Children.Add(new DiffuseMaterial(textureBrush));
                             }
                             else
@@ -657,24 +669,24 @@ namespace HelixToolkit.Wpf
             var origin = this.ReadVector(reader);
 
             var matrix = new Matrix3D
-                             {
-                                 M11 = localx.X,
-                                 M21 = localx.Y,
-                                 M31 = localx.Z,
-                                 M12 = localy.X,
-                                 M22 = localy.Y,
-                                 M32 = localy.Z,
-                                 M13 = localz.X,
-                                 M23 = localz.Y,
-                                 M33 = localz.Z,
-                                 OffsetX = origin.X,
-                                 OffsetY = origin.Y,
-                                 OffsetZ = origin.Z,
-                                 M14 = 0,
-                                 M24 = 0,
-                                 M34 = 0,
-                                 M44 = 1
-                             };
+            {
+                M11 = localx.X,
+                M21 = localx.Y,
+                M31 = localx.Z,
+                M12 = localy.X,
+                M22 = localy.Y,
+                M32 = localy.Z,
+                M13 = localz.X,
+                M23 = localz.Y,
+                M33 = localz.Z,
+                OffsetX = origin.X,
+                OffsetY = origin.Y,
+                OffsetZ = origin.Z,
+                M14 = 0,
+                M24 = 0,
+                M34 = 0,
+                M44 = 1
+            };
 
             return matrix;
         }
@@ -706,14 +718,17 @@ namespace HelixToolkit.Wpf
                     case ChunkID.TRI_VERTEXL:
                         positions = this.ReadVertexList(reader);
                         break;
+
                     case ChunkID.TRI_FACEL1:
                         faces = this.ReadFaceList(reader);
                         size -= (faces.Count / 3 * 8) + 2;
                         faceSets = this.ReadFaceSets(reader, size - 6);
                         break;
+
                     case ChunkID.TRI_TEXCOORD:
                         textureCoordinates = this.ReadTexCoords(reader);
                         break;
+
                     case ChunkID.TRI_LOCAL:
                         this.ReadTransformation(reader);
                         break;
@@ -750,7 +765,6 @@ namespace HelixToolkit.Wpf
                 });
                 return;
             }
-
 
             foreach (var fm in faceSets)
             {
@@ -791,10 +805,10 @@ namespace HelixToolkit.Wpf
             public Model3D CreateModel()
             {
                 var geometry = new MeshGeometry3D
-                                   {
-                                       Positions = new Point3DCollection(this.Positions),
-                                       TriangleIndices = new Int32Collection(this.TriangleIndices)
-                                   };
+                {
+                    Positions = new Point3DCollection(this.Positions),
+                    TriangleIndices = new Int32Collection(this.TriangleIndices)
+                };
                 if (this.TextureCoordinates != null)
                 {
                     geometry.TextureCoordinates = new PointCollection(this.TextureCoordinates);

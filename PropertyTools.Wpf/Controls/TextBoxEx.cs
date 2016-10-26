@@ -147,6 +147,7 @@ namespace PropertyTools.Wpf
                     }
 
                     break;
+
                 case Key.Escape:
                     this.Undo();
                     this.SelectAll();

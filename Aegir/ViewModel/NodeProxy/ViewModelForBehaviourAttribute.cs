@@ -9,6 +9,7 @@ namespace Aegir.ViewModel.NodeProxy
     public class ViewModelForBehaviourAttribute : Attribute
     {
         public Type TargetBehaviourType { get; private set; }
+
         public ViewModelForBehaviourAttribute(Type targetBehaviourType)
         {
             TargetBehaviourType = targetBehaviourType;

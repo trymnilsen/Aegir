@@ -11,14 +11,12 @@ namespace Aegir.ViewModel.NodeProxy
 {
     public abstract class TypedBehaviourViewModel<T> : BehaviourViewModel where T : BehaviourComponent
     {
-
         protected T Component { get; private set; }
 
         public TypedBehaviourViewModel(T component, string name)
-            :base(name)
+            : base(name)
         {
             Component = component;
         }
-
     }
 }

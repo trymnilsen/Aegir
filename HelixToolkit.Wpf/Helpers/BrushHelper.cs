@@ -228,6 +228,5 @@ namespace HelixToolkit.Wpf
 
             return CreateSteppedGradientBrush(colors);
         }
-
     }
 }

@@ -71,46 +71,46 @@ namespace HelixToolkit.Wpf
         {
             var b = new MeshBuilder(false, true);
             b.AddCubeFace(
-                this.Center, 
-                new Vector3D(-1, 0, 0), 
-                new Vector3D(0, 0, 1), 
-                this.SideLength, 
-                this.SideLength, 
+                this.Center,
+                new Vector3D(-1, 0, 0),
+                new Vector3D(0, 0, 1),
+                this.SideLength,
+                this.SideLength,
                 this.SideLength);
             b.AddCubeFace(
-                this.Center, 
-                new Vector3D(1, 0, 0), 
-                new Vector3D(0, 0, -1), 
-                this.SideLength, 
-                this.SideLength, 
+                this.Center,
+                new Vector3D(1, 0, 0),
+                new Vector3D(0, 0, -1),
+                this.SideLength,
+                this.SideLength,
                 this.SideLength);
             b.AddCubeFace(
-                this.Center, 
-                new Vector3D(0, -1, 0), 
-                new Vector3D(0, 0, 1), 
-                this.SideLength, 
-                this.SideLength, 
+                this.Center,
+                new Vector3D(0, -1, 0),
+                new Vector3D(0, 0, 1),
+                this.SideLength,
+                this.SideLength,
                 this.SideLength);
             b.AddCubeFace(
-                this.Center, 
-                new Vector3D(0, 1, 0), 
-                new Vector3D(0, 0, -1), 
-                this.SideLength, 
-                this.SideLength, 
+                this.Center,
+                new Vector3D(0, 1, 0),
+                new Vector3D(0, 0, -1),
+                this.SideLength,
+                this.SideLength,
                 this.SideLength);
             b.AddCubeFace(
-                this.Center, 
-                new Vector3D(0, 0, 1), 
-                new Vector3D(0, -1, 0), 
-                this.SideLength, 
-                this.SideLength, 
+                this.Center,
+                new Vector3D(0, 0, 1),
+                new Vector3D(0, -1, 0),
+                this.SideLength,
+                this.SideLength,
                 this.SideLength);
             b.AddCubeFace(
-                this.Center, 
-                new Vector3D(0, 0, -1), 
-                new Vector3D(0, 1, 0), 
-                this.SideLength, 
-                this.SideLength, 
+                this.Center,
+                new Vector3D(0, 0, -1),
+                new Vector3D(0, 1, 0),
+                this.SideLength,
+                this.SideLength,
                 this.SideLength);
 
             return b.ToMesh();

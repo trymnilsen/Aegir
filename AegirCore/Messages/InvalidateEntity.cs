@@ -10,8 +10,7 @@ namespace AegirCore.Messages
 {
     public class InvalidateEntity : GenericTinyMessage<Node>
     {
-        public InvalidateEntity(object sender, Node content) 
+        public InvalidateEntity(object sender, Node content)
             : base(sender, content) { }
-
     }
 }

@@ -33,10 +33,10 @@ namespace HelixToolkit.Wpf
         public static void AnimateOpacity(this IAnimatable obj, double targetOpacity, double animationTime)
         {
             var animation = new DoubleAnimation(targetOpacity, new Duration(TimeSpan.FromMilliseconds(animationTime)))
-                                {
-                                    AccelerationRatio = 0.3,
-                                    DecelerationRatio = 0.5
-                                };
+            {
+                AccelerationRatio = 0.3,
+                DecelerationRatio = 0.5
+            };
             obj.BeginAnimation(UIElement.OpacityProperty, animation);
         }
     }

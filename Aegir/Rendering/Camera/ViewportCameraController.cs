@@ -12,8 +12,6 @@ namespace Aegir.Rendering.Camera
 {
     public class ViewportCameraController : DependencyObject
     {
-
-
         public Transform3D FollowTarget
         {
             get { return (Transform3D)GetValue(FollowTargetProperty); }
@@ -22,11 +20,10 @@ namespace Aegir.Rendering.Camera
 
         // Using a DependencyProperty as the backing store for FollowTarget.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty FollowTargetProperty =
-            DependencyProperty.Register("FollowTarget", typeof(Transform3D), typeof(ViewportCameraController),new PropertyMetadata(FollowTransformChanged));
+            DependencyProperty.Register("FollowTarget", typeof(Transform3D), typeof(ViewportCameraController), new PropertyMetadata(FollowTransformChanged));
 
         private static void FollowTransformChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            
         }
     }
 }

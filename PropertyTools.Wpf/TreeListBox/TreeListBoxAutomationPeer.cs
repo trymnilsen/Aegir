@@ -27,7 +27,7 @@ namespace PropertyTools.Wpf
         }
 
         /// <summary>
-        /// Gets the name of the <see cref="T:TreeListBox" /> that is associated with this <see cref="T:TreeListBoxAutomationPeer" />. 
+        /// Gets the name of the <see cref="T:TreeListBox" /> that is associated with this <see cref="T:TreeListBoxAutomationPeer" />.
         /// This method is called by <see cref="M:System.Windows.Automation.Peers.AutomationPeer.GetClassName" />.
         /// </summary>
         /// <returns>A string that contains "ListBox".</returns>
@@ -37,8 +37,8 @@ namespace PropertyTools.Wpf
         }
 
         /// <summary>
-        /// Gets the collection of child elements of the <see cref="T:System.Windows.Controls.ItemsControl" /> 
-        /// that is associated with this <see cref="T:System.Windows.Automation.Peers.ItemsControlAutomationPeer" />. 
+        /// Gets the collection of child elements of the <see cref="T:System.Windows.Controls.ItemsControl" />
+        /// that is associated with this <see cref="T:System.Windows.Automation.Peers.ItemsControlAutomationPeer" />.
         /// This method is called by <see cref="M:System.Windows.Automation.Peers.AutomationPeer.GetChildren" />.
         /// </summary>
         /// <returns>The collection of child elements.</returns>

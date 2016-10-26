@@ -44,8 +44,8 @@
             <Setter Property="Background" Value="#9F9F9F" />
             <Setter Property="IsRotationEnabled" Value="False" />
             <Setter Property="EnableCurrentPosition" Value="true" />
-            <Setter Property="PanGesture" Value="MiddleClick"/>
-            <Setter Property="IsChangeFieldOfViewEnabled" Value="False"/>
+            <Setter Property="PanGesture" Value="MiddleClick" />
+            <Setter Property="IsChangeFieldOfViewEnabled" Value="False" />
         </Style>
         <ht:LinearConverter x:Key="Multiplier" M="0.5" />
 
@@ -53,18 +53,17 @@
     </UserControl.Resources>
     <Grid>
     <local:SynchedHelixViewport3D x:Name="PerspectiveViewport"
-                                IsRotationEnabled="True" 
+                                IsRotationEnabled="True"
                                 Background="#9F9F9F"
                                 ViewportCamera="{
-                                    Binding ElementName=PerspectiveOverlay, 
+                                    Binding ElementName=PerspectiveOverlay,
                                     Path=Camera}">
 
                 <!--<local:GridLines />-->
-                <map:MapGridVisual TileGenerator="{StaticResource TileGenerator}" 
+                <map:MapGridVisual TileGenerator="{StaticResource TileGenerator}"
                                MapCamera="{
-                                    Binding ElementName=PerspectiveViewport, 
+                                    Binding ElementName=PerspectiveViewport,
                                     Path=CameraController}">
-
                 </map:MapGridVisual>
                 <!--<ht:MeshGeomerytVisual3D>
                     <ht:MeshGeometryVisual3D.MeshGeometry>
@@ -81,27 +80,25 @@
                 </ModelVisual3D>-->
                 <ht:DefaultLights></ht:DefaultLights>
             </local:SynchedHelixViewport3D>
-            <ht:HelixViewport3D x:Name="PerspectiveOverlay" 
+            <ht:HelixViewport3D x:Name="PerspectiveOverlay"
                                 Background="{x:Null}"
                                 ShowFrameRate="True"
                                 IsHeadLightEnabled="False"
                                 IsRotationEnabled="True"
-                                ContextMenuOpening="SceneContextMenuOpening"
-                                
-                                >
+                                ContextMenuOpening="SceneContextMenuOpening">
                 <ht:HelixViewport3D.ContextMenu>
                     <menu:SceneContextMenu MenuItems="{StaticResource MenuListSource}"></menu:SceneContextMenu>
                 </ht:HelixViewport3D.ContextMenu>
-                <!--<ht:CubeVisual3D x:Name="cube1" Transform="{ht:Translate 4,0,2}" Fill="Gold"/>
-                <ht:CombinedManipulator TargetTransform="{Binding Transform, ElementName=cube1}"/>-->
+                <!--<ht:CubeVisual3D x:Name="cube1" Transform="{ht:Translate 4,0,2}" Fill="Gold" />
+                <ht:CombinedManipulator TargetTransform="{Binding Transform, ElementName=cube1}" />-->
                 <ht:DefaultLights></ht:DefaultLights>
                 <ht:HelixViewport3D.RotateGesture>
-                    <MouseGesture MouseAction="MiddleClick" 
+                    <MouseGesture MouseAction="MiddleClick"
                                   Modifiers="Ctrl"></MouseGesture>
                 </ht:HelixViewport3D.RotateGesture>
             </ht:HelixViewport3D>
-    <ToggleButton x:Name="TopRightLabel" 
-                          Content="Perspective" 
+    <ToggleButton x:Name="TopRightLabel"
+                          Content="Perspective"
                           Style="{StaticResource ViewButtonStyle}">
         <ToggleButton.ContextMenu>
             <ContextMenu>

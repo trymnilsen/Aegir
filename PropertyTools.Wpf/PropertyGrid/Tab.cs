@@ -37,7 +37,7 @@ namespace PropertyTools.Wpf
         /// </summary>
         /// <value>The description.</value>
         public string Description { get; set; }
-        
+
         /// <summary>
         /// Gets or sets the id.
         /// </summary>

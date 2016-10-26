@@ -202,27 +202,34 @@ namespace HelixToolkit.Wpf
                 case ContourFacetResult.ZeroOnly:
                     triangleIndices = new[] { index0, this.positionCount++, this.positionCount++ };
                     break;
+
                 case ContourFacetResult.OneAndTwo:
                     triangleIndices = new[] { index1, index2, this.positionCount, this.positionCount++, this.positionCount++, index1 };
                     break;
+
                 case ContourFacetResult.OneOnly:
                     triangleIndices = new[] { index1, this.positionCount++, this.positionCount++ };
                     break;
+
                 case ContourFacetResult.ZeroAndTwo:
                     triangleIndices = new[] { index2, index0, this.positionCount, this.positionCount++, this.positionCount++, index2 };
                     break;
+
                 case ContourFacetResult.TwoOnly:
                     triangleIndices = new[] { index2, this.positionCount++, this.positionCount++ };
                     break;
+
                 case ContourFacetResult.ZeroAndOne:
                     triangleIndices = new[] { index0, index1, this.positionCount, this.positionCount++, this.positionCount++, index0 };
                     break;
+
                 case ContourFacetResult.All:
                     newPositions = new Point3D[0];
                     newNormals = new Vector3D[0];
                     newTextureCoordinates = new Point[0];
                     triangleIndices = new[] { index0, index1, index2 };
                     return;
+
                 default:
                     newPositions = new Point3D[0];
                     newNormals = new Vector3D[0];
@@ -316,7 +323,7 @@ namespace HelixToolkit.Wpf
         }
 
         /// <summary>
-        /// Initializes the facet data and calculates the <see cref="sides"/> values from the specified triangle indices. 
+        /// Initializes the facet data and calculates the <see cref="sides"/> values from the specified triangle indices.
         /// </summary>
         /// <param name="index0">The first triangle index of the facet.</param>
         /// <param name="index1">The second triangle index of the facet.</param>

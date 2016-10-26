@@ -4,7 +4,7 @@
              xmlns:local="clr-namespace:Aegir"
                 xmlns:vm="clr-namespace:Aegir.ViewModel"
              StartupUri="MainWindow.xaml"
-             
+
              Startup="Application_Startup" DispatcherUnhandledException="Application_DispatcherUnhandledException">
     <Application.Resources>
         <ResourceDictionary>

@@ -61,8 +61,10 @@ namespace PropertyTools.Wpf
             {
                 case "L":
                     return System.Windows.HorizontalAlignment.Left;
+
                 case "R":
                     return System.Windows.HorizontalAlignment.Right;
+
                 default:
                     return System.Windows.HorizontalAlignment.Center;
             }

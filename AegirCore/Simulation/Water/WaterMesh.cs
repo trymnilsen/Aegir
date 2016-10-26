@@ -26,7 +26,6 @@ namespace AegirCore.Simulation.Water
             set { numOfXQuads = value; }
         }
 
-
         public int YQuads
         {
             get { return numOfYQuads; }
@@ -35,15 +34,15 @@ namespace AegirCore.Simulation.Water
 
         public WaterMesh()
         {
-
         }
+
         public float GetWaterHeight(Vector3 position)
         {
             return 0f;
         }
+
         private void RegenerateWaterMesh()
         {
-
         }
     }
 }

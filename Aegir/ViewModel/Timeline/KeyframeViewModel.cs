@@ -1,13 +1,12 @@
 ﻿using Aegir.Mvvm;
+using AegirCore.Keyframe;
 using GalaSoft.MvvmLight.Command;
 using System.ComponentModel;
-using AegirCore.Keyframe;
 
 namespace Aegir.ViewModel.Timeline
 {
     public class KeyframeViewModel : ViewModelBase
     {
-
         private int time;
         private bool isEnabled;
         private double posX;
@@ -138,6 +137,7 @@ namespace Aegir.ViewModel.Timeline
                 }
             }
         }
+
         [Category("Transform")]
         [DisplayName("Yaw")]
         public double Yaw
@@ -152,6 +152,7 @@ namespace Aegir.ViewModel.Timeline
                 }
             }
         }
+
         public RelayCommand DeleteKeyframe { get; set; }
 
         public KeyframeViewModel(Keyframe key, int time, TimelineViewModel timelineViewModel)
@@ -161,6 +162,7 @@ namespace Aegir.ViewModel.Timeline
             this.timelineViewModel = timelineViewModel;
             DeleteKeyframe = new RelayCommand(DoDeleteKeyframe);
         }
+
         private void DoDeleteKeyframe()
         {
             timelineViewModel.RemoveKey(key);

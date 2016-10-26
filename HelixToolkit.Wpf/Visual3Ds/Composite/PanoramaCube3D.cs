@@ -260,6 +260,5 @@ namespace HelixToolkit.Wpf
 
             this.visualChild.Content = group;
         }
-
     }
 }

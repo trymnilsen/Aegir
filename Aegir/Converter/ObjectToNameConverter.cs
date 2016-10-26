@@ -13,11 +13,11 @@ namespace Aegir.Converter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if(value==null)
+            if (value == null)
             {
                 return "None";
             }
-            if(value is INameable)
+            if (value is INameable)
             {
                 return (value as INameable).Name;
             }

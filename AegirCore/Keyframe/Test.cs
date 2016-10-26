@@ -9,10 +9,10 @@ namespace AegirCore.Keyframe
     public class Test
     {
         public SortedList<int, string> values = new SortedList<int, string>();
+
         public void AddItem(int time, string value)
         {
             values.Add(time, value);
         }
-        
     }
 }

@@ -115,17 +115,20 @@ namespace HelixToolkit.Wpf
         public CombinedManipulator()
         {
             this.translateXManipulator = new TranslateManipulator
-                {
-                   Direction = new Vector3D(1, 0, 0), Color = Colors.Red
-                };
+            {
+                Direction = new Vector3D(1, 0, 0),
+                Color = Colors.Red
+            };
             this.translateYManipulator = new TranslateManipulator
-                {
-                   Direction = new Vector3D(0, 1, 0), Color = Colors.Green
-                };
+            {
+                Direction = new Vector3D(0, 1, 0),
+                Color = Colors.Green
+            };
             this.translateZManipulator = new TranslateManipulator
-                {
-                   Direction = new Vector3D(0, 0, 1), Color = Colors.Blue
-                };
+            {
+                Direction = new Vector3D(0, 0, 1),
+                Color = Colors.Blue
+            };
             this.rotateXManipulator = new RotateManipulator { Axis = new Vector3D(1, 0, 0), Color = Colors.Red };
             this.rotateYManipulator = new RotateManipulator { Axis = new Vector3D(0, 1, 0), Color = Colors.Green };
             this.rotateZManipulator = new RotateManipulator { Axis = new Vector3D(0, 0, 1), Color = Colors.Blue };

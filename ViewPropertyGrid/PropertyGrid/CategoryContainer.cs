@@ -14,7 +14,6 @@ namespace ViewPropertyGrid.PropertyGrid
 
         public CategoryContainer()
         {
-
             internalPanel = new StackPanel();
             this.Content = internalPanel;
             this.IsExpanded = true;

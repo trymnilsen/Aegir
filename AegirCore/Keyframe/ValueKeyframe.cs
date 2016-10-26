@@ -21,7 +21,7 @@ namespace AegirCore.Keyframe
         public object Value { get; private set; }
 
         public ValueKeyframe(KeyframePropertyInfo property, object target,
-                        object value) : base(property,target)
+                        object value) : base(property, target)
         {
             Value = value;
         }
@@ -29,7 +29,7 @@ namespace AegirCore.Keyframe
         public override string ToString()
         {
             StringBuilder keyframeName = new StringBuilder();
-            if(Target is BehaviourComponent)
+            if (Target is BehaviourComponent)
             {
                 BehaviourComponent behaviour = (Target as BehaviourComponent);
                 keyframeName.Append(behaviour.Parent.ToString());
@@ -46,6 +46,5 @@ namespace AegirCore.Keyframe
 
             return keyframeName.ToString();
         }
-
     }
 }

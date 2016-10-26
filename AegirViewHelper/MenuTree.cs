@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AegirViewHelper
 {
-    class MenuTree
+    internal class MenuTree
     {
     }
 }

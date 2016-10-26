@@ -71,6 +71,5 @@ namespace HelixToolkit.Wpf
             image.EndInit();
             return new ImageBrush(image);
         }
-
     }
 }

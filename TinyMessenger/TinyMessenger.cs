@@ -31,7 +31,6 @@ namespace TinyMessenger
         public void Handle(ITinyMessage message, Exception exception)
         {
             //default behaviour is to do nothing
-
         }
     }
 
@@ -56,6 +55,7 @@ namespace TinyMessenger
         /// keep the message around and prevent the sender from being collected.
         /// </summary>
         private WeakReference _Sender;
+
         public object Sender
         {
             get
@@ -200,7 +200,7 @@ namespace TinyMessenger
 
     /// <summary>
     /// Message proxy definition.
-    /// 
+    ///
     /// A message proxy can be used to intercept/alter messages and/or
     /// marshall delivery actions onto a particular thread.
     /// </summary>
@@ -211,7 +211,7 @@ namespace TinyMessenger
 
     /// <summary>
     /// Default "pass through" proxy.
-    /// 
+    ///
     /// Does nothing other than deliver the message.
     /// </summary>
     public sealed class DefaultTinyMessageProxy : ITinyMessageProxy
@@ -242,9 +242,11 @@ namespace TinyMessenger
             subscription.Deliver(message);
         }
     }
-    #endregion
+
+    #endregion Message Types / Interfaces
 
     #region Exceptions
+
     /// <summary>
     /// Thrown when an exceptions occurs while subscribing to a message type
     /// </summary>
@@ -255,18 +257,18 @@ namespace TinyMessenger
         public TinyMessengerSubscriptionException(Type messageType, string reason)
             : base(String.Format(ERROR_TEXT, messageType, reason))
         {
-
         }
 
         public TinyMessengerSubscriptionException(Type messageType, string reason, Exception innerException)
             : base(String.Format(ERROR_TEXT, messageType, reason), innerException)
         {
-
         }
     }
-    #endregion
+
+    #endregion Exceptions
 
     #region Hub Interface
+
     /// <summary>
     /// Messenger hub responsible for taking subscriptions/publications and delivering of messages.
     /// </summary>
@@ -275,7 +277,7 @@ namespace TinyMessenger
         /// <summary>
         /// Subscribe to a message type with the given destination and delivery action.
         /// All references are held with WeakReferences
-        /// 
+        ///
         /// All messages of this type will be delivered.
         /// </summary>
         /// <typeparam name="TMessage">Type of message</typeparam>
@@ -287,7 +289,7 @@ namespace TinyMessenger
         /// Subscribe to a message type with the given destination and delivery action.
         /// Messages will be delivered via the specified proxy.
         /// All references (apart from the proxy) are held with WeakReferences
-        /// 
+        ///
         /// All messages of this type will be delivered.
         /// </summary>
         /// <typeparam name="TMessage">Type of message</typeparam>
@@ -298,7 +300,7 @@ namespace TinyMessenger
 
         /// <summary>
         /// Subscribe to a message type with the given destination and delivery action.
-        /// 
+        ///
         /// All messages of this type will be delivered.
         /// </summary>
         /// <typeparam name="TMessage">Type of message</typeparam>
@@ -310,7 +312,7 @@ namespace TinyMessenger
         /// <summary>
         /// Subscribe to a message type with the given destination and delivery action.
         /// Messages will be delivered via the specified proxy.
-        /// 
+        ///
         /// All messages of this type will be delivered.
         /// </summary>
         /// <typeparam name="TMessage">Type of message</typeparam>
@@ -323,7 +325,7 @@ namespace TinyMessenger
         /// <summary>
         /// Subscribe to a message type with the given destination and delivery action with the given filter.
         /// All references are held with WeakReferences
-        /// 
+        ///
         /// Only messages that "pass" the filter will be delivered.
         /// </summary>
         /// <typeparam name="TMessage">Type of message</typeparam>
@@ -335,7 +337,7 @@ namespace TinyMessenger
         /// Subscribe to a message type with the given destination and delivery action with the given filter.
         /// Messages will be delivered via the specified proxy.
         /// All references (apart from the proxy) are held with WeakReferences
-        /// 
+        ///
         /// Only messages that "pass" the filter will be delivered.
         /// </summary>
         /// <typeparam name="TMessage">Type of message</typeparam>
@@ -347,7 +349,7 @@ namespace TinyMessenger
         /// <summary>
         /// Subscribe to a message type with the given destination and delivery action with the given filter.
         /// All references are held with WeakReferences
-        /// 
+        ///
         /// Only messages that "pass" the filter will be delivered.
         /// </summary>
         /// <typeparam name="TMessage">Type of message</typeparam>
@@ -360,7 +362,7 @@ namespace TinyMessenger
         /// Subscribe to a message type with the given destination and delivery action with the given filter.
         /// Messages will be delivered via the specified proxy.
         /// All references are held with WeakReferences
-        /// 
+        ///
         /// Only messages that "pass" the filter will be delivered.
         /// </summary>
         /// <typeparam name="TMessage">Type of message</typeparam>
@@ -372,7 +374,7 @@ namespace TinyMessenger
 
         /// <summary>
         /// Unsubscribe from a particular message type.
-        /// 
+        ///
         /// Does not throw an exception if the subscription is not found.
         /// </summary>
         /// <typeparam name="TMessage">Type of message</typeparam>
@@ -401,15 +403,17 @@ namespace TinyMessenger
         /// <param name="callback">AsyncCallback called on completion</param>
         void PublishAsync<TMessage>(TMessage message, AsyncCallback callback) where TMessage : class, ITinyMessage;
     }
-    #endregion
+
+    #endregion Hub Interface
 
     #region Hub Implementation
+
     /// <summary>
     /// Messenger hub responsible for taking subscriptions/publications and delivering of messages.
     /// </summary>
     public sealed class TinyMessengerHub : ITinyMessengerHub
     {
-        readonly ISubscriberErrorHandler _SubscriberErrorHandler;
+        private readonly ISubscriberErrorHandler _SubscriberErrorHandler;
 
         #region ctor methods
 
@@ -422,9 +426,11 @@ namespace TinyMessenger
         {
             _SubscriberErrorHandler = subscriberErrorHandler;
         }
-        #endregion
+
+        #endregion ctor methods
 
         #region Private Types and Interfaces
+
         private class WeakTinyMessageSubscription<TMessage> : ITinyMessageSubscription
             where TMessage : class, ITinyMessage
         {
@@ -541,9 +547,11 @@ namespace TinyMessenger
                 _MessageFilter = messageFilter;
             }
         }
-        #endregion
+
+        #endregion Private Types and Interfaces
 
         #region Subscription dictionary
+
         private class SubscriptionItem
         {
             public ITinyMessageProxy Proxy { get; private set; }
@@ -558,13 +566,15 @@ namespace TinyMessenger
 
         private readonly object _SubscriptionsPadlock = new object();
         private readonly List<SubscriptionItem> _Subscriptions = new List<SubscriptionItem>();
-        #endregion
+
+        #endregion Subscription dictionary
 
         #region Public API
+
         /// <summary>
         /// Subscribe to a message type with the given destination and delivery action.
         /// All references are held with strong references
-        /// 
+        ///
         /// All messages of this type will be delivered.
         /// </summary>
         /// <typeparam name="TMessage">Type of message</typeparam>
@@ -579,7 +589,7 @@ namespace TinyMessenger
         /// Subscribe to a message type with the given destination and delivery action.
         /// Messages will be delivered via the specified proxy.
         /// All references (apart from the proxy) are held with strong references
-        /// 
+        ///
         /// All messages of this type will be delivered.
         /// </summary>
         /// <typeparam name="TMessage">Type of message</typeparam>
@@ -593,7 +603,7 @@ namespace TinyMessenger
 
         /// <summary>
         /// Subscribe to a message type with the given destination and delivery action.
-        /// 
+        ///
         /// All messages of this type will be delivered.
         /// </summary>
         /// <typeparam name="TMessage">Type of message</typeparam>
@@ -608,7 +618,7 @@ namespace TinyMessenger
         /// <summary>
         /// Subscribe to a message type with the given destination and delivery action.
         /// Messages will be delivered via the specified proxy.
-        /// 
+        ///
         /// All messages of this type will be delivered.
         /// </summary>
         /// <typeparam name="TMessage">Type of message</typeparam>
@@ -624,7 +634,7 @@ namespace TinyMessenger
         /// <summary>
         /// Subscribe to a message type with the given destination and delivery action with the given filter.
         /// All references are held with WeakReferences
-        /// 
+        ///
         /// Only messages that "pass" the filter will be delivered.
         /// </summary>
         /// <typeparam name="TMessage">Type of message</typeparam>
@@ -639,7 +649,7 @@ namespace TinyMessenger
         /// Subscribe to a message type with the given destination and delivery action with the given filter.
         /// Messages will be delivered via the specified proxy.
         /// All references (apart from the proxy) are held with WeakReferences
-        /// 
+        ///
         /// Only messages that "pass" the filter will be delivered.
         /// </summary>
         /// <typeparam name="TMessage">Type of message</typeparam>
@@ -654,7 +664,7 @@ namespace TinyMessenger
         /// <summary>
         /// Subscribe to a message type with the given destination and delivery action with the given filter.
         /// All references are held with WeakReferences
-        /// 
+        ///
         /// Only messages that "pass" the filter will be delivered.
         /// </summary>
         /// <typeparam name="TMessage">Type of message</typeparam>
@@ -670,7 +680,7 @@ namespace TinyMessenger
         /// Subscribe to a message type with the given destination and delivery action with the given filter.
         /// Messages will be delivered via the specified proxy.
         /// All references are held with WeakReferences
-        /// 
+        ///
         /// Only messages that "pass" the filter will be delivered.
         /// </summary>
         /// <typeparam name="TMessage">Type of message</typeparam>
@@ -685,7 +695,7 @@ namespace TinyMessenger
 
         /// <summary>
         /// Unsubscribe from a particular message type.
-        /// 
+        ///
         /// Does not throw an exception if the subscription is not found.
         /// </summary>
         /// <typeparam name="TMessage">Type of message</typeparam>
@@ -725,9 +735,11 @@ namespace TinyMessenger
         {
             PublishAsyncInternal<TMessage>(message, callback);
         }
-        #endregion
+
+        #endregion Public API
 
         #region Internal Methods
+
         private TinyMessageSubscriptionToken AddSubscriptionInternal<TMessage>(Action<TMessage> deliveryAction, Func<TMessage, bool> messageFilter, bool strongReference, ITinyMessageProxy proxy)
                 where TMessage : class, ITinyMessage
         {
@@ -806,7 +818,9 @@ namespace TinyMessenger
 
             publishAction.BeginInvoke(callback, null);
         }
-        #endregion
+
+        #endregion Internal Methods
     }
-    #endregion
+
+    #endregion Hub Implementation
 }

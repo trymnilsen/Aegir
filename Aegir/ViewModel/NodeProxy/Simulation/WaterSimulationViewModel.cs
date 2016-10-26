@@ -13,18 +13,17 @@ namespace Aegir.ViewModel.NodeProxy.Simulation
     {
         [DisplayName("Affected By Weather")]
         public string IsAffectedByWeather { get; set; } = "False";
+
         [DisplayName("Simulation Mode")]
         public string SimulationMode { get; set; } = "FFT";
 
-        public WaterSimulationViewModel(WaterSimulation component) 
+        public WaterSimulationViewModel(WaterSimulation component)
             : base(component, "Water Simulation")
         {
-
         }
 
         internal override void Invalidate()
         {
-            
         }
     }
 }

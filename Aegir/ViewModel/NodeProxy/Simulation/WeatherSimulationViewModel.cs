@@ -13,17 +13,17 @@ namespace Aegir.ViewModel.NodeProxy.Simulation
     {
         [DisplayName("Wind Direction")]
         public double WindDirection { get; set; } = 90;
+
         [DisplayName("Wind")]
         public double WindMagnitude { get; set; } = 5;
 
-        public WeatherSimulationViewModel(WeatherSimulation component) 
+        public WeatherSimulationViewModel(WeatherSimulation component)
             : base(component, "Weather")
         {
         }
 
         internal override void Invalidate()
         {
-            
         }
     }
 }

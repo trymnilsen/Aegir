@@ -8,7 +8,8 @@ namespace AegirCore.Persistence
 {
     public class PersistanceException : Exception
     {
-        public PersistanceException(string message):
-            base(message) { }
+        public PersistanceException(string message) :
+            base(message)
+        { }
     }
 }

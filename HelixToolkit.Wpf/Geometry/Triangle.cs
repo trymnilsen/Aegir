@@ -106,7 +106,7 @@ namespace HelixToolkit.Wpf
         }
 
         /// <summary>
-        /// Checks whether the specified point is inside the triangle. 
+        /// Checks whether the specified point is inside the triangle.
         /// </summary>
         /// <param name="p">The point to be checked.</param>
         /// <returns>

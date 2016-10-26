@@ -1,10 +1,10 @@
-﻿using System;
-using System.Xml.Linq;
-using AegirCore.Mesh;
+﻿using AegirCore.Mesh;
 using AegirCore.Mesh.Grid;
 using AegirCore.Scene;
 using AegirCore.Simulation.Water;
 using AegirType;
+using System;
+using System.Xml.Linq;
 
 namespace AegirCore.Behaviour.Simulation
 {
@@ -18,10 +18,10 @@ namespace AegirCore.Behaviour.Simulation
         public double Width { get; set; }
         public WaterCell WaterCell { get; private set; }
         public WaterMesh Mesh { get; private set; }
+
         public WaterSimulation(Node parentNode)
             : base(parentNode)
         {
-            
         }
 
         public override XElement Serialize()
@@ -31,8 +31,8 @@ namespace AegirCore.Behaviour.Simulation
 
         public override void Deserialize(XElement data)
         {
-
         }
+
         //private MeshData CreateMesh()
         //{
         //    var pts = new Vector3[N, M];

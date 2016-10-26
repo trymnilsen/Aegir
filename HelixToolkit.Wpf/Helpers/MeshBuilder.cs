@@ -1003,9 +1003,11 @@ namespace HelixToolkit.Wpf
                 case 3:
                     this.AddTriangle(points[0], points[1], points[2]);
                     break;
+
                 case 4:
                     this.AddQuad(points[0], points[1], points[2], points[3]);
                     break;
+
                 default:
                     this.AddTriangleFan(points);
                     break;
@@ -2139,7 +2141,7 @@ namespace HelixToolkit.Wpf
 
             //*******************************
             //*** PROPOSED SOLUTION *********
-            var lastUp = new Vector3D(); 
+            var lastUp = new Vector3D();
             var lastForward = new Vector3D();
             //*** PROPOSED SOLUTION *********
             //*******************************
@@ -2160,7 +2162,7 @@ namespace HelixToolkit.Wpf
 
                 //*******************************
                 //*** PROPOSED SOLUTION *********
-                // ** I think this will work because if path[n-1] is same point, 
+                // ** I think this will work because if path[n-1] is same point,
                 // ** it is always a reflection of the current move
                 // ** so reversing the last move vector should work?
                 //*******************************

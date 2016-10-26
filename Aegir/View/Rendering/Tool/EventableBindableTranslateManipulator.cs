@@ -13,8 +13,8 @@ namespace Aegir.View.Rendering.Tool
     {
         public EventableBindableTranslateManipulator()
         {
-
         }
+
         protected override void OnMouseUp(MouseButtonEventArgs e)
         {
             base.OnMouseUp(e);
@@ -25,6 +25,7 @@ namespace Aegir.View.Rendering.Tool
         {
             OnMouseDown(e);
         }
+
         private void TriggerTranslateFinished()
         {
             ManipulationFinishedHandler evt = ManipulationFinished;
@@ -40,6 +41,5 @@ namespace Aegir.View.Rendering.Tool
         }
 
         public event ManipulationFinishedHandler ManipulationFinished;
-
     }
 }

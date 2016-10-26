@@ -69,12 +69,13 @@ namespace HelixToolkit.Wpf
             {
                 case GradientBrushType.Hue:
                     return GradientBrushes.Hue;
+
                 case GradientBrushType.Rainbow:
                     return GradientBrushes.Rainbow;
+
                 default:
                     return null;
             }
         }
-
     }
 }

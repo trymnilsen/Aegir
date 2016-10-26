@@ -11,7 +11,9 @@ namespace AegirCore.Persistence
     public interface IApplicationPersister
     {
         void LoadDefault();
+
         void Load(IEnumerable<XElement> data);
+
         XElement Save();
     }
 }

@@ -9,6 +9,5 @@ namespace AegirCore.Keyframe
     [System.AttributeUsage(AttributeTargets.Property, Inherited = false)]
     public sealed class KeyframeProperty : Attribute
     {
-
     }
 }

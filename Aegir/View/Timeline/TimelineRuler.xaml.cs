@@ -47,6 +47,7 @@ namespace Aegir.View.Timeline
             this.Time = viewModel.Time;
         }
     }
+
     /// <summary>
     /// Interaction logic for KeyframeTimeline.xaml
     /// </summary>
@@ -59,11 +60,14 @@ namespace Aegir.View.Timeline
             Resize,
             Pan
         }
+
         private readonly double keyFrameTicksPadding = 10;
+
         /// <summary>
         /// Access to logging
         /// </summary>
         private static readonly ILog log = LogManager.GetLogger(typeof(TimelineRuler));
+
         /// <summary>
         /// Visual for the rectangle highlighting the current time
         /// </summary>
@@ -71,12 +75,14 @@ namespace Aegir.View.Timeline
 
         private ObservableCollection<KeyframeViewModel> keyItems;
         private bool suppressTimeRangeUpdates = false;
+
         /// <summary>
         /// The total distance dragged in the current drag operation
         /// </summary>
         private double currentDeltaStepDistance;
 
         private int currentOperationFramesDragged;
+
         /// <summary>
         /// Set to 'true' when the left mouse-button is down.
         /// </summary>
@@ -116,6 +122,7 @@ namespace Aegir.View.Timeline
         /// Set to 'true' when dragging a keyframe.
         /// </summary>
         private bool isDraggingKeyframe = false;
+
         private MouseOperation currentMouseOperation;
 
         private int segmentRange;
@@ -132,12 +139,10 @@ namespace Aegir.View.Timeline
             set { SetValue(KeyframesProperty, value); }
         }
 
-
         public double StepSize
         {
-            get { return  (ActualWidth - 20) / (TimeRangeEnd - TimeRangeStart); }
+            get { return (ActualWidth - 20) / (TimeRangeEnd - TimeRangeStart); }
         }
-
 
         // Using a DependencyProperty as the backing store for Keyframes.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty KeyframesProperty =
@@ -181,7 +186,6 @@ namespace Aegir.View.Timeline
         // Using a DependencyProperty as the backing store for TimerangeEnd.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty TimerangeEndProperty =
             DependencyProperty.Register(nameof(TimeRangeEnd), typeof(int), typeof(TimelineRuler), new PropertyMetadata(100));
-
 
         ///// <summary>
         ///// Where the start of our timeline is
@@ -396,11 +400,11 @@ namespace Aegir.View.Timeline
             }
         }
 
-
         private void TimeRangeChanged()
         {
             InvalidateFullTimeline();
         }
+
         private void KeyframeCollectionUpdated()
         {
             Keyframes.CollectionChanged += KeyframeCollectionChanged;
@@ -408,25 +412,28 @@ namespace Aegir.View.Timeline
 
         private void KeyframeCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            switch(e.Action)
+            switch (e.Action)
             {
                 case NotifyCollectionChangedAction.Add:
-                    foreach(KeyframeViewModel key in e.NewItems) { AddKeyframes(key); }
+                    foreach (KeyframeViewModel key in e.NewItems) { AddKeyframes(key); }
                     break;
+
                 case NotifyCollectionChangedAction.Remove:
-                    foreach(KeyframeViewModel key in e.OldItems) { RemoveKeyframes(key); }
+                    foreach (KeyframeViewModel key in e.OldItems) { RemoveKeyframes(key); }
                     break;
+
                 default:
                     break;
             }
         }
+
         private void AddKeyframes(KeyframeViewModel keyVM)
         {
             keyItems.Add(keyVM);
         }
+
         private void RemoveKeyframes(KeyframeViewModel keyVM)
         {
-            
         }
 
         //private void InvalidatePositions()
@@ -441,6 +448,7 @@ namespace Aegir.View.Timeline
         {
             return CanvasCalculator.GetCanvasOffset(ActualWidth, TimeRangeStart, TimeRangeEnd, time);
         }
+
         /// <summary>
         /// Pans the timeline with the given amount of deltapoints from the mouse
         /// </summary>
@@ -461,13 +469,14 @@ namespace Aegir.View.Timeline
             suppressTimeRangeUpdates = false;
             TimeRangeChanged();
         }
+
         private void ResizeTimeLine(double dragDelta)
         {
             var dragScaled = (dragDelta / StepSize) * -1;
             //System.Diagnostics.Debug.WriteLine("Resize DragScaled: " + dragDelta);
-            TimeRangeEnd = prePanTimerangeEnd + (int)Math.Round(dragScaled); 
-
+            TimeRangeEnd = prePanTimerangeEnd + (int)Math.Round(dragScaled);
         }
+
         /// <summary>
         /// Event raised when the mouse is pressed down on a keyframe.
         /// </summary>
@@ -487,8 +496,8 @@ namespace Aegir.View.Timeline
             {
                 //
                 // Control key was held down.
-                // This means that the keyframe is being added to or removed 
-                // from the existing selection. Don't do anything yet, 
+                // This means that the keyframe is being added to or removed
+                // from the existing selection. Don't do anything yet,
                 // we will act on this later in the MouseUp event handler.
                 //
                 isLeftMouseAndControlDownOnKeyframe = true;
@@ -509,7 +518,7 @@ namespace Aegir.View.Timeline
                 }
                 else if (this.listBox.SelectedItems.Contains(keyframeViewmodel))
                 {
-                    // 
+                    //
                     // Item is already selected, do nothing.
                     // We will act on this in the MouseUp if there was no drag operation.
                     //
@@ -562,7 +571,7 @@ namespace Aegir.View.Timeline
                         }
                         else
                         {
-                            // 
+                            //
                             // Item was not already selected, control-click adds it to the selection.
                             //
                             this.listBox.SelectedItems.Add(keyframeViewModel);
@@ -596,15 +605,15 @@ namespace Aegir.View.Timeline
                     Debug.WriteLine("Frames Moved " + currentOperationFramesDragged);
                     bool hasKeyConflict = false;
 
-                    foreach(KeyframeListItem key in this.listBox.SelectedItems)
+                    foreach (KeyframeListItem key in this.listBox.SelectedItems)
                     {
                         int newTime = key.Time + currentOperationFramesDragged;
-                        if(Keyframes.Any(x=>x.Time == newTime))
+                        if (Keyframes.Any(x => x.Time == newTime))
                         {
                             hasKeyConflict = true;
                         }
                     }
-                    if(hasKeyConflict)
+                    if (hasKeyConflict)
                     {
                         MessageBoxResult confirmBox = MessageBox.Show("One or more of the dragged keyframes will overwrite an existing keyframe", "Overwrite keyframes", MessageBoxButton.OKCancel);
 
@@ -654,15 +663,15 @@ namespace Aegir.View.Timeline
 
                 double stepSize = (ActualWidth - keyFrameTicksPadding * 2) / (TimeRangeEnd - TimeRangeStart);
 
-                if(Math.Abs(currentDeltaStepDistance)>=stepSize)
+                if (Math.Abs(currentDeltaStepDistance) >= stepSize)
                 {
                     foreach (KeyframeListItem keyframe in this.listBox.SelectedItems)
                     {
                         keyframe.TimelinePositionX += currentDeltaStepDistance;
-                        
+
                         //keyframe.CanvasY += dragDelta.Y;
                     }
-                    if(currentDeltaStepDistance>0)
+                    if (currentDeltaStepDistance > 0)
                     {
                         currentOperationFramesDragged++;
                     }
@@ -672,7 +681,6 @@ namespace Aegir.View.Timeline
                     }
                     currentDeltaStepDistance = 0;
                 }
-
             }
             else if (isLeftMouseDownOnKeyframe)
             {
@@ -702,7 +710,7 @@ namespace Aegir.View.Timeline
         private void Control_MouseDown(object sender, MouseButtonEventArgs e)
         {
             //If we already are doing an operation, don't start another
-            if(currentMouseOperation != MouseOperation.None)
+            if (currentMouseOperation != MouseOperation.None)
             {
                 return;
             }
@@ -713,7 +721,7 @@ namespace Aegir.View.Timeline
             {
                 prePanTimerangeStart = TimeRangeStart;
                 prePanTimerangeEnd = TimeRangeEnd;
-                if(Keyboard.IsKeyDown(Key.LeftCtrl))
+                if (Keyboard.IsKeyDown(Key.LeftCtrl))
                 {
                     //System.Diagnostics.Debug.WriteLine("Resize");
                     currentMouseOperation = MouseOperation.Resize;
@@ -739,9 +747,8 @@ namespace Aegir.View.Timeline
                 doMouseMovePrep = true;
             }
 
-            if(doMouseMovePrep)
+            if (doMouseMovePrep)
             {
-
                 origMouseDownPoint = e.GetPosition(GridContainer);
                 GridContainer.CaptureMouse();
                 listBox.Focus();
@@ -827,7 +834,7 @@ namespace Aegir.View.Timeline
 
                 e.Handled = true;
             }
-            else if(currentMouseOperation == MouseOperation.Pan)
+            else if (currentMouseOperation == MouseOperation.Pan)
             {
                 Point curMouseDownPoint = e.GetPosition(GridContainer);
                 var dragDelta = curMouseDownPoint.X - origMouseDownPoint.X;
@@ -843,8 +850,6 @@ namespace Aegir.View.Timeline
                 ResizeTimeLine(dragDelta);
             }
         }
-
-
 
         /// <summary>
         /// Initialize the rectangle used for drag selection.
@@ -865,7 +870,7 @@ namespace Aegir.View.Timeline
 
             //
             // Determine x,y,width and height of the rect inverting the points if necessary.
-            // 
+            //
 
             if (pt2.X < pt1.X)
             {
@@ -912,7 +917,7 @@ namespace Aegir.View.Timeline
             Rect dragRect = new Rect(x, y, width, height);
 
             //
-            // Inflate the drag selection-rectangle by 1/10 of its size to 
+            // Inflate the drag selection-rectangle by 1/10 of its size to
             // make sure the intended item is selected.
             //
             dragRect.Inflate(width / 10, height / 10);
@@ -951,7 +956,6 @@ namespace Aegir.View.Timeline
         /// </summary>
         private void InvalidateFullTimeline()
         {
-
             InvalidateTimeline();
             InvalidateCurrentTimeHighlight();
             //InvalidatePositions();
@@ -1007,7 +1011,6 @@ namespace Aegir.View.Timeline
         /// <param name="numOfSegmentSteps">How many ticks in one segment</param>
         private void GenerateTickSegments(int timeStart, int timeEnd, int numOfSegments, int numOfSegmentSteps)
         {
-            
             int range = (timeEnd - timeStart) + 1;
             KeyFrameTimeLineRuler.Children.Clear();
             double stepSize = (ActualWidth - keyFrameTicksPadding * 2) / (range - 1);
@@ -1049,9 +1052,6 @@ namespace Aegir.View.Timeline
             }
         }
 
-
-
-
         private void UpdateTimeline()
         {
             double keyFrameTicksPadding = 10;
@@ -1082,6 +1082,7 @@ namespace Aegir.View.Timeline
             //Debug.WriteLine("SegmentRange Rounded" + finalNum);
             // double segmentRangeSnapped()
         }
+
         private void DoUpdate()
         {
             Stopwatch sw = Stopwatch.StartNew();
@@ -1089,8 +1090,8 @@ namespace Aegir.View.Timeline
             UpdateUI();
             sw.Stop();
             Debug.WriteLine(sw.Elapsed.TotalMilliseconds);
-
         }
+
         private int GetFirstDigit(int i)
         {
             if (i >= 100000000) i /= 100000000;
@@ -1162,7 +1163,6 @@ namespace Aegir.View.Timeline
                 this.KeyFrameTimeLineRuler.Children.Add(txtBlock);
                 //for(int j=0; j<0; j++)
                 //{
-
                 //}
             }
 

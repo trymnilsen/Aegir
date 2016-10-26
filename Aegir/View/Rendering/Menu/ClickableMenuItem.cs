@@ -11,8 +11,10 @@ namespace Aegir.View.Rendering.Menu
     {
         public bool Toggle { get; private set; }
         public RelayCommand ClickCommand { get; set; }
+
         public ClickableMenuItem(string header, Action command)
-            :this(header,command,false)  {  }
+            : this(header, command, false) { }
+
         public ClickableMenuItem(string header, Action command, bool toggle)
         {
             this.Header = header;

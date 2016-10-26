@@ -97,6 +97,7 @@ namespace HelixToolkit.Wpf
             }
         }
         */
+
         /// <summary>
         /// Gets or sets the camera.
         /// </summary>
@@ -433,6 +434,5 @@ namespace HelixToolkit.Wpf
         {
             // todo: update left and right collections here
         }
-
     }
 }

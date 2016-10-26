@@ -9,11 +9,10 @@
 
 namespace PropertyTools.Wpf
 {
+    using PropertyTools.Wpf.Shell32;
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Input;
-
-    using PropertyTools.Wpf.Shell32;
 
     /// <summary>
     /// Represents a control that allows the user to pick a directory.

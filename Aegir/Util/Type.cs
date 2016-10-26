@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Aegir.Util
 {
     /// <summary>
-    /// Wraps the type info for a type, but constricting it to only be 
+    /// Wraps the type info for a type, but constricting it to only be
     /// of subtypes of T
     /// </summary>
     /// <typeparam name="T">Type inheritance constraint</typeparam>

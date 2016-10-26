@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Aegir.Rendering.Camera
 {
-    class TopCamera
+    internal class TopCamera
     {
     }
 }

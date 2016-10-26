@@ -137,6 +137,5 @@ namespace HelixToolkit.Wpf
                 this.View1.Camera = this.LeftCamera;
             }
         }
-
     }
 }

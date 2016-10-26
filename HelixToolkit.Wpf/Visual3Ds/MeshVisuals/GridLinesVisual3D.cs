@@ -246,12 +246,12 @@ namespace HelixToolkit.Wpf
                 this.lengthDirection = this.Normal.FindAnyPerpendicular();
                 this.lengthDirection.Normalize();
             }
-        
+
             // create WidthDirection by rotating lengthDirection vector 90° around normal vector
             var rotate = new RotateTransform3D(new AxisAngleRotation3D(this.Normal, 90.0));
             this.widthDirection = rotate.Transform(this.lengthDirection);
             this.widthDirection.Normalize();
-            // #136 
+            // #136
 
             var mesh = new MeshBuilder(true, false);
             double minX = -this.Width / 2;

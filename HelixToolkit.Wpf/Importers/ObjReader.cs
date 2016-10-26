@@ -201,10 +201,10 @@ namespace HelixToolkit.Wpf
                     }
 
                     line = line.Trim();
-                    while (line.EndsWith("\\")) 
+                    while (line.EndsWith("\\"))
                     {
                         var nextLine = this.Reader.ReadLine();
-                        while (nextLine.Length == 0) 
+                        while (nextLine.Length == 0)
                         {
                             nextLine = this.Reader.ReadLine();
                         }
@@ -226,12 +226,15 @@ namespace HelixToolkit.Wpf
                         case "v": // geometric vertices
                             this.AddVertex(values);
                             break;
+
                         case "vt": // texture vertices
                             this.AddTexCoord(values);
                             break;
+
                         case "vn": // vertex normals
                             this.AddNormal(values);
                             break;
+
                         case "vp": // parameter space vertices
                         case "cstype": // rational or non-rational forms of curve or surface type: basis matrix, Bezier, B-spline, Cardinal, Taylor
                         case "degree": // degree
@@ -244,6 +247,7 @@ namespace HelixToolkit.Wpf
                         case "f": // face
                             this.AddFace(values);
                             break;
+
                         case "p": // point
                         case "l": // line
                         case "curv": // curve
@@ -271,11 +275,14 @@ namespace HelixToolkit.Wpf
                         case "g": // group name
                             this.AddGroup(values);
                             break;
+
                         case "s": // smoothing group
                             this.SetSmoothingGroup(values);
                             break;
+
                         case "mg": // merging group
                             break;
+
                         case "o": // object name
                             // not supported
                             break;
@@ -284,15 +291,18 @@ namespace HelixToolkit.Wpf
                         case "mtllib": // material library
                             this.LoadMaterialLib(values);
                             break;
+
                         case "usemtl": // material name
                             this.EnsureNewMesh();
 
                             this.SetMaterial(values);
                             break;
+
                         case "usemap": // texture map name
                             this.EnsureNewMesh();
 
                             break;
+
                         case "bevel": // bevel interpolation
                         case "c_interp": // color interpolation
                         case "d_interp": // dissolve interpolation
@@ -778,6 +788,7 @@ namespace HelixToolkit.Wpf
                             }
 
                             break;
+
                         case "ka":
                             if (currentMaterial != null && value != null)
                             {
@@ -785,6 +796,7 @@ namespace HelixToolkit.Wpf
                             }
 
                             break;
+
                         case "kd":
                             if (currentMaterial != null && value != null)
                             {
@@ -792,6 +804,7 @@ namespace HelixToolkit.Wpf
                             }
 
                             break;
+
                         case "ks":
                             if (currentMaterial != null && value != null)
                             {
@@ -799,6 +812,7 @@ namespace HelixToolkit.Wpf
                             }
 
                             break;
+
                         case "ns":
                             if (currentMaterial != null && value != null)
                             {
@@ -806,6 +820,7 @@ namespace HelixToolkit.Wpf
                             }
 
                             break;
+
                         case "d":
                             if (currentMaterial != null && value != null)
                             {
@@ -813,6 +828,7 @@ namespace HelixToolkit.Wpf
                             }
 
                             break;
+
                         case "tr":
                             if (!this.SkipTransparencyValues && currentMaterial != null && value != null)
                             {
@@ -820,6 +836,7 @@ namespace HelixToolkit.Wpf
                             }
 
                             break;
+
                         case "illum":
                             if (currentMaterial != null && value != null)
                             {
@@ -827,6 +844,7 @@ namespace HelixToolkit.Wpf
                             }
 
                             break;
+
                         case "map_ka":
                             if (currentMaterial != null)
                             {
@@ -834,6 +852,7 @@ namespace HelixToolkit.Wpf
                             }
 
                             break;
+
                         case "map_kd":
                             if (currentMaterial != null)
                             {
@@ -841,6 +860,7 @@ namespace HelixToolkit.Wpf
                             }
 
                             break;
+
                         case "map_ks":
                             if (currentMaterial != null)
                             {
@@ -848,6 +868,7 @@ namespace HelixToolkit.Wpf
                             }
 
                             break;
+
                         case "map_d":
                             if (currentMaterial != null)
                             {
@@ -855,6 +876,7 @@ namespace HelixToolkit.Wpf
                             }
 
                             break;
+
                         case "map_bump":
                         case "bump":
                             if (currentMaterial != null)

@@ -11,6 +11,7 @@ namespace Aegir.Rendering
     {
         Point3D Position { get; }
         Quaternion Rotation { get; }
+
         void ApplyTransform(Transform3D targetTransform);
     }
 }

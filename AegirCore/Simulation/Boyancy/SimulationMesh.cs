@@ -917,9 +917,8 @@ namespace AegirCore.Simulation.Boyancy
             }
             mVertex = vectors;
             int indexOffset = 0;
-            for (int i = 0, l = Model.Faces.Length/3; i < l; i++)
+            for (int i = 0, l = Model.Faces.Length / 3; i < l; i++)
             {
-
                 // Get raw triangle index data
 
                 // Get triangle data for this part
@@ -927,10 +926,10 @@ namespace AegirCore.Simulation.Boyancy
                 Random rand = new Random();
 
                 SimTriangle.I0 = Model.Faces[indexOffset];
-                SimTriangle.I1 = Model.Faces[indexOffset+1];
-                SimTriangle.I2 = Model.Faces[indexOffset+2];
+                SimTriangle.I1 = Model.Faces[indexOffset + 1];
+                SimTriangle.I2 = Model.Faces[indexOffset + 2];
 
-                indexOffset+=3;
+                indexOffset += 3;
 
                 SimTriangle.color = new Color((float)rand.NextDouble(), (float)rand.NextDouble(), (float)rand.NextDouble());
                 Vector3 u = mVertex[SimTriangle.I1] - mVertex[SimTriangle.I0];

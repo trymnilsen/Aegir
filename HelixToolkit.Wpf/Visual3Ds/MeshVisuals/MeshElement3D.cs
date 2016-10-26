@@ -214,8 +214,8 @@ namespace HelixToolkit.Wpf
         protected static void VisibleChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             ((MeshElement3D)d).OnGeometryChanged();
-        }        
-        
+        }
+
         /// <summary>
         /// The geometry was changed.
         /// </summary>

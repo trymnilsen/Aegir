@@ -10,8 +10,6 @@ using System.Windows.Markup;
 
 [assembly: AssemblyTitle("PropertyTools for WPF")]
 [assembly: AssemblyDescription("")]
-
 [assembly: ThemeInfo(ResourceDictionaryLocation.None, ResourceDictionaryLocation.SourceAssembly)]
-
 [assembly: XmlnsPrefix("http://propertytools.org/wpf", "pt")]
 [assembly: XmlnsDefinition("http://propertytools.org/wpf", "PropertyTools.Wpf")]

@@ -13,7 +13,8 @@ namespace Aegir.Rendering
         {
             Matrix3D matrix = transform.Value;
             return new Point3D(matrix.OffsetX, matrix.OffsetY, matrix.OffsetZ);
-        } 
+        }
+
         public static Quaternion ToQuaternion(this Transform3D transform)
         {
             Matrix3D matrix = transform.Value;
@@ -27,7 +28,7 @@ namespace Aegir.Rendering
                 sqrt = (double)Math.Sqrt(scale + 1.0d);
                 quaternion.W = sqrt * 0.5d;
                 sqrt = 0.5d / sqrt;
-                
+
                 quaternion.X = (matrix.M23 - matrix.M32) * sqrt;
                 quaternion.Y = (matrix.M31 - matrix.M13) * sqrt;
                 quaternion.Z = (matrix.M12 - matrix.M21) * sqrt;
@@ -68,16 +69,18 @@ namespace Aegir.Rendering
 
             return quaternion;
         }
+
         public static AegirType.Quaternion ToAegirTypeQuaternion(this Quaternion quaternion)
         {
             AegirType.Quaternion q = new AegirType.Quaternion(
-                (float)quaternion.X, 
-                (float)quaternion.Y, 
-                (float)quaternion.Z, 
+                (float)quaternion.X,
+                (float)quaternion.Y,
+                (float)quaternion.Z,
                 (float)quaternion.W);
 
             return q;
         }
+
         public static AegirType.Vector3 ToAegirTypeVector(this Point3D position)
         {
             AegirType.Vector3 v = new AegirType.Vector3(
@@ -87,6 +90,5 @@ namespace Aegir.Rendering
 
             return v;
         }
-
     }
 }

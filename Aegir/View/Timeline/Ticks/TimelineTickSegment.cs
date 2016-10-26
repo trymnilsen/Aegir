@@ -9,6 +9,6 @@ namespace Aegir.View.Timeline.Ticks
 {
     public class TimelineTickSegment
     {
-        //public List<Line> Lines = new 
+        //public List<Line> Lines = new
     }
 }

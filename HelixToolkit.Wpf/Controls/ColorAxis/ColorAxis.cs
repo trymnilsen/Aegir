@@ -229,6 +229,7 @@ namespace HelixToolkit.Wpf
                         this.BarWidth,
                         this.ActualHeight - this.Padding.Bottom - this.Padding.Top);
                     break;
+
                 case ColorAxisPosition.Right:
                     this.ColorArea = new Rect(
                         this.ActualWidth - this.Padding.Right - this.BarWidth,
@@ -239,11 +240,11 @@ namespace HelixToolkit.Wpf
             }
 
             var r = new Rectangle
-                              {
-                                  Fill = this.ColorScheme,
-                                  Width = this.ColorArea.Width,
-                                  Height = this.ColorArea.Height
-                              };
+            {
+                Fill = this.ColorScheme,
+                Width = this.ColorArea.Width,
+                Height = this.ColorArea.Height
+            };
 
             if (this.FlipColorScheme)
             {
@@ -257,26 +258,26 @@ namespace HelixToolkit.Wpf
 
             this.Canvas.Children.Add(
                 new System.Windows.Shapes.Line
-                    {
-                        Stroke = this.Foreground,
-                        StrokeThickness = 1,
-                        SnapsToDevicePixels = true,
-                        X1 = this.ColorArea.Left,
-                        Y1 = this.ColorArea.Top,
-                        X2 = this.ColorArea.Left,
-                        Y2 = this.ColorArea.Bottom
-                    });
+                {
+                    Stroke = this.Foreground,
+                    StrokeThickness = 1,
+                    SnapsToDevicePixels = true,
+                    X1 = this.ColorArea.Left,
+                    Y1 = this.ColorArea.Top,
+                    X2 = this.ColorArea.Left,
+                    Y2 = this.ColorArea.Bottom
+                });
             this.Canvas.Children.Add(
                 new System.Windows.Shapes.Line
-                    {
-                        Stroke = this.Foreground,
-                        StrokeThickness = 1,
-                        SnapsToDevicePixels = true,
-                        X1 = this.ColorArea.Right,
-                        Y1 = this.ColorArea.Top,
-                        X2 = this.ColorArea.Right,
-                        Y2 = this.ColorArea.Bottom
-                    });
+                {
+                    Stroke = this.Foreground,
+                    StrokeThickness = 1,
+                    SnapsToDevicePixels = true,
+                    X1 = this.ColorArea.Right,
+                    Y1 = this.ColorArea.Top,
+                    X2 = this.ColorArea.Right,
+                    Y2 = this.ColorArea.Bottom
+                });
         }
 
         /// <summary>

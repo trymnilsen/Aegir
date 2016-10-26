@@ -71,6 +71,5 @@ namespace HelixToolkit.Wpf
             var clonedModel = this.Source.Content.Clone();
             this.Content = clonedModel;
         }
-
     }
 }

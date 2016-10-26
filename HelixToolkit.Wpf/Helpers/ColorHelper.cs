@@ -403,26 +403,31 @@ namespace HelixToolkit.Wpf
                         g = cc;
                         b = aa;
                         break;
+
                     case 1:
                         r = bb;
                         g = val;
                         b = aa;
                         break;
+
                     case 2:
                         r = aa;
                         g = val;
                         b = cc;
                         break;
+
                     case 3:
                         r = aa;
                         g = bb;
                         b = val;
                         break;
+
                     case 4:
                         r = cc;
                         g = aa;
                         b = val;
                         break;
+
                     case 5:
                         r = val;
                         g = aa;
@@ -500,6 +505,5 @@ namespace HelixToolkit.Wpf
             var b = (byte)(color >> 0);
             return Color.FromArgb(a, r, g, b);
         }
-
     }
 }

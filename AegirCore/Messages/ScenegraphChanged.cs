@@ -10,11 +10,9 @@ namespace AegirCore.Messages
 {
     public class ScenegraphChanged : GenericTinyMessage<SceneGraph>
     {
-
         public ScenegraphChanged(SceneGraph scene, object sender)
-            :base(sender,scene)
+            : base(sender, scene)
         {
-
         }
     }
 }

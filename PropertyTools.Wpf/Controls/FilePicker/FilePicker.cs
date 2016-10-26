@@ -9,6 +9,7 @@
 
 namespace PropertyTools.Wpf
 {
+    using Microsoft.Win32;
     using System;
     using System.Collections.Generic;
     using System.IO;
@@ -16,8 +17,6 @@ namespace PropertyTools.Wpf
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Input;
-
-    using Microsoft.Win32;
 
     /// <summary>
     /// Represents a control that allows the user to pick a file.
@@ -441,12 +440,12 @@ namespace PropertyTools.Wpf
                 if (this.UseOpenDialog)
                 {
                     var d = new OpenFileDialog
-                        {
-                            FileName = this.FilePath,
-                            Filter = this.Filter,
-                            DefaultExt = this.DefaultExtension,
-                            Multiselect = this.Multiselect
-                        };
+                    {
+                        FileName = this.FilePath,
+                        Filter = this.Filter,
+                        DefaultExt = this.DefaultExtension,
+                        Multiselect = this.Multiselect
+                    };
                     if (true == d.ShowDialog())
                     {
                         if (this.Multiselect)
@@ -464,11 +463,11 @@ namespace PropertyTools.Wpf
                 else
                 {
                     var d = new SaveFileDialog
-                        {
-                            FileName = this.FilePath,
-                            Filter = this.Filter,
-                            DefaultExt = this.DefaultExtension
-                        };
+                    {
+                        FileName = this.FilePath,
+                        Filter = this.Filter,
+                        DefaultExt = this.DefaultExtension
+                    };
                     if (true == d.ShowDialog())
                     {
                         filename = d.FileName;

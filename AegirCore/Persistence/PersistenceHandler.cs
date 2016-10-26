@@ -15,23 +15,25 @@ namespace AegirCore.Persistence
         public PersistenceHandler()
         {
             persisters = new List<IApplicationPersister>();
-
         }
+
         public void AddPersister(IApplicationPersister persister)
         {
             persisters.Add(persister);
         }
+
         public void LoadDefault()
         {
-            foreach(IApplicationPersister persister in persisters)
+            foreach (IApplicationPersister persister in persisters)
             {
                 persister.LoadDefault();
             }
         }
+
         public void SaveState(string file)
         {
             XElement root = new XElement("root");
-            foreach(IApplicationPersister persister in persisters)
+            foreach (IApplicationPersister persister in persisters)
             {
                 XElement persistData = persister.Save();
                 string wrappingNodeName = persister.GetType().Name;
@@ -43,6 +45,7 @@ namespace AegirCore.Persistence
 
             root.Save(file, SaveOptions.OmitDuplicateNamespaces);
         }
+
         public void LoadState(string file)
         {
             XElement xmlDoc = XElement.Load(file);

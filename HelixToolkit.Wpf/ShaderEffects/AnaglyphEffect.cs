@@ -198,6 +198,5 @@ namespace HelixToolkit.Wpf
             var ef = (AnaglyphEffect)d;
             ef.ShaderMethod = (int)ef.Method;
         }
-
     }
 }

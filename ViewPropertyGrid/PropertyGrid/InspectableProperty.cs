@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace ViewPropertyGrid.PropertyGrid
 {
     public class InspectableProperty
-    { 
+    {
         public PropertyInfo ReflectionData { get; private set; }
         public object Target { get; set; }
 
@@ -21,7 +21,7 @@ namespace ViewPropertyGrid.PropertyGrid
 
         public static InspectableProperty[] GetProperties(object instance)
         {
-            if(instance is IPropertyInfoProvider)
+            if (instance is IPropertyInfoProvider)
             {
                 return (instance as IPropertyInfoProvider)?.GetProperties();
             }

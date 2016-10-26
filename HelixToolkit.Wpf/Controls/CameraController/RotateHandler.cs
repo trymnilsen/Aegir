@@ -125,9 +125,11 @@ namespace HelixToolkit.Wpf
                 case CameraRotationMode.Trackball:
                     this.RotateTrackball(p0, p1, rotateAround);
                     break;
+
                 case CameraRotationMode.Turntable:
                     this.RotateTurntable(p1 - p0, rotateAround);
                     break;
+
                 case CameraRotationMode.Turnball:
                     this.RotateTurnball(p0, p1, rotateAround);
                     break;
@@ -291,6 +293,7 @@ namespace HelixToolkit.Wpf
                     this.rotationPoint = this.MouseDownPoint;
                     this.rotationPoint3D = this.Controller.CameraPosition;
                     break;
+
                 default:
                     if (this.changeLookAt && this.MouseDownNearestPoint3D != null)
                     {
@@ -315,8 +318,10 @@ namespace HelixToolkit.Wpf
             {
                 case CameraRotationMode.Trackball:
                     break;
+
                 case CameraRotationMode.Turntable:
                     break;
+
                 case CameraRotationMode.Turnball:
                     this.InitTurnballRotationAxes(e.CurrentPosition);
                     break;
@@ -546,6 +551,5 @@ namespace HelixToolkit.Wpf
             }
             this.CameraUpDirection = newUpDirection;
         }
-
     }
 }

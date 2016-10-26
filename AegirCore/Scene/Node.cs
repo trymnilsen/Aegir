@@ -37,7 +37,7 @@ namespace AegirCore.Scene
         {
             get
             {
-                if(transform == null)
+                if (transform == null)
                 {
                     transform = GetComponent<Transform>();
                 }
@@ -51,8 +51,9 @@ namespace AegirCore.Scene
             Components = new ObservableCollection<BehaviourComponent>();
             internalRouter = new SignalRouter();
         }
+
         public Node(Node parent)
-            :this()
+            : this()
         {
             Parent = parent;
         }
@@ -64,6 +65,7 @@ namespace AegirCore.Scene
                 components[i].PreUpdate(time);
             }
         }
+
         public void PostUpdate(SimulationTime time)
         {
             for (int i = 0; i < Components.Count; i++)
@@ -71,6 +73,7 @@ namespace AegirCore.Scene
                 components[i].PostUpdate(time);
             }
         }
+
         public void Update(SimulationTime time)
         {
             for (int i = 0; i < Components.Count; i++)
@@ -90,6 +93,7 @@ namespace AegirCore.Scene
         {
             return Components.FirstOrDefault(x => x.GetType().Equals(typeof(T))) as T;
         }
+
         public override string ToString()
         {
             return Name;

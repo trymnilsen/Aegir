@@ -83,24 +83,31 @@ namespace HelixToolkit.Wpf
                 case ".png":
                     SaveBitmap(viewport, fileName, background, 2);
                     break;
+
                 case ".xaml":
                     ExportXaml(viewport, fileName);
                     break;
+
                 case ".xml":
                     ExportKerkythea(viewport, fileName, background);
                     break;
+
                 case ".obj":
                     ExportObj(viewport, fileName);
                     break;
+
                 case ".x3d":
                     ExportX3D(viewport, fileName);
                     break;
+
                 case ".dae":
                     ExportCollada(viewport, fileName);
                     break;
+
                 case ".stl":
                     ExportStl(viewport, fileName);
                     break;
+
                 default:
                     throw new HelixToolkitException("Not supported file format.");
             }
@@ -128,6 +135,7 @@ namespace HelixToolkit.Wpf
                 case ".png":
                     SaveStereoBitmap(viewport, fileName, stereoBase, background, 2);
                     break;
+
                 case ".mpo":
                     throw new HelixToolkitException("MPO is not yet supported.");
                 default:
@@ -169,12 +177,12 @@ namespace HelixToolkit.Wpf
 
                             result.Add(
                                 new HitResult
-                                    {
-                                        Distance = (camera.Position - p).Length,
-                                        RayHit = rayHit,
-                                        Normal = n,
-                                        Position = p
-                                    });
+                                {
+                                    Distance = (camera.Position - p).Length,
+                                    RayHit = rayHit,
+                                    Normal = n,
+                                    Position = p
+                                });
                         }
                     }
 
@@ -245,6 +253,7 @@ namespace HelixToolkit.Wpf
                             case SelectionHitMode.Inside:
                                 status = status && triangle.IsCompletelyInside(rectangle);
                                 break;
+
                             case SelectionHitMode.Touch:
                                 status = status
                                          || triangle.IsCompletelyInside(rectangle)
@@ -310,7 +319,7 @@ namespace HelixToolkit.Wpf
             VisualTreeHelper.HitTest(
                 viewport,
                 null,
-                delegate(HitTestResult hit)
+                delegate (HitTestResult hit)
                 {
                     var rayHit = hit as RayMeshGeometry3DHitTestResult;
                     if (rayHit != null)
@@ -1009,12 +1018,12 @@ namespace HelixToolkit.Wpf
             var scb = background as SolidColorBrush;
             var backgroundColor = scb != null ? scb.Color : Colors.White;
             var e = new KerkytheaExporter
-                        {
-                            Width = width,
-                            Height = height,
-                            BackgroundColor = backgroundColor,
-                            TexturePath = System.IO.Path.GetDirectoryName(fileName)
-                        };
+            {
+                Width = width,
+                Height = height,
+                BackgroundColor = backgroundColor,
+                TexturePath = System.IO.Path.GetDirectoryName(fileName)
+            };
             using (var stream = File.Create(fileName))
             {
                 e.Export(view, stream);

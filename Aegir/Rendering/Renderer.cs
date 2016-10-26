@@ -6,10 +6,10 @@ using AegirCore.Mesh;
 using AegirCore.Scene;
 using HelixToolkit.Wpf;
 using log4net;
+using System;
 using System.Collections.Generic;
 using System.Windows.Media;
 using System.Windows.Media.Media3D;
-using System;
 
 namespace Aegir.Rendering
 {
@@ -73,9 +73,10 @@ namespace Aegir.Rendering
                 }
             }
         }
+
         public Node ResolveVisualToNode(HelixViewport3D viewport, Visual3D visual)
         {
-            foreach(ViewportRenderer view in viewports)
+            foreach (ViewportRenderer view in viewports)
             {
                 RenderItem item = view.ResolveRenderItem(visual);
                 var node = item?.Transform?.Parent;
@@ -87,6 +88,7 @@ namespace Aegir.Rendering
 
             return null;
         }
+
         //private Visual3D GetExistingVisualForNode(NodeViewModelProxy node)
         //{
         //    //Check if any of weak references in cache matches this node
@@ -109,7 +111,7 @@ namespace Aegir.Rendering
             {
                 renderBehaviour.MeshChanged += RenderBehaviour_MeshChanged;
                 //If we already have a mesh, add it to the viewport
-                if(renderBehaviour?.Mesh?.Data != null)
+                if (renderBehaviour?.Mesh?.Data != null)
                 {
                     AddMesh(renderBehaviour);
                 }

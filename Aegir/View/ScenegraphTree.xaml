@@ -1,13 +1,13 @@
 ﻿<UserControl x:Class="Aegir.View.ScenegraphTree"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:Aegir.View"
              xmlns:pt="http://propertytools.org/wpf"
              xmlns:fa="http://schemas.fontawesome.io/icons/"
              xmlns:model="clr-namespace:Aegir.ViewModel.NodeProxy"
-             mc:Ignorable="d" 
+             mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
         <SolidColorBrush x:Key="BorderBrush">
@@ -27,43 +27,42 @@
                             <MenuItem Header="Remove" Command="{Binding RemoveNodeCommand}"></MenuItem>
                         </ContextMenu>
                     </StackPanel.ContextMenu>
-                    <CheckBox IsChecked="{Binding IsEnabled}" 
+                    <CheckBox IsChecked="{Binding IsEnabled}"
                                       Margin="0 0 5 0"></CheckBox>
-                    <Border Background="White" 
-                                    SnapsToDevicePixels="True" 
-                                    BorderThickness="1" 
+                    <Border Background="White"
+                                    SnapsToDevicePixels="True"
+                                    BorderThickness="1"
                                     BorderBrush="{StaticResource BorderBrush}"
-                                    Padding="1" Width="14" 
+                                    Padding="1" Width="14"
                                     Height="13" Margin="0 -1 5 0">
                         <Rectangle SnapsToDevicePixels="True"
                                            Width="10"
-                                           Height="9" 
+                                           Height="9"
                                            Fill="Orange"></Rectangle>
                     </Border>
-                    <fa:ImageAwesome Foreground="{StaticResource BorderBrush}" 
-                                             SnapsToDevicePixels="True" 
+                    <fa:ImageAwesome Foreground="{StaticResource BorderBrush}"
+                                             SnapsToDevicePixels="True"
                                              Margin="0 0 5 0" Icon="Tag"
                                              Width="12" Height="12" />
                     <fa:ImageAwesome Foreground="{StaticResource BorderBrush}"
-                                             SnapsToDevicePixels="True" 
-                                             Margin="0 0 5 0" Icon="Rss" 
+                                             SnapsToDevicePixels="True"
+                                             Margin="0 0 5 0" Icon="Rss"
                                              Width="12" Height="12" />
                     <TextBlock Text="{Binding Name}" Margin="0 0 10 0"></TextBlock>
                 </StackPanel>
             </Grid>
         </DataTemplate>
     </UserControl.Resources>
-    <Grid DataContext="{Binding ScenegraphVM, 
+    <Grid DataContext="{Binding ScenegraphVM,
                                       Source={StaticResource VMLocator}}">
-        <pt:TreeListBox HierarchySource="{Binding Items}" 
-                        pt:TreeListBoxDragDropHelper.IsDragSource="True" 
+        <pt:TreeListBox HierarchySource="{Binding Items}"
+                        pt:TreeListBoxDragDropHelper.IsDragSource="True"
                         pt:TreeListBoxDragDropHelper.IsDropTarget="True"
                         SelectedItem="{Binding SelectedItem}">
-
         </pt:TreeListBox>
         <!--Treeview-->
-        <!--<TreeView x:Name="ObjectTree" 
-                      ItemsSource="{Binding Items}" 
+        <!--<TreeView x:Name="ObjectTree"
+                      ItemsSource="{Binding Items}"
                       AllowDrop="True" Padding="0 5">
                 -->
         <!--Treeview Drag event-->
@@ -71,16 +70,16 @@
                     <Style TargetType="{x:Type TreeViewItem}">
                         -->
         <!-- We have to select the item which is right-clicked on -->
-        <!--<EventSetter Event="TreeViewItem.PreviewMouseRightButtonDown" 
+        <!--<EventSetter Event="TreeViewItem.PreviewMouseRightButtonDown"
                                  Handler="TreeViewItem_PreviewMouseRightButtonDown" />-->
-        <!--<EventSetter Event="TreeViewItem.DragOver" 
+        <!--<EventSetter Event="TreeViewItem.DragOver"
                                  Handler="treeView_DragOver" />-->
         <!--
-                        <EventSetter Event="TreeViewItem.MouseDown" 
+                        <EventSetter Event="TreeViewItem.MouseDown"
                                      Handler="treeView_MouseDown" />
-                        <EventSetter Event="TreeViewItem.Drop" 
+                        <EventSetter Event="TreeViewItem.Drop"
                                      Handler="treeView_Drop" />
-                        <EventSetter Event="TreeViewItem.MouseMove" 
+                        <EventSetter Event="TreeViewItem.MouseMove"
                                      Handler="treeView_MouseMove" />
                     </Style>
                 </TreeView.ItemContainerStyle>-->
@@ -89,8 +88,8 @@
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="SelectedItemChanged">
                         <cmd:EventToCommand Command="{Binding SelectItemViewModelChangedCommand}"
-                                            CommandParameter="{ Binding Path=SelectedItem, 
-                                                                        ElementName=ObjectTree}"/>
+                                            CommandParameter="{ Binding Path=SelectedItem,
+                                                                        ElementName=ObjectTree}" />
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
                 -->
@@ -107,36 +106,36 @@
                         <StackPanel Orientation="Horizontal">
                             <StackPanel.ContextMenu>
                                 <ContextMenu>
-                                    <MenuItem Header="Add GNSS Receiver" 
-                                              Command="{Binding AddNodeCommand}" 
-                                              CommandParameter="{x:Static model:NodeTypeStringConstants.GNSSReceiver}"/>
-                                    <MenuItem Header="Add Vessel" 
-                                              Command="{Binding AddNodeCommand}" 
-                                              CommandParameter="{x:Static model:NodeTypeStringConstants.Vessel}"/>
+                                    <MenuItem Header="Add GNSS Receiver"
+                                              Command="{Binding AddNodeCommand}"
+                                              CommandParameter="{x:Static model:NodeTypeStringConstants.GNSSReceiver}" />
+                                    <MenuItem Header="Add Vessel"
+                                              Command="{Binding AddNodeCommand}"
+                                              CommandParameter="{x:Static model:NodeTypeStringConstants.Vessel}" />
                                     <Separator></Separator>
                                     <MenuItem Header="Remove" Command="{Binding RemoveNodeCommand}"></MenuItem>
                                 </ContextMenu>
                             </StackPanel.ContextMenu>
-                            <CheckBox IsChecked="{Binding IsEnabled}" 
+                            <CheckBox IsChecked="{Binding IsEnabled}"
                                       Margin="0 0 5 0"></CheckBox>
-                            <Border Background="White" 
-                                    SnapsToDevicePixels="True" 
-                                    BorderThickness="1" 
+                            <Border Background="White"
+                                    SnapsToDevicePixels="True"
+                                    BorderThickness="1"
                                     BorderBrush="{StaticResource BorderBrush}"
-                                    Padding="1" Width="14" 
+                                    Padding="1" Width="14"
                                     Height="13" Margin="0 -1 5 0">
                                 <Rectangle SnapsToDevicePixels="True"
                                            Width="10"
-                                           Height="9" 
+                                           Height="9"
                                            Fill="Orange"></Rectangle>
                             </Border>
-                            <fa:ImageAwesome Foreground="{StaticResource BorderBrush}" 
-                                             SnapsToDevicePixels="True" 
+                            <fa:ImageAwesome Foreground="{StaticResource BorderBrush}"
+                                             SnapsToDevicePixels="True"
                                              Margin="0 0 5 0" Icon="Tag"
                                              Width="12" Height="12" />
                             <fa:ImageAwesome Foreground="{StaticResource BorderBrush}"
-                                             SnapsToDevicePixels="True" 
-                                             Margin="0 0 5 0" Icon="Rss" 
+                                             SnapsToDevicePixels="True"
+                                             Margin="0 0 5 0" Icon="Rss"
                                              Width="12" Height="12" />
                             <TextBlock Text="{Binding Name}" Margin="0 0 10 0"></TextBlock>
                         </StackPanel>

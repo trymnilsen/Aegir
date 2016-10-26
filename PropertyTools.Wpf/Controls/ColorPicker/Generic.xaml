@@ -3,7 +3,7 @@
                     xmlns:converters="clr-namespace:PropertyTools.Wpf"
                     xmlns:theme="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero">
 
-    <!-- 
+    <!--
     Portions are copied from ColorPicker styles by Ury Jamshy, 21 July 2011.
     See http://www.codeproject.com/KB/WPF/ColorPicker010.aspx
     The Code Project Open License (CPOL)
@@ -65,7 +65,7 @@
                   Visibility="{Binding Converter={StaticResource ValueToVisibilityConverter}, ConverterParameter={x:Static local:ColorHelper.Automatic}}" />
                 <Polyline Points="2,11 11,2" Stroke="Black" StrokeThickness="2"
                   Visibility="{Binding Converter={StaticResource ValueToVisibilityConverter}, ConverterParameter={x:Static local:ColorHelper.Automatic}}" />
-                <TextBlock Text="?" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                <TextBlock Text="?" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"
                        Visibility="{Binding Converter={StaticResource ValueToVisibilityConverter}, ConverterParameter={x:Static local:ColorHelper.UndefinedColor}}" />
             </Grid>
             <TextBlock Margin="8 0 0 0" VerticalAlignment="Center"
@@ -86,7 +86,7 @@
                 Visibility="{Binding Converter={StaticResource ValueToVisibilityConverter}, ConverterParameter={x:Static local:ColorHelper.Automatic}}" />
             <Polyline Points="2,11 11,2" Stroke="Black" StrokeThickness="2"
                 Visibility="{Binding Converter={StaticResource ValueToVisibilityConverter}, ConverterParameter={x:Static local:ColorHelper.Automatic}}" />
-            <TextBlock Text="?" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" 
+            <TextBlock Text="?" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"
                        Visibility="{Binding Converter={StaticResource ValueToVisibilityConverter}, ConverterParameter={x:Static local:ColorHelper.UndefinedColor}}" />
         </Grid>
     </DataTemplate>
@@ -161,7 +161,7 @@ SnapsToDevicePixels="True" />
     </Style>
 
     <ItemsPanelTemplate x:Key="ColorItemsPanelTemplate">
-        <UniformGrid Margin="0 2 0 2" Columns="10" HorizontalAlignment="Center"/>
+        <UniformGrid Margin="0 2 0 2" Columns="10" HorizontalAlignment="Center" />
     </ItemsPanelTemplate>
 
     <Style x:Key="HeaderBackground" TargetType="{x:Type Grid}">
@@ -298,7 +298,6 @@ Visibility="{Binding ShowHsvPanel, RelativeSource={RelativeSource Mode=Templated
                                                            Background="{StaticResource CheckersBrush}"
                                        Value="{Binding Alpha, RelativeSource={RelativeSource Mode=TemplatedParent}}" BorderBrush="Gray" BorderThickness="1"
                                        LeftColor="#00000000" RightColor="#FF000000" />
-
                                     </Grid>
                                 </Border>
                                 <TextBlock
@@ -353,26 +352,23 @@ Style="{StaticResource HeaderStyle}" />
                                         <TextBox Grid.Row="2" Grid.Column="4" Style="{StaticResource TextBoxStyle}"
                              Text="{Binding Brightness, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource Mode=TemplatedParent}}" />
 
-                                        <!--<Slider Grid.Row="0" Grid.Column="2" Maximum="255" Style="{StaticResource SliderStyle}" Value="{Binding Red, RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
-                            <Slider Grid.Row="1" Grid.Column="2" Maximum="255" Style="{StaticResource SliderStyle}" Value="{Binding Green, RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
-                            <Slider Grid.Row="2" Grid.Column="2" Maximum="255" Style="{StaticResource SliderStyle}" Value="{Binding Blue, RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
+                                        <!--<Slider Grid.Row="0" Grid.Column="2" Maximum="255" Style="{StaticResource SliderStyle}" Value="{Binding Red, RelativeSource={RelativeSource Mode=TemplatedParent}}" />
+                            <Slider Grid.Row="1" Grid.Column="2" Maximum="255" Style="{StaticResource SliderStyle}" Value="{Binding Green, RelativeSource={RelativeSource Mode=TemplatedParent}}" />
+                            <Slider Grid.Row="2" Grid.Column="2" Maximum="255" Style="{StaticResource SliderStyle}" Value="{Binding Blue, RelativeSource={RelativeSource Mode=TemplatedParent}}" />
 
-                            <Slider Grid.Row="0" Grid.Column="6" Maximum="360" Style="{StaticResource SliderStyle}" Value="{Binding Hue, RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
-                            <Slider Grid.Row="1" Grid.Column="6" Maximum="100" Style="{StaticResource SliderStyle}" Value="{Binding Saturation, RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
-                            <Slider Grid.Row="2" Grid.Column="6" Maximum="100" Style="{StaticResource SliderStyle}" Value="{Binding Brightness, RelativeSource={RelativeSource Mode=TemplatedParent}}"/>-->
+                            <Slider Grid.Row="0" Grid.Column="6" Maximum="360" Style="{StaticResource SliderStyle}" Value="{Binding Hue, RelativeSource={RelativeSource Mode=TemplatedParent}}" />
+                            <Slider Grid.Row="1" Grid.Column="6" Maximum="100" Style="{StaticResource SliderStyle}" Value="{Binding Saturation, RelativeSource={RelativeSource Mode=TemplatedParent}}" />
+                            <Slider Grid.Row="2" Grid.Column="6" Maximum="100" Style="{StaticResource SliderStyle}" Value="{Binding Brightness, RelativeSource={RelativeSource Mode=TemplatedParent}}" />-->
 
-
-                                        <!--<Slider Grid.Row="3" Grid.Column="2" Maximum="255" Style="{StaticResource SliderStyle}" Value="{Binding Alpha, RelativeSource={RelativeSource Mode=TemplatedParent}}"/>-->
+                                        <!--<Slider Grid.Row="3" Grid.Column="2" Maximum="255" Style="{StaticResource SliderStyle}" Value="{Binding Alpha, RelativeSource={RelativeSource Mode=TemplatedParent}}" />-->
 
                                         <TextBox Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="4"
                              Style="{StaticResource TextBoxStyle}" TextAlignment="Center"
                              Text="{Binding SelectedColor, RelativeSource={RelativeSource Mode=TemplatedParent}, Converter={StaticResource ColorToHexConverter2}}" />
-
                                     </Grid>
                                 </Border>
                             </StackPanel>
                         </Grid>
-
                     </StackPanel>
                 </ControlTemplate>
             </Setter.Value>
@@ -472,7 +468,7 @@ Color="{Binding RightColor,RelativeSource={RelativeSource TemplatedParent}}" Off
                         </Border>
                         <Border Margin="1" Grid.Row="1" BorderBrush="{TemplateBinding BorderBrush}"
                     BorderThickness="{TemplateBinding BorderThickness}" />
-                        <!--<Label Grid.Row="1" Style="{StaticResource SunkenFrameStyle}"/>-->
+                        <!--<Label Grid.Row="1" Style="{StaticResource SunkenFrameStyle}" />-->
                         <Track Grid.Row="1" Margin="-3,0,-2,0" x:Name="PART_Track">
                             <Track.DecreaseRepeatButton>
                                 <RepeatButton Style="{StaticResource ColorPickerRepeatButtonStyle}"
@@ -552,7 +548,7 @@ Color="{Binding RightColor,RelativeSource={RelativeSource TemplatedParent}}" Off
                     <Grid Name="MainGrid" SnapsToDevicePixels="true">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="8"/>
+                            <ColumnDefinition Width="8" />
                         </Grid.ColumnDefinitions>
 
                         <!-- The Popup color picker panel -->
@@ -566,7 +562,6 @@ Color="{Binding RightColor,RelativeSource={RelativeSource TemplatedParent}}" Off
                                     <!--<Grid RenderOptions.ClearTypeHint="Enabled">-->
                                     <local:ColorPickerPanel x:Name="PART_ColorPickerPanel"
                                           SelectedColor="{Binding SelectedColor, RelativeSource={RelativeSource Mode=TemplatedParent}}" />
-
                                 </Border>
                             </theme:SystemDropShadowChrome>
                         </Popup>
@@ -583,7 +578,6 @@ Color="{Binding RightColor,RelativeSource={RelativeSource TemplatedParent}}" Off
                               HorizontalAlignment="Stretch"
                               SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
                         </ContentPresenter>
-
                     </Grid>
 
                     <ControlTemplate.Triggers>
@@ -595,7 +589,7 @@ Color="{Binding RightColor,RelativeSource={RelativeSource TemplatedParent}}" Off
                                  Value="false">
                             <Setter TargetName="DropDownBorder"
                                     Property="Height"
-                                    Value="95"/>
+                                    Value="95" />
                         </Trigger>-->
                         <Trigger Property="IsEnabled" Value="false">
                             <Setter Property="Foreground"
@@ -605,16 +599,16 @@ Color="{Binding RightColor,RelativeSource={RelativeSource TemplatedParent}}" Off
                         <!--<Trigger Property="IsGrouping"
                                  Value="true">
                             <Setter Property="ScrollViewer.CanContentScroll"
-                                    Value="false"/>
+                                    Value="false" />
                         </Trigger>-->
                         <!--<Trigger SourceName="DropDownScrollViewer"
                                  Property="ScrollViewer.CanContentScroll"
-                                 Value="false" >
-                            <Setter TargetName="OpaqueRect" 
-                                    Property="Canvas.Top" 
+                                 Value="false">
+                            <Setter TargetName="OpaqueRect"
+                                    Property="Canvas.Top"
                                     Value="{Binding ElementName=DropDownScrollViewer, Path=VerticalOffset}" />
-                            <Setter TargetName="OpaqueRect" 
-                                    Property="Canvas.Left" 
+                            <Setter TargetName="OpaqueRect"
+                                    Property="Canvas.Left"
                                     Value="{Binding ElementName=DropDownScrollViewer, Path=HorizontalOffset}" />
                         </Trigger>-->
                     </ControlTemplate.Triggers>
@@ -671,8 +665,8 @@ Color="{Binding RightColor,RelativeSource={RelativeSource TemplatedParent}}" Off
                         <Border BorderBrush="{TemplateBinding BorderBrush}"
                     BorderThickness="{TemplateBinding BorderThickness}" />
                         <!--<Grid>
-                            <Border BorderBrush="#A0808080" BorderThickness="1,1,0,0"/>
-                            <Border BorderBrush="#A0F0F0F0" BorderThickness="0,0,1,1"/>
+                            <Border BorderBrush="#A0808080" BorderThickness="1,1,0,0" />
+                            <Border BorderBrush="#A0F0F0F0" BorderThickness="0,0,1,1" />
                         </Grid>-->
                         <Canvas ClipToBounds="true">
                             <Thumb Canvas.Left="-5" Canvas.Top="-5" x:Name="PART_Thumb"

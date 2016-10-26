@@ -112,10 +112,9 @@ namespace HelixToolkit.Wpf
 
         /// <summary>
         /// Identifies the <see cref="MaterialType"/> dependency property.
-        /// </summary>        
+        /// </summary>
         public static readonly DependencyProperty MaterialTypeProperty =
             DependencyProperty.Register("MaterialType", typeof(MaterialType), typeof(BillboardTextVisual3D), new PropertyMetadata(MaterialType.Diffuse));
-
 
         /// <summary>
         /// Gets or sets the background.
@@ -328,12 +327,12 @@ namespace HelixToolkit.Wpf
             }
 
             var textBlock = new TextBlock(new Run(this.Text))
-                                {
-                                    Foreground = this.Foreground,
-                                    Background = this.Background,
-                                    FontWeight = this.FontWeight,
-                                    Padding = this.Padding
-                                };
+            {
+                Foreground = this.Foreground,
+                Background = this.Background,
+                FontWeight = this.FontWeight,
+                Padding = this.Padding
+            };
 
             if (this.FontFamily != null)
             {
@@ -348,11 +347,11 @@ namespace HelixToolkit.Wpf
             var element = this.BorderBrush != null
                               ? (FrameworkElement)
                                 new Border
-                                    {
-                                        BorderBrush = this.BorderBrush,
-                                        BorderThickness = this.BorderThickness,
-                                        Child = textBlock
-                                    }
+                                {
+                                    BorderBrush = this.BorderBrush,
+                                    BorderThickness = this.BorderThickness,
+                                    Child = textBlock
+                                }
                               : textBlock;
 
             element.Measure(new Size(1000, 1000));

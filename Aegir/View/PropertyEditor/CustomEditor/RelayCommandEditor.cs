@@ -2,7 +2,6 @@
 using System.Windows.Controls;
 using System.Windows.Data;
 
-
 namespace Aegir.View.PropertyEditor.CustomEditor
 {
     //public class RelayCommandEditor : ITypeEditor

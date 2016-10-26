@@ -16,7 +16,6 @@
                         <ColumnDefinition Width="1*" />
                         <ColumnDefinition Width="260" />
                         <ColumnDefinition Width="300" />
-
                     </Grid.ColumnDefinitions>
                 </Grid>
             </ItemsPanelTemplate>
@@ -28,7 +27,6 @@
             </StackPanel>
         </StatusBarItem>
         <StatusBarItem Grid.Column="1">
-            
         </StatusBarItem>
         <StatusBarItem Grid.Column="1">
             <StackPanel Orientation="Horizontal">
@@ -37,8 +35,8 @@
                 </StackPanel.Resources>
                 <fa:ImageAwesome Width="16px" Icon="ObjectGroup" Margin="0 0 10 0"></fa:ImageAwesome>
                 <TextBlock Text="Selected:" Margin="0 0 6 0"></TextBlock>
-                <TextBlock Text="{Binding SelectionVM.SelectedObject, 
-                                          Source={StaticResource VMLocator}, 
+                <TextBlock Text="{Binding SelectionVM.SelectedObject,
+                                          Source={StaticResource VMLocator},
                                           Converter={StaticResource ObjToName}}"></TextBlock>
             </StackPanel>
         </StatusBarItem>

@@ -73,7 +73,7 @@ namespace HelixToolkit.Wpf
         public void Clear()
         {
             OuterDictionary.Clear();
-            if (m_innerDictionary!=null)
+            if (m_innerDictionary != null)
                 m_innerDictionary.Clear();
         }
 
@@ -238,7 +238,6 @@ namespace HelixToolkit.Wpf
         {
             return this.GetEnumerator();
         }
-
     }
 
     /// <summary>
@@ -302,6 +301,5 @@ namespace HelixToolkit.Wpf
         {
             return this.Key1 + " - " + this.Key2 + " - " + this.Value;
         }
-
     }
 }

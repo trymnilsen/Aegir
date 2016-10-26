@@ -87,6 +87,5 @@ namespace HelixToolkit.Wpf
         {
             return this.builder.UpdateTransforms();
         }
-
     }
 }

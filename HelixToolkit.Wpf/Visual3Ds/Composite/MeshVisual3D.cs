@@ -324,6 +324,5 @@ namespace HelixToolkit.Wpf
 
             this.Content = m;
         }
-
     }
 }

@@ -76,6 +76,5 @@ namespace HelixToolkit.Wpf
 
             this.TextureCoordinates = texcoords;
         }
-
     }
 }

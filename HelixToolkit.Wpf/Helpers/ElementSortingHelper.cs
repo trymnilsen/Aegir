@@ -269,6 +269,5 @@ namespace HelixToolkit.Wpf
                 model.Add(v);
             }
         }
-
     }
 }

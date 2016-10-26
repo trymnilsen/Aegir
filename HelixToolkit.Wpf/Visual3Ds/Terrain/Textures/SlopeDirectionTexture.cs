@@ -71,6 +71,5 @@ namespace HelixToolkit.Wpf
             this.TextureCoordinates = texcoords;
             this.Material = MaterialHelper.CreateMaterial(this.Brush);
         }
-
     }
 }

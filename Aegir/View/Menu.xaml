@@ -53,7 +53,7 @@
                 <MenuItem Header="Line"></MenuItem>
                 <MenuItem Header="Polygon"></MenuItem>
             </MenuItem>
-            
+
             <MenuItem Header="Settings">
                 <MenuItem Header="Logging Level">
                     <MenuItem Header="Debug"></MenuItem>

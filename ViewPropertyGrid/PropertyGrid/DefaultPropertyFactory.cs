@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-using System.ComponentModel;
 
 namespace ViewPropertyGrid.PropertyGrid
 {
-    public static class DefaultPropertyFactory 
+    public static class DefaultPropertyFactory
     {
         private static Dictionary<PropertyInfo, InspectablePropertyMetadata> metadataCache = new Dictionary<PropertyInfo, InspectablePropertyMetadata>();
 
@@ -16,7 +16,7 @@ namespace ViewPropertyGrid.PropertyGrid
 
         public static InspectableProperty[] GetProperties(object obj)
         {
-            if(obj is IPropertyInfoProvider)
+            if (obj is IPropertyInfoProvider)
             {
                 return (obj as IPropertyInfoProvider)?.GetProperties();
             }
@@ -24,10 +24,10 @@ namespace ViewPropertyGrid.PropertyGrid
             {
                 var properties = obj.GetType().GetProperties();
                 List<InspectableProperty> finalProperties = new List<InspectableProperty>();
-                foreach(PropertyInfo property in properties)
+                foreach (PropertyInfo property in properties)
                 {
                     //Check for browsable attribute
-                    if(property.GetCustomAttribute<BrowsableAttribute>()?.Browsable == false)
+                    if (property.GetCustomAttribute<BrowsableAttribute>()?.Browsable == false)
                     {
                         continue;
                     }
@@ -38,16 +38,18 @@ namespace ViewPropertyGrid.PropertyGrid
                 return finalProperties.ToArray();
             }
         }
+
         public static InspectablePropertyMetadata GetPropertyMetadata(InspectableProperty property)
         {
-            if(!metadataCache.ContainsKey(property.ReflectionData))
+            if (!metadataCache.ContainsKey(property.ReflectionData))
             {
                 var metadata = GenerateMetadata(property);
-                metadataCache.Add(property.ReflectionData,metadata);
+                metadataCache.Add(property.ReflectionData, metadata);
             }
 
             return metadataCache[property.ReflectionData];
         }
+
         private static InspectablePropertyMetadata GenerateMetadata(InspectableProperty property)
         {
             //Get all attributes
@@ -58,19 +60,19 @@ namespace ViewPropertyGrid.PropertyGrid
 
             //If the property has a category attribute, use this
             CategoryAttribute categoryAttribute = attributes
-                .FirstOrDefault(x => x is CategoryAttribute) 
+                .FirstOrDefault(x => x is CategoryAttribute)
                     as CategoryAttribute;
 
             //Set category name to the default
             string categoryName = PropertyGrid.NoCategoryName;
 
             //Change it to the value of category attribute if it exists
-            if(categoryAttribute != null)
+            if (categoryAttribute != null)
             {
                 categoryName = categoryAttribute.Category;
             }
             //If there is no category, should we use Target toString as category or the default
-            else if(UseTargetToStringOnNoCategory)
+            else if (UseTargetToStringOnNoCategory)
             {
                 categoryName = property.Target.ToString();
             }
@@ -80,7 +82,6 @@ namespace ViewPropertyGrid.PropertyGrid
             var metaData = new InspectablePropertyMetadata(updateLayout, categoryName, property.ReflectionData);
             metaData.DisplayName = displayName;
             return metaData;
-
         }
     }
 }

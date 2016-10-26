@@ -10,12 +10,10 @@ namespace Aegir.Map
 {
     public class MapTileGenerator
     {
-
         public MapTileGenerator()
         {
             TileService.CacheFolder = @"ImageCache";
         }
-
 
         public void LoadTileImageAsync(MapTileVisual tile, int x, int y, int zoom)
         {
@@ -36,9 +34,7 @@ namespace Aegir.Map
                         tile.Fill = imageBrush;
                     });
                 }
-                
             });
-
         }
 
         //private System.Drawing.Image ImageWpfToGDI(ImageSource image)
@@ -50,6 +46,5 @@ namespace Aegir.Map
         //    ms.Flush();
         //    return System.Drawing.Image.FromStream(ms);
         //}
-
     }
 }

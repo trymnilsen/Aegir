@@ -6,7 +6,6 @@ namespace Aegir.ViewModel
 {
     public class ViewModelLocator
     {
-
         public TimelineViewModel TimelineVM
         {
             get
@@ -69,6 +68,7 @@ namespace Aegir.ViewModel
                 return SimpleIoc.Default.GetInstance<MapViewModel>();
             }
         }
+
         public SelectionViewModel SelectionVM
         {
             get
@@ -76,6 +76,7 @@ namespace Aegir.ViewModel
                 return SimpleIoc.Default.GetInstance<SelectionViewModel>();
             }
         }
+
         /// <summary>
         /// Cleans up all the resources.
         /// </summary>

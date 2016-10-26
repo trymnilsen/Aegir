@@ -9,7 +9,5 @@ namespace AegirCore.Asset
 {
     public class UriLoader
     {
-
-
     }
 }

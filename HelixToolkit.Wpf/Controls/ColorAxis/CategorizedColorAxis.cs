@@ -80,6 +80,7 @@ namespace HelixToolkit.Wpf
                         p3 = new Point(this.ColorArea.Right, y2);
                         p4 = new Point(this.ColorArea.Left - this.TickLength, y2);
                         break;
+
                     default:
                         p0 = new Point(this.ColorArea.Left, y);
                         p1 = new Point(this.ColorArea.Right + this.TickLength, y);
@@ -91,29 +92,29 @@ namespace HelixToolkit.Wpf
                 }
 
                 var l = new System.Windows.Shapes.Line
-                            {
-                                X1 = p0.X,
-                                X2 = p1.X,
-                                Y1 = p0.Y,
-                                Y2 = p1.Y,
-                                Stroke = this.Foreground,
-                                StrokeThickness = 1,
-                                SnapsToDevicePixels = true
-                            };
+                {
+                    X1 = p0.X,
+                    X2 = p1.X,
+                    Y1 = p0.Y,
+                    Y2 = p1.Y,
+                    Stroke = this.Foreground,
+                    StrokeThickness = 1,
+                    SnapsToDevicePixels = true
+                };
 
                 this.Canvas.Children.Add(l);
                 if (i == this.Categories.Count - 1)
                 {
                     var l2 = new System.Windows.Shapes.Line
-                                 {
-                                     X1 = p3.X,
-                                     X2 = p4.X,
-                                     Y1 = p3.Y,
-                                     Y2 = p4.Y,
-                                     Stroke = this.BorderBrush,
-                                     StrokeThickness = 1,
-                                     SnapsToDevicePixels = true
-                                 };
+                    {
+                        X1 = p3.X,
+                        X2 = p4.X,
+                        Y1 = p3.Y,
+                        Y2 = p4.Y,
+                        Stroke = this.BorderBrush,
+                        StrokeThickness = 1,
+                        SnapsToDevicePixels = true
+                    };
                     this.Canvas.Children.Add(l2);
                 }
 

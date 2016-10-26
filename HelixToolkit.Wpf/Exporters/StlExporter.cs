@@ -49,7 +49,7 @@ namespace HelixToolkit.Wpf
 
             int triangleIndicesCount = 0;
             viewport.Children.Traverse<GeometryModel3D>((m, t) => triangleIndicesCount += ((MeshGeometry3D)m.Geometry).TriangleIndices.Count);
-            
+
             ExportHeader(writer, triangleIndicesCount / 3);
             viewport.Children.Traverse<GeometryModel3D>((m, t) => ExportModel(writer, m, t));
 
@@ -73,7 +73,7 @@ namespace HelixToolkit.Wpf
 
             Close(writer);
         }
-        
+
         /// <summary>
         /// Exports specified <see cref="Model3D"/>.
         /// </summary>
@@ -115,7 +115,7 @@ namespace HelixToolkit.Wpf
         /// <param name="t">All vertices are transformed with this transform before written</param>
         protected override void ExportModel(BinaryWriter writer, GeometryModel3D model, Transform3D t)
         {
-            var mesh = (MeshGeometry3D) model.Geometry;
+            var mesh = (MeshGeometry3D)model.Geometry;
 
             var normals = mesh.Normals;
             if (normals == null || normals.Count != mesh.Positions.Count)

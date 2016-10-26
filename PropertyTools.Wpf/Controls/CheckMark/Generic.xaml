@@ -5,7 +5,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:CheckMark}">
-                    <theme:BulletChrome Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" IsChecked="{TemplateBinding IsChecked}"/>
+                    <theme:BulletChrome Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" IsChecked="{TemplateBinding IsChecked}" />
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

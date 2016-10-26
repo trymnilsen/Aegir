@@ -9,16 +9,16 @@ using System.Threading.Tasks;
 namespace AegirCore.Keyframe
 {
     /// <summary>
-    /// Baseclass for all keyframes, exposes the property keyframed as well the 
+    /// Baseclass for all keyframes, exposes the property keyframed as well the
     /// object instance containing the given property to be keyframed
     /// </summary>
     public abstract class Keyframe : TimelineItem
     {
-
         /// <summary>
         /// The property we are keyframing
         /// </summary>
         public KeyframePropertyInfo Property { get; private set; }
+
         /// <summary>
         /// The value our keyframe represents
         /// </summary>

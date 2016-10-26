@@ -16,15 +16,14 @@ namespace AegirCore.Mesh.Loader
         /// <returns></returns>
         public MeshData LoadMesh(StreamReader dataStream)
         {
-            if(dataStream == null)
+            if (dataStream == null)
             {
                 throw new ArgumentNullException(nameof(dataStream));
             }
-            
+
             ObjModel objLoader = new ObjModel();
             objLoader.LoadObj(dataStream);
             return objLoader.GetMesh();
-
         }
     }
 }

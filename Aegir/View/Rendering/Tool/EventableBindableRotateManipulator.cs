@@ -9,7 +9,7 @@ using System.Windows.Input;
 
 namespace Aegir.View.Rendering.Tool
 {
-    class EventableBindableRotateManipulator : BindableRotateManipulator, IEventableManipulator, IMouseDownManipulator
+    internal class EventableBindableRotateManipulator : BindableRotateManipulator, IEventableManipulator, IMouseDownManipulator
     {
         protected override void OnMouseUp(MouseButtonEventArgs e)
         {

@@ -267,17 +267,20 @@ namespace PropertyTools.Wpf
             foreach (var itemValue in enumValues)
             {
                 var rb = new RadioButton
-                    {
-                        Content =
+                {
+                    Content =
                             this.DescriptionConverter.Convert(
                                 itemValue, typeof(string), null, CultureInfo.CurrentCulture),
-                        Padding = this.ItemPadding
-                    };
+                    Padding = this.ItemPadding
+                };
 
                 var isCheckedBinding = new Binding("Value")
-                    {
-                       Converter = converter, ConverterParameter = itemValue, Source = this, Mode = BindingMode.TwoWay
-                    };
+                {
+                    Converter = converter,
+                    ConverterParameter = itemValue,
+                    Source = this,
+                    Mode = BindingMode.TwoWay
+                };
                 rb.SetBinding(ToggleButton.IsCheckedProperty, isCheckedBinding);
 
                 rb.SetBinding(MarginProperty, new Binding("ItemMargin") { Source = this });

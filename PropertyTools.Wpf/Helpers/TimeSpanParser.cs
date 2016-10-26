@@ -65,13 +65,16 @@ namespace PropertyTools.Wpf
                     case "d":
                         total = total.Add(TimeSpan.FromDays(d));
                         break;
+
                     case "h":
                         total = total.Add(TimeSpan.FromHours(d));
                         break;
+
                     case "m":
                     case "'":
                         total = total.Add(TimeSpan.FromMinutes(d));
                         break;
+
                     case "\"":
                     case "s":
                         total = total.Add(TimeSpan.FromSeconds(d));

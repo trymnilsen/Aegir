@@ -89,50 +89,73 @@ namespace PropertyTools.Wpf
             {
                 case "DD":
                     return timeSpan.TotalDays.ToString("00");
+
                 case "D":
                     return timeSpan.TotalDays.ToString("0");
+
                 case "dd":
                     return timeSpan.Days.ToString("00");
+
                 case "d":
                     return timeSpan.Days.ToString("0");
+
                 case "HH":
                     return ((int)timeSpan.TotalHours).ToString("00");
+
                 case "H":
                     return ((int)timeSpan.TotalHours).ToString("0");
+
                 case "hh":
                     return timeSpan.Hours.ToString("00");
+
                 case "h":
                     return timeSpan.Hours.ToString("0");
+
                 case "MM":
                     return ((int)timeSpan.TotalMinutes).ToString("00");
+
                 case "M":
                     return ((int)timeSpan.TotalMinutes).ToString("0");
+
                 case "mm":
                     return timeSpan.Minutes.ToString("00");
+
                 case "m":
                     return timeSpan.Minutes.ToString("0");
+
                 case "SS":
                     return ((int)timeSpan.TotalSeconds).ToString("00");
+
                 case "S":
                     return ((int)timeSpan.TotalSeconds).ToString("0");
+
                 case "ss":
                     return timeSpan.Seconds.ToString("00");
+
                 case "s":
                     return timeSpan.Seconds.ToString("0");
+
                 case "fffffff":
                     return (timeSpan.Milliseconds * 10000).ToString("0000000");
+
                 case "ffffff":
                     return (timeSpan.Milliseconds * 1000).ToString("000000");
+
                 case "fffff":
                     return (timeSpan.Milliseconds * 100).ToString("00000");
+
                 case "ffff":
                     return (timeSpan.Milliseconds * 10).ToString("0000");
+
                 case "fff":
                     return timeSpan.Milliseconds.ToString("000");
+
                 case "ff":
                     return (timeSpan.Milliseconds / 10).ToString("00");
+
                 case "f":
                     return (timeSpan.Milliseconds / 100).ToString("0");
+
                 default:
                     return match.Value;
             }

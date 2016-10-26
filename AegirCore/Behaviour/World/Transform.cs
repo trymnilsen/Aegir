@@ -1,11 +1,11 @@
-﻿using System;
+﻿using AegirCore.Keyframe;
+using AegirCore.Persistence;
+using AegirCore.Scene;
+using AegirCore.Simulation;
+using AegirType;
+using System;
 using System.Xml.Linq;
 using System.Xml.Serialization;
-using AegirCore.Persistence;
-using AegirCore.Keyframe;
-using AegirCore.Scene;
-using AegirType;
-using AegirCore.Simulation;
 
 namespace AegirCore.Behaviour.World
 {
@@ -27,6 +27,7 @@ namespace AegirCore.Behaviour.World
                 localPosition = value;
             }
         }
+
         [KeyframeProperty]
         public Quaternion LocalRotation
         {
@@ -36,6 +37,7 @@ namespace AegirCore.Behaviour.World
                 localRotation = value;
             }
         }
+
         public Vector3 WorldPosition
         {
             get
@@ -43,6 +45,7 @@ namespace AegirCore.Behaviour.World
                 return worldPosition;
             }
         }
+
         public Quaternion WorldRotation
         {
             get
@@ -97,6 +100,7 @@ namespace AegirCore.Behaviour.World
         {
             LocalRotation = Quaternion.CreateFromAxisAngle(new Vector3(0, 0, 1), (float)newHeading);
         }
+
         public void SetOrientation(double yaw, double pitch, double roll)
         {
             LocalRotation = Quaternion.CreateFromYawPitchRoll((float)yaw, (float)pitch, (float)roll);
@@ -106,10 +110,11 @@ namespace AegirCore.Behaviour.World
         {
             return "Transform";
         }
+
         public override void PreUpdate(SimulationTime time)
         {
             Transform parentTransform = Parent?.Parent?.Transform;
-            if(parentTransform != null)
+            if (parentTransform != null)
             {
                 this.worldPosition = parentTransform.WorldPosition + localPosition;
                 this.worldRotation = parentTransform.WorldRotation * localRotation;
@@ -141,11 +146,11 @@ namespace AegirCore.Behaviour.World
             XElement positionElement = data.Element(localPosition.GetType().Name);
             XElement rotationElement = data.Element(localRotation.GetType().Name);
 
-            if(positionElement == null)
+            if (positionElement == null)
             {
                 throw new PersistanceException("Transform element of node does not have a position element");
             }
-            if(rotationElement == null)
+            if (rotationElement == null)
             {
                 throw new PersistanceException("Transform element of node does not have a rotation element");
             }
@@ -153,6 +158,7 @@ namespace AegirCore.Behaviour.World
             localPosition = XElementSerializer.DeserializeFromXElement<Vector3>(positionElement);
             localRotation = XElementSerializer.DeserializeFromXElement<Quaternion>(rotationElement);
         }
+
         //public void TriggerTransformChanged()
         //{
         //    TransformationChangedHandler transformEvent = TransformationChanged;

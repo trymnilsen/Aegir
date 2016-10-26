@@ -48,12 +48,12 @@ namespace Aegir.View.Timeline
 
         internal bool Validate(out string errorMessage)
         {
-            if(TimelineViewStart>TimelineViewEnd)
+            if (TimelineViewStart > TimelineViewEnd)
             {
                 errorMessage = "Start of time view cannot be after end";
                 return false;
             }
-            if(PlaybackStart>PlaybackEnd)
+            if (PlaybackStart > PlaybackEnd)
             {
                 errorMessage = "Start of playback cannot be after start";
                 return false;
@@ -137,8 +137,8 @@ namespace Aegir.View.Timeline
         /// <param name="mode">The display mode of tick labels</param>
         /// <param name="Loop">Loop the playback</param>
         /// <param name="Reverse"> Start playback backwards from end to start when hitting playback end</param>
-        public TimelineConfig(int viewStart, int viewEnd, 
-                                int playStart, int playEnd, 
+        public TimelineConfig(int viewStart, int viewEnd,
+                                int playStart, int playEnd,
                                 TimelineTickDisplayMode mode,
                                 bool Loop, bool Reverse)
         {

@@ -1,12 +1,12 @@
 ﻿using AegirCore.Behaviour.Simulation;
+using AegirCore.Persistence;
 using AegirCore.Project.Event;
 using AegirCore.Scene;
 using AegirCore.Vessel;
-using System.IO;
-using System;
 using Newtonsoft.Json;
+using System;
+using System.IO;
 using System.Xml.Serialization;
-using AegirCore.Persistence;
 
 namespace AegirCore.Project
 {
@@ -53,8 +53,6 @@ namespace AegirCore.Project
     //    {
     //        ActiveProject = project;
     //    }
-
-
 
     //    private void TriggerProjectLoadSuccess(ProjectLoadEventArgs e)
     //    {

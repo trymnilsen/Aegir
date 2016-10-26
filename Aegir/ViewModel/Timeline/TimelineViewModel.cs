@@ -182,7 +182,6 @@ namespace Aegir.ViewModel.Timeline
             set { Engine.PlaybackEnd = value; }
         }
 
-
         public int PlaybackEnd
         {
             get { return Engine.PlaybackEnd; }
@@ -194,7 +193,7 @@ namespace Aegir.ViewModel.Timeline
             get { return selectedKey; }
             set
             {
-                if(selectedKey!=value)
+                if (selectedKey != value)
                 {
                     selectedKey = value;
                     UpdateSelectedKey(value);
@@ -292,8 +291,6 @@ namespace Aegir.ViewModel.Timeline
                             message?.Timeline.ToString());
             SetTimeLine(message.Timeline);
             Engine = message.Engine;
-
-
         }
 
         private void Engine_CurrentTimeChanged(int newTime)
@@ -356,7 +353,7 @@ namespace Aegir.ViewModel.Timeline
 
         private void Timeline_KeyframeAdded(Node node, int time, Keyframe key)
         {
-            KeyframeViewModel keyVM = new KeyframeViewModel(time, this);
+            KeyframeViewModel keyVM = new KeyframeViewModel(key, time, this);
             Keyframes.Add(keyVM);
         }
     }

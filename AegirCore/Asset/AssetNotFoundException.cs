@@ -8,7 +8,7 @@ namespace AegirCore.Asset
 {
     public class AssetNotFoundException : Exception
     {
-        public AssetNotFoundException(string message) 
-            :base (message) { }
+        public AssetNotFoundException(string message)
+            : base(message) { }
     }
 }

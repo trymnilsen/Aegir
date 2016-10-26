@@ -977,6 +977,7 @@ namespace HelixToolkit.Wpf
                      this.WriteParameter("Index of Refraction", 1.0);
                      this.WriteParameter("N-K File", "");
                      break;
+
                  case MaterialTypes.Diffusive: // Whitted material
                      this.WriteParameter("Shininess", 60.0);
                      this.WriteParameter("Transmitted Shininess", 128.0);

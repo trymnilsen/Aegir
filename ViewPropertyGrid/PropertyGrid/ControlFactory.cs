@@ -20,6 +20,7 @@ namespace ViewPropertyGrid.PropertyGrid
             ControlProviders = new Dictionary<Type, IControlProvider>();
             RegisterDefaultProviders();
         }
+
         private void RegisterDefaultProviders()
         {
             this.ControlProviders.Add(typeof(int), new TextboxProvider());
@@ -28,6 +29,7 @@ namespace ViewPropertyGrid.PropertyGrid
             this.ControlProviders.Add(typeof(Enum), new ComboBoxProvider());
             this.ControlProviders.Add(typeof(bool), new ComboBoxProvider());
         }
+
         public void RegisterControl<T>(IControlProvider control)
         {
             Type controlType = typeof(T);
@@ -46,14 +48,14 @@ namespace ViewPropertyGrid.PropertyGrid
             }
             else
             {
-                if(ControlProviders.ContainsKey(propType))
+                if (ControlProviders.ContainsKey(propType))
                 {
                     return ControlProviders[propType].GetControl(property);
                 }
                 //Special case for enums
-                if(propType.IsSubclassOf(typeof(Enum)))
+                if (propType.IsSubclassOf(typeof(Enum)))
                 {
-                    if(ControlProviders.ContainsKey(typeof(Enum)))
+                    if (ControlProviders.ContainsKey(typeof(Enum)))
                     {
                         return ControlProviders[typeof(Enum)].GetControl(property);
                     }
@@ -63,14 +65,17 @@ namespace ViewPropertyGrid.PropertyGrid
                                property.Target));
             }
         }
+
         public TextBlock CreateUnFocusedTextBlock(string name, object target)
         {
             return CreateTextBlock(name, target, Colors.Black);
         }
+
         public TextBlock CreateDisabledTextBlock(string name, object target)
         {
             return CreateTextBlock(name, target, Colors.DimGray);
         }
+
         private TextBlock CreateTextBlock(string name, object target, Color foregroundColor)
         {
             TextBlock control = new TextBlock();

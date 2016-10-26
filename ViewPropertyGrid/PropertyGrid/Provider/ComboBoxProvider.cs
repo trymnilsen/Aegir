@@ -11,7 +11,7 @@ using ViewPropertyGrid.Converter;
 
 namespace ViewPropertyGrid.PropertyGrid.Provider
 {
-    class ComboBoxProvider : IControlProvider
+    internal class ComboBoxProvider : IControlProvider
     {
         public ValueControl GetControl(InspectableProperty property)
         {
@@ -44,11 +44,11 @@ namespace ViewPropertyGrid.PropertyGrid.Provider
 
         private string[] GetValues(PropertyInfo reflectionData)
         {
-            if(reflectionData.PropertyType.IsEnum)
+            if (reflectionData.PropertyType.IsEnum)
             {
                 return Enum.GetNames(reflectionData.PropertyType);
             }
-            if(reflectionData.PropertyType == typeof(bool))
+            if (reflectionData.PropertyType == typeof(bool))
             {
                 return new string[] { "True", "False" };
             }

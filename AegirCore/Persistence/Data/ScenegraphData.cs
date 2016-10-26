@@ -10,12 +10,12 @@ namespace AegirCore.Persistence.Data
     {
         public string Name;
     }
+
     public class Behaviour
     {
-
     }
+
     public class ScenegraphData
     {
-
     }
 }

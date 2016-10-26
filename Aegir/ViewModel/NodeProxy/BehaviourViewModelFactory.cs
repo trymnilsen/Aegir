@@ -19,6 +19,7 @@ namespace Aegir.ViewModel.NodeProxy
         /// T2 (second type) is the type of the viewmodel
         /// </summary>
         private static Dictionary<Type, Type> behaviourVmMapping;
+
         static BehaviourViewModelFactory()
         {
             behaviourVmMapping = new Dictionary<Type, Type>();
@@ -35,18 +36,18 @@ namespace Aegir.ViewModel.NodeProxy
             var viewModelTypes =
                 // Partition on the type list initially.
                 from t in assembly.GetTypes()
-                //Get attributes
+                    //Get attributes
                 let attributes = t.GetCustomAttributes(typeof(ViewModelForBehaviourAttribute), false)
                 //Query where
                 where attributes != null && attributes.Length > 0
                 //Select the results into a anonomous type
                 select new { Type = t, Attributes = attributes.Cast<ViewModelForBehaviourAttribute>() };
 
-            foreach(var vmType in viewModelTypes)
+            foreach (var vmType in viewModelTypes)
             {
                 //Do some extra checks
                 //Check that the type of the object holding the attribute is a subclass of vmproxy
-                if(!ReflectionUtils.IsSubclassOfRawGeneric(typeof(TypedBehaviourViewModel<>), vmType.Type))
+                if (!ReflectionUtils.IsSubclassOfRawGeneric(typeof(TypedBehaviourViewModel<>), vmType.Type))
                 {
                     //No it was not, jump to next
                     continue;
@@ -54,14 +55,14 @@ namespace Aegir.ViewModel.NodeProxy
                 //Check that the target is a correct subtype
                 //First get the data out of the attribute, we assume only one
                 Type vmTargetType = vmType.Attributes.FirstOrDefault()?.TargetBehaviourType;
-                if(vmTargetType == null || !vmTargetType.IsSubclassOf(typeof(BehaviourComponent)))
+                if (vmTargetType == null || !vmTargetType.IsSubclassOf(typeof(BehaviourComponent)))
                 {
                     //No it was not, jump to next
                     continue;
                 }
 
                 //Everything is ok, add it to the mapping
-                behaviourVmMapping.Add(vmTargetType,vmType.Type);
+                behaviourVmMapping.Add(vmTargetType, vmType.Type);
             }
         }
 
@@ -71,22 +72,21 @@ namespace Aegir.ViewModel.NodeProxy
             {
                 Type vmType = null;
                 //Check if we have a viewmodel for this behaviour
-                if(behaviourVmMapping.TryGetValue(behaviour.GetType(), out vmType))
+                if (behaviourVmMapping.TryGetValue(behaviour.GetType(), out vmType))
                 {
-                    //Create a new instance of this ViewModel 
-                    //the only constructor parameter is the source behaviour this 
+                    //Create a new instance of this ViewModel
+                    //the only constructor parameter is the source behaviour this
                     //viewmodel is wrapping
                     object instance = Activator.CreateInstance(vmType, behaviour);
                     BehaviourViewModel vm = instance as BehaviourViewModel;
                     return vm;
                 }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 DebugUtil.LogWithLocation($"Error Occured Getting ViewModel for {behaviour.ToString()}");
             }
             return null;
         }
-
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AegirCore.Signals.Vessel
 {
-    class VesselNavigationChanged
+    internal class VesselNavigationChanged
     {
     }
 }

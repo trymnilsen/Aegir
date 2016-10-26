@@ -40,8 +40,6 @@ namespace Aegir.Map
             set { tileZoom = value; }
         }
 
-
-
         /// <summary>
         /// Size of this tile
         /// </summary>
@@ -59,6 +57,7 @@ namespace Aegir.Map
             get { return tileY; }
             set { tileY = value; }
         }
+
         /// <summary>
         /// The tile index Y value
         /// </summary>
@@ -76,7 +75,7 @@ namespace Aegir.Map
 
         private void MapTileVisual_DebugChanged(object sender, EventArgs e)
         {
-            if(IsDebugEnabled)
+            if (IsDebugEnabled)
             {
                 UpdateDebugLabels();
             }
@@ -88,14 +87,14 @@ namespace Aegir.Map
 
         public void UpdateDebugLabels()
         {
-            if(!IsDebugEnabled)
+            if (!IsDebugEnabled)
             {
                 return;
             }
             double n = Math.Pow(2, TileZoom);
             double inverseZoom = 18 - tileZoom;
-            double newTileX = TileX * Math.Pow(2,inverseZoom);
-            double newTileY = tileY * Math.Pow(2,inverseZoom);
+            double newTileX = TileX * Math.Pow(2, inverseZoom);
+            double newTileY = tileY * Math.Pow(2, inverseZoom);
             double NormalizedX = (scale.NormalizeX(newTileX) + scale.NormalizeX(TileService.xTileOffset));
             double NormalizedY = (scale.NormalizeY(newTileY) + scale.NormalizeY(TileService.yTileOffset));
             double osmTileXPreFloor = NormalizedX * n;
@@ -110,22 +109,22 @@ namespace Aegir.Map
             Color color = Color.FromArgb(100, (byte)r.Next(255), (byte)r.Next(255), (byte)r.Next(255));
             //Create a small border for tile
             double borderSize = Width * 0.05; // 5%
-            RectangleVisual3D LeftEdge = new RectangleVisual3D(); 
-            RectangleVisual3D RightEdge = new RectangleVisual3D(); 
-            RectangleVisual3D TopEdge = new RectangleVisual3D(); 
+            RectangleVisual3D LeftEdge = new RectangleVisual3D();
+            RectangleVisual3D RightEdge = new RectangleVisual3D();
+            RectangleVisual3D TopEdge = new RectangleVisual3D();
             RectangleVisual3D BottomEdge = new RectangleVisual3D();
             double offset = Width / 2;
 
             //LeftEdge
-            LeftEdge.Origin = new Point3D(borderSize / 2 - offset, Width/2 - offset, 0.1);
+            LeftEdge.Origin = new Point3D(borderSize / 2 - offset, Width / 2 - offset, 0.1);
             LeftEdge.Width = Width;
-            LeftEdge.Length= borderSize;
+            LeftEdge.Length = borderSize;
             LeftEdge.Fill = new SolidColorBrush(color);
 
             //Right Edge
             RightEdge.Origin = new Point3D(Width - borderSize / 2 - offset, Width / 2 - offset, 0.1);
             RightEdge.Length = borderSize;
-            RightEdge.Width= Width;
+            RightEdge.Width = Width;
             RightEdge.Fill = new SolidColorBrush(color);
             //TopEdge
             TopEdge.Origin = new Point3D(Width / 2 - offset, borderSize / 2 - offset, 0.1);
@@ -141,8 +140,7 @@ namespace Aegir.Map
             BillboardTextVisual3D tilenumBilboard = new BillboardTextVisual3D();
             tilenumBilboard.Position = new Point3D(0, 0, 8 + inverseZoom * 4);
             tilenumBilboard.Background = Brushes.LightSalmon;
-            tilenumBilboard.Text = $"TXY: {TileX}/{TileY} NTXY: {newTileX}/{newTileY} \n OSMTXY: {osmTileXPreFloor}/{osmTileYPreFloor} \n OSMFTXY: {osmTileX-1}/{osmTileY}";
-
+            tilenumBilboard.Text = $"TXY: {TileX}/{TileY} NTXY: {newTileX}/{newTileY} \n OSMTXY: {osmTileXPreFloor}/{osmTileYPreFloor} \n OSMFTXY: {osmTileX - 1}/{osmTileY}";
 
             Children.Add(LeftEdge);
             Children.Add(RightEdge);
@@ -150,6 +148,7 @@ namespace Aegir.Map
             Children.Add(BottomEdge);
             Children.Add(tilenumBilboard);
         }
+
         public override string ToString()
         {
             return "MapTile3D (x/y): " + TileX + "/" + TileY;

@@ -21,7 +21,7 @@ namespace AegirCore.Persistence
         /// The name of the file containing the default data for this persister
         /// </summary>
         private readonly string defaultPresetPath;
-        
+
         /// <summary>
         /// Creates a new default perister with the given path to the preset xml file
         /// </summary>
@@ -30,16 +30,19 @@ namespace AegirCore.Persistence
         {
             this.defaultPresetPath = defaultPath;
         }
+
         /// <summary>
         /// Load data of XElement nodes into the application
         /// </summary>
         /// <param name="data">Deserialized Xml nodes of savedata</param>
         public abstract void Load(IEnumerable<XElement> data);
+
         /// <summary>
         /// Save the current state of the application to XElement nodes
         /// </summary>
         /// <returns></returns>
         public abstract XElement Save();
+
         /// <summary>
         /// Loads the default preset for this persister
         /// </summary>
@@ -49,7 +52,7 @@ namespace AegirCore.Persistence
 
             //Get stream of embedded assembly files
             //resourceStream should be disposed when wrapping reader is disposed
-            Stream resourceStream = assembly.GetManifestResourceStream("AegirPresets."+defaultPresetPath);
+            Stream resourceStream = assembly.GetManifestResourceStream("AegirPresets." + defaultPresetPath);
             using (StreamReader reader = new StreamReader(resourceStream))
             {
                 string sceneXml = reader.ReadToEnd();
@@ -70,6 +73,5 @@ namespace AegirCore.Persistence
                 }
             }
         }
-
     }
 }

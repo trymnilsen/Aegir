@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 namespace Aegir.View.Rendering.Tool
 {
     public delegate void ManipulationFinishedHandler(ManipulatorFinishedEventArgs args);
+
     public interface IEventableManipulator
     {
         event ManipulationFinishedHandler ManipulationFinished;

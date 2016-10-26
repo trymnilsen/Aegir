@@ -105,24 +105,28 @@ namespace PropertyTools.Wpf
                         case "d":
                             days = v;
                             break;
+
                         case "HH":
                         case "H":
                         case "hh":
                         case "h":
                             hours = v;
                             break;
+
                         case "MM":
                         case "M":
                         case "mm":
                         case "m":
                             minutes = v;
                             break;
+
                         case "SS":
                         case "S":
                         case "ss":
                         case "s":
                             seconds = v;
                             break;
+
                         case "fff":
                         case "ff":
                         case "f":

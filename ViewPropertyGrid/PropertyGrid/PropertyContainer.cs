@@ -14,7 +14,6 @@ namespace ViewPropertyGrid.PropertyGrid
 {
     public class PropertyContainer : Grid
     {
-
         private readonly SolidColorBrush bgColor = new SolidColorBrush(Colors.White);
         private readonly SolidColorBrush bgHighlightColor = new SolidColorBrush(Colors.LightBlue);
 
@@ -24,8 +23,9 @@ namespace ViewPropertyGrid.PropertyGrid
         private Border keyWrapper;
         private Border valueWrapper;
         private string propertyName;
+
         public PropertyContainer(string propertyName, FrameworkElement valueControl)
-            :this(propertyName,valueControl,null) { }
+            : this(propertyName, valueControl, null) { }
 
         public PropertyContainer(string propertyName, FrameworkElement valueControl, FrameworkElement inactiveElement)
         {
@@ -34,18 +34,17 @@ namespace ViewPropertyGrid.PropertyGrid
             this.inactiveElement = inactiveElement;
 
             //Add three columns
-            ColumnDefinitions.Add(new ColumnDefinition() {  });
+            ColumnDefinitions.Add(new ColumnDefinition() { });
             ColumnDefinitions.Add(new ColumnDefinition()
-                {
-                    Width = new GridLength(150),
-                    SharedSizeGroup = "PropGridColumn"
-                });
+            {
+                Width = new GridLength(150),
+                SharedSizeGroup = "PropGridColumn"
+            });
 
             //Create wrappers
             keyWrapper = new Border() { Name = "keywrapper", Background = new SolidColorBrush(Colors.White) };
             valueWrapper = new Border() { Name = "valuewrapper", Background = new SolidColorBrush(Colors.White) };
-            
-            
+
             Grid.SetColumn(keyWrapper, 0);
             Grid.SetColumn(valueWrapper, 1);
 
@@ -59,7 +58,7 @@ namespace ViewPropertyGrid.PropertyGrid
 
             keyWrapper.Child = textLabel;
 
-            if(inactiveElement==null)
+            if (inactiveElement == null)
             {
                 valueWrapper.Child = valueControl;
             }
@@ -69,7 +68,6 @@ namespace ViewPropertyGrid.PropertyGrid
             }
 
             this.Focusable = true;
-
         }
 
         protected override void OnGotKeyboardFocus(KeyboardFocusChangedEventArgs e)
@@ -77,30 +75,34 @@ namespace ViewPropertyGrid.PropertyGrid
             this.keyWrapper.Background = bgHighlightColor;
             Debug.WriteLine("GotKeyboardFocus: " + propertyName);
         }
+
         protected override void OnGotFocus(RoutedEventArgs e)
         {
             this.keyWrapper.Background = bgHighlightColor;
-            Debug.WriteLine("GotFocus: "+propertyName);
+            Debug.WriteLine("GotFocus: " + propertyName);
         }
+
         protected override void OnLostFocus(RoutedEventArgs e)
         {
             this.keyWrapper.Background = bgColor;
             Debug.WriteLine("Lost Focus " + propertyName);
         }
+
         protected override void OnPreviewLostKeyboardFocus(KeyboardFocusChangedEventArgs e)
         {
-
             //base.OnPreviewLostKeyboardFocus(e);
         }
+
         protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
         {
             //DependencyObject focusScope = FocusManager.GetFocusScope(this);
             //FocusManager.SetFocusedElement(focusScope, this);
             this.Focus();
         }
+
         protected override void OnMouseEnter(MouseEventArgs e)
         {
-            if(inactiveElement != null)
+            if (inactiveElement != null)
             {
                 valueWrapper.Child = activeElement;
             }
@@ -117,6 +119,7 @@ namespace ViewPropertyGrid.PropertyGrid
             this.keyWrapper.Background = bgColor;
             base.OnMouseLeave(e);
         }
+
         public override string ToString()
         {
             return "PropContainer: " + propertyName;

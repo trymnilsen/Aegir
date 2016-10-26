@@ -21,7 +21,7 @@
             <TextBlock Text=" :: Scenegraph" Padding="2"
                        FontWeight="DemiBold"></TextBlock>
         </Border>
-        <Border Grid.Row="1" >
+        <Border Grid.Row="1">
             <views:ScenegraphTree></views:ScenegraphTree>
         </Border>
 

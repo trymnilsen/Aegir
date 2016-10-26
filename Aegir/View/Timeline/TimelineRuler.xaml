@@ -63,7 +63,7 @@
         <Grid Background="Transparent">
             <Grid.ContextMenu>
                 <ContextMenu>
-                    
+
                     <Separator></Separator>
                     <MenuItem Header="Filter">
                         <MenuItem Header="All"></MenuItem>
@@ -79,16 +79,16 @@
                     x:Name="KeyFrameTimeLineRuler">
             </Canvas>
         </Grid>
-        <Grid Name="GridContainer" 
+        <Grid Name="GridContainer"
               MouseDown="Control_MouseDown"
               MouseUp="Control_MouseUp"
               MouseMove="Control_MouseMove">
             <!--This ListBox presents the keyframes.
-                The data-template that defines the visuals 
-                for each keyframe is in the resources section 
+                The data-template that defines the visuals
+                for each keyframe is in the resources section
                 at the start of this file.-->
-            <ListBox x:Name="listBox" 
-                     SelectionMode="Extended" 
+            <ListBox x:Name="listBox"
+                     SelectionMode="Extended"
                      Background="Transparent"
                      SelectedItem="{Binding TimelineVM.SelectedKey, Source={StaticResource VMLocator}}">
                 <ListBox.ItemsPanel>
@@ -97,7 +97,7 @@
                     </ItemsPanelTemplate>
                 </ListBox.ItemsPanel>
                 <ListBox.ItemContainerStyle>
-                    <Style TargetType="ListBoxItem" >
+                    <Style TargetType="ListBoxItem">
                         <Setter Property="Canvas.Left">
                             <Setter.Value>
                                 <MultiBinding Converter="{StaticResource KeyframePositionConv}">
@@ -112,10 +112,10 @@
                     </Style>
                 </ListBox.ItemContainerStyle>
             </ListBox>
-            <!-- This Canvas and Border are used as a very simple way 
+            <!-- This Canvas and Border are used as a very simple way
                     to render a drag selection rectangle. -->
-            <Canvas x:Name="dragSelectionCanvas" Visibility="Collapsed" >
-                <Border x:Name="dragSelectionBorder" 
+            <Canvas x:Name="dragSelectionCanvas" Visibility="Collapsed">
+                <Border x:Name="dragSelectionBorder"
                         BorderBrush="Blue"
                         BorderThickness="1"
                         Background="LightBlue"

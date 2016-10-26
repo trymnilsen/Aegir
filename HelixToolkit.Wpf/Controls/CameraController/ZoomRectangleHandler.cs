@@ -121,6 +121,5 @@ namespace HelixToolkit.Wpf
         {
             return this.Controller.ZoomRectangleCursor;
         }
-
     }
 }

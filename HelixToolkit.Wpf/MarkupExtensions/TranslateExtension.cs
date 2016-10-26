@@ -54,6 +54,5 @@ namespace HelixToolkit.Wpf
         {
             return new TranslateTransform3D(this.Offset);
         }
-
     }
 }

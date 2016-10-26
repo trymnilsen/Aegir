@@ -8,6 +8,5 @@ namespace AegirCore.Replay
 {
     public interface IReplayFormat
     {
-        
     }
 }

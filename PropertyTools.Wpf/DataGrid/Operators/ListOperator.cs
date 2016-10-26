@@ -140,7 +140,7 @@ namespace PropertyTools.Wpf
         /// <returns>
         ///   <c>true</c> if insertion is successful, <c>false</c> otherwise.
         /// </returns>
-        public override bool InsertItem(DataGrid owner,  int index)
+        public override bool InsertItem(DataGrid owner, int index)
         {
             var list = owner.ItemsSource;
             if (list == null)

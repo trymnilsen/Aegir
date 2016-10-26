@@ -18,7 +18,7 @@ namespace ViewPropertyGrid.Converter
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             int outValue = 0;
-            if(int.TryParse(value as string,out outValue))
+            if (int.TryParse(value as string, out outValue))
             {
                 return outValue;
             }

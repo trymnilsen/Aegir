@@ -66,6 +66,5 @@ namespace HelixToolkit.Wpf
         /// The animation time.
         /// </param>
         void ZoomExtents(double animationTime);
-
     }
 }

@@ -81,7 +81,7 @@ namespace HelixToolkit.Wpf
             {
                 if (visual is IBoundsIgnoredVisual3D)
                 {
-                    continue;    
+                    continue;
                 }
 
                 var b = FindBounds(visual, Transform3D.Identity);

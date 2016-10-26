@@ -15,9 +15,9 @@ namespace Aegir.Rendering.Visual
 
         public RenderItem GetRenderItem(Visual3D visual)
         {
-            foreach(KeyValuePair<RenderItem,Visual3D> entry in visualCache)
+            foreach (KeyValuePair<RenderItem, Visual3D> entry in visualCache)
             {
-                if(entry.Value == visual)
+                if (entry.Value == visual)
                 {
                     return entry.Key;
                 }

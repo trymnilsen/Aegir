@@ -105,7 +105,7 @@ namespace Aegir.MapSearch
                     string name = node.Attributes.GetNamedItem("display_name").InnerText;
                     double latitude = double.Parse(node.Attributes.GetNamedItem("lat").InnerText, CultureInfo.InvariantCulture);
                     double longitude = double.Parse(node.Attributes.GetNamedItem("lon").InnerText, CultureInfo.InvariantCulture);
-                    SearchResult result = new SearchResult(index,name,latitude,longitude);
+                    SearchResult result = new SearchResult(index, name, latitude, longitude);
                     index++;
                     //string[] boundingBox = node.Attributes.GetNamedItem("boundingbox").InnerText.Split(',');
                     //if (boundingBox.Length == 4)
@@ -158,7 +158,7 @@ namespace Aegir.MapSearch
                 if (double.TryParse(tokens[0], out latitude) && double.TryParse(tokens[1], out longitude))
                 {
                     string name = string.Format(CultureInfo.CurrentUICulture, "{0:f4}°, {1:f4}°", latitude, longitude);
-                    SearchResult result = new SearchResult(1,name,latitude,longitude);
+                    SearchResult result = new SearchResult(1, name, latitude, longitude);
                     _results.Clear();
                     _results.Add(result);
                     this.OnSearchCompleted();

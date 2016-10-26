@@ -66,14 +66,17 @@ namespace PropertyTools.Wpf.Shell32
             /// Only return file system directories. If the user selects folders that are not part of the file system, the OK button is grayed.
             /// </summary>
             BIF_RETURNONLYFSDIRS = 0x0001, // For finding a folder to start document searching
+
             /// <summary>
             /// Do not include network folders below the domain level in the dialog box's tree view control.
             /// </summary>
             BIF_DONTGOBELOWDOMAIN = 0x0002, // For starting the Find Computer
+
             /// <summary>
             /// Include a status area in the dialog box.
             /// </summary>
             BIF_STATUSTEXT = 0x0004, // Top of the dialog has 2 lines of text for BROWSEINFO.lpszTitle and one line if
+
             // this flag is set.  Passing the message BFFM_SETSTATUSTEXTA to the hwnd can set the
             // rest of the text.  This is not used with BIF_USENEWUI and BROWSEINFO.lpszTitle gets
             // all three lines of text.
@@ -86,14 +89,17 @@ namespace PropertyTools.Wpf.Shell32
             /// Include an edit control in the browse dialog box that allows the user to type the name of an item.
             /// </summary>
             BIF_EDITBOX = 0x0010, // Add an editbox to the dialog
+
             /// <summary>
             /// If the user types an invalid name into the edit box, the browse dialog box will call the application's BrowseCallbackProc with the BFFM_VALIDATEFAILED message.
             /// </summary>
             BIF_VALIDATE = 0x0020, // insist on valid result (or CANCEL)
+
             /// <summary>
             /// Use the new user interface. Setting this flag provides the user with a larger dialog box that can be resized.
             /// </summary>
             BIF_NEWDIALOGSTYLE = 0x0040, // Use the new dialog layout with the ability to resize
+
             // Caller needs to call OleInitialize() before using this API
             /// <summary>
             /// Use the new user interface, including an edit box. This flag is equivalent to BIF_EDITBOX | BIF_NEWDIALOGSTYLE.
@@ -104,6 +110,7 @@ namespace PropertyTools.Wpf.Shell32
             /// The browse dialog box can display URLs. The BIF_USENEWUI and BIF_BROWSEINCLUDEFILES flags must also be set.
             /// </summary>
             BIF_BROWSEINCLUDEURLS = 0x0080, // Allow URLs to be displayed or entered. (Requires BIF_USENEWUI)
+
             /// <summary>
             /// When combined with BIF_NEWDIALOGSTYLE, adds a usage hint to the dialog box in place of the edit box.
             /// </summary>
@@ -120,18 +127,22 @@ namespace PropertyTools.Wpf.Shell32
             /// When the selected item is a shortcut, return the PIDL of the shortcut itself rather than its target.
             /// </summary>
             BIF_NOTRANSLATETARGETS = 0x0400, // don't traverse target as shortcut
+
             /// <summary>
             /// Only return computers. If the user selects anything other than a computer, the OK button is grayed.
             /// </summary>
             BIF_BROWSEFORCOMPUTER = 0x1000, // Browsing for Computers.
+
             /// <summary>
             /// Only allow the selection of printers. If the user selects anything other than a printer, the OK button is grayed.
             /// </summary>
             BIF_BROWSEFORPRINTER = 0x2000, // Browsing for Printers
+
             /// <summary>
             /// The browse dialog box will display files as well as folders.
             /// </summary>
             BIF_BROWSEINCLUDEFILES = 0x4000, // Browsing for Everything
+
             /// <summary>
             /// The browse dialog box can display shareable resources on remote systems.
             /// </summary>
@@ -212,6 +223,7 @@ namespace PropertyTools.Wpf.Shell32
             /// Sets the text that is displayed on the dialog box's OK button.
             /// </summary>
             BFFM_SETOKTEXT = WM_USER + 105, // Unicode only
+
             /// <summary>
             /// Specifies the path of a folder to expand in the Browse dialog box.
             /// </summary>

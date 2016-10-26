@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AegirCore.Signals.Rendering
 {
-    class RenderMesh
+    internal class RenderMesh
     {
     }
 }

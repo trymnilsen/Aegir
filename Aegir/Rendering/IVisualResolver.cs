@@ -9,6 +9,5 @@ namespace Aegir.Rendering
 {
     public interface IVisualResolver
     {
-        
     }
 }

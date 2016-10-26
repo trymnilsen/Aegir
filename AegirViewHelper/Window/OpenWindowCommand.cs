@@ -18,7 +18,6 @@ namespace AegirViewHelper
 
         public void Execute(object parameter)
         {
-            
         }
 
         public event EventHandler CanExecuteChanged;

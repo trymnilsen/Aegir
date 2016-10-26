@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Aegir.Map
 {
-    class ZoomableTileGrid3D
-    { 
+    internal class ZoomableTileGrid3D
+    {
     }
 }

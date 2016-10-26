@@ -135,7 +135,7 @@ namespace HelixToolkit.Wpf
         /// Gets or sets the texture quality level (for JPEG encoding).
         /// </summary>
         /// <value>
-        /// The quality level of the JPEG image. The value range is 1 (lowest quality) to 100 (highest quality) inclusive. 
+        /// The quality level of the JPEG image. The value range is 1 (lowest quality) to 100 (highest quality) inclusive.
         /// The default value is 90.
         /// </value>
         public int TextureQualityLevel { get; set; }

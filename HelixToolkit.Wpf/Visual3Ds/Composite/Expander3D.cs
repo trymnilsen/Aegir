@@ -88,9 +88,10 @@ namespace HelixToolkit.Wpf
         public void ExpandTo(double value, double animationTime)
         {
             var a = new DoubleAnimation(value, new Duration(TimeSpan.FromMilliseconds(animationTime)))
-                {
-                   AccelerationRatio = 0.3, DecelerationRatio = 0.5
-                };
+            {
+                AccelerationRatio = 0.3,
+                DecelerationRatio = 0.5
+            };
             this.BeginAnimation(ExpansionProperty, a);
         }
 
@@ -172,6 +173,5 @@ namespace HelixToolkit.Wpf
 
             model.Transform = Transform3DHelper.CombineTransform(ot, t);
         }
-
     }
 }

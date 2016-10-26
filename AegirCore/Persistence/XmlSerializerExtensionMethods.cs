@@ -12,7 +12,6 @@ namespace AegirCore.Persistence
 {
     public static class XmlSerializerExtensionMethods
     {
-
         public static XElement SerializeToXElement(this XmlSerializer serializer, object obj)
         {
             XElement element = new XElement(obj.GetType().Name);
@@ -23,6 +22,5 @@ namespace AegirCore.Persistence
 
             return element;
         }
-
     }
 }

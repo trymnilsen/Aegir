@@ -16,12 +16,13 @@ namespace AegirCore.Keyframe
 {
     public class KeyframeEngine
     {
-
         private static readonly ILog log = LogManager.GetLogger(typeof(KeyframeEngine));
+
         /// <summary>
         /// Backing store for PlaybackMode
         /// </summary>
         private PlaybackMode playMode;
+
         /// <summary>
         /// backing store for ScopeTarget if any
         /// </summary>
@@ -31,6 +32,7 @@ namespace AegirCore.Keyframe
 
         private Dictionary<Type, IValueInterpolator> interpolatorCache;
         private Dictionary<PropertyInfo, KeyframePropertyInfo> keyframeInfoCache;
+
         /// <summary>
         /// All our keyframes
         /// </summary>
@@ -48,6 +50,7 @@ namespace AegirCore.Keyframe
                 log.DebugFormat("Playback mode changed to {0}", value);
             }
         }
+
         /// <summary>
         /// Enables scoping playback to a given node.
         /// Setting this will only play keyframes related to this node
@@ -57,6 +60,7 @@ namespace AegirCore.Keyframe
             get { return scopeTarget; }
             set { scopeTarget = value; }
         }
+
         /// <summary>
         /// Gets or sets the current scoping settings
         /// </summary>
@@ -89,7 +93,6 @@ namespace AegirCore.Keyframe
             set { playbackStart = value; }
         }
 
-
         public int PlaybackEnd
         {
             get { return playbackEnd; }
@@ -118,8 +121,6 @@ namespace AegirCore.Keyframe
             }
         }
 
-
-
         public KeyframeEngine()
         {
             PlaybackMode = PlaybackMode.PAUSED;
@@ -132,13 +133,13 @@ namespace AegirCore.Keyframe
             interpolatorCache.Add(typeof(Vector3), new LinearVector3Interpolator());
             interpolatorCache.Add(typeof(Quaternion), new LinearQuaternionInterpolator());
         }
+
         /// <summary>
         /// Change the playbackmode of the keyframe engine
         /// </summary>
         /// <param name="mode">Playback mode</param>
         public void ChangePlaybackMode(PlaybackMode mode)
         {
-
         }
 
         public void RemoveKey(Keyframe keyframe, Keyframe key)
@@ -155,7 +156,7 @@ namespace AegirCore.Keyframe
         {
             IEnumerable<KeyframePropertyInfo> keyframeProperties = GetProperties();
             //Check if we have any properties to animate
-            if(keyframeProperties == null)
+            if (keyframeProperties == null)
             {
                 log.Debug("No keyframeable properties found");
                 //Nope, none found.. Return
@@ -164,14 +165,16 @@ namespace AegirCore.Keyframe
 
             foreach (KeyframePropertyInfo property in keyframeProperties)
             {
-                switch(property.Type)
+                switch (property.Type)
                 {
                     case PropertyType.Executable:
                         SeekEventKeyframe(property, time);
                         break;
+
                     case PropertyType.Interpolatable:
                         SeekValueKeyframe(property, time);
                         break;
+
                     default:
                         break;
                 }
@@ -179,6 +182,7 @@ namespace AegirCore.Keyframe
 
             currentKeyTime = nextKeyTime;
         }
+
         /// <summary>
         /// Step the keyframe engine one time
         /// </summary>
@@ -187,20 +191,21 @@ namespace AegirCore.Keyframe
         public void Step()
         {
             //If we are at the same key time as last, advance by one
-            if(nextKeyTime==currentKeyTime && PlaybackMode == PlaybackMode.PLAYING)
+            if (nextKeyTime == currentKeyTime && PlaybackMode == PlaybackMode.PLAYING)
             {
                 nextKeyTime = NextFrame();
             }
-            if(nextKeyTime!=currentKeyTime)
+            if (nextKeyTime != currentKeyTime)
             {
                 Seek(nextKeyTime);
             }
             currentKeyTime = nextKeyTime;
         }
+
         /// <summary>
         /// Gets the next time based on current state of engine
         /// </summary>
-        /// <returns>The numerical number of the next step</returns> 
+        /// <returns>The numerical number of the next step</returns>
         public int NextFrame()
         {
             //bounds check
@@ -211,7 +216,7 @@ namespace AegirCore.Keyframe
 
             return currentKeyTime + 1;
         }
-        
+
         /// <summary>
         /// Captures the current values for a given node and creates a keyframe
         /// at the given time and with the captured values
@@ -251,7 +256,7 @@ namespace AegirCore.Keyframe
 
                     object currentPropertyValue = propInfo.GetValue(behaviour);
                     //Try and get this keyframe property info
-                    if(!keyframeInfoCache.ContainsKey(propInfo))
+                    if (!keyframeInfoCache.ContainsKey(propInfo))
                     {
                         keyframeInfoCache.Add(propInfo, new KeyframePropertyInfo(propInfo, PropertyType.Interpolatable));
                     }
@@ -278,11 +283,11 @@ namespace AegirCore.Keyframe
             Type valueType = property.Property.PropertyType;
 
             //If both keys are the same, no need for interpolation
-            if(interval.Item1 == interval.Item2)
+            if (interval.Item1 == interval.Item2)
             {
                 ValueKeyframe value = Keyframes.GetAtTime(interval.Item1, property) as ValueKeyframe;
 
-                if(value == null)
+                if (value == null)
                 {
                     //Property had no keyframes or was not a value keyframe there is nothing to do, just return
                     return;
@@ -292,7 +297,7 @@ namespace AegirCore.Keyframe
             }
             else
             {
-                if(interpolatorCache.ContainsKey(valueType))
+                if (interpolatorCache.ContainsKey(valueType))
                 {
                     ValueKeyframe from = Keyframes.GetAtTime(interval.Item1, property) as ValueKeyframe;
                     ValueKeyframe to = Keyframes.GetAtTime(interval.Item2, property) as ValueKeyframe;
@@ -300,7 +305,7 @@ namespace AegirCore.Keyframe
                     double diff = interval.Item2 - interval.Item1;
                     double diffFromLowest = time - interval.Item1;
 
-                    if(diff == 0)
+                    if (diff == 0)
                     {
                         log.Error("Difference between keyframes was 0, cannot continue");
                         return;
@@ -316,14 +321,14 @@ namespace AegirCore.Keyframe
                 {
                     log.WarnFormat("Interpolator cache did not contain a implementation for type {0}", valueType);
                 }
-
             }
         }
+
         private void SeekEventKeyframe(KeyframePropertyInfo property, int time)
         {
             //Check if the property has any keyframes at this exact time
             EventKeyframe action = Keyframes.GetAtTime(time, property) as EventKeyframe;
-            if(action!=null)
+            if (action != null)
             {
                 if (action.ActionToExecute != null)
                 {
@@ -331,27 +336,30 @@ namespace AegirCore.Keyframe
                 }
                 else
                 {
-                    log.ErrorFormat("Event Keyframe at {0} was not triggered due to action being null",time);
+                    log.ErrorFormat("Event Keyframe at {0} was not triggered due to action being null", time);
                 }
             }
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <returns></returns>
         private IEnumerable<KeyframePropertyInfo> GetProperties()
         {
-            switch(TimelineScope)
+            switch (TimelineScope)
             {
                 case TimelineScopeMode.None:
                     return Keyframes.GetAllProperties();
+
                 case TimelineScopeMode.Node:
                     return Keyframes.GetAllPropertiesForNode(ScopeTarget);
+
                 default:
                     return null;
             }
         }
+
         /// <summary>
         /// Triggers playmode changed event
         /// </summary>
@@ -362,26 +370,28 @@ namespace AegirCore.Keyframe
             KeyframePlaymodeChangedHandler playModeChangedEvent = PlaymodeChanged;
             if (playModeChangedEvent != null)
             {
-                playModeChangedEvent(oldMode,newMode);
+                playModeChangedEvent(oldMode, newMode);
             }
         }
 
         private void TriggerCurrentTimeChanged(int newTime)
         {
             CurrentTimeChangedHandler timeChangedEvent = CurrentTimeChanged;
-            if(timeChangedEvent != null)
+            if (timeChangedEvent != null)
             {
                 timeChangedEvent(currentKeyTime);
             }
         }
 
         public delegate void KeyframePlaymodeChangedHandler(PlaybackMode oldMode, PlaybackMode newMode);
+
         public delegate void CurrentTimeChangedHandler(int newTime);
+
         /// <summary>
         /// Fires when the playmode has changed
         /// </summary>
         public event KeyframePlaymodeChangedHandler PlaymodeChanged;
-        public event CurrentTimeChangedHandler CurrentTimeChanged;
 
+        public event CurrentTimeChangedHandler CurrentTimeChanged;
     }
 }

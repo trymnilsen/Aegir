@@ -75,6 +75,5 @@ namespace HelixToolkit.Wpf
             var specular = BrushHelper.CreateGrayBrush(this.SpecularIntensity);
             return MaterialHelper.CreateMaterial(diffuse, null, specular, this.Opacity, this.SpecularPower);
         }
-
     }
 }

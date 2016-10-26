@@ -8,11 +8,8 @@ namespace AegirCore.Mesh.Grid
 {
     public class TileGrid3D
     {
-         
         public TileGrid3D()
         {
-
         }
-        
     }
 }

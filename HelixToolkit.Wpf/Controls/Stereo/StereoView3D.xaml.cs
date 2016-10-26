@@ -22,6 +22,5 @@ namespace HelixToolkit.Wpf
             this.InitializeComponent();
             this.BindViewports(this.LeftView, this.RightView);
         }
-
     }
 }

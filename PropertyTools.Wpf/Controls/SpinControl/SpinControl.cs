@@ -339,14 +339,17 @@ namespace PropertyTools.Wpf
                     this.ChangeValue(1, false);
                     e.Handled = true;
                     break;
+
                 case Key.Down:
                     this.ChangeValue(-1, false);
                     e.Handled = true;
                     break;
+
                 case Key.PageUp:
                     this.ChangeValue(1, true);
                     e.Handled = true;
                     break;
+
                 case Key.PageDown:
                     this.ChangeValue(-1, true);
                     e.Handled = true;
@@ -395,7 +398,6 @@ namespace PropertyTools.Wpf
                 var type = this.Value.GetType();
                 if (ReflectionMath.TryParse(type, (string)change, CultureInfo.InvariantCulture, out c))
                 {
-
                     object result;
                     if (sign > 0)
                     {

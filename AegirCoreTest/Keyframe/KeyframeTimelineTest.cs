@@ -1,8 +1,8 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Diagnostics;
-using AegirCore.Keyframe;
+﻿using AegirCore.Keyframe;
 using AegirCore.Scene;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
+using System.Diagnostics;
 
 namespace AegirCoreTest
 {
@@ -24,13 +24,14 @@ namespace AegirCoreTest
             Node testNode = new Node();
             //Add some keys
             testCollection.AddKeyframe(new ValueKeyframe(testProperty, null, null), keyPos, testNode);
-            testCollection.AddKeyframe(new ValueKeyframe(testProperty, null, null), keyPos-2, testNode);
-            testCollection.AddKeyframe(new ValueKeyframe(testProperty, null, null), keyPos-4, testNode);
+            testCollection.AddKeyframe(new ValueKeyframe(testProperty, null, null), keyPos - 2, testNode);
+            testCollection.AddKeyframe(new ValueKeyframe(testProperty, null, null), keyPos - 4, testNode);
             Tuple<int, int> closest = testCollection.GetClosestKeys(testProperty, getAtPos);
 
             Assert.AreEqual(keyPos, closest.Item1);
             Assert.AreEqual(keyPos, closest.Item2);
         }
+
         /// <summary>
         /// Asserts that the first keyframe of the timeline is returned
         /// when requested timeline position is less than the position of the
@@ -53,6 +54,5 @@ namespace AegirCoreTest
             Assert.AreEqual(keyPos, closest.Item1);
             Assert.AreEqual(keyPos, closest.Item2);
         }
-
     }
 }

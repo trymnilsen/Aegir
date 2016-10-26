@@ -113,6 +113,5 @@ namespace HelixToolkit.Wpf
 
             var al = this.Light as AmbientLight;
         }
-
     }
 }
