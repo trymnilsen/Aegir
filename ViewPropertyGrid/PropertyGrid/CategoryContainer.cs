@@ -26,6 +26,13 @@ namespace ViewPropertyGrid.PropertyGrid
 
         public void Dispose()
         {
+            foreach(var element in this.internalPanel.Children)
+            {
+                if(element is PropertyContainer)
+                {
+                    ((PropertyContainer)element).Dispose();
+                }
+            }
             this.internalPanel.Children.Clear();
         }
     }

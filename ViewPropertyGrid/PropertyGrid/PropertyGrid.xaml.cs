@@ -159,6 +159,8 @@ namespace ViewPropertyGrid.PropertyGrid
                 }
             }
             eventPublishers.Clear();
+
+
         }
 
         /// <summary>

@@ -12,7 +12,7 @@ using System.Windows.Media;
 
 namespace ViewPropertyGrid.PropertyGrid
 {
-    public class PropertyContainer : Grid
+    public class PropertyContainer : Grid, IDisposable
     {
         private readonly SolidColorBrush bgColor = new SolidColorBrush(Colors.White);
         private readonly SolidColorBrush bgHighlightColor = new SolidColorBrush(Colors.LightBlue);
@@ -23,6 +23,7 @@ namespace ViewPropertyGrid.PropertyGrid
         private Border keyWrapper;
         private Border valueWrapper;
         private string propertyName;
+        private bool IsEditing;
 
         public PropertyContainer(string propertyName, FrameworkElement valueControl)
             : this(propertyName, valueControl, null) { }
@@ -57,17 +58,35 @@ namespace ViewPropertyGrid.PropertyGrid
             textLabel.Text = propertyName;
 
             keyWrapper.Child = textLabel;
-
+            //If we only have one element (e.g textblock or something, we set the child to this)
+            //if we have both an active element and an inactive (E.G textbox for editing and textblock when inactive)
+            //set the child to the inactive element
             if (inactiveElement == null)
             {
                 valueWrapper.Child = valueControl;
             }
             else
             {
+                //Attach click listeners to the active element
+                //we do this to not loose focus on the element 
+                //if the mouse moves outside this property containers bounds while editing it
+                valueControl.GotFocus += ValueControl_GotFocus;
+                valueControl.LostKeyboardFocus += ValueControl_LostKeyboardFocus;
                 valueWrapper.Child = inactiveElement;
             }
 
             this.Focusable = true;
+        }
+
+        private void ValueControl_LostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
+        {
+            Debug.WriteLine($"ValueControl lost keyboard focus on {propertyName} for ctrl: {sender.ToString()}");
+        }
+
+        private void ValueControl_GotFocus(object sender, RoutedEventArgs e)
+        {
+            Debug.WriteLine($"ValueControl got focus on {propertyName} for ctrl: {sender.ToString()}");
+            IsEditing = true;
         }
 
         protected override void OnGotKeyboardFocus(KeyboardFocusChangedEventArgs e)
@@ -97,7 +116,10 @@ namespace ViewPropertyGrid.PropertyGrid
         {
             //DependencyObject focusScope = FocusManager.GetFocusScope(this);
             //FocusManager.SetFocusedElement(focusScope, this);
-            this.Focus();
+            if(!IsEditing)
+            {
+                this.Focus();
+            }
         }
 
         protected override void OnMouseEnter(MouseEventArgs e)
@@ -112,7 +134,7 @@ namespace ViewPropertyGrid.PropertyGrid
 
         protected override void OnMouseLeave(MouseEventArgs e)
         {
-            if (inactiveElement != null)
+            if (inactiveElement != null && IsEditing == false)
             {
                 valueWrapper.Child = inactiveElement;
             }
@@ -123,6 +145,15 @@ namespace ViewPropertyGrid.PropertyGrid
         public override string ToString()
         {
             return "PropContainer: " + propertyName;
+        }
+
+        public void Dispose()
+        {
+            if(activeElement!=null)
+            {
+                activeElement.GotFocus -= ValueControl_GotFocus;
+                activeElement.LostKeyboardFocus -= ValueControl_LostKeyboardFocus;
+            }
         }
     }
 }
