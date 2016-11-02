@@ -71,11 +71,17 @@ namespace ViewPropertyGrid.PropertyGrid
             controlFactory = new ControlFactory();
             InitializeComponent();
             GotFocus += PropertyGrid_GotFocus;
+            LostFocus += PropertyGrid_LostFocus;
+        }
+
+        private void PropertyGrid_LostFocus(object sender, RoutedEventArgs e)
+        {
+            Debug.WriteLine($"### --- PropertyGrid: LostFocus { sender } Source { e.OriginalSource }");
         }
 
         private void PropertyGrid_GotFocus(object sender, RoutedEventArgs e)
         {
-            Debug.WriteLine($"## PropertyGrid: GotFocus { sender } Source { e.OriginalSource }");
+            Debug.WriteLine($"### PropertyGrid: GotFocus { sender } Source { e.OriginalSource }");
             if(e.OriginalSource is DependencyObject)
             {
                 //Look for any parents name of PropertyContainer type
