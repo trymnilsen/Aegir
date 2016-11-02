@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ViewPropertyGrid.Util;
 
 namespace ViewPropertyGrid.PropertyGrid
 {
@@ -69,6 +70,30 @@ namespace ViewPropertyGrid.PropertyGrid
             eventPublishers = new Dictionary<int, WeakReference<INotifyPropertyChanged>>();
             controlFactory = new ControlFactory();
             InitializeComponent();
+            GotFocus += PropertyGrid_GotFocus;
+        }
+
+        private void PropertyGrid_GotFocus(object sender, RoutedEventArgs e)
+        {
+            Debug.WriteLine($"## PropertyGrid: GotFocus { sender } Source { e.OriginalSource }");
+            if(e.OriginalSource is DependencyObject)
+            {
+                //Look for any parents name of PropertyContainer type
+                int numOfStepsBeforeBailingOut = 50;
+                int currentNumOfSteps = 0;
+                object parent = e.OriginalSource;
+                PropertyContainer container = (e.OriginalSource as DependencyObject)?.FindAncestor<PropertyContainer>();
+
+                if(container!=null)
+                {
+                    Debug.WriteLine("------ ¤¤ Found ancestor " + container.propertyName);
+                }
+                else
+                {
+                    Debug.WriteLine("------ ¤¤ Did not find ancestor");
+                }
+
+            }
         }
 
         /// <summary>

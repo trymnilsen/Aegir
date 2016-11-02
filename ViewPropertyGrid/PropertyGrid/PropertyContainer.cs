@@ -22,7 +22,7 @@ namespace ViewPropertyGrid.PropertyGrid
         private FrameworkElement inactiveElement;
         private Border keyWrapper;
         private Border valueWrapper;
-        private string propertyName;
+        public string propertyName;
         private bool IsEditing;
 
         public PropertyContainer(string propertyName, FrameworkElement valueControl)
@@ -72,20 +72,30 @@ namespace ViewPropertyGrid.PropertyGrid
                 //if the mouse moves outside this property containers bounds while editing it
                 valueControl.GotFocus += ValueControl_GotFocus;
                 valueControl.LostKeyboardFocus += ValueControl_LostKeyboardFocus;
+                valueControl.LostFocus += ValueControl_LostFocus;
+                
                 valueWrapper.Child = inactiveElement;
             }
 
             this.Focusable = true;
         }
+        internal void PersistCurrentValue()
+        {
+
+        }
+        private void ValueControl_LostFocus(object sender, RoutedEventArgs e)
+        {
+            Debug.WriteLine($"-- ValueControl lost focus on {propertyName} for ctrl: {sender.ToString()}");
+        }
 
         private void ValueControl_LostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
         {
-            Debug.WriteLine($"ValueControl lost keyboard focus on {propertyName} for ctrl: {sender.ToString()}");
+            Debug.WriteLine($"-- ValueControl lost keyboard focus on {propertyName} for ctrl: {sender.ToString()}");
         }
 
         private void ValueControl_GotFocus(object sender, RoutedEventArgs e)
         {
-            Debug.WriteLine($"ValueControl got focus on {propertyName} for ctrl: {sender.ToString()}");
+            Debug.WriteLine($"++ ValueControl got focus on {propertyName} for ctrl: {sender.ToString()}");
             IsEditing = true;
         }
 
