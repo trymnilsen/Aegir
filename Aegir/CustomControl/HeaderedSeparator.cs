@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,7 +22,7 @@ namespace Aegir.CustomControl
             DependencyProperty.Register(
             nameof(Header),
             typeof(string),
-            typeof(HeaderedSeparator), new PropertyMetadata("N/A"));
+            typeof(HeaderedSeparator), new PropertyMetadata("N/A", (a,b)=> { Debug.WriteLine("Fooooobar" + b.NewValue); }));
 
         public string Header
         {

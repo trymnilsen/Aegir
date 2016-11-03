@@ -5,18 +5,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type control:HeaderedSeparator}">
-                    <Grid Height="{TemplateBinding Height}">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="20px" />
-                            <ColumnDefinition Width="100px" />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Text="::"></TextBlock>
-                        <TextBlock Width="100" Grid.Column="1"
-                        VerticalAlignment="Center" Margin="5 0"
-                        Text="{TemplateBinding Header}" />
-                        <Separator Grid.Column="2" HorizontalContentAlignment="Stretch" />
-                    </Grid>
+                    <Separator></Separator>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
