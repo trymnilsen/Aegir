@@ -70,37 +70,43 @@ namespace ViewPropertyGrid.PropertyGrid
             eventPublishers = new Dictionary<int, WeakReference<INotifyPropertyChanged>>();
             controlFactory = new ControlFactory();
             InitializeComponent();
-            GotFocus += PropertyGrid_GotFocus;
-            LostFocus += PropertyGrid_LostFocus;
+            //GotFocus += PropertyGrid_GotFocus;
+            //LostFocus += PropertyGrid_LostFocus;
+            //LostKeyboardFocus += PropertyGrid_LostKeyboardFocus;
         }
 
-        private void PropertyGrid_LostFocus(object sender, RoutedEventArgs e)
-        {
-            Debug.WriteLine($"### --- PropertyGrid: LostFocus { sender } Source { e.OriginalSource }");
-        }
+        //private void PropertyGrid_LostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
+        //{
+        //    Debug.WriteLine($"!\"\" ### --- --- PropertyGrid: LostFocus {e.NewFocus} Source { e.OriginalSource }");
+        //}
 
-        private void PropertyGrid_GotFocus(object sender, RoutedEventArgs e)
-        {
-            Debug.WriteLine($"### PropertyGrid: GotFocus { sender } Source { e.OriginalSource }");
-            if(e.OriginalSource is DependencyObject)
-            {
-                //Look for any parents name of PropertyContainer type
-                int numOfStepsBeforeBailingOut = 50;
-                int currentNumOfSteps = 0;
-                object parent = e.OriginalSource;
-                PropertyContainer container = (e.OriginalSource as DependencyObject)?.FindAncestor<PropertyContainer>();
+        //private void PropertyGrid_LostFocus(object sender, RoutedEventArgs e)
+        //{
+        //    Debug.WriteLine($"### --- PropertyGrid: LostFocus {e.Source} Source { e.OriginalSource }");
+        //}
 
-                if(container!=null)
-                {
-                    Debug.WriteLine("------ ¤¤ Found ancestor " + container.propertyName);
-                }
-                else
-                {
-                    Debug.WriteLine("------ ¤¤ Did not find ancestor");
-                }
+        //private void PropertyGrid_GotFocus(object sender, RoutedEventArgs e)
+        //{
+        //    Debug.WriteLine($"### PropertyGrid: GotFocus { sender } Source { e.OriginalSource }");
+        //    if(e.OriginalSource is DependencyObject)
+        //    {
+        //        //Look for any parents name of PropertyContainer type
+        //        int numOfStepsBeforeBailingOut = 50;
+        //        int currentNumOfSteps = 0;
+        //        object parent = e.OriginalSource;
+        //        PropertyContainer container = (e.OriginalSource as DependencyObject)?.FindAncestor<PropertyContainer>();
 
-            }
-        }
+        //        if(container!=null)
+        //        {
+        //            Debug.WriteLine("------ ¤¤ Found ancestor " + container.propertyName);
+        //        }
+        //        else
+        //        {
+        //            Debug.WriteLine("------ ¤¤ Did not find ancestor");
+        //        }
+
+        //    }
+        //}
 
         /// <summary>
         /// Disposes the propertygrid
@@ -244,11 +250,11 @@ namespace ViewPropertyGrid.PropertyGrid
             if (valueControl.EditBehaviour == EditingBehaviour.OnFocus)
             {
                 TextBlock unfocusElement = controlFactory.CreateUnFocusedTextBlock(property.ReflectionData.Name, property.Target);
-                propContainer = new PropertyContainer(propertyMetadata.Name, valueControl.Control, unfocusElement);
+                propContainer = new PropertyContainer(propertyMetadata.Name, valueControl, unfocusElement);
             }
             else
             {
-                propContainer = new PropertyContainer(propertyMetadata.Name, valueControl.Control);
+                propContainer = new PropertyContainer(propertyMetadata.Name, valueControl);
             }
             container.AddProperty(propContainer);
         }

@@ -15,28 +15,50 @@ namespace ViewPropertyGrid.PropertyGrid.Provider
         public ValueControl GetControl(InspectableProperty property)
         {
             TextBox control = new TextBox();
-            Binding binding = new Binding();
             control.Padding = new Thickness(2, 2, 2, 2);
-            binding.Source = property.Target;
-            binding.Path = new PropertyPath(property.ReflectionData.Name);
-            binding.Mode = BindingMode.TwoWay;
-            binding.UpdateSourceTrigger = UpdateSourceTrigger.LostFocus;
-            if (property.ReflectionData.PropertyType != typeof(string))
+
+            //Create two way binding
+            Binding twoWayBinding = new Binding();
+            twoWayBinding.Source = property.Target;
+            twoWayBinding.Path = new PropertyPath(property.ReflectionData.Name);
+            twoWayBinding.Mode = BindingMode.TwoWay;
+            twoWayBinding.UpdateSourceTrigger = UpdateSourceTrigger.LostFocus;
+            twoWayBinding.Converter = GetConverter(property);
+
+            //Create one way binding
+            Binding oneWayBinding = new Binding();
+            oneWayBinding.Source = property.Target;
+            oneWayBinding.Path = new PropertyPath(property.ReflectionData.Name);
+            oneWayBinding.Mode = BindingMode.OneWayToSource;
+            oneWayBinding.UpdateSourceTrigger = UpdateSourceTrigger.LostFocus;
+            oneWayBinding.Converter = GetConverter(property);
+
+            Action resumeBinding = ()=>{
+                BindingOperations.SetBinding(control, TextBox.TextProperty, twoWayBinding);
+            };
+
+            Action suspendBinding = () =>
             {
-                if (property.ReflectionData.PropertyType == typeof(double))
-                {
-                    binding.Converter = new DoubleToStringConverter();
-                }
-                else if (property.ReflectionData.PropertyType == typeof(int))
-                {
-                    binding.Converter = new IntToStringConverter();
-                }
+                BindingOperations.SetBinding(control, TextBox.TextProperty, oneWayBinding);
+            };
+            //We default to using the two way
+            BindingOperations.SetBinding(control, TextBox.TextProperty, twoWayBinding);
+            return new ValueControl(control, EditingBehaviour.OnFocus, suspendBinding, resumeBinding);
+        }
+
+        private IValueConverter GetConverter(InspectableProperty property)
+        {
+            if (property.ReflectionData.PropertyType == typeof(double))
+            {
+                return new DoubleToStringConverter();
             }
+            else if (property.ReflectionData.PropertyType == typeof(int))
+            {
+                return new IntToStringConverter();
+            }
+            //no converter used for other types
+            return null;
 
-            //Set the binding
-            BindingOperations.SetBinding(control, TextBox.TextProperty, binding);
-
-            return new ValueControl(control, EditingBehaviour.OnFocus);
         }
     }
 }
