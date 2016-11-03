@@ -47,8 +47,7 @@ namespace Aegir.View.Rendering.Menu
                 new ClickableMenuItem("Polygon",()=> {DW("Polygon"); }),
                 new SeperatorMenuItem("Create Shape"),
                 new ClickableMenuItem("Antenna",()=> {DW("Antenna"); }),
-                new ClickableMenuItem("Gyro",()=> {DW("Gyro"); }),
-                new SeperatorMenuItem("Create Sensor"),
+                new ClickableMenuItem("Gyro",()=> {DW("Gyro"); })
             };
             contextItems = new MenuListItem[]
             {

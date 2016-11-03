@@ -16,37 +16,6 @@ using System.Windows.Shapes;
 
 namespace Aegir.View.Timeline
 {
-    public class KeyframeListItem : ObservableObject, INameable
-    {
-        public int Time { get; private set; }
-        public KeyframeViewModel KeyVM { get; private set; }
-
-        private double xpos;
-
-        public double TimelinePositionX
-        {
-            get { return xpos; }
-            set
-            {
-                xpos = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        public string Name
-        {
-            get
-            {
-                return $"Keyframe({Time})";
-            }
-        }
-
-        public KeyframeListItem(KeyframeViewModel viewModel)
-        {
-            this.KeyVM = viewModel;
-            this.Time = viewModel.Time;
-        }
-    }
 
     /// <summary>
     /// Interaction logic for KeyframeTimeline.xaml
@@ -488,7 +457,7 @@ namespace Aegir.View.Timeline
             }
 
             FrameworkElement keyframe = (FrameworkElement)sender;
-            KeyframeListItem keyframeViewmodel = (KeyframeListItem)keyframe.DataContext;
+            KeyframeViewModel keyframeViewmodel = (KeyframeViewModel)keyframe.DataContext;
 
             isLeftMouseDownOnKeyframe = true;
 
@@ -549,7 +518,7 @@ namespace Aegir.View.Timeline
             if (isLeftMouseDownOnKeyframe)
             {
                 FrameworkElement keyframe = (FrameworkElement)sender;
-                KeyframeListItem keyframeViewModel = (KeyframeListItem)keyframe.DataContext;
+                KeyframeViewModel keyframeViewModel = (KeyframeViewModel)keyframe.DataContext;
 
                 if (!isDraggingKeyframe)
                 {
@@ -605,7 +574,7 @@ namespace Aegir.View.Timeline
                     Debug.WriteLine("Frames Moved " + currentOperationFramesDragged);
                     bool hasKeyConflict = false;
 
-                    foreach (KeyframeListItem key in this.listBox.SelectedItems)
+                    foreach (KeyframeViewModel key in this.listBox.SelectedItems)
                     {
                         int newTime = key.Time + currentOperationFramesDragged;
                         if (Keyframes.Any(x => x.Time == newTime))
@@ -625,10 +594,12 @@ namespace Aegir.View.Timeline
                         {
                             Debug.WriteLine("Dont overwrite");
                             double stepSize = (ActualWidth - keyFrameTicksPadding * 2) / (TimeRangeEnd - TimeRangeStart);
-                            foreach (KeyframeListItem key in this.listBox.SelectedItems)
-                            {
-                                key.TimelinePositionX = stepSize * currentOperationFramesDragged;
-                            }
+                            //TODO Fix with Time instead of explicit offset
+                            //foreach (KeyframeViewModel key in this.listBox.SelectedItems)
+                            //{
+
+                            //    key.TimelinePositionX = stepSize * currentOperationFramesDragged;
+                            //}
                         }
                     }
                 }
@@ -665,9 +636,10 @@ namespace Aegir.View.Timeline
 
                 if (Math.Abs(currentDeltaStepDistance) >= stepSize)
                 {
-                    foreach (KeyframeListItem keyframe in this.listBox.SelectedItems)
+                    foreach (KeyframeViewModel keyframe in this.listBox.SelectedItems)
                     {
-                        keyframe.TimelinePositionX += currentDeltaStepDistance;
+                        //TODO FIX with time instead of timeline offset
+                        //keyframe.TimelinePositionX += currentDeltaStepDistance;
 
                         //keyframe.CanvasY += dragDelta.Y;
                     }

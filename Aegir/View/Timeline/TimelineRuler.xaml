@@ -100,7 +100,7 @@
                     <Style TargetType="ListBoxItem">
                         <Setter Property="Canvas.Left">
                             <Setter.Value>
-                                <MultiBinding Converter="{StaticResource KeyframePositionConv}">
+                                <MultiBinding Mode="OneWay" Converter="{StaticResource KeyframePositionConv}">
                                     <Binding Path="ActualWidth" ElementName="listBox"></Binding>
                                     <Binding Path="TimeRangeStart" RelativeSource="{RelativeSource AncestorType={x:Type local:TimelineRuler}}"></Binding>
                                     <Binding Path="TimeRangeEnd" RelativeSource="{RelativeSource AncestorType={x:Type local:TimelineRuler}}"></Binding>

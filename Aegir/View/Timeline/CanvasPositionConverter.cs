@@ -20,7 +20,7 @@ namespace Aegir.View.Timeline
             int timeRangeStart = (int)values[1];
             int timeRangeEnd = (int)values[2];
             int time = (int)values[3];
-            return CanvasCalculator.GetCanvasOffset(actualWidth, timeRangeStart, timeRangeEnd, time);
+            return CanvasCalculator.GetCanvasOffset(actualWidth, timeRangeStart, timeRangeEnd, time) -3;
         }
 
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)

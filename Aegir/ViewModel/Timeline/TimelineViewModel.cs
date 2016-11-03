@@ -131,7 +131,7 @@ namespace Aegir.ViewModel.Timeline
 
         private RelayCommand playPauseCommand;
         private DateTime lastNotifyProxyProperty;
-        private KeyframeListItem selectedKey;
+        private KeyframeViewModel selectedKey;
 
         public RelayCommand PlayPauseCommand
         {
@@ -188,7 +188,7 @@ namespace Aegir.ViewModel.Timeline
             set { Engine.PlaybackEnd = value; }
         }
 
-        public KeyframeListItem SelectedKey
+        public KeyframeViewModel SelectedKey
         {
             get { return selectedKey; }
             set
@@ -226,7 +226,7 @@ namespace Aegir.ViewModel.Timeline
             playPauseCommand = new RelayCommand(TogglePlayPauseState);
         }
 
-        private void UpdateSelectedKey(KeyframeListItem value)
+        private void UpdateSelectedKey(KeyframeViewModel value)
         {
             //RaisePropertyChanged();
             Debug.WriteLine($"Selected Key Changed {SelectedKey?.Time}");

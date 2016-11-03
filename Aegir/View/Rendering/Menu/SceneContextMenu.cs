@@ -55,8 +55,7 @@ namespace Aegir.View.Rendering.Menu
                 }
                 else if (item is SeperatorMenuItem)
                 {
-                    HeaderedSeparator menuItem = new HeaderedSeparator();
-                    menuItem.Header = menuItem.Header;
+                    Separator menuItem = new Separator();
                     parent.Items.Add(menuItem);
                 }
                 else if (item is SubMenuItem)
