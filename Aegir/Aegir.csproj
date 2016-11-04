@@ -202,6 +202,7 @@
     <Compile Include="ViewModel\NodeProxy\Simulation\WeatherSimulationViewModel.cs" />
     <Compile Include="ViewModel\NodeProxy\TypedBehaviourViewModel.cs" />
     <Compile Include="ViewModel\NodeProxy\IScenegraphAddRemoveHandler.cs" />
+    <Compile Include="ViewModel\NodeProxy\Vessel\VesselDimentionsViewModel.cs" />
     <Compile Include="ViewModel\NodeProxy\ViewModelForBehaviourAttribute.cs" />
     <Compile Include="ViewModel\NodeProxy\BehaviourViewModel.cs" />
     <Compile Include="ViewModel\NodeProxy\World\TransformViewModel.cs" />

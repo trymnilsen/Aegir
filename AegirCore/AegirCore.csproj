@@ -138,6 +138,7 @@
     <Compile Include="Behaviour\Simulation\FloatingMesh.cs" />
     <Compile Include="Behaviour\Simulation\WaterSimulation.cs" />
     <Compile Include="Behaviour\Simulation\WeatherSimulation.cs" />
+    <Compile Include="Behaviour\Vessel\VesselDimentionsBehaviour.cs" />
     <Compile Include="Behaviour\Vessel\VesselDynamicsBehaviour.cs" />
     <Compile Include="Behaviour\World\Transform.cs" />
     <Compile Include="Behaviour\World\WorldSettings.cs" />

@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace AegirPresets
 {
+    /// <summary>
+    /// Need this class to be able to compile to a Dll
+    /// </summary>
     public class PresetsDummyClass
     {
     }

@@ -44,6 +44,11 @@
                 <Heading></Heading>
                 <SimulationMode>Replay</SimulationMode>
               </VesselDynamicsBehaviour>
+                <VesselDimentionsBehaviour>
+                    <Width>30</Width>
+                    <Length>200</Length>
+                    <Height>40</Height>
+                </VesselDimentionsBehaviour>
               <MeshBehaviour>
                 <MeshDataReference>mesh://file/Mesh/ship.obj</MeshDataReference>
               </MeshBehaviour>
