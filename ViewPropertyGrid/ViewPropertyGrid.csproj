@@ -105,6 +105,7 @@
     <Compile Include="PropertyGrid\Provider\ComboBoxProvider.cs" />
     <Compile Include="PropertyGrid\Provider\TextboxProvider.cs" />
     <Compile Include="PropertyGrid\RefreshPropertyListOnPropertyChangeAttribute.cs" />
+    <Compile Include="PropertyGrid\SuspendableProperty.cs" />
     <Compile Include="PropertyGrid\ValueControl.cs" />
     <Compile Include="Util\DependencyObjectExtensions.cs" />
     <Page Include="PropertyGrid\PropertyGrid.xaml">

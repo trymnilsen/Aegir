@@ -17,29 +17,26 @@ namespace ViewPropertyGrid.PropertyGrid.Provider
             TextBox control = new TextBox();
             control.Padding = new Thickness(2, 2, 2, 2);
 
+            //Create a suspendable binding
+            SuspendableProperty dataSource = new SuspendableProperty(property);
+            //Dispose of dataSource if the control is unloaded
+            //control.Unloaded += (s,e) => { dataSource.Dispose(); };
             //Create two way binding
             Binding twoWayBinding = new Binding();
-            twoWayBinding.Source = property.Target;
-            twoWayBinding.Path = new PropertyPath(property.ReflectionData.Name);
+            twoWayBinding.Source = dataSource;
+            twoWayBinding.Path = new PropertyPath(nameof(SuspendableProperty.PropertyValue));
             twoWayBinding.Mode = BindingMode.TwoWay;
             twoWayBinding.UpdateSourceTrigger = UpdateSourceTrigger.LostFocus;
             twoWayBinding.Converter = GetConverter(property);
-
-            //Create one way binding
-            Binding oneWayBinding = new Binding();
-            oneWayBinding.Source = property.Target;
-            oneWayBinding.Path = new PropertyPath(property.ReflectionData.Name);
-            oneWayBinding.Mode = BindingMode.OneWayToSource;
-            oneWayBinding.UpdateSourceTrigger = UpdateSourceTrigger.LostFocus;
-            oneWayBinding.Converter = GetConverter(property);
-
+            
+            //Set up edit events
             Action resumeBinding = ()=>{
-                BindingOperations.SetBinding(control, TextBox.TextProperty, twoWayBinding);
+                dataSource.SuspendIncomming = false;
             };
 
             Action suspendBinding = () =>
             {
-                BindingOperations.SetBinding(control, TextBox.TextProperty, oneWayBinding);
+                dataSource.SuspendIncomming = true;
             };
             //We default to using the two way
             BindingOperations.SetBinding(control, TextBox.TextProperty, twoWayBinding);

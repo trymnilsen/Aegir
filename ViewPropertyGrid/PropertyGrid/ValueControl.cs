@@ -8,7 +8,7 @@ using System.Windows.Data;
 
 namespace ViewPropertyGrid.PropertyGrid
 {
-    public class ValueControl
+    public class ValueControl : IDisposable
     {
         public FrameworkElement Control { get; private set; }
         public EditingBehaviour EditBehaviour { get; private set; }
@@ -22,6 +22,7 @@ namespace ViewPropertyGrid.PropertyGrid
         {
             Control = control;
             EditBehaviour = behaviour;
+            
             this.onEditStart = onEditStart;
             this.onEditEnd = onEditEnd;
         }
@@ -42,5 +43,9 @@ namespace ViewPropertyGrid.PropertyGrid
             onEditStart?.Invoke();
         }
 
+        public void Dispose()
+        {
+            Control.RaiseEvent(new RoutedEventArgs(FrameworkElement.UnloadedEvent));
+        }
     }
 }
