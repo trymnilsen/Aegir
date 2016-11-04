@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 namespace Aegir.ViewModel.NodeProxy.Simulation
 {
     [ViewModelForBehaviour(typeof(WeatherSimulationViewModel))]
+    [DisplayName("Weather Simulation")]
     public class WeatherSimulationViewModel : TypedBehaviourViewModel<WeatherSimulation>
     {
         [DisplayName("Wind Direction")]
@@ -18,7 +19,7 @@ namespace Aegir.ViewModel.NodeProxy.Simulation
         public double WindMagnitude { get; set; } = 5;
 
         public WeatherSimulationViewModel(WeatherSimulation component)
-            : base(component, "Weather")
+            : base(component)
         {
         }
 

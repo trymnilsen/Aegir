@@ -108,6 +108,7 @@
     <Compile Include="PropertyGrid\SuspendableProperty.cs" />
     <Compile Include="PropertyGrid\ValueControl.cs" />
     <Compile Include="Util\DependencyObjectExtensions.cs" />
+    <Compile Include="Util\MemberInfoExtensions.cs" />
     <Page Include="PropertyGrid\PropertyGrid.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

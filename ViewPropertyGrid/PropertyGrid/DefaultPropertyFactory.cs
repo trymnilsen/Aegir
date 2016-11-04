@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using ViewPropertyGrid.Util;
 
 namespace ViewPropertyGrid.PropertyGrid
 {
@@ -64,15 +65,27 @@ namespace ViewPropertyGrid.PropertyGrid
                     as CategoryAttribute;
 
             //Set category name to the default
-            string categoryName = PropertyGrid.NoCategoryName;
+            string categoryName = String.Empty;
 
             //Change it to the value of category attribute if it exists
             if (categoryAttribute != null)
             {
                 categoryName = categoryAttribute.Category;
             }
-            //If there is no category, should we use Target toString as category or the default
-            else if (UseTargetToStringOnNoCategory)
+            else
+            {
+                //Do a last check for display name on the source class (target) of the property
+                DisplayNameAttribute categoryDisplayName = property.Target.GetType()
+                                                            .GetFirstOrDefaultAttribute<DisplayNameAttribute>();
+
+                if(categoryDisplayName!=null)
+                {
+                    categoryName = categoryDisplayName.DisplayName;
+                }
+            }
+            
+            //If there is no category yet, should we use Target toString as category or the default
+            if (UseTargetToStringOnNoCategory && categoryName == string.Empty)
             {
                 categoryName = property.Target.ToString();
             }

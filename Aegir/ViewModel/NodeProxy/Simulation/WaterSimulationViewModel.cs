@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 namespace Aegir.ViewModel.NodeProxy.Simulation
 {
     [ViewModelForBehaviour(typeof(WaterSimulation))]
+    [DisplayName("Water Simulation")]
     public class WaterSimulationViewModel : TypedBehaviourViewModel<WaterSimulation>
     {
         [DisplayName("Affected By Weather")]
@@ -18,7 +19,7 @@ namespace Aegir.ViewModel.NodeProxy.Simulation
         public string SimulationMode { get; set; } = "FFT";
 
         public WaterSimulationViewModel(WaterSimulation component)
-            : base(component, "Water Simulation")
+            : base(component)
         {
         }
 

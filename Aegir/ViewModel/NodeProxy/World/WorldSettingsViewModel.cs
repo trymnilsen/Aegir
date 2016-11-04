@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 namespace Aegir.ViewModel.NodeProxy.World
 {
     [ViewModelForBehaviour(typeof(WorldSettings))]
+    [DisplayName("World Settings")]
     public class WorldSettingsViewModel : TypedBehaviourViewModel<WorldSettings>
     {
         public int Year { get; set; } = 2016;
@@ -25,7 +26,7 @@ namespace Aegir.ViewModel.NodeProxy.World
         public double SunAltitude { get; set; } = 16;
 
         public WorldSettingsViewModel(WorldSettings component)
-            : base(component, "World Settings")
+            : base(component)
         {
         }
 

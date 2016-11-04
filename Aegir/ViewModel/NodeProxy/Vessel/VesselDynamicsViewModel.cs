@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 namespace Aegir.ViewModel.NodeProxy.Vessel
 {
     [ViewModelForBehaviourAttribute(typeof(VesselDynamicsBehaviour))]
+    [DisplayName( "Vessel Dynamics")]
     public class VesselDynamicsViewModel : TypedBehaviourViewModel<VesselDynamicsBehaviour>
     {
         public double Speed
@@ -50,8 +51,9 @@ namespace Aegir.ViewModel.NodeProxy.Vessel
         }
 
         public VesselDynamicsViewModel(VesselDynamicsBehaviour component)
-            : base(component, "Vessel Dynamics")
+            : base(component)
         {
+
         }
 
         internal override void Invalidate()

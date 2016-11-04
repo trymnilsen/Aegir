@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 namespace Aegir.ViewModel.NodeProxy.Vessel
 {
     [ViewModelForBehaviourAttribute(typeof(Transform))]
+    [DisplayName("Transform")]
     public class TransformViewModel : TypedBehaviourViewModel<Transform>
     {
         public double X
@@ -31,7 +32,7 @@ namespace Aegir.ViewModel.NodeProxy.Vessel
         }
 
         public TransformViewModel(Transform source)
-            : base(source, "Transform")
+            : base(source)
         {
         }
 

@@ -1,13 +1,16 @@
 ﻿using AegirCore.Behaviour.Vessel;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Aegir.ViewModel.NodeProxy.Vessel
 {
+
     [ViewModelForBehaviour(typeof(VesselDimentionsBehaviour))]
+    [DisplayName("Vessel Dimentions")]
     public class VesselDimentionsViewModel : TypedBehaviourViewModel<VesselDimentionsBehaviour>
     {
 
@@ -37,14 +40,14 @@ namespace Aegir.ViewModel.NodeProxy.Vessel
         }
 
 
-        public VesselDimentionsViewModel(VesselDimentionsBehaviour component) : base(component, "Vessel Dimentions")
+        public VesselDimentionsViewModel(VesselDimentionsBehaviour component) : base(component)
         {
 
         }
 
         internal override void Invalidate()
         {
-            
+           
         }
     }
 }
