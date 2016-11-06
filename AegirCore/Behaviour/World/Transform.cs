@@ -9,7 +9,7 @@ using System.Xml.Serialization;
 
 namespace AegirCore.Behaviour.World
 {
-    public class Transform : BehaviourComponent
+    public class Transform : BehaviourComponent, ICustomPersistable
     {
         private Vector3 localPosition;
         private Quaternion localRotation;

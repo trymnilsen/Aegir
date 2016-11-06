@@ -210,6 +210,7 @@
     <Compile Include="ViewModel\NodeProxy\World\WorldSettingsViewModel.cs" />
     <Compile Include="Messages\Selection\SelectionChanged.cs" />
     <Compile Include="ViewModel\SelectionViewModel.cs" />
+    <Compile Include="ViewModel\Statusbar\Operation.cs" />
     <Compile Include="View\Rendering\Menu\ClickableMenuItem.cs" />
     <Compile Include="View\Rendering\Menu\MenuList.cs" />
     <Compile Include="View\Rendering\Menu\MenuListItem.cs" />
@@ -242,7 +243,7 @@
     <Compile Include="ViewModel\NodeProxy\NodeViewModel.cs" />
     <Compile Include="ViewModel\OutputViewModel.cs" />
     <Compile Include="ViewModel\PlaybackViewModel.cs" />
-    <Compile Include="ViewModel\StatusBarViewModel.cs" />
+    <Compile Include="ViewModel\Statusbar\StatusBarViewModel.cs" />
     <Compile Include="ViewModel\Timeline\KeyframeViewModel.cs" />
     <Compile Include="ViewModel\Timeline\TimelineViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />

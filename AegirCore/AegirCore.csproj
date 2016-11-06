@@ -177,6 +177,7 @@
     <Compile Include="Persistence\Data\TimelineData.cs" />
     <Compile Include="Persistence\DefaultApplicationPersister.cs" />
     <Compile Include="Persistence\IApplicationPersister.cs" />
+    <Compile Include="Persistence\ICustomPersistable.cs" />
     <Compile Include="Persistence\PersistanceException.cs" />
     <Compile Include="Persistence\PersistenceHandler.cs" />
     <Compile Include="Persistence\Persisters\AssetPersister.cs" />

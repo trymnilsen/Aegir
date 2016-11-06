@@ -127,5 +127,14 @@ namespace AegirCore.Persistence.Persisters
 
             return nodeElement;
         }
+
+        private XElement SerializeBehaviour(BehaviourComponent behaviour)
+        {
+            return null;
+        }
+        private void DeserializeBehaviour(BehaviourComponent behaviour, XElement behaviourData)
+        {
+
+        }
     }
 }

@@ -39,7 +39,7 @@ namespace Aegir.View
 
             openFileDialog.InitialDirectory = "c:\\";
             openFileDialog.Filter = "Project Files (*.aprj)|*.aprj|All files (*.*)|*.*";
-            openFileDialog.FilterIndex = 2;
+            openFileDialog.FilterIndex = 0;
             openFileDialog.RestoreDirectory = true;
 
             bool? foo = openFileDialog.ShowDialog();
