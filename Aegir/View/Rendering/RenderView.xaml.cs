@@ -97,7 +97,7 @@ namespace Aegir.View.Rendering
             meshTransforms = new List<NodeMeshListener>();
             renderHandler = new Renderer();
 
-            renderHandler.AddViewport(new ViewportRenderer(PerspectiveViewport));
+            renderHandler.Viewport = new ViewportRenderer(PerspectiveViewport);
             gizmoHandler = new ManipulatorGizmoTransformHandler();
 
             //Add Tools
@@ -207,15 +207,29 @@ namespace Aegir.View.Rendering
         {
             if (e.ChangedButton == MouseButton.Left)
             {
-                HelixViewport3D viewport = (HelixViewport3D)sender;
-                Viewport3DHelper.HitResult firstHit = viewport.Viewport
-                                                              .FindHits(e.GetPosition(viewport))
-                                                              .FirstOrDefault();
+                var overlayHit = PerspectiveOverlay.Viewport
+                                    .FindHits(e.GetPosition(PerspectiveOverlay))
+                                    .FirstOrDefault();
 
-                if (firstHit != null)
+                if (overlayHit != null)
                 {
-                    Node node = renderHandler.ResolveVisualToNode(viewport, firstHit.Visual);
-                    SceneNodeClickedCommand.Execute(node);
+                    //do something
+                }
+                else
+                {
+                    //no hit in overlay
+                    //check if this hits anything in the underlaying viewport
+                    var scenehit = PerspectiveViewport.Viewport
+                                        .FindHits(e.GetPosition(PerspectiveViewport))
+                                        .FirstOrDefault();
+                    if(scenehit!=null)
+                    {
+                        Node selectedNode = renderHandler.ResolveVisualToNode(scenehit.Visual);
+                        if(selectedNode!=null)
+                        {
+                            SceneNodeClickedCommand.Execute(selectedNode);
+                        }
+                    }
                 }
             }
         }
@@ -237,22 +251,7 @@ namespace Aegir.View.Rendering
         /// <param name="e"></param>
         private void PerspectiveViewport_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            if (e.ChangedButton == MouseButton.Left)
-            {
-                HelixViewport3D viewport = PerspectiveOverlay;
-                Viewport3DHelper.HitResult firstHit = viewport.Viewport
-                                                              .FindHits(e.GetPosition(viewport))
-                                                              .FirstOrDefault();
 
-                if (firstHit != null)
-                {
-                    var element = firstHit.Visual as IMouseDownManipulator;
-                    if (element != null)
-                    {
-                        element.RaiseMouseDown(e);
-                    }
-                }
-            }
         }
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
@@ -341,5 +340,6 @@ namespace Aegir.View.Rendering
         {
             renderHandler.CameraFollow(Scene.SelectedItem);
         }
+
     }
 }

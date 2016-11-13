@@ -85,6 +85,7 @@
                                 ShowFrameRate="True"
                                 IsHeadLightEnabled="False"
                                 IsRotationEnabled="True"
+                                MouseUp="Viewport_MouseUp"
                                 ContextMenuOpening="SceneContextMenuOpening">
                 <ht:HelixViewport3D.ContextMenu>
                     <menu:SceneContextMenu MenuItems="{StaticResource MenuListSource}"></menu:SceneContextMenu>

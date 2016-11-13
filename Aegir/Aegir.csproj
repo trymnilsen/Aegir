@@ -183,6 +183,7 @@
     <Compile Include="Rendering\Camera\PerspectiveCamera.cs" />
     <Compile Include="Rendering\Camera\TopCamera.cs" />
     <Compile Include="Rendering\IGeometryFactory.cs" />
+    <Compile Include="Rendering\ISceneClickable.cs" />
     <Compile Include="Rendering\ITransformableVisual.cs" />
     <Compile Include="Rendering\IVisualResolver.cs" />
     <Compile Include="Rendering\RenderItem.cs" />
@@ -211,15 +212,13 @@
     <Compile Include="Messages\Selection\SelectionChanged.cs" />
     <Compile Include="ViewModel\SelectionViewModel.cs" />
     <Compile Include="ViewModel\Statusbar\Operation.cs" />
+    <Compile Include="View\Rendering\CorneredBoundingBox.cs" />
     <Compile Include="View\Rendering\Menu\ClickableMenuItem.cs" />
     <Compile Include="View\Rendering\Menu\MenuList.cs" />
     <Compile Include="View\Rendering\Menu\MenuListItem.cs" />
     <Compile Include="View\Rendering\Menu\SceneContextMenu.cs" />
     <Compile Include="View\Rendering\Menu\SeperatorMenuItem.cs" />
     <Compile Include="View\Rendering\Menu\SubMenuItem.cs" />
-    <Compile Include="View\Rendering\RenderViewportView.xaml.cs">
-      <DependentUpon>RenderViewportView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\Rendering\SynchedHelixViewport3D.cs" />
     <Compile Include="View\Rendering\Tool\EventableBindableRotateManipulator.cs" />
     <Compile Include="View\Rendering\Tool\EventableBindableScaleManipulator.cs" />
@@ -387,10 +386,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Rendering\RenderView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\Rendering\RenderViewportView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

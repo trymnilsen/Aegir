@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
+using System.Windows.Media.Media3D;
 
 namespace Aegir.Map
 {
@@ -21,9 +22,12 @@ namespace Aegir.Map
             {
                 ImageSource image = TileService.GetTileImage(zoom, x, y);
                 ImageBrush imageBrush = new ImageBrush();
+                DiffuseMaterial material = new DiffuseMaterial();
+                material.Brush = imageBrush;
 
                 imageBrush.ImageSource = image;
                 imageBrush.Freeze();
+                material.Freeze();
 
                 //var foo = ImageWpfToGDI(image);
 
@@ -31,7 +35,7 @@ namespace Aegir.Map
                 {
                     tile.Dispatcher.Invoke(() =>
                     {
-                        tile.Fill = imageBrush;
+                        tile.Material = material;
                     });
                 }
             });

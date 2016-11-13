@@ -1,6 +1,7 @@
 ﻿using Aegir.Util;
 using Aegir.ViewModel;
 using Aegir.ViewModel.NodeProxy;
+using Aegir.ViewModel.Statusbar;
 using Aegir.ViewModel.Timeline;
 using Aegir.Windows;
 using AegirCore;
