@@ -103,7 +103,7 @@ namespace Aegir.ViewModel.NodeProxy
         /// Updates the currently active selected item in the graph
         /// </summary>
         /// <param name="newItem"></param>
-        public void UpdateSelectedItem(NodeViewModel newItem)
+        private void UpdateSelectedItem(NodeViewModel newItem)
         {
             Messenger.Publish<SelectedNodeChanged>(new SelectedNodeChanged(this, newItem));
             Messenger.Publish<SelectionChanged>(new SelectionChanged(this, newItem));
@@ -116,7 +116,7 @@ namespace Aegir.ViewModel.NodeProxy
             {
                 if (nodeVM.NodeSource == node)
                 {
-                    UpdateSelectedItem(nodeVM);
+                    SelectedItem = nodeVM;
                     break;
                 }
                 else
@@ -130,7 +130,7 @@ namespace Aegir.ViewModel.NodeProxy
         {
             if (nodeVM.NodeSource == node)
             {
-                UpdateSelectedItem(nodeVM);
+                SelectedItem = nodeVM;
             }
             else if (nodeVM.Children.Count > 0)
             {
