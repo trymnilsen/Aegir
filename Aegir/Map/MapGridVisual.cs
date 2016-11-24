@@ -98,7 +98,7 @@ namespace Aegir.Map
 
         // Using a DependencyProperty as the backing store for TileGenerator.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty TileGeneratorProperty =
-            DependencyProperty.Register(nameof(TileGenerator), typeof(MapTileGenerator), typeof(MapGridVisual));
+            DependencyProperty.Register(nameof(TileGenerator), typeof(MapTileGenerator), typeof(MapGridVisual), new PropertyMetadata(new MapTileGenerator()));
 
         public MapGridVisual()
         {
@@ -392,7 +392,7 @@ namespace Aegir.Map
                         }
 
                         tile.UpdateDebugLabels();
-                        ////Send of a request to update the tile
+                        //Send of a request to update the tile
                         TileGenerator.LoadTileImageAsync(tile,
                                                          tile.TileX,
                                                          tile.TileY,
@@ -422,14 +422,15 @@ namespace Aegir.Map
 
         private int GetYTileEdge(int panAmount)
         {
+            //Inverse y axis
             if (panAmount < 0)
             {
                 //we need to find all tiles on left edge. Their index will be currentTileX - gridsize/2 (rounded down)
-                return currentTileY - GridSize / 2;
+                return currentTileY + GridSize / 2;
             }
             else if (panAmount > 0)
             {
-                return currentTileY + GridSize / 2;
+                return (currentTileY - GridSize / 2) + 1;
             }
 
             return 0;
