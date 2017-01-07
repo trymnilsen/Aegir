@@ -10,9 +10,9 @@ using System.Windows.Media.Media3D;
 
 namespace Aegir.Rendering
 {
-    public class ViewportRenderer
+    public class RendererViewport
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(ViewportRenderer));
+        private static readonly ILog log = LogManager.GetLogger(typeof(RendererViewport));
         private HelixViewport3D viewport;
         private List<RenderItemListener> listeners;
 
@@ -24,6 +24,10 @@ namespace Aegir.Rendering
         private Vector3D CameraTargetOffset;
         public static Point3D followTransformPoint = new Point3D();
 
+        public HelixViewport3D Viewport
+        {
+            get { return viewport; }
+        }
         public Transform FollowTransform
         {
             get { return followTransform; }
@@ -54,12 +58,12 @@ namespace Aegir.Rendering
         }
 
         public RenderingMode RenderMode { get; set; }
+        public HelixViewport3D overlay { get; private set; }
 
-        public ViewportRenderer(HelixViewport3D viewport)
+        public RendererViewport(HelixViewport3D sceneViewport)
         {
             RenderMode = RenderingMode.Solid;
-            this.viewport = viewport;
-
+            this.viewport = sceneViewport;
             this.visualFactory = VisualFactory;
             listeners = new List<RenderItemListener>();
         }

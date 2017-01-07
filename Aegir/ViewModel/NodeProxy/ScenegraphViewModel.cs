@@ -105,6 +105,7 @@ namespace Aegir.ViewModel.NodeProxy
         /// <param name="newItem"></param>
         private void UpdateSelectedItem(NodeViewModel newItem)
         {
+            DebugUtil.LogWithLocation("Updating Selected Node");
             Messenger.Publish<SelectedNodeChanged>(new SelectedNodeChanged(this, newItem));
             Messenger.Publish<SelectionChanged>(new SelectionChanged(this, newItem));
         }
@@ -121,16 +122,20 @@ namespace Aegir.ViewModel.NodeProxy
                 }
                 else
                 {
-                    LookForChildrenNodeVM(nodeVM, node);
+                    if(LookForChildrenNodeVM(nodeVM, node))
+                    {
+                        break;
+                    }
                 }
             }
         }
 
-        private void LookForChildrenNodeVM(NodeViewModel nodeVM, Node node)
+        private bool LookForChildrenNodeVM(NodeViewModel nodeVM, Node node)
         {
             if (nodeVM.NodeSource == node)
             {
                 SelectedItem = nodeVM;
+                return true;
             }
             else if (nodeVM.Children.Count > 0)
             {
@@ -139,6 +144,7 @@ namespace Aegir.ViewModel.NodeProxy
                     LookForChildrenNodeVM(nodeChild, node);
                 }
             }
+            return false;
         }
 
         private void ProjectChanged(ProjectActivated projectMessage)

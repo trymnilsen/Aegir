@@ -29,16 +29,22 @@
                     </Rectangle.InputBindings>
                     <Rectangle.ContextMenu>
                         <ContextMenu>
-                            <MenuItem Header="Aft : Transform - X"></MenuItem>
-                            <MenuItem Header="Aft : Transform - Y"></MenuItem>
-                            <MenuItem Header="Aft : Transform - Z"></MenuItem>
+                            <MenuItem Header="Aft : Transform - X" IsEnabled="False"></MenuItem>
+                            <MenuItem Header="Aft : Transform - Y" IsEnabled="False"></MenuItem>
+                            <MenuItem Header="Aft : Transform - Z"  IsEnabled="False"></MenuItem>
+                            <MenuItem Header="Aft : Transform - Roll" IsEnabled="False"></MenuItem>
+                            <MenuItem Header="Aft : Transform - Pitch" IsEnabled="False"></MenuItem>
+                            <MenuItem Header="Aft : Transform - Yaw"  IsEnabled="False"></MenuItem>
                             <Separator></Separator>
-                            <MenuItem Header="Delete Key">
+                            <MenuItem Header="Delete Single Key">
                                 <MenuItem Header="Aft : Transform - X"></MenuItem>
                                 <MenuItem Header="Aft : Transform - Y"></MenuItem>
                                 <MenuItem Header="Aft : Transform - Z"></MenuItem>
+                                <MenuItem Header="Aft : Transform - Roll"></MenuItem>
+                                <MenuItem Header="Aft : Transform - Pitch"></MenuItem>
+                                <MenuItem Header="Aft : Transform - Yaw"></MenuItem>
                             </MenuItem>
-                            <MenuItem Header="Delete"></MenuItem>
+                            <MenuItem Header="Delete All"></MenuItem>
                         </ContextMenu>
                     </Rectangle.ContextMenu>
                     <Rectangle.Fill>

@@ -1,20 +1,21 @@
 ﻿using Aegir.Rendering;
-using Aegir.View.Rendering.Menu;
-using Aegir.View.Rendering.Tool;
 using Aegir.ViewModel.NodeProxy;
-using AegirCore.Scene;
 using HelixToolkit.Wpf;
 using log4net;
 using System;
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Media3D;
+using System.Windows.Input;
+using AegirCore.Scene;
+using Aegir.View.Rendering.Tool;
+using Aegir.View.Rendering.Menu;
+using System.ComponentModel;
 
 namespace Aegir.View.Rendering
 {
@@ -59,17 +60,22 @@ namespace Aegir.View.Rendering
                                             new PropertyChangedCallback(OnSceneGraphChanged)
                                         ));
 
+
+
         public ICommand SceneNodeClickedCommand
         {
             get { return (ICommand)GetValue(SceneNodeClickedCommandProperty); }
             set { SetValue(SceneNodeClickedCommandProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for MyProperty.  This enables animation, styling, binding, etc...
+        // Using a DependencyProperty as the backing store for MyProperty.  
+        //This enables animation, styling, binding, etc...
         public static readonly DependencyProperty SceneNodeClickedCommandProperty =
             DependencyProperty.Register(nameof(SceneNodeClickedCommand),
                                         typeof(ICommand),
                                         typeof(RenderView));
+
+
 
         public ViewportFocus ActiveViewport
         {
@@ -77,7 +83,8 @@ namespace Aegir.View.Rendering
             set { SetValue(FocusProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for Focus.  This enables animation, styling, binding, etc...
+        // Using a DependencyProperty as the backing store for Focus.  
+        //This enables animation, styling, binding, etc...
         public static readonly DependencyProperty FocusProperty =
             DependencyProperty.Register("Focus",
                 typeof(ViewportFocus),
@@ -87,9 +94,11 @@ namespace Aegir.View.Rendering
                     new PropertyChangedCallback(OnViewportFocusChanged)
                 ));
 
+        private ManipulatorGizmo topGizmo;
         private ManipulatorGizmo perspectiveGizmo;
+        private ManipulatorGizmo rightGizmo;
+        private ManipulatorGizmo frontGizmo;
         private ManipulatorGizmoTransformHandler gizmoHandler;
-
         public RenderView()
         {
             InitializeComponent();
@@ -97,7 +106,10 @@ namespace Aegir.View.Rendering
             meshTransforms = new List<NodeMeshListener>();
             renderHandler = new Renderer();
 
-            renderHandler.Viewport = new ViewportRenderer(PerspectiveViewport);
+            renderHandler.AddViewport(new RendererViewport(TopViewport));
+            renderHandler.AddViewport(new RendererViewport(PerspectiveViewport));
+            renderHandler.AddViewport(new RendererViewport(RightViewport));
+            renderHandler.AddViewport(new RendererViewport(FrontViewport));
             gizmoHandler = new ManipulatorGizmoTransformHandler();
 
             //Add Tools
@@ -105,20 +117,25 @@ namespace Aegir.View.Rendering
             //As we have no way of turning on of Z-depth testing we work around
             //by adding the gizmos to the overlay.. A workaround for making the
             //work around work is needed when it comes to mouse events
-            //See "PerspectiveViewport_MouseDown" below
+            //See "PerspectiveViewport_MouseDown" below 
             //Perhaps this is another reason to switch to SharpDX (Having it all
             //in the same viewport and not doing Z-tests in shader)?
 
             //rightGizmo = new ManipulatorGizmo(RightViewport, gizmoHandler);
             //frontGizmo = new ManipulatorGizmo(FrontViewport, gizmoHandler);
+
+
+
         }
 
-        private void TopLeftView_IsKeyboardFocusWithinChanged(object sender, DependencyPropertyChangedEventArgs e)
+        private void TopLeftView_IsKeyboardFocusWithinChanged(object sender, 
+            DependencyPropertyChangedEventArgs e)
         {
             log.Debug("TopLeftViewGot Focus");
         }
 
-        public void OnSceneGraphInstanceChanged(ScenegraphViewModel newScene, ScenegraphViewModel oldScene)
+        public void OnSceneGraphInstanceChanged(ScenegraphViewModel newScene, 
+            ScenegraphViewModel oldScene)
         {
             log.Debug("Scene Instance changed");
             //unlisten old
@@ -129,7 +146,8 @@ namespace Aegir.View.Rendering
             }
             if (newScene == null)
             {
-                throw new ArgumentNullException("newScene", "Argument newScene cannot be set to a null reference");
+                throw new ArgumentNullException("newScene", 
+                    "Argument newScene cannot be set to a null reference");
             }
             newScene.ScenegraphChanged += OnSceneGraphChanged;
             newScene.InvalidateChildren += OnInvalidateChildren;
@@ -139,7 +157,7 @@ namespace Aegir.View.Rendering
             newScene.PropertyChanged += NewScene_PropertyChanged;
         }
 
-        private void NewScene_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        private void NewScene_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == nameof(ScenegraphViewModel.SelectedItem))
             {
@@ -155,7 +173,8 @@ namespace Aegir.View.Rendering
         /// </summary>
         /// <param name="d"></param>
         /// <param name="e"></param>
-        private static void OnSceneGraphChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnSceneGraphChanged(DependencyObject d, 
+            DependencyPropertyChangedEventArgs e)
         {
             log.Debug("ScenegraphDP Callback triggered");
             RenderView view = d as RenderView;
@@ -167,7 +186,8 @@ namespace Aegir.View.Rendering
             }
         }
 
-        private static void OnViewportFocusChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnViewportFocusChanged(DependencyObject d, 
+            DependencyPropertyChangedEventArgs e)
         {
         }
 
@@ -207,7 +227,9 @@ namespace Aegir.View.Rendering
         {
             if (e.ChangedButton == MouseButton.Left)
             {
-                var overlayHit = PerspectiveOverlay.Viewport
+                Debug.WriteLine("Clicked on viewport");
+                HelixViewport3D viewport = (HelixViewport3D)sender;
+                var overlayHit = viewport.Viewport
                                     .FindHits(e.GetPosition(PerspectiveOverlay))
                                     .FirstOrDefault();
 
@@ -219,13 +241,13 @@ namespace Aegir.View.Rendering
                 {
                     //no hit in overlay
                     //check if this hits anything in the underlaying viewport
-                    var scenehit = PerspectiveViewport.Viewport
+                    var scenehit = viewport.Viewport
                                         .FindHits(e.GetPosition(PerspectiveViewport))
                                         .FirstOrDefault();
-                    if(scenehit!=null)
+                    if (scenehit != null)
                     {
-                        Node selectedNode = renderHandler.ResolveVisualToNode(scenehit.Visual);
-                        if(selectedNode!=null)
+                        Node selectedNode = null;  //TODO: FIX THIS//renderHandler.ResolveVisualToNode(scenehit.Visual);
+                        if (selectedNode != null)
                         {
                             SceneNodeClickedCommand.Execute(selectedNode);
                         }
@@ -233,16 +255,15 @@ namespace Aegir.View.Rendering
                 }
             }
         }
-
         /// <summary>
         /// We listen for mouse events on the viewport
-        ///
+        /// 
         /// We get the mouseevents for the perspective (not overlay) viewport
         /// But since they have the same size the events are also usable for the overlay
         /// We check if our 2d X/Y mouse coords are hitting the manipulators in that
         /// viewport and if they are we forward the mousevent to them, allowing them to
         /// get mouseevents despite of the hittest being set to false
-        ///
+        /// 
         /// This enables us to both use the manipulators with the mouse in the overlay
         /// as well as having mouseevents in the perspective viewport for selecting,
         /// paning, rotating the camera etc..
@@ -250,26 +271,6 @@ namespace Aegir.View.Rendering
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void PerspectiveViewport_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-
-        }
-
-        private void MenuItem_Click(object sender, RoutedEventArgs e)
-        {
-            gizmoHandler.GizmoMode = GizmoMode.Translate;
-        }
-
-        private void MenuItem_Click_1(object sender, RoutedEventArgs e)
-        {
-            gizmoHandler.GizmoMode = GizmoMode.Rotate;
-        }
-
-        private void MenuItem_Click_2(object sender, RoutedEventArgs e)
-        {
-            gizmoHandler.GizmoMode = GizmoMode.None;
-        }
-
-        private void PerspectiveViewport_MouseUp(object sender, MouseButtonEventArgs e)
         {
             if (e.ChangedButton == MouseButton.Left)
             {
@@ -283,11 +284,49 @@ namespace Aegir.View.Rendering
                     var element = firstHit.Visual as IMouseDownManipulator;
                     if (element != null)
                     {
-                        element.RaiseMouseUp(e);
+                        element.RaiseMouseDown(e);
                     }
                 }
+
             }
         }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            gizmoHandler.GizmoMode = GizmoMode.Translate;
+
+        }
+
+        private void MenuItem_Click_1(object sender, RoutedEventArgs e)
+        {
+            gizmoHandler.GizmoMode = GizmoMode.Rotate;
+        }
+
+        private void MenuItem_Click_2(object sender, RoutedEventArgs e)
+        {
+            gizmoHandler.GizmoMode = GizmoMode.None;
+        }
+
+        //private void PerspectiveViewport_MouseUp(object sender, MouseButtonEventArgs e)
+        //{
+        //    if (e.ChangedButton == MouseButton.Left)
+        //    {
+        //        HelixViewport3D viewport = PerspectiveOverlay;
+        //        Viewport3DHelper.HitResult firstHit = viewport.Viewport
+        //                                                      .FindHits(e.GetPosition(viewport))
+        //                                                      .FirstOrDefault();
+
+        //        if (firstHit != null)
+        //        {
+        //            var element = firstHit.Visual as IMouseDownManipulator;
+        //            if (element != null)
+        //            {
+        //                element.RaiseMouseUp(e);
+        //            }
+        //        }
+
+        //    }
+        //}
 
         private void SceneContextMenuOpening(object sender, ContextMenuEventArgs e)
         {
@@ -316,20 +355,24 @@ namespace Aegir.View.Rendering
                 case "Translate":
                     gizmoHandler.GizmoMode = GizmoMode.Translate;
                     break;
-
                 case "Rotate":
                     gizmoHandler.GizmoMode = GizmoMode.Rotate;
                     break;
-
                 case "MapZoomOut":
+                    if (TopMap.MapZoomLevel > 5)
+                    {
+                        TopMap.MapZoomLevel -= 1;
+                    }
                     break;
-
                 case "MapZoomIn":
+                    if (TopMap.MapZoomLevel < 18)
+                    {
+                        TopMap.MapZoomLevel += 1;
+                    }
                     break;
-
                 case "MapTranslateOffset":
+                    TopMap.TranslateOnZoom = !TopMap.TranslateOnZoom;
                     break;
-
                 default:
                     gizmoHandler.GizmoMode = GizmoMode.None;
                     break;
@@ -340,6 +383,5 @@ namespace Aegir.View.Rendering
         {
             renderHandler.CameraFollow(Scene.SelectedItem);
         }
-
     }
 }

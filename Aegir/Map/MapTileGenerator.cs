@@ -30,8 +30,8 @@ namespace Aegir.Map
                 material.Freeze();
 
                 //var foo = ImageWpfToGDI(image);
-
-                if (image != null && imageBrush != null) // We've already set the Source to null before calling this method.
+                // We've already set the Source to null before calling this method.
+                if (image != null && imageBrush != null) 
                 {
                     tile.Dispatcher.Invoke(() =>
                     {
