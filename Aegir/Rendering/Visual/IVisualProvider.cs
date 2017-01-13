@@ -4,8 +4,8 @@ namespace Aegir.Rendering.Visual
 {
     public interface IVisualProvider
     {
-        Visual3D GetVisual(RenderItem renderItem);
+        Visual3D GetVisual(SceneActor renderItem);
 
-        RenderItem GetRenderItem(Visual3D visual);
+        SceneActor GetRenderItem(Visual3D visual);
     }
 }

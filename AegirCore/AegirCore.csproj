@@ -163,6 +163,24 @@
     <Compile Include="Keyframe\TimelineScopeMode.cs" />
     <Compile Include="Keyframe\ValueKeyframe.cs" />
     <Compile Include="Keyframe\WaypointKeyframe.cs" />
+    <Compile Include="Math\Angle.cs" />
+    <Compile Include="Math\BoundingBox.cs" />
+    <Compile Include="Math\BoundingFrustrum.cs" />
+    <Compile Include="Math\BoundingSphere.cs" />
+    <Compile Include="Math\Color.cs" />
+    <Compile Include="Math\ContainmentType.cs" />
+    <Compile Include="Math\MathHelper.cs" />
+    <Compile Include="Math\Matrix.cs" />
+    <Compile Include="Math\Plane.cs" />
+    <Compile Include="Math\PlaneHelper.cs" />
+    <Compile Include="Math\PlaneIntersectionType.cs" />
+    <Compile Include="Math\Point.cs" />
+    <Compile Include="Math\Quaternion.cs" />
+    <Compile Include="Math\Ray.cs" />
+    <Compile Include="Math\Rectangle.cs" />
+    <Compile Include="Math\Vector2.cs" />
+    <Compile Include="Math\Vector3.cs" />
+    <Compile Include="Math\Vector4.cs" />
     <Compile Include="Mesh\Grid\Tile3D.cs" />
     <Compile Include="Mesh\Loader\MeshLoader.cs" />
     <Compile Include="Mesh\MeshData.cs" />
@@ -171,6 +189,7 @@
     <Compile Include="Mesh\Grid\TileGrid3D.cs" />
     <Compile Include="Messages\InvalidateEntity.cs" />
     <Compile Include="Messages\ScenegraphChanged.cs" />
+    <Compile Include="Network\NetworkProtocolType.cs" />
     <Compile Include="Output\OutputData.cs" />
     <Compile Include="Output\OutputManager.cs" />
     <Compile Include="Persistence\Data\ScenegraphData.cs" />
@@ -232,6 +251,7 @@
     <Compile Include="Simulation\Water\WaveOptions.cs" />
     <Compile Include="Simulation\Water\Wave\CurveWave.cs" />
     <Compile Include="Simulation\Water\Wave\FlatWave.cs" />
+    <Compile Include="TinyMessenger.cs" />
     <Compile Include="Vessel\VesselConfiguration.cs" />
     <Compile Include="Vessel\VesselContext.cs" />
   </ItemGroup>
@@ -242,14 +262,6 @@
     <ProjectReference Include="..\AegirPresets\AegirPresets.csproj">
       <Project>{82462df5-86eb-4f74-82f5-73cec9a4ba74}</Project>
       <Name>AegirPresets</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\AegirMath\AegirType.csproj">
-      <Project>{d69e72f0-2c6b-4c14-a6f8-9fe3f9059395}</Project>
-      <Name>AegirType</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\TinyMessenger\TinyMessenger.csproj">
-      <Project>{175f52e0-a092-489d-a7d0-99c44b70e913}</Project>
-      <Name>TinyMessenger</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

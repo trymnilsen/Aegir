@@ -6,16 +6,16 @@ namespace Aegir.Rendering.Visual
 {
     public abstract class VisualProvider : IVisualProvider
     {
-        protected Dictionary<RenderItem, Visual3D> visualCache;
+        protected Dictionary<SceneActor, Visual3D> visualCache;
 
         public VisualProvider()
         {
-            visualCache = new Dictionary<RenderItem, Visual3D>();
+            visualCache = new Dictionary<SceneActor, Visual3D>();
         }
 
-        public RenderItem GetRenderItem(Visual3D visual)
+        public SceneActor GetRenderItem(Visual3D visual)
         {
-            foreach (KeyValuePair<RenderItem, Visual3D> entry in visualCache)
+            foreach (KeyValuePair<SceneActor, Visual3D> entry in visualCache)
             {
                 if (entry.Value == visual)
                 {
@@ -25,7 +25,7 @@ namespace Aegir.Rendering.Visual
             return null;
         }
 
-        public Visual3D GetVisual(RenderItem renderItem)
+        public Visual3D GetVisual(SceneActor renderItem)
         {
             if (visualCache.ContainsKey(renderItem))
             {
@@ -36,6 +36,6 @@ namespace Aegir.Rendering.Visual
             return visual;
         }
 
-        protected abstract Visual3D CreateVisual(RenderItem renderItem);
+        protected abstract Visual3D CreateVisual(SceneActor renderItem);
     }
 }

@@ -11,7 +11,7 @@ namespace Aegir.Rendering.Visual
             this.provider = provider;
         }
 
-        public Visual3D GetVisual(RenderItem item)
+        public Visual3D GetVisual(SceneActor item)
         {
             return provider.GetVisual(item);
         }

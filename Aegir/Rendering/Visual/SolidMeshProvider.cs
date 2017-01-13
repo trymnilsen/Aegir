@@ -6,7 +6,7 @@ namespace Aegir.Rendering.Visual
 {
     public class SolidMeshProvider : VisualProvider
     {
-        protected override Visual3D CreateVisual(RenderItem renderItem)
+        protected override Visual3D CreateVisual(SceneActor renderItem)
         {
             MeshGeometryVisual3D visual = new MeshGeometryVisual3D();
             visual.MeshGeometry = renderItem.Geometry;

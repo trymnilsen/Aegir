@@ -24,7 +24,7 @@ namespace Aegir.Rendering.Visual
             DummyColor = Color.FromRgb(255, 0, 0);
         }
 
-        public RenderItem GetRenderItem(RenderingMode mode, Visual3D visual)
+        public SceneActor GetRenderItem(RenderingMode mode, Visual3D visual)
         {
             if (providers.ContainsKey(mode))
             {
@@ -33,7 +33,7 @@ namespace Aegir.Rendering.Visual
             return null;
         }
 
-        public Visual3D GetVisual(RenderingMode mode, RenderItem item)
+        public Visual3D GetVisual(RenderingMode mode, SceneActor item)
         {
             if (providers.ContainsKey(mode))
             {

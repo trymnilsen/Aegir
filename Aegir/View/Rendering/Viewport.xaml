@@ -4,9 +4,62 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Aegir.View.Rendering"
+            xmlns:ht="clr-namespace:HelixToolkit.Wpf;assembly=HelixToolkit.Wpf"
+             xmlns:map="clr-namespace:Aegir.Map"
+             xmlns:menu="clr-namespace:Aegir.View.Rendering.Menu"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <ht:LinearConverter x:Key="Multiplier" M="0.5" ></ht:LinearConverter>
+        <map:MapTileGenerator x:Key="TileGenerator"></map:MapTileGenerator>
+    </UserControl.Resources>
     <Grid>
-            
+        <local:SynchedHelixViewport3D x:Name="Scene"
+                                IsRotationEnabled="True" 
+                                Background="#9F9F9F"
+                                ShowViewCube="False"
+                                ShowFrameRate="False"
+                                ViewportCamera="{
+                                    Binding ElementName=PerspectiveOverlay, 
+                                    Path=Camera}">
+
+            <!--<local:GridLines />-->
+            <map:MapGridVisual TileGenerator="{StaticResource TileGenerator}" 
+                               MapCamera="{
+                                    Binding ElementName=PerspectiveViewport, 
+                                    Path=CameraController}">
+
+            </map:MapGridVisual>
+            <!--<ht:MeshGeomerytVisual3D>
+                    <ht:MeshGeometryVisual3D.MeshGeometry>
+                        <MeshGeometry3D x:Name="meshMain"
+                                Positions="0 0 0  1 0 0  0 1 0  1 1 0  0 0 1  1 0 1  0 1 1  1 1 1"
+                                TriangleIndices="2 3 1  2 1 0  7 1 3  7 5 1  6 5 7  6 4 5  6 2 0  2 0 4  2 7 3  2 6 7  0 1 5  0 5 4">
+                        </MeshGeometry3D>
+                    </ht:MeshGeometryVisual3D.MeshGeometry>
+                </ht:MeshGeometryVisual3D>-->
+            <!--<ModelVisual3D>
+                    <ModelVisual3D.Content>
+                        <AmbientLight Color="#FFFFFF" />
+                    </ModelVisual3D.Content>
+                </ModelVisual3D>-->
+            <ht:DefaultLights></ht:DefaultLights>
+        </local:SynchedHelixViewport3D>
+        <ht:HelixViewport3D x:Name="Overlay" 
+                                Background="{x:Null}"
+                                ShowFrameRate="True"
+                                IsHeadLightEnabled="False"
+                                IsRotationEnabled="True"
+                                MouseUp="Viewport_MouseUp"
+                                >
+            <!--MouseUp="Viewport_MouseUp"-->
+            <!--<ht:CubeVisual3D x:Name="cube1" Transform="{ht:Translate 4,0,2}" Fill="Gold"/>
+                <ht:CombinedManipulator TargetTransform="{Binding Transform, ElementName=cube1}"/>-->
+            <ht:DefaultLights></ht:DefaultLights>
+            <ht:HelixViewport3D.RotateGesture>
+                <MouseGesture MouseAction="MiddleClick" 
+                                  Modifiers="Ctrl"></MouseGesture>
+            </ht:HelixViewport3D.RotateGesture>
+        </ht:HelixViewport3D>
     </Grid>
 </UserControl>

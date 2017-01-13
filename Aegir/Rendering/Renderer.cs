@@ -12,6 +12,8 @@ using System.Windows.Media.Media3D;
 using System;
 using System.Linq;
 using Aegir.Util;
+using Aegir.View.Rendering;
+using System.Windows.Threading;
 
 namespace Aegir.Rendering
 {
@@ -19,10 +21,11 @@ namespace Aegir.Rendering
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(Renderer));
         private ScenegraphViewModel scene;
-        private List<RendererViewport> viewports;
+        private List<IRenderViewport> viewports;
         private IGeometryFactory meshFactory;
-        private List<RenderItem> renderItems;
+        private List<SceneActor> renderItems;
         private RenderingMode renderMode;
+        private Dispatcher viewportsDispatcher;
 
         public RenderingMode RenderMode
         {
@@ -40,9 +43,9 @@ namespace Aegir.Rendering
 
         public Renderer()
         {
-            viewports = new List<RendererViewport>();
+            viewports = new List<IRenderViewport>();
             meshFactory = new GeometryFactory();
-            renderItems = new List<RenderItem>();
+            renderItems = new List<SceneActor>();
             DummyColor = Color.FromRgb(255, 0, 0);
         }
 
@@ -58,7 +61,7 @@ namespace Aegir.Rendering
         public void RebuildScene()
         {
             //Clear nodemeshlisteners
-            foreach (RenderItem item in renderItems)
+            foreach (SceneActor item in renderItems)
             {
                 item.Dispose();
             }
@@ -75,33 +78,7 @@ namespace Aegir.Rendering
                 }
             }
         }
-        public Node ResolveVisualToNode(HelixViewport3D viewport, Visual3D visual)
-        {
-            RendererViewport view = viewports.FirstOrDefault(x => x.Viewport == viewport);
-            if(view!=null)
-            {
-                RenderItem item = view.ResolveRenderItem(visual);
-                var node = item?.Transform?.Parent;
-                if (node != null)
-                {
-                    return node;
-                }
-            }
-            else
-            {
-                DebugUtil.LogWithLocation("Could not resolve visual, viewport arg not valid");
-            }
 
-            return null;
-        }
-        //private Visual3D GetExistingVisualForNode(NodeViewModelProxy node)
-        //{
-        //    //Check if any of weak references in cache matches this node
-        //    foreach(var cacheEntry in visualCache)
-        //    {
-        //        NodeViewModelProxy nodeCacheE
-        //    }
-        //}
         private void RenderNode(NodeViewModel node)
         {
             foreach (NodeViewModel child in node.Children)
@@ -169,7 +146,7 @@ namespace Aegir.Rendering
             }
         }
 
-        private void AddToViewports(RenderItem itemToRender)
+        private void AddToViewports(SceneActor itemToRender)
         {
             renderItems.Add(itemToRender);
             foreach (RendererViewport viewport in viewports)
@@ -220,7 +197,7 @@ namespace Aegir.Rendering
 
             if (transform != null)
             {
-                RenderItem newMeshItem = new RenderItem(meshFactory, mesh.Mesh.Data, transform);
+                SceneActor newMeshItem = new SceneActor(meshFactory, mesh.Mesh.Data, transform);
                 AddToViewports(newMeshItem);
             }
             else
@@ -245,13 +222,13 @@ namespace Aegir.Rendering
 
         public void Invalidate()
         {
-            foreach (RendererViewport viewport in viewports)
-            {
-                viewport.InvalidateVisuals();
+            for(int i=0; i<viewports.Count; i++)
+            { 
+                
             }
         }
 
-        public void AddViewport(RendererViewport viewport)
+        public void AddViewport(IRenderViewport viewport)
         {
             viewports.Add(viewport);
             viewport.VisualFactory = VisualFactory.GetNewFactoryWithDefaultProviders();
@@ -264,7 +241,7 @@ namespace Aegir.Rendering
         internal void CameraFollow(NodeViewModel selectedItem)
         {
             AegirCore.Behaviour.World.Transform transform = selectedItem.GetNodeComponent<AegirCore.Behaviour.World.Transform>();
-            viewports[1].FollowTransform = transform;
+            //viewports[1].FollowTransform = transform;
         }
     }
 }

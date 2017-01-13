@@ -217,7 +217,7 @@
                                 IsHeadLightEnabled="False"
                                 IsRotationEnabled="True"
                                 ContextMenuOpening="SceneContextMenuOpening"
-                                MouseUp="Viewport_MouseUp"
+                                MouseUp="Viewport_MouseUp" Margin="-10,0,10,0"
                                 >
                 <ht:HelixViewport3D.ContextMenu>
                     <menu:SceneContextMenu MenuItems="{StaticResource MenuListSource}"></menu:SceneContextMenu>

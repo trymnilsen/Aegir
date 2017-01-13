@@ -5,7 +5,7 @@ using System.Windows.Media.Media3D;
 
 namespace Aegir.Rendering
 {
-    public class RenderItem : IDisposable
+    public class SceneActor : IDisposable
     {
         private bool IsGeometryDirty;
         private IGeometryFactory geometryFactory;
@@ -28,7 +28,7 @@ namespace Aegir.Rendering
 
         public Transform Transform { get; private set; }
 
-        public RenderItem(IGeometryFactory geometryFactory, MeshData meshData, AegirCore.Behaviour.World.Transform transform)
+        public SceneActor(IGeometryFactory geometryFactory, MeshData meshData, AegirCore.Behaviour.World.Transform transform)
         {
             this.geometryFactory = geometryFactory;
             this.IsGeometryDirty = true;

@@ -21,6 +21,7 @@ namespace Aegir.View.Rendering
         public static readonly DependencyProperty ViewportCameraProperty =
             DependencyProperty.Register(nameof(ViewportCamera), typeof(WpfCamera), typeof(SynchedHelixViewport3D), new PropertyMetadata(ViewportCameraChanged));
 
+
         public static void ViewportCameraChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             if (d is SynchedHelixViewport3D)

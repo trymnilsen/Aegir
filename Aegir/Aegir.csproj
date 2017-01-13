@@ -182,6 +182,7 @@
     <Compile Include="Rendering\Camera\LeftCamera.cs" />
     <Compile Include="Rendering\Camera\PerspectiveCamera.cs" />
     <Compile Include="Rendering\Camera\TopCamera.cs" />
+    <Compile Include="Rendering\GizmoHandler.cs" />
     <Compile Include="Rendering\IGeometryFactory.cs" />
     <Compile Include="Rendering\ISceneClickable.cs" />
     <Compile Include="Rendering\ITransformableVisual.cs" />
@@ -213,6 +214,7 @@
     <Compile Include="ViewModel\SelectionViewModel.cs" />
     <Compile Include="ViewModel\Statusbar\Operation.cs" />
     <Compile Include="View\Rendering\CorneredBoundingBox.cs" />
+    <Compile Include="Rendering\IRenderViewport.cs" />
     <Compile Include="View\Rendering\Menu\ClickableMenuItem.cs" />
     <Compile Include="View\Rendering\Menu\MenuList.cs" />
     <Compile Include="View\Rendering\Menu\MenuListItem.cs" />
@@ -226,7 +228,7 @@
     <Compile Include="View\Rendering\Tool\IEventableManipulator.cs" />
     <Compile Include="View\Rendering\Tool\IMouseDownManipulator.cs" />
     <Compile Include="View\Rendering\Tool\ManipulatorFinishedEventArgs.cs" />
-    <Compile Include="Rendering\ViewportRenderer.cs" />
+    <Compile Include="Rendering\RendererViewport.cs" />
     <Compile Include="Rendering\Visual\IVisualProvider.cs" />
     <Compile Include="Rendering\Visual\SolidMeshProvider.cs" />
     <Compile Include="Rendering\Visual\GeometryFactory.cs" />
@@ -278,7 +280,9 @@
     <Compile Include="View\Rendering\Tool\GizmoMode.cs" />
     <Compile Include="View\Rendering\Tool\ManipulatorGizmoVisual.cs" />
     <Compile Include="View\Rendering\TransformDelayMode.cs" />
-    <Compile Include="View\Rendering\SceneClickHandler.cs" />
+    <Compile Include="View\Rendering\Viewport.xaml.cs">
+      <DependentUpon>Viewport.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Rendering\ViewportFocus.cs" />
     <Compile Include="View\ScenegraphTree.xaml.cs">
       <DependentUpon>ScenegraphTree.xaml</DependentUpon>
@@ -386,6 +390,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Rendering\RenderView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Rendering\Viewport.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -534,33 +542,9 @@
       <Project>{46062537-69cf-4e4b-bea5-0337499d2af9}</Project>
       <Name>AegirCore</Name>
     </ProjectReference>
-    <ProjectReference Include="..\AegirMath\AegirType.csproj">
-      <Project>{d69e72f0-2c6b-4c14-a6f8-9fe3f9059395}</Project>
-      <Name>AegirType</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\AegirNetwork\AegirNetwork.csproj">
-      <Project>{317d2c75-d643-47a2-ad18-071dabbe0e5d}</Project>
-      <Name>AegirNetwork</Name>
-    </ProjectReference>
     <ProjectReference Include="..\HelixToolkit.Wpf\HelixToolkit.Wpf.csproj">
       <Project>{3f3b4548-a9db-4874-86f7-e7c4fec8a351}</Project>
       <Name>HelixToolkit.Wpf</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\HelixToolkit\HelixToolkit.csproj">
-      <Project>{7c0e987e-cc34-4b19-ba6b-b381aeabb530}</Project>
-      <Name>HelixToolkit</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\PropertyTools.Wpf\PropertyTools.Wpf.csproj">
-      <Project>{7168f82f-288a-42c4-9eb1-fbbe5112f211}</Project>
-      <Name>PropertyTools.Wpf</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\PropertyTools\PropertyTools.csproj">
-      <Project>{0d9f4462-0cd4-480d-b9ae-89cb3ce3e083}</Project>
-      <Name>PropertyTools</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\TinyMessenger\TinyMessenger.csproj">
-      <Project>{175f52e0-a092-489d-a7d0-99c44b70e913}</Project>
-      <Name>TinyMessenger</Name>
     </ProjectReference>
     <ProjectReference Include="..\ViewPropertyGrid\ViewPropertyGrid.csproj">
       <Project>{4151f55a-e041-49b5-ba96-bcbe07edfa78}</Project>

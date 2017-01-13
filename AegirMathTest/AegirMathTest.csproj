@@ -107,12 +107,6 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\AegirMath\AegirType.csproj">
-      <Project>{d69e72f0-2c6b-4c14-a6f8-9fe3f9059395}</Project>
-      <Name>AegirType</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

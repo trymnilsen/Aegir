@@ -75,7 +75,7 @@ namespace Aegir.Rendering
             viewport.Children.Add(visual);
         }
 
-        public RenderItem ResolveRenderItem(Visual3D visual)
+        public SceneActor ResolveRenderItem(Visual3D visual)
         {
             return VisualFactory?.GetRenderItem(RenderMode, visual);
         }
@@ -119,7 +119,7 @@ namespace Aegir.Rendering
             });
         }
 
-        public void AddRenderItemToView(RenderItem renderItem)
+        public void AddRenderItemToView(SceneActor renderItem)
         {
             if (VisualFactory == null)
             {

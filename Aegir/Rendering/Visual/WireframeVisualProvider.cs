@@ -10,7 +10,7 @@ namespace Aegir.Rendering.Visual
         {
         }
 
-        protected override Visual3D CreateVisual(RenderItem renderItem)
+        protected override Visual3D CreateVisual(SceneActor renderItem)
         {
             LinesVisual3D wireframeVisual = new LinesVisual3D();
             wireframeVisual.Points = renderItem.Geometry.Positions;

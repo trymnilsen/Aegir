@@ -35,15 +35,7 @@ namespace Aegir.Rendering
 
         private Transform3D GetVisualTransformation(AegirCore.Behaviour.World.Transform transform)
         {
-            MatrixTransform3D matrixTransform = new MatrixTransform3D();
-            Matrix3D matrix = new Matrix3D();
-            Quaternion q = new Quaternion(transform.WorldRotation.X, transform.WorldRotation.Y, transform.WorldRotation.Z, transform.WorldRotation.W);
-            matrix.Rotate(q);
-            matrix.Translate(new Vector3D(transform.WorldPosition.X, transform.WorldPosition.Y, transform.WorldPosition.Z));
-
-            matrixTransform.Matrix = matrix;
-            matrixTransform.Freeze();
-            return matrixTransform;
+           
         }
 
         public void Dispose()

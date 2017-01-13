@@ -106,10 +106,6 @@ namespace Aegir.View.Rendering
             meshTransforms = new List<NodeMeshListener>();
             renderHandler = new Renderer();
 
-            renderHandler.AddViewport(new RendererViewport(TopViewport));
-            renderHandler.AddViewport(new RendererViewport(PerspectiveViewport));
-            renderHandler.AddViewport(new RendererViewport(RightViewport));
-            renderHandler.AddViewport(new RendererViewport(FrontViewport));
             gizmoHandler = new ManipulatorGizmoTransformHandler();
 
             //Add Tools
