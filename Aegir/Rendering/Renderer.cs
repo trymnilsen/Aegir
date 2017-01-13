@@ -222,10 +222,13 @@ namespace Aegir.Rendering
 
         public void Invalidate()
         {
-            for(int i=0; i<viewports.Count; i++)
-            { 
-                
-            }
+            viewportsDispatcher.Invoke(() =>
+            {
+                for (int i = 0; i < viewports.Count; i++)
+                {
+                    viewports[i].InvalidateActors();
+                }
+            });
         }
 
         public void AddViewport(IRenderViewport viewport)

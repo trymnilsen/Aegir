@@ -29,13 +29,7 @@ namespace Aegir.View.Rendering
 
         public Dictionary<string, Model3D> assetCache;
         public List<NodeMeshListener> meshTransforms;
-        public Renderer renderHandler;
-
-        public Color ModelNotLoadedColor
-        {
-            get { return (Color)GetValue(ModelNotLoadedColorProperty); }
-            set { SetValue(ModelNotLoadedColorProperty, value); }
-        }
+        public Renderer RenderHandler { get; set; }
 
         public ScenegraphViewModel Scene
         {
@@ -45,12 +39,6 @@ namespace Aegir.View.Rendering
                 SetValue(SceneProperty, value);
             }
         }
-
-        public static readonly DependencyProperty ModelNotLoadedColorProperty =
-            DependencyProperty.Register("MyProperty",
-                                        typeof(Color),
-                                        typeof(RenderView),
-                                        new PropertyMetadata(Color.FromRgb(255, 0, 0)));
 
         public static readonly DependencyProperty SceneProperty =
             DependencyProperty.Register("Scene",
@@ -104,7 +92,7 @@ namespace Aegir.View.Rendering
             InitializeComponent();
             assetCache = new Dictionary<string, Model3D>();
             meshTransforms = new List<NodeMeshListener>();
-            renderHandler = new Renderer();
+            RenderHandler = new Renderer();
 
             gizmoHandler = new ManipulatorGizmoTransformHandler();
 
@@ -147,7 +135,7 @@ namespace Aegir.View.Rendering
             }
             newScene.ScenegraphChanged += OnSceneGraphChanged;
             newScene.InvalidateChildren += OnInvalidateChildren;
-            renderHandler.ChangeScene(newScene);
+            RenderHandler.ChangeScene(newScene);
             RebuildVisualTree();
             //Workaround for now
             newScene.PropertyChanged += NewScene_PropertyChanged;
@@ -189,7 +177,7 @@ namespace Aegir.View.Rendering
 
         private void OnInvalidateChildren()
         {
-            renderHandler.Invalidate();
+            RenderHandler.Invalidate();
             gizmoHandler.InvalidateTargetTransform();
         }
 
@@ -213,78 +201,10 @@ namespace Aegir.View.Rendering
             log.Debug("Rebuild Visual Tree - START ");
             Stopwatch rebuildTime = new Stopwatch();
             rebuildTime.Start();
-            renderHandler.RebuildScene();
+            RenderHandler.RebuildScene();
             rebuildTime.Stop();
             log.DebugFormat("Rebuild Visual Tree - END USED {0}ms",
                 rebuildTime.Elapsed.TotalMilliseconds);
-        }
-
-        private void Viewport_MouseUp(object sender, MouseButtonEventArgs e)
-        {
-            if (e.ChangedButton == MouseButton.Left)
-            {
-                Debug.WriteLine("Clicked on viewport");
-                HelixViewport3D viewport = (HelixViewport3D)sender;
-                var overlayHit = viewport.Viewport
-                                    .FindHits(e.GetPosition(PerspectiveOverlay))
-                                    .FirstOrDefault();
-
-                if (overlayHit != null)
-                {
-                    //do something
-                }
-                else
-                {
-                    //no hit in overlay
-                    //check if this hits anything in the underlaying viewport
-                    var scenehit = viewport.Viewport
-                                        .FindHits(e.GetPosition(PerspectiveViewport))
-                                        .FirstOrDefault();
-                    if (scenehit != null)
-                    {
-                        Node selectedNode = null;  //TODO: FIX THIS//renderHandler.ResolveVisualToNode(scenehit.Visual);
-                        if (selectedNode != null)
-                        {
-                            SceneNodeClickedCommand.Execute(selectedNode);
-                        }
-                    }
-                }
-            }
-        }
-        /// <summary>
-        /// We listen for mouse events on the viewport
-        /// 
-        /// We get the mouseevents for the perspective (not overlay) viewport
-        /// But since they have the same size the events are also usable for the overlay
-        /// We check if our 2d X/Y mouse coords are hitting the manipulators in that
-        /// viewport and if they are we forward the mousevent to them, allowing them to
-        /// get mouseevents despite of the hittest being set to false
-        /// 
-        /// This enables us to both use the manipulators with the mouse in the overlay
-        /// as well as having mouseevents in the perspective viewport for selecting,
-        /// paning, rotating the camera etc..
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void PerspectiveViewport_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            if (e.ChangedButton == MouseButton.Left)
-            {
-                HelixViewport3D viewport = PerspectiveOverlay;
-                Viewport3DHelper.HitResult firstHit = viewport.Viewport
-                                                              .FindHits(e.GetPosition(viewport))
-                                                              .FirstOrDefault();
-
-                if (firstHit != null)
-                {
-                    var element = firstHit.Visual as IMouseDownManipulator;
-                    if (element != null)
-                    {
-                        element.RaiseMouseDown(e);
-                    }
-                }
-
-            }
         }
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
@@ -332,52 +252,52 @@ namespace Aegir.View.Rendering
             }
         }
 
-        private void UserControl_Loaded(object sender, RoutedEventArgs e)
-        {
-            var menuListResource = Resources["MenuListSource"];
-            menuSource = menuListResource as MenuList;
+        //private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        //{
+        //    var menuListResource = Resources["MenuListSource"];
+        //    menuSource = menuListResource as MenuList;
 
-            menuSource.MenuOptionClicked += ContextMenuItemClicked;
-            //TopMap.InitGrid();
+        //    menuSource.MenuOptionClicked += ContextMenuItemClicked;
+        //    //TopMap.InitGrid();
 
-            //topGizmo = new ManipulatorGizmo(TopViewport, gizmoHandler);
-            perspectiveGizmo = new ManipulatorGizmo(PerspectiveOverlay, gizmoHandler);
-        }
+        //    //topGizmo = new ManipulatorGizmo(TopViewport, gizmoHandler);
+        //    perspectiveGizmo = new ManipulatorGizmo(PerspectiveOverlay, gizmoHandler);
+        //}
 
-        private void ContextMenuItemClicked(string option)
-        {
-            switch (option)
-            {
-                case "Translate":
-                    gizmoHandler.GizmoMode = GizmoMode.Translate;
-                    break;
-                case "Rotate":
-                    gizmoHandler.GizmoMode = GizmoMode.Rotate;
-                    break;
-                case "MapZoomOut":
-                    if (TopMap.MapZoomLevel > 5)
-                    {
-                        TopMap.MapZoomLevel -= 1;
-                    }
-                    break;
-                case "MapZoomIn":
-                    if (TopMap.MapZoomLevel < 18)
-                    {
-                        TopMap.MapZoomLevel += 1;
-                    }
-                    break;
-                case "MapTranslateOffset":
-                    TopMap.TranslateOnZoom = !TopMap.TranslateOnZoom;
-                    break;
-                default:
-                    gizmoHandler.GizmoMode = GizmoMode.None;
-                    break;
-            }
-        }
+        //private void ContextMenuItemClicked(string option)
+        //{
+        //    switch (option)
+        //    {
+        //        case "Translate":
+        //            gizmoHandler.GizmoMode = GizmoMode.Translate;
+        //            break;
+        //        case "Rotate":
+        //            gizmoHandler.GizmoMode = GizmoMode.Rotate;
+        //            break;
+        //        case "MapZoomOut":
+        //            if (TopMap.MapZoomLevel > 5)
+        //            {
+        //                TopMap.MapZoomLevel -= 1;
+        //            }
+        //            break;
+        //        case "MapZoomIn":
+        //            if (TopMap.MapZoomLevel < 18)
+        //            {
+        //                TopMap.MapZoomLevel += 1;
+        //            }
+        //            break;
+        //        case "MapTranslateOffset":
+        //            TopMap.TranslateOnZoom = !TopMap.TranslateOnZoom;
+        //            break;
+        //        default:
+        //            gizmoHandler.GizmoMode = GizmoMode.None;
+        //            break;
+        //    }
+        //}
 
         private void MenuItem_Click_3(object sender, RoutedEventArgs e)
         {
-            renderHandler.CameraFollow(Scene.SelectedItem);
+            RenderHandler.CameraFollow(Scene.SelectedItem);
         }
     }
 }

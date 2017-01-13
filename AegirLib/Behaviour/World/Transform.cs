@@ -15,6 +15,8 @@ namespace AegirLib.Behaviour.World
         private Quaternion localRotation;
         private Vector3 worldPosition;
         private Quaternion worldRotation;
+        private Matrix matrix;
+        private bool matrixIsDirty;
 
         public bool Notify { get; set; }
 
@@ -25,6 +27,7 @@ namespace AegirLib.Behaviour.World
             set
             {
                 localPosition = value;
+                matrixIsDirty = true;
             }
         }
 
@@ -35,6 +38,7 @@ namespace AegirLib.Behaviour.World
             set
             {
                 localRotation = value;
+                matrixIsDirty = true;
             }
         }
 
@@ -54,6 +58,16 @@ namespace AegirLib.Behaviour.World
             }
         }
 
+        public Matrix Matrix
+        {
+            get
+            {
+                if(matrixIsDirty) { UpdateMatrix(); }
+                return matrix;
+            }
+        }
+
+
         public Transform(Node parent)
             : base(parent)
         {
@@ -64,16 +78,21 @@ namespace AegirLib.Behaviour.World
         public void SetX(double x)
         {
             localPosition.X = (float)x;
+            matrixIsDirty = true;
         }
 
         public void SetY(double y)
         {
             localPosition.Y = (float)y;
+            matrixIsDirty = true;
+
         }
 
         public void SetZ(double z)
         {
             localPosition.Z = (float)z;
+            matrixIsDirty = true;
+
         }
 
         public void Translate(Vector3 vector)
@@ -158,16 +177,11 @@ namespace AegirLib.Behaviour.World
             localPosition = XElementSerializer.DeserializeFromXElement<Vector3>(positionElement);
             localRotation = XElementSerializer.DeserializeFromXElement<Quaternion>(rotationElement);
         }
+        private void UpdateMatrix()
+        {
+            matrixIsDirty = false;
 
-        //public void TriggerTransformChanged()
-        //{
-        //    TransformationChangedHandler transformEvent = TransformationChanged;
-        //    if (transformEvent != null && Notify)
-        //    {
-        //        transformEvent();
-        //    }
-        //}
-        //public delegate void TransformationChangedHandler();
-        //public event TransformationChangedHandler TransformationChanged;
+        }
+
     }
 }

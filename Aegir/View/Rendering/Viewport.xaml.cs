@@ -18,6 +18,7 @@ using AegirLib.Scene;
 using HelixToolkit.Wpf;
 using Aegir.Util;
 using System.Windows.Media.Media3D;
+using LibTransform = AegirLib.Behaviour.World.Transform;
 
 namespace Aegir.View.Rendering
 {
@@ -26,7 +27,7 @@ namespace Aegir.View.Rendering
     /// </summary>
     public partial class Viewport : UserControl, IRenderViewport
     {
-        private List<Tuple<AegirLib.Behaviour.World.Transform, Visual3D>> actorsVisuals;
+        private List<Tuple<LibTransform, Visual3D>> actorsVisuals;
         public Renderer Renderer
         {
             get { return (Renderer)GetValue(RendererProperty); }
@@ -69,7 +70,9 @@ namespace Aegir.View.Rendering
 
         public Viewport()
         {
+            actorsVisuals = new List<Tuple<LibTransform, Visual3D>>();
             InitializeComponent();
+
         }
 
         private void ConfigureRenderer()
@@ -125,20 +128,39 @@ namespace Aegir.View.Rendering
             else
             {
                 Visual3D visual = VisualFactory.GetVisual(RenderingMode.Solid, item);
-                actorsVisuals.Add(new Tuple<AegirLib.Behaviour.World.Transform, Visual3D>(item.Transform, visual));
+                actorsVisuals.Add(new Tuple<LibTransform, Visual3D>(item.Transform, visual));
+
+                //Set a position for the visual
+                AegirLib.MathType.Matrix m = item.Transform.Matrix;
+                Matrix3D matrix = new Matrix3D(m.M11, m.M12, m.M13, m.M14,
+                    m.M21, m.M22, m.M23, m.M24,
+                    m.M31, m.M32, m.M33, m.M34,
+                    m.M41, m.M42, m.M43, m.M44);
+
+                MatrixTransform3D matrixTransform = new MatrixTransform3D(matrix);
+                visual.Transform = matrixTransform;
+
+                Scene.Children.Add(visual);
+
             }
         }
 
         public void ClearView()
         {
-            throw new NotImplementedException();
+            Scene.Children.Clear();
+            actorsVisuals.Clear();
         }
 
         public void InvalidateActors()
         {
             for(int i=0; i<actorsVisuals.Count; i++)
             {
-                Matrix3D matrix = new Matrix3D();
+                AegirLib.MathType.Matrix m = actorsVisuals[i].Item1.Matrix;
+                Matrix3D matrix = new Matrix3D(m.M11,m.M12,m.M13,m.M14,
+                    m.M21,m.M22,m.M23,m.M24,
+                    m.M31,m.M32,m.M33,m.M34,
+                    m.M41,m.M42,m.M43,m.M44);
+
                 MatrixTransform3D matrixTransform = new MatrixTransform3D(matrix);
 
                 actorsVisuals[i].Item2.Transform = matrixTransform;   
@@ -147,7 +169,18 @@ namespace Aegir.View.Rendering
 
         public void RemoveActor(SceneActor actor)
         {
-            throw new NotImplementedException();
+            Tuple<LibTransform, Visual3D> toRemove = actorsVisuals
+                .FirstOrDefault(x => x.Item1 == actor.Transform);
+
+            if(toRemove != null)
+            {
+                Scene.Children.Remove(toRemove.Item2);
+                actorsVisuals.Remove(toRemove);
+            }
+            else
+            {
+                DebugUtil.LogWithLocation("Tried to remove Actor not in scene");
+            }
         }
 
         public delegate void ActorClickHandler(Node node);

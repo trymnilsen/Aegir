@@ -8,10 +8,9 @@
              xmlns:map="clr-namespace:Aegir.Map"
              xmlns:menu="clr-namespace:Aegir.View.Rendering.Menu"
              mc:Ignorable="d"
-             Loaded="UserControl_Loaded"
+             Name="RenderViewControl"
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
-        <menu:MenuList x:Name="MenuListSource" x:Key="MenuListSource"></menu:MenuList>
         <!--Vioewport-->
         <Style TargetType="ht:HelixViewport3D">
             <Setter Property="ShowViewCube" Value="False" />
@@ -76,43 +75,8 @@
             </Style.Triggers>
         </Style>
         <ht:LinearConverter x:Key="Multiplier" M="0.5" />
-
-        <map:MapTileGenerator x:Key="TileGenerator"></map:MapTileGenerator>
     </UserControl.Resources>
-    <!--<DockPanel>
-        <ht:HelixViewport3D x:Name="PreviewViewport" Camera="{ht:PerspectiveCamera 20,10,10}" ZoomExtentsWhenLoaded="True">
-            <ht:DefaultLights></ht:DefaultLights>
-            <ht:RectangleVisual3D x:Name="plane2" Origin="0,0,0" Normal="0,0,1" LengthDirection="0,1,0" Fill="CornflowerBlue" Width="600" Length="600" />
-            -->
-    <!--<ht:SunLight />-->
-    <!--<ht:DefaultLights></ht:DefaultLights>
-            <ht:SphereVisual3D x:Name="sphere1" Center="-4,0,0" Fill="Orange" Transform="{Binding foobar}">
-            </ht:SphereVisual3D>
-            <ht:TranslateManipulator Material="{ht:Material Gold}" Position="-4,0,0" Offset="0,0,1" Length="1" Value="{Binding Radius, ElementName=sphere1}" Direction="0,0,1" />
 
-            <ht:BoxVisual3D x:Name="box1" Center="-8,0,0" Fill="Orange" />
-            <ht:TranslateManipulator Color="Black" Position="-8,0,0" Offset="0,0,0.5" Length="1" Value="{Binding Height, ElementName=box1, Converter={StaticResource Multiplier}}" Direction="0,0,1" />
-            <ht:TranslateManipulator Color="Black" Position="-8,0,0" Offset="0,0.5,0" Length="1" Value="{Binding Width, ElementName=box1, Converter={StaticResource Multiplier}}" Direction="0,1,0" />
-            <ht:TranslateManipulator Color="Black" Position="-8,0,0" Offset="0.5,0,0" Length="1" Value="{Binding Length, ElementName=box1, Converter={StaticResource Multiplier}}" Direction="1,0,0" />
-
-            <ht:RectangleVisual3D x:Name="plane2" Origin="0,0,0" Normal="1,0,0" LengthDirection="0,1,0" Fill="Gray" />
-            <ht:RotateManipulator Color="Green" Axis="0,1,0" Transform="{Binding Transform, ElementName=plane2}" TargetTransform="{Binding Transform, ElementName=plane2}" Diameter="1" />
-            <ht:RotateManipulator Color="Blue" Axis="0,0,1" Transform="{Binding Transform, ElementName=plane2}" TargetTransform="{Binding Transform, ElementName=plane2}" Diameter="1" />
-            <ht:TranslateManipulator x:Name="planeManipulator" Color="Red" Transform="{Binding Transform, ElementName=plane2}" TargetTransform="{Binding Transform,ElementName=plane2}" Direction="1,0,0" />
-
-            <ht:CubeVisual3D x:Name="cube1" Transform="{ht:Translate 4,0,2}" Fill="Gold" />
-            <ht:CombinedManipulator TargetTransform="{Binding Transform, ElementName=cube1}" />
-
-            <ht:CubeVisual3D x:Name="cube2" Transform="{ht:Translate 4,-4,1}" Fill="Silver" />
-            <ht:CombinedManipulator CanTranslateX="False" CanTranslateY="False" CanTranslateZ="False" TargetTransform="{Binding Transform, ElementName=cube2}" />
-
-            <ht:CubeVisual3D x:Name="cube3" Transform="{ht:Translate 4,4,1}" Fill="#cd7f32" />
-            <ht:CombinedManipulator CanRotateX="False" CanRotateY="False" CanRotateZ="False" TargetTransform="{Binding Transform, ElementName=cube3}" />
-
-            <ht:RectangleVisual3D Fill="#800000FF" DivLength="40" DivWidth="40" />-->
-    <!--
-        </ht:HelixViewport3D>
-    </DockPanel>-->
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
@@ -128,52 +92,8 @@
                 <Style BasedOn="{StaticResource ViewMaximizeStyle}">
                 </Style>
             </Grid.Style>
-            <!--Viewport-->
-            <ht:HelixViewport3D x:Name="TopViewport" 
-                                RotateGesture="Alt+MiddleClick" 
-                                IsHeadLightEnabled="False"
-                                ContextMenuOpening="SceneContextMenuOpening"
-                                
-                                MouseUp="Viewport_MouseUp">
-                <ht:HelixViewport3D.ContextMenu>
-                    <menu:SceneContextMenu MenuItems="{StaticResource MenuListSource}"></menu:SceneContextMenu>
-                </ht:HelixViewport3D.ContextMenu>
-                <ht:HelixViewport3D.Camera>
-                    <OrthographicCamera Position="0,0,200.22" LookDirection="0,0,-200.22" UpDirection="0,-1,0" Width="56" />
-                </ht:HelixViewport3D.Camera>
-                <!--<local:GridLines />-->
-                <map:MapGridVisual x:Name="TopMap" TileGenerator="{StaticResource TileGenerator}" MapCamera="{Binding ElementName=TopViewport, Path=CameraController}"></map:MapGridVisual>
-                <!--<ModelVisual3D>
-                    <ModelVisual3D.Content>
-                        <AmbientLight Color="#FFFFFF" />
-                    </ModelVisual3D.Content>
-                </ModelVisual3D>-->
-                <ht:DefaultLights></ht:DefaultLights>
-            </ht:HelixViewport3D>
-            <!--ZDepthWorkaroundFixViewPort-->
-
-            <!--Toggle Button-->
-            <StackPanel Orientation="Horizontal">
-                <ToggleButton x:Name="TopLeftLabel" Content="Top" Style="{StaticResource ViewButtonStyle}">
-                    <ToggleButton.ContextMenu>
-                        <ContextMenu>
-                            <MenuItem Header="Camera">
-                                <MenuItem Header="Perspective"></MenuItem>
-                                <MenuItem Header="Top"></MenuItem>
-                                <MenuItem Header="Right"></MenuItem>
-                                <MenuItem Header="Left"></MenuItem>
-                            </MenuItem>
-                            <MenuItem Header="Rendering Mode">
-                                <MenuItem IsCheckable="True" Header="Same as global"></MenuItem>
-                                <MenuItem IsCheckable="True" Header="Solid"></MenuItem>
-                                <MenuItem IsCheckable="True" Header="Wireframe"></MenuItem>
-                            </MenuItem>
-                            <MenuItem Header="Center On Selected"></MenuItem>
-                            <MenuItem IsCheckable="True" Header="Follow Selected"></MenuItem>
-                        </ContextMenu>
-                    </ToggleButton.ContextMenu>
-                </ToggleButton>
-            </StackPanel>
+            <local:Viewport Renderer="{Binding RenderHandler, ElementName=RenderViewControl}"></local:Viewport>
+            <ToggleButton x:Name="TopLeftLabel" Content="Top" Style="{StaticResource ViewButtonStyle}"/>
         </Grid>
 
         <Grid x:Name="TopRightView" DataContext="{Binding ElementName=TopRightLabel}">
@@ -182,75 +102,12 @@
                     <Setter Property="Grid.Column" Value="1" />
                 </Style>
             </Grid.Style>
-            <local:SynchedHelixViewport3D x:Name="PerspectiveViewport"
-                                IsRotationEnabled="True" 
-                                Background="#9F9F9F"
-                                ViewportCamera="{
-                                    Binding ElementName=PerspectiveOverlay, 
-                                    Path=Camera}">
-
-                <!--<local:GridLines />-->
-                <map:MapGridVisual TileGenerator="{StaticResource TileGenerator}" 
-                               MapCamera="{
-                                    Binding ElementName=PerspectiveViewport, 
-                                    Path=CameraController}">
-
-                </map:MapGridVisual>
-                <!--<ht:MeshGeomerytVisual3D>
-                    <ht:MeshGeometryVisual3D.MeshGeometry>
-                        <MeshGeometry3D x:Name="meshMain"
-                                Positions="0 0 0  1 0 0  0 1 0  1 1 0  0 0 1  1 0 1  0 1 1  1 1 1"
-                                TriangleIndices="2 3 1  2 1 0  7 1 3  7 5 1  6 5 7  6 4 5  6 2 0  2 0 4  2 7 3  2 6 7  0 1 5  0 5 4">
-                        </MeshGeometry3D>
-                    </ht:MeshGeometryVisual3D.MeshGeometry>
-                </ht:MeshGeometryVisual3D>-->
-                <!--<ModelVisual3D>
-                    <ModelVisual3D.Content>
-                        <AmbientLight Color="#FFFFFF" />
-                    </ModelVisual3D.Content>
-                </ModelVisual3D>-->
-                <ht:DefaultLights></ht:DefaultLights>
-            </local:SynchedHelixViewport3D>
-            <ht:HelixViewport3D x:Name="PerspectiveOverlay" 
-                                Background="{x:Null}"
-                                ShowFrameRate="True"
-                                IsHeadLightEnabled="False"
-                                IsRotationEnabled="True"
-                                ContextMenuOpening="SceneContextMenuOpening"
-                                MouseUp="Viewport_MouseUp" Margin="-10,0,10,0"
-                                >
-                <ht:HelixViewport3D.ContextMenu>
-                    <menu:SceneContextMenu MenuItems="{StaticResource MenuListSource}"></menu:SceneContextMenu>
-                </ht:HelixViewport3D.ContextMenu>
-                <!--<ht:CubeVisual3D x:Name="cube1" Transform="{ht:Translate 4,0,2}" Fill="Gold"/>
-                <ht:CombinedManipulator TargetTransform="{Binding Transform, ElementName=cube1}"/>-->
-                <ht:DefaultLights></ht:DefaultLights>
-                <ht:HelixViewport3D.RotateGesture>
-                    <MouseGesture MouseAction="MiddleClick" 
-                                  Modifiers="Ctrl"></MouseGesture>
-                </ht:HelixViewport3D.RotateGesture>
-            </ht:HelixViewport3D>
+            <local:Viewport Renderer="{Binding RenderHandler, ElementName=RenderViewControl}"></local:Viewport>
             <ToggleButton x:Name="TopRightLabel" 
                           Content="Perspective" 
-                          Style="{StaticResource ViewButtonStyle}">
-                <ToggleButton.ContextMenu>
-                    <ContextMenu>
-                        <MenuItem Header="Camera">
-                            <MenuItem Header="Perspective"></MenuItem>
-                            <MenuItem Header="Top"></MenuItem>
-                            <MenuItem Header="Right"></MenuItem>
-                            <MenuItem Header="Left"></MenuItem>
-                        </MenuItem>
-                        <MenuItem Header="Rendering Mode">
-                            <MenuItem IsCheckable="True" Header="Same as global"></MenuItem>
-                            <MenuItem IsCheckable="True" Header="Solid"></MenuItem>
-                            <MenuItem IsCheckable="True" Header="Wireframe"></MenuItem>
-                        </MenuItem>
-                        <MenuItem Header="Center On Selected"></MenuItem>
-                        <MenuItem IsCheckable="True" Header="Follow Selected" Click="MenuItem_Click_3"></MenuItem>
-                    </ContextMenu>
-                </ToggleButton.ContextMenu>
-            </ToggleButton>
+                          Style="{StaticResource ViewButtonStyle}"/>
+
+
         </Grid>
         <Grid x:Name="BottomLeftView" DataContext="{Binding ElementName=BottomLeftLabel}">
             <Grid.Style>
@@ -258,46 +115,12 @@
                     <Setter Property="Grid.Row" Value="1" />
                 </Style>
             </Grid.Style>
-            <ht:HelixViewport3D MouseUp="Viewport_MouseUp" 
-                                x:Name="FrontViewport" 
-                                RotateGesture="Alt+RightClick" 
-                                PanGesture="RightClick">
-                <ht:HelixViewport3D.Camera>
-                    <OrthographicCamera Position="0,-80.22,0" 
-                                        LookDirection="0,80.22,0" 
-                                        UpDirection="0,0,1" Width="56" />
-                </ht:HelixViewport3D.Camera>
-                <!--<ModelVisual3D>
-                    <ModelVisual3D.Content>
-                        <AmbientLight Color="#FFFFFF" />
-                    </ModelVisual3D.Content>
-                </ModelVisual3D>-->
-                <ht:DefaultLights></ht:DefaultLights>
-                <local:GridLines YAxisLineColor="#4B4B96" 
-                                 LengthDirection="1,0,0" 
-                                 Normal="0,-1,0" />
-            </ht:HelixViewport3D>
+            <local:Viewport Renderer="{Binding RenderHandler, ElementName=RenderViewControl}"></local:Viewport>
             <ToggleButton x:Name="BottomLeftLabel" 
                           Content="Front" 
-                          Style="{StaticResource ViewButtonStyle}">
-                <ToggleButton.ContextMenu>
-                    <ContextMenu>
-                        <MenuItem Header="Camera">
-                            <MenuItem Header="Perspective"></MenuItem>
-                            <MenuItem Header="Top"></MenuItem>
-                            <MenuItem Header="Right"></MenuItem>
-                            <MenuItem Header="Left"></MenuItem>
-                        </MenuItem>
-                        <MenuItem Header="Rendering Mode">
-                            <MenuItem IsCheckable="True" Header="Same as global"></MenuItem>
-                            <MenuItem IsCheckable="True" Header="Solid"></MenuItem>
-                            <MenuItem IsCheckable="True" Header="Wireframe"></MenuItem>
-                        </MenuItem>
-                        <MenuItem Header="Center On Selected"></MenuItem>
-                        <MenuItem IsCheckable="True" Header="Follow Selected"></MenuItem>
-                    </ContextMenu>
-                </ToggleButton.ContextMenu>
-            </ToggleButton>
+                          Style="{StaticResource ViewButtonStyle}"/>
+
+
         </Grid>
         <Grid x:Name="BottomRightView" 
               DataContext="{Binding ElementName=BottomRightLabel}">
@@ -307,51 +130,12 @@
                     <Setter Property="Grid.Column" Value="1" />
                 </Style>
             </Grid.Style>
-            <ht:HelixViewport3D MouseUp="Viewport_MouseUp" 
-                                x:Name="RightViewport" 
-                                RotateGesture="Alt+RightClick"  
-                                PanGesture="RightClick">
-                <ht:HelixViewport3D.Camera>
-                    <OrthographicCamera Position="80.22,0,0" 
-                                        LookDirection="-80.22,0,0" 
-                                        UpDirection="0,0,1" Width="56" />
-                </ht:HelixViewport3D.Camera>
-                <!--<ModelVisual3D>
-                    <ModelVisual3D.Content>
-                        <AmbientLight Color="#FFFFFF" />
-                    </ModelVisual3D.Content>
-                </ModelVisual3D>-->
-                <ht:DefaultLights></ht:DefaultLights>
-                <local:GridLines XAxisLineColor="#4B964B" 
-                                 YAxisLineColor="#4B4B96" 
-                                 LengthDirection="0,1,0" 
-                                 Normal="1,0,0" />
-            </ht:HelixViewport3D>
+            <local:Viewport Renderer="{Binding RenderHandler, ElementName=RenderViewControl}"></local:Viewport>
             <ToggleButton x:Name="BottomRightLabel" 
                           Content="Right" 
-                          Style="{StaticResource ViewButtonStyle}">
-                <ToggleButton.ContextMenu>
-                    <ContextMenu>
-                        <MenuItem Header="Camera">
-                            <MenuItem Header="Perspective"></MenuItem>
-                            <MenuItem Header="Top"></MenuItem>
-                            <MenuItem Header="Right"></MenuItem>
-                            <MenuItem Header="Left"></MenuItem>
-                        </MenuItem>
-                        <MenuItem Header="Rendering Mode">
-                            <MenuItem IsCheckable="True" 
-                                      Header="Same as global"></MenuItem>
-                            <MenuItem IsCheckable="True" 
-                                      Header="Solid"></MenuItem>
-                            <MenuItem IsCheckable="True" 
-                                      Header="Wireframe"></MenuItem>
-                        </MenuItem>
-                        <MenuItem Header="Center On Selected"></MenuItem>
-                        <MenuItem IsCheckable="True" 
-                                  Header="Follow Selected"></MenuItem>
-                    </ContextMenu>
-                </ToggleButton.ContextMenu>
-            </ToggleButton>
+                          Style="{StaticResource ViewButtonStyle}"/>
+
+
         </Grid>
         <GridSplitter Grid.Column="0" 
                       Grid.RowSpan="2" 

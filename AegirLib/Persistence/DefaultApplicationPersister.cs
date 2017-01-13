@@ -1,5 +1,4 @@
-﻿using AegirPresets;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -48,11 +47,11 @@ namespace AegirLib.Persistence
         /// </summary>
         public void LoadDefault()
         {
-            Assembly assembly = typeof(PresetsDummyClass).Assembly;
+            Assembly assembly = typeof(DefaultApplicationPersister).Assembly;
 
             //Get stream of embedded assembly files
             //resourceStream should be disposed when wrapping reader is disposed
-            Stream resourceStream = assembly.GetManifestResourceStream("AegirPresets." + defaultPresetPath);
+            Stream resourceStream = assembly.GetManifestResourceStream("Aegir." + defaultPresetPath);
             using (StreamReader reader = new StreamReader(resourceStream))
             {
                 string sceneXml = reader.ReadToEnd();

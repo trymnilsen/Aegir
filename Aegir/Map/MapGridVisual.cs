@@ -102,14 +102,20 @@ namespace Aegir.Map
 
         public MapGridVisual()
         {
+            //Compiler will complain about ifstatement unreachable code due to gridsize constant
+            //But we want it handle changes by dev to the constant
+#pragma warning disable CS0162
             if (GridSize % 2 == 0)
             {
                 gridMode = GridMode.Even;
             }
             else
             {
+
                 gridMode = GridMode.Odd;
             }
+#pragma warning restore CS0162
+
             Tiles = new List<MapTileVisual>();
             TileSize = 32;
             mapZoom = 18;
