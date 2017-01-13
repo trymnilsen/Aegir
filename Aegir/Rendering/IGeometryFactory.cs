@@ -1,4 +1,4 @@
-﻿using AegirCore.Mesh;
+﻿using AegirLib.Mesh;
 using System.Windows.Media.Media3D;
 
 namespace Aegir.Rendering

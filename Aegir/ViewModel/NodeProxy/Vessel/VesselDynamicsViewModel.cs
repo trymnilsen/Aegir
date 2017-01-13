@@ -1,6 +1,6 @@
-﻿using AegirCore.Behaviour;
-using AegirCore.Behaviour.Vessel;
-using AegirCore.Simulation;
+﻿using AegirLib.Behaviour;
+using AegirLib.Behaviour.Vessel;
+using AegirLib.Simulation;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

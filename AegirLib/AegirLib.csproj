@@ -1,0 +1,286 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{46062537-69CF-4E4B-BEA5-0337499D2AF9}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>AegirLib</RootNamespace>
+    <AssemblyName>AegirLib</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet />
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>
+    </CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>
+    </CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseX64|AnyCPU'">
+    <OutputPath>bin\ReleaseX64\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>
+    </CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseX64|x64'">
+    <OutputPath>bin\x64\ReleaseX64\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>
+    </CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="log4net, Version=1.2.15.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.5\lib\net45-full\log4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CodeAnalysis, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeAnalysis.Common.1.1.0-beta1\lib\net45\Microsoft.CodeAnalysis.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CodeAnalysis.CSharp, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeAnalysis.CSharp.1.1.0-beta1\lib\net45\Microsoft.CodeAnalysis.CSharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=6d32ff45e0ccc69f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.4.0.1\lib\net45\Microsoft.Practices.Unity.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Configuration, Version=4.0.0.0, Culture=neutral, PublicKeyToken=6d32ff45e0ccc69f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.4.0.1\lib\net45\Microsoft.Practices.Unity.Configuration.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.RegistrationByConvention, Version=4.0.0.0, Culture=neutral, PublicKeyToken=6d32ff45e0ccc69f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.4.0.1\lib\net45\Microsoft.Practices.Unity.RegistrationByConvention.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="System" />
+    <Reference Include="System.Collections.Immutable, Version=1.1.36.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Collections.Immutable.1.1.36\lib\portable-net45+win8+wp8+wpa81\System.Collections.Immutable.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.1.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Reflection.Metadata, Version=1.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Reflection.Metadata.1.1.0-alpha-00014\lib\dotnet\System.Reflection.Metadata.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ApplicationContext.cs" />
+    <Compile Include="Asset\AssetCache.cs" />
+    <Compile Include="Asset\AssetNotFoundException.cs" />
+    <Compile Include="Asset\AssetReference.cs" />
+    <Compile Include="Asset\MeshDataAssetReference.cs" />
+    <Compile Include="Asset\UriLoader.cs" />
+    <Compile Include="Behaviour\BehaviourComponent.cs" />
+    <Compile Include="Behaviour\BehaviourFactory.cs" />
+    <Compile Include="Behaviour\Mesh\MeshChangeAction.cs" />
+    <Compile Include="Behaviour\Mesh\MeshChangedArgs.cs" />
+    <Compile Include="Behaviour\Mesh\MeshBehaviour.cs" />
+    <Compile Include="Behaviour\Simulation\FloatingMesh.cs" />
+    <Compile Include="Behaviour\Simulation\WaterSimulation.cs" />
+    <Compile Include="Behaviour\Simulation\WeatherSimulation.cs" />
+    <Compile Include="Behaviour\Vessel\VesselDimentionsBehaviour.cs" />
+    <Compile Include="Behaviour\Vessel\VesselDynamicsBehaviour.cs" />
+    <Compile Include="Behaviour\World\Transform.cs" />
+    <Compile Include="Behaviour\World\WorldSettings.cs" />
+    <Compile Include="Datagram\DatagramService.cs" />
+    <Compile Include="Datagram\IDatagramService.cs" />
+    <Compile Include="IAppModule.cs" />
+    <Compile Include="Keyframe\Interpolator\LinearQuaternionInterpolator.cs" />
+    <Compile Include="Keyframe\Interpolator\LinearVector3Interpolator.cs" />
+    <Compile Include="Keyframe\IValueInterpolator.cs" />
+    <Compile Include="Keyframe\KeyframePropertyInfo.cs" />
+    <Compile Include="Keyframe\EventKeyframe.cs" />
+    <Compile Include="Keyframe\Interpolator\LinearDoubleInterpolator.cs" />
+    <Compile Include="Keyframe\Interpolator\LinearIntegerInterpolator.cs" />
+    <Compile Include="Keyframe\Keyframe.cs" />
+    <Compile Include="Keyframe\KeyframeProperty.cs" />
+    <Compile Include="Keyframe\KeyframeEngine.cs" />
+    <Compile Include="Keyframe\KeyframeTimeline.cs" />
+    <Compile Include="Keyframe\PlaybackMode.cs" />
+    <Compile Include="Keyframe\PropertyType.cs" />
+    <Compile Include="Keyframe\Test.cs" />
+    <Compile Include="Keyframe\TimelineItem.cs" />
+    <Compile Include="Keyframe\TimelineScopeMode.cs" />
+    <Compile Include="Keyframe\ValueKeyframe.cs" />
+    <Compile Include="Keyframe\WaypointKeyframe.cs" />
+    <Compile Include="MathType\Angle.cs" />
+    <Compile Include="MathType\BoundingBox.cs" />
+    <Compile Include="MathType\BoundingFrustrum.cs" />
+    <Compile Include="MathType\BoundingSphere.cs" />
+    <Compile Include="MathType\Color.cs" />
+    <Compile Include="MathType\ContainmentType.cs" />
+    <Compile Include="MathType\MathHelper.cs" />
+    <Compile Include="MathType\Matrix.cs" />
+    <Compile Include="MathType\Plane.cs" />
+    <Compile Include="MathType\PlaneHelper.cs" />
+    <Compile Include="MathType\PlaneIntersectionType.cs" />
+    <Compile Include="MathType\Point.cs" />
+    <Compile Include="MathType\Quaternion.cs" />
+    <Compile Include="MathType\Ray.cs" />
+    <Compile Include="MathType\Rectangle.cs" />
+    <Compile Include="MathType\Vector2.cs" />
+    <Compile Include="MathType\Vector3.cs" />
+    <Compile Include="MathType\Vector4.cs" />
+    <Compile Include="Mesh\Grid\Tile3D.cs" />
+    <Compile Include="Mesh\Loader\MeshLoader.cs" />
+    <Compile Include="Mesh\MeshData.cs" />
+    <Compile Include="Mesh\Loader\IModelLoader.cs" />
+    <Compile Include="Mesh\Loader\ObjModel.cs" />
+    <Compile Include="Mesh\Grid\TileGrid3D.cs" />
+    <Compile Include="Messages\InvalidateEntity.cs" />
+    <Compile Include="Messages\ScenegraphChanged.cs" />
+    <Compile Include="Network\NetworkProtocolType.cs" />
+    <Compile Include="Output\OutputData.cs" />
+    <Compile Include="Output\OutputManager.cs" />
+    <Compile Include="Persistence\Data\ScenegraphData.cs" />
+    <Compile Include="Persistence\Data\TimelineData.cs" />
+    <Compile Include="Persistence\DefaultApplicationPersister.cs" />
+    <Compile Include="Persistence\IApplicationPersister.cs" />
+    <Compile Include="Persistence\ICustomPersistable.cs" />
+    <Compile Include="Persistence\PersistanceException.cs" />
+    <Compile Include="Persistence\PersistenceHandler.cs" />
+    <Compile Include="Persistence\Persisters\AssetPersister.cs" />
+    <Compile Include="Persistence\Persisters\ProjectPersister.cs" />
+    <Compile Include="Persistence\Persisters\ScenePersister.cs" />
+    <Compile Include="Persistence\Persisters\TimelinePersister.cs" />
+    <Compile Include="Persistence\XElementSerializer.cs" />
+    <Compile Include="Persistence\XmlSerializerExtensionMethods.cs" />
+    <Compile Include="Project\DefaultProject.cs" />
+    <Compile Include="Project\Event\ProjectActivateEventArgs.cs" />
+    <Compile Include="Project\ProjectContext.cs" />
+    <Compile Include="Project\ProjectData.cs" />
+    <Compile Include="Project\Event\ProjectLoadEventArgs.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Replay\IReplayFormat.cs" />
+    <Compile Include="Replay\ReplayFile.cs" />
+    <Compile Include="Replay\ReplayInput.cs" />
+    <Compile Include="Scene\IWorldScale.cs" />
+    <Compile Include="Scene\MercatorScale.cs" />
+    <Compile Include="Scene\Node.cs" />
+    <Compile Include="Scene\OSMWorldScale.cs" />
+    <Compile Include="Scene\SceneContext.cs" />
+    <Compile Include="Scene\SceneGraph.cs" />
+    <Compile Include="Scripting\IScriptCompiler.cs" />
+    <Compile Include="Scripting\ScriptCompiler.cs" />
+    <Compile Include="Scripting\ScriptFile.cs" />
+    <Compile Include="MathType\FourierCPU.cs" />
+    <Compile Include="MathType\MersenneTwister.cs" />
+    <Compile Include="Simulation\Force.cs" />
+    <Compile Include="Simulation\Boyancy\SimulationMesh.cs" />
+    <Compile Include="Simulation\Boyancy\SimulationTriangle.cs" />
+    <Compile Include="Mesh\TriangleIntersection.cs" />
+    <Compile Include="Simulation\Boyancy\TriangleWetted.cs" />
+    <Compile Include="Mesh\VertexPositionColor.cs" />
+    <Compile Include="Signals\Rendering\RenderMesh.cs" />
+    <Compile Include="Signals\Replay\NewReplayData.cs" />
+    <Compile Include="Signals\SignalRouter.cs" />
+    <Compile Include="Signals\Simulation\FloatingMeshCalculated.cs" />
+    <Compile Include="Signals\Simulation\HullModelChanged.cs" />
+    <Compile Include="Signals\Vessel\VesselNavigationChanged.cs" />
+    <Compile Include="Signals\Vessel\VesselNavigationStep.cs" />
+    <Compile Include="Simulation\LerpMode.cs" />
+    <Compile Include="Simulation\SimulationEngine.cs" />
+    <Compile Include="Simulation\SimulationTime.cs" />
+    <Compile Include="Simulation\VesselSimulationMode.cs" />
+    <Compile Include="Simulation\Water\IWaterSimulationProvider.cs" />
+    <Compile Include="Simulation\Water\Ocean.cs" />
+    <Compile Include="Simulation\Water\WaterCell.cs" />
+    <Compile Include="Simulation\Water\WaterMesh.cs" />
+    <Compile Include="Simulation\Water\WaterOptions.cs" />
+    <Compile Include="Simulation\Water\WaterSimulationMode.cs" />
+    <Compile Include="Simulation\Water\WaveOptions.cs" />
+    <Compile Include="Simulation\Water\Wave\CurveWave.cs" />
+    <Compile Include="Simulation\Water\Wave\FlatWave.cs" />
+    <Compile Include="TinyMessenger.cs" />
+    <Compile Include="Vessel\VesselConfiguration.cs" />
+    <Compile Include="Vessel\VesselContext.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Behaviour\Keyframe\" />
+    <Folder Include="Collections\" />
+    <Folder Include="Helper\" />
+    <Folder Include="Keyframe\Factory\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\packages\Microsoft.CodeAnalysis.Analyzers.1.2.0-beta2\analyzers\dotnet\cs\Analyzer.Utilities.dll" />
+    <Analyzer Include="..\packages\Microsoft.CodeAnalysis.Analyzers.1.2.0-beta2\analyzers\dotnet\cs\Microsoft.CodeAnalysis.Analyzers.dll" />
+    <Analyzer Include="..\packages\Microsoft.CodeAnalysis.Analyzers.1.2.0-beta2\analyzers\dotnet\cs\Microsoft.CodeAnalysis.CSharp.Analyzers.dll" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

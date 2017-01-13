@@ -4,7 +4,7 @@ using Aegir.ViewModel.NodeProxy;
 using Aegir.ViewModel.Statusbar;
 using Aegir.ViewModel.Timeline;
 using Aegir.Windows;
-using AegirCore;
+using AegirLib;
 using GalaSoft.MvvmLight.Ioc;
 using log4net;
 using System.Diagnostics;

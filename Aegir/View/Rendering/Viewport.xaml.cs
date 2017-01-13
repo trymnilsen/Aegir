@@ -14,7 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Aegir.Rendering.Visual;
-using AegirCore.Scene;
+using AegirLib.Scene;
 using HelixToolkit.Wpf;
 using Aegir.Util;
 using System.Windows.Media.Media3D;
@@ -26,7 +26,7 @@ namespace Aegir.View.Rendering
     /// </summary>
     public partial class Viewport : UserControl, IRenderViewport
     {
-        private List<Tuple<AegirCore.Behaviour.World.Transform, Visual3D>> actorsVisuals;
+        private List<Tuple<AegirLib.Behaviour.World.Transform, Visual3D>> actorsVisuals;
         public Renderer Renderer
         {
             get { return (Renderer)GetValue(RendererProperty); }
@@ -120,18 +120,12 @@ namespace Aegir.View.Rendering
         {
             if (VisualFactory == null)
             {
-                string viewPortName = "NAMENOTDEFINED";
-                if (viewport.Name != null && viewport.Name != string.Empty)
-                {
-                    viewPortName = viewport.Name;
-                }
-                log.WarnFormat("No visual factory provided for viewport {0}",
-                    viewPortName);
+                DebugUtil.LogWithLocation("No visual factory provided for viewport");
             }
             else
             {
-                Visual3D visual = VisualFactory.GetVisual(RenderMode, renderItem);
-                actorsVisuals.Add(item.Transform, item.)
+                Visual3D visual = VisualFactory.GetVisual(RenderingMode.Solid, item);
+                actorsVisuals.Add(new Tuple<AegirLib.Behaviour.World.Transform, Visual3D>(item.Transform, visual));
             }
         }
 

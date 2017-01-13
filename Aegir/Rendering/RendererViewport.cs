@@ -1,7 +1,7 @@
 ﻿using Aegir.Rendering.Camera;
 using Aegir.Rendering.Visual;
 using Aegir.View.Rendering.Tool;
-using AegirCore.Behaviour.World;
+using AegirLib.Behaviour.World;
 using HelixToolkit.Wpf;
 using log4net;
 using System;
@@ -18,7 +18,7 @@ namespace Aegir.Rendering
 
         private VisualFactory visualFactory;
         private ManipulatorGizmo sceneManipulator;
-        private AegirCore.Behaviour.World.Transform followTransform;
+        private AegirLib.Behaviour.World.Transform followTransform;
 
         private Vector3D CameraPositionOffset;
         private Vector3D CameraTargetOffset;
@@ -68,7 +68,7 @@ namespace Aegir.Rendering
             listeners = new List<RenderItemListener>();
         }
 
-        public void AddVisual(Visual3D visual, AegirCore.Behaviour.World.Transform transform)
+        public void AddVisual(Visual3D visual, AegirLib.Behaviour.World.Transform transform)
         {
             RenderItemListener listener = new RenderItemListener(visual, transform);
             listeners.Add(listener);
@@ -80,7 +80,7 @@ namespace Aegir.Rendering
             return VisualFactory?.GetRenderItem(RenderMode, visual);
         }
 
-        public void AddDummy(AegirCore.Behaviour.World.Transform transformBehaviour)
+        public void AddDummy(AegirLib.Behaviour.World.Transform transformBehaviour)
         {
             Visual3D dummyVisual = VisualFactory.GetDummyVisual();
             AddVisual(dummyVisual, transformBehaviour);
@@ -99,19 +99,19 @@ namespace Aegir.Rendering
             }
         }
 
-        public void CalculateFollowCameraOffset(AegirCore.Behaviour.World.Transform followTransform)
+        public void CalculateFollowCameraOffset(AegirLib.Behaviour.World.Transform followTransform)
         {
             viewport.Dispatcher.Invoke(() =>
             {
                 this.followTransform = followTransform;
-                AegirType.Vector3 fp = followTransform.LocalPosition;
+                AegirLib.MathType.Vector3 fp = followTransform.LocalPosition;
                 CameraPositionOffset = new Vector3D(fp.X, fp.Y, fp.Z) - (Vector3D)viewport.CameraController.CameraPosition;
             });
         }
 
         private void DoCameraFollow()
         {
-            AegirType.Vector3 fp = followTransform.LocalPosition;
+            AegirLib.MathType.Vector3 fp = followTransform.LocalPosition;
             viewport.Dispatcher.Invoke(() =>
             {
                 viewport.CameraController.CameraPosition = CameraPositionOffset + new Point3D(fp.X, fp.Y, fp.Z);

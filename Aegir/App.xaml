@@ -9,7 +9,7 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="CustomControl/CustomControlResources.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="View/CustomControl/CustomControlResources.xaml"></ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
             <vm:ViewModelLocator x:Key="VMLocator" />
         </ResourceDictionary>

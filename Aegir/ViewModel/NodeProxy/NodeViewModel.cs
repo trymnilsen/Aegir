@@ -2,10 +2,9 @@
 using Aegir.Rendering;
 using Aegir.View.PropertyEditor.CustomEditor;
 using Aegir.Windows;
-using AegirCore.Behaviour;
-using AegirCore.Behaviour.World;
-using AegirCore.Scene;
-using AegirNetwork;
+using AegirLib.Behaviour;
+using AegirLib.Behaviour.World;
+using AegirLib.Scene;
 using GalaSoft.MvvmLight.Command;
 using HelixToolkit.Wpf;
 using PropertyTools;
@@ -161,8 +160,8 @@ namespace Aegir.ViewModel.NodeProxy
         {
             Quaternion rotation = targetTransform.ToQuaternion();
             Point3D position = targetTransform.ToPoint3D();
-            transform.LocalPosition = position.ToAegirTypeVector();
-            transform.LocalRotation = rotation.ToAegirTypeQuaternion();
+            transform.LocalPosition = position.ToLibVector();
+            transform.LocalRotation = rotation.ToLibQuaternion();
         }
 
         internal void Invalidate()

@@ -1,4 +1,4 @@
-﻿using AegirCore.Keyframe;
+﻿using AegirLib.Keyframe;
 using GalaSoft.MvvmLight.Messaging;
 
 namespace Aegir.Messages.Timeline

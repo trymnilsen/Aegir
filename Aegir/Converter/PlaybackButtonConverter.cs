@@ -1,5 +1,5 @@
 ﻿using Aegir.Util;
-using AegirCore.Keyframe;
+using AegirLib.Keyframe;
 using System;
 using System.Globalization;
 using System.Windows.Data;

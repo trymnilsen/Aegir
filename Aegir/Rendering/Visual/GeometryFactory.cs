@@ -1,5 +1,5 @@
-﻿using AegirCore.Mesh;
-using AegirType;
+﻿using AegirLib.Mesh;
+using AegirLib.MathType;
 using HelixToolkit.Wpf;
 using System.Collections.Generic;
 using System.Windows.Media.Media3D;

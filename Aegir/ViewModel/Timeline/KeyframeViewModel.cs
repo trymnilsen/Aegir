@@ -1,5 +1,5 @@
 ﻿using Aegir.Mvvm;
-using AegirCore.Keyframe;
+using AegirLib.Keyframe;
 using GalaSoft.MvvmLight.Command;
 using System.ComponentModel;
 

@@ -1,4 +1,4 @@
-﻿using AegirCore.Project;
+﻿using AegirLib.Project;
 using GalaSoft.MvvmLight.Messaging;
 
 namespace Aegir.Messages.Project

@@ -1,5 +1,5 @@
-﻿using AegirCore.Behaviour.World;
-using AegirCore.Mesh;
+﻿using AegirLib.Behaviour.World;
+using AegirLib.Mesh;
 using System;
 using System.Windows.Media.Media3D;
 
@@ -28,7 +28,7 @@ namespace Aegir.Rendering
 
         public Transform Transform { get; private set; }
 
-        public SceneActor(IGeometryFactory geometryFactory, MeshData meshData, AegirCore.Behaviour.World.Transform transform)
+        public SceneActor(IGeometryFactory geometryFactory, MeshData meshData, AegirLib.Behaviour.World.Transform transform)
         {
             this.geometryFactory = geometryFactory;
             this.IsGeometryDirty = true;

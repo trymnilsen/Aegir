@@ -12,7 +12,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Media3D;
 using System.Windows.Input;
-using AegirCore.Scene;
+using AegirLib.Scene;
 using Aegir.View.Rendering.Tool;
 using Aegir.View.Rendering.Menu;
 using System.ComponentModel;

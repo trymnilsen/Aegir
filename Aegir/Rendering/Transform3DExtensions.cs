@@ -70,9 +70,9 @@ namespace Aegir.Rendering
             return quaternion;
         }
 
-        public static AegirType.Quaternion ToAegirTypeQuaternion(this Quaternion quaternion)
+        public static AegirLib.MathType.Quaternion ToLibQuaternion(this Quaternion quaternion)
         {
-            AegirType.Quaternion q = new AegirType.Quaternion(
+            AegirLib.MathType.Quaternion q = new AegirLib.MathType.Quaternion(
                 (float)quaternion.X,
                 (float)quaternion.Y,
                 (float)quaternion.Z,
@@ -81,9 +81,9 @@ namespace Aegir.Rendering
             return q;
         }
 
-        public static AegirType.Vector3 ToAegirTypeVector(this Point3D position)
+        public static AegirLib.MathType.Vector3 ToLibVector(this Point3D position)
         {
-            AegirType.Vector3 v = new AegirType.Vector3(
+            AegirLib.MathType.Vector3 v = new AegirLib.MathType.Vector3(
                 (float)position.X,
                 (float)position.Y,
                 (float)position.Z);

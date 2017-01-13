@@ -1,6 +1,6 @@
 ﻿using Aegir.Mvvm;
 using Aegir.Util;
-using AegirCore.Keyframe;
+using AegirLib.Keyframe;
 
 namespace Aegir.ViewModel
 {

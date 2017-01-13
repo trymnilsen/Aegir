@@ -1,5 +1,5 @@
-﻿using AegirCore.Keyframe;
-using AegirCore.Scene;
+﻿using AegirLib.Keyframe;
+using AegirLib.Scene;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Diagnostics;

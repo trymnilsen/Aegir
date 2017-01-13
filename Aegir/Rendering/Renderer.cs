@@ -1,9 +1,9 @@
 ﻿using Aegir.Rendering.Visual;
 using Aegir.ViewModel.NodeProxy;
-using AegirCore.Behaviour.Mesh;
-using AegirCore.Behaviour.World;
-using AegirCore.Mesh;
-using AegirCore.Scene;
+using AegirLib.Behaviour.Mesh;
+using AegirLib.Behaviour.World;
+using AegirLib.Mesh;
+using AegirLib.Scene;
 using HelixToolkit.Wpf;
 using log4net;
 using System.Collections.Generic;
@@ -102,7 +102,7 @@ namespace Aegir.Rendering
             {
                 //No meshdata, lets show a dummy
                 Visual3D dummyVisual = GetDummyVisual();
-                var transformBehaviour = node.GetNodeComponent<AegirCore.Behaviour.World.Transform>();
+                var transformBehaviour = node.GetNodeComponent<AegirLib.Behaviour.World.Transform>();
 
                 AddDummyToViewports(transformBehaviour);
             }
@@ -138,7 +138,7 @@ namespace Aegir.Rendering
             ////Add to each viewpoer
         }
 
-        private void AddDummyToViewports(AegirCore.Behaviour.World.Transform transformBehaviour)
+        private void AddDummyToViewports(AegirLib.Behaviour.World.Transform transformBehaviour)
         {
             foreach (RendererViewport viewport in viewports)
             {
@@ -155,7 +155,7 @@ namespace Aegir.Rendering
             }
         }
 
-        private void AddToViewports(Visual3D visual, AegirCore.Behaviour.World.Transform transform)
+        private void AddToViewports(Visual3D visual, AegirLib.Behaviour.World.Transform transform)
         {
             foreach (RendererViewport viewport in viewports)
             {
@@ -192,8 +192,8 @@ namespace Aegir.Rendering
 
         private void AddMesh(MeshBehaviour mesh)
         {
-            AegirCore.Behaviour.World.Transform transform =
-                mesh.Parent.GetComponent<AegirCore.Behaviour.World.Transform>();
+            AegirLib.Behaviour.World.Transform transform =
+                mesh.Parent.GetComponent<AegirLib.Behaviour.World.Transform>();
 
             if (transform != null)
             {
@@ -240,7 +240,7 @@ namespace Aegir.Rendering
 
         internal void CameraFollow(NodeViewModel selectedItem)
         {
-            AegirCore.Behaviour.World.Transform transform = selectedItem.GetNodeComponent<AegirCore.Behaviour.World.Transform>();
+            AegirLib.Behaviour.World.Transform transform = selectedItem.GetNodeComponent<AegirLib.Behaviour.World.Transform>();
             //viewports[1].FollowTransform = transform;
         }
     }

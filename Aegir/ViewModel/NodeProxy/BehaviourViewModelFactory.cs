@@ -1,6 +1,6 @@
 ﻿using Aegir.Util;
-using AegirCore.Behaviour;
-using AegirCore.Behaviour.World;
+using AegirLib.Behaviour;
+using AegirLib.Behaviour.World;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
