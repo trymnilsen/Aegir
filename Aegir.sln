@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aegir", "Aegir\Aegir.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AegirLib", "AegirLib\AegirLib.csproj", "{46062537-69CF-4E4B-BEA5-0337499D2AF9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AegirCoreTest", "AegirCoreTest\AegirCoreTest.csproj", "{E902381D-6DA7-490F-85EF-2FF7EF5C005A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AegirLibTest", "AegirLibTest\AegirLibTest.csproj", "{E902381D-6DA7-490F-85EF-2FF7EF5C005A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ViewPropertyGrid", "ViewPropertyGrid\ViewPropertyGrid.csproj", "{4151F55A-E041-49B5-BA96-BCBE07EDFA78}"
 EndProject
