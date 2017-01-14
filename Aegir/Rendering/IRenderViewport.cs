@@ -1,4 +1,5 @@
 ﻿using Aegir.Rendering.Visual;
+using AegirLib.Behaviour.World;
 
 namespace Aegir.Rendering
 {
@@ -6,6 +7,7 @@ namespace Aegir.Rendering
     {
         void ChangeRenderingMode(RenderingMode mode);
         void RenderActor(SceneActor actor);
+        void RenderDummy(Transform transform);
         void ClearView();
         void InvalidateActors();
         void RemoveActor(SceneActor actor);

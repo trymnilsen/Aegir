@@ -60,30 +60,18 @@ namespace Aegir.Rendering
 
         public void RebuildScene()
         {
-            //Clear nodemeshlisteners
-            foreach (SceneActor item in renderItems)
+            foreach (IRenderViewport view in viewports)
             {
-                item.Dispose();
-            }
-            renderItems.Clear();
-            foreach (RendererViewport view in viewports)
-            {
-                //view.ClearView();
-            }
-            if (scene != null)
-            {
-                foreach (NodeViewModel node in scene.Items)
-                {
-                    RenderNode(node);
-                }
+                viewports.Clear();
+
             }
         }
 
-        private void RenderNode(NodeViewModel node)
+        private void RenderNode(NodeViewModel node, IRenderViewport viewport)
         {
             foreach (NodeViewModel child in node.Children)
             {
-                RenderNode(child);
+                RenderNode(child, viewport);
             }
             //Attach events to node
 
@@ -101,10 +89,8 @@ namespace Aegir.Rendering
             else
             {
                 //No meshdata, lets show a dummy
-                Visual3D dummyVisual = GetDummyVisual();
                 var transformBehaviour = node.GetNodeComponent<AegirLib.Behaviour.World.Transform>();
-
-                AddDummyToViewports(transformBehaviour);
+                viewport.RenderDummy(transformBehaviour);
             }
 
             //RenderItem renderItem = null;
