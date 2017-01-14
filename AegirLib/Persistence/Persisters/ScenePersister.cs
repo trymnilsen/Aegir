@@ -18,7 +18,7 @@ namespace AegirLib.Persistence.Persisters
     public class ScenePersister : DefaultApplicationPersister
     {
         public ScenePersister()
-            : base("DefaultScenegraph.xml")
+            : base("DefaultScenegraph.xml", typeof(ScenePersister).Assembly)
         {
             GetHashCode();
         }

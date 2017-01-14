@@ -16,16 +16,18 @@ namespace AegirLib.Persistence
     /// </summary>
     public abstract class DefaultApplicationPersister : IApplicationPersister
     {
+        private const string ResourceNamespace = "AegirLib.Persistence.Presets";
         /// <summary>
         /// The name of the file containing the default data for this persister
         /// </summary>
         private readonly string defaultPresetPath;
 
+
         /// <summary>
         /// Creates a new default perister with the given path to the preset xml file
         /// </summary>
         /// <param name="defaultPath">Name (and path) of file to load or default data from</param>
-        public DefaultApplicationPersister(string defaultPath)
+        public DefaultApplicationPersister(string defaultPath, Assembly PresetAssembly)
         {
             this.defaultPresetPath = defaultPath;
         }
@@ -51,7 +53,7 @@ namespace AegirLib.Persistence
 
             //Get stream of embedded assembly files
             //resourceStream should be disposed when wrapping reader is disposed
-            Stream resourceStream = assembly.GetManifestResourceStream("Aegir." + defaultPresetPath);
+            Stream resourceStream = assembly.GetManifestResourceStream(ResourceNamespace + "." + defaultPresetPath);
             using (StreamReader reader = new StreamReader(resourceStream))
             {
                 string sceneXml = reader.ReadToEnd();

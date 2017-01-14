@@ -50,7 +50,7 @@
                     <Height>40</Height>
                 </VesselDimentionsBehaviour>
               <MeshBehaviour>
-                <MeshDataReference>mesh://file/Mesh/ship.obj</MeshDataReference>
+                <MeshDataReference>mesh://file/Content/ship.obj</MeshDataReference>
               </MeshBehaviour>
             </Components>
             <Children>
