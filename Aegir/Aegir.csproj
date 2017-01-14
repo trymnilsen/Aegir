@@ -200,7 +200,7 @@
     <Compile Include="Rendering\ISceneClickable.cs" />
     <Compile Include="Rendering\ITransformableVisual.cs" />
     <Compile Include="Rendering\IVisualResolver.cs" />
-    <Compile Include="Rendering\RenderItem.cs" />
+    <Compile Include="Rendering\SceneActor.cs" />
     <Compile Include="Rendering\NodeMeshListener.cs" />
     <Compile Include="Rendering\Renderer.cs" />
     <Compile Include="Rendering\RenderingMode.cs" />
@@ -505,10 +505,10 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Content\ship.mtl">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Content\ship.obj">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Converter\.gitkeep" />
     <None Include="Content\cube.obj">
@@ -560,9 +560,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Presets\DefaultScenegraph.xml" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="aegiricon.ico" />
   </ItemGroup>
   <ItemGroup>
@@ -579,11 +576,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Splash.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Presets\DefaultTimeline.xml">
-      <SubType>Designer</SubType>
-    </Resource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

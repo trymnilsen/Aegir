@@ -20,13 +20,13 @@
                                 ShowViewCube="False"
                                 ShowFrameRate="False"
                                 ViewportCamera="{
-                                    Binding ElementName=PerspectiveOverlay, 
+                                    Binding ElementName=Overlay, 
                                     Path=Camera}">
 
             <!--<local:GridLines />-->
             <map:MapGridVisual TileGenerator="{StaticResource TileGenerator}" 
                                MapCamera="{
-                                    Binding ElementName=PerspectiveViewport, 
+                                    Binding ElementName=Overlay, 
                                     Path=CameraController}">
 
             </map:MapGridVisual>

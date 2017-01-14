@@ -45,7 +45,10 @@ namespace AegirLib.Behaviour.Mesh
             string assetUriString = meshReference.Value;
             Uri assetUri = new Uri(assetUriString);
             var meshRef = AssetCache.DefaultInstance.Load<MeshDataAssetReference>(assetUri);
-            Mesh = meshRef;
+            //Assign directly to backing field, no need to tringe change mesh
+            //as deserialize is just called on new entities and they will have their mesh loaded
+            //on parent node insertion into scenegraph
+            mesh = meshRef;
         }
 
         private void ChangeMesh(MeshDataAssetReference oldMesh, MeshDataAssetReference newMesh)

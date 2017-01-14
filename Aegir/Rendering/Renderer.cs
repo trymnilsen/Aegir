@@ -14,6 +14,7 @@ using System.Linq;
 using Aegir.Util;
 using Aegir.View.Rendering;
 using System.Windows.Threading;
+using LibTransform = AegirLib.Behaviour.World.Transform;
 
 namespace Aegir.Rendering
 {
@@ -23,7 +24,7 @@ namespace Aegir.Rendering
         private ScenegraphViewModel scene;
         private List<IRenderViewport> viewports;
         private IGeometryFactory meshFactory;
-        private List<SceneActor> renderItems;
+        private List<MeshBehaviour> renderBehaviours;
         private RenderingMode renderMode;
         private Dispatcher viewportsDispatcher;
 
@@ -45,7 +46,7 @@ namespace Aegir.Rendering
         {
             viewports = new List<IRenderViewport>();
             meshFactory = new GeometryFactory();
-            renderItems = new List<SceneActor>();
+            renderBehaviours = new List<MeshBehaviour>();
             DummyColor = Color.FromRgb(255, 0, 0);
         }
 
@@ -60,92 +61,48 @@ namespace Aegir.Rendering
 
         public void RebuildScene()
         {
-            foreach (IRenderViewport view in viewports)
+            foreach(NodeViewModel node in scene.Items)
             {
-                viewports.Clear();
-
+                RenderNode(node);
             }
         }
 
-        private void RenderNode(NodeViewModel node, IRenderViewport viewport)
+        private void RenderNode(NodeViewModel node)
         {
             foreach (NodeViewModel child in node.Children)
             {
-                RenderNode(child, viewport);
+                RenderNode(child);
             }
-            //Attach events to node
 
-            //Check if node has render component
-            var renderBehaviour = node.GetNodeComponent<MeshBehaviour>();
-            if (renderBehaviour != null)
+            LibTransform transformBehaviour = node.GetNodeComponent<LibTransform>();
+            MeshBehaviour renderBehaviour = node.GetNodeComponent<MeshBehaviour>();
+            if (renderBehaviour?.Mesh?.Data != null)
             {
-                renderBehaviour.MeshChanged += RenderBehaviour_MeshChanged;
-                //If we already have a mesh, add it to the viewport
-                if (renderBehaviour?.Mesh?.Data != null)
-                {
-                    AddMesh(renderBehaviour);
-                }
+                RenderMeshBehaviour(renderBehaviour, transformBehaviour);
             }
             else
             {
                 //No meshdata, lets show a dummy
-                var transformBehaviour = node.GetNodeComponent<AegirLib.Behaviour.World.Transform>();
-                viewport.RenderDummy(transformBehaviour);
+                    
             }
 
-            //RenderItem renderItem = null;
-            ////Get rendering mode
-            //RenderingMode mode = RenderMode;
-            //if(node.OverrideRenderingMode)
-            //{
-            //    mode = node.RenderMode;
-            //}
-
-            ////Visual
-            //Geometry3D meshData = meshFactory.GetVisual(node, mode);
-            //Visual3D visual = null;
-
-            //if(meshData != null)
-            //{
-            //    Material foo = new DiffuseMaterial(new SolidColorBrush(Color.FromRgb(100, 100, 100)));
-            //    GeometryModel3D mesh = new GeometryModel3D(meshData, foo);
-            //    ModelVisual3D modelVisual = new ModelVisual3D();
-            //    modelVisual.Content = mesh;
-            //    visual = modelVisual;
-            //}
-            //else
-            //{
-            //    //Factory did not have model, use dummy
-            //    visual = GetDummyVisual();
-            //}
-            ////Create visual with transform listener
-            //NodeMeshListener listener = new NodeMeshListener(visual, node);
-            //meshListeners.Add(listener);
-            ////Add to each viewpoer
         }
 
-        private void AddDummyToViewports(AegirLib.Behaviour.World.Transform transformBehaviour)
+        private void RenderMeshBehaviour(MeshBehaviour renderBehaviour, LibTransform transform)
         {
-            foreach (RendererViewport viewport in viewports)
+            if(renderBehaviour == null)
             {
-                viewport.AddDummy(transformBehaviour);
+                throw new ArgumentNullException($"Could not render Mesh {nameof(renderBehaviour)} was null");
             }
-        }
-
-        private void AddToViewports(SceneActor itemToRender)
-        {
-            renderItems.Add(itemToRender);
-            foreach (RendererViewport viewport in viewports)
+            if (transform == null)
             {
-                viewport.AddRenderItemToView(itemToRender);
+                throw new ArgumentNullException($"Could not render Mesh {nameof(transform)} was null");
             }
-        }
-
-        private void AddToViewports(Visual3D visual, AegirLib.Behaviour.World.Transform transform)
-        {
-            foreach (RendererViewport viewport in viewports)
+            MeshGeometry3D geometry = meshFactory.GetGeometry(renderBehaviour.Mesh.Data);
+            SceneActor actor = new SceneActor(geometry, transform);
+            for (int i = 0, l = viewports.Count; i < l; i++)
             {
-                viewport.AddVisual(visual, transform);
+                viewports[i].RenderActor(actor);
             }
         }
 
@@ -154,56 +111,23 @@ namespace Aegir.Rendering
             switch (eventArgs.Action)
             {
                 case MeshChangeAction.New:
-                    AddMesh(source);
+                    LibTransform t = source.Parent.GetComponent<LibTransform>(); 
+                    RenderMeshBehaviour(source,t);
                     break;
 
                 case MeshChangeAction.Remove:
+                    throw new NotImplementedException();
                     //RemoveMesh(eventArgs.Old);
                     break;
 
                 case MeshChangeAction.Change:
-                    ChangeMesh(source, eventArgs.Old.Data);
+                    throw new NotImplementedException();
+                    //ChangeMesh(source, eventArgs.Old.Data);
                     break;
 
                 default:
                     break;
             }
-        }
-
-        private void ChangeMesh(MeshBehaviour newMesh, MeshData oldMesh)
-        {
-            RemoveMesh(oldMesh);
-            AddMesh(newMesh);
-        }
-
-        private void AddMesh(MeshBehaviour mesh)
-        {
-            AegirLib.Behaviour.World.Transform transform =
-                mesh.Parent.GetComponent<AegirLib.Behaviour.World.Transform>();
-
-            if (transform != null)
-            {
-                SceneActor newMeshItem = new SceneActor(meshFactory, mesh.Mesh.Data, transform);
-                AddToViewports(newMeshItem);
-            }
-            else
-            {
-                log.WarnFormat("RenderItem discarded for meshBehaviour on"
-                    + "node({0}) no transform behaviour present",
-                    mesh.Parent.Name);
-            }
-        }
-
-        private void RemoveMesh(MeshData mesh)
-        {
-        }
-
-        private Visual3D GetDummyVisual()
-        {
-            BoundingBoxWireFrameVisual3D mesh = new BoundingBoxWireFrameVisual3D();
-            mesh.BoundingBox = new Rect3D(-0.5, -0.5, -0.5, 1, 1, 1);
-            mesh.Color = DummyColor;
-            return mesh;
         }
 
         public void Invalidate()
@@ -225,6 +149,7 @@ namespace Aegir.Rendering
 
         private void ReleaseCurrentScene()
         {
+
         }
 
         internal void CameraFollow(NodeViewModel selectedItem)
