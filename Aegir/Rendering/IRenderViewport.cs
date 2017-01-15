@@ -11,6 +11,6 @@ namespace Aegir.Rendering
         void InvalidateActors();
         void RemoveActor(SceneActor actor);
         GizmoHandler SceneGizmos { get; }
-        VisualFactory VisualFactory { get; set; }
+        VisualFactory VisualFactory { get;  }
     }
 }

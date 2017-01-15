@@ -27,6 +27,7 @@ namespace Aegir.View.Rendering
     /// </summary>
     public partial class Viewport : UserControl, IRenderViewport
     {
+        private VisualFactory visualFactory;
         private List<Tuple<LibTransform, Visual3D>> actorsVisuals;
         public Renderer Renderer
         {
@@ -46,12 +47,11 @@ namespace Aegir.View.Rendering
         {
             get
             {
-                throw new NotImplementedException();
-            }
-
-            set
-            {
-                throw new NotImplementedException();
+                if(visualFactory == null)
+                {
+                    visualFactory = VisualFactory.GetNewFactoryWithDefaultProviders();
+                }
+                return visualFactory;
             }
         }
 
@@ -77,6 +77,7 @@ namespace Aegir.View.Rendering
 
         private void ConfigureRenderer()
         {
+            DebugUtil.LogWithLocation($"Configuring Renderer for Viewport");
             Renderer.AddViewport(this);
         }
 
@@ -127,7 +128,17 @@ namespace Aegir.View.Rendering
             }
             else
             {
-                Visual3D visual = VisualFactory.GetVisual(RenderingMode.Solid, item);
+                Visual3D visual;
+                //Check if we need to use a dummy visual
+                if(item.Geometry != null)
+                {
+                    visual = VisualFactory.GetVisual(RenderingMode.Solid, item);
+                }
+                else
+                {
+                    visual = VisualFactory.GetDummyVisual();
+                }
+
                 actorsVisuals.Add(new Tuple<LibTransform, Visual3D>(item.Transform, visual));
 
                 //Set a position for the visual
@@ -141,7 +152,6 @@ namespace Aegir.View.Rendering
                 visual.Transform = matrixTransform;
 
                 Scene.Children.Add(visual);
-
             }
         }
 

@@ -8,7 +8,7 @@
              xmlns:map="clr-namespace:Aegir.Map"
              xmlns:menu="clr-namespace:Aegir.View.Rendering.Menu"
              mc:Ignorable="d"
-             Name="RenderViewControl"
+             x:Name="RenderViewControl"
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
         <!--Vioewport-->
@@ -92,7 +92,7 @@
                 <Style BasedOn="{StaticResource ViewMaximizeStyle}">
                 </Style>
             </Grid.Style>
-            <local:Viewport Renderer="{Binding RenderHandler, ElementName=RenderViewControl}"></local:Viewport>
+            <local:Viewport Renderer="{Binding Path=RenderHandler,RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"></local:Viewport>
             <ToggleButton x:Name="TopLeftLabel" Content="Top" Style="{StaticResource ViewButtonStyle}"/>
         </Grid>
 
@@ -102,7 +102,7 @@
                     <Setter Property="Grid.Column" Value="1" />
                 </Style>
             </Grid.Style>
-            <local:Viewport Renderer="{Binding RenderHandler, ElementName=RenderViewControl}"></local:Viewport>
+            <local:Viewport Renderer="{Binding Path=RenderHandler,RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"></local:Viewport>
             <ToggleButton x:Name="TopRightLabel" 
                           Content="Perspective" 
                           Style="{StaticResource ViewButtonStyle}"/>
@@ -115,7 +115,7 @@
                     <Setter Property="Grid.Row" Value="1" />
                 </Style>
             </Grid.Style>
-            <local:Viewport Renderer="{Binding RenderHandler, ElementName=RenderViewControl}"></local:Viewport>
+            <local:Viewport Renderer="{Binding Path=RenderHandler,RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"></local:Viewport>
             <ToggleButton x:Name="BottomLeftLabel" 
                           Content="Front" 
                           Style="{StaticResource ViewButtonStyle}"/>
@@ -130,7 +130,7 @@
                     <Setter Property="Grid.Column" Value="1" />
                 </Style>
             </Grid.Style>
-            <local:Viewport Renderer="{Binding RenderHandler, ElementName=RenderViewControl}"></local:Viewport>
+            <local:Viewport Renderer="{Binding Path=RenderHandler,RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"></local:Viewport>
             <ToggleButton x:Name="BottomRightLabel" 
                           Content="Right" 
                           Style="{StaticResource ViewButtonStyle}"/>

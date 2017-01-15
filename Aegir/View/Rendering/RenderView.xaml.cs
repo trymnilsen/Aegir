@@ -90,10 +90,10 @@ namespace Aegir.View.Rendering
         public RenderView()
         {
             InitializeComponent();
+            DataContext = this;
             assetCache = new Dictionary<string, Model3D>();
             meshTransforms = new List<NodeMeshListener>();
-            RenderHandler = new Renderer();
-
+            RenderHandler = new Renderer(Dispatcher);
             gizmoHandler = new ManipulatorGizmoTransformHandler();
 
             //Add Tools

@@ -42,8 +42,9 @@ namespace Aegir.Rendering
             set { dummyVisualColor = value; }
         }
 
-        public Renderer()
+        public Renderer(Dispatcher viewportDispatcher)
         {
+            this.viewportsDispatcher = viewportDispatcher;
             viewports = new List<IRenderViewport>();
             meshFactory = new GeometryFactory();
             renderBehaviours = new List<MeshBehaviour>();
@@ -69,21 +70,41 @@ namespace Aegir.Rendering
 
         private void RenderNode(NodeViewModel node)
         {
+
             foreach (NodeViewModel child in node.Children)
             {
                 RenderNode(child);
             }
-
+            DebugUtil.LogWithLocation($"Rendering node: {node.Name}");
             LibTransform transformBehaviour = node.GetNodeComponent<LibTransform>();
             MeshBehaviour renderBehaviour = node.GetNodeComponent<MeshBehaviour>();
-            if (renderBehaviour?.Mesh?.Data != null)
+
+            if (renderBehaviour != null)
             {
-                RenderMeshBehaviour(renderBehaviour, transformBehaviour);
+                renderBehaviours.Add(renderBehaviour);
+                renderBehaviour.MeshChanged += RenderBehaviour_MeshChanged;
+                if(renderBehaviour?.Mesh?.Data != null)
+                {
+                    RenderMeshBehaviour(renderBehaviour, transformBehaviour);
+                }
+                else
+                {
+                    SceneActor actor = new SceneActor(null, transformBehaviour);
+                    for (int i = 0, l = viewports.Count; i < l; i++)
+                    {
+                        viewports[i].RenderActor(actor);
+                    }
+                }
             }
             else
             {
+                DebugUtil.LogWithLocation($"No meshdata present for:{node.Name} ");
                 //No meshdata, lets show a dummy
-                    
+                SceneActor actor = new SceneActor(null, transformBehaviour);
+                for (int i = 0, l = viewports.Count; i < l; i++)
+                {
+                    viewports[i].RenderActor(actor);
+                }
             }
 
         }
@@ -98,6 +119,7 @@ namespace Aegir.Rendering
             {
                 throw new ArgumentNullException($"Could not render Mesh {nameof(transform)} was null");
             }
+            DebugUtil.LogWithLocation($"Rendering MeshBehaviour: {transform.Parent.Name}");
             MeshGeometry3D geometry = meshFactory.GetGeometry(renderBehaviour.Mesh.Data);
             SceneActor actor = new SceneActor(geometry, transform);
             for (int i = 0, l = viewports.Count; i < l; i++)
@@ -144,7 +166,7 @@ namespace Aegir.Rendering
         public void AddViewport(IRenderViewport viewport)
         {
             viewports.Add(viewport);
-            viewport.VisualFactory = VisualFactory.GetNewFactoryWithDefaultProviders();
+            //viewport.VisualFactory = VisualFactory.GetNewFactoryWithDefaultProviders();
         }
 
         private void ReleaseCurrentScene()
