@@ -58,7 +58,7 @@ namespace AegirLib.Behaviour.World
             }
         }
 
-        public Matrix Matrix
+        public Matrix TransformMatrix
         {
             get
             {
@@ -73,6 +73,7 @@ namespace AegirLib.Behaviour.World
         {
             localPosition = new Vector3();
             LocalRotation = new Quaternion();
+            matrix = Matrix.Identity;
         }
 
         public void SetX(double x)
@@ -180,7 +181,10 @@ namespace AegirLib.Behaviour.World
         private void UpdateMatrix()
         {
             matrixIsDirty = false;
+            Matrix m = Matrix.CreateFromQuaternion(worldRotation);
+            m.Translation = worldPosition;
 
+            matrix = m;
         }
 
     }

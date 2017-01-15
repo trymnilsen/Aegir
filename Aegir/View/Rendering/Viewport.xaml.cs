@@ -142,7 +142,7 @@ namespace Aegir.View.Rendering
                 actorsVisuals.Add(new Tuple<LibTransform, Visual3D>(item.Transform, visual));
 
                 //Set a position for the visual
-                AegirLib.MathType.Matrix m = item.Transform.Matrix;
+                AegirLib.MathType.Matrix m = item.Transform.TransformMatrix;
                 Matrix3D matrix = new Matrix3D(m.M11, m.M12, m.M13, m.M14,
                     m.M21, m.M22, m.M23, m.M24,
                     m.M31, m.M32, m.M33, m.M34,
@@ -165,7 +165,7 @@ namespace Aegir.View.Rendering
         {
             for(int i=0; i<actorsVisuals.Count; i++)
             {
-                AegirLib.MathType.Matrix m = actorsVisuals[i].Item1.Matrix;
+                AegirLib.MathType.Matrix m = actorsVisuals[i].Item1.TransformMatrix;
                 Matrix3D matrix = new Matrix3D(m.M11,m.M12,m.M13,m.M14,
                     m.M21,m.M22,m.M23,m.M24,
                     m.M31,m.M32,m.M33,m.M34,
