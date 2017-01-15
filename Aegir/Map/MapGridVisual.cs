@@ -6,12 +6,9 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Media3D;
-using System.Windows.Navigation;
 
 namespace Aegir.Map
 {
@@ -111,7 +108,6 @@ namespace Aegir.Map
             }
             else
             {
-
                 gridMode = GridMode.Odd;
             }
 #pragma warning restore CS0162
@@ -344,71 +340,66 @@ namespace Aegir.Map
         /// <param name="panAmountY"></param>
         private void PanGrid(int panAmountX, int panAmountY)
         {
-            using (DebugUtil.StartScopeWatch("PanGrid", log))
+            PerfStopwatch ps = PerfStopwatch.StartNew("Pan Grid",log); 
+            if (panAmountX == 0 && panAmountY == 0)
             {
-                if (panAmountX == 0 && panAmountY == 0)
-                {
-                    return;
-                }
-
-                //If positive move tiles from left edge to right edge
-                int xTileIndexToFind = GetXTileEdge(panAmountX);
-                int yTileIndexToFind = GetYTileEdge(panAmountY);
-
-                List<MapTileVisual> tilesToMove = new List<MapTileVisual>();
-                using (DebugUtil.StartScopeWatch("GetPanTiles", log))
-                {
-                    if (panAmountX != 0)
-                    {
-                        tilesToMove.AddRange(Tiles.Where(t => t.TileX == xTileIndexToFind));
-                    }
-                    if (panAmountY != 0)
-                    {
-                        tilesToMove.AddRange(Tiles.Where(t => t.TileY == yTileIndexToFind));
-                    }
-                }
-                using (DebugUtil.StartScopeWatch("ProcessTiles", log))
-                {
-                    OSMWorldScale scale = new OSMWorldScale();
-
-                    double mapCenterNormalizedX = scale.NormalizeX(TileService.xTileOffset);
-                    double mapCenterNormalizedY = scale.NormalizeY(TileService.yTileOffset);
-
-                    double tileTranslateX = scale.GetTileXTranslateFix(mapCenterNormalizedX, mapZoom, TileSize);//TileSize * fracX;
-                    double tileTranslateY = scale.GetTileYTranslateFix(mapCenterNormalizedY, mapZoom, TileSize); //TileSize * fracY;
-
-                    foreach (MapTileVisual tile in tilesToMove)
-                    {
-                        if (tile.TileX == xTileIndexToFind)
-                        {
-                            tile.TileX += GridSize * panAmountX;
-                        }
-                        if (tile.TileY == yTileIndexToFind)
-                        {
-                            tile.TileY += GridSize * panAmountY;
-                        }
-
-                        //Apply this as a transformation as well
-                        TranslateTransform3D transform = tile.Transform as TranslateTransform3D;
-
-                        if (transform != null)
-                        {
-                            transform.OffsetX = ((tile.TileX * TileSize * -1) - TileSize / 2) - tileTranslateX;
-                            transform.OffsetY = ((tile.TileY * TileSize) - TileSize / 2) - tileTranslateY;
-                        }
-
-                        tile.UpdateDebugLabels();
-                        //Send of a request to update the tile
-                        TileGenerator.LoadTileImageAsync(tile,
-                                                         tile.TileX,
-                                                         tile.TileY,
-                                                         MapZoomLevel);
-                    }
-                }
-
-                currentTileX += panAmountX;
-                currentTileY += panAmountY;
+                return;
             }
+
+            //If positive move tiles from left edge to right edge
+            int xTileIndexToFind = GetXTileEdge(panAmountX);
+            int yTileIndexToFind = GetYTileEdge(panAmountY);
+
+            List<MapTileVisual> tilesToMove = new List<MapTileVisual>();
+
+            if (panAmountX != 0)
+            {
+                tilesToMove.AddRange(Tiles.Where(t => t.TileX == xTileIndexToFind));
+            }
+            if (panAmountY != 0)
+            {
+                tilesToMove.AddRange(Tiles.Where(t => t.TileY == yTileIndexToFind));
+            }
+
+            OSMWorldScale scale = new OSMWorldScale();
+
+            double mapCenterNormalizedX = scale.NormalizeX(TileService.xTileOffset);
+            double mapCenterNormalizedY = scale.NormalizeY(TileService.yTileOffset);
+
+            double tileTranslateX = scale.GetTileXTranslateFix(mapCenterNormalizedX, mapZoom, TileSize);//TileSize * fracX;
+            double tileTranslateY = scale.GetTileYTranslateFix(mapCenterNormalizedY, mapZoom, TileSize); //TileSize * fracY;
+
+            foreach (MapTileVisual tile in tilesToMove)
+            {
+                if (tile.TileX == xTileIndexToFind)
+                {
+                    tile.TileX += GridSize * panAmountX;
+                }
+                if (tile.TileY == yTileIndexToFind)
+                {
+                    tile.TileY += GridSize * panAmountY;
+                }
+
+                TranslateTransform3D transform = tile.Transform as TranslateTransform3D;
+                //Apply this as a transformation as well
+                if (transform != null)
+                {
+                    transform.OffsetX = ((tile.TileX * TileSize * -1) - TileSize / 2) - tileTranslateX;
+                    transform.OffsetY = ((tile.TileY * TileSize) - TileSize / 2) - tileTranslateY;
+                }
+
+                tile.UpdateDebugLabels();
+
+                //Send of a request to update the tile
+                TileGenerator.LoadTileImageAsync(tile,
+                                             tile.TileX,
+                                             tile.TileY,
+                                             MapZoomLevel);
+            }
+
+            currentTileX += panAmountX;
+            currentTileY += panAmountY;
+            ps.Stop();
         }
 
         private int GetXTileEdge(int panAmount)
