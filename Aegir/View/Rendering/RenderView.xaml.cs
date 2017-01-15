@@ -95,7 +95,7 @@ namespace Aegir.View.Rendering
             meshTransforms = new List<NodeMeshListener>();
             RenderHandler = new Renderer(Dispatcher);
             gizmoHandler = new ManipulatorGizmoTransformHandler();
-
+            this.Loaded += RenderView_Loaded;
             //Add Tools
             //Gizmos are added to their relating overlay viewport
             //As we have no way of turning on of Z-depth testing we work around
@@ -110,6 +110,11 @@ namespace Aegir.View.Rendering
 
 
 
+        }
+
+        private void RenderView_Loaded(object sender, RoutedEventArgs e)
+        {
+            RenderHandler.Init();
         }
 
         private void TopLeftView_IsKeyboardFocusWithinChanged(object sender, 
@@ -136,7 +141,6 @@ namespace Aegir.View.Rendering
             newScene.ScenegraphChanged += OnSceneGraphChanged;
             newScene.InvalidateChildren += OnInvalidateChildren;
             RenderHandler.ChangeScene(newScene);
-            RebuildVisualTree();
             //Workaround for now
             newScene.PropertyChanged += NewScene_PropertyChanged;
         }

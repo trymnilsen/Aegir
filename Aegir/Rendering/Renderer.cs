@@ -122,6 +122,7 @@ namespace Aegir.Rendering
             DebugUtil.LogWithLocation($"Rendering MeshBehaviour: {transform.Parent.Name}");
             MeshGeometry3D geometry = meshFactory.GetGeometry(renderBehaviour.Mesh.Data);
             SceneActor actor = new SceneActor(geometry, transform);
+
             for (int i = 0, l = viewports.Count; i < l; i++)
             {
                 viewports[i].RenderActor(actor);
@@ -150,6 +151,11 @@ namespace Aegir.Rendering
                 default:
                     break;
             }
+        }
+
+        internal void Init()
+        {
+            RebuildScene();
         }
 
         public void Invalidate()
