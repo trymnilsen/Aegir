@@ -165,6 +165,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Converter\ObjectToNameConverter.cs" />
+    <Compile Include="Rendering\Gizmo\GizmoHandler.cs" />
+    <Compile Include="Rendering\Gizmo\IGizmo.cs" />
+    <Compile Include="Rendering\ISceneActor.cs" />
     <Compile Include="View\CustomControl\HeaderedSeparator.cs" />
     <Compile Include="Converter\ColorToBrushConverter.cs" />
     <Compile Include="Converter\DivideByConverter.cs" />
@@ -195,7 +198,6 @@
     <Compile Include="Rendering\Camera\LeftCamera.cs" />
     <Compile Include="Rendering\Camera\PerspectiveCamera.cs" />
     <Compile Include="Rendering\Camera\TopCamera.cs" />
-    <Compile Include="Rendering\GizmoHandler.cs" />
     <Compile Include="Rendering\IGeometryFactory.cs" />
     <Compile Include="Rendering\ISceneClickable.cs" />
     <Compile Include="Rendering\ITransformableVisual.cs" />
