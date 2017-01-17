@@ -184,7 +184,6 @@
     <Compile Include="MathType\Quaternion.cs" />
     <Compile Include="MathType\Ray.cs" />
     <Compile Include="MathType\Rectangle.cs" />
-    <Compile Include="MathType\Transform.cs" />
     <Compile Include="MathType\Vector2.cs" />
     <Compile Include="MathType\Vector3.cs" />
     <Compile Include="MathType\Vector4.cs" />
