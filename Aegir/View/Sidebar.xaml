@@ -6,6 +6,7 @@
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              xmlns:cmd="http://www.galasoft.ch/mvvmlight"
              xmlns:views="clr-namespace:Aegir.View"
+             xmlns:sceneView="clr-namespace:Aegir.View.Scenegraph"
              xmlns:model="clr-namespace:Aegir.ViewModel.EntityProxy"
              xmlns:fa="http://schemas.fontawesome.io/icons/"
              mc:Ignorable="d"
@@ -22,7 +23,7 @@
                        FontWeight="DemiBold"></TextBlock>
         </Border>
         <Border Grid.Row="1">
-            <views:ScenegraphTree></views:ScenegraphTree>
+            <sceneView:ScenegraphTree></sceneView:ScenegraphTree>
         </Border>
 
         <Border Grid.Row="2" Background="#FFE8E8E8">

@@ -1,57 +1,32 @@
-﻿<UserControl x:Class="Aegir.View.ScenegraphTree"
+﻿<UserControl x:Class="Aegir.View.Scenegraph.ScenegraphTree"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local="clr-namespace:Aegir.View"
+             xmlns:local="clr-namespace:Aegir.View.Scenegraph"
              xmlns:pt="http://propertytools.org/wpf"
-             xmlns:fa="http://schemas.fontawesome.io/icons/"
-             xmlns:model="clr-namespace:Aegir.ViewModel.EntityProxy"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
-        <SolidColorBrush x:Key="BorderBrush">
-            <SolidColorBrush.Color>
-                <Color R="112" G="112" B="112" A="255"></Color>
-            </SolidColorBrush.Color>
-        </SolidColorBrush>
-        <DataTemplate DataType="{x:Type model:EntityViewModel}">
-            <Grid>
-                <StackPanel Orientation="Horizontal">
-                    <StackPanel.ContextMenu>
-                        <ContextMenu>
-                            <Separator></Separator>
-                            <MenuItem Header="Center on"></MenuItem>
-                            <MenuItem Header="Follow on"></MenuItem>
-                            <Separator></Separator>
-                            <MenuItem Header="Remove" Command="{Binding RemoveEntityCommand}"></MenuItem>
-                        </ContextMenu>
-                    </StackPanel.ContextMenu>
-                    <CheckBox IsChecked="{Binding IsEnabled}"
-                                      Margin="0 0 5 0"></CheckBox>
-                    <Border Background="White"
-                                    SnapsToDevicePixels="True"
-                                    BorderThickness="1"
-                                    BorderBrush="{StaticResource BorderBrush}"
-                                    Padding="1" Width="14"
-                                    Height="13" Margin="0 -1 5 0">
-                        <Rectangle SnapsToDevicePixels="True"
-                                           Width="10"
-                                           Height="9"
-                                           Fill="Orange"></Rectangle>
-                    </Border>
-                    <fa:ImageAwesome Foreground="{StaticResource BorderBrush}"
-                                             SnapsToDevicePixels="True"
-                                             Margin="0 0 5 0" Icon="Tag"
-                                             Width="12" Height="12" />
-                    <fa:ImageAwesome Foreground="{StaticResource BorderBrush}"
-                                             SnapsToDevicePixels="True"
-                                             Margin="0 0 5 0" Icon="Rss"
-                                             Width="12" Height="12" />
-                    <TextBlock Text="{Binding Name}" Margin="0 0 10 0"></TextBlock>
-                </StackPanel>
-            </Grid>
-        </DataTemplate>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <!--Templates-->
+                <ResourceDictionary Source="EntityTemplate.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="GizmoTemplate.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="KeyframeTemplate.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="StaticTemplate.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="TimelineTemplate.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="WorldTemplate.xaml"></ResourceDictionary>
+                <!--\~Templates-->
+
+                <ResourceDictionary>
+                    <local:ScenegraphTreeTemplateSelector
+                        x:Key="NodeTemplateSelector"
+                        
+                        />
+                </ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </UserControl.Resources>
     <Grid DataContext="{Binding ScenegraphVM,
                                       Source={StaticResource VMLocator}}">

@@ -194,7 +194,7 @@
     <Compile Include="Map\MapTileGenerator.cs" />
     <Compile Include="Map\TileService.cs" />
     <Compile Include="Map\ZoomableTileGrid3D.cs" />
-    <Compile Include="Messages\ObjectTree\SelectedNodeChanged.cs" />
+    <Compile Include="Messages\ObjectTree\SelectedEntityChanged.cs" />
     <Compile Include="Messages\Project\LoadProjectFile.cs" />
     <Compile Include="Messages\Project\ProjectActivated.cs" />
     <Compile Include="Messages\Project\SaveProjectFile.cs" />
@@ -212,7 +212,7 @@
     <Compile Include="Rendering\ITransformableVisual.cs" />
     <Compile Include="Rendering\IVisualResolver.cs" />
     <Compile Include="Rendering\SceneActor.cs" />
-    <Compile Include="Rendering\NodeMeshListener.cs" />
+    <Compile Include="Rendering\EntityMeshListener.cs" />
     <Compile Include="Rendering\Renderer.cs" />
     <Compile Include="Rendering\RenderingMode.cs" />
     <Compile Include="Rendering\RenderItemListener.cs" />
@@ -307,9 +307,10 @@
       <DependentUpon>Viewport.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Rendering\ViewportFocus.cs" />
-    <Compile Include="View\ScenegraphTree.xaml.cs">
+    <Compile Include="View\Scenegraph\ScenegraphTree.xaml.cs">
       <DependentUpon>ScenegraphTree.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Scenegraph\ScenegraphTreeTemplateSelector.cs" />
     <Compile Include="View\Sidebar.xaml.cs">
       <DependentUpon>Sidebar.xaml</DependentUpon>
     </Compile>
@@ -420,7 +421,31 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\ScenegraphTree.xaml">
+    <Page Include="View\Scenegraph\EntityTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Scenegraph\GizmoTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Scenegraph\KeyframeTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Scenegraph\ScenegraphTree.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Scenegraph\StaticTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Scenegraph\TimelineTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Scenegraph\WorldTemplate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
