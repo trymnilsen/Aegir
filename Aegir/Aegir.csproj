@@ -165,9 +165,18 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Converter\ObjectToNameConverter.cs" />
+    <Compile Include="Persistance\MapPersister.cs" />
+    <Compile Include="Persistance\SceneGridPersister.cs" />
     <Compile Include="Rendering\Gizmo\GizmoHandler.cs" />
     <Compile Include="Rendering\Gizmo\IGizmo.cs" />
     <Compile Include="Rendering\ISceneActor.cs" />
+    <Compile Include="ViewModel\NodeProxy\GizmoNodeViewModel.cs" />
+    <Compile Include="ViewModel\NodeProxy\ISceneNode.cs" />
+    <Compile Include="ViewModel\NodeProxy\KeyframeViewModel.cs" />
+    <Compile Include="ViewModel\NodeProxy\SceneNodeType.cs" />
+    <Compile Include="ViewModel\NodeProxy\StaticNodeViewModel.cs" />
+    <Compile Include="ViewModel\NodeProxy\TimelineNodeViewModel.cs" />
+    <Compile Include="ViewModel\NodeProxy\WorldNodeViewModel.cs" />
     <Compile Include="View\CustomControl\HeaderedSeparator.cs" />
     <Compile Include="Converter\ColorToBrushConverter.cs" />
     <Compile Include="Converter\DivideByConverter.cs" />
@@ -578,6 +587,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Splash.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Persistance\MapPreset.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Persistance\SceneGridPreset.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

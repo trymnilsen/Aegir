@@ -48,6 +48,7 @@ namespace Aegir.ViewModel.NodeProxy
         /// </summary>
         public ObservableCollection<NodeViewModel> Items { get; set; }
 
+        
         public NodeViewModel SelectedItem
         {
             get { return selectedItem; }
