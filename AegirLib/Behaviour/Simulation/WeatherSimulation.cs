@@ -10,7 +10,7 @@ namespace AegirLib.Behaviour.Simulation
 {
     public class WeatherSimulation : BehaviourComponent
     {
-        public WeatherSimulation(Node parent)
+        public WeatherSimulation(Entity parent)
             : base(parent) { }
 
         public override void Deserialize(XElement data)

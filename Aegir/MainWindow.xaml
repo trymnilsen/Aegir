@@ -44,7 +44,7 @@
             <Grid Grid.Column="1">
                 <!--GL Element-->
                 <!--<views:SimulationRendering Grid.Row="0"></views:SimulationRendering>-->
-                <renderView:RenderView Scene="{Binding ScenegraphVM, Source={StaticResource VMLocator}}" SceneNodeClickedCommand="{Binding ScenegraphVM.SelectRawNodeChangedCommand, Source={StaticResource VMLocator}}">
+                <renderView:RenderView Scene="{Binding ScenegraphVM, Source={StaticResource VMLocator}}" SceneEntityClickedCommand="{Binding ScenegraphVM.SelectRawEntityChangedCommand, Source={StaticResource VMLocator}}">
                     <!--<views.:RenderView.Background>
                         <SolidColorBrush>f
                             <SolidColorBrush.Color>

@@ -33,9 +33,9 @@ namespace Aegir.ViewModel.Timeline
         private KeyframeTimeline timeline;
 
         /// <summary>
-        /// the currently used active node
+        /// the currently used active entity
         /// </summary>
-        private Node activeNode;
+        private Entity activeEntity;
 
         private int timelineStart;
         private int timelineEnd;
@@ -43,7 +43,7 @@ namespace Aegir.ViewModel.Timeline
 
         /// <summary>
         /// Command for creating keyframes at the current timeline
-        /// value for the selected node
+        /// value for the selected entity
         /// </summary>
         public RelayCommand AddKeyframeCommand { get; set; }
 
@@ -70,7 +70,7 @@ namespace Aegir.ViewModel.Timeline
         /// <summary>
         /// Is the timeline currently scoped to our active object or active for all
         /// </summary>
-        public bool IsScopedToNode
+        public bool IsScopedToEntity
         {
             get { return isScoped; }
             set { isScoped = value; }
@@ -219,7 +219,7 @@ namespace Aegir.ViewModel.Timeline
             SetTimeLine(Engine.Keyframes);
             //MessengerInstance.Register<SelectedNodeChanged>(this, ActiveNodeChanged);
             //MessengerInstance.Register<ActiveTimelineChanged>(this, TimelineChanged);
-            Messenger.Subscribe<SelectedNodeChanged>(ActiveNodeChanged);
+            Messenger.Subscribe<SelectedEntityChanged>(ActiveEntityChanged);
             Messenger.Subscribe<InvalidateEntity>(OnInvalidateEntitiesMessage);
             AddKeyframeCommand = new RelayCommand(CaptureKeyframes, CanCaptureKeyframes);
             Keyframes = new ObservableCollection<KeyframeViewModel>();
@@ -233,7 +233,7 @@ namespace Aegir.ViewModel.Timeline
             Messenger.Publish<SelectionChanged>(new SelectionChanged(this, value));
         }
 
-        private void OnInvalidateEntitiesMessage(InvalidateEntity node)
+        private void OnInvalidateEntitiesMessage(InvalidateEntity entity)
         {
             DateTime now = DateTime.Now;
             double timeDifference = (now - lastNotifyProxyProperty).TotalMilliseconds;
@@ -268,9 +268,9 @@ namespace Aegir.ViewModel.Timeline
         private void CaptureKeyframes()
         {
             log.DebugFormat("SetKeyframe at frame {0} on {1}",
-                            Time, activeNode?.Name);
+                            Time, activeEntity?.Name);
             Stopwatch sw = Stopwatch.StartNew();
-            Engine.CaptureAndAddToTimeline(activeNode, Time);
+            Engine.CaptureAndAddToTimeline(activeEntity, Time);
             sw.Stop();
             log.DebugFormat("SetKeyframe finished, used {0} ms",
                             sw.Elapsed.TotalMilliseconds);
@@ -278,7 +278,7 @@ namespace Aegir.ViewModel.Timeline
 
         private bool CanCaptureKeyframes()
         {
-            return activeNode != null && Engine.CanCaptureNode(activeNode);
+            return activeEntity != null && Engine.CanCaptureEntity(activeEntity);
         }
 
         /// <summary>
@@ -299,15 +299,15 @@ namespace Aegir.ViewModel.Timeline
         }
 
         /// <summary>
-        /// Message callback for the currently selected node, (For example if scoping is
-        /// enabled we need to filter out keyframes local to only this node)
+        /// Message callback for the currently selected entity, (For example if scoping is
+        /// enabled we need to filter out keyframes local to only this entity)
         /// </summary>
         /// <param name="message"></param>
-        private void ActiveNodeChanged(SelectedNodeChanged message)
+        private void ActiveEntityChanged(SelectedEntityChanged message)
         {
-            activeNode = message.Content.NodeSource;
-            log.DebugFormat("SelectedNodeChanged Received, ActiveNode Changed to {0}",
-                            activeNode?.Name);
+            activeEntity = message.Content.EntitySource;
+            log.DebugFormat("SelectedEntityChanged Received, ActiveEntity Changed to {0}",
+                            activeEntity?.Name);
 
             AddKeyframeCommand.RaiseCanExecuteChanged();
             //ResetTimeline(TimelineStart,TimelineEnd);
@@ -351,7 +351,7 @@ namespace Aegir.ViewModel.Timeline
         /// </summary>
         /// <param name="key"></param>
 
-        private void Timeline_KeyframeAdded(Node node, int time, Keyframe key)
+        private void Timeline_KeyframeAdded(Entity entity, int time, Keyframe key)
         {
             KeyframeViewModel keyVM = new KeyframeViewModel(key, time, this);
             Keyframes.Add(keyVM);

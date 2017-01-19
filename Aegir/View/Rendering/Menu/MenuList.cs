@@ -1,5 +1,5 @@
 ﻿using Aegir.Map;
-using Aegir.ViewModel.NodeProxy;
+using Aegir.ViewModel.EntityProxy;
 using Aegir.Windows;
 using System;
 using System.Collections.Generic;
@@ -74,7 +74,7 @@ namespace Aegir.View.Rendering.Menu
             MenuOptionClicked?.Invoke(content);
         }
 
-        public void SetContextMouseTarget(NodeViewModel target)
+        public void SetContextMouseTarget(EntityViewModel target)
         {
             List<MenuListItem> items = new List<MenuListItem>();
             items.AddRange(defaultItems);

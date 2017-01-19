@@ -15,7 +15,7 @@ namespace Aegir.View
     {
         private Point lastMouseDown;
         private TreeViewItem draggedItem, targetTreeItem;
-        private Node targetActor;
+        private Entity targetActor;
 
         public Sidebar()
         {

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Aegir.ViewModel.NodeProxy.Simulation
+namespace Aegir.ViewModel.EntityProxy.Simulation
 {
     [ViewModelForBehaviour(typeof(WaterSimulation))]
     [DisplayName("Water Simulation")]

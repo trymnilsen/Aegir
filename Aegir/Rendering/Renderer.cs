@@ -1,5 +1,5 @@
 ﻿using Aegir.Rendering.Visual;
-using Aegir.ViewModel.NodeProxy;
+using Aegir.ViewModel.EntityProxy;
 using AegirLib.Behaviour.Mesh;
 using AegirLib.Behaviour.World;
 using AegirLib.Mesh;
@@ -62,22 +62,22 @@ namespace Aegir.Rendering
 
         public void RebuildScene()
         {
-            foreach(NodeViewModel node in scene.Items)
+            foreach(EntityViewModel entity in scene.Items)
             {
-                RenderNode(node);
+                RenderEntity(entity);
             }
         }
 
-        private void RenderNode(NodeViewModel node)
+        private void RenderEntity(EntityViewModel entity)
         {
 
-            foreach (NodeViewModel child in node.Children)
+            foreach (EntityViewModel child in entity.Children)
             {
-                RenderNode(child);
+                RenderEntity(child);
             }
-            DebugUtil.LogWithLocation($"Rendering node: {node.Name}");
-            LibTransform transformBehaviour = node.GetNodeComponent<LibTransform>();
-            MeshBehaviour renderBehaviour = node.GetNodeComponent<MeshBehaviour>();
+            DebugUtil.LogWithLocation($"Rendering entity: {entity.Name}");
+            LibTransform transformBehaviour = entity.GetEntityComponent<LibTransform>();
+            MeshBehaviour renderBehaviour = entity.GetEntityComponent<MeshBehaviour>();
 
             if (renderBehaviour != null)
             {
@@ -98,7 +98,7 @@ namespace Aegir.Rendering
             }
             else
             {
-                DebugUtil.LogWithLocation($"No meshdata present for:{node.Name} ");
+                DebugUtil.LogWithLocation($"No meshdata present for:{entity.Name} ");
                 //No meshdata, lets show a dummy
                 SceneActor actor = new SceneActor(null, transformBehaviour);
                 for (int i = 0, l = viewports.Count; i < l; i++)
@@ -180,9 +180,9 @@ namespace Aegir.Rendering
 
         }
 
-        internal void CameraFollow(NodeViewModel selectedItem)
+        internal void CameraFollow(EntityViewModel selectedItem)
         {
-            AegirLib.Behaviour.World.Transform transform = selectedItem.GetNodeComponent<AegirLib.Behaviour.World.Transform>();
+            AegirLib.Behaviour.World.Transform transform = selectedItem.GetEntityComponent<AegirLib.Behaviour.World.Transform>();
             //viewports[1].FollowTransform = transform;
         }
     }

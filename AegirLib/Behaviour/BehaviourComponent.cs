@@ -11,9 +11,9 @@ namespace AegirLib.Behaviour
 {
     public abstract class BehaviourComponent
     {
-        private Node parent;
+        private Entity parent;
 
-        public Node Parent
+        public Entity Parent
         {
             get { return parent; }
             protected set { parent = value; }
@@ -23,7 +23,7 @@ namespace AegirLib.Behaviour
         public SignalRouter globalRouter { get; set; }
         public string Name { get; set; }
 
-        public BehaviourComponent(Node parent)
+        public BehaviourComponent(Entity parent)
         {
             this.Parent = parent;
         }

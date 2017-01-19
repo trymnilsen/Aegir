@@ -1,5 +1,5 @@
 ﻿using Aegir.Rendering;
-using Aegir.ViewModel.NodeProxy;
+using Aegir.ViewModel.EntityProxy;
 using HelixToolkit.Wpf;
 using log4net;
 using System;
@@ -28,7 +28,7 @@ namespace Aegir.View.Rendering
         private MenuList menuSource;
 
         public Dictionary<string, Model3D> assetCache;
-        public List<NodeMeshListener> meshTransforms;
+        public List<EntityMeshListener> meshTransforms;
         public Renderer RenderHandler { get; set; }
 
         public ScenegraphViewModel Scene
@@ -50,16 +50,16 @@ namespace Aegir.View.Rendering
 
 
 
-        public ICommand SceneNodeClickedCommand
+        public ICommand SceneEntityClickedCommand
         {
-            get { return (ICommand)GetValue(SceneNodeClickedCommandProperty); }
-            set { SetValue(SceneNodeClickedCommandProperty, value); }
+            get { return (ICommand)GetValue(SceneEntityClickedCommandProperty); }
+            set { SetValue(SceneEntityClickedCommandProperty, value); }
         }
 
         // Using a DependencyProperty as the backing store for MyProperty.  
         //This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty SceneNodeClickedCommandProperty =
-            DependencyProperty.Register(nameof(SceneNodeClickedCommand),
+        public static readonly DependencyProperty SceneEntityClickedCommandProperty =
+            DependencyProperty.Register(nameof(SceneEntityClickedCommand),
                                         typeof(ICommand),
                                         typeof(RenderView));
 
@@ -92,7 +92,7 @@ namespace Aegir.View.Rendering
             InitializeComponent();
             DataContext = this;
             assetCache = new Dictionary<string, Model3D>();
-            meshTransforms = new List<NodeMeshListener>();
+            meshTransforms = new List<EntityMeshListener>();
             RenderHandler = new Renderer(Dispatcher);
             gizmoHandler = new ManipulatorGizmoTransformHandler();
             this.Loaded += RenderView_Loaded;

@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <ScenePersister>
-    <RootNodes>
-      <Node Name="World">
+    <RootEntities>
+      <Entity Name="World">
         <Components>
           <Transform>
             <Vector3>
@@ -22,7 +22,7 @@
           <WaterSimulation></WaterSimulation>
         </Components>
         <Children>
-          <Node Name="Vessel">
+          <Entity Name="Vessel">
             <Components>
               <Transform>
                 <Vector3>
@@ -55,7 +55,7 @@
             </Components>
             <Children>
               <!--GNSS-->
-              <Node Name="Fore GNSS">
+              <Entity Name="Fore GNSS">
                 <Components>
                   <Transform>
                     <Vector3>
@@ -72,8 +72,8 @@
                   </Transform>
                 </Components>
                 <Children />
-              </Node>
-              <Node Name="Aft GNSS">
+              </Entity>
+              <Entity Name="Aft GNSS">
                 <Components>
                   <Transform>
                     <Vector3>
@@ -90,8 +90,8 @@
                   </Transform>
                 </Components>
                 <Children />
-              </Node>
-              <Node Name="Third GNSS">
+              </Entity>
+              <Entity Name="Third GNSS">
                 <Components>
                   <Transform>
                     <Vector3>
@@ -108,9 +108,9 @@
                   </Transform>
                 </Components>
                 <Children />
-              </Node>
+              </Entity>
               <!--~GNSS-->
-              <Node Name="Gyro">
+              <Entity Name="Gyro">
                 <Components>
                   <Transform>
                     <Vector3>
@@ -127,12 +127,13 @@
                   </Transform>
                 </Components>
                 <Children />
-              </Node>
+              </Entity>
             </Children>
-          </Node>
+          </Entity>
         </Children>
-      </Node>
-      <Node Name="Water">
+      </Entity>
+
+      <Entity Name="Water">
         <Components>
           <Transform>
             <Vector3>
@@ -148,7 +149,7 @@
             </Quaternion>
           </Transform>
         </Components>
-      </Node>
-    </RootNodes>
+      </Entity>
+    </RootEntities>
   </ScenePersister>
 </root>

@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Aegir.ViewModel.NodeProxy.Vessel
+namespace Aegir.ViewModel.EntityProxy.Vessel
 {
     [ViewModelForBehaviourAttribute(typeof(VesselDynamicsBehaviour))]
     [DisplayName( "Vessel Dynamics")]

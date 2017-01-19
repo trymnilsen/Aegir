@@ -19,8 +19,8 @@ namespace AegirLib.Behaviour.Simulation
         public WaterCell WaterCell { get; private set; }
         public WaterMesh Mesh { get; private set; }
 
-        public WaterSimulation(Node parentNode)
-            : base(parentNode)
+        public WaterSimulation(Entity parentEntity)
+            : base(parentEntity)
         {
         }
 

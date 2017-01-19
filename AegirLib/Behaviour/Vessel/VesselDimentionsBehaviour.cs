@@ -36,7 +36,7 @@ namespace AegirLib.Behaviour.Vessel
         }
 
 
-        public VesselDimentionsBehaviour(Node parent) : base(parent)
+        public VesselDimentionsBehaviour(Entity parent) : base(parent)
         {
 
         }

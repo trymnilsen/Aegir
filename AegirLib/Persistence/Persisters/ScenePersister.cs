@@ -39,8 +39,8 @@ namespace AegirLib.Persistence.Persisters
             IEnumerable<XElement> elements = data.Elements();
             foreach (XElement element in elements)
             {
-                Node rootNode = DeserializeSceneNode(element);
-                Graph.RootNodes.Add(rootNode);
+                Entity rootEntity = DeserializeSceneEntity(element);
+                Graph.RootEntities.Add(rootEntity);
             }
         }
 
@@ -50,25 +50,25 @@ namespace AegirLib.Persistence.Persisters
         /// <returns></returns>
         public override XElement Save()
         {
-            XElement nodes = new XElement(nameof(Graph.RootNodes));
-            foreach (Node node in Graph.RootNodes)
+            XElement nodes = new XElement(nameof(Graph.RootEntities));
+            foreach (Entity entity in Graph.RootEntities)
             {
-                nodes.Add(SerializeSceneNodes(node));
+                nodes.Add(SerializeSceneEntities(entity));
             }
             return nodes;
         }
 
         /// <summary>
-        /// Deserializes a given XElement into a Node, with the optional parent
+        /// Deserializes a given XElement into an entity, with the optional parent
         /// </summary>
-        /// <param name="element">The xml element to derserialize into a node</param>
-        /// <param name="parent">The parent of the node if any</param>
+        /// <param name="element">The xml element to derserialize into an entity</param>
+        /// <param name="parent">The parent of the entity if any</param>
         /// <remarks>The method uses recursion to deserialize any children</remarks>
-        /// <returns>The Deserialized version of the node provided in the XElement</returns>
-        private Node DeserializeSceneNode(XElement element, Node parent = null)
+        /// <returns>The Deserialized version of the entity provided in the XElement</returns>
+        private Entity DeserializeSceneEntity(XElement element, Entity parent = null)
         {
-            Node node = new Node(parent);
-            node.Name = element.Attribute("Name")?.Value;
+            Entity entity = new Entity(parent);
+            entity.Name = element.Attribute("Name")?.Value;
 
             IEnumerable<XElement> behaviours = element.Element("Components")?.Elements();
             if (behaviours != null)
@@ -76,11 +76,11 @@ namespace AegirLib.Persistence.Persisters
                 foreach (XElement behaviourElement in behaviours)
                 {
                     BehaviourComponent behaviour =
-                        BehaviourFactory.CreateWithName(behaviourElement.Name.LocalName, node);
+                        BehaviourFactory.CreateWithName(behaviourElement.Name.LocalName, entity);
                     if (behaviour != null)
                     {
                         behaviour.Deserialize(behaviourElement);
-                        node.Components.Add(behaviour);
+                        entity.Components.Add(behaviour);
                     }
                 }
             }
@@ -90,35 +90,35 @@ namespace AegirLib.Persistence.Persisters
             {
                 foreach (XElement childElement in children)
                 {
-                    Node childNode = DeserializeSceneNode(childElement, node);
-                    node.Children.Add(childNode);
+                    Entity childEntity = DeserializeSceneEntity(childElement, entity);
+                    entity.Children.Add(childEntity);
                 }
             }
 
-            return node;
+            return entity;
         }
 
         /// <summary>
-        /// Serializes a Node, It's children (recursive) as well as call's each nodes behaviour serialize method
+        /// Serializes an entity, It's children (recursive) as well as call's each entity behaviour serialize method
         /// in a SceneGraph to a XElement object
         /// </summary>
-        /// <param name="node">The Node to serialize</param>
+        /// <param name="entity">The entity to serialize</param>
         /// <returns>The Serialized XElement</returns>
-        private XElement SerializeSceneNodes(Node node)
+        private XElement SerializeSceneEntities(Entity entity)
         {
-            XElement nodeElement = new XElement(typeof(Node).Name);
+            XElement nodeElement = new XElement(typeof(Entity).Name);
 
-            nodeElement.Add(new XAttribute(nameof(node.Name), node.Name));
+            nodeElement.Add(new XAttribute(nameof(entity.Name), entity.Name));
 
-            XElement behaviours = new XElement(nameof(node.Components));
-            XElement children = new XElement(nameof(node.Children));
-            foreach (BehaviourComponent component in node.Components)
+            XElement behaviours = new XElement(nameof(entity.Components));
+            XElement children = new XElement(nameof(entity.Children));
+            foreach (BehaviourComponent component in entity.Components)
             {
                 behaviours.Add(component.Serialize());
             }
-            foreach (Node child in node.Children)
+            foreach (Entity child in entity.Children)
             {
-                children.Add(SerializeSceneNodes(child));
+                children.Add(SerializeSceneEntities(child));
             }
 
             nodeElement.Add(behaviours);

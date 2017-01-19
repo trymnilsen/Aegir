@@ -18,42 +18,42 @@ using System.Windows.Media.Media3D;
 using TinyMessenger;
 using ViewPropertyGrid.PropertyGrid;
 
-namespace Aegir.ViewModel.NodeProxy
+namespace Aegir.ViewModel.EntityProxy
 {
-    public class NodeViewModel : ViewModelBase,
+    public class EntityViewModel : ViewModelBase,
                                 ITransformableVisual,
                                 IPropertyInfoProvider,
                                 IDragSource,
                                 IDropTarget,
                                 INameable
     {
-        protected Node nodeData;
+        protected Entity entityData;
 
         private Transform transform;
-        private List<NodeViewModel> children;
+        private List<EntityViewModel> children;
         private List<BehaviourViewModel> componentProxies;
 
-        public List<NodeViewModel> Children
+        public List<EntityViewModel> Children
         {
             get { return children; }
             set { children = value; }
         }
 
-        public Node NodeSource
+        public Entity EntitySource
         {
-            get { return nodeData; }
+            get { return entityData; }
         }
 
         [DisplayName("Name")]
         [Category("General")]
         public string Name
         {
-            get { return nodeData.Name; }
+            get { return entityData.Name; }
             set
             {
-                if (value != nodeData.Name)
+                if (value != entityData.Name)
                 {
-                    nodeData.Name = value;
+                    entityData.Name = value;
                     RaisePropertyChanged();
                 }
             }
@@ -63,19 +63,19 @@ namespace Aegir.ViewModel.NodeProxy
         [Category("General")]
         public bool IsEnabled
         {
-            get { return nodeData.IsEnabled; }
+            get { return entityData.IsEnabled; }
             set
             {
-                if (nodeData.IsEnabled != value)
+                if (entityData.IsEnabled != value)
                 {
-                    nodeData.IsEnabled = value;
+                    entityData.IsEnabled = value;
                     RaisePropertyChanged();
                 }
             }
         }
 
-        public RelayCommand RemoveNodeCommand { get; set; }
-        public RelayCommand<string> AddNodeCommand { get; set; }
+        public RelayCommand RemoveEntityCommand { get; set; }
+        public RelayCommand<string> AddEntityCommand { get; set; }
         public IScenegraphAddRemoveHandler AddRemoveHandler { get; set; }
 
         public Point3D Position
@@ -103,22 +103,22 @@ namespace Aegir.ViewModel.NodeProxy
         }
 
         /// <summary>
-        /// Creates a new proxy node
+        /// Creates a new proxy entity
         /// </summary>
-        /// <param name="nodeData">The node to proxy</param>
-        public NodeViewModel(Node nodeData, IScenegraphAddRemoveHandler addRemoveHandler)
+        /// <param name="entityData">The entity to proxy</param>
+        public EntityViewModel(Entity entityData, IScenegraphAddRemoveHandler addRemoveHandler)
         {
             this.AddRemoveHandler = addRemoveHandler;
-            this.nodeData = nodeData;
-            this.children = new List<NodeViewModel>();
+            this.entityData = entityData;
+            this.children = new List<EntityViewModel>();
             this.componentProxies = new List<BehaviourViewModel>();
-            //All nodes should have a transform behaviour
-            transform = nodeData.GetComponent<Transform>();
+            //All entities should have a transform behaviour
+            transform = entityData.GetComponent<Transform>();
 
-            AddNodeCommand = new RelayCommand<string>(AddNode);
-            RemoveNodeCommand = new RelayCommand(DoRemoveNode);
+            AddEntityCommand = new RelayCommand<string>(AddEntity);
+            RemoveEntityCommand = new RelayCommand(DoRemoveEntity);
 
-            CreateBehaviourProxies(nodeData.Components);
+            CreateBehaviourProxies(entityData.Components);
         }
 
         private void CreateBehaviourProxies(IEnumerable<BehaviourComponent> behaviourComponents)
@@ -133,27 +133,27 @@ namespace Aegir.ViewModel.NodeProxy
             }
         }
 
-        public T GetNodeComponent<T>()
+        public T GetEntityComponent<T>()
             where T : BehaviourComponent
         {
-            return nodeData.GetComponent<T>();
+            return entityData.GetComponent<T>();
         }
 
-        private void DoRemoveNode()
+        private void DoRemoveEntity()
         {
             AddRemoveHandler?.Remove(this);
-            Debug.WriteLine("Removing node");
+            Debug.WriteLine("Removing Entity");
         }
 
-        private void AddNode(string type)
+        private void AddEntity(string type)
         {
             AddRemoveHandler?.Add(type);
-            Debug.WriteLine("Adding Node: " + type);
+            Debug.WriteLine("Adding Entity: " + type);
         }
 
         public override string ToString()
         {
-            return "NodeViewModelProxy For: " + nodeData.Name;
+            return "EntityViewModelProxy For: " + entityData.Name;
         }
 
         public void ApplyTransform(Transform3D targetTransform)
@@ -176,7 +176,7 @@ namespace Aegir.ViewModel.NodeProxy
         {
             List<InspectableProperty> properties = new List<InspectableProperty>();
 
-            //Add Node properties
+            //Add Entity properties
             properties.Add(new InspectableProperty(this, GetType().GetProperty(nameof(Name))));
             properties.Add(new InspectableProperty(this, GetType().GetProperty(nameof(IsEnabled))));
 

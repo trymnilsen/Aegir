@@ -68,7 +68,7 @@ namespace AegirLib.Behaviour.World
         }
 
 
-        public Transform(Node parent)
+        public Transform(Entity parent)
             : base(parent)
         {
             localPosition = new Vector3();
@@ -141,7 +141,7 @@ namespace AegirLib.Behaviour.World
             }
             else
             {
-                //For root nodes we do not have a parent, therefore we treat the local space as our world space
+                //For root entities we do not have a parent, therefore we treat the local space as our world space
                 this.worldPosition = localPosition;
                 this.worldRotation = localRotation;
             }
@@ -168,11 +168,11 @@ namespace AegirLib.Behaviour.World
 
             if (positionElement == null)
             {
-                throw new PersistanceException("Transform element of node does not have a position element");
+                throw new PersistanceException("Transform element of entity does not have a position element");
             }
             if (rotationElement == null)
             {
-                throw new PersistanceException("Transform element of node does not have a rotation element");
+                throw new PersistanceException("Transform element of entity does not have a rotation element");
             }
 
             localPosition = XElementSerializer.DeserializeFromXElement<Vector3>(positionElement);

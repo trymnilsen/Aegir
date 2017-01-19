@@ -21,7 +21,7 @@ namespace AegirLibTest
             int getAtPos = keyPos + 5;
             KeyframeTimeline testCollection = new KeyframeTimeline();
             KeyframePropertyInfo testProperty = new KeyframePropertyInfo(null, PropertyType.Executable);
-            Node testNode = new Node();
+            Entity testNode = new Entity();
             //Add some keys
             testCollection.AddKeyframe(new ValueKeyframe(testProperty, null, null), keyPos, testNode);
             testCollection.AddKeyframe(new ValueKeyframe(testProperty, null, null), keyPos - 2, testNode);
@@ -44,7 +44,7 @@ namespace AegirLibTest
             int getAtPos = keyPos - 5;
             KeyframeTimeline testCollection = new KeyframeTimeline();
             KeyframePropertyInfo testProperty = new KeyframePropertyInfo(null, PropertyType.Executable);
-            Node testNode = new Node();
+            Entity testNode = new Entity();
             //Add some keys
             testCollection.AddKeyframe(new ValueKeyframe(testProperty, null, null), keyPos, testNode);
             testCollection.AddKeyframe(new ValueKeyframe(testProperty, null, null), keyPos + 2, testNode);

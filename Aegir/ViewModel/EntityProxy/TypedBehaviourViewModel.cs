@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ViewPropertyGrid.PropertyGrid;
 
-namespace Aegir.ViewModel.NodeProxy
+namespace Aegir.ViewModel.EntityProxy
 {
     public abstract class TypedBehaviourViewModel<T> : BehaviourViewModel where T : BehaviourComponent
     {

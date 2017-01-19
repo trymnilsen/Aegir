@@ -222,7 +222,7 @@
     <Compile Include="Replay\ReplayInput.cs" />
     <Compile Include="Scene\IWorldScale.cs" />
     <Compile Include="Scene\MercatorScale.cs" />
-    <Compile Include="Scene\Node.cs" />
+    <Compile Include="Scene\Entity.cs" />
     <Compile Include="Scene\OSMWorldScale.cs" />
     <Compile Include="Scene\SceneContext.cs" />
     <Compile Include="Scene\SceneGraph.cs" />

@@ -9,38 +9,38 @@ namespace AegirLib.Scene
 {
     public class SceneGraph
     {
-        public ObservableCollection<Node> RootNodes { get; set; }
+        public ObservableCollection<Entity> RootEntities { get; set; }
         public IWorldScale Scale { get; private set; }
         public ITinyMessengerHub Messenger { get; set; }
 
         public SceneGraph()
         {
-            RootNodes = new ObservableCollection<Node>();
+            RootEntities = new ObservableCollection<Entity>();
         }
 
         public void Init()
         {
-            foreach (Node rootNode in RootNodes)
+            foreach (Entity rootEntity in RootEntities)
             {
-                InitNode(rootNode);
+                InitEntity(rootEntity);
             }
 
             GraphInitialized?.Invoke();
         }
 
-        public void AddNode(Node nodeToAdd, Node parentNode = null)
+        public void AddNode(Entity nodeToAdd, Entity parentNode = null)
         {
         }
 
-        private void InitNode(Node node)
+        private void InitEntity(Entity entity)
         {
-            foreach (BehaviourComponent component in node.Components)
+            foreach (BehaviourComponent component in entity.Components)
             {
                 component.Init();
             }
-            foreach (Node child in node.Children)
+            foreach (Entity child in entity.Children)
             {
-                InitNode(child);
+                InitEntity(child);
             }
         }
 

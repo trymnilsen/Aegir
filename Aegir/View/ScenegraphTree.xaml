@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:Aegir.View"
              xmlns:pt="http://propertytools.org/wpf"
              xmlns:fa="http://schemas.fontawesome.io/icons/"
-             xmlns:model="clr-namespace:Aegir.ViewModel.NodeProxy"
+             xmlns:model="clr-namespace:Aegir.ViewModel.EntityProxy"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
@@ -15,7 +15,7 @@
                 <Color R="112" G="112" B="112" A="255"></Color>
             </SolidColorBrush.Color>
         </SolidColorBrush>
-        <DataTemplate DataType="{x:Type model:NodeViewModel}">
+        <DataTemplate DataType="{x:Type model:EntityViewModel}">
             <Grid>
                 <StackPanel Orientation="Horizontal">
                     <StackPanel.ContextMenu>
@@ -24,7 +24,7 @@
                             <MenuItem Header="Center on"></MenuItem>
                             <MenuItem Header="Follow on"></MenuItem>
                             <Separator></Separator>
-                            <MenuItem Header="Remove" Command="{Binding RemoveNodeCommand}"></MenuItem>
+                            <MenuItem Header="Remove" Command="{Binding RemoveEntityCommand}"></MenuItem>
                         </ContextMenu>
                     </StackPanel.ContextMenu>
                     <CheckBox IsChecked="{Binding IsEnabled}"

@@ -10,7 +10,7 @@ namespace AegirLib.Behaviour
 {
     public class BehaviourFactory
     {
-        public static BehaviourComponent CreateWithName(string name, Node parent)
+        public static BehaviourComponent CreateWithName(string name, Entity parent)
         {
             try
             {

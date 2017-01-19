@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace AegirLib.Scene
 {
-    public class Node
+    public class Entity
     {
         private Transform transform;
         private SignalRouter internalRouter;
@@ -18,10 +18,10 @@ namespace AegirLib.Scene
         [DisplayName("Is Enabled")]
         public bool IsEnabled { get; set; } = true;
 
-        public Node Parent { get; private set; }
+        public Entity Parent { get; private set; }
 
         [Browsable(false)]
-        public ObservableCollection<Node> Children { get; private set; }
+        public ObservableCollection<Entity> Children { get; private set; }
 
         [Browsable(false)]
         public ObservableCollection<BehaviourComponent> Components
@@ -31,7 +31,7 @@ namespace AegirLib.Scene
         }
 
         /// <summary>
-        /// Retrive a cached reference to the Transform behaviour of this node
+        /// Retrive a cached reference to the Transform behaviour of this entity
         /// </summary>
         public Transform Transform
         {
@@ -45,14 +45,14 @@ namespace AegirLib.Scene
             }
         }
 
-        public Node()
+        public Entity()
         {
-            Children = new ObservableCollection<Node>();
+            Children = new ObservableCollection<Entity>();
             Components = new ObservableCollection<BehaviourComponent>();
             internalRouter = new SignalRouter();
         }
 
-        public Node(Node parent)
+        public Entity(Entity parent)
             : this()
         {
             Parent = parent;

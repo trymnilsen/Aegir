@@ -166,14 +166,14 @@ namespace AegirLib.Simulation
                     // Do work
                     if (scene != null)
                     {
-                        IList<Node> rootNodes = scene.RootNodes;
+                        IList<Entity> rootEntity = scene.RootEntities;
                         simTime.FrameStart();
                         //Do keyframing
                         KeyframeEngine.Step();
                         //Update behaviours
-                        PreUpdateScenegraphChildren(rootNodes);
-                        UpdateScenegraphChildren(rootNodes);
-                        PostUpdateScenegraphChildren(rootNodes);
+                        PreUpdateScenegraphChildren(rootEntity);
+                        UpdateScenegraphChildren(rootEntity);
+                        PostUpdateScenegraphChildren(rootEntity);
                         simTime.FrameEnd();
                         //Calculate timing
                         //Debug.WriteLine("DeltaTime:" + simTime.DeltaTime);
@@ -189,14 +189,14 @@ namespace AegirLib.Simulation
         }
 
         /// <summary>
-        /// Recursively PreUpdates all the Nodes and their children
+        /// Recursively PreUpdates all the entity and their children
         /// </summary>
-        /// <param name="nodes"></param>
-        private void PreUpdateScenegraphChildren(IList<Node> nodes)
+        /// <param name="entities"></param>
+        private void PreUpdateScenegraphChildren(IList<Entity> entities)
         {
-            for (int i = 0; i < nodes.Count; i++)
+            for (int i = 0; i < entities.Count; i++)
             {
-                Node n = nodes[i];
+                Entity n = entities[i];
                 if (n.IsEnabled)
                 {
                     //Update Child
@@ -208,14 +208,14 @@ namespace AegirLib.Simulation
         }
 
         /// <summary>
-        /// Recursively update all the Nodes and their children
+        /// Recursively update all the entitites and their children
         /// </summary>
-        /// <param name="nodes"></param>
-        private void UpdateScenegraphChildren(IList<Node> nodes)
+        /// <param name="entities"></param>
+        private void UpdateScenegraphChildren(IList<Entity> entities)
         {
-            for (int i = 0; i < nodes.Count; i++)
+            for (int i = 0; i < entities.Count; i++)
             {
-                Node n = nodes[i];
+                Entity n = entities[i];
                 if (n.IsEnabled)
                 {
                     //Update Child
@@ -227,14 +227,14 @@ namespace AegirLib.Simulation
         }
 
         /// <summary>
-        /// Recursively PostUpdates all the Nodes and their children
+        /// Recursively PostUpdates all the entities and their children
         /// </summary>
-        /// <param name="nodes"></param>
-        private void PostUpdateScenegraphChildren(IList<Node> nodes)
+        /// <param name="entities"></param>
+        private void PostUpdateScenegraphChildren(IList<Entity> entities)
         {
-            for (int i = 0; i < nodes.Count; i++)
+            for (int i = 0; i < entities.Count; i++)
             {
-                Node n = nodes[i];
+                Entity n = entities[i];
                 if (n.IsEnabled)
                 {
                     //Update Child

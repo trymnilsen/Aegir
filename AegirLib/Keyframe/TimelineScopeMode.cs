@@ -9,7 +9,7 @@ namespace AegirLib.Keyframe
     public enum TimelineScopeMode
     {
         None,
-        Node,
+        Entity,
         Property
     }
 }

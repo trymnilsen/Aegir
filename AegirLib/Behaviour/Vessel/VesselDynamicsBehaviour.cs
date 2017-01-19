@@ -41,8 +41,8 @@ namespace AegirLib.Behaviour.Vessel
             set { rateOfTurn = value; }
         }
 
-        public VesselDynamicsBehaviour(Node parentNode)
-            : base(parentNode)
+        public VesselDynamicsBehaviour(Entity parentEntity)
+            : base(parentEntity)
         {
         }
 

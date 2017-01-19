@@ -8,9 +8,9 @@ using TinyMessenger;
 
 namespace AegirLib.Messages
 {
-    public class InvalidateEntity : GenericTinyMessage<Node>
+    public class InvalidateEntity : GenericTinyMessage<Entity>
     {
-        public InvalidateEntity(object sender, Node content)
+        public InvalidateEntity(object sender, Entity content)
             : base(sender, content) { }
     }
 }

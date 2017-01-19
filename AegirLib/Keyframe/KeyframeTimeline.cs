@@ -16,12 +16,12 @@ namespace AegirLib.Keyframe
         private static readonly ILog log = LogManager.GetLogger(typeof(KeyframeTimeline));
 
         private Dictionary<KeyframePropertyInfo, SortedList<int, Keyframe>> propertiesMappedKeyframes;
-        private Dictionary<Node, List<KeyframePropertyInfo>> nodeMappedPropertyInfo;
+        private Dictionary<Entity, List<KeyframePropertyInfo>> EntityMappedPropertyInfo;
 
         public KeyframeTimeline()
         {
             propertiesMappedKeyframes = new Dictionary<KeyframePropertyInfo, SortedList<int, Keyframe>>();
-            nodeMappedPropertyInfo = new Dictionary<Node, List<KeyframePropertyInfo>>();
+            EntityMappedPropertyInfo = new Dictionary<Entity, List<KeyframePropertyInfo>>();
         }
 
         /// <summary>
@@ -29,8 +29,8 @@ namespace AegirLib.Keyframe
         /// </summary>
         /// <param name="key">the keyframe itself</param>
         /// <param name="time">the time at which the keyframe is</param>
-        /// <param name="node">on which node is this keyframe</param>
-        public void AddKeyframe(Keyframe key, int time, Node node)
+        /// <param name="entity">on which entity is this keyframe</param>
+        public void AddKeyframe(Keyframe key, int time, Entity entity)
         {
             //Check if we have any entry for this property info
             if (!propertiesMappedKeyframes.ContainsKey(key.Property))
@@ -40,13 +40,13 @@ namespace AegirLib.Keyframe
             propertiesMappedKeyframes[key.Property].Add(time, key);
 
             //lastly add a nodeMappedProperty entry
-            if (!nodeMappedPropertyInfo.ContainsKey(node))
+            if (!EntityMappedPropertyInfo.ContainsKey(entity))
             {
-                nodeMappedPropertyInfo.Add(node, new List<KeyframePropertyInfo>());
+                EntityMappedPropertyInfo.Add(entity, new List<KeyframePropertyInfo>());
             }
-            nodeMappedPropertyInfo[node].Add(key.Property);
+            EntityMappedPropertyInfo[entity].Add(key.Property);
             //Raise added event
-            RaiseKeyframeAdded(node, time, key);
+            RaiseKeyframeAdded(entity, time, key);
         }
 
         //Timeline collection method
@@ -70,19 +70,19 @@ namespace AegirLib.Keyframe
         }
 
         /// <summary>
-        /// Checks if the given node has any keyframes on the timeline
+        /// Checks if the given entity has any keyframes on the timeline
         /// </summary>
-        /// <param name="node"></param>
+        /// <param name="entity"></param>
         /// <returns></returns>
-        public bool NodeHasAnyKeyframes(Node node)
+        public bool EntityHasAnyKeyframes(Entity entity)
         {
-            //If there is no node,there is no way we can have any keyframes
-            if (!nodeMappedPropertyInfo.ContainsKey(node))
+            //If there is no entity,there is no way we can have any keyframes
+            if (!EntityMappedPropertyInfo.ContainsKey(entity))
             {
                 return false;
             }
             //We can have an entry but no keyframes
-            if (nodeMappedPropertyInfo[node].Count == 0)
+            if (EntityMappedPropertyInfo[entity].Count == 0)
             {
                 return false;
             }
@@ -100,15 +100,15 @@ namespace AegirLib.Keyframe
         }
 
         /// <summary>
-        /// Returns all properties registered for the given node
+        /// Returns all properties registered for the given entity
         /// </summary>
-        /// <param name="node"></param>
+        /// <param name="entity"></param>
         /// <returns></returns>
-        public IReadOnlyCollection<KeyframePropertyInfo> GetAllPropertiesForNode(Node node)
+        public IReadOnlyCollection<KeyframePropertyInfo> GetAllPropertiesForEntity(Entity entity)
         {
-            if (nodeMappedPropertyInfo.ContainsKey(node))
+            if (EntityMappedPropertyInfo.ContainsKey(entity))
             {
-                return nodeMappedPropertyInfo[node];
+                return EntityMappedPropertyInfo[entity];
             }
             else
             {
@@ -134,15 +134,15 @@ namespace AegirLib.Keyframe
         /// <summary>
         /// Raise the keyframe added event
         /// </summary>
-        /// <param name="node">node the keyframe belongs to</param>
+        /// <param name="entity">entity the keyframe belongs to</param>
         /// <param name="time">at what time the </param>
         /// <param name="key"></param>
-        private void RaiseKeyframeAdded(Node node, int time, Keyframe key)
+        private void RaiseKeyframeAdded(Entity entity, int time, Keyframe key)
         {
             KeyframeAddedHandler evt = KeyframeAdded;
             if (evt != null)
             {
-                KeyframeAdded(node, time, key);
+                KeyframeAdded(entity, time, key);
             }
         }
 
@@ -219,7 +219,7 @@ namespace AegirLib.Keyframe
             return lo;
         }
 
-        public delegate void KeyframeAddedHandler(Node node, int time, Keyframe key);
+        public delegate void KeyframeAddedHandler(Entity entity, int time, Keyframe key);
 
         /// <summary>
         /// Raised when a keyframe is added to the timeline

@@ -10,7 +10,7 @@ namespace AegirLib.Behaviour.World
 {
     public class WorldSettings : BehaviourComponent
     {
-        public WorldSettings(Node parent) : base(parent)
+        public WorldSettings(Entity parent) : base(parent)
         {
         }
 

@@ -26,7 +26,7 @@ namespace AegirLib.Keyframe
         /// <summary>
         /// backing store for ScopeTarget if any
         /// </summary>
-        private Node scopeTarget;
+        private Entity scopeTarget;
 
         private TimelineScopeMode scopeMode;
 
@@ -52,10 +52,10 @@ namespace AegirLib.Keyframe
         }
 
         /// <summary>
-        /// Enables scoping playback to a given node.
-        /// Setting this will only play keyframes related to this node
+        /// Enables scoping playback to a given entity.
+        /// Setting this will only play keyframes related to this entity
         /// </summary>
-        public Node ScopeTarget
+        public Entity ScopeTarget
         {
             get { return scopeTarget; }
             set { scopeTarget = value; }
@@ -218,19 +218,19 @@ namespace AegirLib.Keyframe
         }
 
         /// <summary>
-        /// Captures the current values for a given node and creates a keyframe
+        /// Captures the current values for a given entity and creates a keyframe
         /// at the given time and with the captured values
         /// </summary>
-        /// <param name="node">Node to capture</param>
+        /// <param name="entity">entity to capture</param>
         /// <param name="time">Time to create keyframe at</param>
-        public void CaptureAndAddToTimeline(Node node, int time)
+        public void CaptureAndAddToTimeline(Entity entity, int time)
         {
-            if (node == null)
+            if (entity == null)
             {
-                throw new ArgumentNullException("node", "node cannot be null");
+                throw new ArgumentNullException(nameof(entity), "entity cannot be null");
             }
-            //Get all behaviours on node
-            IEnumerable<BehaviourComponent> behaviours = node.Components;
+            //Get all behaviours on entity
+            IEnumerable<BehaviourComponent> behaviours = entity.Components;
 
             foreach (BehaviourComponent behaviour in behaviours)
             {
@@ -265,12 +265,12 @@ namespace AegirLib.Keyframe
 
                     Keyframe key = new ValueKeyframe(keyframeProperty, behaviour, currentPropertyValue);
                     //Add it to the timeline
-                    Keyframes.AddKeyframe(key, time, node);
+                    Keyframes.AddKeyframe(key, time, entity);
                 }
             }
         }
 
-        public bool CanCaptureNode(Node activeNode)
+        public bool CanCaptureEntity(Entity activeEntity)
         {
             return true;
         }
@@ -352,8 +352,8 @@ namespace AegirLib.Keyframe
                 case TimelineScopeMode.None:
                     return Keyframes.GetAllProperties();
 
-                case TimelineScopeMode.Node:
-                    return Keyframes.GetAllPropertiesForNode(ScopeTarget);
+                case TimelineScopeMode.Entity:
+                    return Keyframes.GetAllPropertiesForEntity(ScopeTarget);
 
                 default:
                     return null;

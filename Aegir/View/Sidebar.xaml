@@ -6,7 +6,7 @@
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              xmlns:cmd="http://www.galasoft.ch/mvvmlight"
              xmlns:views="clr-namespace:Aegir.View"
-             xmlns:model="clr-namespace:Aegir.ViewModel.NodeProxy"
+             xmlns:model="clr-namespace:Aegir.ViewModel.EntityProxy"
              xmlns:fa="http://schemas.fontawesome.io/icons/"
              mc:Ignorable="d"
              d:DesignHeight="400" d:DesignWidth="300">

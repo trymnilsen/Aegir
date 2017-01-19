@@ -12,7 +12,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using TinyMessenger;
 
-namespace Aegir.ViewModel.NodeProxy
+namespace Aegir.ViewModel.EntityProxy
 {
     public class ScenegraphViewModel : ViewModelBase, IScenegraphAddRemoveHandler
     {
@@ -24,32 +24,32 @@ namespace Aegir.ViewModel.NodeProxy
         /// </summary>
         private SceneGraph sceneSource;
 
-        private NodeViewModel selectedItem;
+        private EntityViewModel selectedItem;
 
         /// <summary>
         /// Command to be executed when selected item has changed
         /// </summary>
-        public RelayCommand<NodeViewModel> SelectItemViewModelChangedCommand { get; private set; }
+        public RelayCommand<EntityViewModel> SelectItemViewModelChangedCommand { get; private set; }
 
-        public RelayCommand<Node> SelectRawNodeChangedCommand { get; private set; }
+        public RelayCommand<Entity> SelectRawEntityChangedCommand { get; private set; }
 
         /// <summary>
         /// Command to be executed when an item is wanted to be removed from the graph
         /// </summary>
-        public RelayCommand<NodeViewModel> RemoveItemCommand { get; private set; }
+        public RelayCommand<EntityViewModel> RemoveItemCommand { get; private set; }
 
         /// <summary>
         /// Command to be executed when an item is wanted to be moved
         /// </summary>
-        public RelayCommand<NodeViewModel> MoveItemCommand { get; private set; }
+        public RelayCommand<EntityViewModel> MoveItemCommand { get; private set; }
 
         /// <summary>
-        /// A Graph of node viewmodel proxies composed from our scene source
+        /// A Graph of entity viewmodel proxies composed from our scene source
         /// </summary>
-        public ObservableCollection<NodeViewModel> Items { get; set; }
+        public ObservableCollection<EntityViewModel> Items { get; set; }
 
         
-        public NodeViewModel SelectedItem
+        public EntityViewModel SelectedItem
         {
             get { return selectedItem; }
             set
@@ -68,10 +68,10 @@ namespace Aegir.ViewModel.NodeProxy
         /// </summary>
         public ScenegraphViewModel(TinyMessengerHub messenger)
         {
-            SelectItemViewModelChangedCommand = new RelayCommand<NodeViewModel>(c => SelectedItem = c);
-            RemoveItemCommand = new RelayCommand<NodeViewModel>(RemoveItem);
-            MoveItemCommand = new RelayCommand<NodeViewModel>(MoveTo);
-            SelectRawNodeChangedCommand = new RelayCommand<Node>(SetRawNodeAsSelectedItem);
+            SelectItemViewModelChangedCommand = new RelayCommand<EntityViewModel>(c => SelectedItem = c);
+            RemoveItemCommand = new RelayCommand<EntityViewModel>(RemoveItem);
+            MoveItemCommand = new RelayCommand<EntityViewModel>(MoveTo);
+            SelectRawEntityChangedCommand = new RelayCommand<Entity>(SetRawEntityAsSelectedItem);
             Messenger = messenger;
             Messenger.Subscribe<ScenegraphChanged>(OnScenegraphChanged);
             Messenger.Subscribe<InvalidateEntity>(OnInvalidateEntitiesMessage);
@@ -79,11 +79,11 @@ namespace Aegir.ViewModel.NodeProxy
             //MessengerInstance.Register<InvalidateEntities>(this, OnInvalidateEntitiesMessage);
             //MessengerInstance.Register<ProjectActivated>(this, OnProjectActivated);
 
-            Items = new ObservableCollection<NodeViewModel>();
+            Items = new ObservableCollection<EntityViewModel>();
             lastNotifyProxyProperty = DateTime.Now;
         }
 
-        private void OnInvalidateEntitiesMessage(InvalidateEntity node)
+        private void OnInvalidateEntitiesMessage(InvalidateEntity entity)
         {
             DateTime now = DateTime.Now;
             double timeDifference = (now - lastNotifyProxyProperty).TotalMilliseconds;
@@ -104,26 +104,26 @@ namespace Aegir.ViewModel.NodeProxy
         /// Updates the currently active selected item in the graph
         /// </summary>
         /// <param name="newItem"></param>
-        private void UpdateSelectedItem(NodeViewModel newItem)
+        private void UpdateSelectedItem(EntityViewModel newItem)
         {
-            DebugUtil.LogWithLocation("Updating Selected Node");
-            Messenger.Publish<SelectedNodeChanged>(new SelectedNodeChanged(this, newItem));
+            DebugUtil.LogWithLocation("Updating Selected Entity");
+            Messenger.Publish<SelectedEntityChanged>(new SelectedEntityChanged(this, newItem));
             Messenger.Publish<SelectionChanged>(new SelectionChanged(this, newItem));
         }
 
-        private void SetRawNodeAsSelectedItem(Node node)
+        private void SetRawEntityAsSelectedItem(Entity entity)
         {
             //look through view models
-            foreach (NodeViewModel nodeVM in Items)
+            foreach (EntityViewModel entityVM in Items)
             {
-                if (nodeVM.NodeSource == node)
+                if (entityVM.EntitySource == entity)
                 {
-                    SelectedItem = nodeVM;
+                    SelectedItem = entityVM;
                     break;
                 }
                 else
                 {
-                    if(LookForChildrenNodeVM(nodeVM, node))
+                    if(LookForChildrenEntityVM(entityVM, entity))
                     {
                         break;
                     }
@@ -131,18 +131,18 @@ namespace Aegir.ViewModel.NodeProxy
             }
         }
 
-        private bool LookForChildrenNodeVM(NodeViewModel nodeVM, Node node)
+        private bool LookForChildrenEntityVM(EntityViewModel entityVM, Entity entity)
         {
-            if (nodeVM.NodeSource == node)
+            if (entityVM.EntitySource == entity)
             {
-                SelectedItem = nodeVM;
+                SelectedItem = entityVM;
                 return true;
             }
-            else if (nodeVM.Children.Count > 0)
+            else if (entityVM.Children.Count > 0)
             {
-                foreach (NodeViewModel nodeChild in nodeVM.Children)
+                foreach (EntityViewModel EntityChild in entityVM.Children)
                 {
-                    LookForChildrenNodeVM(nodeChild, node);
+                    LookForChildrenEntityVM(EntityChild, entity);
                 }
             }
             return false;
@@ -150,15 +150,15 @@ namespace Aegir.ViewModel.NodeProxy
 
         private void ProjectChanged(ProjectActivated projectMessage)
         {
-            RebuildScenegraphNodes(projectMessage.Project.Scene.RootNodes);
+            RebuildScenegraphEntities(projectMessage.Project.Scene.RootEntities);
         }
 
-        private void RemoveItem(NodeViewModel item)
+        private void RemoveItem(EntityViewModel item)
         {
             DebugUtil.LogWithLocation("Removing Item" + item);
         }
 
-        private void MoveTo(NodeViewModel item)
+        private void MoveTo(EntityViewModel item)
         {
             DebugUtil.LogWithLocation("Moving Item" + item);
         }
@@ -184,7 +184,7 @@ namespace Aegir.ViewModel.NodeProxy
             sceneSource = message.Project.Scene;
             sceneSource.GraphChanged += SceneSource_GraphChanged;
             //Build Scenegraph
-            RebuildScenegraphNodes(sceneSource.RootNodes);
+            RebuildScenegraphEntities(sceneSource.RootEntities);
         }
 
         /// <summary>
@@ -192,33 +192,33 @@ namespace Aegir.ViewModel.NodeProxy
         /// </summary>
         private void SceneSource_GraphChanged()
         {
-            RebuildScenegraphNodes(sceneSource.RootNodes);
+            RebuildScenegraphEntities(sceneSource.RootEntities);
             TriggerScenegraphChanged();
         }
 
         /// <summary>
         /// Rebuilds our graph of proxy objects to resemble the one in our scene source
         /// </summary>
-        /// <param name="nodes"></param>
-        private void RebuildScenegraphNodes(IEnumerable<Node> nodes)
+        /// <param name="entities"></param>
+        private void RebuildScenegraphEntities(IEnumerable<Entity> entities)
         {
             //At the moment we rebuild the graph if it's changed
             Items.Clear();
-            foreach (Node n in nodes)
+            foreach (Entity n in entities)
             {
-                NodeViewModel nodeProxy = new NodeViewModel(n, this);
-                Items.Add(nodeProxy);
-                PopulateNodeChildren(nodeProxy, n);
+                EntityViewModel entityProxy = new EntityViewModel(n, this);
+                Items.Add(entityProxy);
+                PopulateEntityChildren(entityProxy, n);
             }
         }
 
-        private void PopulateNodeChildren(NodeViewModel proxy, Node node)
+        private void PopulateEntityChildren(EntityViewModel proxy, Entity entity)
         {
-            foreach (Node n in node.Children)
+            foreach (Entity n in entity.Children)
             {
-                NodeViewModel childrenProxy = new NodeViewModel(n, this);
+                EntityViewModel childrenProxy = new EntityViewModel(n, this);
                 proxy.Children.Add(childrenProxy);
-                PopulateNodeChildren(childrenProxy, n);
+                PopulateEntityChildren(childrenProxy, n);
             }
         }
 
@@ -246,7 +246,7 @@ namespace Aegir.ViewModel.NodeProxy
             }
         }
 
-        public void Remove(NodeViewModel node)
+        public void Remove(EntityViewModel entity)
         {
         }
 

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Aegir.ViewModel.NodeProxy
+namespace Aegir.ViewModel.EntityProxy
 {
     public interface ISceneNode
     {

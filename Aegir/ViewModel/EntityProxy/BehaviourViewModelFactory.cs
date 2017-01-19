@@ -9,7 +9,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Aegir.ViewModel.NodeProxy
+namespace Aegir.ViewModel.EntityProxy
 {
     public static class BehaviourViewModelFactory
     {

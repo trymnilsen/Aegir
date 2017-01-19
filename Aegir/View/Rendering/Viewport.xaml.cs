@@ -104,11 +104,11 @@ namespace Aegir.View.Rendering
                                         .FirstOrDefault();
                     if (scenehit != null)
                     {
-                        SceneActor selectedNode 
+                        SceneActor selectedActor 
                             = VisualFactory?.GetRenderItem(RenderingMode.Solid, scenehit.Visual);
-                        if (selectedNode != null)
+                        if (selectedActor != null)
                         {
-                            ActorClicked?.Invoke(selectedNode.Transform.Parent);
+                            ActorClicked?.Invoke(selectedActor.Transform.Parent);
                         }
                     }
                 }
@@ -193,7 +193,7 @@ namespace Aegir.View.Rendering
             }
         }
 
-        public delegate void ActorClickHandler(Node node);
+        public delegate void ActorClickHandler(Entity entity);
         public event ActorClickHandler ActorClicked;
     }
 }

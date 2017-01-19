@@ -1,4 +1,4 @@
-﻿using Aegir.ViewModel.NodeProxy;
+﻿using Aegir.ViewModel.EntityProxy;
 using Aegir.ViewModel.Statusbar;
 using Aegir.ViewModel.Timeline;
 using GalaSoft.MvvmLight.Ioc;
