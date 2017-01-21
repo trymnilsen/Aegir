@@ -15,6 +15,7 @@ using Aegir.Util;
 using Aegir.View.Rendering;
 using System.Windows.Threading;
 using LibTransform = AegirLib.Behaviour.World.Transform;
+using Aegir.ViewModel.EntityProxy.Node;
 
 namespace Aegir.Rendering
 {

@@ -4,6 +4,7 @@ using Aegir.Messages.Selection;
 using Aegir.Messages.Simulation;
 using Aegir.Mvvm;
 using Aegir.Util;
+using Aegir.ViewModel.EntityProxy.Node;
 using AegirLib.Messages;
 using AegirLib.Scene;
 using GalaSoft.MvvmLight.Command;
@@ -46,8 +47,7 @@ namespace Aegir.ViewModel.EntityProxy
         /// <summary>
         /// A Graph of entity viewmodel proxies composed from our scene source
         /// </summary>
-        public ObservableCollection<EntityViewModel> Items { get; set; }
-
+        public ObservableCollection<ISceneNode> Items { get; set; }
         
         public EntityViewModel SelectedItem
         {
@@ -79,7 +79,7 @@ namespace Aegir.ViewModel.EntityProxy
             //MessengerInstance.Register<InvalidateEntities>(this, OnInvalidateEntitiesMessage);
             //MessengerInstance.Register<ProjectActivated>(this, OnProjectActivated);
 
-            Items = new ObservableCollection<EntityViewModel>();
+            Items = new ObservableCollection<ISceneNode>();
             lastNotifyProxyProperty = DateTime.Now;
         }
 
@@ -114,18 +114,22 @@ namespace Aegir.ViewModel.EntityProxy
         private void SetRawEntityAsSelectedItem(Entity entity)
         {
             //look through view models
-            foreach (EntityViewModel entityVM in Items)
+            foreach (ISceneNode node in Items)
             {
-                if (entityVM.EntitySource == entity)
+                EntityViewModel entityVM = node as EntityViewModel;
+                if(entityVM != null)
                 {
-                    SelectedItem = entityVM;
-                    break;
-                }
-                else
-                {
-                    if(LookForChildrenEntityVM(entityVM, entity))
+                    if (entityVM.EntitySource == entity)
                     {
+                        SelectedItem = entityVM;
                         break;
+                    }
+                    else
+                    {
+                        if(LookForChildrenEntityVM(entityVM, entity))
+                        {
+                            break;
+                        }
                     }
                 }
             }
@@ -140,9 +144,13 @@ namespace Aegir.ViewModel.EntityProxy
             }
             else if (entityVM.Children.Count > 0)
             {
-                foreach (EntityViewModel EntityChild in entityVM.Children)
+                foreach (ISceneNode sceneNode in entityVM.Children)
                 {
-                    LookForChildrenEntityVM(EntityChild, entity);
+                    EntityViewModel entityChild = sceneNode as EntityViewModel;
+                    if(entityChild!=null)
+                    {
+                        LookForChildrenEntityVM(entityChild, entity);
+                    }
                 }
             }
             return false;
@@ -202,14 +210,37 @@ namespace Aegir.ViewModel.EntityProxy
         /// <param name="entities"></param>
         private void RebuildScenegraphEntities(IEnumerable<Entity> entities)
         {
+            List<ISceneNode> worldNodes = new List<ISceneNode>();
+            List<ISceneNode> staticNodes = new List<ISceneNode>();
             //At the moment we rebuild the graph if it's changed
             Items.Clear();
             foreach (Entity n in entities)
             {
-                EntityViewModel entityProxy = new EntityViewModel(n, this);
-                Items.Add(entityProxy);
-                PopulateEntityChildren(entityProxy, n);
+                if(!n.IsStatic)
+                {
+                    EntityViewModel entityProxy = new EntityViewModel(n, this);
+                    worldNodes.Add(entityProxy);
+                    PopulateEntityChildren(entityProxy, n);
+                }
             }
+            //Workaround for now
+            WorldNodeViewModel worldNode = new WorldNodeViewModel();
+            worldNode.Children.AddRange(worldNodes);
+
+            TimelineNodeViewModel timeline = new TimelineNodeViewModel();
+            timeline.Children.Add(new KeyframeViewModel(37));
+            timeline.Children.Add(new KeyframeViewModel(50));
+            timeline.Children.Add(new KeyframeViewModel(65));
+            timeline.Children.Add(new KeyframeViewModel(68));
+            timeline.Children.Add(new KeyframeViewModel(80));
+            timeline.Children.Add(new KeyframeViewModel(87));
+            timeline.Children.Add(new KeyframeViewModel(89));
+
+            Items.Add(worldNode);
+            Items.Add(new StaticNodeViewModel("Grid"));
+            Items.Add(new StaticNodeViewModel("Water"));
+            Items.Add(new StaticNodeViewModel("Map"));
+            Items.Add(timeline);
         }
 
         private void PopulateEntityChildren(EntityViewModel proxy, Entity entity)
@@ -252,6 +283,7 @@ namespace Aegir.ViewModel.EntityProxy
 
         public void Add(string type)
         {
+
         }
 
         public delegate void InvalidateChildrenHandler();

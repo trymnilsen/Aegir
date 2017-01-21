@@ -9,8 +9,8 @@ namespace Aegir.ViewModel.EntityProxy
 {
     public interface ISceneNode
     {
-        ObservableCollection<ISceneNode> Children { get; }
-        SceneNodeType Type { get; }
+        List<ISceneNode> Children { get; }
+        bool IsEnabled { get; set; }
         string Name { get; }
     }
 }

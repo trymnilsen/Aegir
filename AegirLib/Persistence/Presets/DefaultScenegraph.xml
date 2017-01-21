@@ -2,138 +2,116 @@
 <root>
   <ScenePersister>
     <RootEntities>
-      <Entity Name="World">
-        <Components>
-          <Transform>
-            <Vector3>
-              <X>0</X>
-              <Y>0</Y>
-              <Z>0</Z>
-            </Vector3>
-            <Quaternion>
-              <X>0</X>
-              <Y>0</Y>
-              <Z>0</Z>
-              <W>0</W>
-            </Quaternion>
-          </Transform>
-          <WorldSettings></WorldSettings>
-          <WeatherSimulation></WeatherSimulation>
-          <WaterSimulation></WaterSimulation>
-        </Components>
-        <Children>
-          <Entity Name="Vessel">
-            <Components>
-              <Transform>
-                <Vector3>
-                  <X>0</X>
-                  <Y>200</Y>
-                  <Z>0</Z>
-                </Vector3>
-                <Quaternion>
-                  <X>0</X>
-                  <Y>0</Y>
-                  <Z>0</Z>
-                  <W>0</W>
-                </Quaternion>
-              </Transform>
-              <VesselDynamicsBehaviour>
-                <Speed>0</Speed>
-                <Heading>0</Heading>
-                <RateOfTurn>0</RateOfTurn>
-                <Heading></Heading>
-                <SimulationMode>Replay</SimulationMode>
-              </VesselDynamicsBehaviour>
-                <VesselDimentionsBehaviour>
-                    <Width>30</Width>
-                    <Length>200</Length>
-                    <Height>40</Height>
-                </VesselDimentionsBehaviour>
-              <MeshBehaviour>
-                <MeshDataReference>mesh://file/Content/ship.obj</MeshDataReference>
-              </MeshBehaviour>
-            </Components>
-            <Children>
-              <!--GNSS-->
-              <Entity Name="Fore GNSS">
-                <Components>
-                  <Transform>
-                    <Vector3>
-                      <X>0</X>
-                      <Y>0</Y>
-                      <Z>0</Z>
-                    </Vector3>
-                    <Quaternion>
-                      <X>0</X>
-                      <Y>0</Y>
-                      <Z>0</Z>
-                      <W>0</W>
-                    </Quaternion>
-                  </Transform>
-                </Components>
-                <Children />
-              </Entity>
-              <Entity Name="Aft GNSS">
-                <Components>
-                  <Transform>
-                    <Vector3>
-                      <X>0</X>
-                      <Y>0</Y>
-                      <Z>0</Z>
-                    </Vector3>
-                    <Quaternion>
-                      <X>0</X>
-                      <Y>0</Y>
-                      <Z>0</Z>
-                      <W>0</W>
-                    </Quaternion>
-                  </Transform>
-                </Components>
-                <Children />
-              </Entity>
-              <Entity Name="Third GNSS">
-                <Components>
-                  <Transform>
-                    <Vector3>
-                      <X>0</X>
-                      <Y>0</Y>
-                      <Z>0</Z>
-                    </Vector3>
-                    <Quaternion>
-                      <X>0</X>
-                      <Y>0</Y>
-                      <Z>0</Z>
-                      <W>0</W>
-                    </Quaternion>
-                  </Transform>
-                </Components>
-                <Children />
-              </Entity>
-              <!--~GNSS-->
-              <Entity Name="Gyro">
-                <Components>
-                  <Transform>
-                    <Vector3>
-                      <X>0</X>
-                      <Y>0</Y>
-                      <Z>0</Z>
-                    </Vector3>
-                    <Quaternion>
-                      <X>0</X>
-                      <Y>0</Y>
-                      <Z>0</Z>
-                      <W>0</W>
-                    </Quaternion>
-                  </Transform>
-                </Components>
-                <Children />
-              </Entity>
-            </Children>
-          </Entity>
-        </Children>
-      </Entity>
+        <Entity Name="Vessel" GUID="239EB6A5-9C72-4694-95EE-8294D7779B7F">
+          <Components>
+            <Transform>
+              <Vector3>
+                <X>0</X>
+                <Y>200</Y>
+                <Z>0</Z>
+              </Vector3>
+              <Quaternion>
+                <X>0</X>
+                <Y>0</Y>
+                <Z>0</Z>
+                <W>0</W>
+              </Quaternion>
+            </Transform>
+            <VesselDynamicsBehaviour>
+              <Speed>0</Speed>
+              <Heading>0</Heading>
+              <RateOfTurn>0</RateOfTurn>
+              <Heading></Heading>
+              <SimulationMode>Replay</SimulationMode>
+            </VesselDynamicsBehaviour>
+              <VesselDimentionsBehaviour>
+                  <Width>30</Width>
+                  <Length>200</Length>
+                  <Height>40</Height>
+              </VesselDimentionsBehaviour>
+            <MeshBehaviour>
+              <MeshDataReference>mesh://file/Content/ship.obj</MeshDataReference>
+            </MeshBehaviour>
+          </Components>
+          <Children>
+            <!--GNSS-->
+            <Entity Name="Fore GNSS" GUID="30D577BA-2330-4F86-9155-60B841D69346">
+              <Components>
+                <Transform>
+                  <Vector3>
+                    <X>0</X>
+                    <Y>0</Y>
+                    <Z>0</Z>
+                  </Vector3>
+                  <Quaternion>
+                    <X>0</X>
+                    <Y>0</Y>
+                    <Z>0</Z>
+                    <W>0</W>
+                  </Quaternion>
+                </Transform>
+              </Components>
+              <Children />
+            </Entity>
+            <Entity Name="Aft GNSS" GUID="4DE7FCB8-5F95-4B6C-9F6A-2F71165FDF7C">
+              <Components>
+                <Transform>
+                  <Vector3>
+                    <X>0</X>
+                    <Y>0</Y>
+                    <Z>0</Z>
+                  </Vector3>
+                  <Quaternion>
+                    <X>0</X>
+                    <Y>0</Y>
+                    <Z>0</Z>
+                    <W>0</W>
+                  </Quaternion>
+                </Transform>
+              </Components>
+              <Children />
+            </Entity>
+            <Entity Name="Third GNSS" GUID="B9C2A452-72A2-4BEE-BBA9-490B32671CE3">
+              <Components>
+                <Transform>
+                  <Vector3>
+                    <X>0</X>
+                    <Y>0</Y>
+                    <Z>0</Z>
+                  </Vector3>
+                  <Quaternion>
+                    <X>0</X>
+                    <Y>0</Y>
+                    <Z>0</Z>
+                    <W>0</W>
+                  </Quaternion>
+                </Transform>
+              </Components>
+              <Children />
+            </Entity>
+            <!--~GNSS-->
+            <Entity Name="Gyro" GUID="B9C2A452-72A2-4BEE-BBA9-490B32671CE3">
+              <Components>
+                <Transform>
+                  <Vector3>
+                    <X>0</X>
+                    <Y>0</Y>
+                    <Z>0</Z>
+                  </Vector3>
+                  <Quaternion>
+                    <X>0</X>
+                    <Y>0</Y>
+                    <Z>0</Z>
+                    <W>0</W>
+                  </Quaternion>
+                </Transform>
+              </Components>
+              <Children />
+            </Entity>
+          </Children>
+        </Entity>
 
-      <Entity Name="Water">
+      <Entity Name="Water"  GUID="B9C2A452-72A2-4BEE-BBA9-490B32671CE3">
         <Components>
           <Transform>
             <Vector3>

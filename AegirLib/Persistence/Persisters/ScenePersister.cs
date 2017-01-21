@@ -68,7 +68,17 @@ namespace AegirLib.Persistence.Persisters
         private Entity DeserializeSceneEntity(XElement element, Entity parent = null)
         {
             Entity entity = new Entity(parent);
-            entity.Name = element.Attribute("Name")?.Value;
+            entity.Name = element.Attribute(nameof(entity.Name))?.Value;
+            string guidAttribute = element.Attribute(nameof(entity.GUID))?.Value;
+            Guid guid;
+            if(guidAttribute!=null && Guid.TryParse(guidAttribute, out guid))
+            {
+                entity.GUID = guid;
+            }
+            else
+            {
+                entity.GUID = Guid.NewGuid();
+            }
 
             IEnumerable<XElement> behaviours = element.Element("Components")?.Elements();
             if (behaviours != null)
@@ -108,7 +118,10 @@ namespace AegirLib.Persistence.Persisters
         {
             XElement nodeElement = new XElement(typeof(Entity).Name);
 
+            //Add the name of the node
             nodeElement.Add(new XAttribute(nameof(entity.Name), entity.Name));
+            //Add the GUID if the node 
+            nodeElement.Add(new XAttribute(nameof(entity.GUID), entity.GUID.ToString()));
 
             XElement behaviours = new XElement(nameof(entity.Components));
             XElement children = new XElement(nameof(entity.Children));

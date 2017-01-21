@@ -1,5 +1,6 @@
 ﻿using Aegir.Map;
 using Aegir.ViewModel.EntityProxy;
+using Aegir.ViewModel.EntityProxy.Node;
 using Aegir.Windows;
 using System;
 using System.Collections.Generic;

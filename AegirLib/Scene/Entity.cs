@@ -2,8 +2,8 @@
 using AegirLib.Behaviour.World;
 using AegirLib.Signals;
 using AegirLib.Simulation;
+using System;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Linq;
 
 namespace AegirLib.Scene
@@ -15,20 +15,27 @@ namespace AegirLib.Scene
         private ObservableCollection<BehaviourComponent> components;
         public string Name { get; set; }
 
-        [DisplayName("Is Enabled")]
+        public bool IsStatic { get; set; }
         public bool IsEnabled { get; set; } = true;
 
         public Entity Parent { get; private set; }
 
-        [Browsable(false)]
         public ObservableCollection<Entity> Children { get; private set; }
 
-        [Browsable(false)]
         public ObservableCollection<BehaviourComponent> Components
         {
             get { return components; }
             private set { components = value; }
         }
+
+        private Guid guid;
+
+        public Guid GUID
+        {
+            get { return guid; }
+            set { guid = value; }
+        }
+
 
         /// <summary>
         /// Retrive a cached reference to the Transform behaviour of this entity

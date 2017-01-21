@@ -1,4 +1,6 @@
-﻿namespace Aegir.ViewModel.EntityProxy
+﻿using Aegir.ViewModel.EntityProxy.Node;
+
+namespace Aegir.ViewModel.EntityProxy
 {
     public interface IScenegraphAddRemoveHandler
     {

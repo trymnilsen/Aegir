@@ -1,4 +1,5 @@
 ﻿using Aegir.ViewModel.EntityProxy;
+using Aegir.ViewModel.EntityProxy.Node;
 using GalaSoft.MvvmLight.Messaging;
 using TinyMessenger;
 

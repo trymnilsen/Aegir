@@ -1,4 +1,5 @@
 ﻿using Aegir.ViewModel.EntityProxy;
+using Aegir.ViewModel.EntityProxy.Node;
 using System.Windows.Media.Media3D;
 
 namespace Aegir.Rendering

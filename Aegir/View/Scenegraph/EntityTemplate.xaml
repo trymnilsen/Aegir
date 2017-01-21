@@ -1,14 +1,17 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:model="clr-namespace:Aegir.ViewModel.EntityProxy"
+                    xmlns:model="clr-namespace:Aegir.ViewModel.EntityProxy.Node"
                     xmlns:fa="http://schemas.fontawesome.io/icons/"
                     xmlns:local="clr-namespace:Aegir.View.ScenegraphTree">
-    <SolidColorBrush x:Key="BorderBrush">
-        <SolidColorBrush.Color>
-            <Color R="112" G="112" B="112" A="255"></Color>
-        </SolidColorBrush.Color>
-    </SolidColorBrush>
+
     <DataTemplate x:Key="EntityTemplate" DataType="{x:Type model:EntityViewModel}">
+        <DataTemplate.Resources>
+            <SolidColorBrush x:Key="BorderBrush">
+                <SolidColorBrush.Color>
+                    <Color R="112" G="112" B="112" A="255"></Color>
+                </SolidColorBrush.Color>
+            </SolidColorBrush>
+        </DataTemplate.Resources>
         <Grid>
             <StackPanel Orientation="Horizontal">
                 <StackPanel.ContextMenu>
@@ -22,6 +25,10 @@
                 </StackPanel.ContextMenu>
                 <CheckBox IsChecked="{Binding IsEnabled}"
                                       Margin="0 0 5 0"></CheckBox>
+                <fa:ImageAwesome Foreground="{StaticResource BorderBrush}"
+                                             SnapsToDevicePixels="True"
+                                             Margin="0 0 5 0" Icon="Cube"
+                                             Width="12" Height="12" />
                 <Border Background="White"
                                     SnapsToDevicePixels="True"
                                     BorderThickness="1"

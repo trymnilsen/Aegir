@@ -18,22 +18,23 @@ using System.Windows.Media.Media3D;
 using TinyMessenger;
 using ViewPropertyGrid.PropertyGrid;
 
-namespace Aegir.ViewModel.EntityProxy
+namespace Aegir.ViewModel.EntityProxy.Node
 {
     public class EntityViewModel : ViewModelBase,
                                 ITransformableVisual,
                                 IPropertyInfoProvider,
                                 IDragSource,
                                 IDropTarget,
-                                INameable
+                                INameable,
+                                ISceneNode
     {
         protected Entity entityData;
 
         private Transform transform;
-        private List<EntityViewModel> children;
+        private List<ISceneNode> children;
         private List<BehaviourViewModel> componentProxies;
 
-        public List<EntityViewModel> Children
+        public List<ISceneNode> Children
         {
             get { return children; }
             set { children = value; }
@@ -110,7 +111,7 @@ namespace Aegir.ViewModel.EntityProxy
         {
             this.AddRemoveHandler = addRemoveHandler;
             this.entityData = entityData;
-            this.children = new List<EntityViewModel>();
+            this.children = new List<ISceneNode>();
             this.componentProxies = new List<BehaviourViewModel>();
             //All entities should have a transform behaviour
             transform = entityData.GetComponent<Transform>();
