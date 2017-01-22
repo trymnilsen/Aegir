@@ -4,7 +4,7 @@
                     xmlns:fa="http://schemas.fontawesome.io/icons/"
                     xmlns:local="clr-namespace:Aegir.View.ScenegraphTree">
 
-    <DataTemplate x:Key="GizmoTemplate" DataType="{x:Type model:EntityViewModel}">
+    <DataTemplate x:Key="GizmoTemplate" DataType="{x:Type model:GizmoNodeViewModel}">
         <DataTemplate.Resources>
             <SolidColorBrush x:Key="BorderBrush">
                 <SolidColorBrush.Color>
@@ -29,7 +29,7 @@
                     <Rectangle SnapsToDevicePixels="True"
                                            Width="10"
                                            Height="9"
-                                           Fill="Orange"></Rectangle>
+                                           Fill="Green"></Rectangle>
                 </Border>
                 <fa:ImageAwesome Foreground="{StaticResource BorderBrush}"
                                              SnapsToDevicePixels="True"
