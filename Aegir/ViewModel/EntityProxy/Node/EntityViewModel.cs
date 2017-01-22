@@ -20,25 +20,17 @@ using ViewPropertyGrid.PropertyGrid;
 
 namespace Aegir.ViewModel.EntityProxy.Node
 {
-    public class EntityViewModel : ViewModelBase,
+    public class EntityViewModel : SceneNodeViewModelBase,
                                 ITransformableVisual,
                                 IPropertyInfoProvider,
                                 IDragSource,
                                 IDropTarget,
-                                INameable,
-                                ISceneNode
+                                INameable
     {
         protected Entity entityData;
 
         private Transform transform;
-        private List<ISceneNode> children;
         private List<BehaviourViewModel> componentProxies;
-
-        public List<ISceneNode> Children
-        {
-            get { return children; }
-            set { children = value; }
-        }
 
         public Entity EntitySource
         {
@@ -60,20 +52,6 @@ namespace Aegir.ViewModel.EntityProxy.Node
             }
         }
 
-        [DisplayName("Is Enabled")]
-        [Category("General")]
-        public bool IsEnabled
-        {
-            get { return entityData.IsEnabled; }
-            set
-            {
-                if (entityData.IsEnabled != value)
-                {
-                    entityData.IsEnabled = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
 
         public RelayCommand RemoveEntityCommand { get; set; }
         public RelayCommand<string> AddEntityCommand { get; set; }
@@ -111,7 +89,6 @@ namespace Aegir.ViewModel.EntityProxy.Node
         {
             this.AddRemoveHandler = addRemoveHandler;
             this.entityData = entityData;
-            this.children = new List<ISceneNode>();
             this.componentProxies = new List<BehaviourViewModel>();
             //All entities should have a transform behaviour
             transform = entityData.GetComponent<Transform>();

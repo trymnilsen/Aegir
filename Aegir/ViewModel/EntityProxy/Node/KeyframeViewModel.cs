@@ -1,47 +1,30 @@
 ﻿using Aegir.Mvvm;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Aegir.ViewModel.EntityProxy.Node
 {
-    public class KeyframeViewModel : ViewModelBase, ISceneNode
+    public class KeyframeViewModel : SceneNodeViewModelBase
     {
-        private int v { get; set; }
+        private int Time { get; set; }
 
-        public KeyframeViewModel(int v)
+        public KeyframeViewModel(int time)
         {
-            this.v = v;
+            this.Time = time;
         }
 
-        public List<ISceneNode> Children
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-        }
-
+       
+        [DisplayName("Name")]
+        [Category("General")]
         public string Name
         {
             get
             {
-                throw new NotImplementedException();
-            }
-        }
-
-        public bool IsEnabled
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-
-            set
-            {
-                throw new NotImplementedException();
+                return $"Key {Time}";
             }
         }
     }

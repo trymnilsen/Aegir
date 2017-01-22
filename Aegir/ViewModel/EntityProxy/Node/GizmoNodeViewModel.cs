@@ -1,35 +1,21 @@
 ﻿using Aegir.Mvvm;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Aegir.ViewModel.EntityProxy.Node
 {
-    public class GizmoNodeViewModel : ViewModelBase, ISceneNode
+    public class GizmoNodeViewModel : SceneNodeViewModelBase
     {
-        public List<ISceneNode> Children
+        public GizmoNodeViewModel(string name)
         {
-            get
-            {
-                throw new NotImplementedException();
-            }
+
         }
-
-        public bool IsEnabled
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-
-            set
-            {
-                throw new NotImplementedException();
-            }
-        }
-
+        [DisplayName("Name")]
+        [Category("General")]
         public string Name
         {
             get

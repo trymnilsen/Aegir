@@ -176,6 +176,7 @@
     <Compile Include="ViewModel\EntityProxy\Node\StaticNodeViewModel.cs" />
     <Compile Include="ViewModel\EntityProxy\Node\TimelineNodeViewModel.cs" />
     <Compile Include="ViewModel\EntityProxy\Node\WorldNodeViewModel.cs" />
+    <Compile Include="ViewModel\EntityProxy\SceneNodeViewModelBase.cs" />
     <Compile Include="View\CustomControl\HeaderedSeparator.cs" />
     <Compile Include="Converter\ColorToBrushConverter.cs" />
     <Compile Include="Converter\DivideByConverter.cs" />

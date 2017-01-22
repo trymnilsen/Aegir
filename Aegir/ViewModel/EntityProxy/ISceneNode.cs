@@ -11,6 +11,5 @@ namespace Aegir.ViewModel.EntityProxy
     {
         List<ISceneNode> Children { get; }
         bool IsEnabled { get; set; }
-        string Name { get; }
     }
 }
