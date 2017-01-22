@@ -49,6 +49,8 @@ namespace Aegir.ViewModel.EntityProxy
         /// </summary>
         public ObservableCollection<ISceneNode> Items { get; set; }
         
+        public WorldNodeViewModel WorldNode { get; private set; }
+
         public EntityViewModel SelectedItem
         {
             get { return selectedItem; }
@@ -226,6 +228,8 @@ namespace Aegir.ViewModel.EntityProxy
             //Workaround for now
             WorldNodeViewModel worldNode = new WorldNodeViewModel();
             worldNode.Children.AddRange(worldNodes);
+
+            WorldNode = worldNode;
 
             TimelineNodeViewModel timeline = new TimelineNodeViewModel();
             timeline.Children.Add(new KeyframeViewModel(37));

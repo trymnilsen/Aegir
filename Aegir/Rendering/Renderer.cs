@@ -63,7 +63,12 @@ namespace Aegir.Rendering
 
         public void RebuildScene()
         {
-            foreach(ISceneNode node in scene.Items)
+            if(scene.WorldNode == null)
+            {
+                DebugUtil.LogWithLocation("WorldNode was null, cannot render");
+                return;
+            }
+            foreach(ISceneNode node in scene.WorldNode.Children)
             {
                 EntityViewModel entityVM = node as EntityViewModel;
                 if(entityVM != null)
