@@ -1,4 +1,5 @@
 ﻿using Aegir.Mvvm;
+using Aegir.View.Scenegraph;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -8,7 +9,8 @@ using System.Threading.Tasks;
 
 namespace Aegir.ViewModel.EntityProxy
 {
-    public abstract class SceneNodeViewModelBase : ViewModelBase, ISceneNode
+    public abstract class SceneNodeViewModelBase : ViewModelBase, ISceneNode, 
+                                                                  ITreeViewItemDataContext
     {
         private List<ISceneNode> children = new List<ISceneNode>();
         private bool isEnabled = true;
@@ -40,5 +42,8 @@ namespace Aegir.ViewModel.EntityProxy
             }
         }
 
+        public bool IsExpanded { get; set; }
+
+        public bool IsSelected { get; set; }
     }
 }

@@ -36,7 +36,6 @@
     <Grid DataContext="{Binding ScenegraphVM,
                                       Source={StaticResource VMLocator}}">
         <pt:TreeListBox HierarchySource="{Binding Items}"
-
                         SelectedItem="{Binding SelectedItem}"
                         ItemTemplateSelector="{StaticResource NodeTemplateSelector}">
         </pt:TreeListBox>

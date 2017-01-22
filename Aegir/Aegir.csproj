@@ -307,6 +307,7 @@
       <DependentUpon>Viewport.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Rendering\ViewportFocus.cs" />
+    <Compile Include="View\Scenegraph\ITreeViewItemDataContext.cs" />
     <Compile Include="View\Scenegraph\ScenegraphTree.xaml.cs">
       <DependentUpon>ScenegraphTree.xaml</DependentUpon>
     </Compile>
