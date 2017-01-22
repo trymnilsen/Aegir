@@ -8,43 +8,26 @@ using System.Threading.Tasks;
 
 namespace Aegir.ViewModel.EntityProxy.Node
 {
-    public class StaticNodeViewModel : ViewModelBase, ISceneNode
+    public class StaticNodeViewModel : SceneNodeViewModelBase
     {
-        private string v { get; set; }
+        private string name;
 
-        public StaticNodeViewModel(string v)
+        public StaticNodeViewModel(string name)
         {
-            this.v = v;
+            this.name = name;
         }
 
-        public List<ISceneNode> Children
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-        }
+       
         [DisplayName("Name")]
         [Category("General")]
         public string Name
         {
             get
             {
-                throw new NotImplementedException();
+                return name;
             }
         }
 
-        public bool IsEnabled
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-
-            set
-            {
-                throw new NotImplementedException();
-            }
-        }
+      
     }
 }

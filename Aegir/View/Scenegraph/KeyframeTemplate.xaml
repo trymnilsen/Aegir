@@ -19,17 +19,6 @@
                                              SnapsToDevicePixels="True"
                                              Margin="0 0 5 0" Icon="HourglassEnd"
                                              Width="12" Height="12" />
-                <Border Background="White"
-                                    SnapsToDevicePixels="True"
-                                    BorderThickness="1"
-                                    BorderBrush="{StaticResource BorderBrush}"
-                                    Padding="1" Width="14"
-                                    Height="13" Margin="0 -1 5 0">
-                    <Rectangle SnapsToDevicePixels="True"
-                                           Width="10"
-                                           Height="9"
-                                           Fill="Red"></Rectangle>
-                </Border>
                 <fa:ImageAwesome Foreground="{StaticResource BorderBrush}"
                                              SnapsToDevicePixels="True"
                                              Margin="0 0 5 0" Icon="Tag"

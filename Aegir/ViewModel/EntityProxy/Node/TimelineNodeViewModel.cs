@@ -7,34 +7,13 @@ using System.Threading.Tasks;
 
 namespace Aegir.ViewModel.EntityProxy.Node
 {
-    public class TimelineNodeViewModel : ViewModelBase, ISceneNode
+    public class TimelineNodeViewModel : SceneNodeViewModelBase
     {
-        public List<ISceneNode> Children
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-        }
-
-        public bool IsEnabled
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-
-            set
-            {
-                throw new NotImplementedException();
-            }
-        }
-
         public string Name
         {
             get
             {
-                throw new NotImplementedException();
+                return "Timeline";
             }
         }
     }

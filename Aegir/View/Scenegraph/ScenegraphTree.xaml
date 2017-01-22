@@ -22,7 +22,12 @@
                 <ResourceDictionary>
                     <local:ScenegraphTreeTemplateSelector
                         x:Key="NodeTemplateSelector"
-                        
+                        WorldTemplate="{StaticResource WorldTemplate}"
+                        EntityTemplate="{StaticResource EntityTemplate}"
+                        StaticTemplate="{StaticResource StaticTemplate}"
+                        TimelineTemplate="{StaticResource TimelineTemplate}"
+                        GizmoTemplate="{StaticResource GizmoTemplate}"
+                        KeyframeTemplate="{StaticResource KeyframeTemplate}"
                         />
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
@@ -31,9 +36,9 @@
     <Grid DataContext="{Binding ScenegraphVM,
                                       Source={StaticResource VMLocator}}">
         <pt:TreeListBox HierarchySource="{Binding Items}"
-                        pt:TreeListBoxDragDropHelper.IsDragSource="True"
-                        pt:TreeListBoxDragDropHelper.IsDropTarget="True"
-                        SelectedItem="{Binding SelectedItem}">
+
+                        SelectedItem="{Binding SelectedItem}"
+                        ItemTemplateSelector="{StaticResource NodeTemplateSelector}">
         </pt:TreeListBox>
         <!--Treeview-->
         <!--<TreeView x:Name="ObjectTree"

@@ -3,7 +3,7 @@
                     xmlns:model="clr-namespace:Aegir.ViewModel.EntityProxy.Node"
                     xmlns:fa="http://schemas.fontawesome.io/icons/"
                     xmlns:local="clr-namespace:Aegir.View.ScenegraphTree">
-    <DataTemplate x:Key="KeyframeTemplate" DataType="{x:Type model:WorldNodeViewModel}">
+    <DataTemplate x:Key="WorldTemplate" DataType="{x:Type model:WorldNodeViewModel}">
         <DataTemplate.Resources>
             <SolidColorBrush x:Key="BorderBrush">
                 <SolidColorBrush.Color>

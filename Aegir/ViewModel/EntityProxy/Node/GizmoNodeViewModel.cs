@@ -10,9 +10,10 @@ namespace Aegir.ViewModel.EntityProxy.Node
 {
     public class GizmoNodeViewModel : SceneNodeViewModelBase
     {
+        private string name;
         public GizmoNodeViewModel(string name)
         {
-
+            this.name = name;
         }
         [DisplayName("Name")]
         [Category("General")]
@@ -20,7 +21,7 @@ namespace Aegir.ViewModel.EntityProxy.Node
         {
             get
             {
-                throw new NotImplementedException();
+                return name;
             }
         }
     }

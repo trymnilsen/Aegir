@@ -1,6 +1,7 @@
 ﻿using Aegir.Mvvm;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,8 +10,9 @@ namespace Aegir.ViewModel.EntityProxy
 {
     public abstract class SceneNodeViewModelBase : ViewModelBase, ISceneNode
     {
-        private List<ISceneNode> children;
-        private bool isEnabled;
+        private List<ISceneNode> children = new List<ISceneNode>();
+        private bool isEnabled = true;
+        [Browsable(false)]
         public List<ISceneNode> Children
         {
             get
@@ -19,6 +21,8 @@ namespace Aegir.ViewModel.EntityProxy
             }
         }
 
+        [DisplayName("Is Enabled")]
+        [Category("General")]
         public bool IsEnabled
         {
             get

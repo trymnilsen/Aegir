@@ -63,9 +63,13 @@ namespace Aegir.Rendering
 
         public void RebuildScene()
         {
-            foreach(EntityViewModel entity in scene.Items)
+            foreach(ISceneNode node in scene.Items)
             {
-                RenderEntity(entity);
+                EntityViewModel entityVM = node as EntityViewModel;
+                if(entityVM != null)
+                {
+                    RenderEntity(entityVM);
+                }
             }
         }
 
