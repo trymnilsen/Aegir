@@ -269,7 +269,14 @@ namespace AegirLib.Keyframe
                 }
             }
         }
+        public IEnumerable<Keyframe> GetKeyframes(int time)
+        {
+            return null;
+        }
+        public void MoveKeyframe(Keyframe key, int newTime)
+        {
 
+        }
         public bool CanCaptureEntity(Entity activeEntity)
         {
             return true;

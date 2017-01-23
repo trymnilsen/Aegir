@@ -110,24 +110,6 @@
             </Entity>
           </Children>
         </Entity>
-
-      <Entity Name="Water"  GUID="B9C2A452-72A2-4BEE-BBA9-490B32671CE3">
-        <Components>
-          <Transform>
-            <Vector3>
-              <X>0</X>
-              <Y>0</Y>
-              <Z>0</Z>
-            </Vector3>
-            <Quaternion>
-              <X>0</X>
-              <Y>0</Y>
-              <Z>0</Z>
-              <W>0</W>
-            </Quaternion>
-          </Transform>
-        </Components>
-      </Entity>
     </RootEntities>
   </ScenePersister>
 </root>
