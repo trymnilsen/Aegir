@@ -13,7 +13,7 @@ namespace AegirLib.Keyframe
     /// A keyframe for a property with a value type (e.g int, double, vector..)
     /// Anything that can be interpolated between would be a value keyframe
     /// </summary>
-    public class ValueKeyframe : Keyframe
+    public class ValueKeyframe : KeyframePropertyData
     {
         /// <summary>
         /// The value our keyframe represents

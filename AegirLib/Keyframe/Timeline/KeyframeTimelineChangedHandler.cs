@@ -4,10 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AegirLib.Replay
+namespace AegirLib.Keyframe.Timeline
 {
-    public class ReplayInput
-    {
-        private List<ReplayFile> Files;
-    }
+    public delegate void KeyframeTimelineChangedHandler(Keyframe key);
 }

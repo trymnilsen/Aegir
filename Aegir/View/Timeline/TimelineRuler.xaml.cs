@@ -69,7 +69,13 @@ namespace Aegir.View.Timeline
         /// </summary>
         private Point origMouseDownPoint;
 
+        /// <summary>
+        /// The timecode for the start of the timerange at a pan operation
+        /// </summary>
         private int prePanTimerangeStart;
+		/// <summary>
+		/// The timecode for the end of a timerange during a pan dragging operation
+		/// </summary>
         private int prePanTimerangeEnd;
 
         /// <summary>
@@ -438,7 +444,10 @@ namespace Aegir.View.Timeline
             suppressTimeRangeUpdates = false;
             TimeRangeChanged();
         }
-
+        /// <summary>
+        /// Resize the timeline with the given amout of pixels
+        /// </summary>
+        /// <param name="dragDelta">The delta amout to add to the current scailing, in pixels</param>
         private void ResizeTimeLine(double dragDelta)
         {
             var dragScaled = (dragDelta / StepSize) * -1;
@@ -582,7 +591,13 @@ namespace Aegir.View.Timeline
                             hasKeyConflict = true;
                         }
                     }
-                    if (hasKeyConflict)
+
+                    //Check if we can just move the keys or if we need to prompt the user
+                    if (!hasKeyConflict)
+                    {
+
+                    }
+                    else
                     {
                         MessageBoxResult confirmBox = MessageBox.Show("One or more of the dragged keyframes will overwrite an existing keyframe", "Overwrite keyframes", MessageBoxButton.OKCancel);
 

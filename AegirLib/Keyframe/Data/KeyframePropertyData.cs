@@ -12,7 +12,7 @@ namespace AegirLib.Keyframe
     /// Baseclass for all keyframes, exposes the property keyframed as well the
     /// object instance containing the given property to be keyframed
     /// </summary>
-    public abstract class Keyframe : TimelineItem
+    public abstract class KeyframePropertyData : TimelineItem
     {
         /// <summary>
         /// The property we are keyframing
@@ -20,11 +20,11 @@ namespace AegirLib.Keyframe
         public KeyframePropertyInfo Property { get; private set; }
 
         /// <summary>
-        /// The value our keyframe represents
+        /// The target instance for our property
         /// </summary>
         public object Target { get; private set; }
 
-        protected Keyframe(KeyframePropertyInfo property, object target)
+        protected KeyframePropertyData(KeyframePropertyInfo property, object target)
         {
             Property = property;
             Target = target;

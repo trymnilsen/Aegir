@@ -11,7 +11,7 @@ namespace AegirLib.Keyframe
     /// A keyframe for a property of the action type.
     /// I.E something which executes at a given time
     /// </summary>
-    public class EventKeyframe : Keyframe
+    public class EventKeyframe : KeyframePropertyData
     {
         /// <summary>
         /// The value our keyframe represents

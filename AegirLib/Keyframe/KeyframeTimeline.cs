@@ -15,12 +15,12 @@ namespace AegirLib.Keyframe
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(KeyframeTimeline));
 
-        private Dictionary<KeyframePropertyInfo, SortedList<int, Keyframe>> propertiesMappedKeyframes;
+        private Dictionary<KeyframePropertyInfo, SortedList<int, KeyframePropertyData>> propertiesMappedKeyframes;
         private Dictionary<Entity, List<KeyframePropertyInfo>> EntityMappedPropertyInfo;
 
         public KeyframeTimeline()
         {
-            propertiesMappedKeyframes = new Dictionary<KeyframePropertyInfo, SortedList<int, Keyframe>>();
+            propertiesMappedKeyframes = new Dictionary<KeyframePropertyInfo, SortedList<int, KeyframePropertyData>>();
             EntityMappedPropertyInfo = new Dictionary<Entity, List<KeyframePropertyInfo>>();
         }
 
@@ -30,12 +30,12 @@ namespace AegirLib.Keyframe
         /// <param name="key">the keyframe itself</param>
         /// <param name="time">the time at which the keyframe is</param>
         /// <param name="entity">on which entity is this keyframe</param>
-        public void AddKeyframe(Keyframe key, int time, Entity entity)
+        public void AddKeyframe(KeyframePropertyData key, int time, Entity entity)
         {
             //Check if we have any entry for this property info
             if (!propertiesMappedKeyframes.ContainsKey(key.Property))
             {
-                propertiesMappedKeyframes.Add(key.Property, new SortedList<int, Keyframe>());
+                propertiesMappedKeyframes.Add(key.Property, new SortedList<int, KeyframePropertyData>());
             }
             propertiesMappedKeyframes[key.Property].Add(time, key);
 
@@ -56,7 +56,7 @@ namespace AegirLib.Keyframe
         /// <param name="time">time to fetch</param>
         /// <param name="property">property to fetch</param>
         /// <returns></returns>
-        public Keyframe GetAtTime(int time, KeyframePropertyInfo property)
+        public KeyframePropertyData GetAtTime(int time, KeyframePropertyInfo property)
         {
             if (!propertiesMappedKeyframes.ContainsKey(property))
             {
@@ -89,7 +89,15 @@ namespace AegirLib.Keyframe
 
             return true;
         }
-
+        public List<KeyframePropertyData> GetKeyframesAt(int time)
+        {
+            List<KeyframePropertyData> keys = new List<KeyframePropertyData>();
+            foreach(var entry in propertiesMappedKeyframes)
+            {
+                keys.Add(entry.Value[time]);
+            }
+            return keys;
+        }
         /// <summary>
         /// Returns all Properties currently keyframed
         /// </summary>
@@ -116,7 +124,7 @@ namespace AegirLib.Keyframe
             }
         }
 
-        public void RemoveKey(Keyframe key)
+        public void RemoveKey(KeyframePropertyData key)
         {
         }
 
@@ -126,7 +134,7 @@ namespace AegirLib.Keyframe
         /// <param name="start">start of interval</param>
         /// <param name="end">end of interval</param>
         /// <returns></returns>
-        public IReadOnlyDictionary<KeyframePropertyInfo, IReadOnlyDictionary<int, Keyframe>> GetKeyframeBetween(int start, int end)
+        public IReadOnlyDictionary<KeyframePropertyInfo, IReadOnlyDictionary<int, KeyframePropertyData>> GetKeyframeBetween(int start, int end)
         {
             return null;
         }
@@ -137,7 +145,7 @@ namespace AegirLib.Keyframe
         /// <param name="entity">entity the keyframe belongs to</param>
         /// <param name="time">at what time the </param>
         /// <param name="key"></param>
-        private void RaiseKeyframeAdded(Entity entity, int time, Keyframe key)
+        private void RaiseKeyframeAdded(Entity entity, int time, KeyframePropertyData key)
         {
             KeyframeAddedHandler evt = KeyframeAdded;
             if (evt != null)
@@ -219,7 +227,7 @@ namespace AegirLib.Keyframe
             return lo;
         }
 
-        public delegate void KeyframeAddedHandler(Entity entity, int time, Keyframe key);
+        public delegate void KeyframeAddedHandler(Entity entity, int time, KeyframePropertyData key);
 
         /// <summary>
         /// Raised when a keyframe is added to the timeline

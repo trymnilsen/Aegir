@@ -139,7 +139,7 @@ namespace Aegir.ViewModel.Timeline
             set { playPauseCommand = value; }
         }
 
-        internal void RemoveKey(Keyframe key)
+        internal void RemoveKey(KeyframePropertyData key)
         {
             Engine.Keyframes.RemoveKey(key);
         }
@@ -270,7 +270,7 @@ namespace Aegir.ViewModel.Timeline
             log.DebugFormat("SetKeyframe at frame {0} on {1}",
                             Time, activeEntity?.Name);
             Stopwatch sw = Stopwatch.StartNew();
-            Engine.CaptureAndAddToTimeline(activeEntity, Time);
+            Engine.Capture(activeEntity, Time);
             sw.Stop();
             log.DebugFormat("SetKeyframe finished, used {0} ms",
                             sw.Elapsed.TotalMilliseconds);
@@ -351,7 +351,7 @@ namespace Aegir.ViewModel.Timeline
         /// </summary>
         /// <param name="key"></param>
 
-        private void Timeline_KeyframeAdded(Entity entity, int time, Keyframe key)
+        private void Timeline_KeyframeAdded(Entity entity, int time, KeyframePropertyData key)
         {
             KeyframeViewModel keyVM = new KeyframeViewModel(key, time, this);
             Keyframes.Add(keyVM);

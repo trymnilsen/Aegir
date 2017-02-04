@@ -142,7 +142,7 @@ namespace AegirLib.Keyframe
         {
         }
 
-        public void RemoveKey(Keyframe keyframe, Keyframe key)
+        public void RemoveKey(KeyframePropertyData keyframe, KeyframePropertyData key)
         {
             throw new NotImplementedException();
         }
@@ -223,7 +223,7 @@ namespace AegirLib.Keyframe
         /// </summary>
         /// <param name="entity">entity to capture</param>
         /// <param name="time">Time to create keyframe at</param>
-        public void CaptureAndAddToTimeline(Entity entity, int time)
+        public void Capture(Entity entity, int time)
         {
             if (entity == null)
             {
@@ -263,20 +263,26 @@ namespace AegirLib.Keyframe
 
                     KeyframePropertyInfo keyframeProperty = keyframeInfoCache[propInfo];
 
-                    Keyframe key = new ValueKeyframe(keyframeProperty, behaviour, currentPropertyValue);
+                    KeyframePropertyData key = new ValueKeyframe(keyframeProperty, behaviour, currentPropertyValue);
                     //Add it to the timeline
                     Keyframes.AddKeyframe(key, time, entity);
                 }
             }
         }
-        public IEnumerable<Keyframe> GetKeyframes(int time)
+        public IEnumerable<KeyframePropertyData> GetKeyframes(int time)
         {
-            return null;
+            return Keyframes.GetKeyframesAt(time);
         }
-        public void MoveKeyframe(Keyframe key, int newTime)
+
+        public void MoveKeyframe(KeyframePropertyData key, int newTime)
         {
 
         }
+        public void MoveKeyframes(KeyframePropertyData[] keys, int newTime)
+        {
+
+        }
+
         public bool CanCaptureEntity(Entity activeEntity)
         {
             return true;

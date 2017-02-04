@@ -54,5 +54,40 @@ namespace AegirLibTest
             Assert.AreEqual(keyPos, closest.Item1);
             Assert.AreEqual(keyPos, closest.Item2);
         }
+        [TestMethod]
+        public void GetClosestWithMoreThanTwoReturnsCorrect()
+        {
+
+        }
+        [TestMethod]
+        public void AddKeyframe()
+        {
+
+        }
+        [TestMethod]
+        public void AddKeyframeAlreadyExisting()
+        {
+
+        }
+        [TestMethod]
+        public void RemoveKeyframe()
+        {
+
+        }
+        [TestMethod]
+        public void GetKeyAt()
+        {
+
+        }
+        [TestMethod]
+        public void EventsRaised()
+        {
+
+        }
+        [TestMethod]
+        public void MoveKeyframe()
+        {
+
+        }
     }
 }
