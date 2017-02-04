@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Aegir.ViewModel.EntityProxy
 {
-    public abstract class SceneNodeViewModelBase : ViewModelBase, ISceneNode, 
+    public abstract class SceneNodeViewModelBase : ViewModelBase, ISceneNode,
                                                                   ITreeViewItemDataContext
     {
         private List<ISceneNode> children = new List<ISceneNode>();

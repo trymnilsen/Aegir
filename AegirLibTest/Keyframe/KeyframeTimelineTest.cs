@@ -19,7 +19,7 @@ namespace AegirLibTest
         {
             int keyPos = 10;
             int getAtPos = keyPos + 5;
-            KeyframeTimeline testCollection = new KeyframeTimeline();
+            KeyframeTimelineDeprecated testCollection = new KeyframeTimelineDeprecated();
             KeyframePropertyInfo testProperty = new KeyframePropertyInfo(null, PropertyType.Executable);
             Entity testNode = new Entity();
             //Add some keys
@@ -42,7 +42,7 @@ namespace AegirLibTest
         {
             int keyPos = 10;
             int getAtPos = keyPos - 5;
-            KeyframeTimeline testCollection = new KeyframeTimeline();
+            KeyframeTimelineDeprecated testCollection = new KeyframeTimelineDeprecated();
             KeyframePropertyInfo testProperty = new KeyframePropertyInfo(null, PropertyType.Executable);
             Entity testNode = new Entity();
             //Add some keys

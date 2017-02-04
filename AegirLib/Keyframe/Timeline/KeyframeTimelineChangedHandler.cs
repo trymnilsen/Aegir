@@ -6,5 +6,5 @@ using System.Threading.Tasks;
 
 namespace AegirLib.Keyframe.Timeline
 {
-    public delegate void KeyframeTimelineChangedHandler(Keyframe key);
+    public delegate void KeyframeTimelineChangedHandler(KeyframeContainer key);
 }

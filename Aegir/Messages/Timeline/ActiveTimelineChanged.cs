@@ -5,16 +5,16 @@ namespace Aegir.Messages.Timeline
 {
     public class ActiveTimelineChanged
     {
-        public KeyframeTimeline Timeline { get; set; }
+        public KeyframeTimelineDeprecated Timeline { get; set; }
         public KeyframeEngine Engine { get; set; }
 
-        private ActiveTimelineChanged(KeyframeTimeline timeline, KeyframeEngine engine)
+        private ActiveTimelineChanged(KeyframeTimelineDeprecated timeline, KeyframeEngine engine)
         {
             this.Timeline = timeline;
             Engine = engine;
         }
 
-        public static void Send(KeyframeTimeline timeline, KeyframeEngine engine)
+        public static void Send(KeyframeTimelineDeprecated timeline, KeyframeEngine engine)
         {
             Messenger.Default.Send<ActiveTimelineChanged>(new ActiveTimelineChanged(timeline, engine));
         }

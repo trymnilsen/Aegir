@@ -11,6 +11,8 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using Aegir.Util;
+using AegirLib.Keyframe.Timeline;
 
 namespace AegirLib.Keyframe
 {
@@ -30,13 +32,13 @@ namespace AegirLib.Keyframe
 
         private TimelineScopeMode scopeMode;
 
+        private Dictionary<Entity, KeyframeTimeline> timelines;
         private Dictionary<Type, IValueInterpolator> interpolatorCache;
-        private Dictionary<PropertyInfo, KeyframePropertyInfo> keyframeInfoCache;
-
+        private Dictionary<BehaviourComponent, KeyframePropertyInfo[]> keyframeInfoCache;
         /// <summary>
         /// All our keyframes
         /// </summary>
-        public KeyframeTimeline Keyframes { get; set; }
+        public KeyframeTimelineDeprecated Keyframes { get; set; }
 
         /// <summary>
         /// Gets or set the current playback mode of keyframe engine
@@ -124,9 +126,9 @@ namespace AegirLib.Keyframe
         public KeyframeEngine()
         {
             PlaybackMode = PlaybackMode.PAUSED;
-            Keyframes = new KeyframeTimeline();
+            Keyframes = new KeyframeTimelineDeprecated();
 
-            keyframeInfoCache = new Dictionary<PropertyInfo, KeyframePropertyInfo>();
+            keyframeInfoCache = new Dictionary<BehaviourComponent, KeyframePropertyInfo[]>();
 
             interpolatorCache = new Dictionary<Type, IValueInterpolator>();
 
@@ -229,45 +231,56 @@ namespace AegirLib.Keyframe
             {
                 throw new ArgumentNullException(nameof(entity), "entity cannot be null");
             }
+            PerfStopwatch stopwatch = PerfStopwatch.StartNew("Capturing New keyframe");
             //Get all behaviours on entity
             IEnumerable<BehaviourComponent> behaviours = entity.Components;
-
+            List<KeyframePropertyData> propertyData = new List<KeyframePropertyData>();
             foreach (BehaviourComponent behaviour in behaviours)
             {
-                //Get all properties with the KeyframeAnimationProperty attribute
-                Type behaviourType = behaviour.GetType();
-                IEnumerable<PropertyInfo> properties = behaviourType.GetProperties().Where(
-                    prop => Attribute.IsDefined(prop, typeof(KeyframeProperty))
-                );
-
-                //if (properties.Count() == 0)
-                //{
-                //    log.DebugFormat("{0} has no properties with [KeyframeAnimationProperty] attribute",
-                //                    behaviour);
-                //}
-                foreach (PropertyInfo propInfo in properties)
+                //Check if the cache contains entry for this behaviour
+                if(!keyframeInfoCache.ContainsKey(behaviour))
                 {
-                    //We need the property to be both readable and writeable
-                    if (!propInfo.CanWrite || !propInfo.CanRead)
+                    //Get all properties with the KeyframeAnimationProperty attribute
+                    Type behaviourType = behaviour.GetType();
+                    IEnumerable<PropertyInfo> reflectedProperties = behaviourType.GetProperties().Where(
+                        prop => Attribute.IsDefined(prop, typeof(KeyframeProperty))
+                    );
+                    List<KeyframePropertyInfo> propInfos = new List<KeyframePropertyInfo>();
+                    foreach (PropertyInfo propInfo in reflectedProperties)
                     {
-                        log.WarnFormat("Property {0} needs both read and write access", propInfo.Name);
-                        continue;
+
+                        if (!propInfo.CanWrite || !propInfo.CanRead)
+                        {
+                            log.WarnFormat("Property {0} needs both read and write access", propInfo.Name);
+                            continue;
+                        }
+                        propInfos.Add(new KeyframePropertyInfo(propInfo, PropertyType.Interpolatable));
                     }
 
-                    object currentPropertyValue = propInfo.GetValue(behaviour);
-                    //Try and get this keyframe property info
-                    if (!keyframeInfoCache.ContainsKey(propInfo))
-                    {
-                        keyframeInfoCache.Add(propInfo, new KeyframePropertyInfo(propInfo, PropertyType.Interpolatable));
-                    }
-
-                    KeyframePropertyInfo keyframeProperty = keyframeInfoCache[propInfo];
-
-                    KeyframePropertyData key = new ValueKeyframe(keyframeProperty, behaviour, currentPropertyValue);
-                    //Add it to the timeline
-                    Keyframes.AddKeyframe(key, time, entity);
+                    keyframeInfoCache.Add(behaviour, propInfos.ToArray());
                 }
+
+                KeyframePropertyInfo[] properties = keyframeInfoCache[behaviour];
+                for (int i = 0, l = properties.Length; i < l; i++)
+                {
+
+                    object currentPropertyValue = properties[i].Property.GetValue(behaviour);
+                    KeyframePropertyData key = new ValueKeyframe(properties[i], behaviour, currentPropertyValue);
+                    //Add it to the timeline
+                    propertyData.Add(key);
+                }
+
             }
+            //Check if entity has a timeline or if we need to create one for it
+            if(!timelines.ContainsKey(entity))
+            {
+                timelines.Add(entity, new KeyframeTimeline());
+            }
+
+            KeyframeContainer newKey = new KeyframeContainer();
+            timelines[entity].AddKeyframe(newKey);
+
+            stopwatch.Stop();
         }
         public IEnumerable<KeyframePropertyData> GetKeyframes(int time)
         {

@@ -9,29 +9,29 @@ namespace AegirLib.Keyframe.Timeline
 {
     public class KeyframeTimeline : IKeyframeTimeline
     {
-        private SortedDictionary<int, Keyframe> keys;
-        public SortedDictionary<int, Keyframe> Keys => keys;
-        public Keyframe GetKeyAt(int time) => keys?[time];
+        private SortedDictionary<int, KeyframeContainer> keys;
+        public SortedDictionary<int, KeyframeContainer> Keys => keys;
+        public KeyframeContainer GetKeyAt(int time) => keys?[time];
 
         public KeyframeTimeline()
         {
-            keys = new SortedDictionary<int, Keyframe>();
+            keys = new SortedDictionary<int, KeyframeContainer>();
         }
-        public void AddKeyframe(Keyframe key, int time)
+        public void AddKeyframe(KeyframeContainer key)
         {
-            if(!keys.ContainsKey(time))
+            if(!keys.ContainsKey(key.Time))
             {
-                keys.Add(time, key);
+                keys.Add(key.Time, key);
             }
             else
             {
-                keys.Remove(time);
-                keys.Add(time,key);
+                keys.Remove(key.Time);
+                keys.Add(key.Time, key);
             }
-            KeyframeAdded?.Invoke(keys[time]);
+            KeyframeAdded?.Invoke(keys[key.Time]);
         }
 
-        public (Keyframe before, Keyframe after) GetClosestKeys(int time)
+        public KeySet GetClosestKeys(int time)
         {
             int firstKey, lastKey;
             //Find the lower bound index
@@ -64,7 +64,7 @@ namespace AegirLib.Keyframe.Timeline
                 lastKey = firstKey;
             }
 
-            return (keys[firstKey], keys[lastKey]);
+            return new KeySet(keys[firstKey], keys[lastKey]);
         }
 
 
@@ -85,9 +85,10 @@ namespace AegirLib.Keyframe.Timeline
                 {
                     keys.Remove(to);
                 }
-                Keyframe keyToMove = keys[from];
+                KeyframeContainer keyToMove = keys[from];
                 keys.Remove(from);
                 keys.Add(to, keyToMove);
+                KeyframeChanged?.Invoke(keyToMove);
             }
         }
 

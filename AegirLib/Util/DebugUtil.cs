@@ -28,25 +28,23 @@ namespace Aegir.Util
 
     public class PerfStopwatch
     {
-        private ILog log;
         private string description;
         private Stopwatch stopwatch;
 
-        private PerfStopwatch(string description, ILog log)
+        private PerfStopwatch(string description)
         {
-            this.log = log;
             this.description = description;
             stopwatch = Stopwatch.StartNew();
         }
         public void Stop()
         {
             stopwatch.Stop();
-            log.Debug($"[ {description} ] used {stopwatch.Elapsed.TotalMilliseconds} ms");
+            Debug.WriteLine($"[ {description} ] used {stopwatch.Elapsed.TotalMilliseconds} ms");
         }
 
-        public static PerfStopwatch StartNew(string description, ILog log)
+        public static PerfStopwatch StartNew(string description)
         {
-            return new PerfStopwatch(description, log);
+            return new PerfStopwatch(description);
         }
 
     }

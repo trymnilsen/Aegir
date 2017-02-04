@@ -30,7 +30,7 @@ namespace Aegir.ViewModel.Timeline
         /// <summary>
         /// Backingstore for the timeline
         /// </summary>
-        private KeyframeTimeline timeline;
+        private KeyframeTimelineDeprecated timeline;
 
         /// <summary>
         /// the currently used active entity
@@ -50,7 +50,7 @@ namespace Aegir.ViewModel.Timeline
         /// <summary>
         /// The timeline we currently are using and reading/adding keyframes to
         /// </summary>
-        public KeyframeTimeline Timeline
+        public KeyframeTimelineDeprecated Timeline
         {
             get { return timeline; }
             set
@@ -336,7 +336,7 @@ namespace Aegir.ViewModel.Timeline
         /// Sets the current timeline instance and binds/unbinds events to it
         /// </summary>
         /// <param name="newTimeline"></param>
-        private void SetTimeLine(KeyframeTimeline newTimeline)
+        private void SetTimeLine(KeyframeTimelineDeprecated newTimeline)
         {
             if (timeline != null)
             {

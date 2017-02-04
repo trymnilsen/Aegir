@@ -9,10 +9,10 @@ namespace AegirLib.Keyframe.Timeline
     public interface IKeyframeTimeline
     {
         void MoveKeyframe(int from, int to);
-        void AddKeyframe(Keyframe key, int time);
-        SortedDictionary<int, Keyframe> Keys { get; }
-        Keyframe GetKeyAt(int time);
-        (Keyframe before, Keyframe after) GetClosestKeys(int time);
+        void AddKeyframe(KeyframeContainer key, int time);
+        SortedDictionary<int, KeyframeContainer> Keys { get; }
+        KeyframeContainer GetKeyAt(int time);
+        KeySet GetClosestKeys(int time);
         void RemoveKey(int time);
 
         event KeyframeTimelineChangedHandler KeyframeAdded;

@@ -11,14 +11,14 @@ using System.Threading.Tasks;
 
 namespace AegirLib.Keyframe
 {
-    public class KeyframeTimeline
+    public class KeyframeTimelineDeprecated
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(KeyframeTimeline));
+        private static readonly ILog log = LogManager.GetLogger(typeof(KeyframeTimelineDeprecated));
 
         private Dictionary<KeyframePropertyInfo, SortedList<int, KeyframePropertyData>> propertiesMappedKeyframes;
         private Dictionary<Entity, List<KeyframePropertyInfo>> EntityMappedPropertyInfo;
 
-        public KeyframeTimeline()
+        public KeyframeTimelineDeprecated()
         {
             propertiesMappedKeyframes = new Dictionary<KeyframePropertyInfo, SortedList<int, KeyframePropertyData>>();
             EntityMappedPropertyInfo = new Dictionary<Entity, List<KeyframePropertyInfo>>();
