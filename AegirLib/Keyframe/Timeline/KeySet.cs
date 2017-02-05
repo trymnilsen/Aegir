@@ -8,13 +8,13 @@ namespace AegirLib.Keyframe.Timeline
 {
     public struct KeySet
     {
-        public KeyframeContainer Before;
-        public KeyframeContainer After;
+        public int TimeBefore;
+        public int TimeAfter;
 
-        public KeySet(KeyframeContainer before, KeyframeContainer after)
+        public KeySet(int timeBefore, int timeAfter)
         {
-            Before = before;
-            After = after;
+            TimeBefore = timeBefore;
+            TimeAfter = timeAfter;
         }
     }
 }

@@ -156,29 +156,12 @@ namespace AegirLib.Keyframe
         /// <param name="time"></param>
         private void Seek(int time)
         {
-            IEnumerable<KeyframePropertyInfo> keyframeProperties = GetProperties();
-            //Check if we have any properties to animate
-            if (keyframeProperties == null)
-            {
-                log.Debug("No keyframeable properties found");
-                //Nope, none found.. Return
-                return;
-            }
 
-            foreach (KeyframePropertyInfo property in keyframeProperties)
+            foreach (KeyValuePair<Entity,KeyframeTimeline> timeline in timelines)
             {
-                switch (property.Type)
+                foreach(KeyframePropertyInfo property in timeline.Value.GetProperties())
                 {
-                    case PropertyType.Executable:
-                        SeekEventKeyframe(property, time);
-                        break;
-
-                    case PropertyType.Interpolatable:
-                        SeekValueKeyframe(property, time);
-                        break;
-
-                    default:
-                        break;
+                    SeekValueKeyframe(property, time);
                 }
             }
 
@@ -274,10 +257,15 @@ namespace AegirLib.Keyframe
             //Check if entity has a timeline or if we need to create one for it
             if(!timelines.ContainsKey(entity))
             {
-                timelines.Add(entity, new KeyframeTimeline());
+                var properties = entity.Components
+                    .Where(keyframeInfoCache.ContainsKey)
+                    .SelectMany(x => keyframeInfoCache[x])
+                    .ToArray();
+
+                timelines.Add(entity, new KeyframeTimeline(properties));
             }
 
-            KeyframeContainer newKey = new KeyframeContainer();
+            KeyContainer newKey = new KeyContainer();
             timelines[entity].AddKeyframe(newKey);
 
             stopwatch.Stop();
@@ -300,7 +288,6 @@ namespace AegirLib.Keyframe
         {
             return true;
         }
-
         private void SeekValueKeyframe(KeyframePropertyInfo property, int time)
         {
             //Get closest keys

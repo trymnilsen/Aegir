@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace AegirLib.Keyframe.Timeline
 {
-    public class KeyframeContainer
+    public class KeyContainer
     {
         public int Time { get; internal set; }
         public List<KeyframePropertyData> propertyData;
         public IEnumerable<KeyframePropertyData> PropertyData => propertyData;
 
-        public KeyframeContainer()
+        public KeyContainer()
         {
             propertyData = new List<KeyframePropertyData>();
 
