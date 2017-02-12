@@ -1,4 +1,5 @@
-﻿using AegirLib.Scene;
+﻿using Aegir.Util;
+using AegirLib.Scene;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -157,7 +158,7 @@ namespace Aegir.Map
             int tiley = (int)Math.Floor(tileCount * yNormalized);
             if (tilex < 0 || tiley < 0 || tilex > tileCount || tiley > tileCount) // Bounds check
             {
-                log4net.LogManager.GetLogger(typeof(TileService)).DebugFormat("Request was outside of bounds zoom: {0} x: {1} y:{2} maxtile:{3}", zoom, x, y, tileCount);
+                DebugUtil.LogWithLocation(String.Format("Request was outside of bounds zoom: {0} x: {1} y:{2} maxtile:{3}", zoom, x, y, tileCount));
                 return null;
             }
 

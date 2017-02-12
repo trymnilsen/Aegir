@@ -1,7 +1,7 @@
 ﻿using AegirLib.Keyframe;
 using AegirLib.Messages;
 using AegirLib.Scene;
-using log4net;
+using AegirLib.Util;
 using System;
 using System.Collections.Generic;
 using System.Threading;
@@ -15,7 +15,6 @@ namespace AegirLib.Simulation
     public class SimulationEngine : IDisposable
     {
         private object lockObject = new object();
-        private static readonly ILog log = LogManager.GetLogger(typeof(SimulationEngine));
 
         /// <summary>
         /// Target time for each simulation step, anything below this is ok
@@ -130,7 +129,7 @@ namespace AegirLib.Simulation
             isStarted = true;
             this.simTime.AppStart();
             int updatesPerMsTarget = 1000 / updatesPerSecond;
-            log.DebugFormat("Starting Simulation with updates per second/interval ms: {0} / {1}", updatesPerSecond, updatesPerMsTarget);
+            DebugUtil.LogWithLocation($"Starting Simulation with updates per second/interval ms: {updatesPerSecond} / {updatesPerMsTarget}");
             simulateStepTimer.Change(0, updatesPerMsTarget);
         }
 

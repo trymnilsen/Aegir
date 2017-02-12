@@ -14,6 +14,8 @@ namespace AegirLib.Keyframe.Timeline
         public SortedDictionary<int, KeyContainer> Keys => keys;
         public IEnumerable<KeyframePropertyInfo> KeyInfo => propertiesCache.Keys;
 
+        public bool IsEmpty => keys.Count == 0;
+
         public KeyContainer GetKeyAt(int time) => keys?[time];
 
         public KeyframeTimeline(KeyframePropertyInfo[] properties)
@@ -140,6 +142,10 @@ namespace AegirLib.Keyframe.Timeline
             return lo;
         }
 
+        public ValueKeyframe GetPropertyKey(KeyframePropertyInfo keys, int time)
+        {
+            throw new NotImplementedException();
+        }
 
         public event KeyframeTimelineChangedHandler KeyframeAdded;
         public event KeyframeTimelineChangedHandler KeyframeRemoved;

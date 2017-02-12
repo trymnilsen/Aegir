@@ -1,14 +1,12 @@
-﻿using log4net;
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.IO;
 using System.Runtime.CompilerServices;
 
-namespace Aegir.Util
+namespace AegirLib.Util
 {
     public class DebugUtil
     {
-        private static readonly ILog defaultLog = LogManager.GetLogger(typeof(DebugUtil));
 
         public static void LogWithLocation(string logData,
             bool shortenCallerFilepath = true,

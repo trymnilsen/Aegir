@@ -6,7 +6,6 @@ using Aegir.ViewModel.Timeline;
 using Aegir.Windows;
 using AegirLib;
 using GalaSoft.MvvmLight.Ioc;
-using log4net;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Navigation;
@@ -20,14 +19,13 @@ namespace Aegir
     /// </summary>
     public partial class App : Application
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(App));
         private ApplicationContext application;
         public static Stopwatch stopwatch;
 
         public App()
         {
             stopwatch = Stopwatch.StartNew();
-            log.Debug("Starting Application");
+            Aegir.Util.DebugUtil.LogWithLocation("Starting Application");
             application = new ApplicationContext();
             SetupViewModels();
             //SimpleIoc.Default.Register<TinyMessengerHub>(() => { return application.MessageHub; });
@@ -40,7 +38,7 @@ namespace Aegir
 
         private void Application_DispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
-            log.FatalFormat("Fatal Error Occured in Application: \n{0}", e.Exception);
+            Aegir.Util.DebugUtil.LogWithLocation($"Expection: Sender {sender?.ToString()} ex: {e.ToString()}");
         }
 
         private void SetupViewModels()

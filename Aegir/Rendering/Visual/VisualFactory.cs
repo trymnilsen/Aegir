@@ -1,5 +1,4 @@
 ﻿using HelixToolkit.Wpf;
-using log4net;
 using System.Collections.Generic;
 using System.Windows.Media;
 using System.Windows.Media.Media3D;
@@ -8,7 +7,6 @@ namespace Aegir.Rendering.Visual
 {
     public class VisualFactory
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(VisualFactory));
         private Color dummyVisualColor;
         private Dictionary<RenderingMode, IVisualProvider> providers;
 
@@ -40,14 +38,13 @@ namespace Aegir.Rendering.Visual
                 Visual3D visual = providers[mode].GetVisual(item);
                 if (visual == null)
                 {
-                    log.WarnFormat("Provider for {0} was defined but returned null",
-                        mode);
+                    Aegir.Util.DebugUtil.LogWithLocation($"Provider for {mode} was defined but returned null");
                 }
                 return visual;
             }
             else
             {
-                log.WarnFormat("No provider for rendering mode {0}, no visual created", mode);
+                Aegir.Util.DebugUtil.LogWithLocation($"No provider for rendering mode {mode}, no visual created");
                 return null;
             }
         }

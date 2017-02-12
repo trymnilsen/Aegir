@@ -1,7 +1,6 @@
 ﻿using Aegir.Rendering;
 using Aegir.ViewModel.EntityProxy;
 using HelixToolkit.Wpf;
-using log4net;
 using System;
 using System.Linq;
 using System.Collections;
@@ -24,7 +23,6 @@ namespace Aegir.View.Rendering
     /// </summary>
     public partial class RenderView : UserControl
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(RenderView));
         private MenuList menuSource;
 
         public Dictionary<string, Model3D> assetCache;
@@ -56,7 +54,7 @@ namespace Aegir.View.Rendering
             set { SetValue(SceneEntityClickedCommandProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for MyProperty.  
+        // Using a DependencyProperty as the backing store for MyProperty.
         //This enables animation, styling, binding, etc...
         public static readonly DependencyProperty SceneEntityClickedCommandProperty =
             DependencyProperty.Register(nameof(SceneEntityClickedCommand),
@@ -71,7 +69,7 @@ namespace Aegir.View.Rendering
             set { SetValue(FocusProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for Focus.  
+        // Using a DependencyProperty as the backing store for Focus.
         //This enables animation, styling, binding, etc...
         public static readonly DependencyProperty FocusProperty =
             DependencyProperty.Register("Focus",
@@ -101,7 +99,7 @@ namespace Aegir.View.Rendering
             //As we have no way of turning on of Z-depth testing we work around
             //by adding the gizmos to the overlay.. A workaround for making the
             //work around work is needed when it comes to mouse events
-            //See "PerspectiveViewport_MouseDown" below 
+            //See "PerspectiveViewport_MouseDown" below
             //Perhaps this is another reason to switch to SharpDX (Having it all
             //in the same viewport and not doing Z-tests in shader)?
 
@@ -117,16 +115,16 @@ namespace Aegir.View.Rendering
             RenderHandler.Init();
         }
 
-        private void TopLeftView_IsKeyboardFocusWithinChanged(object sender, 
+        private void TopLeftView_IsKeyboardFocusWithinChanged(object sender,
             DependencyPropertyChangedEventArgs e)
         {
-            log.Debug("TopLeftViewGot Focus");
+            Aegir.Util.DebugUtil.LogWithLocation("TopLeftViewGot Focus");
         }
 
-        public void OnSceneGraphInstanceChanged(ScenegraphViewModel newScene, 
+        public void OnSceneGraphInstanceChanged(ScenegraphViewModel newScene,
             ScenegraphViewModel oldScene)
         {
-            log.Debug("Scene Instance changed");
+            Aegir.Util.DebugUtil.LogWithLocation("Scene Instance changed");
             //unlisten old
             if (oldScene != null)
             {
@@ -135,7 +133,7 @@ namespace Aegir.View.Rendering
             }
             if (newScene == null)
             {
-                throw new ArgumentNullException("newScene", 
+                throw new ArgumentNullException("newScene",
                     "Argument newScene cannot be set to a null reference");
             }
             newScene.ScenegraphChanged += OnSceneGraphChanged;
@@ -161,10 +159,10 @@ namespace Aegir.View.Rendering
         /// </summary>
         /// <param name="d"></param>
         /// <param name="e"></param>
-        private static void OnSceneGraphChanged(DependencyObject d, 
+        private static void OnSceneGraphChanged(DependencyObject d,
             DependencyPropertyChangedEventArgs e)
         {
-            log.Debug("ScenegraphDP Callback triggered");
+            Aegir.Util.DebugUtil.LogWithLocation("ScenegraphDP Callback triggered");
             RenderView view = d as RenderView;
             ScenegraphViewModel newScene = e.NewValue as ScenegraphViewModel;
             ScenegraphViewModel oldScene = e.OldValue as ScenegraphViewModel;
@@ -174,7 +172,7 @@ namespace Aegir.View.Rendering
             }
         }
 
-        private static void OnViewportFocusChanged(DependencyObject d, 
+        private static void OnViewportFocusChanged(DependencyObject d,
             DependencyPropertyChangedEventArgs e)
         {
         }
@@ -202,13 +200,12 @@ namespace Aegir.View.Rendering
         /// </summary>
         private void RebuildVisualTree()
         {
-            log.Debug("Rebuild Visual Tree - START ");
+            Aegir.Util.DebugUtil.LogWithLocation("Rebuild Visual Tree - START ");
             Stopwatch rebuildTime = new Stopwatch();
             rebuildTime.Start();
             RenderHandler.RebuildScene();
             rebuildTime.Stop();
-            log.DebugFormat("Rebuild Visual Tree - END USED {0}ms",
-                rebuildTime.Elapsed.TotalMilliseconds);
+            Aegir.Util.DebugUtil.LogWithLocation($"Rebuild Visual Tree - END USED {rebuildTime.Elapsed.TotalMilliseconds}ms");
         }
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)

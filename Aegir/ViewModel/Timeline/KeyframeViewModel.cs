@@ -37,10 +37,9 @@ namespace Aegir.ViewModel.Timeline
 
         public RelayCommand DeleteKeyframe { get; set; }
 
-        public KeyframeViewModel(KeyframePropertyData key, int time, TimelineViewModel timelineViewModel)
+        public KeyframeViewModel(int time)
         {
             Time = time;
-            this.key = key;
             DeleteKeyframe = new RelayCommand(DoDeleteKeyframe);
         }
 

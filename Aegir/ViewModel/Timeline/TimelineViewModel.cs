@@ -2,12 +2,13 @@
 using Aegir.Messages.Selection;
 using Aegir.Messages.Timeline;
 using Aegir.Mvvm;
+using Aegir.Util;
 using Aegir.View.Timeline;
 using AegirLib.Keyframe;
+using AegirLib.Keyframe.Timeline;
 using AegirLib.Messages;
 using AegirLib.Scene;
 using GalaSoft.MvvmLight.Command;
-using log4net;
 using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -20,7 +21,6 @@ namespace Aegir.ViewModel.Timeline
     /// </summary>
     public class TimelineViewModel : ViewModelBase
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(TimelineViewModel));
 
         /// <summary>
         /// Backing store for if the timeline is scoped
@@ -30,7 +30,7 @@ namespace Aegir.ViewModel.Timeline
         /// <summary>
         /// Backingstore for the timeline
         /// </summary>
-        private KeyframeTimelineDeprecated timeline;
+        private KeyframeTimeline timeline;
 
         /// <summary>
         /// the currently used active entity
@@ -50,7 +50,7 @@ namespace Aegir.ViewModel.Timeline
         /// <summary>
         /// The timeline we currently are using and reading/adding keyframes to
         /// </summary>
-        public KeyframeTimelineDeprecated Timeline
+        public KeyframeTimeline Timeline
         {
             get { return timeline; }
             set
@@ -108,7 +108,7 @@ namespace Aegir.ViewModel.Timeline
             {
                 if (Engine != null)
                 {
-                    log.DebugFormat("Setting keyframe engine playmode to {0}", value);
+                    Aegir.Util.DebugUtil.LogWithLocation($"Setting keyframe engine playmode to {value}");
                     Engine.PlaybackMode = value;
                     RaisePropertyChanged();
                 }
@@ -139,10 +139,6 @@ namespace Aegir.ViewModel.Timeline
             set { playPauseCommand = value; }
         }
 
-        internal void RemoveKey(KeyframePropertyData key)
-        {
-            Engine.Keyframes.RemoveKey(key);
-        }
 
         /// <summary>
         /// Where our timeline ends
@@ -216,7 +212,7 @@ namespace Aegir.ViewModel.Timeline
             //Set up engine
             Engine = engine;
             Engine.CurrentTimeChanged += Engine_CurrentTimeChanged;
-            SetTimeLine(Engine.Keyframes);
+            //SetTimeLine(Engine.Keyframes);
             //MessengerInstance.Register<SelectedNodeChanged>(this, ActiveNodeChanged);
             //MessengerInstance.Register<ActiveTimelineChanged>(this, TimelineChanged);
             Messenger.Subscribe<SelectedEntityChanged>(ActiveEntityChanged);
@@ -267,13 +263,11 @@ namespace Aegir.ViewModel.Timeline
         /// </summary>
         private void CaptureKeyframes()
         {
-            log.DebugFormat("SetKeyframe at frame {0} on {1}",
-                            Time, activeEntity?.Name);
+            Aegir.Util.DebugUtil.LogWithLocation($"SetKeyframe at frame {Time} on {activeEntity?.Name}");
             Stopwatch sw = Stopwatch.StartNew();
             Engine.Capture(activeEntity, Time);
             sw.Stop();
-            log.DebugFormat("SetKeyframe finished, used {0} ms",
-                            sw.Elapsed.TotalMilliseconds);
+            Aegir.Util.DebugUtil.LogWithLocation($"SetKeyframe finished, used {sw.Elapsed.TotalMilliseconds} ms");
         }
 
         private bool CanCaptureKeyframes()
@@ -287,8 +281,7 @@ namespace Aegir.ViewModel.Timeline
         /// <param name="message">A message containing the new timeline</param>
         private void TimelineChanged(ActiveTimelineChanged message)
         {
-            log.DebugFormat("ActiveTimelineChanged Received, Timeline changed to {0}",
-                            message?.Timeline.ToString());
+            Aegir.Util.DebugUtil.LogWithLocation("ActiveTimelineChanged Received, Timeline changed to {message?.Timeline.ToString()}");
             SetTimeLine(message.Timeline);
             Engine = message.Engine;
         }
@@ -306,8 +299,7 @@ namespace Aegir.ViewModel.Timeline
         private void ActiveEntityChanged(SelectedEntityChanged message)
         {
             activeEntity = message.Content.EntitySource;
-            log.DebugFormat("SelectedEntityChanged Received, ActiveEntity Changed to {0}",
-                            activeEntity?.Name);
+            Aegir.Util.DebugUtil.LogWithLocation($"SelectedEntityChanged Received, ActiveEntity Changed to {activeEntity?.Name}");
 
             AddKeyframeCommand.RaiseCanExecuteChanged();
             //ResetTimeline(TimelineStart,TimelineEnd);
@@ -336,14 +328,27 @@ namespace Aegir.ViewModel.Timeline
         /// Sets the current timeline instance and binds/unbinds events to it
         /// </summary>
         /// <param name="newTimeline"></param>
-        private void SetTimeLine(KeyframeTimelineDeprecated newTimeline)
+        private void SetTimeLine(KeyframeTimeline newTimeline)
         {
             if (timeline != null)
             {
                 timeline.KeyframeAdded -= Timeline_KeyframeAdded;
             }
+            if(!newTimeline.IsEmpty)
+            {
+                RebuildKeyframeViewModels();
+            }
             newTimeline.KeyframeAdded += Timeline_KeyframeAdded;
             timeline = newTimeline;
+        }
+
+        private void RebuildKeyframeViewModels()
+        {
+            foreach(var key in timeline.Keys)
+            {
+                KeyframeViewModel keyVM = new KeyframeViewModel(key.Key);
+                Keyframes.Add(keyVM);
+            }
         }
 
         /// <summary>
@@ -351,9 +356,9 @@ namespace Aegir.ViewModel.Timeline
         /// </summary>
         /// <param name="key"></param>
 
-        private void Timeline_KeyframeAdded(Entity entity, int time, KeyframePropertyData key)
+        private void Timeline_KeyframeAdded(KeyContainer key)
         {
-            KeyframeViewModel keyVM = new KeyframeViewModel(key, time, this);
+            KeyframeViewModel keyVM = new KeyframeViewModel(key.Time);
             Keyframes.Add(keyVM);
         }
     }

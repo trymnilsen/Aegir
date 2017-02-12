@@ -3,7 +3,6 @@ using Aegir.Rendering.Visual;
 using Aegir.View.Rendering.Tool;
 using AegirLib.Behaviour.World;
 using HelixToolkit.Wpf;
-using log4net;
 using System;
 using System.Collections.Generic;
 using System.Windows.Media.Media3D;
@@ -12,7 +11,6 @@ namespace Aegir.Rendering
 {
     public class RendererViewport
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(RendererViewport));
         private HelixViewport3D viewport;
         private List<RenderItemListener> listeners;
 
@@ -49,8 +47,7 @@ namespace Aegir.Rendering
                     {
                         viewPortName = viewport.Name;
                     }
-                    log.WarnFormat("No visual factory provided for viewport {0}",
-                        viewPortName);
+                    Aegir.Util.DebugUtil.LogWithLocation($"No visual factory provided for viewport {viewPortName}");
                 }
                 return visualFactory;
             }
@@ -128,8 +125,7 @@ namespace Aegir.Rendering
                 {
                     viewPortName = viewport.Name;
                 }
-                log.WarnFormat("No visual factory provided for viewport {0}",
-                    viewPortName);
+                Aegir.Util.DebugUtil.LogWithLocation($"No visual factory provided for viewport {viewPortName}");
             }
             else
             {

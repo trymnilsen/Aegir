@@ -5,7 +5,6 @@ using AegirLib.Behaviour.World;
 using AegirLib.Mesh;
 using AegirLib.Scene;
 using HelixToolkit.Wpf;
-using log4net;
 using System.Collections.Generic;
 using System.Windows.Media;
 using System.Windows.Media.Media3D;
@@ -21,7 +20,6 @@ namespace Aegir.Rendering
 {
     public class Renderer
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(Renderer));
         private ScenegraphViewModel scene;
         private List<IRenderViewport> viewports;
         private IGeometryFactory meshFactory;
@@ -144,7 +142,7 @@ namespace Aegir.Rendering
             switch (eventArgs.Action)
             {
                 case MeshChangeAction.New:
-                    LibTransform t = source.Parent.GetComponent<LibTransform>(); 
+                    LibTransform t = source.Parent.GetComponent<LibTransform>();
                     RenderMeshBehaviour(source,t);
                     break;
 

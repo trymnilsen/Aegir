@@ -3,7 +3,6 @@ using AegirLib.Persistence;
 using AegirLib.Project.Event;
 using AegirLib.Scene;
 using AegirLib.Vessel;
-using Newtonsoft.Json;
 using System;
 using System.IO;
 using System.Xml.Serialization;

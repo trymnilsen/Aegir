@@ -3,7 +3,6 @@ using AegirLib.Keyframe.Interpolator;
 using AegirLib.Scene;
 using AegirLib.Simulation;
 using AegirLib.MathType;
-using log4net;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -11,14 +10,13 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-using Aegir.Util;
+using AegirLib.Util;
 using AegirLib.Keyframe.Timeline;
 
 namespace AegirLib.Keyframe
 {
     public class KeyframeEngine
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(KeyframeEngine));
 
         /// <summary>
         /// Backing store for PlaybackMode
@@ -38,7 +36,7 @@ namespace AegirLib.Keyframe
         /// <summary>
         /// All our keyframes
         /// </summary>
-        public KeyframeTimelineDeprecated Keyframes { get; set; }
+        public KeyframeTimeline Keyframes { get; set; }
 
         /// <summary>
         /// Gets or set the current playback mode of keyframe engine
@@ -49,7 +47,7 @@ namespace AegirLib.Keyframe
             set
             {
                 playMode = value;
-                log.DebugFormat("Playback mode changed to {0}", value);
+                DebugUtil.LogWithLocation($"Playback mode changed to {value}");
             }
         }
 
@@ -84,7 +82,7 @@ namespace AegirLib.Keyframe
             set
             {
                 nextKeyTime = value;
-                log.DebugFormat("Next frametime set to {0}", value);
+                DebugUtil.LogWithLocation($"Next frametime set to {value}");
                 //Seek(currentTime);
             }
         }
@@ -126,8 +124,6 @@ namespace AegirLib.Keyframe
         public KeyframeEngine()
         {
             PlaybackMode = PlaybackMode.PAUSED;
-            Keyframes = new KeyframeTimelineDeprecated();
-
             keyframeInfoCache = new Dictionary<BehaviourComponent, KeyframePropertyInfo[]>();
 
             interpolatorCache = new Dictionary<Type, IValueInterpolator>();
@@ -161,7 +157,7 @@ namespace AegirLib.Keyframe
             {
                 foreach(KeyframePropertyInfo property in timeline.Value.GetProperties())
                 {
-                    SeekValueKeyframe(property, time);
+                    SeekValueKeyframe(timeline.Value, property, time);
                 }
             }
 
@@ -234,7 +230,7 @@ namespace AegirLib.Keyframe
 
                         if (!propInfo.CanWrite || !propInfo.CanRead)
                         {
-                            log.WarnFormat("Property {0} needs both read and write access", propInfo.Name);
+                            DebugUtil.LogWithLocation($"Property {propInfo.Name} needs both read and write access");
                             continue;
                         }
                         propInfos.Add(new KeyframePropertyInfo(propInfo, PropertyType.Interpolatable));
@@ -270,10 +266,6 @@ namespace AegirLib.Keyframe
 
             stopwatch.Stop();
         }
-        public IEnumerable<KeyframePropertyData> GetKeyframes(int time)
-        {
-            return Keyframes.GetKeyframesAt(time);
-        }
 
         public void MoveKeyframe(KeyframePropertyData key, int newTime)
         {
@@ -288,17 +280,17 @@ namespace AegirLib.Keyframe
         {
             return true;
         }
-        private void SeekValueKeyframe(KeyframePropertyInfo property, int time)
+        private void SeekValueKeyframe(KeyframeTimeline timeline, KeyframePropertyInfo property, int time)
         {
             //Get closest keys
-            Tuple<int, int> interval = Keyframes.GetClosestKeys(property, time);
+            KeySet interval = timeline.GetClosestKeys(property, time);
             //int t = 5;
             Type valueType = property.Property.PropertyType;
 
             //If both keys are the same, no need for interpolation
-            if (interval.Item1 == interval.Item2)
+            if (interval.TimeBefore == interval.TimeAfter)
             {
-                ValueKeyframe value = Keyframes.GetAtTime(interval.Item1, property) as ValueKeyframe;
+                ValueKeyframe value = timeline.GetPropertyKey(property, interval.TimeBefore) as ValueKeyframe;
 
                 if (value == null)
                 {
@@ -312,15 +304,15 @@ namespace AegirLib.Keyframe
             {
                 if (interpolatorCache.ContainsKey(valueType))
                 {
-                    ValueKeyframe from = Keyframes.GetAtTime(interval.Item1, property) as ValueKeyframe;
-                    ValueKeyframe to = Keyframes.GetAtTime(interval.Item2, property) as ValueKeyframe;
+                    ValueKeyframe from = timeline.GetPropertyKey(property, interval.TimeBefore) as ValueKeyframe;
+                    ValueKeyframe to = timeline.GetPropertyKey(property, interval.TimeAfter) as ValueKeyframe;
 
-                    double diff = interval.Item2 - interval.Item1;
-                    double diffFromLowest = time - interval.Item1;
+                    double diff = interval.TimeAfter - interval.TimeBefore;
+                    double diffFromLowest = time - interval.TimeBefore;
 
                     if (diff == 0)
                     {
-                        log.Error("Difference between keyframes was 0, cannot continue");
+                        DebugUtil.LogWithLocation($"Difference between keyframes was 0, cannot continue");
                         return;
                     }
 
@@ -332,46 +324,46 @@ namespace AegirLib.Keyframe
                 }
                 else
                 {
-                    log.WarnFormat("Interpolator cache did not contain a implementation for type {0}", valueType);
+                    DebugUtil.LogWithLocation($"Interpolator cache did not contain a implementation for type {valueType}");
                 }
             }
         }
 
-        private void SeekEventKeyframe(KeyframePropertyInfo property, int time)
-        {
-            //Check if the property has any keyframes at this exact time
-            EventKeyframe action = Keyframes.GetAtTime(time, property) as EventKeyframe;
-            if (action != null)
-            {
-                if (action.ActionToExecute != null)
-                {
-                    action.ActionToExecute();
-                }
-                else
-                {
-                    log.ErrorFormat("Event Keyframe at {0} was not triggered due to action being null", time);
-                }
-            }
-        }
+        //private void SeekEventKeyframe(KeyframePropertyInfo property, int time)
+        //{
+        //    //Check if the property has any keyframes at this exact time
+        //    EventKeyframe action = Keyframes.GetAtTime(time, property) as EventKeyframe;
+        //    if (action != null)
+        //    {
+        //        if (action.ActionToExecute != null)
+        //        {
+        //            action.ActionToExecute();
+        //        }
+        //        else
+        //        {
+        //            log.ErrorFormat("Event Keyframe at {0} was not triggered due to action being null", time);
+        //        }
+        //    }
+        //}
 
         /// <summary>
         ///
         /// </summary>
         /// <returns></returns>
-        private IEnumerable<KeyframePropertyInfo> GetProperties()
-        {
-            switch (TimelineScope)
-            {
-                case TimelineScopeMode.None:
-                    return Keyframes.GetAllProperties();
+        //private IEnumerable<KeyframePropertyInfo> GetProperties()
+        //{
+        //    switch (TimelineScope)
+        //    {
+        //        case TimelineScopeMode.None:
+        //            return Keyframes.GetAllProperties();
 
-                case TimelineScopeMode.Entity:
-                    return Keyframes.GetAllPropertiesForEntity(ScopeTarget);
+        //        case TimelineScopeMode.Entity:
+        //            return Keyframes.GetAllPropertiesForEntity(ScopeTarget);
 
-                default:
-                    return null;
-            }
-        }
+        //        default:
+        //            return null;
+        //    }
+        //}
 
         /// <summary>
         /// Triggers playmode changed event

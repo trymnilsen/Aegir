@@ -1,7 +1,6 @@
 ﻿using Aegir.ViewModel;
 using Aegir.ViewModel.Timeline;
 using GalaSoft.MvvmLight;
-using log4net;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -31,11 +30,6 @@ namespace Aegir.View.Timeline
         }
 
         private readonly double keyFrameTicksPadding = 10;
-
-        /// <summary>
-        /// Access to logging
-        /// </summary>
-        private static readonly ILog log = LogManager.GetLogger(typeof(TimelineRuler));
 
         /// <summary>
         /// Visual for the rectangle highlighting the current time
@@ -107,6 +101,10 @@ namespace Aegir.View.Timeline
             get { return segmentRange; }
             set { segmentRange = value; }
         }
+        public double StepSize
+        {
+            get { return (ActualWidth - 20) / (TimeRangeEnd - TimeRangeStart); }
+        }
 
         public ObservableCollection<KeyframeViewModel> Keyframes
         {
@@ -114,10 +112,6 @@ namespace Aegir.View.Timeline
             set { SetValue(KeyframesProperty, value); }
         }
 
-        public double StepSize
-        {
-            get { return (ActualWidth - 20) / (TimeRangeEnd - TimeRangeStart); }
-        }
 
         // Using a DependencyProperty as the backing store for Keyframes.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty KeyframesProperty =
@@ -354,7 +348,7 @@ namespace Aegir.View.Timeline
         /// </summary>
         public void UpdateTimeRange()
         {
-            log.DebugFormat("TimeRange Update: {0} / {1}", TimeRangeStart, TimeRangeEnd);
+            Aegir.Util.DebugUtil.LogWithLocation("TimeRange Update: {TimeRangeStart} / {TimeRangeEnd}");
             InvalidateFullTimeline();
         }
 
@@ -366,23 +360,30 @@ namespace Aegir.View.Timeline
             InvalidateCurrentTimeHighlight();
         }
 
+        /// <summary>
+        /// Invalidates all of the timeline parts
+        /// </summary>
+        public void InvalidateFullTimeline()
+        {
+            InvalidateTimeline();
+            InvalidateCurrentTimeHighlight();
+            //InvalidatePositions();
+        }
         private static void KeyframeCollectionChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            TimelineRuler view = d as TimelineRuler;
-            if (view != null)
+            var view = d as TimelineRuler;
+            if(e.OldValue != null)
             {
-                view.KeyframeCollectionUpdated();
+                (e.OldValue as ObservableCollection<KeyframeViewModel>).CollectionChanged -= view.KeyframeCollectionChanged;
             }
+            (e.NewValue as ObservableCollection<KeyframeViewModel>).CollectionChanged += view.KeyframeCollectionChanged;
+            //Update the view
+            view.InvalidateFullTimeline();
         }
 
         private void TimeRangeChanged()
         {
             InvalidateFullTimeline();
-        }
-
-        private void KeyframeCollectionUpdated()
-        {
-            Keyframes.CollectionChanged += KeyframeCollectionChanged;
         }
 
         private void KeyframeCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -938,15 +939,6 @@ namespace Aegir.View.Timeline
             InvalidateFullTimeline();
         }
 
-        /// <summary>
-        /// Invalidates all of the timeline parts
-        /// </summary>
-        private void InvalidateFullTimeline()
-        {
-            InvalidateTimeline();
-            InvalidateCurrentTimeHighlight();
-            //InvalidatePositions();
-        }
 
         /// <summary>
         /// Invalidates the position and color of the current time highlight rectangle
@@ -1158,7 +1150,7 @@ namespace Aegir.View.Timeline
 
         private void Grid_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            log.Debug("Mouse DOWN");
+            Aegir.Util.DebugUtil.LogWithLocation("Mouse DOWN");
         }
     }
 }

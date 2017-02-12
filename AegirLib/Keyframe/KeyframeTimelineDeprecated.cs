@@ -1,6 +1,5 @@
 ﻿using AegirLib.Behaviour;
 using AegirLib.Scene;
-using log4net;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -13,7 +12,6 @@ namespace AegirLib.Keyframe
 {
     public class KeyframeTimelineDeprecated
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(KeyframeTimelineDeprecated));
 
         private Dictionary<KeyframePropertyInfo, SortedList<int, KeyframePropertyData>> propertiesMappedKeyframes;
         private Dictionary<Entity, List<KeyframePropertyInfo>> EntityMappedPropertyInfo;

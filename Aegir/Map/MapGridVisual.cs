@@ -1,7 +1,6 @@
 ﻿using Aegir.Util;
 using AegirLib.Scene;
 using HelixToolkit.Wpf;
-using log4net;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -14,7 +13,6 @@ namespace Aegir.Map
 {
     public class MapGridVisual : MeshVisual3D
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(MapGridVisual));
         private const int GridSize = 10;
         private const int ZoomSteps = 200;
         private const double zoomInverseFactor = 1d / ZoomSteps;
@@ -55,7 +53,7 @@ namespace Aegir.Map
             {
                 if (mapZoom != value)
                 {
-                    log.Debug($"Zoom Changed, new value {value}");
+                    Aegir.Util.DebugUtil.LogWithLocation($"Zoom Changed, new value {value}");
                     ZoomGrid(value);
                 }
             }
@@ -89,7 +87,7 @@ namespace Aegir.Map
             set
             {
                 translateOnZoom = value;
-                log.Debug($"TranslateONZoomChanged to {value}");
+                Aegir.Util.DebugUtil.LogWithLocation($"TranslateONZoomChanged to {value}");
             }
         }
 
@@ -233,7 +231,7 @@ namespace Aegir.Map
                     }
                     else
                     {
-                        log.Debug("Could not load image, TileGeneratorWas Null");
+                        Aegir.Util.DebugUtil.LogWithLocation("Could not load image, TileGeneratorWas Null");
                     }
                     tile.UpdateDebugLabels();
                 }
@@ -302,10 +300,7 @@ namespace Aegir.Map
                     int panDeltaX = ClampPan(tileX - currentTileX);
                     int panDeltaY = ClampPan(tileY - currentTileY);
 
-                    log.DebugFormat("Panning Grid CameraTile (x/y) {0} / {1}  CurrentTile (x/y) {2} / {3} Delta (x/y) {4} / {5}",
-                        tileX, tileY,
-                        currentTileX, currentTileY,
-                        panDeltaX, panDeltaY);
+                    Aegir.Util.DebugUtil.LogWithLocation($"Panning Grid CameraTile (x/y) {tileX} / {tileY}  CurrentTile (x/y) {currentTileX} / {currentTileY} Delta (x/y) {panDeltaX} / {panDeltaY}");
 
                     PanGrid(panDeltaX, panDeltaY);
                 }
@@ -340,7 +335,7 @@ namespace Aegir.Map
         /// <param name="panAmountY"></param>
         private void PanGrid(int panAmountX, int panAmountY)
         {
-            PerfStopwatch ps = PerfStopwatch.StartNew("Pan Grid",log); 
+            PerfStopwatch ps = PerfStopwatch.StartNew("Pan Grid");
             if (panAmountX == 0 && panAmountY == 0)
             {
                 return;
