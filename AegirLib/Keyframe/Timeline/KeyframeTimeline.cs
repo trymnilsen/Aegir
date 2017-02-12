@@ -20,6 +20,7 @@ namespace AegirLib.Keyframe.Timeline
 
         public KeyframeTimeline(KeyframePropertyInfo[] properties)
         {
+            keys = new SortedDictionary<int, KeyContainer>();
             propertiesCache = new Dictionary<KeyframePropertyInfo, List<int>>();
             for (int i = 0; i < properties.Length; i++)
             {
@@ -118,7 +119,7 @@ namespace AegirLib.Keyframe.Timeline
         }
         public IEnumerable<KeyframePropertyInfo> GetProperties()
         {
-            throw new NotImplementedException();
+            return KeyInfo;
         }
         /// <summary>
         /// Perform a lower bound binary search for the given value on the array of values

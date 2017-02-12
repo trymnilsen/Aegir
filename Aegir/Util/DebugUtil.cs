@@ -10,41 +10,54 @@ namespace Aegir.Util
     {
 
         public static void LogWithLocation(string logData,
-            bool shortenCallerFilepath = false,
+            bool shortenCallerFilepath = true,
             [CallerMemberName] string memberName = "",
             [CallerFilePath] string sourceFilePath = "",
             [CallerLineNumber] int sourceLineNumber = 0)
         {
             int ThreadId = Thread.CurrentThread.ManagedThreadId;
+            sourceFilePath = ShortenFilePath(shortenCallerFilepath, sourceFilePath);
+            Debug.WriteLine($"[{sourceFilePath}:{sourceLineNumber}@{memberName}][{ThreadId}]{logData}");
+        }
+
+        public static string ShortenFilePath(bool shortenCallerFilepath, string sourceFilePath)
+        {
             if (shortenCallerFilepath)
             {
                 FileInfo fileInfo = new FileInfo(sourceFilePath);
                 sourceFilePath = fileInfo.Name;
             }
-            Debug.WriteLine($"[{sourceFilePath}  : {sourceLineNumber}  @  {memberName}  ][{ThreadId}] + {logData}");
-        }
 
+            return sourceFilePath;
+        }
     }
 
     public class PerfStopwatch
     {
         private string description;
         private Stopwatch stopwatch;
+        private string location;
 
-        private PerfStopwatch(string description)
+        private PerfStopwatch(string description, string location)
         {
             this.description = description;
             stopwatch = Stopwatch.StartNew();
+            this.location = location;
         }
         public void Stop()
         {
             stopwatch.Stop();
-            DebugUtil.LogWithLocation($"[ {description} ] used {stopwatch.Elapsed.TotalMilliseconds} ms");
+            Debug.WriteLine($"{location} {description} # used {stopwatch.Elapsed.TotalMilliseconds} ms");
         }
 
-        public static PerfStopwatch StartNew(string description)
+        public static PerfStopwatch StartNew(string description,
+            bool shortenCallerFilepath = true,
+            [CallerMemberName] string memberName = "",
+            [CallerFilePath] string sourceFilePath = "",
+            [CallerLineNumber] int sourceLineNumber = 0)
         {
-            return new PerfStopwatch(description);
+            sourceFilePath = DebugUtil.ShortenFilePath(shortenCallerFilepath, sourceFilePath);
+            return new PerfStopwatch(description, $"[{ sourceFilePath }:{ sourceLineNumber}@{ memberName}]");
         }
 
     }
