@@ -125,7 +125,7 @@ namespace AegirLib.Keyframe
         {
             PlaybackMode = PlaybackMode.PAUSED;
             keyframeInfoCache = new Dictionary<BehaviourComponent, KeyframePropertyInfo[]>();
-
+            timelines = new Dictionary<Entity, KeyframeTimeline>();
             interpolatorCache = new Dictionary<Type, IValueInterpolator>();
 
             interpolatorCache.Add(typeof(Vector3), new LinearVector3Interpolator());

@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.IO;
 using System.Runtime.CompilerServices;
+using System.Threading;
 
 namespace AegirLib.Util
 {
@@ -9,17 +10,18 @@ namespace AegirLib.Util
     {
 
         public static void LogWithLocation(string logData,
-            bool shortenCallerFilepath = true,
+            bool shortenCallerFilepath = false,
             [CallerMemberName] string memberName = "",
             [CallerFilePath] string sourceFilePath = "",
             [CallerLineNumber] int sourceLineNumber = 0)
         {
+            int ThreadId = Thread.CurrentThread.ManagedThreadId;
             if (shortenCallerFilepath)
             {
                 FileInfo fileInfo = new FileInfo(sourceFilePath);
                 sourceFilePath = fileInfo.Name;
             }
-            Debug.WriteLine("[" + sourceFilePath + ":" + sourceLineNumber + "@" + memberName + "]" + logData);
+            Debug.WriteLine($"[{sourceFilePath}  : {sourceLineNumber}  @  {memberName}  ][{ThreadId}] + {logData}");
         }
 
     }
@@ -37,7 +39,7 @@ namespace AegirLib.Util
         public void Stop()
         {
             stopwatch.Stop();
-            Debug.WriteLine($"[ {description} ] used {stopwatch.Elapsed.TotalMilliseconds} ms");
+            DebugUtil.LogWithLocation($"[ {description} ] used {stopwatch.Elapsed.TotalMilliseconds} ms");
         }
 
         public static PerfStopwatch StartNew(string description)

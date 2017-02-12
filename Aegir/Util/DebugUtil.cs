@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.IO;
 using System.Runtime.CompilerServices;
+using System.Threading;
 
 namespace Aegir.Util
 {
@@ -9,17 +10,18 @@ namespace Aegir.Util
     {
 
         public static void LogWithLocation(string logData,
-            bool shortenCallerFilepath = true,
+            bool shortenCallerFilepath = false,
             [CallerMemberName] string memberName = "",
             [CallerFilePath] string sourceFilePath = "",
             [CallerLineNumber] int sourceLineNumber = 0)
         {
+            int ThreadId = Thread.CurrentThread.ManagedThreadId;
             if (shortenCallerFilepath)
             {
                 FileInfo fileInfo = new FileInfo(sourceFilePath);
                 sourceFilePath = fileInfo.Name;
             }
-            Debug.WriteLine("[" + sourceFilePath + ":" + sourceLineNumber + "@" + memberName + "]" + logData);
+            Debug.WriteLine($"[{sourceFilePath}  : {sourceLineNumber}  @  {memberName}  ][{ThreadId}] + {logData}");
         }
 
     }
