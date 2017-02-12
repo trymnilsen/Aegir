@@ -1,5 +1,5 @@
 # Aegir
-Aegir is a 3d visualized vessel simulator able to output data like heading, position, etc.. either via NMEA or custom scripted formats.
+Aegir is a 3d visualized vessel simulator able to output data like heading, position, etc.. either via NMEA0183 or custom scripted formats.
 
 ![Screenshot](http://i.imgur.com/I3CrA24.png)
 
