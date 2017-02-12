@@ -253,18 +253,26 @@ namespace AegirLib.Keyframe
             //Check if entity has a timeline or if we need to create one for it
             if(!timelines.ContainsKey(entity))
             {
-                var properties = entity.Components
-                    .Where(keyframeInfoCache.ContainsKey)
-                    .SelectMany(x => keyframeInfoCache[x])
-                    .ToArray();
-
-                timelines.Add(entity, new KeyframeTimeline(properties));
+                CreateTimeline(entity);
             }
 
             KeyContainer newKey = new KeyContainer();
             timelines[entity].AddKeyframe(newKey);
 
             stopwatch.Stop();
+        }
+
+        private KeyframeTimeline CreateTimeline(Entity entity)
+        {
+
+            var properties = entity.Components
+                .Where(keyframeInfoCache.ContainsKey)
+                .SelectMany(x => keyframeInfoCache[x])
+                .ToArray();
+
+            KeyframeTimeline timeline = new KeyframeTimeline(properties);
+            timelines.Add(entity, timeline);
+            return timeline;
         }
 
         public void MoveKeyframe(KeyframePropertyData key, int newTime)
@@ -327,6 +335,15 @@ namespace AegirLib.Keyframe
                     DebugUtil.LogWithLocation($"Interpolator cache did not contain a implementation for type {valueType}");
                 }
             }
+        }
+
+        public KeyframeTimeline GetTimeline(Entity activeEntity)
+        {
+            if(!timelines.ContainsKey(activeEntity))
+            {
+                CreateTimeline(activeEntity);
+            }
+            return timelines[activeEntity];
         }
 
         //private void SeekEventKeyframe(KeyframePropertyInfo property, int time)

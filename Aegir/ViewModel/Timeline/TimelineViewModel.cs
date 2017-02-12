@@ -300,8 +300,10 @@ namespace Aegir.ViewModel.Timeline
         {
             activeEntity = message.Content.EntitySource;
             Aegir.Util.DebugUtil.LogWithLocation($"SelectedEntityChanged Received, ActiveEntity Changed to {activeEntity?.Name}");
-
             AddKeyframeCommand.RaiseCanExecuteChanged();
+            //Get the current Timeline for this entity
+            KeyframeTimeline timeline = Engine.GetTimeline(activeEntity);
+            SetTimeLine(timeline);
             //ResetTimeline(TimelineStart,TimelineEnd);
         }
 
