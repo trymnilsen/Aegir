@@ -298,13 +298,16 @@ namespace Aegir.ViewModel.Timeline
         /// <param name="message"></param>
         private void ActiveEntityChanged(SelectedEntityChanged message)
         {
-            activeEntity = message.Content.EntitySource;
-            Aegir.Util.DebugUtil.LogWithLocation($"SelectedEntityChanged Received, ActiveEntity Changed to {activeEntity?.Name}");
-            AddKeyframeCommand.RaiseCanExecuteChanged();
-            //Get the current Timeline for this entity
-            KeyframeTimeline timeline = Engine.GetTimeline(activeEntity);
-            SetTimeLine(timeline);
-            //ResetTimeline(TimelineStart,TimelineEnd);
+            if(message.Content != null)
+            {
+                activeEntity = message.Content.EntitySource;
+                Aegir.Util.DebugUtil.LogWithLocation($"SelectedEntityChanged Received, ActiveEntity Changed to {activeEntity?.Name}");
+                AddKeyframeCommand.RaiseCanExecuteChanged();
+                //Get the current Timeline for this entity
+                KeyframeTimeline timeline = Engine.GetTimeline(activeEntity);
+                SetTimeLine(timeline);
+                //ResetTimeline(TimelineStart,TimelineEnd);
+            }
         }
 
         /// <summary>
