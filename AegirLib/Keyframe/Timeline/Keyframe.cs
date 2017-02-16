@@ -12,13 +12,17 @@ namespace AegirLib.Keyframe.Timeline
         public List<KeyframePropertyData> propertyData;
         public IEnumerable<KeyframePropertyData> PropertyData => propertyData;
 
-        public KeyContainer()
+        public KeyContainer(IEnumerable<KeyframePropertyData> keyData)
         {
             propertyData = new List<KeyframePropertyData>();
+            foreach (KeyframePropertyData key in keyData)
+            {
+                AddPropertyData(key);
+            }
 
         }
 
-        internal void AddPropertyData(KeyframePropertyData keyData)
+        private void AddPropertyData(KeyframePropertyData keyData)
         {
             //Check if the list already collects the keydata
             if(propertyData.Any())

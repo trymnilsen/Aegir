@@ -256,7 +256,8 @@ namespace AegirLib.Keyframe
                 CreateTimeline(entity);
             }
 
-            KeyContainer newKey = new KeyContainer();
+            KeyContainer newKey = new KeyContainer(propertyData);
+            newKey.Time = time;
             timelines[entity].AddKeyframe(newKey);
 
             stopwatch.Stop();
