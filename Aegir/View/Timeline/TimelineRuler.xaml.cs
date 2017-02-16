@@ -591,6 +591,7 @@ namespace Aegir.View.Timeline
                         {
                             hasKeyConflict = true;
                         }
+                        key.IsDragging = false;
                     }
 
                     //Check if we can just move the keys or if we need to prompt the user
@@ -652,13 +653,6 @@ namespace Aegir.View.Timeline
 
                 if (Math.Abs(currentDeltaStepDistance) >= stepSize)
                 {
-                    foreach (KeyframeViewModel keyframe in this.listBox.SelectedItems)
-                    {
-                        //TODO FIX with time instead of timeline offset
-                        //keyframe.TimelinePositionX += currentDeltaStepDistance;
-
-                        //keyframe.CanvasY += dragDelta.Y;
-                    }
                     if (currentDeltaStepDistance > 0)
                     {
                         currentOperationFramesDragged++;
@@ -666,6 +660,18 @@ namespace Aegir.View.Timeline
                     else
                     {
                         currentOperationFramesDragged--;
+                    }
+                    foreach (KeyframeViewModel keyframe in this.listBox.SelectedItems)
+                    {
+                        //TODO FIX with time instead of timeline offset
+                        //keyframe.TimelinePositionX += currentDeltaStepDistance;
+
+                        //keyframe.CanvasY += dragDelta.Y;
+                        foreach (KeyframeViewModel keyvm in this.listBox.SelectedItems)
+                        {
+                            //Suspend updating Time inside the keyframeviewmodel
+                            keyvm.ApplyDeltaTimeMove(currentOperationFramesDragged);
+                        }
                     }
                     currentDeltaStepDistance = 0;
                 }
@@ -680,12 +686,19 @@ namespace Aegir.View.Timeline
                 Point curMouseDownPoint = e.GetPosition(GridContainer);
                 var dragDelta = curMouseDownPoint - origMouseDownPoint;
                 double dragDistance = Math.Abs(dragDelta.Length);
+
                 if (dragDistance > DragThreshold)
                 {
+                    isDraggingKeyframe = true;
                     //
                     // When the mouse has been dragged more than the threshold value commence dragging the keyframe.
                     //
-                    isDraggingKeyframe = true;
+                    foreach (KeyframeViewModel keyframe in this.listBox.SelectedItems)
+                    {
+                        //Suspend updating Time inside the keyframeviewmodel
+                        keyframe.StartTimeMove();
+                        keyframe.IsDragging = true;
+                    }
                 }
 
                 e.Handled = true;

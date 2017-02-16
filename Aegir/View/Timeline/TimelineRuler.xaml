@@ -12,6 +12,7 @@
     <UserControl.Resources>
         <conv:ColorToBrushConverter x:Key="ColorToBrushConv"></conv:ColorToBrushConverter>
         <local:CanvasPositionConverter x:Key="KeyframePositionConv"></local:CanvasPositionConverter>
+        <local:DragCursorConverter x:Key="DragCursorConv"></local:DragCursorConverter>
         <!-- A data-template that defines the visuals for a a key -->
         <DataTemplate DataType="{x:Type vm:KeyframeViewModel}">
 
@@ -20,7 +21,7 @@
             item selection fits nicely around the Rectangle.-->
 
             <Grid Margin="0,2,2,2">
-                <Rectangle Width="7" Height="14" Cursor="Hand" StrokeThickness="1"
+                <Rectangle Width="7" Height="14" Cursor="{Binding IsDragging, Converter={StaticResource DragCursorConv}}" StrokeThickness="1"
                     MouseDown="Keyframe_MouseDown"
                     MouseUp="Keyframe_MouseUp"
                     MouseMove="Keyframe_MouseMove">
