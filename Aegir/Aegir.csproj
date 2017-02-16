@@ -164,6 +164,9 @@
     <Compile Include="Persistance\SceneGridPersister.cs" />
     <Compile Include="Rendering\Gizmo\GizmoHandler.cs" />
     <Compile Include="Rendering\Gizmo\IGizmo.cs" />
+    <Compile Include="Rendering\Gizmo\RotateGizmo.cs" />
+    <Compile Include="Rendering\Gizmo\TranslateGizmo.cs" />
+    <Compile Include="Rendering\Gizmo\TranslateGizmoVisual.cs" />
     <Compile Include="Rendering\ISceneActor.cs" />
     <Compile Include="ViewModel\EntityProxy\Node\GizmoNodeViewModel.cs" />
     <Compile Include="ViewModel\EntityProxy\ISceneNode.cs" />
@@ -315,6 +318,7 @@
     </Compile>
     <Compile Include="View\Timeline\CanvasCalculator.cs" />
     <Compile Include="View\Timeline\CanvasPositionConverter.cs" />
+    <Compile Include="View\Timeline\DragCursorConverter.cs" />
     <Compile Include="View\Timeline\Ticks\TimelineTickSegment.cs" />
     <Compile Include="View\Timeline\Ticks\TimelineTickVisual.cs" />
     <Compile Include="View\Timeline\TimelineConfig.cs" />
