@@ -57,12 +57,12 @@ namespace Aegir.View.Rendering
 
         // Using a DependencyProperty as the backing store for MyProperty.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty RendererProperty =
-            DependencyProperty.Register(nameof(Renderer), 
-                                        typeof(Renderer), 
-                                        typeof(Viewport), 
+            DependencyProperty.Register(nameof(Renderer),
+                                        typeof(Renderer),
+                                        typeof(Viewport),
                                         new PropertyMetadata(RenderChanged));
 
-        private static void RenderChanged(DependencyObject d, 
+        private static void RenderChanged(DependencyObject d,
                                         DependencyPropertyChangedEventArgs e)
         {
             (d as Viewport)?.ConfigureRenderer();
@@ -104,7 +104,7 @@ namespace Aegir.View.Rendering
                                         .FirstOrDefault();
                     if (scenehit != null)
                     {
-                        SceneActor selectedActor 
+                        SceneActor selectedActor
                             = VisualFactory?.GetRenderItem(RenderingMode.Solid, scenehit.Visual);
                         if (selectedActor != null)
                         {
@@ -173,7 +173,7 @@ namespace Aegir.View.Rendering
 
                 MatrixTransform3D matrixTransform = new MatrixTransform3D(matrix);
 
-                actorsVisuals[i].Item2.Transform = matrixTransform;   
+                actorsVisuals[i].Item2.Transform = matrixTransform;
             }
         }
 
