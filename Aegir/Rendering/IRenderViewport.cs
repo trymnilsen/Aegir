@@ -1,4 +1,5 @@
-﻿using Aegir.Rendering.Visual;
+﻿using Aegir.Rendering.Gizmo;
+using Aegir.Rendering.Visual;
 using AegirLib.Behaviour.World;
 
 namespace Aegir.Rendering

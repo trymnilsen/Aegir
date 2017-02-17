@@ -11,11 +11,21 @@ namespace Aegir.Rendering.Gizmo
 {
     public class TranslateGizmo : IGizmo
     {
+        private TranslateGizmoVisual visual;
+        private AegirLib.MathType.Quaternion rotation;
+        private AegirLib.MathType.Vector3 positon;
+        private Entity targetNode;
+
+
         public Vector3 Position
         {
             get
             {
                 throw new NotImplementedException();
+            }
+            set
+            {
+
             }
         }
 
@@ -24,6 +34,10 @@ namespace Aegir.Rendering.Gizmo
             get
             {
                 throw new NotImplementedException();
+            }
+            set
+            {
+
             }
         }
 
@@ -35,9 +49,42 @@ namespace Aegir.Rendering.Gizmo
             }
         }
 
-        public bool SelectedSceneNodeChanged(Entity entity)
+        public Entity TargetNode
         {
-            throw new NotImplementedException();
+            get
+            {
+                return targetNode;
+            }
+            set
+            {
+
+            }
         }
+        public bool GizmoIsVisible
+        {
+            get
+            {
+                return true;
+            }
+        }
+
+        public GizmoHandler.ViewportLayer Layer
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public TranslateGizmo()
+        {
+            visual = new TranslateGizmoVisual();
+        }
+        
     }
 }

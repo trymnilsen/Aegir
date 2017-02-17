@@ -19,6 +19,7 @@ using HelixToolkit.Wpf;
 using Aegir.Util;
 using System.Windows.Media.Media3D;
 using LibTransform = AegirLib.Behaviour.World.Transform;
+using Aegir.Rendering.Gizmo;
 
 namespace Aegir.View.Rendering
 {
@@ -27,6 +28,7 @@ namespace Aegir.View.Rendering
     /// </summary>
     public partial class Viewport : UserControl, IRenderViewport
     {
+        private GizmoHandler gizmoHandler;
         private VisualFactory visualFactory;
         private List<Tuple<LibTransform, Visual3D>> actorsVisuals;
         public Renderer Renderer
@@ -39,7 +41,7 @@ namespace Aegir.View.Rendering
         {
             get
             {
-                throw new NotImplementedException();
+                return gizmoHandler;
             }
         }
 
@@ -70,9 +72,47 @@ namespace Aegir.View.Rendering
 
         public Viewport()
         {
-            actorsVisuals = new List<Tuple<LibTransform, Visual3D>>();
             InitializeComponent();
+            actorsVisuals = new List<Tuple<LibTransform, Visual3D>>();
+            gizmoHandler = new GizmoHandler();
+            gizmoHandler.SelectionGizmoAdded += GizmoHandler_SelectionGizmosChanged;
+            gizmoHandler.SelectionGizmoRemoved += GizmoHandler_SelectionGizmoRemoved;
+        }
 
+        private void GizmoHandler_SelectionGizmoRemoved(IGizmo gizmo, GizmoHandler.ViewportLayer layer)
+        {
+            HelixViewport3D viewport = GetViewport(layer);
+            viewport.Children.Remove(gizmo.Visual);
+        }
+
+        private void GizmoHandler_SelectionGizmosChanged(IGizmo gizmo, GizmoHandler.ViewportLayer layer)
+        {
+            HelixViewport3D viewport = GetViewport(layer);
+
+            if (!viewport.Children.Contains(gizmo.Visual))
+            {
+                viewport.Children.Add(gizmo.Visual);
+            }
+        }
+
+        private HelixViewport3D GetViewport(GizmoHandler.ViewportLayer layer)
+        {
+            HelixViewport3D viewport = null;
+            switch (layer)
+            {
+                case GizmoHandler.ViewportLayer.Overlay:
+                    viewport = Overlay;
+                    break;
+
+                case GizmoHandler.ViewportLayer.Scene:
+                    viewport = Scene;
+                    break;
+
+                default:
+                    break;
+            }
+
+            return viewport;
         }
 
         private void ConfigureRenderer()

@@ -1,7 +1,9 @@
-﻿using AegirLib.Behaviour.World;
+﻿using Aegir.Rendering.Gizmo;
+using AegirLib.Behaviour.World;
+using AegirLib.Scene;
 using System.Collections.Generic;
 
-namespace Aegir.Rendering
+namespace Aegir.Rendering.Gizmo
 {
     public class GizmoHandler
     {
@@ -11,30 +13,43 @@ namespace Aegir.Rendering
             Scene
         }
 
-        private List<IGizmo> activeSceneGizmos;
-        private bool visibility;
+        private List<IGizmo> sceneGizmos;
 
-        public bool Visibility
+        public GizmoHandler()
         {
-            get { return visibility; }
-            set
+            sceneGizmos = new List<IGizmo>();
+
+            //Add gizmos
+
+            sceneGizmos.Add(new TranslateGizmo());
+        }
+        public void SelectionChanged(Entity entity)
+        {
+            foreach(IGizmo gizmo in sceneGizmos)
             {
-                if(value!=visibility)
+                gizmo.TargetNode = entity;
+                if(gizmo.GizmoIsVisible)
                 {
-                    visibility = value;
-                    GizmoVisibilityChanged?.Invoke(this, value);
+                    SelectionGizmoAdded?.Invoke(gizmo, gizmo.Layer);
+                }
+                else
+                {
+                    SelectionGizmoRemoved?.Invoke(gizmo, gizmo.Layer);
                 }
             }
         }
 
-        public delegate void GizmoVisibilityChangedHandler(GizmoHandler sender, bool visibility);
-        public event GizmoVisibilityChangedHandler GizmoVisibilityChanged;
+        public delegate void GizmoChangeHandler(IGizmo gizmo, ViewportLayer layer);
+        public event GizmoChangeHandler SelectionGizmoAdded;
+        public event GizmoChangeHandler SelectionGizmoRemoved;
 
-        public static void AddGizmo(IGizmo gizmo, ViewportLayer layer)
-        {
-            GizmoAdded?.Invoke(gizmo);
-        }
-        private delegate void GizmoAddedHandler(IGizmo gizmo);
-        private static event GizmoAddedHandler GizmoAdded; 
+        //public delegate void GizmoVisibilityChangedHandler(GizmoHandler sender, bool visibility);
+        //public event GizmoVisibilityChangedHandler GizmoVisibilityChanged;
+
+        //public static void AddGizmo(IGizmo gizmo, ViewportLayer layer)
+        //{
+        //    GizmoAdded?.Invoke(gizmo);
+        //}
+
     }
 }
