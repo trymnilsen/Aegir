@@ -11,10 +11,12 @@ using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Media3D;
+using AegirLib.MathType;
+using AegirLib.Scene;
 
-namespace Aegir.View.Rendering.Tool
+namespace Aegir.Rendering.Gizmo.Transform
 {
-    public class ManipulatorGizmo
+    public class ManipulatorGizmo : IGizmo
     {
         private ManipulatorGizmoVisual manipulatorVisual;
         private CubeVisual3D dummyVisual;
@@ -56,7 +58,7 @@ namespace Aegir.View.Rendering.Tool
             }
         }
 
-        private void TargetTransformChanged(Point3D position, Quaternion rotation)
+        private void TargetTransformChanged(Point3D position, System.Windows.Media.Media3D.Quaternion rotation)
         {
             MatrixTransform3D matrixTransform = new MatrixTransform3D();
             Matrix3D matrix = new Matrix3D();
@@ -73,6 +75,74 @@ namespace Aegir.View.Rendering.Tool
         }
 
         public HelixViewport3D Viewport { get; private set; }
+
+        public Vector3 Position
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public AegirLib.MathType.Quaternion Rotation
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public Visual3D Visual
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public bool GizmoIsVisible
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public Entity TargetNode
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public GizmoHandler.ViewportLayer Layer
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
 
         public ManipulatorGizmo(HelixViewport3D viewport, ManipulatorGizmoTransformHandler target)
         {
@@ -91,16 +161,16 @@ namespace Aegir.View.Rendering.Tool
             manipulatorVisual.TransformHandler = target;
         }
 
-        private void ModeChanged(GizmoMode mode)
+        private void ModeChanged(TransformGizmoMode mode)
         {
             switch (mode)
             {
-                case GizmoMode.Translate:
+                case TransformGizmoMode.Translate:
                     SetTranslateMode(true);
                     SetRotateMode(false);
                     break;
 
-                case GizmoMode.Rotate:
+                case TransformGizmoMode.Rotate:
                     SetRotateMode(true);
                     SetTranslateMode(false);
                     break;
@@ -136,9 +206,9 @@ namespace Aegir.View.Rendering.Tool
             throw new NotImplementedException();
         }
 
-        private void OnManipulationFinished(ManipulatorFinishedEventArgs args)
-        {
-            //Target.UpdateTransformTarget();
-        }
+        //private void OnManipulationFinished(ManipulatorFinishedEventArgs args)
+        //{
+        //    //Target.UpdateTransformTarget();
+        //}
     }
 }

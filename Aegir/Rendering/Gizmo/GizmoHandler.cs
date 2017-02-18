@@ -21,7 +21,7 @@ namespace Aegir.Rendering.Gizmo
 
             //Add gizmos
 
-            sceneGizmos.Add(new TranslateGizmo());
+            //sceneGizmos.Add(new TranslateGizmo());
         }
         public void SelectionChanged(Entity entity)
         {

@@ -10,94 +10,42 @@ using System.Windows.Data;
 using System.Windows.Media;
 using System.Windows.Media.Media3D;
 
-namespace Aegir.View.Rendering.Tool
+namespace Aegir.Rendering.Gizmo.Transform
 {
     public class ManipulatorGizmoVisual : ModelVisual3D
     {
         private ManipulatorGizmoTransformHandler transformHandler;
+        private readonly RotateManipulator rotateXManipulator;
+        private readonly RotateManipulator rotateYManipulator;
+        private readonly RotateManipulator rotateZManipulator;
+        private readonly TranslateManipulator translateXManipulator;
+        private readonly TranslateManipulator translateYManipulator;
+        private readonly TranslateManipulator translateZManipulator;
 
-        /// <summary>
-        /// Identifies the <see cref="CanRotateX"/> dependency property.
-        /// </summary>
         public static readonly DependencyProperty CanRotateXProperty = DependencyProperty.Register(
             "CanRotateX", typeof(bool), typeof(ManipulatorGizmoVisual), new UIPropertyMetadata(true, ChildrenChanged));
 
-        /// <summary>
-        /// Identifies the <see cref="CanRotateY"/> dependency property.
-        /// </summary>
         public static readonly DependencyProperty CanRotateYProperty = DependencyProperty.Register(
             "CanRotateY", typeof(bool), typeof(ManipulatorGizmoVisual), new UIPropertyMetadata(true, ChildrenChanged));
 
-        /// <summary>
-        /// Identifies the <see cref="CanRotateZ"/> dependency property.
-        /// </summary>
         public static readonly DependencyProperty CanRotateZProperty = DependencyProperty.Register(
             "CanRotateZ", typeof(bool), typeof(ManipulatorGizmoVisual), new UIPropertyMetadata(true, ChildrenChanged));
 
-        /// <summary>
-        /// Identifies the <see cref="CanTranslateX"/> dependency property.
-        /// </summary>
         public static readonly DependencyProperty CanTranslateXProperty = DependencyProperty.Register(
             "CanTranslateX", typeof(bool), typeof(ManipulatorGizmoVisual), new UIPropertyMetadata(true, ChildrenChanged));
 
-        /// <summary>
-        /// Identifies the <see cref="CanTranslateY"/> dependency property.
-        /// </summary>
         public static readonly DependencyProperty CanTranslateYProperty = DependencyProperty.Register(
             "CanTranslateY", typeof(bool), typeof(ManipulatorGizmoVisual), new UIPropertyMetadata(true, ChildrenChanged));
 
-        /// <summary>
-        /// Identifies the <see cref="CanTranslateZ"/> dependency property.
-        /// </summary>
         public static readonly DependencyProperty CanTranslateZProperty = DependencyProperty.Register(
             "CanTranslateZ", typeof(bool), typeof(ManipulatorGizmoVisual), new UIPropertyMetadata(true, ChildrenChanged));
 
-        /// <summary>
-        /// Identifies the <see cref="Diameter"/> dependency property.
-        /// </summary>
         public static readonly DependencyProperty DiameterProperty = DependencyProperty.Register(
             "Diameter", typeof(double), typeof(ManipulatorGizmoVisual), new UIPropertyMetadata(2.0));
 
-        /// <summary>
-        /// Identifies the <see cref="TargetTransform"/> dependency property.
-        /// </summary>
-        public static readonly DependencyProperty TargetTransformProperty =
-            DependencyProperty.Register(
-                "TargetTransform",
-                typeof(Transform3D),
-                typeof(ManipulatorGizmoVisual),
-                new FrameworkPropertyMetadata(
-                    Transform3D.Identity, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, TransformChangedCallback));
-
-        /// <summary>
-        /// The rotate x manipulator.
-        /// </summary>
-        private readonly RotateManipulator rotateXManipulator;
-
-        /// <summary>
-        /// The rotate y manipulator.
-        /// </summary>
-        private readonly RotateManipulator rotateYManipulator;
-
-        /// <summary>
-        /// The rotate z manipulator.
-        /// </summary>
-        private readonly RotateManipulator rotateZManipulator;
-
-        /// <summary>
-        /// The translate x manipulator.
-        /// </summary>
-        private readonly TranslateManipulator translateXManipulator;
-
-        /// <summary>
-        /// The translate y manipulator.
-        /// </summary>
-        private readonly TranslateManipulator translateYManipulator;
-
-        /// <summary>
-        /// The translate z manipulator.
-        /// </summary>
-        private readonly TranslateManipulator translateZManipulator;
+        public static readonly DependencyProperty TargetTransformProperty = DependencyProperty.Register(
+                "TargetTransform", typeof(Transform3D), typeof(ManipulatorGizmoVisual),
+                new FrameworkPropertyMetadata(Transform3D.Identity, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, TransformChangedCallback));
 
         /// <summary>
         /// Gets or sets a value indicating whether this instance can rotate X.
@@ -105,15 +53,8 @@ namespace Aegir.View.Rendering.Tool
         /// <value> <c>true</c> if this instance can rotate X; otherwise, <c>false</c> . </value>
         public bool CanRotateX
         {
-            get
-            {
-                return (bool)this.GetValue(CanRotateXProperty);
-            }
-
-            set
-            {
-                this.SetValue(CanRotateXProperty, value);
-            }
+            get { return (bool)this.GetValue(CanRotateXProperty); }
+            set { this.SetValue(CanRotateXProperty, value); }
         }
 
         /// <summary>
@@ -122,15 +63,8 @@ namespace Aegir.View.Rendering.Tool
         /// <value> <c>true</c> if this instance can rotate Y; otherwise, <c>false</c> . </value>
         public bool CanRotateY
         {
-            get
-            {
-                return (bool)this.GetValue(CanRotateYProperty);
-            }
-
-            set
-            {
-                this.SetValue(CanRotateYProperty, value);
-            }
+            get { return (bool)this.GetValue(CanRotateYProperty); }
+            set { this.SetValue(CanRotateYProperty, value); }
         }
 
         /// <summary>
@@ -139,15 +73,8 @@ namespace Aegir.View.Rendering.Tool
         /// <value> <c>true</c> if this instance can rotate Z; otherwise, <c>false</c> . </value>
         public bool CanRotateZ
         {
-            get
-            {
-                return (bool)this.GetValue(CanRotateZProperty);
-            }
-
-            set
-            {
-                this.SetValue(CanRotateZProperty, value);
-            }
+            get { return (bool)this.GetValue(CanRotateZProperty); }
+            set { this.SetValue(CanRotateZProperty, value); }
         }
 
         /// <summary>
@@ -156,15 +83,8 @@ namespace Aegir.View.Rendering.Tool
         /// <value> <c>true</c> if this instance can translate X; otherwise, <c>false</c> . </value>
         public bool CanTranslateX
         {
-            get
-            {
-                return (bool)this.GetValue(CanTranslateXProperty);
-            }
-
-            set
-            {
-                this.SetValue(CanTranslateXProperty, value);
-            }
+            get { return (bool)this.GetValue(CanTranslateXProperty); }
+            set { this.SetValue(CanTranslateXProperty, value); }
         }
 
         /// <summary>
@@ -173,15 +93,8 @@ namespace Aegir.View.Rendering.Tool
         /// <value> <c>true</c> if this instance can translate Y; otherwise, <c>false</c> . </value>
         public bool CanTranslateY
         {
-            get
-            {
-                return (bool)this.GetValue(CanTranslateYProperty);
-            }
-
-            set
-            {
-                this.SetValue(CanTranslateYProperty, value);
-            }
+            get { return (bool)this.GetValue(CanTranslateYProperty); }
+            set { this.SetValue(CanTranslateYProperty, value); }
         }
 
         /// <summary>
@@ -190,15 +103,8 @@ namespace Aegir.View.Rendering.Tool
         /// <value> <c>true</c> if this instance can translate Z; otherwise, <c>false</c> . </value>
         public bool CanTranslateZ
         {
-            get
-            {
-                return (bool)this.GetValue(CanTranslateZProperty);
-            }
-
-            set
-            {
-                this.SetValue(CanTranslateZProperty, value);
-            }
+            get { return (bool)this.GetValue(CanTranslateZProperty); }
+            set { this.SetValue(CanTranslateZProperty, value); }
         }
 
         /// <summary>
@@ -207,15 +113,17 @@ namespace Aegir.View.Rendering.Tool
         /// <value> The diameter. </value>
         public double Diameter
         {
-            get
-            {
-                return (double)this.GetValue(DiameterProperty);
-            }
-
-            set
-            {
-                this.SetValue(DiameterProperty, value);
-            }
+            get { return (double)this.GetValue(DiameterProperty); }
+            set { this.SetValue(DiameterProperty, value); }
+        }
+        /// <summary>
+        /// Gets or sets the target transform.
+        /// </summary>
+        /// <value> The target transform. </value>
+        public Transform3D TargetTransform
+        {
+            get { return (Transform3D)this.GetValue(TargetTransformProperty); }
+            set { this.SetValue(TargetTransformProperty, value); }
         }
 
         /// <summary>
@@ -224,11 +132,7 @@ namespace Aegir.View.Rendering.Tool
         /// <value> The offset. </value>
         public Vector3D Offset
         {
-            get
-            {
-                return this.translateXManipulator.Offset;
-            }
-
+            get { return this.translateXManipulator.Offset; }
             set
             {
                 this.translateXManipulator.Offset = value;
@@ -246,11 +150,7 @@ namespace Aegir.View.Rendering.Tool
         /// <value> The position. </value>
         public Point3D Pivot
         {
-            get
-            {
-                return this.rotateXManipulator.Pivot;
-            }
-
+            get { return this.rotateXManipulator.Pivot; }
             set
             {
                 this.rotateXManipulator.Pivot = value;
@@ -265,11 +165,7 @@ namespace Aegir.View.Rendering.Tool
         /// <value> The position. </value>
         public Point3D Position
         {
-            get
-            {
-                return this.translateXManipulator.Position;
-            }
-
+            get { return this.translateXManipulator.Position; }
             set
             {
                 this.translateXManipulator.Position = value;
@@ -278,23 +174,6 @@ namespace Aegir.View.Rendering.Tool
                 this.rotateXManipulator.Position = value;
                 this.rotateYManipulator.Position = value;
                 this.rotateZManipulator.Position = value;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the target transform.
-        /// </summary>
-        /// <value> The target transform. </value>
-        public Transform3D TargetTransform
-        {
-            get
-            {
-                return (Transform3D)this.GetValue(TargetTransformProperty);
-            }
-
-            set
-            {
-                this.SetValue(TargetTransformProperty, value);
             }
         }
 
@@ -309,6 +188,7 @@ namespace Aegir.View.Rendering.Tool
         /// </summary>
         public ManipulatorGizmoVisual()
         {
+            //Translators
             this.translateXManipulator = new TranslateManipulator
             {
                 Direction = new Vector3D(1, 0, 0),
@@ -330,58 +210,33 @@ namespace Aegir.View.Rendering.Tool
                 Diameter = 4,
                 Color = Colors.Blue
             };
+            //Rotators
             this.rotateXManipulator = new RotateManipulator { InnerDiameter = 25, Diameter = 35, Axis = new Vector3D(1, 0, 0), Color = Colors.Red };
             this.rotateYManipulator = new RotateManipulator { InnerDiameter = 25, Diameter = 35, Axis = new Vector3D(0, 1, 0), Color = Colors.Green };
             this.rotateZManipulator = new RotateManipulator { InnerDiameter = 25, Diameter = 35, Axis = new Vector3D(0, 0, 1), Color = Colors.Blue };
 
-            BindingOperations.SetBinding(this, TransformProperty, new Binding("TargetTransform") { Source = this });
+            //BindingOperations.SetBinding(this, TransformProperty, new Binding("TargetTransform") { Source = this });
 
-            BindingOperations.SetBinding(
-                this.translateXManipulator,
-                Manipulator.TargetTransformProperty,
-                new Binding("TargetTransform") { Source = this });
+            //Transalate transform
+            SetManipulatorBinding(translateXManipulator, Manipulator.TargetTransformProperty, nameof(TargetTransform));
+            SetManipulatorBinding(translateYManipulator, Manipulator.TargetTransformProperty, nameof(TargetTransform));
+            SetManipulatorBinding(translateZManipulator, Manipulator.TargetTransformProperty, nameof(TargetTransform));
 
-            BindingOperations.SetBinding(
-                this.translateYManipulator,
-                Manipulator.TargetTransformProperty,
-                new Binding("TargetTransform") { Source = this });
+            //Diameter
+            SetManipulatorBinding(rotateXManipulator, RotateManipulator.DiameterProperty, nameof(Diameter));
+            SetManipulatorBinding(rotateYManipulator, RotateManipulator.DiameterProperty, nameof(Diameter));
+            SetManipulatorBinding(rotateZManipulator, RotateManipulator.DiameterProperty, nameof(Diameter));
+            //Rotation Transform
+            SetManipulatorBinding(rotateXManipulator, Manipulator.TargetTransformProperty, nameof(TargetTransform));
+            SetManipulatorBinding(rotateYManipulator, Manipulator.TargetTransformProperty, nameof(TargetTransform));
+            SetManipulatorBinding(rotateZManipulator, Manipulator.TargetTransformProperty, nameof(TargetTransform));
 
-            BindingOperations.SetBinding(
-                this.translateZManipulator,
-                Manipulator.TargetTransformProperty,
-                new Binding("TargetTransform") { Source = this });
-
-            BindingOperations.SetBinding(
-                this.rotateXManipulator,
-                RotateManipulator.DiameterProperty,
-                new Binding(nameof(Diameter)) { Source = this });
-
-            BindingOperations.SetBinding(
-                this.rotateYManipulator,
-                RotateManipulator.DiameterProperty,
-                new Binding(nameof(Diameter)) { Source = this });
-
-            BindingOperations.SetBinding(
-                this.rotateZManipulator,
-                RotateManipulator.DiameterProperty,
-                new Binding(nameof(Diameter)) { Source = this });
-
-            BindingOperations.SetBinding(
-                this.rotateXManipulator,
-                Manipulator.TargetTransformProperty,
-                new Binding("TargetTransform") { Source = this });
-            BindingOperations.SetBinding(
-                this.rotateYManipulator,
-                Manipulator.TargetTransformProperty,
-                new Binding("TargetTransform") { Source = this });
-            BindingOperations.SetBinding(
-                this.rotateZManipulator,
-                Manipulator.TargetTransformProperty,
-                new Binding("TargetTransform") { Source = this });
-
-            this.UpdateChildren();
+            UpdateChildren();
         }
-
+        private void SetManipulatorBinding(DependencyObject target, DependencyProperty targetProperty, string sourceProperty)
+        {
+            BindingOperations.SetBinding(target, targetProperty, new Binding(sourceProperty) { Source = this });
+        }
         /// <summary>
         /// Binds this manipulator to a given Visual3D.
         /// </summary>

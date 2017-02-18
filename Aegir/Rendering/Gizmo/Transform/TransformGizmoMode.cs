@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Aegir.View.Rendering.Tool
+namespace Aegir.Rendering.Gizmo.Transform
 {
-    public enum GizmoMode
+    public enum TransformGizmoMode
     {
         None,
         Translate,

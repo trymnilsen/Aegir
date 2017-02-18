@@ -15,7 +15,6 @@ namespace Aegir.Rendering
         private List<RenderItemListener> listeners;
 
         private VisualFactory visualFactory;
-        private ManipulatorGizmo sceneManipulator;
         private AegirLib.Behaviour.World.Transform followTransform;
 
         private Vector3D CameraPositionOffset;

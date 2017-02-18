@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Aegir.Rendering.Gizmo
+namespace Aegir.Rendering.Gizmo.Transform
 {
-    class RotateGizmo
+    public enum TransformDelayMode
     {
+        Immediate,
+        Delayed
     }
 }

@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media.Media3D;
 
-namespace Aegir.View.Rendering.Tool
+namespace Aegir.Rendering.Gizmo.Transform
 {
     /// <summary>
     /// Observable object containing the single transform of our manipulation gizmo
@@ -20,10 +20,10 @@ namespace Aegir.View.Rendering.Tool
     public class ManipulatorGizmoTransformHandler
     {
         private ITransformableVisual transformTarget;
-        private GizmoMode gizmoMode;
+        private TransformGizmoMode gizmoMode;
         private TransformDelayMode mode;
 
-        public GizmoMode GizmoMode
+        public TransformGizmoMode GizmoMode
         {
             get { return gizmoMode; }
             set
@@ -53,7 +53,7 @@ namespace Aegir.View.Rendering.Tool
             transformTarget?.ApplyTransform(targetTransform);
         }
 
-        public delegate void GizmoModeChangedHandler(GizmoMode mode);
+        public delegate void GizmoModeChangedHandler(TransformGizmoMode mode);
 
         public event GizmoModeChangedHandler GizmoModeChanged;
 

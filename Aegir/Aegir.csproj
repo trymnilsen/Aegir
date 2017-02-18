@@ -164,9 +164,6 @@
     <Compile Include="Persistance\SceneGridPersister.cs" />
     <Compile Include="Rendering\Gizmo\GizmoHandler.cs" />
     <Compile Include="Rendering\Gizmo\IGizmo.cs" />
-    <Compile Include="Rendering\Gizmo\RotateGizmo.cs" />
-    <Compile Include="Rendering\Gizmo\TranslateGizmo.cs" />
-    <Compile Include="Rendering\Gizmo\TranslateGizmoVisual.cs" />
     <Compile Include="Rendering\ISceneActor.cs" />
     <Compile Include="ViewModel\EntityProxy\Node\GizmoNodeViewModel.cs" />
     <Compile Include="ViewModel\EntityProxy\ISceneNode.cs" />
@@ -293,14 +290,14 @@
     </Compile>
     <Compile Include="View\PropertyEditor\CustomEditor\RelayCommandEditor.cs" />
     <Compile Include="View\Rendering\GridLines.cs" />
-    <Compile Include="View\Rendering\Tool\ManipulatorGizmo.cs" />
-    <Compile Include="View\Rendering\Tool\ManipulatorGizmoTransformHandler.cs" />
+    <Compile Include="Rendering\Gizmo\Transform\ManipulatorGizmo.cs" />
+    <Compile Include="Rendering\Gizmo\Transform\ManipulatorGizmoTransformHandler.cs" />
     <Compile Include="View\Rendering\RenderView.xaml.cs">
       <DependentUpon>RenderView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Rendering\Tool\GizmoMode.cs" />
-    <Compile Include="View\Rendering\Tool\ManipulatorGizmoVisual.cs" />
-    <Compile Include="View\Rendering\TransformDelayMode.cs" />
+    <Compile Include="Rendering\Gizmo\Transform\TransformGizmoMode.cs" />
+    <Compile Include="Rendering\Gizmo\Transform\ManipulatorGizmoVisual.cs" />
+    <Compile Include="Rendering\Gizmo\Transform\TransformDelayMode.cs" />
     <Compile Include="View\Rendering\Viewport.xaml.cs">
       <DependentUpon>Viewport.xaml</DependentUpon>
     </Compile>

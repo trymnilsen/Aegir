@@ -80,11 +80,7 @@ namespace Aegir.View.Rendering
                     new PropertyChangedCallback(OnViewportFocusChanged)
                 ));
 
-        private ManipulatorGizmo topGizmo;
-        private ManipulatorGizmo perspectiveGizmo;
-        private ManipulatorGizmo rightGizmo;
-        private ManipulatorGizmo frontGizmo;
-        private ManipulatorGizmoTransformHandler gizmoHandler;
+
         public RenderView()
         {
             InitializeComponent();
@@ -92,7 +88,6 @@ namespace Aegir.View.Rendering
             assetCache = new Dictionary<string, Model3D>();
             meshTransforms = new List<EntityMeshListener>();
             RenderHandler = new Renderer(Dispatcher);
-            gizmoHandler = new ManipulatorGizmoTransformHandler();
             this.Loaded += RenderView_Loaded;
             //Add Tools
             //Gizmos are added to their relating overlay viewport
@@ -139,19 +134,6 @@ namespace Aegir.View.Rendering
             newScene.ScenegraphChanged += OnSceneGraphChanged;
             newScene.InvalidateChildren += OnInvalidateChildren;
             RenderHandler.ChangeScene(newScene);
-            //Workaround for now
-            newScene.PropertyChanged += NewScene_PropertyChanged;
-        }
-
-        private void NewScene_PropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName == nameof(ScenegraphViewModel.SelectedItem))
-            {
-                if (Scene?.SelectedItem != null)
-                {
-                    gizmoHandler.TransformTarget = Scene.SelectedItem;
-                }
-            }
         }
 
         /// <summary>
@@ -180,7 +162,6 @@ namespace Aegir.View.Rendering
         private void OnInvalidateChildren()
         {
             RenderHandler.Invalidate();
-            gizmoHandler.InvalidateTargetTransform();
         }
 
         /// <summary>
@@ -206,22 +187,6 @@ namespace Aegir.View.Rendering
             RenderHandler.RebuildScene();
             rebuildTime.Stop();
             Aegir.Util.DebugUtil.LogWithLocation($"Rebuild Visual Tree - END USED {rebuildTime.Elapsed.TotalMilliseconds}ms");
-        }
-
-        private void MenuItem_Click(object sender, RoutedEventArgs e)
-        {
-            gizmoHandler.GizmoMode = GizmoMode.Translate;
-
-        }
-
-        private void MenuItem_Click_1(object sender, RoutedEventArgs e)
-        {
-            gizmoHandler.GizmoMode = GizmoMode.Rotate;
-        }
-
-        private void MenuItem_Click_2(object sender, RoutedEventArgs e)
-        {
-            gizmoHandler.GizmoMode = GizmoMode.None;
         }
 
         //private void PerspectiveViewport_MouseUp(object sender, MouseButtonEventArgs e)
