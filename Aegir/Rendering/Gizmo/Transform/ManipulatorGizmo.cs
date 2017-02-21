@@ -22,6 +22,7 @@ namespace Aegir.Rendering.Gizmo.Transform
         private CubeVisual3D dummyVisual;
         private TransformDelayMode delayMode;
         private double scaleFactor;
+        private ITransformableVisual selected;
 
         public double ScaleFactor
         {
@@ -36,131 +37,62 @@ namespace Aegir.Rendering.Gizmo.Transform
         public TransformDelayMode DelayMode
         {
             get { return delayMode; }
-            set
-            {
-                delayMode = value;
-            }
+            set { delayMode = value; }
         }
-
-        private ManipulatorGizmoTransformHandler transformHandler;
-
-        public ManipulatorGizmoTransformHandler TransformTarget
-        {
-            get { return transformHandler; }
-            set
-            {
-                if (transformHandler != null)
-                {
-                    transformHandler.TargetTransformChanged -= TargetTransformChanged;
-                }
-                transformHandler = value;
-                transformHandler.TargetTransformChanged += TargetTransformChanged;
-            }
-        }
-
-        private void TargetTransformChanged(Point3D position, System.Windows.Media.Media3D.Quaternion rotation)
-        {
-            MatrixTransform3D matrixTransform = new MatrixTransform3D();
-            Matrix3D matrix = new Matrix3D();
-            matrix.Rotate(rotation);
-            matrix.Translate(new Vector3D(position.X, position.Y, position.Z));
-
-            matrixTransform.Matrix = matrix;
-            matrixTransform.Freeze();
-
-            dummyVisual.Dispatcher.InvokeAsync(() =>
-            {
-                dummyVisual.Transform = matrixTransform;
-            });
-        }
-
-        public HelixViewport3D Viewport { get; private set; }
 
         public Vector3 Position
         {
-            get
-            {
-                throw new NotImplementedException();
-            }
-
-            set
-            {
-                throw new NotImplementedException();
-            }
+            get { throw new NotImplementedException(); }
+            set { throw new NotImplementedException(); }
         }
 
         public AegirLib.MathType.Quaternion Rotation
         {
-            get
-            {
-                throw new NotImplementedException();
-            }
-
-            set
-            {
-                throw new NotImplementedException();
-            }
+            get { throw new NotImplementedException(); }
+            set { throw new NotImplementedException(); }
         }
 
-        public Visual3D Visual
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-        }
-
-        public bool GizmoIsVisible
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-        }
-
-        public Entity TargetNode
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-
-            set
-            {
-                throw new NotImplementedException();
-            }
-        }
+        public Visual3D Visual { get { return manipulatorVisual; } }
 
         public GizmoHandler.ViewportLayer Layer
         {
-            get
-            {
-                throw new NotImplementedException();
-            }
-
-            set
-            {
-                throw new NotImplementedException();
-            }
+            get { return GizmoHandler.ViewportLayer.Overlay; }
         }
 
-        public ManipulatorGizmo(HelixViewport3D viewport, ManipulatorGizmoTransformHandler target)
+        public ManipulatorGizmo()
         {
             manipulatorVisual = new ManipulatorGizmoVisual();
             manipulatorVisual.Diameter = 35;
-            TransformTarget = target;
-            //target.Transform.Changed += Transform_Changed;
-            Viewport = viewport;
-            TransformTarget.GizmoModeChanged += ModeChanged;
-            viewport.Children.Add(manipulatorVisual);
+            manipulatorVisual.TransformChanged += ManipulatorVisual_TransformChanged;
+
             dummyVisual = new CubeVisual3D();
             dummyVisual.Fill = new SolidColorBrush(Colors.Gold);
             dummyVisual.Visible = false;
-            viewport.Children.Add(dummyVisual);
-            manipulatorVisual.Bind(dummyVisual);
-            manipulatorVisual.TransformHandler = target;
         }
 
+        private void ManipulatorVisual_TransformChanged(Transform3D transform)
+        {
+            if(selected != null)
+            {
+                selected.VisualTransform = transform;
+            }
+        }
+
+        //private void TargetTransformChanged(Point3D position, System.Windows.Media.Media3D.Quaternion rotation)
+        //{
+        //    MatrixTransform3D matrixTransform = new MatrixTransform3D();
+        //    Matrix3D matrix = new Matrix3D();
+        //    matrix.Rotate(rotation);
+        //    matrix.Translate(new Vector3D(position.X, position.Y, position.Z));
+
+        //    matrixTransform.Matrix = matrix;
+        //    matrixTransform.Freeze();
+
+        //    dummyVisual.Dispatcher.InvokeAsync(() =>
+        //    {
+        //        dummyVisual.Transform = matrixTransform;
+        //    });
+        //}
         private void ModeChanged(TransformGizmoMode mode)
         {
             switch (mode)
@@ -204,6 +136,12 @@ namespace Aegir.Rendering.Gizmo.Transform
         private void RescaleGizmos()
         {
             throw new NotImplementedException();
+        }
+
+        public bool UpdateGizmoSelection(ITransformableVisual selection)
+        {
+            this.selected = selection;
+            return selection != null;
         }
 
         //private void OnManipulationFinished(ManipulatorFinishedEventArgs args)

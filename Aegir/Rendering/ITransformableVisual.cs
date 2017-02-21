@@ -9,9 +9,6 @@ namespace Aegir.Rendering
 {
     public interface ITransformableVisual
     {
-        Point3D Position { get; }
-        Quaternion Rotation { get; }
-
-        void ApplyTransform(Transform3D targetTransform);
+        Transform3D VisualTransform { get; set; }
     }
 }

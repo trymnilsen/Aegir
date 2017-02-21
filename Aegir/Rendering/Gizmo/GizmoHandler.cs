@@ -1,4 +1,5 @@
 ﻿using Aegir.Rendering.Gizmo;
+using Aegir.Rendering.Gizmo.Transform;
 using AegirLib.Behaviour.World;
 using AegirLib.Scene;
 using System.Collections.Generic;
@@ -20,15 +21,15 @@ namespace Aegir.Rendering.Gizmo
             sceneGizmos = new List<IGizmo>();
 
             //Add gizmos
-
+            sceneGizmos.Add(new ManipulatorGizmo());
             //sceneGizmos.Add(new TranslateGizmo());
         }
-        public void SelectionChanged(Entity entity)
+        public void SelectionChanged(ITransformableVisual visual)
         {
             foreach(IGizmo gizmo in sceneGizmos)
             {
-                gizmo.TargetNode = entity;
-                if(gizmo.GizmoIsVisible)
+                bool isGizmoVisible = gizmo.UpdateGizmoSelection(visual);
+                if (isGizmoVisible)
                 {
                     SelectionGizmoAdded?.Invoke(gizmo, gizmo.Layer);
                 }

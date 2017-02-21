@@ -20,6 +20,7 @@ using Aegir.Util;
 using System.Windows.Media.Media3D;
 using LibTransform = AegirLib.Behaviour.World.Transform;
 using Aegir.Rendering.Gizmo;
+using Aegir.ViewModel.EntityProxy.Node;
 
 namespace Aegir.View.Rendering
 {
@@ -57,18 +58,29 @@ namespace Aegir.View.Rendering
             }
         }
 
+
+
+        public EntityViewModel SelectedItem
+        {
+            get { return (EntityViewModel)GetValue(SelectedItemProperty); }
+            set { SetValue(SelectedItemProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for SelectedItem.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty SelectedItemProperty =
+            DependencyProperty.Register(nameof(SelectedItem),
+                                        typeof(EntityViewModel),
+                                        typeof(Viewport),
+                                        new PropertyMetadata(SelectedItemChanged));
+
+
+
         // Using a DependencyProperty as the backing store for MyProperty.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty RendererProperty =
             DependencyProperty.Register(nameof(Renderer),
                                         typeof(Renderer),
                                         typeof(Viewport),
                                         new PropertyMetadata(RenderChanged));
-
-        private static void RenderChanged(DependencyObject d,
-                                        DependencyPropertyChangedEventArgs e)
-        {
-            (d as Viewport)?.ConfigureRenderer();
-        }
 
         public Viewport()
         {
@@ -78,6 +90,21 @@ namespace Aegir.View.Rendering
             gizmoHandler.SelectionGizmoAdded += GizmoHandler_SelectionGizmosChanged;
             gizmoHandler.SelectionGizmoRemoved += GizmoHandler_SelectionGizmoRemoved;
         }
+        private static void SelectedItemChanged(DependencyObject d,
+                                        DependencyPropertyChangedEventArgs e)
+        {
+            Viewport w = d as Viewport;
+            if(w != null)
+            {
+                w.gizmoHandler.SelectionChanged(e.NewValue as ITransformableVisual);
+            }
+        }
+        private static void RenderChanged(DependencyObject d,
+                                        DependencyPropertyChangedEventArgs e)
+        {
+            (d as Viewport)?.ConfigureRenderer();
+        }
+
 
         private void GizmoHandler_SelectionGizmoRemoved(IGizmo gizmo, GizmoHandler.ViewportLayer layer)
         {

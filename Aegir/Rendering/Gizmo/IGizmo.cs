@@ -1,4 +1,5 @@
-﻿using AegirLib.MathType;
+﻿using Aegir.ViewModel.EntityProxy;
+using AegirLib.MathType;
 using AegirLib.Scene;
 using System;
 using System.Collections.Generic;
@@ -14,8 +15,7 @@ namespace Aegir.Rendering.Gizmo
         Vector3 Position { get; set; }
         AegirLib.MathType.Quaternion Rotation { get; set; }
         Visual3D Visual { get; }
-        bool GizmoIsVisible { get; }
-        Entity TargetNode { get; set; }
-        GizmoHandler.ViewportLayer Layer { get; set; }
+        bool UpdateGizmoSelection(ITransformableVisual selection);
+        GizmoHandler.ViewportLayer Layer { get; }
     }
 }

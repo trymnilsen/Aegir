@@ -14,7 +14,6 @@ namespace Aegir.Rendering.Gizmo.Transform
 {
     public class ManipulatorGizmoVisual : ModelVisual3D
     {
-        private ManipulatorGizmoTransformHandler transformHandler;
         private readonly RotateManipulator rotateXManipulator;
         private readonly RotateManipulator rotateYManipulator;
         private readonly RotateManipulator rotateZManipulator;
@@ -177,12 +176,6 @@ namespace Aegir.Rendering.Gizmo.Transform
             }
         }
 
-        public ManipulatorGizmoTransformHandler TransformHandler
-        {
-            get { return transformHandler; }
-            set { transformHandler = value; }
-        }
-
         /// <summary>
         /// Initializes a new instance of the <see cref="ManipulatorGizmoVisual" /> class.
         /// </summary>
@@ -298,10 +291,7 @@ namespace Aegir.Rendering.Gizmo.Transform
         private static void TransformChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var instance = d as ManipulatorGizmoVisual;
-            if (instance != null)
-            {
-                instance?.TransformHandler.UpdateTransform(instance.TargetTransform);
-            }
+            instance?.TransformChanged?.Invoke(e.NewValue as Transform3D);
         }
 
         /// <summary>
@@ -317,5 +307,9 @@ namespace Aegir.Rendering.Gizmo.Transform
         {
             (d as ManipulatorGizmoVisual)?.UpdateChildren();
         }
+
+
+        public delegate void VisualTransformChangedHandler(Transform3D transform);
+        public event VisualTransformChangedHandler TransformChanged;
     }
 }

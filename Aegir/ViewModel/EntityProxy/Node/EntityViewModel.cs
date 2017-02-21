@@ -57,27 +57,40 @@ namespace Aegir.ViewModel.EntityProxy.Node
         public RelayCommand<string> AddEntityCommand { get; set; }
         public IScenegraphAddRemoveHandler AddRemoveHandler { get; set; }
 
-        public Point3D Position
-        {
-            get
-            {
-                return new Point3D(transform.LocalPosition.X, transform.LocalPosition.Y, transform.LocalPosition.Z);
-            }
-        }
+        //public Point3D Position
+        //{
+        //    get
+        //    {
+        //        return new Point3D(transform.LocalPosition.X, transform.LocalPosition.Y, transform.LocalPosition.Z);
+        //    }
+        //}
 
-        public Quaternion Rotation
-        {
-            get
-            {
-                return new Quaternion(transform.LocalRotation.X, transform.LocalRotation.Y, transform.LocalRotation.Z, transform.LocalRotation.W);
-            }
-        }
+        //public Quaternion Rotation
+        //{
+        //    get
+        //    {
+        //        return new Quaternion(transform.LocalRotation.X, transform.LocalRotation.Y, transform.LocalRotation.Z, transform.LocalRotation.W);
+        //    }
+        //}
 
         public bool IsDraggable
         {
             get
             {
                 return true;
+            }
+        }
+
+        public Transform3D VisualTransform
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                throw new NotImplementedException();
             }
         }
 
