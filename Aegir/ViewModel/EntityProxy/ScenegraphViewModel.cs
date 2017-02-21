@@ -48,7 +48,7 @@ namespace Aegir.ViewModel.EntityProxy
         /// A Graph of entity viewmodel proxies composed from our scene source
         /// </summary>
         public ObservableCollection<ISceneNode> Items { get; set; }
-        
+
         public WorldNodeViewModel WorldNode { get; private set; }
 
         public EntityViewModel SelectedItem
@@ -262,11 +262,7 @@ namespace Aegir.ViewModel.EntityProxy
         /// </summary>
         public void TriggerInvalidateChildren()
         {
-            InvalidateChildrenHandler InvalidateEvent = InvalidateChildren;
-            if (InvalidateEvent != null)
-            {
-                InvalidateEvent();
-            }
+            InvalidateChildren?.Invoke();
         }
 
         /// <summary>

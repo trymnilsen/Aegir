@@ -165,6 +165,7 @@
     <Compile Include="Rendering\Gizmo\GizmoHandler.cs" />
     <Compile Include="Rendering\Gizmo\IGizmo.cs" />
     <Compile Include="Rendering\ISceneActor.cs" />
+    <Compile Include="Rendering\TransformHelper.cs" />
     <Compile Include="ViewModel\EntityProxy\Node\GizmoNodeViewModel.cs" />
     <Compile Include="ViewModel\EntityProxy\ISceneNode.cs" />
     <Compile Include="ViewModel\EntityProxy\Node\KeyframeViewModel.cs" />

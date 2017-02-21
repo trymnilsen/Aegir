@@ -31,6 +31,7 @@ namespace Aegir.ViewModel.EntityProxy.Node
 
         private Transform transform;
         private List<BehaviourViewModel> componentProxies;
+        private Transform3D visualTransform;
 
         public Entity EntitySource
         {
@@ -85,12 +86,17 @@ namespace Aegir.ViewModel.EntityProxy.Node
         {
             get
             {
-                throw new NotImplementedException();
+                return visualTransform;
             }
 
             set
             {
-                throw new NotImplementedException();
+                if(visualTransform!=value)
+                {
+                    visualTransform = value;
+                    transform.LocalPosition = TransformHelper.Transform3DToPosition(value);
+                    transform.LocalRotation = TransformHelper.Transform3DToQuaternion(value);
+                }
             }
         }
 
