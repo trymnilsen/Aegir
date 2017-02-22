@@ -92,7 +92,8 @@
                 <Style BasedOn="{StaticResource ViewMaximizeStyle}">
                 </Style>
             </Grid.Style>
-            <local:Viewport Renderer="{Binding Path=RenderHandler,RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"></local:Viewport>
+            <local:Viewport Renderer="{Binding Path=RenderHandler,RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+                            SelectedItem="{Binding ScenegraphVM.SelectedItem, Source={StaticResource VMLocator}}"></local:Viewport>
             <ToggleButton x:Name="TopLeftLabel" Content="Top" Style="{StaticResource ViewButtonStyle}"/>
         </Grid>
 
@@ -102,9 +103,10 @@
                     <Setter Property="Grid.Column" Value="1" />
                 </Style>
             </Grid.Style>
-            <local:Viewport Renderer="{Binding Path=RenderHandler,RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"></local:Viewport>
-            <ToggleButton x:Name="TopRightLabel" 
-                          Content="Perspective" 
+            <local:Viewport Renderer="{Binding Path=RenderHandler,RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+                            SelectedItem="{Binding ScenegraphVM.SelectedItem, Source={StaticResource VMLocator}}"></local:Viewport>
+            <ToggleButton x:Name="TopRightLabel"
+                          Content="Perspective"
                           Style="{StaticResource ViewButtonStyle}"/>
 
 
@@ -115,14 +117,15 @@
                     <Setter Property="Grid.Row" Value="1" />
                 </Style>
             </Grid.Style>
-            <local:Viewport Renderer="{Binding Path=RenderHandler,RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"></local:Viewport>
-            <ToggleButton x:Name="BottomLeftLabel" 
-                          Content="Front" 
+            <local:Viewport Renderer="{Binding Path=RenderHandler,RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+                            SelectedItem="{Binding ScenegraphVM.SelectedItem, Source={StaticResource VMLocator}}"></local:Viewport>
+            <ToggleButton x:Name="BottomLeftLabel"
+                          Content="Front"
                           Style="{StaticResource ViewButtonStyle}"/>
 
 
         </Grid>
-        <Grid x:Name="BottomRightView" 
+        <Grid x:Name="BottomRightView"
               DataContext="{Binding ElementName=BottomRightLabel}">
             <Grid.Style>
                 <Style BasedOn="{StaticResource ViewMaximizeStyle}">
@@ -130,22 +133,23 @@
                     <Setter Property="Grid.Column" Value="1" />
                 </Style>
             </Grid.Style>
-            <local:Viewport Renderer="{Binding Path=RenderHandler,RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"></local:Viewport>
-            <ToggleButton x:Name="BottomRightLabel" 
-                          Content="Right" 
+            <local:Viewport Renderer="{Binding Path=RenderHandler,RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+                            SelectedItem="{Binding ScenegraphVM.SelectedItem, Source={StaticResource VMLocator}}"></local:Viewport>
+            <ToggleButton x:Name="BottomRightLabel"
+                          Content="Right"
                           Style="{StaticResource ViewButtonStyle}"/>
 
 
         </Grid>
-        <GridSplitter Grid.Column="0" 
-                      Grid.RowSpan="2" 
-                      Width="4" 
-                      HorizontalAlignment="Right" 
+        <GridSplitter Grid.Column="0"
+                      Grid.RowSpan="2"
+                      Width="4"
+                      HorizontalAlignment="Right"
                       VerticalAlignment="Stretch" />
-        <GridSplitter Grid.Row="0" 
-                      Grid.ColumnSpan="2" 
-                      Height="4" 
-                      HorizontalAlignment="Stretch" 
+        <GridSplitter Grid.Row="0"
+                      Grid.ColumnSpan="2"
+                      Height="4"
+                      HorizontalAlignment="Stretch"
                       VerticalAlignment="Bottom" />
     </Grid>
 </UserControl>
