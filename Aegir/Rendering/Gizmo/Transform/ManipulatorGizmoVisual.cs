@@ -215,6 +215,11 @@ namespace Aegir.Rendering.Gizmo.Transform
             SetManipulatorBinding(translateYManipulator, Manipulator.TargetTransformProperty, nameof(TargetTransform));
             SetManipulatorBinding(translateZManipulator, Manipulator.TargetTransformProperty, nameof(TargetTransform));
 
+            SetManipulatorBinding(translateXManipulator, Manipulator.TransformProperty, nameof(TargetTransform));
+            SetManipulatorBinding(translateYManipulator, Manipulator.TransformProperty, nameof(TargetTransform));
+            SetManipulatorBinding(translateZManipulator, Manipulator.TransformProperty, nameof(TargetTransform));
+
+
             //Diameter
             SetManipulatorBinding(rotateXManipulator, RotateManipulator.DiameterProperty, nameof(Diameter));
             SetManipulatorBinding(rotateYManipulator, RotateManipulator.DiameterProperty, nameof(Diameter));
@@ -223,6 +228,10 @@ namespace Aegir.Rendering.Gizmo.Transform
             SetManipulatorBinding(rotateXManipulator, Manipulator.TargetTransformProperty, nameof(TargetTransform));
             SetManipulatorBinding(rotateYManipulator, Manipulator.TargetTransformProperty, nameof(TargetTransform));
             SetManipulatorBinding(rotateZManipulator, Manipulator.TargetTransformProperty, nameof(TargetTransform));
+
+            SetManipulatorBinding(rotateXManipulator, Manipulator.TransformProperty, nameof(TargetTransform));
+            SetManipulatorBinding(rotateYManipulator, Manipulator.TransformProperty, nameof(TargetTransform));
+            SetManipulatorBinding(rotateZManipulator, Manipulator.TransformProperty, nameof(TargetTransform));
 
             UpdateChildren();
         }
