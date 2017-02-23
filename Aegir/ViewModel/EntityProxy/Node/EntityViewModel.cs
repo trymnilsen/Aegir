@@ -86,7 +86,7 @@ namespace Aegir.ViewModel.EntityProxy.Node
         {
             get
             {
-                return visualTransform;
+                return TransformHelper.LibTransformToWPFTransform(transform.LocalPosition,transform.LocalRotation);
             }
 
             set

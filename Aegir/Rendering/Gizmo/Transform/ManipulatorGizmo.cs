@@ -141,7 +141,15 @@ namespace Aegir.Rendering.Gizmo.Transform
         public bool UpdateGizmoSelection(ITransformableVisual selection)
         {
             this.selected = selection;
-            return selection != null;
+            if(selection != null)
+            {
+                manipulatorVisual.TargetTransform = selection.VisualTransform;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         //private void OnManipulationFinished(ManipulatorFinishedEventArgs args)

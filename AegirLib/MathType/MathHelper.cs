@@ -213,7 +213,10 @@ namespace AegirLib.MathType
         {
             return value1 > value2 ? value1 : value2;
         }
-
+        public static int NextPowerOfTwo(int value)
+        {
+            return (int)Math.Pow(2, Math.Ceiling(Math.Log(value) / Math.Log(2)));
+        }
         /// <summary>
         /// Returns the lesser of two values.
         /// </summary>
