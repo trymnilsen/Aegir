@@ -32,6 +32,7 @@ namespace Aegir.View.Rendering
         private GizmoHandler gizmoHandler;
         private VisualFactory visualFactory;
         private List<Tuple<LibTransform, Visual3D>> actorsVisuals;
+        private List<IGizmo> visibleGizmos;
         public Renderer Renderer
         {
             get { return (Renderer)GetValue(RendererProperty); }
@@ -86,10 +87,39 @@ namespace Aegir.View.Rendering
         {
             InitializeComponent();
             actorsVisuals = new List<Tuple<LibTransform, Visual3D>>();
+            visibleGizmos = new List<IGizmo>();
             gizmoHandler = new GizmoHandler();
             gizmoHandler.SelectionGizmoAdded += GizmoHandler_SelectionGizmosChanged;
             gizmoHandler.SelectionGizmoRemoved += GizmoHandler_SelectionGizmoRemoved;
+
+            GotFocus += Viewport_GotFocus;
+            LostFocus += Viewport_LostFocus;
         }
+
+        private void Viewport_LostFocus(object sender, RoutedEventArgs e)
+        {
+            foreach(IGizmo gizmo in visibleGizmos)
+            {
+                DebugUtil.LogWithLocation("LostFOcus" + Tag);
+                HelixViewport3D viewport = GetViewport(gizmo.Layer);
+                viewport.Children.Remove(gizmo.Visual);
+            }
+        }
+
+
+        private void Viewport_GotFocus(object sender, RoutedEventArgs e)
+        {
+            DebugUtil.LogWithLocation("GotFocus" + Tag);
+            foreach (IGizmo gizmo in visibleGizmos)
+            {
+                HelixViewport3D viewport = GetViewport(gizmo.Layer);
+                if(!viewport.Children.Contains(gizmo.Visual))
+                {
+                    viewport.Children.Add(gizmo.Visual);
+                }
+            }
+        }
+
         private static void SelectedItemChanged(DependencyObject d,
                                         DependencyPropertyChangedEventArgs e)
         {
@@ -110,6 +140,7 @@ namespace Aegir.View.Rendering
         {
             HelixViewport3D viewport = GetViewport(layer);
             viewport.Children.Remove(gizmo.Visual);
+            visibleGizmos.Remove(gizmo);
         }
 
         private void GizmoHandler_SelectionGizmosChanged(IGizmo gizmo, GizmoHandler.ViewportLayer layer)
@@ -118,6 +149,7 @@ namespace Aegir.View.Rendering
 
             if (!viewport.Children.Contains(gizmo.Visual))
             {
+                visibleGizmos.Add(gizmo);
                 viewport.Children.Add(gizmo.Visual);
             }
         }

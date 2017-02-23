@@ -92,7 +92,7 @@
                 <Style BasedOn="{StaticResource ViewMaximizeStyle}">
                 </Style>
             </Grid.Style>
-            <local:Viewport Renderer="{Binding Path=RenderHandler,RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+            <local:Viewport Tag="Top" Renderer="{Binding Path=RenderHandler,RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
                             SelectedItem="{Binding ScenegraphVM.SelectedItem, Source={StaticResource VMLocator}}"></local:Viewport>
             <ToggleButton x:Name="TopLeftLabel" Content="Top" Style="{StaticResource ViewButtonStyle}"/>
         </Grid>
@@ -103,7 +103,7 @@
                     <Setter Property="Grid.Column" Value="1" />
                 </Style>
             </Grid.Style>
-            <local:Viewport Renderer="{Binding Path=RenderHandler,RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+            <local:Viewport Tag="Perspective" Renderer="{Binding Path=RenderHandler,RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
                             SelectedItem="{Binding ScenegraphVM.SelectedItem, Source={StaticResource VMLocator}}"></local:Viewport>
             <ToggleButton x:Name="TopRightLabel"
                           Content="Perspective"
@@ -117,7 +117,7 @@
                     <Setter Property="Grid.Row" Value="1" />
                 </Style>
             </Grid.Style>
-            <local:Viewport Renderer="{Binding Path=RenderHandler,RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+            <local:Viewport Tag="Front"  Renderer="{Binding Path=RenderHandler,RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
                             SelectedItem="{Binding ScenegraphVM.SelectedItem, Source={StaticResource VMLocator}}"></local:Viewport>
             <ToggleButton x:Name="BottomLeftLabel"
                           Content="Front"
@@ -133,7 +133,7 @@
                     <Setter Property="Grid.Column" Value="1" />
                 </Style>
             </Grid.Style>
-            <local:Viewport Renderer="{Binding Path=RenderHandler,RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+            <local:Viewport Tag="Right"  Renderer="{Binding Path=RenderHandler,RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
                             SelectedItem="{Binding ScenegraphVM.SelectedItem, Source={StaticResource VMLocator}}"></local:Viewport>
             <ToggleButton x:Name="BottomRightLabel"
                           Content="Right"
