@@ -46,8 +46,6 @@ namespace Aegir.View.Rendering
                                             new PropertyChangedCallback(OnSceneGraphChanged)
                                         ));
 
-
-
         public ICommand SceneEntityClickedCommand
         {
             get { return (ICommand)GetValue(SceneEntityClickedCommandProperty); }
@@ -65,18 +63,18 @@ namespace Aegir.View.Rendering
 
         public ViewportFocus ActiveViewport
         {
-            get { return (ViewportFocus)GetValue(FocusProperty); }
-            set { SetValue(FocusProperty, value); }
+            get { return (ViewportFocus)GetValue(ActiveViewportProperty); }
+            set { SetValue(ActiveViewportProperty, value); }
         }
 
         // Using a DependencyProperty as the backing store for Focus.
         //This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty FocusProperty =
-            DependencyProperty.Register("Focus",
+        public static readonly DependencyProperty ActiveViewportProperty =
+            DependencyProperty.Register(nameof(ActiveViewport),
                 typeof(ViewportFocus),
                 typeof(RenderView),
                 new PropertyMetadata(
-                    ViewportFocus.NONE,
+                    ViewportFocus.TOPLEFT,
                     new PropertyChangedCallback(OnViewportFocusChanged)
                 ));
 
@@ -157,6 +155,7 @@ namespace Aegir.View.Rendering
         private static void OnViewportFocusChanged(DependencyObject d,
             DependencyPropertyChangedEventArgs e)
         {
+            Aegir.Util.DebugUtil.LogWithLocation("Active viewport changed: " + e.NewValue?.ToString());
         }
 
         private void OnInvalidateChildren()
@@ -264,6 +263,15 @@ namespace Aegir.View.Rendering
         private void MenuItem_Click_3(object sender, RoutedEventArgs e)
         {
             RenderHandler.CameraFollow(Scene.SelectedItem);
+        }
+
+        private void Viewport_GotFocus(object sender, RoutedEventArgs e)
+        {
+            Viewport source = sender as Viewport;
+            if(source?.ViewportID is ViewportFocus)
+            {
+                ActiveViewport = (ViewportFocus)source.ViewportID;
+            }
         }
     }
 }

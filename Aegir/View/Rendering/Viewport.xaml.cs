@@ -61,6 +61,29 @@ namespace Aegir.View.Rendering
 
 
 
+
+        public ViewportFocus ViewportID
+        {
+            get { return (ViewportFocus)GetValue(ViewportIDProperty); }
+            set { SetValue(ViewportIDProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for ViewportID.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ViewportIDProperty =
+            DependencyProperty.Register(nameof(ViewportID), typeof(ViewportFocus), typeof(Viewport));
+
+
+        public bool IsHighlightedViewport
+        {
+            get { return (bool)GetValue(IsHighlightedViewportProperty); }
+            set { SetValue(IsHighlightedViewportProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for IsHighlightedViewport.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty IsHighlightedViewportProperty =
+            DependencyProperty.Register(nameof(IsHighlightedViewport), typeof(bool), typeof(Viewport), new PropertyMetadata(HighlightedChanged));
+
+
         public EntityViewModel SelectedItem
         {
             get { return (EntityViewModel)GetValue(SelectedItemProperty); }
@@ -91,32 +114,94 @@ namespace Aegir.View.Rendering
             gizmoHandler = new GizmoHandler();
             gizmoHandler.SelectionGizmoAdded += GizmoHandler_SelectionGizmosChanged;
             gizmoHandler.SelectionGizmoRemoved += GizmoHandler_SelectionGizmoRemoved;
-
-            GotFocus += Viewport_GotFocus;
-            LostFocus += Viewport_LostFocus;
         }
 
-        private void Viewport_LostFocus(object sender, RoutedEventArgs e)
+        public void ChangeRenderingMode(RenderingMode mode)
         {
-            foreach(IGizmo gizmo in visibleGizmos)
+            throw new NotImplementedException();
+        }
+
+        public void RenderActor(SceneActor item)
+        {
+            if (VisualFactory == null)
             {
-                DebugUtil.LogWithLocation("LostFOcus" + Tag);
-                HelixViewport3D viewport = GetViewport(gizmo.Layer);
-                viewport.Children.Remove(gizmo.Visual);
+                DebugUtil.LogWithLocation("No visual factory provided for viewport");
+            }
+            else
+            {
+                Visual3D visual;
+                //Check if we need to use a dummy visual
+                if (item.Geometry != null)
+                {
+                    visual = VisualFactory.GetVisual(RenderingMode.Solid, item);
+                }
+                else
+                {
+                    visual = VisualFactory.GetDummyVisual();
+                }
+
+                actorsVisuals.Add(new Tuple<LibTransform, Visual3D>(item.Transform, visual));
+
+                //Set a position for the visual
+                AegirLib.MathType.Matrix m = item.Transform.TransformMatrix;
+                Matrix3D matrix = new Matrix3D(m.M11, m.M12, m.M13, m.M14,
+                    m.M21, m.M22, m.M23, m.M24,
+                    m.M31, m.M32, m.M33, m.M34,
+                    m.M41, m.M42, m.M43, m.M44);
+
+                MatrixTransform3D matrixTransform = new MatrixTransform3D(matrix);
+                visual.Transform = matrixTransform;
+
+                Scene.Children.Add(visual);
             }
         }
 
-
-        private void Viewport_GotFocus(object sender, RoutedEventArgs e)
+        public void ClearView()
         {
-            DebugUtil.LogWithLocation("GotFocus" + Tag);
-            foreach (IGizmo gizmo in visibleGizmos)
+            Scene.Children.Clear();
+            actorsVisuals.Clear();
+        }
+
+        public void InvalidateActors()
+        {
+            for (int i = 0; i < actorsVisuals.Count; i++)
             {
-                HelixViewport3D viewport = GetViewport(gizmo.Layer);
-                if(!viewport.Children.Contains(gizmo.Visual))
-                {
-                    viewport.Children.Add(gizmo.Visual);
-                }
+                AegirLib.MathType.Matrix m = actorsVisuals[i].Item1.TransformMatrix;
+                Matrix3D matrix = new Matrix3D(m.M11, m.M12, m.M13, m.M14,
+                    m.M21, m.M22, m.M23, m.M24,
+                    m.M31, m.M32, m.M33, m.M34,
+                    m.M41, m.M42, m.M43, m.M44);
+
+                MatrixTransform3D matrixTransform = new MatrixTransform3D(matrix);
+
+                actorsVisuals[i].Item2.Transform = matrixTransform;
+            }
+        }
+
+        public void RemoveActor(SceneActor actor)
+        {
+            Tuple<LibTransform, Visual3D> toRemove = actorsVisuals
+                .FirstOrDefault(x => x.Item1 == actor.Transform);
+
+            if (toRemove != null)
+            {
+                Scene.Children.Remove(toRemove.Item2);
+                actorsVisuals.Remove(toRemove);
+            }
+            else
+            {
+                DebugUtil.LogWithLocation("Tried to remove Actor not in scene");
+            }
+        }
+
+        private static void HighlightedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            DebugUtil.LogWithLocation("Re-eval highlighting");
+            Viewport v = d as Viewport;
+            if (e.NewValue is bool && v != null)
+            {
+                if ((bool)e.NewValue) { v.ViewportHighlighted(); }
+                else { v.ViewportUnHighlighted(); }
             }
         }
 
@@ -135,6 +220,27 @@ namespace Aegir.View.Rendering
             (d as Viewport)?.ConfigureRenderer();
         }
 
+        private void ViewportHighlighted()
+        {
+            DebugUtil.LogWithLocation("Highlighted" + ViewportID.ToString());
+            foreach (IGizmo gizmo in visibleGizmos)
+            {
+                HelixViewport3D viewport = GetViewport(gizmo.Layer);
+                if (!viewport.Children.Contains(gizmo.Visual))
+                {
+                    viewport.Children.Add(gizmo.Visual);
+                }
+            }
+        }
+        private void ViewportUnHighlighted()
+        {
+            foreach (IGizmo gizmo in visibleGizmos)
+            {
+                DebugUtil.LogWithLocation("Unhighlighted" + ViewportID.ToString());
+                HelixViewport3D viewport = GetViewport(gizmo.Layer);
+                viewport.Children.Remove(gizmo.Visual);
+            }
+        }
 
         private void GizmoHandler_SelectionGizmoRemoved(IGizmo gizmo, GizmoHandler.ViewportLayer layer)
         {
@@ -147,10 +253,13 @@ namespace Aegir.View.Rendering
         {
             HelixViewport3D viewport = GetViewport(layer);
 
-            if (!viewport.Children.Contains(gizmo.Visual))
+            if (!viewport.Children.Contains(gizmo.Visual) && IsHighlightedViewport)
+            {
+                viewport.Children.Add(gizmo.Visual);
+            }
+            if(!visibleGizmos.Contains(gizmo))
             {
                 visibleGizmos.Add(gizmo);
-                viewport.Children.Add(gizmo.Visual);
             }
         }
 
@@ -214,83 +323,6 @@ namespace Aegir.View.Rendering
             }
         }
 
-        public void ChangeRenderingMode(RenderingMode mode)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void RenderActor(SceneActor item)
-        {
-            if (VisualFactory == null)
-            {
-                DebugUtil.LogWithLocation("No visual factory provided for viewport");
-            }
-            else
-            {
-                Visual3D visual;
-                //Check if we need to use a dummy visual
-                if(item.Geometry != null)
-                {
-                    visual = VisualFactory.GetVisual(RenderingMode.Solid, item);
-                }
-                else
-                {
-                    visual = VisualFactory.GetDummyVisual();
-                }
-
-                actorsVisuals.Add(new Tuple<LibTransform, Visual3D>(item.Transform, visual));
-
-                //Set a position for the visual
-                AegirLib.MathType.Matrix m = item.Transform.TransformMatrix;
-                Matrix3D matrix = new Matrix3D(m.M11, m.M12, m.M13, m.M14,
-                    m.M21, m.M22, m.M23, m.M24,
-                    m.M31, m.M32, m.M33, m.M34,
-                    m.M41, m.M42, m.M43, m.M44);
-
-                MatrixTransform3D matrixTransform = new MatrixTransform3D(matrix);
-                visual.Transform = matrixTransform;
-
-                Scene.Children.Add(visual);
-            }
-        }
-
-        public void ClearView()
-        {
-            Scene.Children.Clear();
-            actorsVisuals.Clear();
-        }
-
-        public void InvalidateActors()
-        {
-            for(int i=0; i<actorsVisuals.Count; i++)
-            {
-                AegirLib.MathType.Matrix m = actorsVisuals[i].Item1.TransformMatrix;
-                Matrix3D matrix = new Matrix3D(m.M11,m.M12,m.M13,m.M14,
-                    m.M21,m.M22,m.M23,m.M24,
-                    m.M31,m.M32,m.M33,m.M34,
-                    m.M41,m.M42,m.M43,m.M44);
-
-                MatrixTransform3D matrixTransform = new MatrixTransform3D(matrix);
-
-                actorsVisuals[i].Item2.Transform = matrixTransform;
-            }
-        }
-
-        public void RemoveActor(SceneActor actor)
-        {
-            Tuple<LibTransform, Visual3D> toRemove = actorsVisuals
-                .FirstOrDefault(x => x.Item1 == actor.Transform);
-
-            if(toRemove != null)
-            {
-                Scene.Children.Remove(toRemove.Item2);
-                actorsVisuals.Remove(toRemove);
-            }
-            else
-            {
-                DebugUtil.LogWithLocation("Tried to remove Actor not in scene");
-            }
-        }
 
         public delegate void ActorClickHandler(Entity entity);
         public event ActorClickHandler ActorClicked;

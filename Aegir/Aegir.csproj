@@ -160,6 +160,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Converter\ObjectToNameConverter.cs" />
+    <Compile Include="Converter\StringEqualsConverter.cs" />
     <Compile Include="Persistance\MapPersister.cs" />
     <Compile Include="Persistance\SceneGridPersister.cs" />
     <Compile Include="Rendering\Gizmo\GizmoHandler.cs" />

@@ -7,6 +7,7 @@
              xmlns:ht="clr-namespace:HelixToolkit.Wpf;assembly=HelixToolkit.Wpf"
              xmlns:map="clr-namespace:Aegir.Map"
              xmlns:menu="clr-namespace:Aegir.View.Rendering.Menu"
+             xmlns:conv="clr-namespace:Aegir.Converter"
              mc:Ignorable="d"
              x:Name="RenderViewControl"
              d:DesignHeight="300" d:DesignWidth="300">
@@ -75,6 +76,7 @@
             </Style.Triggers>
         </Style>
         <ht:LinearConverter x:Key="Multiplier" M="0.5" />
+        <conv:EnumToBoolConverter x:Key="EnumBoolConverter"></conv:EnumToBoolConverter>
     </UserControl.Resources>
 
     <Grid>
@@ -92,8 +94,17 @@
                 <Style BasedOn="{StaticResource ViewMaximizeStyle}">
                 </Style>
             </Grid.Style>
-            <local:Viewport Tag="Top" Renderer="{Binding Path=RenderHandler,RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
-                            SelectedItem="{Binding ScenegraphVM.SelectedItem, Source={StaticResource VMLocator}}"></local:Viewport>
+            <local:Viewport GotFocus="Viewport_GotFocus"
+                            IsHighlightedViewport="{Binding Path=ActiveViewport,
+                                               RelativeSource={RelativeSource AncestorType={x:Type local:RenderView}},
+                                               Converter={StaticResource EnumBoolConverter},
+                                               ConverterParameter={x:Static local:ViewportFocus.TOPLEFT}}"
+                            ViewportID="{x:Static local:ViewportFocus.TOPLEFT}"
+                            Renderer="{Binding Path=RenderHandler,
+                                               RelativeSource={RelativeSource AncestorType={x:Type local:RenderView}}}"
+                            SelectedItem="{Binding ScenegraphVM.SelectedItem,
+                                                   Source={StaticResource VMLocator}}">
+            </local:Viewport>
             <ToggleButton x:Name="TopLeftLabel" Content="Top" Style="{StaticResource ViewButtonStyle}"/>
         </Grid>
 
@@ -103,8 +114,17 @@
                     <Setter Property="Grid.Column" Value="1" />
                 </Style>
             </Grid.Style>
-            <local:Viewport Tag="Perspective" Renderer="{Binding Path=RenderHandler,RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
-                            SelectedItem="{Binding ScenegraphVM.SelectedItem, Source={StaticResource VMLocator}}"></local:Viewport>
+            <local:Viewport GotFocus="Viewport_GotFocus"
+                            IsHighlightedViewport="{Binding Path=ActiveViewport,
+                                               RelativeSource={RelativeSource AncestorType={x:Type local:RenderView}},
+                                               Converter={StaticResource EnumBoolConverter},
+                                               ConverterParameter={x:Static local:ViewportFocus.TOPRIGHT}}"
+                            ViewportID="{x:Static local:ViewportFocus.TOPRIGHT}"
+                            Renderer="{Binding Path=RenderHandler,
+                                               RelativeSource={RelativeSource AncestorType={x:Type local:RenderView}}}"
+                            SelectedItem="{Binding ScenegraphVM.SelectedItem,
+                                                   Source={StaticResource VMLocator}}">
+            </local:Viewport>
             <ToggleButton x:Name="TopRightLabel"
                           Content="Perspective"
                           Style="{StaticResource ViewButtonStyle}"/>
@@ -117,8 +137,17 @@
                     <Setter Property="Grid.Row" Value="1" />
                 </Style>
             </Grid.Style>
-            <local:Viewport Tag="Front"  Renderer="{Binding Path=RenderHandler,RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
-                            SelectedItem="{Binding ScenegraphVM.SelectedItem, Source={StaticResource VMLocator}}"></local:Viewport>
+            <local:Viewport GotFocus="Viewport_GotFocus"
+                            IsHighlightedViewport="{Binding Path=ActiveViewport,
+                                               RelativeSource={RelativeSource AncestorType={x:Type local:RenderView}},
+                                               Converter={StaticResource EnumBoolConverter},
+                                               ConverterParameter={x:Static local:ViewportFocus.BOTTOMLEFT}}"
+                            ViewportID="{x:Static local:ViewportFocus.BOTTOMLEFT}"
+                            Renderer="{Binding Path=RenderHandler,
+                                               RelativeSource={RelativeSource AncestorType={x:Type local:RenderView}}}"
+                            SelectedItem="{Binding ScenegraphVM.SelectedItem,
+                                                   Source={StaticResource VMLocator}}">
+            </local:Viewport>
             <ToggleButton x:Name="BottomLeftLabel"
                           Content="Front"
                           Style="{StaticResource ViewButtonStyle}"/>
@@ -133,8 +162,17 @@
                     <Setter Property="Grid.Column" Value="1" />
                 </Style>
             </Grid.Style>
-            <local:Viewport Tag="Right"  Renderer="{Binding Path=RenderHandler,RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
-                            SelectedItem="{Binding ScenegraphVM.SelectedItem, Source={StaticResource VMLocator}}"></local:Viewport>
+            <local:Viewport GotFocus="Viewport_GotFocus"
+                            IsHighlightedViewport="{Binding Path=ActiveViewport,
+                                               RelativeSource={RelativeSource AncestorType={x:Type local:RenderView}},
+                                               Converter={StaticResource EnumBoolConverter},
+                                               ConverterParameter={x:Static local:ViewportFocus.BOTTOMRIGHT}}"
+                            ViewportID="{x:Static local:ViewportFocus.BOTTOMRIGHT}"
+                            Renderer="{Binding Path=RenderHandler,
+                                                RelativeSource={RelativeSource AncestorType={x:Type local:RenderView}}}"
+                            SelectedItem="{Binding ScenegraphVM.SelectedItem,
+                                                    Source={StaticResource VMLocator}}">
+            </local:Viewport>
             <ToggleButton x:Name="BottomRightLabel"
                           Content="Right"
                           Style="{StaticResource ViewButtonStyle}"/>
