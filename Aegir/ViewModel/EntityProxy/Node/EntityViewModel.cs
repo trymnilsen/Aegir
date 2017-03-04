@@ -17,12 +17,13 @@ using System.Windows;
 using System.Windows.Media.Media3D;
 using TinyMessenger;
 using ViewPropertyGrid.PropertyGrid;
+using ViewPropertyGrid.PropertyGrid.Component;
 
 namespace Aegir.ViewModel.EntityProxy.Node
 {
     public class EntityViewModel : SceneNodeViewModelBase,
                                 ITransformableVisual,
-                                IPropertyInfoProvider,
+                                IComponentContainer,
                                 IDragSource,
                                 IDropTarget,
                                 INameable
@@ -32,6 +33,7 @@ namespace Aegir.ViewModel.EntityProxy.Node
         private Transform transform;
         private List<BehaviourViewModel> componentProxies;
         private Transform3D visualTransform;
+
 
         public Entity EntitySource
         {
@@ -169,21 +171,21 @@ namespace Aegir.ViewModel.EntityProxy.Node
             }
         }
 
-        public InspectableProperty[] GetProperties()
-        {
-            List<InspectableProperty> properties = new List<InspectableProperty>();
+        //public InspectableProperty[] GetProperties()
+        //{
+        //    List<InspectableProperty> properties = new List<InspectableProperty>();
 
-            //Add Entity properties
-            properties.Add(new InspectableProperty(this, GetType().GetProperty(nameof(Name))));
-            properties.Add(new InspectableProperty(this, GetType().GetProperty(nameof(IsEnabled))));
+        //    //Add Entity properties
+        //    properties.Add(new InspectableProperty(this, GetType().GetProperty(nameof(Name))));
+        //    properties.Add(new InspectableProperty(this, GetType().GetProperty(nameof(IsEnabled))));
 
-            foreach (BehaviourViewModel behaviour in componentProxies)
-            {
-                properties.AddRange(behaviour.GetProperties());
-            }
+        //    foreach (BehaviourViewModel behaviour in componentProxies)
+        //    {
+        //        properties.AddRange(behaviour.GetInspectableComponent());
+        //    }
 
-            return properties.ToArray();
-        }
+        //    return properties.ToArray();
+        //}
 
         public void Detach()
         {
@@ -198,6 +200,34 @@ namespace Aegir.ViewModel.EntityProxy.Node
         {
         }
 
+        public ComponentDescriptor[] GetAvailableComponents()
+        {
+            return new ComponentDescriptor[0];
+        }
+
+        public IInspectableComponent[] GetInspectableComponents()
+        {
+            List<IInspectableComponent> properties = new List<IInspectableComponent>();
+
+            //IInspectableComponent generalComponent = new
+            ////Add Entity properties
+            //properties.Add(new InspectableProperty(this, GetType().GetProperty(nameof(Name))));
+            //properties.Add(new InspectableProperty(this, GetType().GetProperty(nameof(IsEnabled))));
+
+            foreach (BehaviourViewModel behaviour in componentProxies)
+            {
+
+                properties.Add(behaviour);
+            }
+            return properties.ToArray();
+        }
+
+        public void AddComponent(ComponentDescriptor component)
+        {
+            throw new NotImplementedException();
+        }
+
+        public event ComponentAddedHandler ComponentAdded;
         //public void TriggerTransformChanged()
         //{
         //    TransformationChangedHandler transformEvent = TransformationChanged;

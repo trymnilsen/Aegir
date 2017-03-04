@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using ViewPropertyGrid.PropertyGrid.Component;
 using ViewPropertyGrid.Util;
 
 namespace ViewPropertyGrid.PropertyGrid
@@ -19,7 +20,7 @@ namespace ViewPropertyGrid.PropertyGrid
         {
             if (obj is IPropertyInfoProvider)
             {
-                return (obj as IPropertyInfoProvider)?.GetProperties();
+                return ((IPropertyInfoProvider)obj).GetProperties();
             }
             else
             {
@@ -44,14 +45,15 @@ namespace ViewPropertyGrid.PropertyGrid
         {
             if (!metadataCache.ContainsKey(property.ReflectionData))
             {
-                var metadata = GenerateMetadata(property);
+                var metadata = GenerateMetaData(property);
                 metadataCache.Add(property.ReflectionData, metadata);
             }
 
             return metadataCache[property.ReflectionData];
         }
 
-        private static InspectablePropertyMetadata GenerateMetadata(InspectableProperty property)
+
+        private static InspectablePropertyMetadata GenerateMetaData(InspectableProperty property)
         {
             //Get all attributes
             object[] attributes = property.ReflectionData.GetCustomAttributes(false);
@@ -59,7 +61,6 @@ namespace ViewPropertyGrid.PropertyGrid
             bool updateLayout = attributes
                 .Any(x => x.GetType() == typeof(UpdatePropListOnPropChangeAttribute));
 
-            //If the property has a category attribute, use this
             CategoryAttribute categoryAttribute = attributes
                 .FirstOrDefault(x => x is CategoryAttribute)
                     as CategoryAttribute;
@@ -78,17 +79,18 @@ namespace ViewPropertyGrid.PropertyGrid
                 DisplayNameAttribute categoryDisplayName = property.Target.GetType()
                                                             .GetFirstOrDefaultAttribute<DisplayNameAttribute>();
 
-                if(categoryDisplayName!=null)
+                if (categoryDisplayName != null)
                 {
                     categoryName = categoryDisplayName.DisplayName;
                 }
             }
-            
+
             //If there is no category yet, should we use Target toString as category or the default
-            if (UseTargetToStringOnNoCategory && categoryName == string.Empty)
+            if (categoryName == string.Empty)
             {
                 categoryName = property.Target.ToString();
             }
+
             //Get DisplayName if any
             string displayName = (attributes.FirstOrDefault(x => x is DisplayNameAttribute) as DisplayNameAttribute)?.DisplayName;
 

@@ -10,6 +10,9 @@ using ViewPropertyGrid.Converter;
 
 namespace ViewPropertyGrid.PropertyGrid.Provider
 {
+    [ControlProvider(typeof(int))]
+    [ControlProvider(typeof(double))]
+    [ControlProvider(typeof(string))]
     public class TextboxProvider : IControlProvider
     {
         public ValueControl GetControl(InspectableProperty property)
@@ -28,7 +31,7 @@ namespace ViewPropertyGrid.PropertyGrid.Provider
             twoWayBinding.Mode = BindingMode.TwoWay;
             twoWayBinding.UpdateSourceTrigger = UpdateSourceTrigger.LostFocus;
             twoWayBinding.Converter = GetConverter(property);
-            
+
             //Set up edit events
             Action resumeBinding = ()=>{
                 dataSource.SuspendIncomming = false;

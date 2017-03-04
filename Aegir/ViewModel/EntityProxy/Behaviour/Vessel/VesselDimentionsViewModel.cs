@@ -5,12 +5,14 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ViewPropertyGrid.PropertyGrid.Component;
 
 namespace Aegir.ViewModel.EntityProxy.Vessel
 {
 
     [ViewModelForBehaviour(typeof(VesselDimentionsBehaviour))]
     [DisplayName("Vessel Dimentions")]
+    [ComponentDescriptorAttribute("Length width and height of the vessel","Vessel",true)]
     public class VesselDimentionsViewModel : TypedBehaviourViewModel<VesselDimentionsBehaviour>
     {
 
@@ -47,7 +49,7 @@ namespace Aegir.ViewModel.EntityProxy.Vessel
 
         internal override void Invalidate()
         {
-           
+
         }
     }
 }

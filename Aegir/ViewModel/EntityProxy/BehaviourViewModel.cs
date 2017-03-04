@@ -6,28 +6,32 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using ViewPropertyGrid.PropertyGrid;
+using ViewPropertyGrid.PropertyGrid.Component;
 
 namespace Aegir.ViewModel.EntityProxy
 {
-    public abstract class BehaviourViewModel : ViewModelBase
+    public abstract class BehaviourViewModel : ViewModelBase, IInspectableComponent
     {
 
         public BehaviourViewModel()
         {
-            
+
         }
 
-        public InspectableProperty[] GetProperties()
+        public InspectableProperty[] Properties
         {
-            PropertyInfo[] properties = this.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly);
-            List<InspectableProperty> inspectables = new List<InspectableProperty>();
-            foreach (PropertyInfo property in properties)
+            get
             {
-                InspectableProperty inspectable = new InspectableProperty(this, property);
-                inspectables.Add(inspectable);
-            }
+                PropertyInfo[] properties = this.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly);
+                List<InspectableProperty> inspectables = new List<InspectableProperty>();
+                foreach (PropertyInfo property in properties)
+                {
+                    InspectableProperty inspectable = new InspectableProperty(this, property);
+                    inspectables.Add(inspectable);
+                }
 
-            return inspectables.ToArray();
+                return inspectables.ToArray();
+            }
         }
 
         internal abstract void Invalidate();

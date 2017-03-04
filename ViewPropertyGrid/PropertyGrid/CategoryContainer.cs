@@ -12,6 +12,7 @@ namespace ViewPropertyGrid.PropertyGrid
     {
         private StackPanel internalPanel;
 
+
         public CategoryContainer()
         {
             internalPanel = new StackPanel();

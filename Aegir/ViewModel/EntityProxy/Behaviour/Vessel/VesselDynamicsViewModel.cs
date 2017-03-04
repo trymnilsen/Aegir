@@ -7,11 +7,13 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ViewPropertyGrid.PropertyGrid.Component;
 
 namespace Aegir.ViewModel.EntityProxy.Vessel
 {
     [ViewModelForBehaviourAttribute(typeof(VesselDynamicsBehaviour))]
     [DisplayName( "Vessel Dynamics")]
+    [ComponentDescriptorAttribute("Motion of the Vessel","Vessel",false)]
     public class VesselDynamicsViewModel : TypedBehaviourViewModel<VesselDynamicsBehaviour>
     {
         public double Speed

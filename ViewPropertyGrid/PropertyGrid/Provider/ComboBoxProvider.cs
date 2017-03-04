@@ -11,6 +11,8 @@ using ViewPropertyGrid.Converter;
 
 namespace ViewPropertyGrid.PropertyGrid.Provider
 {
+    [ControlProviderAttribute(typeof(bool))]
+    [ControlProviderAttribute(typeof(Enum))]
     internal class ComboBoxProvider : IControlProvider
     {
         public ValueControl GetControl(InspectableProperty property)

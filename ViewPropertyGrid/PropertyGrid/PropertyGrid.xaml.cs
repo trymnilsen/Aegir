@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ViewPropertyGrid.PropertyGrid.Component;
 using ViewPropertyGrid.Util;
 
 namespace ViewPropertyGrid.PropertyGrid
@@ -25,6 +26,8 @@ namespace ViewPropertyGrid.PropertyGrid
     {
         public const string NoCategoryName = "Misc";
         private ControlFactory controlFactory;
+        private bool componentMode;
+        private Dictionary<IInspectableComponent, ComponentDescriptor> componentDescriptors;
 
         /// <summary>
         /// We keep track of the objects we are currently listing to so we
@@ -126,35 +129,76 @@ namespace ViewPropertyGrid.PropertyGrid
             Cleanup();
             ClearGridUI();
             ResetCategories();
+
             if (newObject != null)
             {
-                //Get all properties from the factory
-                //This will read the propertyinfo and create our own
-                //convienient format (that is also cached)
-                InspectableProperty[] properties = DefaultPropertyFactory.GetProperties(newObject);
+                componentMode = newObject is IComponentContainer;
 
-                foreach (InspectableProperty property in properties)
+                //ComponentContainers and PropertyProviders are handled differently with regards to
+                //how they are categorizer and put into category containers
+                //as well as the possible header of the category container
+                if(componentMode)
                 {
-                    InspectablePropertyMetadata propertiyMetadata =
-                        DefaultPropertyFactory.GetPropertyMetadata(property);
-
-                    if (property.Target is INotifyPropertyChanged)
+                    IComponentContainer componentContainer = newObject as IComponentContainer;
+                    foreach(IInspectableComponent component in componentContainer.GetInspectableComponents())
                     {
-                        var target = property.Target as INotifyPropertyChanged;
-                        if (!eventPublishers.ContainsKey(target.GetHashCode()))
-                        {
-                            eventPublishers.Add(target.GetHashCode(), new WeakReference<INotifyPropertyChanged>(target));
-                        }
-                        target.PropertyChanged += TargetObject_PropertyChanged;
-                    }
 
-                    AddProperty(property, propertiyMetadata);
+                        InspectableProperty[] properties = component.Properties;
+                        foreach(InspectableProperty property in properties)
+                        {
+                            ComponentDescriptor descriptor = ComponentDescriptorCache.GetDescriptor(component);
+                            InspectablePropertyMetadata propertyMetadata = DefaultPropertyFactory.GetPropertyMetadata(property);
+                            CategoryContainer container = null;
+                            if (descriptor.Removable) { container = GetComponentCategoryContainer(propertyMetadata, component); }
+                            else { container = GetAttributeCategoryContainer(propertyMetadata); }
+
+                            ListenToPropertyChanged(property);
+                            AddProperty(property, propertyMetadata, container);
+                        }
+                    }
+                    AddBehaviourButton();
+                }
+                else
+                {
+                    foreach (InspectableProperty property in DefaultPropertyFactory.GetProperties(newObject))
+                    {
+                        InspectablePropertyMetadata propertyMetadata = DefaultPropertyFactory.GetPropertyMetadata(property);
+                        CategoryContainer container = GetAttributeCategoryContainer(propertyMetadata);
+                        ListenToPropertyChanged(property);
+                        AddProperty(property, propertyMetadata, container);
+                    }
                 }
             }
             else
             {
                 SetEmptyGridUi();
             }
+        }
+
+        private void AddBehaviourButton()
+        {
+            componentMode = true;
+            Button addBehaviourButton = new Button() { Content = "Add Behaviour" };
+            addBehaviourButton.Click += AddBehaviourButton_Click;
+            CategoryPanel.Children.Add(addBehaviourButton);
+        }
+
+        private void ListenToPropertyChanged(InspectableProperty property)
+        {
+            var target = property.Target as INotifyPropertyChanged;
+            if(target!=null)
+            {
+                if (!eventPublishers.ContainsKey(target.GetHashCode()))
+                {
+                    eventPublishers.Add(target.GetHashCode(), new WeakReference<INotifyPropertyChanged>(target));
+                }
+                target.PropertyChanged += TargetObject_PropertyChanged;
+            }
+        }
+
+        private void AddBehaviourButton_Click(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         private void ResetCategories()
@@ -171,7 +215,7 @@ namespace ViewPropertyGrid.PropertyGrid
         /// </summary>
         private void ClearGridUI()
         {
-            this.CategoryPanel.Children.Clear();
+            CategoryPanel.Children.Clear();
         }
 
         /// <summary>
@@ -179,6 +223,7 @@ namespace ViewPropertyGrid.PropertyGrid
         /// </summary>
         private void SetEmptyGridUi()
         {
+
         }
 
         /// <summary>
@@ -225,15 +270,17 @@ namespace ViewPropertyGrid.PropertyGrid
             view?.UpdatePropertyGridTarget(e.OldValue, e.NewValue);
         }
 
+
         /// <summary>
         /// Adds a property to the UI
         /// </summary>
         /// <param name="property"></param>
         /// <param name="propertyMetadata"></param>
-        private void AddProperty(InspectableProperty property, InspectablePropertyMetadata propertyMetadata)
+        private void AddProperty(InspectableProperty property, InspectablePropertyMetadata propertyMetadata, CategoryContainer container)
         {
-            //Get the category of the property
-            CategoryContainer container = GetCategory(propertyMetadata);
+            //Get the category of the property if its not set
+            //CategoryContainer container = GetCategoryContainer(propertyMetadata);
+
             ValueControl valueControl;
             PropertyContainer propContainer;
 
@@ -265,18 +312,41 @@ namespace ViewPropertyGrid.PropertyGrid
         /// <param name="property"></param>
         private void RemoveProperty(InspectablePropertyMetadata property)
         {
+
         }
 
-        private CategoryContainer GetCategory(InspectablePropertyMetadata metaData)
+        private CategoryContainer GetComponentCategoryContainer(InspectablePropertyMetadata metadata, IInspectableComponent component)
         {
-            if (categoryViews.ContainsKey(metaData.Category))
+            string containerId = component.GetHashCode().ToString();
+            if (categoryViews.ContainsKey(containerId))
             {
-                return categoryViews[metaData.Category];
+                return categoryViews[containerId];
             }
 
             CategoryContainer newCategory = new CategoryContainer();
-            categoryViews.Add(metaData.Category, newCategory);
-            newCategory.Header = metaData.Category;
+            ComponentCategoryHeader header = new ComponentCategoryHeader();
+            header.Header = metadata.Category;
+            header.RemoveClicked += () =>
+              {
+                  Debug.WriteLine("ViewPropertyGrid::CategoryContainer Remove Clicked for: " + component.ToString());
+              };
+            newCategory.Header = header;
+
+            categoryViews.Add(containerId, newCategory);
+            CategoryPanel.Children.Add(newCategory);
+            return newCategory;
+        }
+
+        private CategoryContainer GetAttributeCategoryContainer(InspectablePropertyMetadata metadata)
+        {
+            if (categoryViews.ContainsKey(metadata.Category))
+            {
+                return categoryViews[metadata.Category];
+            }
+
+            CategoryContainer newCategory = new CategoryContainer();
+            categoryViews.Add(metadata.Category, newCategory);
+            newCategory.Header = metadata.Category;
 
             CategoryPanel.Children.Add(newCategory);
 

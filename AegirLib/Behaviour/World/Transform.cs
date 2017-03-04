@@ -18,6 +18,11 @@ namespace AegirLib.Behaviour.World
         private Matrix matrix;
         private bool matrixIsDirty;
 
+        private float roll;
+        private float pitch;
+        private float yaw;
+        private bool rotationIsDirty;
+
         public bool Notify { get; set; }
 
         [KeyframeProperty]
@@ -39,6 +44,7 @@ namespace AegirLib.Behaviour.World
             {
                 localRotation = value;
                 matrixIsDirty = true;
+                rotationIsDirty = true;
             }
         }
 
@@ -67,6 +73,60 @@ namespace AegirLib.Behaviour.World
             }
         }
 
+        public float Roll
+        {
+            get
+            {
+                if(rotationIsDirty) { GenerateRPY(); }
+                return roll;
+            }
+            set
+            {
+                Quaternion q = Quaternion.CreateFromYawPitchRoll(YawRadians, PitchRadians, MathHelper.ToRadians(value));
+                localRotation = localRotation * q;
+                localRotation.Normalize();
+                rotationIsDirty = true;
+                matrixIsDirty = true;
+            }
+        }
+
+
+        public float Pitch
+        {
+            get
+            {
+                if (rotationIsDirty) { GenerateRPY(); }
+                return pitch;
+            }
+            set
+            {
+                Quaternion q = Quaternion.CreateFromYawPitchRoll(YawRadians, MathHelper.ToRadians(value), RollRadians);
+                localRotation = localRotation * q;
+                localRotation.Normalize();
+                rotationIsDirty = true;
+                matrixIsDirty = true;
+            }
+        }
+
+        public float Yaw
+        {
+            get
+            {
+                if(rotationIsDirty) { GenerateRPY(); }
+                return yaw;
+            }
+            set
+            {
+                Quaternion q = Quaternion.CreateFromYawPitchRoll(MathHelper.ToRadians(value), PitchRadians, RollRadians);
+                localRotation = localRotation * q;
+                localRotation.Normalize();
+                rotationIsDirty = true;
+                matrixIsDirty = true;
+            }
+        }
+        public float RollRadians => MathHelper.ToRadians(Roll);
+        public float YawRadians => MathHelper.ToRadians(Yaw);
+        public float PitchRadians => MathHelper.ToRadians(Pitch);
 
         public Transform(Entity parent)
             : base(parent)
@@ -186,6 +246,14 @@ namespace AegirLib.Behaviour.World
 
             matrix = m;
         }
+        private void GenerateRPY()
+        {
+            rotationIsDirty = false;
+            roll = MathHelper.ToDegrees((float)Quaternion.GetXAngle(localRotation));
+            pitch = MathHelper.ToDegrees((float)Quaternion.GetYAngle(localRotation));
+            yaw = MathHelper.ToDegrees((float)Quaternion.GetZAngle(localRotation));
+        }
+
 
     }
 }

@@ -6,11 +6,13 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ViewPropertyGrid.PropertyGrid.Component;
 
 namespace Aegir.ViewModel.EntityProxy.Vessel
 {
     [ViewModelForBehaviourAttribute(typeof(Transform))]
     [DisplayName("Transform")]
+    [ComponentDescriptorAttribute("Position and Attitude","World",false)]
     public class TransformViewModel : TypedBehaviourViewModel<Transform>
     {
         public double X
@@ -30,6 +32,21 @@ namespace Aegir.ViewModel.EntityProxy.Vessel
             get { return Component.LocalPosition.Z; }
             set { Component.SetZ(value); }
         }
+        public double Roll
+        {
+            get { return Component.Roll; }
+            set { Component.Roll = (float)value; }
+        }
+        public double Pitch
+        {
+            get { return Component.Pitch; }
+            set { Component.Pitch = (float)value; }
+        }
+        public double Yaw
+        {
+            get { return Component.Yaw; }
+            set { Component.Yaw = (float)value; }
+        }
 
         public TransformViewModel(Transform source)
             : base(source)
@@ -41,6 +58,9 @@ namespace Aegir.ViewModel.EntityProxy.Vessel
             RaisePropertyChanged(nameof(X));
             RaisePropertyChanged(nameof(Y));
             RaisePropertyChanged(nameof(Z));
+            RaisePropertyChanged(nameof(Roll));
+            RaisePropertyChanged(nameof(Pitch));
+            RaisePropertyChanged(nameof(Yaw));
         }
     }
 }

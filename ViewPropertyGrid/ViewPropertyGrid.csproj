@@ -95,12 +95,21 @@
     <Compile Include="Converter\DoubleToStringConverter.cs" />
     <Compile Include="Converter\EnumToStringConverter.cs" />
     <Compile Include="Converter\IntToStringConverter.cs" />
+    <Compile Include="PropertyGrid\Component\ComponentDescriptorCache.cs" />
+    <Compile Include="PropertyGrid\Component\ComponentDescriptorAttribute.cs" />
     <Compile Include="PropertyGrid\CategoryContainer.cs" />
+    <Compile Include="PropertyGrid\ComponentCategoryHeader.xaml.cs">
+      <DependentUpon>ComponentCategoryHeader.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PropertyGrid\Component\ComponentDescriptor.cs" />
     <Compile Include="PropertyGrid\ControlFactory.cs" />
+    <Compile Include="PropertyGrid\ControlProviderAttribute.cs" />
     <Compile Include="PropertyGrid\CustomEditorAttribute.cs" />
     <Compile Include="PropertyGrid\DefaultPropertyFactory.cs" />
     <Compile Include="PropertyGrid\EditingBehaviour.cs" />
+    <Compile Include="PropertyGrid\Component\IComponentContainer.cs" />
     <Compile Include="PropertyGrid\IControlProvider.cs" />
+    <Compile Include="PropertyGrid\Component\IInspectableComponent.cs" />
     <Compile Include="PropertyGrid\InspectableProperty.cs" />
     <Compile Include="PropertyGrid\InspectablePropertyMetadata.cs" />
     <Compile Include="PropertyGrid\IPropertyInfoProvider.cs" />
@@ -115,6 +124,10 @@
     <Compile Include="PropertyGrid\ValueControl.cs" />
     <Compile Include="Util\DependencyObjectExtensions.cs" />
     <Compile Include="Util\MemberInfoExtensions.cs" />
+    <Page Include="PropertyGrid\ComponentCategoryHeader.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="PropertyGrid\PropertyGrid.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

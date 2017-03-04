@@ -5,11 +5,14 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ViewPropertyGrid.PropertyGrid.Component;
 
 namespace Aegir.ViewModel.EntityProxy.Simulation
 {
     [ViewModelForBehaviour(typeof(WaterSimulation))]
     [DisplayName("Water Simulation")]
+    [ComponentDescriptorAttribute("Simulated Oceans waved with boyancy simulation","Simulation",true)]
+
     public class WaterSimulationViewModel : TypedBehaviourViewModel<WaterSimulation>
     {
         [DisplayName("Affected By Weather")]
