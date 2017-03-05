@@ -12,6 +12,8 @@ namespace ViewPropertyGrid.PropertyGrid.Component
         IInspectableComponent[] GetInspectableComponents();
         void AddComponent(ComponentDescriptor component);
         event ComponentAddedHandler ComponentAdded;
+
+        void ComponentRemoved(IInspectableComponent component);
     }
 
     public delegate void ComponentAddedHandler(IInspectableComponent component);

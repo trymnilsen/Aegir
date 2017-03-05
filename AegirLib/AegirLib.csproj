@@ -86,6 +86,9 @@
     <Compile Include="Behaviour\Mesh\MeshChangeAction.cs" />
     <Compile Include="Behaviour\Mesh\MeshChangedArgs.cs" />
     <Compile Include="Behaviour\Mesh\MeshBehaviour.cs" />
+    <Compile Include="Behaviour\Output\FileOutput.cs" />
+    <Compile Include="Behaviour\Output\TCPOutput.cs" />
+    <Compile Include="Behaviour\Output\UDPOutput.cs" />
     <Compile Include="Behaviour\Simulation\FloatingMesh.cs" />
     <Compile Include="Behaviour\Simulation\WaterSimulation.cs" />
     <Compile Include="Behaviour\Simulation\WeatherSimulation.cs" />

@@ -36,27 +36,39 @@ namespace ViewPropertyGrid.PropertyGrid.Component
         //        cache.Add(t.type, ComponentDescriptor);
         //    }
         //}
+        public static ComponentDescriptor[] GetDescriptors(Type[] types)
+        {
+            ComponentDescriptor[] descriptors = new ComponentDescriptor[types.Length];
+            for (int i = 0; i < types.Length; i++)
+            {
+                descriptors[i] = GetDescriptor(types[i]);
+            }
+            return descriptors;
+        }
         public static ComponentDescriptor GetDescriptor(IInspectableComponent component)
         {
-            if (!cache.ContainsKey(component.GetType()))
+            return GetDescriptor(component.GetType());
+        }
+        private static ComponentDescriptor GetDescriptor(Type component)
+        {
+            if (!cache.ContainsKey(component))
             {
                 var DisplayNameAttribute = component
-                    .GetType()
                     .GetFirstOrDefaultAttribute<DisplayNameAttribute>();
 
                 var descriptorAttribute = component
-                    .GetType()
                     .GetFirstOrDefaultAttribute<ComponentDescriptorAttribute>();
 
                 var descriptor = new ComponentDescriptor(descriptorAttribute.Description,
                     DisplayNameAttribute.DisplayName,
-                    component.GetType(),
+                    component,
                     descriptorAttribute.Group,
-                    descriptorAttribute.Removable);
+                    descriptorAttribute.Removable,
+                    descriptorAttribute.Unique);
 
-                cache.Add(component.GetType(), descriptor);
+                cache.Add(component, descriptor);
             }
-            return cache[component.GetType()];
+            return cache[component];
         }
     }
 }

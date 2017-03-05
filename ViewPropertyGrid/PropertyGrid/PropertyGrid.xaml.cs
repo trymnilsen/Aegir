@@ -63,6 +63,19 @@ namespace ViewPropertyGrid.PropertyGrid
             }
         }
 
+
+        public bool ShowMessageBoxOnError
+        {
+            get { return (bool)GetValue(ShowMessageBoxOnErrorProperty); }
+            set { SetValue(ShowMessageBoxOnErrorProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for ShowMessageBoxOnError.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ShowMessageBoxOnErrorProperty =
+            DependencyProperty.Register(nameof(ShowMessageBoxOnError), typeof(bool), typeof(PropertyGrid), new PropertyMetadata(true));
+
+
+
         /// <summary>
         /// Creates an inits a new Propertygrid
         /// </summary>
@@ -142,20 +155,12 @@ namespace ViewPropertyGrid.PropertyGrid
                     IComponentContainer componentContainer = newObject as IComponentContainer;
                     foreach(IInspectableComponent component in componentContainer.GetInspectableComponents())
                     {
-
-                        InspectableProperty[] properties = component.Properties;
-                        foreach(InspectableProperty property in properties)
-                        {
-                            ComponentDescriptor descriptor = ComponentDescriptorCache.GetDescriptor(component);
-                            InspectablePropertyMetadata propertyMetadata = DefaultPropertyFactory.GetPropertyMetadata(property);
-                            CategoryContainer container = null;
-                            if (descriptor.Removable) { container = GetComponentCategoryContainer(propertyMetadata, component); }
-                            else { container = GetAttributeCategoryContainer(propertyMetadata); }
-
-                            ListenToPropertyChanged(property);
-                            AddProperty(property, propertyMetadata, container);
-                        }
+                        AddInspectableComponent(component);
                     }
+                    //Listen for component added/removed events
+                    componentContainer.ComponentAdded += ComponentContainer_ComponentAdded;
+                    //componentContainer.ComponentRemoved
+                    //Add the button at the bottom to pick components
                     AddBehaviourButton();
                 }
                 else
@@ -163,7 +168,7 @@ namespace ViewPropertyGrid.PropertyGrid
                     foreach (InspectableProperty property in DefaultPropertyFactory.GetProperties(newObject))
                     {
                         InspectablePropertyMetadata propertyMetadata = DefaultPropertyFactory.GetPropertyMetadata(property);
-                        CategoryContainer container = GetAttributeCategoryContainer(propertyMetadata);
+                        CategoryContainer container = GetDefaultHeaderCategoryContainer(propertyMetadata.Category);
                         ListenToPropertyChanged(property);
                         AddProperty(property, propertyMetadata, container);
                     }
@@ -175,12 +180,114 @@ namespace ViewPropertyGrid.PropertyGrid
             }
         }
 
+        private void AddInspectableComponent(IInspectableComponent component)
+        {
+            InspectableProperty[] properties = component.Properties;
+            //Add Container independently of any properties
+            ComponentDescriptor descriptor = ComponentDescriptorCache.GetDescriptor(component);
+            CategoryContainer container = null;
+            if (descriptor.Removable) { container = GetComponentCategoryContainer(component, descriptor.Title); }
+            else { container = GetDefaultHeaderCategoryContainer(descriptor.Title); }
+            foreach (InspectableProperty property in properties)
+            {
+                InspectablePropertyMetadata propertyMetadata = DefaultPropertyFactory.GetPropertyMetadata(property);
+
+                ListenToPropertyChanged(property);
+                AddProperty(property, propertyMetadata, container);
+            }
+        }
+
+        private void ComponentContainer_ComponentAdded(IInspectableComponent component)
+        {
+            AddInspectableComponent(component);
+        }
+
         private void AddBehaviourButton()
         {
             componentMode = true;
             Button addBehaviourButton = new Button() { Content = "Add Behaviour" };
             addBehaviourButton.Click += AddBehaviourButton_Click;
-            CategoryPanel.Children.Add(addBehaviourButton);
+            addBehaviourButton.ContextMenu = new ContextMenu();
+            addBehaviourButton.ContextMenu.ContextMenuOpening += AddBehaviourButton_ContextMenuOpening;
+            ButtonsPanel.Children.Add(addBehaviourButton);
+        }
+
+        private void AddBehaviourButton_ContextMenuOpening(object sender, ContextMenuEventArgs e)
+        {
+            OpenContextMenu(sender);
+        }
+
+        private void OpenContextMenu(object sender)
+        {
+            //Generate the available ones based on the selected object
+            IComponentContainer target = SelectedObject as IComponentContainer;
+            Button button = sender as Button;
+            if (target != null && button != null)
+            {
+                ComponentDescriptor[] options = target.GetAvailableComponents();
+                IInspectableComponent[] behaviours = target.GetInspectableComponents();
+
+                ContextMenu menu = button.ContextMenu;
+                menu.Items.Clear();
+
+                //Get them sorted by group
+                var groupedOptions = options.GroupBy(item => item.Group,
+                    (key, group) => new { Group = key, Components = group });
+
+                foreach (var group in groupedOptions)
+                {
+                    MenuItem menuItem = new MenuItem();
+                    menuItem.Header = group.Group;
+                    menu.Items.Add(menuItem);
+                    foreach (var component in group.Components)
+                    {
+                        //Ignore the ones that cant be removed
+                        if (!component.Removable)
+                        {
+                            continue;
+                        }
+                        //Change the tooltip based on two cases
+                        //If the component already exists on the object and its unique, disable and show "Behaviour already added"
+                        //If the component is removable and not unique just show the description of it
+                        bool isEnabled = true;
+                        string tooltip = string.Empty;
+
+                        //Check if the behaviour already exists
+                        if (behaviours.Any(b => options.Any(o => b.GetType() == o.ComponentType)) && component.Unique)
+                        {
+                            isEnabled = false;
+                            tooltip = "Behaviour already added";
+                        }
+                        else { tooltip = component.Description; }
+
+                        MenuItem child = new MenuItem();
+                        child.Header = component.Title;
+                        child.IsEnabled = isEnabled;
+                        //Setup click handler
+                        if (isEnabled)
+                        {
+                            child.Click += (s, args) => { AddComponentToCurrentTarget(target, component); };
+                        }
+
+                        menuItem.Items.Add(child);
+                    }
+                }
+            }
+        }
+
+        private void AddComponentToCurrentTarget(IComponentContainer target, ComponentDescriptor component)
+        {
+            try
+            {
+                target.AddComponent(component);
+            }
+            catch(Exception e)
+            {
+                if (ShowMessageBoxOnError)
+                {
+                    MessageBox.Show($"An Error Occured:\n{e.ToString()}");
+                }
+            }
         }
 
         private void ListenToPropertyChanged(InspectableProperty property)
@@ -198,7 +305,11 @@ namespace ViewPropertyGrid.PropertyGrid
 
         private void AddBehaviourButton_Click(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            Button button = sender as Button;
+            ContextMenu contextMenu = button.ContextMenu;
+            contextMenu.PlacementTarget = button;
+            contextMenu.IsOpen = true;
+            OpenContextMenu(button);
         }
 
         private void ResetCategories()
@@ -216,6 +327,7 @@ namespace ViewPropertyGrid.PropertyGrid
         private void ClearGridUI()
         {
             CategoryPanel.Children.Clear();
+            ButtonsPanel.Children.Clear();
         }
 
         /// <summary>
@@ -315,38 +427,43 @@ namespace ViewPropertyGrid.PropertyGrid
 
         }
 
-        private CategoryContainer GetComponentCategoryContainer(InspectablePropertyMetadata metadata, IInspectableComponent component)
+        private CategoryContainer GetComponentCategoryContainer(IInspectableComponent component, string headerText)
         {
-            string containerId = component.GetHashCode().ToString();
-            if (categoryViews.ContainsKey(containerId))
+            string uniqueId = component.GetHashCode().ToString();
+            if (categoryViews.ContainsKey(uniqueId))
             {
-                return categoryViews[containerId];
+                return categoryViews[uniqueId];
             }
 
             CategoryContainer newCategory = new CategoryContainer();
             ComponentCategoryHeader header = new ComponentCategoryHeader();
-            header.Header = metadata.Category;
+            header.Header = headerText;
             header.RemoveClicked += () =>
               {
-                  Debug.WriteLine("ViewPropertyGrid::CategoryContainer Remove Clicked for: " + component.ToString());
+                  ComponentRemoved(component);
               };
             newCategory.Header = header;
 
-            categoryViews.Add(containerId, newCategory);
+            categoryViews.Add(uniqueId, newCategory);
             CategoryPanel.Children.Add(newCategory);
             return newCategory;
         }
 
-        private CategoryContainer GetAttributeCategoryContainer(InspectablePropertyMetadata metadata)
+        private void ComponentRemoved(IInspectableComponent component)
         {
-            if (categoryViews.ContainsKey(metadata.Category))
+            (SelectedObject as IComponentContainer)?.ComponentRemoved(component);
+        }
+
+        private CategoryContainer GetDefaultHeaderCategoryContainer(string headerText)
+        {
+            if (categoryViews.ContainsKey(headerText))
             {
-                return categoryViews[metadata.Category];
+                return categoryViews[headerText];
             }
 
             CategoryContainer newCategory = new CategoryContainer();
-            categoryViews.Add(metadata.Category, newCategory);
-            newCategory.Header = metadata.Category;
+            categoryViews.Add(headerText, newCategory);
+            newCategory.Header = headerText;
 
             CategoryPanel.Children.Add(newCategory);
 

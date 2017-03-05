@@ -65,7 +65,19 @@ namespace Aegir.ViewModel.EntityProxy
                 behaviourVmMapping.Add(vmTargetType, vmType.Type);
             }
         }
-
+        public static Type GetBehaviourFromViewModelProxy(Type vm)
+        {
+            try
+            {
+                var behaviourKeyValuePair = behaviourVmMapping.First(x => x.Value == vm);
+                Type behaviour = behaviourKeyValuePair.Key;
+                return behaviour;
+            }
+            catch(Exception e)
+            {
+                throw new KeyNotFoundException("Could not find the requested behaviour");
+            }
+        }
         public static BehaviourViewModel GetViewModelProxy(BehaviourComponent behaviour)
         {
             try

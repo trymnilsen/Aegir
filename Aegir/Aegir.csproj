@@ -167,6 +167,9 @@
     <Compile Include="Rendering\Gizmo\IGizmo.cs" />
     <Compile Include="Rendering\ISceneActor.cs" />
     <Compile Include="Rendering\TransformHelper.cs" />
+    <Compile Include="ViewModel\EntityProxy\Behaviour\Output\FileOutputViewModel.cs" />
+    <Compile Include="ViewModel\EntityProxy\Behaviour\Output\TCPOutputViewModel.cs" />
+    <Compile Include="ViewModel\EntityProxy\Behaviour\Output\UDPOutputViewModel.cs" />
     <Compile Include="ViewModel\EntityProxy\Node\GizmoNodeViewModel.cs" />
     <Compile Include="ViewModel\EntityProxy\ISceneNode.cs" />
     <Compile Include="ViewModel\EntityProxy\Node\KeyframeViewModel.cs" />
@@ -614,6 +617,7 @@
   <ItemGroup>
     <Resource Include="Persistance\SceneGridPreset.xml" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>

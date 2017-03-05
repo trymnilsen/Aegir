@@ -28,5 +28,17 @@ namespace AegirLib.Behaviour
             //If we get here no behaviour was created, just return null
             return null;
         }
+
+        public static BehaviourComponent CreateFromType(Type type, Entity entity)
+        {
+            try
+            {
+                return Activator.CreateInstance(type, entity) as BehaviourComponent;
+            }
+            catch(Exception e)
+            {
+                throw new ArgumentException($"An error occured creating the behaviour {type.Name}", e);
+            }
+        }
     }
 }

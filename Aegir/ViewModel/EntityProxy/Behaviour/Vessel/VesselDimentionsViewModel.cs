@@ -12,7 +12,7 @@ namespace Aegir.ViewModel.EntityProxy.Vessel
 
     [ViewModelForBehaviour(typeof(VesselDimentionsBehaviour))]
     [DisplayName("Vessel Dimentions")]
-    [ComponentDescriptorAttribute("Length width and height of the vessel","Vessel",true)]
+    [ComponentDescriptorAttribute("Length width and height of the vessel","Vessel",false,false)]
     public class VesselDimentionsViewModel : TypedBehaviourViewModel<VesselDimentionsBehaviour>
     {
 

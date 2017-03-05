@@ -1,6 +1,9 @@
 ﻿using Aegir.Mvvm;
 using Aegir.Rendering;
 using Aegir.View.PropertyEditor.CustomEditor;
+using Aegir.ViewModel.EntityProxy.Behaviour.Output;
+using Aegir.ViewModel.EntityProxy.Simulation;
+using Aegir.ViewModel.EntityProxy.Vessel;
 using Aegir.Windows;
 using AegirLib.Behaviour;
 using AegirLib.Behaviour.World;
@@ -28,8 +31,8 @@ namespace Aegir.ViewModel.EntityProxy.Node
                                 IDropTarget,
                                 INameable
     {
-        protected Entity entityData;
 
+        protected Entity entityData;
         private Transform transform;
         private List<BehaviourViewModel> componentProxies;
         private Transform3D visualTransform;
@@ -202,7 +205,13 @@ namespace Aegir.ViewModel.EntityProxy.Node
 
         public ComponentDescriptor[] GetAvailableComponents()
         {
-            return new ComponentDescriptor[0];
+            return ComponentDescriptorCache.GetDescriptors(new Type[] {
+                typeof(VesselDimentionsViewModel),
+                typeof(WaterSimulationViewModel),
+                typeof(FileOutputViewModel),
+                typeof(UdpOutputViewModel),
+                typeof(TCPOutputViewModel),
+            });
         }
 
         public IInspectableComponent[] GetInspectableComponents()
@@ -222,7 +231,18 @@ namespace Aegir.ViewModel.EntityProxy.Node
             return properties.ToArray();
         }
 
-        public void AddComponent(ComponentDescriptor component)
+        public void AddComponent(ComponentDescriptor componentDescriptor)
+        {
+            Type vmType = componentDescriptor.ComponentType;
+            Type componentType = BehaviourViewModelFactory.GetBehaviourFromViewModelProxy(vmType);
+            BehaviourComponent component = BehaviourFactory.CreateFromType(componentType, entityData);
+            entityData.AddComponent(component);
+            //Create a viewmodel proxy for our new component
+            BehaviourViewModel vm = BehaviourViewModelFactory.GetViewModelProxy(component);
+            ComponentAdded?.Invoke(vm);
+        }
+
+        public void ComponentRemoved(IInspectableComponent component)
         {
             throw new NotImplementedException();
         }

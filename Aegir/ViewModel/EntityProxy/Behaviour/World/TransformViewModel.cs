@@ -12,7 +12,7 @@ namespace Aegir.ViewModel.EntityProxy.Vessel
 {
     [ViewModelForBehaviourAttribute(typeof(Transform))]
     [DisplayName("Transform")]
-    [ComponentDescriptorAttribute("Position and Attitude","World",false)]
+    [ComponentDescriptorAttribute("Position and Attitude","World",false,true)]
     public class TransformViewModel : TypedBehaviourViewModel<Transform>
     {
         public double X

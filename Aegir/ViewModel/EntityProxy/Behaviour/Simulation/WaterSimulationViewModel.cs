@@ -11,7 +11,7 @@ namespace Aegir.ViewModel.EntityProxy.Simulation
 {
     [ViewModelForBehaviour(typeof(WaterSimulation))]
     [DisplayName("Water Simulation")]
-    [ComponentDescriptorAttribute("Simulated Oceans waved with boyancy simulation","Simulation",true)]
+    [ComponentDescriptorAttribute("Simulated Oceans waved with boyancy simulation","Simulation",true,false)]
 
     public class WaterSimulationViewModel : TypedBehaviourViewModel<WaterSimulation>
     {
